@@ -59,7 +59,7 @@ const CTA = () => {
                 <div className="border-t border-border pt-6 mb-6">
                   <div className="flex items-baseline gap-2 mb-2">
                     <span className="text-muted-foreground line-through text-2xl">
-                      R$ 197,00
+                      R$ 97,00
                     </span>
                     <span className="text-accent font-display text-5xl font-bold">
                       R$ 19,90
