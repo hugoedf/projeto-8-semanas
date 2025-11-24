@@ -9,40 +9,40 @@ const Hero = () => {
       {/* Background overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,107,53,0.1),transparent_50%)]" />
       
-      <div className="container mx-auto px-4 py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Content */}
-          <div className="text-center lg:text-left space-y-8 animate-fade-in">
+          <div className="text-center lg:text-left space-y-4 sm:space-y-8 animate-fade-in">
             <div className="inline-block">
               <span className="text-accent font-bold text-sm uppercase tracking-wider px-4 py-2 rounded-full border border-accent/30 bg-accent/10">
                 Método Científico Comprovado
               </span>
             </div>
             
-            <h1 className="font-display text-2xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50">
               Transforme Seu Corpo em{" "}
               <span className="text-gradient">8 Semanas</span>
             </h1>
             
-            <p className="text-base sm:text-xl md:text-2xl leading-relaxed max-w-2xl text-slate-50">
+            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed max-w-2xl text-slate-50">
               Com o treino de hipertrofia inteligente que{" "}
               <span className="text-accent font-semibold">realmente funciona</span>
             </p>
             
-            <div className="space-y-4">
-              <p className="text-xs sm:text-base md:text-lg max-w-xl text-slate-200">
+            <div className="space-y-3 sm:space-y-4">
+              <p className="text-sm sm:text-base md:text-lg max-w-xl text-slate-200 leading-relaxed">
                 Método completo, objetivo e 100% aplicável — baseado em ciência, 
                 feito para quem quer <strong>resultados reais</strong>.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 animate-pulse-glow">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2 sm:pt-4">
+                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-lg px-6 sm:px-8 py-4 sm:py-6 animate-pulse-glow w-full sm:w-auto">
                   Quero Transformar Meu Corpo Agora
-                  <ArrowRight className="ml-2 flex-shrink-0" />
+                  <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </div>
               
-              <div className="flex flex-wrap items-center gap-3 sm:gap-6 justify-center lg:justify-start pt-4 text-xs sm:text-sm text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-6 justify-center lg:justify-start pt-3 sm:pt-4 text-xs sm:text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                   <span>100% Digital</span>
