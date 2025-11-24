@@ -12,24 +12,32 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 items-center max-w-7xl mx-auto">
           {/* Content */}
-          <div className="text-center lg:text-left space-y-5 sm:space-y-8 animate-fade-in px-2 sm:px-0">
-            <div className="inline-block">
+          <div className="text-center lg:text-left space-y-5 sm:space-y-8 animate-fade-in px-2 sm:px-0 flex flex-col lg:block">
+            <div className="inline-block order-1">
               <span className="text-accent font-bold text-xs sm:text-sm uppercase tracking-wider px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-accent/30 bg-accent/10">
                 Método Científico Comprovado
               </span>
             </div>
             
-            <h1 className="font-display text-2xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50 break-words">
+            <h1 className="font-display text-2xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50 break-words order-2">
               Transforme Seu Corpo em{" "}
               <span className="text-gradient">8 Semanas</span>
             </h1>
             
-            <p className="text-base sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50">
+            {/* Image - Only visible on mobile */}
+            <div className="relative animate-fade-in w-full max-w-[280px] mx-auto lg:hidden order-3 my-6" style={{
+              animationDelay: "0.2s"
+            }}>
+              <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
+              <img src={heroImage} alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" />
+            </div>
+            
+            <p className="text-base sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 order-4">
               Com o treino de hipertrofia inteligente que{" "}
               <span className="text-accent font-semibold">realmente funciona</span>
             </p>
             
-            <div className="space-y-4 sm:space-y-4">
+            <div className="space-y-4 sm:space-y-4 order-5">
               <p className="text-sm sm:text-base md:text-lg max-w-xl mx-auto lg:mx-0 text-slate-200 leading-relaxed">
                 Método completo, objetivo e 100% aplicável — baseado em ciência, 
                 feito para quem quer <strong>resultados reais</strong>.
@@ -59,10 +67,10 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Image */}
-          <div className="relative animate-fade-in w-full max-w-md mx-auto lg:max-w-none" style={{
-          animationDelay: "0.2s"
-        }}>
+          {/* Image - Only visible on desktop */}
+          <div className="hidden lg:block relative animate-fade-in w-full max-w-md mx-auto lg:max-w-none" style={{
+            animationDelay: "0.2s"
+          }}>
             <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
             <img src={heroImage} alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" />
           </div>
