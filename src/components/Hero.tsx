@@ -17,14 +17,14 @@ const Hero = () => {
           {/* Content */}
           <div className="text-center lg:text-left space-y-8 animate-fade-in">
             <div className="inline-block">
-              <span className="text-fitness-brown font-bold text-sm uppercase tracking-wider px-4 py-2 rounded-full border border-fitness-brown/30 bg-fitness-brown/5">
+              <span className="text-fitness-charcoal font-bold text-sm uppercase tracking-wider px-4 py-2 rounded-full border border-fitness-charcoal/20 bg-fitness-tan/50">
                 Método Científico Comprovado
               </span>
             </div>
             
-            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-tight text-fitness-brown">
+            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-tight text-fitness-charcoal">
               Transforme Seu Corpo em{" "}
-              <span className="text-accent font-bold">8 Semanas</span>
+              <span className="text-fitness-charcoal font-black">8 Semanas</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl">
@@ -69,7 +69,7 @@ const Hero = () => {
           
           {/* Image */}
           <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <div className="absolute inset-0 bg-fitness-brown/10 rounded-3xl blur-3xl" />
+            <div className="absolute inset-0 bg-fitness-tan/40 rounded-3xl blur-3xl" />
             <img
               src={heroImage}
               alt="Mockup do Ebook Projeto 8 Semanas"

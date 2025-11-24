@@ -48,11 +48,12 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         fitness: {
-          brown: "hsl(var(--fitness-brown))",
+          charcoal: "hsl(var(--fitness-charcoal))",
           beige: "hsl(var(--fitness-beige))",
           cream: "hsl(var(--fitness-cream))",
+          tan: "hsl(var(--fitness-tan))",
+          brown: "hsl(var(--fitness-brown))",
           green: "hsl(var(--fitness-green))",
-          accent: "hsl(var(--fitness-accent))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

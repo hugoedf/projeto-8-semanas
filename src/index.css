@@ -8,50 +8,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 30 40% 97%;
-    --foreground: 25 35% 25%;
+    --background: 38 35% 92%;
+    --foreground: 0 0% 12%;
 
-    --card: 30 50% 98%;
-    --card-foreground: 25 35% 25%;
+    --card: 40 40% 96%;
+    --card-foreground: 0 0% 12%;
 
-    --popover: 30 50% 98%;
-    --popover-foreground: 25 35% 25%;
+    --popover: 40 40% 96%;
+    --popover-foreground: 0 0% 12%;
 
-    --primary: 25 45% 35%;
-    --primary-foreground: 30 40% 97%;
+    --primary: 0 0% 12%;
+    --primary-foreground: 38 35% 92%;
 
-    --secondary: 30 35% 92%;
-    --secondary-foreground: 25 35% 25%;
+    --secondary: 35 25% 85%;
+    --secondary-foreground: 0 0% 12%;
 
-    --muted: 30 30% 90%;
-    --muted-foreground: 25 20% 45%;
+    --muted: 35 20% 88%;
+    --muted-foreground: 30 10% 40%;
 
-    --accent: 145 50% 45%;
-    --accent-foreground: 30 40% 97%;
+    --accent: 142 45% 42%;
+    --accent-foreground: 38 35% 92%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 30 40% 97%;
+    --destructive-foreground: 38 35% 92%;
 
-    --border: 30 25% 85%;
-    --input: 30 25% 85%;
-    --ring: 145 50% 45%;
+    --border: 35 20% 80%;
+    --input: 35 20% 80%;
+    --ring: 142 45% 42%;
 
     --radius: 0.75rem;
     
-    /* Fitness theme colors */
-    --fitness-brown: 25 45% 35%;
-    --fitness-beige: 30 40% 97%;
-    --fitness-cream: 30 50% 95%;
-    --fitness-green: 145 50% 45%;
-    --fitness-accent: 30 60% 88%;
+    /* Fitness theme colors - Inspired by ebook cover */
+    --fitness-charcoal: 0 0% 12%;
+    --fitness-beige: 38 35% 92%;
+    --fitness-cream: 40 40% 95%;
+    --fitness-tan: 35 25% 85%;
+    --fitness-brown: 25 20% 30%;
+    --fitness-green: 142 45% 42%;
     
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(30 50% 98%) 0%, hsl(30 40% 95%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(145 50% 45%) 0%, hsl(145 60% 40%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(38 35% 92%) 0%, hsl(35 30% 88%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(142 45% 42%) 0%, hsl(142 50% 35%) 100%);
     
     /* Shadows */
-    --shadow-glow: 0 0 40px hsla(145 50% 45% / 0.2);
-    --shadow-card: 0 4px 20px hsla(25 35% 25% / 0.08);
+    --shadow-glow: 0 0 40px hsla(142 45% 42% / 0.2);
+    --shadow-card: 0 4px 20px hsla(0 0% 12% / 0.08);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
