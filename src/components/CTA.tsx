@@ -15,8 +15,7 @@ const benefits = [
 
 const CTA = () => {
   const handleCTAClick = () => {
-    // Aqui você pode adicionar integração com sistema de pagamento
-    console.log("CTA clicked");
+    window.open("https://pay.hotmart.com/O103097031O", "_blank");
   };
 
   return (
