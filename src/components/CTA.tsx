@@ -62,11 +62,11 @@ const CTA = () => {
                       R$ 197,00
                     </span>
                     <span className="text-accent font-display text-5xl font-bold">
-                      R$ 97,00
+                      R$ 19,90
                     </span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    ou 12x de R$ 9,70 no cartão
+                    ou 12x de R$ 1,66 no cartão
                   </p>
                 </div>
                 
