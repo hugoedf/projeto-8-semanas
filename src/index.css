@@ -8,51 +8,49 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 38 35% 92%;
-    --foreground: 0 0% 12%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 5%;
 
-    --card: 40 40% 96%;
-    --card-foreground: 0 0% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5%;
 
-    --popover: 40 40% 96%;
-    --popover-foreground: 0 0% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
 
-    --primary: 0 0% 12%;
-    --primary-foreground: 38 35% 92%;
+    --primary: 0 0% 5%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 35 25% 85%;
-    --secondary-foreground: 0 0% 12%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 5%;
 
-    --muted: 35 20% 88%;
-    --muted-foreground: 30 10% 40%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 142 45% 42%;
-    --accent-foreground: 38 35% 92%;
+    --accent: 18 100% 60%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 38 35% 92%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 35 20% 80%;
-    --input: 35 20% 80%;
-    --ring: 142 45% 42%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 18 100% 60%;
 
     --radius: 0.75rem;
     
-    /* Fitness theme colors - Inspired by ebook cover */
-    --fitness-charcoal: 0 0% 12%;
-    --fitness-beige: 38 35% 92%;
-    --fitness-cream: 40 40% 95%;
-    --fitness-tan: 35 25% 85%;
-    --fitness-brown: 25 20% 30%;
-    --fitness-green: 142 45% 42%;
+    /* Fitness theme colors */
+    --fitness-orange: 18 100% 60%;
+    --fitness-dark: 0 0% 5%;
+    --fitness-gray: 0 0% 15%;
+    --fitness-light: 0 0% 96%;
     
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(38 35% 92%) 0%, hsl(35 30% 88%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(142 45% 42%) 0%, hsl(142 50% 35%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--fitness-dark)) 0%, hsl(var(--fitness-gray)) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(18 100% 50%) 100%);
     
     /* Shadows */
-    --shadow-glow: 0 0 40px hsla(142 45% 42% / 0.2);
-    --shadow-card: 0 4px 20px hsla(0 0% 12% / 0.08);
+    --shadow-glow: 0 0 40px hsla(var(--accent) / 0.3);
+    --shadow-card: 0 4px 20px hsla(0 0% 0% / 0.1);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

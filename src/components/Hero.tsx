@@ -8,23 +8,23 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-fitness-beige via-fitness-cream to-fitness-accent">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
       {/* Background overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(145,128,98,0.08),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,107,53,0.1),transparent_50%)]" />
       
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left space-y-8 animate-fade-in">
             <div className="inline-block">
-              <span className="text-fitness-charcoal font-bold text-sm uppercase tracking-wider px-4 py-2 rounded-full border border-fitness-charcoal/20 bg-fitness-tan/50">
+              <span className="text-accent font-bold text-sm uppercase tracking-wider px-4 py-2 rounded-full border border-accent/30 bg-accent/10">
                 Método Científico Comprovado
               </span>
             </div>
             
-            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-tight text-fitness-charcoal">
+            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-tight">
               Transforme Seu Corpo em{" "}
-              <span className="text-fitness-charcoal font-black">8 Semanas</span>
+              <span className="text-gradient">8 Semanas</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl">
@@ -69,7 +69,7 @@ const Hero = () => {
           
           {/* Image */}
           <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <div className="absolute inset-0 bg-fitness-tan/40 rounded-3xl blur-3xl" />
+            <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
             <img
               src={heroImage}
               alt="Mockup do Ebook Projeto 8 Semanas"
