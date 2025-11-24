@@ -155,4 +155,8 @@ All colors MUST be HSL.
   .glow-accent {
     box-shadow: var(--shadow-glow);
   }
+  
+  a[href*="lovable"] {
+    display: none !important;
+  }
 }
