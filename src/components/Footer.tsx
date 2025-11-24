@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer className="py-8 sm:py-12 gradient-hero">
@@ -17,15 +19,12 @@ const Footer = () => {
               © 2024 Projeto 8 Semanas. Todos os direitos reservados.
             </p>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-primary-foreground/60 px-4">
-              <a href="#" className="hover:text-accent transition-colors">
+              <Link to="/termos-de-uso" className="hover:text-accent transition-colors">
                 Termos de Uso
-              </a>
-              <a href="#" className="hover:text-accent transition-colors">
+              </Link>
+              <Link to="/politica-de-privacidade" className="hover:text-accent transition-colors">
                 Política de Privacidade
-              </a>
-              <a href="#" className="hover:text-accent transition-colors">
-                Contato
-              </a>
+              </Link>
             </div>
           </div>
           
