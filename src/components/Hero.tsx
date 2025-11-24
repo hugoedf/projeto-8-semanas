@@ -2,10 +2,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-ebook-mockup.png";
 const Hero = () => {
-  const scrollToCTA = () => {
-    document.getElementById("cta-section")?.scrollIntoView({
-      behavior: "smooth"
-    });
+  const handleCTAClick = () => {
+    window.open("https://pay.hotmart.com/O103097031O", "_blank");
   };
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
       {/* Background overlay */}
@@ -38,7 +36,7 @@ const Hero = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                <Button variant="cta" size="lg" onClick={scrollToCTA} className="text-lg px-8 py-6 animate-pulse-glow">
+                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-lg px-8 py-6 animate-pulse-glow">
                   Quero Transformar Meu Corpo Agora
                   <ArrowRight className="ml-2" />
                 </Button>
