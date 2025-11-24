@@ -29,55 +29,55 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="py-20 bg-muted">
+    <section className="py-12 sm:py-20 bg-muted">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="font-display text-3xl md:text-5xl mb-4">
+        <div className="text-center mb-8 sm:mb-12 animate-fade-in">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-5xl mb-3 sm:mb-4 px-2">
             Quem já seguiu o método{" "}
             <span className="text-gradient">está transformando</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Veja o que nossos alunos têm a dizer sobre o Projeto 8 Semanas
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-card border border-border rounded-xl p-6 hover-lift animate-fade-in"
+              className="bg-card border border-border rounded-xl p-5 sm:p-6 hover-lift animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="flex gap-1 mb-4">
+              <div className="flex gap-1 mb-3 sm:mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-accent text-accent" />
                 ))}
               </div>
               
-              <p className="text-foreground mb-4 leading-relaxed text-sm italic">
+              <p className="text-foreground mb-3 sm:mb-4 leading-relaxed text-sm italic">
                 "{testimonial.text}"
               </p>
               
-              <div className="pt-4 border-t border-border">
-                <p className="font-semibold text-foreground">{testimonial.name}</p>
-                <p className="text-sm text-muted-foreground">{testimonial.age}</p>
+              <div className="pt-3 sm:pt-4 border-t border-border">
+                <p className="font-semibold text-foreground text-sm sm:text-base">{testimonial.name}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.age}</p>
               </div>
             </div>
           ))}
         </div>
         
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-4 bg-card border border-border rounded-full px-6 py-3">
+        <div className="mt-8 sm:mt-12 text-center px-4">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-4 bg-card border border-border rounded-2xl sm:rounded-full px-4 sm:px-6 py-3 w-full sm:w-auto max-w-sm sm:max-w-none">
             <div className="flex -space-x-2">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="w-8 h-8 rounded-full bg-accent/20 border-2 border-card flex items-center justify-center">
+                <div key={i} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-accent/20 border-2 border-card flex items-center justify-center">
                   <span className="text-xs font-bold text-accent">★</span>
                 </div>
               ))}
             </div>
-            <div className="text-left">
-              <p className="font-semibold text-foreground">+500 transformações</p>
-              <p className="text-sm text-muted-foreground">Avaliação média: 4.9/5</p>
+            <div className="text-center sm:text-left">
+              <p className="font-semibold text-foreground text-sm sm:text-base">+500 transformações</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Avaliação média: 4.9/5</p>
             </div>
           </div>
         </div>
