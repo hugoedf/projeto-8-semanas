@@ -19,18 +19,18 @@ const Hero = () => {
               </span>
             </div>
             
-            <h1 className="font-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50">
+            <h1 className="font-display text-2xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50">
               Transforme Seu Corpo em{" "}
               <span className="text-gradient">8 Semanas</span>
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed max-w-2xl text-slate-50">
+            <p className="text-base sm:text-xl md:text-2xl leading-relaxed max-w-2xl text-slate-50">
               Com o treino de hipertrofia inteligente que{" "}
               <span className="text-accent font-semibold">realmente funciona</span>
             </p>
             
             <div className="space-y-4">
-              <p className="text-sm sm:text-base md:text-lg max-w-xl text-slate-200">
+              <p className="text-xs sm:text-base md:text-lg max-w-xl text-slate-200">
                 Método completo, objetivo e 100% aplicável — baseado em ciência, 
                 feito para quem quer <strong>resultados reais</strong>.
               </p>
