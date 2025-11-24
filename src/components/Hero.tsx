@@ -19,30 +19,30 @@ const Hero = () => {
               </span>
             </div>
             
-            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50">
               Transforme Seu Corpo em{" "}
               <span className="text-gradient">8 Semanas</span>
             </h1>
             
-            <p className="text-xl md:text-2xl leading-relaxed max-w-2xl text-slate-50">
+            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed max-w-2xl text-slate-50">
               Com o treino de hipertrofia inteligente que{" "}
               <span className="text-accent font-semibold">realmente funciona</span>
             </p>
             
             <div className="space-y-4">
-              <p className="text-base md:text-lg max-w-xl text-slate-200">
+              <p className="text-sm sm:text-base md:text-lg max-w-xl text-slate-200">
                 Método completo, objetivo e 100% aplicável — baseado em ciência, 
                 feito para quem quer <strong>resultados reais</strong>.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-lg px-8 py-6 animate-pulse-glow">
+                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 animate-pulse-glow">
                   Quero Transformar Meu Corpo Agora
-                  <ArrowRight className="ml-2" />
+                  <ArrowRight className="ml-2 flex-shrink-0" />
                 </Button>
               </div>
               
-              <div className="flex items-center gap-6 justify-center lg:justify-start pt-4 text-sm text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-6 justify-center lg:justify-start pt-4 text-xs sm:text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                   <span>100% Digital</span>
