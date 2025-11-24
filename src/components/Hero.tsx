@@ -36,9 +36,9 @@ const Hero = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full">
-                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-lg px-6 sm:px-8 py-5 sm:py-6 animate-pulse-glow w-full sm:w-auto">
+                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-xs sm:text-base md:text-lg px-3 sm:px-8 py-4 sm:py-6 animate-pulse-glow w-full sm:w-auto">
                   Quero Transformar Meu Corpo Agora
-                  <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
+                  <ArrowRight className="ml-1 sm:ml-2 flex-shrink-0 w-3 h-3 sm:w-5 sm:h-5" />
                 </Button>
               </div>
               
