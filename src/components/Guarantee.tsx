@@ -1,5 +1,5 @@
 import { Shield, CheckCircle } from "lucide-react";
-import guaranteeBadge from "@/assets/guarantee-badge-premium.png";
+import guaranteeBadge from "@/assets/guarantee-badge-final.png";
 
 const Guarantee = () => {
   return (
