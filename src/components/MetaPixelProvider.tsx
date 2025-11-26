@@ -15,17 +15,27 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
   const { trackPageView, trackViewContent } = useMetaPixel();
 
   useEffect(() => {
-    // Dispara PageView em cada mudança de rota
-    trackPageView();
+    // Aguarda o Pixel estar pronto antes de disparar eventos
+    const initEvents = () => {
+      if (!window.fbq) {
+        setTimeout(initEvents, 100);
+        return;
+      }
 
-    // Dispara ViewContent para páginas específicas
-    if (location.pathname === '/') {
-      trackViewContent('Página de Vendas Principal');
-    } else if (location.pathname === '/termos-de-uso') {
-      trackViewContent('Termos de Uso');
-    } else if (location.pathname === '/politica-de-privacidade') {
-      trackViewContent('Política de Privacidade');
-    }
+      // Dispara PageView em cada mudança de rota
+      trackPageView();
+
+      // Dispara ViewContent para páginas específicas
+      if (location.pathname === '/') {
+        trackViewContent('Página de Vendas Principal');
+      } else if (location.pathname === '/termos-de-uso') {
+        trackViewContent('Termos de Uso');
+      } else if (location.pathname === '/politica-de-privacidade') {
+        trackViewContent('Política de Privacidade');
+      }
+    };
+
+    initEvents();
   }, [location.pathname, trackPageView, trackViewContent]);
 
   return <>{children}</>;
