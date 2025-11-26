@@ -7,8 +7,8 @@ const corsHeaders = {
 
 interface ConversionEvent {
   event_name: string;
-  event_time: number;
-  action_source: string;
+  event_time?: number;
+  action_source?: string;
   event_source_url: string;
   user_data?: {
     em?: string;
@@ -23,6 +23,15 @@ interface ConversionEvent {
     value?: number;
   };
 }
+
+// Hash data for Meta using Web Crypto API
+const hashData = async (data: string): Promise<string> => {
+  const encoder = new TextEncoder();
+  const dataBuffer = encoder.encode(data.toLowerCase().trim());
+  const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+};
 
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === 'OPTIONS') {
@@ -45,11 +54,43 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error('event_name is required');
     }
 
-    // Set defaults
+    // Get client IP from headers
+    const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0] || 
+                     req.headers.get('x-real-ip') || 
+                     'unknown';
+
+    // Build user_data with required fields
+    const userData: any = {
+      client_ip_address: clientIp,
+      client_user_agent: eventData.user_data?.client_user_agent || req.headers.get('user-agent'),
+    };
+
+    // Add fbp and fbc if provided
+    if (eventData.user_data?.fbp) {
+      userData.fbp = eventData.user_data.fbp;
+    }
+    if (eventData.user_data?.fbc) {
+      userData.fbc = eventData.user_data.fbc;
+    }
+
+    // Hash email if provided
+    if (eventData.user_data?.em) {
+      userData.em = await hashData(eventData.user_data.em);
+    }
+
+    // Hash phone if provided
+    if (eventData.user_data?.ph) {
+      userData.ph = await hashData(eventData.user_data.ph);
+    }
+
+    // Build the event
     const event = {
-      ...eventData,
+      event_name: eventData.event_name,
       event_time: eventData.event_time || Math.floor(Date.now() / 1000),
       action_source: eventData.action_source || 'website',
+      event_source_url: eventData.event_source_url,
+      user_data: userData,
+      custom_data: eventData.custom_data || {},
     };
 
     const payload = {
