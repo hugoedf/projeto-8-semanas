@@ -1,8 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-ebook-mockup.png";
+import { useMetaPixel } from "@/hooks/useMetaPixel";
+
 const Hero = () => {
+  const { trackInitiateCheckout } = useMetaPixel();
+  
   const handleCTAClick = () => {
+    // Dispara evento de InitiateCheckout antes de redirecionar
+    trackInitiateCheckout(97, 'BRL');
     window.open("https://pay.hotmart.com/O103097031O", "_blank");
   };
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
