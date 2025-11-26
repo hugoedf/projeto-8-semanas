@@ -1,8 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-ebook-mockup.png";
+import { trackInitiateCheckout } from "@/utils/metaPixel";
+import { useToast } from "@/hooks/use-toast";
+
 const Hero = () => {
+  const { toast } = useToast();
+  
   const handleCTAClick = () => {
+    // Track the conversion event
+    trackInitiateCheckout(97, 'BRL');
+    
+    toast({
+      title: "Evento rastreado!",
+      description: "InitiateCheckout enviado para Meta",
+    });
+    
+    console.log("Meta Pixel - InitiateCheckout disparado");
+    
     window.open("https://pay.hotmart.com/O103097031O", "_blank");
   };
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
