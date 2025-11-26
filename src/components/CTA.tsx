@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Lock } from "lucide-react";
 import gymTraining from "@/assets/gym-training.jpg";
-const benefits = ["8 módulos completos de treino e nutrição", "Planilhas editáveis de acompanhamento", "Técnicas avançadas de hipertrofia", "Guia de nutrição estratégica", "Mentalidade e disciplina", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia de 7 dias"];
+const benefits = ["8 módulos completos de treino e nutrição", "Técnicas avançadas de hipertrofia", "Guia de nutrição estratégica", "Mentalidade e disciplina", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia de 7 dias"];
 const CTA = () => {
   const handleCTAClick = () => {
     window.open("https://pay.hotmart.com/O103097031O", "_blank");
