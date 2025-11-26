@@ -67,11 +67,32 @@ Este projeto possui integração completa com o **Meta Pixel** (client-side) e a
 
 ---
 
-## 🔐 Variáveis de Ambiente / Secrets
+## 🚀 Como Usar Agora
+
+### ✅ Passo 1: Testar Imediatamente
+
+1. **Acesse seu site** e clique em qualquer botão "Quero Transformar Meu Corpo"
+2. **Abra o Console** do navegador (F12) e veja os logs de eventos sendo disparados
+3. **Acesse o Events Manager**: https://business.facebook.com/events_manager2/
+4. **Vá para Test Events** - você verá os eventos chegando em tempo real
+5. **Verifique os logs da Edge Function**: https://supabase.com/dashboard/project/kfddlytvdzqwopongnew/functions/meta-conversions/logs
+
+### 🎯 Modo de Teste Ativo
+
+**IMPORTANTE**: O Test Event Code (TEST16230) está configurado e ATIVO. Todos os eventos estão sendo enviados como testes e aparecerão na aba "Test Events" do Meta Events Manager.
+
+**Para desativar o modo de teste e enviar eventos reais:**
+1. Acesse: https://supabase.com/dashboard/project/kfddlytvdzqwopongnew/settings/functions
+2. Clique em "Secrets"
+3. Remova ou deixe vazio o secret `META_TEST_EVENT_CODE`
+4. Aguarde alguns minutos para a mudança ter efeito
+
+---
 
 ### Secrets do Supabase (Backend)
-- `META_ACCESS_TOKEN`: Token de acesso da API do Meta
-- `META_PIXEL_ID`: ID do Pixel do Meta
+- `META_ACCESS_TOKEN`: Token de acesso da API do Meta ✅ **Configurado**
+- `META_PIXEL_ID`: ID do Pixel do Meta ✅ **Configurado**
+- `META_TEST_EVENT_CODE`: Código de teste (opcional, para modo de teste) ✅ **Configurado: TEST16230**
 
 ### Variáveis de Ambiente (.env)
 - `VITE_META_PIXEL_ID`: ID do Pixel (usado no frontend)
@@ -116,22 +137,18 @@ Este projeto possui integração completa com o **Meta Pixel** (client-side) e a
 1. Acesse: https://business.facebook.com/events_manager2/
 2. Selecione seu Pixel
 3. Clique em "Test Events"
-4. Copie o "Test Event Code"
-5. **Modo de Teste**: Adicione o código temporariamente na Edge Function:
-   ```typescript
-   // No arquivo supabase/functions/meta-conversions/index.ts
-   const eventData = {
-     // ... outros campos
-     test_event_code: 'SEU_TEST_EVENT_CODE_AQUI', // Adicione esta linha
-   };
-   ```
-6. Realize ações no site (PageView, clicar em botões)
-7. Verifique no Events Manager se os eventos chegaram
+4. O código de teste **TEST16230** já está configurado automaticamente
+5. Realize ações no site (PageView, clicar em botões)
+6. Verifique no Events Manager se os eventos chegaram
+7. **Os eventos de teste aparecerão na seção "Test Events" em tempo real**
+
+**IMPORTANTE**: O modo de teste está ATIVADO com o código TEST16230. Os eventos enviados aparecerão na aba "Test Events" do Meta Events Manager, não nos eventos de produção.
 
 **Logs da Edge Function**
 1. Acesse: https://supabase.com/dashboard/project/kfddlytvdzqwopongnew/functions/meta-conversions/logs
 2. Veja logs em tempo real de eventos enviados
 3. Verifique sucessos e erros
+4. Procure por: "Modo de teste ativado" nos logs
 
 ### 3. Verificação de Deduplicação
 
