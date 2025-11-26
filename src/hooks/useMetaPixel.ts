@@ -16,39 +16,17 @@ export const useMetaPixel = () => {
   const pixelId = import.meta.env.VITE_META_PIXEL_ID;
 
   useEffect(() => {
-    if (!pixelId) {
-      console.warn('Meta Pixel ID não configurado');
-      return;
-    }
+    // O Meta Pixel já é carregado no index.html
+    // Este hook apenas aguarda que o fbq esteja disponível
+    const checkPixelReady = setInterval(() => {
+      if (window.fbq) {
+        console.log('Meta Pixel detectado e pronto para uso');
+        clearInterval(checkPixelReady);
+      }
+    }, 100);
 
-    // Inicializa o Meta Pixel
-    (function(f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
-      if (f.fbq) return;
-      n = f.fbq = function() {
-        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-      };
-      if (!f._fbq) f._fbq = n;
-      n.push = n;
-      n.loaded = !0;
-      n.version = '2.0';
-      n.queue = [];
-      t = b.createElement(e);
-      t.async = !0;
-      t.src = v;
-      s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s);
-    })(
-      window,
-      document,
-      'script',
-      'https://connect.facebook.net/en_US/fbevents.js'
-    );
-
-    // Inicializa o pixel com o ID
-    window.fbq('init', pixelId);
-    
-    console.log('Meta Pixel inicializado:', pixelId);
-  }, [pixelId]);
+    return () => clearInterval(checkPixelReady);
+  }, []);
 
   /**
    * Envia evento PageView
