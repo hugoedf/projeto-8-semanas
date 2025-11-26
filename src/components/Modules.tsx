@@ -90,12 +90,6 @@ const Modules = () => {
             </div>
           ))}
         </div>
-        
-        <div className="mt-8 sm:mt-12 text-center px-4">
-          <p className="text-primary-foreground/90 font-semibold text-base sm:text-lg">
-            + Planilhas de treino editáveis e guias de execução ilustrados
-          </p>
-        </div>
       </div>
     </section>
   );
