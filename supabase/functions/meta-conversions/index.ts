@@ -106,6 +106,12 @@ serve(async (req) => {
       eventData.custom_data = eventParams;
     }
 
+    // Adiciona test_event_code para modo de teste (configure em META_TEST_EVENT_CODE)
+    const testEventCode = Deno.env.get('META_TEST_EVENT_CODE');
+    if (testEventCode) {
+      console.log('Meta CAPI - Modo de teste ativado com código:', testEventCode);
+    }
+
     console.log('Meta CAPI - Enviando evento:', {
       pixel_id: META_PIXEL_ID,
       event_name: eventName,
@@ -113,6 +119,16 @@ serve(async (req) => {
     });
 
     // Envia para a Meta Conversions API
+    const requestBody: any = {
+      data: [eventData],
+      access_token: META_ACCESS_TOKEN,
+    };
+
+    // Adiciona test_event_code se estiver configurado
+    if (testEventCode) {
+      requestBody.test_event_code = testEventCode;
+    }
+
     const capiResponse = await fetch(
       `https://graph.facebook.com/v18.0/${META_PIXEL_ID}/events`,
       {
@@ -120,10 +136,7 @@ serve(async (req) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          data: [eventData],
-          access_token: META_ACCESS_TOKEN,
-        }),
+        body: JSON.stringify(requestBody),
       }
     );
 
