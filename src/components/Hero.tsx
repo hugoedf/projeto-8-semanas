@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-ebook-mockup.png";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
-
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
   const handleCTAClick = () => {
     // Dispara evento de InitiateCheckout antes de redirecionar
     trackInitiateCheckout(97, 'BRL');
@@ -25,15 +25,15 @@ const Hero = () => {
               </span>
             </div>
             
-            <h1 className="font-display text-2xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50 break-words order-2">
+            <h1 className="font-display text-2xl sm:text-4xl md:text-6xl leading-tight text-slate-50 break-words order-2 lg:text-4xl">
               PARE DE TREINAR ERRADO:{" "}
               <span className="text-gradient">O GUIA DE 8 SEMANAS PARA RESULTADOS REAIS</span>
             </h1>
             
             {/* Image - Only visible on mobile */}
             <div className="relative animate-fade-in w-full max-w-[280px] mx-auto lg:hidden order-3 my-6" style={{
-              animationDelay: "0.2s"
-            }}>
+            animationDelay: "0.2s"
+          }}>
               <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
               <img src={heroImage} alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" />
             </div>
@@ -75,8 +75,8 @@ const Hero = () => {
           
           {/* Image - Only visible on desktop */}
           <div className="hidden lg:block relative animate-fade-in w-full max-w-md mx-auto lg:max-w-none" style={{
-            animationDelay: "0.2s"
-          }}>
+          animationDelay: "0.2s"
+        }}>
             <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
             <img src={heroImage} alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" />
           </div>
