@@ -26,8 +26,8 @@ const Hero = () => {
             </div>
             
             <h1 className="font-display text-2xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50 break-words order-2">
-              Transforme Seu Corpo em{" "}
-              <span className="text-gradient">8 Semanas</span>
+              PARE DE TREINAR ERRADO:{" "}
+              <span className="text-gradient">O GUIA DE 8 SEMANAS PARA RESULTADOS REAIS</span>
             </h1>
             
             {/* Image - Only visible on mobile */}
