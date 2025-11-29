@@ -39,8 +39,7 @@ const Hero = () => {
             </div>
             
             <p className="text-base sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 order-4">
-              Com o treino de hipertrofia inteligente que{" "}
-              <span className="text-accent font-semibold">realmente funciona</span>
+              Aplique a ciência da hipertrofia para quebrar o platô e construir um físico denso e resistente, sem perder tempo com treinos ineficazes
             </p>
             
             <div className="space-y-4 sm:space-y-4 order-5">
