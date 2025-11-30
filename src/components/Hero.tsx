@@ -73,7 +73,7 @@ const Hero = () => {
           animationDelay: "0.2s"
         }}>
             <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
-            <img src={heroImage} alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" />
+            <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" src="/lovable-uploads/c2428d66-3d08-41ce-9f1c-978fbc902a00.png" />
           </div>
         </div>
       </div>
