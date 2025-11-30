@@ -24,7 +24,7 @@ const Hero = () => {
               <span>MÉTODO 8X: HIPERTROFIA INTELIGENTE</span>
             </div>
             
-            <h1 className="font-display text-2xl sm:text-4xl md:text-6xl leading-tight text-slate-50 break-words order-2 lg:text-4xl">
+            <h1 className="font-display text-xl sm:text-4xl md:text-6xl leading-tight text-slate-50 break-words order-2 lg:text-4xl">
               PARE DE TREINAR ERRADO: O GUIA DE 8{" "}
               <span className="text-accent">SEMANAS PARA RESULTADOS REAIS</span>
             </h1>
