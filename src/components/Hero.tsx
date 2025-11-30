@@ -20,14 +20,14 @@ const Hero = () => {
           {/* Content */}
           <div className="text-center lg:text-left space-y-5 sm:space-y-8 animate-fade-in px-2 sm:px-0 flex flex-col lg:block">
             <div className="inline-block order-1">
-              <span className="text-accent font-bold text-xs sm:text-sm uppercase tracking-wider px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-accent/30 bg-accent/10">
-                Método Científico Comprovado
-              </span>
+              <h3 className="text-slate-50 font-bold text-xs sm:text-sm uppercase tracking-wider">
+                MÉTODO 8X: HIPERTROFIA INTELIGENTE
+              </h3>
             </div>
             
-            <h1 className="font-display text-2xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50 break-words order-2">
-              PARE DE TREINAR ERRADO:{" "}
-              <span className="text-gradient">O GUIA DE 8 SEMANAS PARA RESULTADOS REAIS</span>
+            <h1 className="font-display text-2xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight text-slate-50 break-words order-2 uppercase">
+              PARE DE TREINAR ERRADO: O GUIA DE 8{" "}
+              <span className="text-gradient">SEMANAS PARA RESULTADOS REAIS</span>
             </h1>
             
             {/* Image - Only visible on mobile */}
@@ -38,20 +38,14 @@ const Hero = () => {
               <img src={heroImage} alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" />
             </div>
             
-            <p className="text-base sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 order-4">
-              Com o treino de hipertrofia inteligente que{" "}
-              <span className="text-accent font-semibold">realmente funciona</span>
-            </p>
+            <h2 className="text-base sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 font-normal order-4">
+              Aplique a ciência da hipertrofia para quebrar o platô e construir um físico denso e resistente, sem perder tempo com treinos ineficazes.
+            </h2>
             
             <div className="space-y-4 sm:space-y-4 order-5">
-              <p className="text-sm sm:text-base md:text-lg max-w-xl mx-auto lg:mx-0 text-slate-200 leading-relaxed">
-                Método completo, objetivo e 100% aplicável — baseado em ciência, 
-                feito para quem quer <strong>resultados reais</strong>.
-              </p>
-              
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full">
-                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-xs sm:text-base md:text-lg px-3 sm:px-8 py-4 sm:py-6 animate-pulse-glow w-full sm:w-auto">
-                  Quero Transformar Meu Corpo Agora
+                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-xs sm:text-base md:text-lg px-3 sm:px-8 py-4 sm:py-6 animate-pulse-glow w-full sm:w-auto uppercase">
+                  Quero o Método 8X Agora e Parar de Perder Tempo
                   <ArrowRight className="ml-1 sm:ml-2 flex-shrink-0 w-3 h-3 sm:w-5 sm:h-5" />
                 </Button>
               </div>
