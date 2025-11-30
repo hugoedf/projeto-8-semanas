@@ -2,12 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Lock } from "lucide-react";
 import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
-
 const benefits = ["8 módulos completos de treino e nutrição", "Técnicas avançadas de hipertrofia", "Guia de nutrição estratégica", "Mentalidade e disciplina", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia de 7 dias"];
-
 const CTA = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
   const handleCTAClick = () => {
     // Dispara evento de InitiateCheckout antes de redirecionar
     trackInitiateCheckout(97, 'BRL');
@@ -61,7 +60,7 @@ const CTA = () => {
                 </div>
                 
                 <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-5 sm:py-6 mb-3 sm:mb-4 animate-pulse-glow" onClick={handleCTAClick}>
-                  Quero Começar Agora
+                  QUERO O MÉTODO 8X AGORA 
                   <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
                 
