@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-ebook-mockup.png";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
-
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
   const handleCTAClick = () => {
     // Dispara evento de InitiateCheckout antes de redirecionar
     trackInitiateCheckout(97, 'BRL');
@@ -28,14 +28,14 @@ const Hero = () => {
               <span className="text-accent">SEMANAS PARA RESULTADOS REAIS</span>
             </h1>
             
-            <h2 className="text-base sm:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 italic font-normal order-3">
+            <h2 className="text-base sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 italic font-normal order-3 md:text-lg font-sans">
               Aplique a ciência da hipertrofia para quebrar o platô e construir um físico denso e resistente, sem perder tempo com treinos ineficazes
             </h2>
             
             {/* Image - Only visible on mobile */}
             <div className="relative animate-fade-in w-full max-w-[280px] mx-auto lg:hidden order-4 my-6" style={{
-              animationDelay: "0.2s"
-            }}>
+            animationDelay: "0.2s"
+          }}>
               <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
               <img src={heroImage} alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" />
             </div>
@@ -72,8 +72,8 @@ const Hero = () => {
           
           {/* Image - Only visible on desktop */}
           <div className="hidden lg:block relative animate-fade-in w-full max-w-md mx-auto lg:max-w-none" style={{
-            animationDelay: "0.2s"
-          }}>
+          animationDelay: "0.2s"
+        }}>
             <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
             <img src={heroImage} alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" />
           </div>
