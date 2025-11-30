@@ -43,11 +43,11 @@ const Hero = () => {
             <div className="space-y-4 sm:space-y-4 order-5">
               
               
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full px-4 sm:px-0">
-                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-xs sm:text-base px-4 py-4 sm:py-6 animate-pulse-glow w-full sm:max-w-[500px] md:text-lg sm:px-[30px] text-center font-sans font-bold rounded-md">
+              <div className="flex justify-center lg:justify-start pt-2 sm:pt-4 w-full">
+                <button onClick={handleCTAClick} className="cta-button-custom animate-pulse-glow">
                   QUERO O MÉTODO 8X AGORA E PARAR DE PERDER TEMPO
-                  <ArrowRight className="ml-1 sm:ml-2 flex-shrink-0 w-3 h-3 sm:w-5 sm:h-5" />
-                </Button>
+                  <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 lg:w-5 lg:h-5" />
+                </button>
               </div>
               
               <div className="flex flex-wrap items-center gap-3 sm:gap-6 justify-center lg:justify-start pt-4 sm:pt-4 text-xs sm:text-sm text-slate-200">
