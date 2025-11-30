@@ -15,7 +15,7 @@ const Hero = () => {
       {/* Background overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,107,53,0.1),transparent_50%)]" />
       
-      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10 rounded-none">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 items-center max-w-7xl mx-auto">
           {/* Content */}
           <div className="text-center lg:text-left space-y-5 sm:space-y-8 animate-fade-in px-4 sm:px-0 flex flex-col lg:block">
@@ -36,7 +36,7 @@ const Hero = () => {
               <img src={heroImage} alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" />
             </div>
             
-            <h2 className="text-base sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 order-4 md:text-lg font-normal">
+            <h2 className="text-base sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 order-4 font-normal font-sans md:text-lg">
               Aplique a ciência da hipertrofia para quebrar o platô e construir um físico denso e resistente, sem perder tempo com treinos ineficazes
             </h2>
             
@@ -44,7 +44,7 @@ const Hero = () => {
               
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full">
-                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-xs sm:text-base px-4 py-4 sm:py-6 animate-pulse-glow w-full sm:w-auto md:text-lg sm:px-[30px] text-center">
+                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-xs sm:text-base px-4 py-4 sm:py-6 animate-pulse-glow w-full sm:w-auto md:text-lg sm:px-[30px] text-center font-sans font-bold rounded-md">
                   QUERO O MÉTODO 8X AGORA E PARAR DE PERDER TEMPO
                   <ArrowRight className="ml-1 sm:ml-2 flex-shrink-0 w-3 h-3 sm:w-5 sm:h-5" />
                 </Button>
