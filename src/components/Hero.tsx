@@ -38,7 +38,7 @@ const Hero = () => {
             animationDelay: "0.2s"
           }}>
               <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
-              <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" src="/lovable-uploads/7171dce5-3d99-46b4-a93e-9262f446b67c.png" />
+              <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" src="/lovable-uploads/27a81dc2-1bf2-4070-99d4-1676e2b14ea3.png" />
             </div>
             
             <div className="space-y-4 sm:space-y-4 order-5">
