@@ -29,7 +29,7 @@ const Hero = () => {
               <span className="text-accent">SEMANAS PARA RESULTADOS REAIS</span>
             </h1>
             
-            <h2 className="text-base sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 italic font-normal order-3 md:text-lg font-sans">
+            <h2 className="text-base sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 font-normal order-3 md:text-lg font-sans">
               Aplique a ciência da hipertrofia para quebrar o platô e construir um físico denso e resistente, sem perder tempo com treinos ineficazes
             </h2>
             
