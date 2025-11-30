@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-ebook-mockup.png";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 const Hero = () => {
@@ -19,9 +19,10 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 items-center max-w-7xl mx-auto">
           {/* Content */}
           <div className="text-center lg:text-left space-y-5 sm:space-y-8 animate-fade-in px-2 sm:px-0 flex flex-col lg:block">
-            <h3 className="font-bold text-xs sm:text-sm uppercase tracking-wider order-1 text-white">
-              MÉTODO 8X: HIPERTROFIA INTELIGENTE
-            </h3>
+            <div className="inline-flex items-center gap-2 text-accent font-bold text-xs sm:text-sm uppercase tracking-wider px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-accent/30 bg-accent/10 mb-4 sm:mb-6 order-1 mx-auto lg:mx-0">
+              <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span>MÉTODO 8X: HIPERTROFIA INTELIGENTE</span>
+            </div>
             
             <h1 className="font-display text-2xl sm:text-4xl md:text-6xl leading-tight text-slate-50 break-words order-2 lg:text-4xl">
               PARE DE TREINAR ERRADO: O GUIA DE 8{" "}
