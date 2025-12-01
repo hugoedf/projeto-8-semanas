@@ -80,6 +80,47 @@ export const useMetaPixel = () => {
   };
 
   /**
+   * Envia evento Purchase (conversão completa)
+   * Usado quando uma compra é finalizada
+   */
+  const trackPurchase = (purchaseData: {
+    value: number;
+    currency?: string;
+    transaction_id: string;
+    content_name?: string;
+    content_ids?: string[];
+    num_items?: number;
+    // Dados do usuário para hash
+    email?: string;
+    phone?: string;
+    firstName?: string;
+    lastName?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    zipCode?: string;
+  }) => {
+    if (window.fbq) {
+      const eventId = generateEventId();
+      const params: any = {
+        value: purchaseData.value,
+        currency: purchaseData.currency || 'BRL',
+        transaction_id: purchaseData.transaction_id,
+      };
+      
+      if (purchaseData.content_name) params.content_name = purchaseData.content_name;
+      if (purchaseData.content_ids) params.content_ids = purchaseData.content_ids;
+      if (purchaseData.num_items) params.num_items = purchaseData.num_items;
+      
+      window.fbq('track', 'Purchase', params, { eventID: eventId });
+      console.log('Meta Pixel - Purchase enviado', { eventId, transaction_id: purchaseData.transaction_id });
+      
+      // Envia também para a API de Conversões com dados completos
+      sendToConversionsAPI('Purchase', params, eventId, purchaseData);
+    }
+  };
+
+  /**
    * Gera um ID único para o evento (usado para deduplicação)
    */
   const generateEventId = (): string => {
@@ -89,11 +130,34 @@ export const useMetaPixel = () => {
   /**
    * Envia evento para a API de Conversões (server-side)
    */
-  const sendToConversionsAPI = async (eventName: string, eventParams: any, eventId: string) => {
+  const sendToConversionsAPI = async (eventName: string, eventParams: any, eventId: string, userData?: any) => {
     try {
       // Coleta cookies do Meta Pixel para deduplicação
       const fbp = getCookie('_fbp');
       const fbc = getCookie('_fbc');
+
+      // Coleta UTMs da URL ou sessionStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmData = {
+        utm_source: urlParams.get('utm_source') || sessionStorage.getItem('utm_source') || undefined,
+        utm_medium: urlParams.get('utm_medium') || sessionStorage.getItem('utm_medium') || undefined,
+        utm_campaign: urlParams.get('utm_campaign') || sessionStorage.getItem('utm_campaign') || undefined,
+        utm_content: urlParams.get('utm_content') || sessionStorage.getItem('utm_content') || undefined,
+        utm_term: urlParams.get('utm_term') || sessionStorage.getItem('utm_term') || undefined,
+      };
+
+      // Armazena UTMs no sessionStorage para uso futuro
+      Object.entries(utmData).forEach(([key, value]) => {
+        if (value) sessionStorage.setItem(key, value);
+      });
+
+      // Detecta informações do dispositivo
+      const deviceInfo = {
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        screenResolution: `${window.screen.width}x${window.screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      };
 
       const response = await fetch(
         'https://kfddlytvdzqwopongnew.supabase.co/functions/v1/meta-conversions',
@@ -109,6 +173,9 @@ export const useMetaPixel = () => {
             fbp,
             fbc,
             eventSourceUrl: window.location.href,
+            utmData,
+            deviceInfo,
+            userData: userData || {},
           }),
         }
       );
@@ -137,5 +204,6 @@ export const useMetaPixel = () => {
     trackPageView,
     trackViewContent,
     trackInitiateCheckout,
+    trackPurchase,
   };
 };
