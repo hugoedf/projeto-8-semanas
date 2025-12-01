@@ -149,21 +149,33 @@ export default async function handler(
     console.log('Purchase Data:', JSON.stringify(data, null, 2));
 
     // Extract tracking_id (eventId)
+    // IMPORTANTE: A Hotmart DEVE enviar o tracking_id em data.tracking_id
+    // Isso acontece quando o checkout é acessado com ?tracking_id=VALOR na URL
     const trackingId = data?.tracking_id || data?.buyer?.tracking_id || data?.purchase?.tracking_id || 'not_provided';
     
     console.log('🔍 ===== TRACKING ID EXTRAÍDO =====');
-    console.log('📍 Tracking ID:', trackingId);
-    console.log('📦 Dados brutos da Hotmart:', JSON.stringify(data, null, 2));
+    console.log('📍 Tracking ID recebido:', trackingId);
+    console.log('🔎 Locais verificados:');
+    console.log('   - data.tracking_id:', data?.tracking_id || '❌ NÃO ENCONTRADO');
+    console.log('   - data.buyer.tracking_id:', data?.buyer?.tracking_id || '❌ NÃO ENCONTRADO');
+    console.log('   - data.purchase.tracking_id:', data?.purchase?.tracking_id || '❌ NÃO ENCONTRADO');
+    console.log('📦 Estrutura completa recebida:', JSON.stringify(data, null, 2));
     console.log('====================================');
 
     if (trackingId === 'not_provided') {
       report.trackingIdStatus = 'missing';
       report.warnings.push('⚠️ HOTMART NÃO ENVIOU TRACKING_ID - Sem vínculo com o visitante!');
       console.error('❌ PROBLEMA CRÍTICO: tracking_id ausente no webhook da Hotmart');
-      console.warn('💡 SOLUÇÃO: Verifique se a URL do checkout contém ?tracking_id=VALOR');
+      console.warn('💡 CAUSA: A Hotmart não está recebendo o tracking_id na URL do checkout');
+      console.warn('💡 VERIFICAÇÃO NECESSÁRIA:');
+      console.warn('   1. Confirme que o botão gera: https://pay.hotmart.com/O103097031O?tracking_id=EVENTID');
+      console.warn('   2. Verifique no console do navegador se a URL tem o tracking_id');
+      console.warn('   3. A Hotmart deve propagar esse tracking_id para o webhook automaticamente');
+      console.warn('   4. Se a URL está correta mas o webhook não recebe, contate o suporte da Hotmart');
     } else {
       report.trackingIdStatus = 'found';
       console.log('✅ tracking_id encontrado e será usado para matching:', trackingId);
+      console.log('✅ Prosseguindo com busca dos dados do visitante no banco...');
     }
 
     // Structure purchase info
