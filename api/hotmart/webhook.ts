@@ -151,15 +151,19 @@ export default async function handler(
     // Extract tracking_id (eventId)
     const trackingId = data?.tracking_id || data?.buyer?.tracking_id || data?.purchase?.tracking_id || 'not_provided';
     
-    console.log('🔍 Tracking ID extraído:', trackingId);
+    console.log('🔍 ===== TRACKING ID EXTRAÍDO =====');
+    console.log('📍 Tracking ID:', trackingId);
+    console.log('📦 Dados brutos da Hotmart:', JSON.stringify(data, null, 2));
+    console.log('====================================');
 
     if (trackingId === 'not_provided') {
       report.trackingIdStatus = 'missing';
-      report.warnings.push('tracking_id não encontrado nos dados da Hotmart');
-      console.warn('⚠️ tracking_id ausente');
+      report.warnings.push('⚠️ HOTMART NÃO ENVIOU TRACKING_ID - Sem vínculo com o visitante!');
+      console.error('❌ PROBLEMA CRÍTICO: tracking_id ausente no webhook da Hotmart');
+      console.warn('💡 SOLUÇÃO: Verifique se a URL do checkout contém ?tracking_id=VALOR');
     } else {
       report.trackingIdStatus = 'found';
-      console.log('✅ tracking_id encontrado:', trackingId);
+      console.log('✅ tracking_id encontrado e será usado para matching:', trackingId);
     }
 
     // Structure purchase info
