@@ -5,7 +5,34 @@ declare global {
   interface Window {
     fbq: any;
     _fbq: any;
+    _metaPixelManaged?: boolean;
   }
+}
+
+// Sistema de anti-duplicação
+const recentEvents = new Map<string, number>();
+
+const shouldFireEvent = (eventName: string, eventId: string): boolean => {
+  const now = Date.now();
+  const eventKey = `${eventName}-${eventId}`;
+  const lastFired = recentEvents.get(eventKey);
+  
+  // Não dispara se foi disparado nos últimos 500ms
+  if (lastFired && now - lastFired < 500) {
+    console.log(`Meta Pixel - Evento ${eventName} ignorado (anti-duplicação)`, { eventId });
+    return false;
+  }
+  
+  recentEvents.set(eventKey, now);
+  
+  // Limpar eventos antigos (> 5 segundos)
+  for (const [key, timestamp] of recentEvents.entries()) {
+    if (now - timestamp > 5000) {
+      recentEvents.delete(key);
+    }
+  }
+  
+  return true;
 }
 
 /**
@@ -35,6 +62,12 @@ export const useMetaPixel = () => {
   const trackPageView = () => {
     if (window.fbq) {
       const eventId = generateEventId();
+      
+      // Anti-duplicação
+      if (!shouldFireEvent('PageView', eventId)) {
+        return;
+      }
+      
       window.fbq('track', 'PageView', {}, { eventID: eventId });
       console.log('Meta Pixel - PageView enviado', { eventId });
       
@@ -50,6 +83,12 @@ export const useMetaPixel = () => {
   const trackViewContent = (contentName?: string) => {
     if (window.fbq) {
       const eventId = generateEventId();
+      
+      // Anti-duplicação
+      if (!shouldFireEvent('ViewContent', eventId)) {
+        return;
+      }
+      
       const params = contentName ? { content_name: contentName } : {};
       window.fbq('track', 'ViewContent', params, { eventID: eventId });
       console.log('Meta Pixel - ViewContent enviado', { eventId, contentName });
@@ -66,6 +105,12 @@ export const useMetaPixel = () => {
   const trackInitiateCheckout = (value?: number, currency: string = 'BRL') => {
     if (window.fbq) {
       const eventId = generateEventId();
+      
+      // Anti-duplicação
+      if (!shouldFireEvent('InitiateCheckout', eventId)) {
+        return;
+      }
+      
       const params: any = {
         currency,
       };
