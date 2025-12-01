@@ -1,50 +1,168 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import crypto from 'crypto';
+import { createClient } from '@supabase/supabase-js';
 
 // Hotmart webhook handler for Vercel
+const HOTMART_SECRET = 'zpP4f2qiVofDP8ScATDjW5l1GRrXzg24100806';
+
+// Initialize Supabase client
+const supabaseUrl = process.env.VITE_SUPABASE_URL || '';
+const supabaseKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Hash function for Meta CAPI
+const hashSHA256 = async (text: string | undefined | null): Promise<string> => {
+  if (!text) return '';
+  const msgBuffer = new TextEncoder().encode(text.toLowerCase().trim());
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+};
+
+// Send purchase event to Meta CAPI
+const sendToMetaCAPI = async (purchaseData: any, visitorData: any) => {
+  const metaAccessToken = process.env.META_ACCESS_TOKEN;
+  const metaPixelId = process.env.META_PIXEL_ID;
+
+  if (!metaAccessToken || !metaPixelId) {
+    console.error('❌ Meta CAPI - Credenciais não configuradas');
+    return { success: false, error: 'Credenciais não configuradas' };
+  }
+
+  const eventId = `hotmart_${purchaseData.transactionId}_${Date.now()}`;
+  const eventTime = Math.floor(new Date(purchaseData.timestamp).getTime() / 1000);
+
+  try {
+    const payload = {
+      data: [
+        {
+          event_name: 'Purchase',
+          event_time: eventTime,
+          event_id: eventId,
+          event_source_url: visitorData?.landing_page || 'not_provided',
+          action_source: 'website',
+          user_data: {
+            em: purchaseData.buyerEmail ? await hashSHA256(purchaseData.buyerEmail) : undefined,
+            fn: purchaseData.buyerName ? await hashSHA256(purchaseData.buyerName.split(' ')[0]) : undefined,
+            ln: purchaseData.buyerName ? await hashSHA256(purchaseData.buyerName.split(' ').slice(1).join(' ')) : undefined,
+            client_ip_address: purchaseData.clientIp,
+            client_user_agent: purchaseData.userAgent,
+            fbc: visitorData?.fbc || undefined,
+            fbp: visitorData?.fbp || undefined,
+          },
+          custom_data: {
+            value: purchaseData.price,
+            currency: purchaseData.currency,
+            transaction_id: purchaseData.transactionId,
+            origem_compra: visitorData?.utm_source || 'not_provided',
+            posicionamento: visitorData?.utm_campaign || 'not_provided',
+            aparelho: visitorData?.device || 'not_provided',
+            regiao: visitorData?.region || 'not_provided',
+          },
+        },
+      ],
+      test_event_code: process.env.META_TEST_EVENT_CODE || undefined,
+    };
+
+    console.log('📤 Meta CAPI - Enviando evento Purchase:', JSON.stringify(payload, null, 2));
+
+    const response = await fetch(
+      `https://graph.facebook.com/v18.0/${metaPixelId}/events?access_token=${metaAccessToken}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    const result = await response.json();
+    
+    if (!response.ok) {
+      console.error('❌ Meta CAPI - Erro na resposta:', result);
+      return { success: false, error: result };
+    }
+
+    console.log('✅ Meta CAPI - Evento enviado com sucesso:', result);
+    return { success: true, data: result };
+  } catch (error) {
+    console.error('❌ Meta CAPI - Erro ao enviar:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+};
+
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
+  const report = {
+    timestamp: new Date().toISOString(),
+    webhookStatus: 'unknown',
+    tokenValidation: 'unknown',
+    trackingIdStatus: 'unknown',
+    visitorDataMatching: 'unknown',
+    metaCAPIStatus: 'unknown',
+    errors: [] as string[],
+    warnings: [] as string[],
+    data: {} as any,
+  };
+
+  console.log('🔔 ===== HOTMART WEBHOOK INITIATED =====');
+  console.log('🕐 Timestamp:', report.timestamp);
+
   // Only accept POST requests
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    report.webhookStatus = 'failed';
+    report.errors.push('Método HTTP inválido - apenas POST é aceito');
+    console.error('❌ Método não permitido:', req.method);
+    return res.status(405).json({ error: 'Method not allowed', report });
   }
 
+  report.webhookStatus = 'receiving';
+
   try {
-    // Get Hotmart secret from environment
-    const hotmartSecret = process.env.HOTMART_SECRET_KEY;
+    // Validate Hotmart token
+    const receivedToken = req.headers['x-hotmart-hottok'] as string;
     
-    if (!hotmartSecret) {
-      console.error('HOTMART_SECRET_KEY not configured');
-      return res.status(200).json({ received: true, error: 'Secret not configured' });
-    }
+    console.log('🔑 Validando token Hotmart...');
+    console.log('Token recebido:', receivedToken ? '***' + receivedToken.slice(-6) : 'NENHUM');
+    console.log('Token esperado:', HOTMART_SECRET ? '***' + HOTMART_SECRET.slice(-6) : 'NÃO CONFIGURADO');
 
-    // Validate Hotmart signature
-    const signature = req.headers['x-hotmart-hottok'] as string;
-    const body = JSON.stringify(req.body);
-    
-    const hash = crypto
-      .createHmac('sha256', hotmartSecret)
-      .update(body)
-      .digest('hex');
-
-    if (signature !== hash) {
-      console.error('Invalid Hotmart signature');
-      return res.status(200).json({ received: true, error: 'Invalid signature' });
+    if (!receivedToken) {
+      report.tokenValidation = 'missing';
+      report.warnings.push('Token X-Hotmart-Hottok não enviado no header');
+      console.warn('⚠️ Token não enviado');
+    } else if (receivedToken !== HOTMART_SECRET) {
+      report.tokenValidation = 'invalid';
+      report.errors.push('Token X-Hotmart-Hottok inválido');
+      console.error('❌ Token inválido');
+      return res.status(401).json({ error: 'Invalid token', report });
+    } else {
+      report.tokenValidation = 'valid';
+      console.log('✅ Token válido');
     }
 
     // Extract purchase data
     const { data, event } = req.body;
     
-    console.log('=== HOTMART WEBHOOK RECEIVED ===');
+    console.log('📦 Dados recebidos:');
     console.log('Event:', event);
     console.log('Purchase Data:', JSON.stringify(data, null, 2));
+
+    // Extract tracking_id (eventId)
+    const trackingId = data?.tracking_id || data?.buyer?.tracking_id || data?.purchase?.tracking_id || 'not_provided';
     
-    // Extract tracking_id from custom fields if present
-    const trackingId = data?.tracking_id || data?.buyer?.tracking_id || 'not_provided';
-    
-    // Log structured purchase information
+    console.log('🔍 Tracking ID extraído:', trackingId);
+
+    if (trackingId === 'not_provided') {
+      report.trackingIdStatus = 'missing';
+      report.warnings.push('tracking_id não encontrado nos dados da Hotmart');
+      console.warn('⚠️ tracking_id ausente');
+    } else {
+      report.trackingIdStatus = 'found';
+      console.log('✅ tracking_id encontrado:', trackingId);
+    }
+
+    // Structure purchase info
     const purchaseInfo = {
       event,
       trackingId,
@@ -55,24 +173,88 @@ export default async function handler(
       buyerName: data?.buyer?.name,
       price: data?.purchase?.price?.value,
       currency: data?.purchase?.price?.currency_code || 'BRL',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      clientIp: req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'unknown',
+      userAgent: req.headers['user-agent'] || 'unknown',
     };
+
+    report.data.purchase = purchaseInfo;
+    console.log('💰 Informações da compra processadas:', JSON.stringify(purchaseInfo, null, 2));
+
+    // Fetch visitor data from Supabase
+    let visitorData = null;
     
-    console.log('Processed Purchase Info:', JSON.stringify(purchaseInfo, null, 2));
+    if (trackingId !== 'not_provided') {
+      console.log('🔎 Buscando dados do visitante no Supabase...');
+      console.log('Visitor ID:', trackingId);
+
+      try {
+        const { data: visitor, error } = await supabase
+          .from('visitor_tracking')
+          .select('*')
+          .eq('visitor_id', trackingId)
+          .single();
+
+        if (error) {
+          report.visitorDataMatching = 'not_found';
+          report.warnings.push(`Dados do visitante não encontrados: ${error.message}`);
+          console.warn('⚠️ Visitante não encontrado:', error.message);
+        } else if (visitor) {
+          visitorData = visitor;
+          report.visitorDataMatching = 'success';
+          report.data.visitor = visitorData;
+          console.log('✅ Dados do visitante encontrados:', JSON.stringify(visitorData, null, 2));
+        }
+      } catch (error) {
+        report.visitorDataMatching = 'error';
+        report.errors.push(`Erro ao buscar visitante: ${error instanceof Error ? error.message : 'Unknown'}`);
+        console.error('❌ Erro ao buscar visitante:', error);
+      }
+    } else {
+      report.visitorDataMatching = 'skipped';
+      report.warnings.push('Busca de dados do visitante ignorada (tracking_id ausente)');
+      console.warn('⚠️ Busca de visitante ignorada');
+    }
+
+    // Send to Meta CAPI
+    console.log('📡 Enviando evento Purchase para Meta CAPI...');
+    const metaResult = await sendToMetaCAPI(purchaseInfo, visitorData);
+    
+    if (metaResult.success) {
+      report.metaCAPIStatus = 'sent';
+      report.data.metaCAPI = metaResult.data;
+      console.log('✅ Evento enviado para Meta CAPI com sucesso');
+    } else {
+      report.metaCAPIStatus = 'failed';
+      report.errors.push(`Falha ao enviar para Meta CAPI: ${JSON.stringify(metaResult.error)}`);
+      console.error('❌ Falha ao enviar para Meta CAPI:', metaResult.error);
+    }
+
+    // Final report
+    report.webhookStatus = 'completed';
+    console.log('✅ ===== WEBHOOK PROCESSADO COM SUCESSO =====');
+    console.log('📊 Relatório Final:', JSON.stringify(report, null, 2));
 
     // Return success to Hotmart
     return res.status(200).json({ 
       received: true,
-      trackingId,
-      transactionId: purchaseInfo.transactionId
+      trackingId: purchaseInfo.trackingId,
+      transactionId: purchaseInfo.transactionId,
+      report
     });
 
   } catch (error) {
-    console.error('Error processing Hotmart webhook:', error);
+    report.webhookStatus = 'error';
+    report.errors.push(`Erro inesperado: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.error('❌ ===== ERRO NO WEBHOOK =====');
+    console.error('Erro:', error);
+    console.log('📊 Relatório de Erro:', JSON.stringify(report, null, 2));
+    
     // Always return 200 to prevent Hotmart from retrying
     return res.status(200).json({ 
       received: true, 
-      error: error instanceof Error ? error.message : 'Unknown error'
+      error: error instanceof Error ? error.message : 'Unknown error',
+      report
     });
   }
 }
