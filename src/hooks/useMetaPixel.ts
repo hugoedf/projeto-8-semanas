@@ -181,20 +181,26 @@ export const useMetaPixel = () => {
       const fbp = getCookie('_fbp');
       const fbc = getCookie('_fbc');
 
-      // Coleta UTMs da URL ou sessionStorage
+      // Coleta UTMs da URL ou localStorage (persistente entre sessões)
       const urlParams = new URLSearchParams(window.location.search);
       const utmData = {
-        utm_source: urlParams.get('utm_source') || sessionStorage.getItem('utm_source') || undefined,
-        utm_medium: urlParams.get('utm_medium') || sessionStorage.getItem('utm_medium') || undefined,
-        utm_campaign: urlParams.get('utm_campaign') || sessionStorage.getItem('utm_campaign') || undefined,
-        utm_content: urlParams.get('utm_content') || sessionStorage.getItem('utm_content') || undefined,
-        utm_term: urlParams.get('utm_term') || sessionStorage.getItem('utm_term') || undefined,
+        utm_source: urlParams.get('utm_source') || localStorage.getItem('utm_source') || undefined,
+        utm_medium: urlParams.get('utm_medium') || localStorage.getItem('utm_medium') || undefined,
+        utm_campaign: urlParams.get('utm_campaign') || localStorage.getItem('utm_campaign') || undefined,
+        utm_content: urlParams.get('utm_content') || localStorage.getItem('utm_content') || undefined,
+        utm_term: urlParams.get('utm_term') || localStorage.getItem('utm_term') || undefined,
       };
 
-      // Armazena UTMs no sessionStorage para uso futuro
+      // Armazena UTMs no localStorage para persistência entre sessões
       Object.entries(utmData).forEach(([key, value]) => {
-        if (value) sessionStorage.setItem(key, value);
+        if (value) localStorage.setItem(key, value);
       });
+
+      // Armazena landing page (primeira página visitada) e referrer
+      if (!localStorage.getItem('landing_page')) {
+        localStorage.setItem('landing_page', window.location.href);
+        localStorage.setItem('referrer', document.referrer || 'direct');
+      }
 
       // Detecta informações do dispositivo
       const deviceInfo = {
@@ -202,6 +208,8 @@ export const useMetaPixel = () => {
         language: navigator.language,
         screenResolution: `${window.screen.width}x${window.screen.height}`,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        referrer: document.referrer || 'direct',
+        landingPage: localStorage.getItem('landing_page') || window.location.href,
       };
 
       const response = await fetch(
