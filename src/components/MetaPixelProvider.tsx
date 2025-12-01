@@ -15,12 +15,26 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
   const { trackPageView, trackViewContent } = useMetaPixel();
 
   useEffect(() => {
+    // Verifica se já disparou evento nesta sessão para esta rota
+    const sessionKey = `meta-pixel-${location.pathname}`;
+    const lastFired = sessionStorage.getItem(sessionKey);
+    const now = Date.now();
+    
+    // Se disparou nos últimos 2 segundos, ignora (anti-duplicação de navegação rápida)
+    if (lastFired && now - parseInt(lastFired) < 2000) {
+      console.log('Meta Pixel - Eventos ignorados (navegação muito rápida)');
+      return;
+    }
+    
     // Aguarda o Pixel estar pronto antes de disparar eventos
     const initEvents = () => {
       if (!window.fbq) {
         setTimeout(initEvents, 100);
         return;
       }
+
+      // Marca como disparado nesta sessão
+      sessionStorage.setItem(sessionKey, now.toString());
 
       // Dispara PageView em cada mudança de rota
       trackPageView();
