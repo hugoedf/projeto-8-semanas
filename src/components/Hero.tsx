@@ -2,14 +2,21 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-ebook-mockup.png";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
+import { useVisitorTracking } from "@/hooks/useVisitorTracking";
+
 const Hero = () => {
-  const {
-    trackInitiateCheckout
-  } = useMetaPixel();
+  const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
+  
   const handleCTAClick = () => {
     // Dispara evento de InitiateCheckout antes de redirecionar
     trackInitiateCheckout(97, 'BRL');
-    window.open("https://pay.hotmart.com/O103097031O", "_blank");
+    
+    // Monta URL com tracking_id
+    const trackingId = visitorData?.visitorId || 'unknown';
+    const checkoutUrl = `https://pay.hotmart.com/O103097031O?tracking_id=${trackingId}`;
+    
+    window.open(checkoutUrl, "_blank");
   };
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
       {/* Background overlay */}
