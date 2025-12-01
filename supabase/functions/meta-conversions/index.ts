@@ -51,11 +51,21 @@ function detectDevice(userAgent: string): string {
 }
 
 /**
- * Extrai região aproximada do IP (simplificado - pode ser melhorado com API de geolocalização)
+ * Obtém região via ipapi.co
  */
-function detectRegion(ip: string): string {
-  // Implementação simplificada - pode ser expandida com API de geolocalização
-  return 'not_provided';
+async function fetchRegionFromIP(ip: string): Promise<string> {
+  if (!ip || ip === 'not_provided') return 'not_provided';
+  
+  try {
+    const response = await fetch(`https://ipapi.co/${ip}/json/`);
+    if (!response.ok) throw new Error('Falha ao obter região');
+    
+    const data = await response.json();
+    return `${data.city || ''}, ${data.region || ''}, ${data.country_name || ''}`.trim() || 'not_provided';
+  } catch (error) {
+    console.error('Erro ao buscar região via ipapi.co:', error);
+    return 'not_provided';
+  }
 }
 
 /**
@@ -162,6 +172,7 @@ serve(async (req) => {
       eventName,
       eventParams = {},
       eventId,
+      visitorId,
       fbp,
       fbc,
       eventSourceUrl,
@@ -196,6 +207,7 @@ serve(async (req) => {
     const normalizedUtmSource = normalizeUtmSource(utmData.utm_source);
     const normalizedUtmMedium = utmData.utm_medium || 'not_provided';
     const normalizedUtmCampaign = utmData.utm_campaign || 'not_provided';
+    const normalizedUtmId = utmData.utm_id || 'not_provided';
     const normalizedUtmContent = utmData.utm_content || 'not_provided';
     const normalizedUtmTerm = utmData.utm_term || 'not_provided';
 
@@ -205,8 +217,8 @@ serve(async (req) => {
     // Dispositivo
     const aparelho = detectDevice(userAgent);
 
-    // Região
-    const regiao = detectRegion(clientIp);
+    // Região via ipapi.co (assíncrono)
+    const regiao = await fetchRegionFromIP(clientIp);
 
     // 2. HASH DE DADOS PESSOAIS (SHA256)
     const hashedUserData: any = {
@@ -247,6 +259,7 @@ serve(async (req) => {
     // 3. MONTA CUSTOM DATA com todos os parâmetros adicionais
     const customData: any = {
       ...eventParams,
+      visitor_id: visitorId || 'not_provided',
       origem_compra: normalizedUtmSource,
       posicionamento: posicionamento,
       aparelho: aparelho,
@@ -255,6 +268,7 @@ serve(async (req) => {
       utm_source: normalizedUtmSource,
       utm_medium: normalizedUtmMedium,
       utm_campaign: normalizedUtmCampaign,
+      utm_id: normalizedUtmId,
       utm_content: normalizedUtmContent,
       utm_term: normalizedUtmTerm,
     };

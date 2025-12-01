@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useVisitorTracking } from './useVisitorTracking';
 
 // Meta Pixel interface
 declare global {
@@ -41,6 +42,7 @@ const shouldFireEvent = (eventName: string, eventId: string): boolean => {
  */
 export const useMetaPixel = () => {
   const pixelId = import.meta.env.VITE_META_PIXEL_ID;
+  const { visitorData } = useVisitorTracking();
 
   useEffect(() => {
     // O Meta Pixel já é carregado no index.html
@@ -167,9 +169,11 @@ export const useMetaPixel = () => {
 
   /**
    * Gera um ID único para o evento (usado para deduplicação)
+   * Usa o visitorId como base para consistência
    */
   const generateEventId = (): string => {
-    return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const base = visitorData?.visitorId || 'unknown';
+    return `${base}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   };
 
   /**
@@ -187,6 +191,7 @@ export const useMetaPixel = () => {
         utm_source: urlParams.get('utm_source') || localStorage.getItem('utm_source') || undefined,
         utm_medium: urlParams.get('utm_medium') || localStorage.getItem('utm_medium') || undefined,
         utm_campaign: urlParams.get('utm_campaign') || localStorage.getItem('utm_campaign') || undefined,
+        utm_id: urlParams.get('utm_id') || localStorage.getItem('utm_id') || undefined,
         utm_content: urlParams.get('utm_content') || localStorage.getItem('utm_content') || undefined,
         utm_term: urlParams.get('utm_term') || localStorage.getItem('utm_term') || undefined,
       };
@@ -223,6 +228,7 @@ export const useMetaPixel = () => {
             eventName,
             eventParams,
             eventId,
+            visitorId: visitorData?.visitorId,
             fbp,
             fbc,
             eventSourceUrl: window.location.href,

@@ -2,15 +2,23 @@ import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Lock } from "lucide-react";
 import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
+import { useVisitorTracking } from "@/hooks/useVisitorTracking";
+
 const benefits = ["8 módulos completos de treino e nutrição", "Técnicas avançadas de hipertrofia", "Guia de nutrição estratégica", "Mentalidade e disciplina", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia de 7 dias"];
+
 const CTA = () => {
-  const {
-    trackInitiateCheckout
-  } = useMetaPixel();
+  const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
+  
   const handleCTAClick = () => {
     // Dispara evento de InitiateCheckout antes de redirecionar
     trackInitiateCheckout(97, 'BRL');
-    window.open("https://pay.hotmart.com/O103097031O", "_blank");
+    
+    // Monta URL com tracking_id
+    const trackingId = visitorData?.visitorId || 'unknown';
+    const checkoutUrl = `https://pay.hotmart.com/O103097031O?tracking_id=${trackingId}`;
+    
+    window.open(checkoutUrl, "_blank");
   };
   return <section id="cta-section" className="py-12 sm:py-20 bg-background">
       <div className="container mx-auto px-4">
