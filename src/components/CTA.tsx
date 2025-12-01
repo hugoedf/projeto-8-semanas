@@ -11,13 +11,33 @@ const CTA = () => {
   const { visitorData } = useVisitorTracking();
   
   const handleCTAClick = () => {
-    // Dispara evento de InitiateCheckout antes de redirecionar
+    // 1. Obter eventId (visitorId) do localStorage
+    const eventId = localStorage.getItem('visitor_id');
+    
+    // 2. Validar existência do eventId
+    if (!eventId) {
+      console.error('❌ ERRO CRÍTICO: eventId não encontrado no localStorage!');
+      console.warn('Checkout será aberto sem tracking_id - conversão NÃO será rastreada');
+    }
+    
+    // 3. Usar eventId do localStorage como fallback
+    const trackingId = eventId || visitorData?.visitorId || 'unknown';
+    
+    // 4. Montar URL final do checkout
+    const baseUrl = 'https://pay.hotmart.com/O103097031O';
+    const checkoutUrl = `${baseUrl}?tracking_id=${trackingId}`;
+    
+    // 5. Log detalhado ANTES do redirecionamento
+    console.log('✅ ===== CHECKOUT INICIADO =====');
+    console.log('📍 Tracking ID aplicado:', trackingId);
+    console.log('🔗 URL final:', checkoutUrl);
+    console.log('📊 Dados do visitante:', visitorData);
+    console.log('================================');
+    
+    // 6. Disparar evento de InitiateCheckout
     trackInitiateCheckout(97, 'BRL');
     
-    // Monta URL com tracking_id
-    const trackingId = visitorData?.visitorId || 'unknown';
-    const checkoutUrl = `https://pay.hotmart.com/O103097031O?tracking_id=${trackingId}`;
-    
+    // 7. Abrir checkout em nova aba
     window.open(checkoutUrl, "_blank");
   };
   return <section id="cta-section" className="py-12 sm:py-20 bg-background">
