@@ -3,6 +3,7 @@ import { Check, ArrowRight, Lock } from "lucide-react";
 import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
+import { buildHotmartCheckoutUrl } from "@/lib/utils";
 
 const benefits = ["8 módulos completos de treino e nutrição", "Técnicas avançadas de hipertrofia", "Guia de nutrição estratégica", "Mentalidade e disciplina", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia de 7 dias"];
 
@@ -11,33 +12,34 @@ const CTA = () => {
   const { visitorData } = useVisitorTracking();
   
   const handleCTAClick = () => {
-    // 1. Obter eventId (visitorId) do localStorage
-    const eventId = localStorage.getItem('visitor_id');
-    
-    // 2. Validar existência do eventId
-    if (!eventId) {
-      console.error('❌ ERRO CRÍTICO: eventId não encontrado no localStorage!');
-      console.warn('Checkout será aberto sem tracking_id - conversão NÃO será rastreada');
-    }
-    
-    // 3. Usar eventId do localStorage como fallback
-    const trackingId = eventId || visitorData?.visitorId || 'unknown';
-    
-    // 4. Montar URL final do checkout
+    // 1. Base URL do checkout da Hotmart
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    const checkoutUrl = `${baseUrl}&tracking_id=${trackingId}`;
     
-    // 5. Log detalhado ANTES do redirecionamento
-    console.log('✅ ===== CHECKOUT INICIADO =====');
-    console.log('📍 Tracking ID aplicado:', trackingId);
-    console.log('🔗 URL final:', checkoutUrl);
+    // 2. Construir URL completa com todos os parâmetros de rastreamento
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
+    
+    // 3. Log detalhado ANTES do redirecionamento
+    console.log('✅ ===== CHECKOUT INICIADO (CTA) =====');
+    console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
     console.log('📊 Dados do visitante:', visitorData);
-    console.log('================================');
+    console.log('📍 Parâmetros capturados:', {
+      tracking_id: localStorage.getItem('visitor_id'),
+      utm_source: localStorage.getItem('utm_source'),
+      utm_medium: localStorage.getItem('utm_medium'),
+      utm_campaign: localStorage.getItem('utm_campaign'),
+      utm_term: localStorage.getItem('utm_term'),
+      utm_content: localStorage.getItem('utm_content'),
+      fbclid: localStorage.getItem('fbclid'),
+      gclid: localStorage.getItem('gclid'),
+      ttclid: localStorage.getItem('ttclid'),
+      msclkid: localStorage.getItem('msclkid'),
+    });
+    console.log('========================================');
     
-    // 6. Disparar evento de InitiateCheckout
+    // 4. Disparar evento de InitiateCheckout
     trackInitiateCheckout(97, 'BRL');
     
-    // 7. Abrir checkout em nova aba
+    // 5. Abrir checkout em nova aba
     window.open(checkoutUrl, "_blank");
   };
   return <section id="cta-section" className="py-12 sm:py-20 bg-background">

@@ -9,6 +9,10 @@ export interface VisitorData {
   utm_id?: string;
   utm_term?: string;
   utm_content?: string;
+  fbclid?: string;
+  gclid?: string;
+  ttclid?: string;
+  msclkid?: string;
   referrer: string;
   landingPage: string;
   device: 'mobile' | 'tablet' | 'desktop';
@@ -43,19 +47,23 @@ export const useVisitorTracking = () => {
       // 2. Detectar device
       const device = detectDevice();
 
-      // 3. Coletar UTMs da URL
+      // 3. Coletar UTMs e clickIDs da URL
       const urlParams = new URLSearchParams(window.location.search);
-      const utmData = {
+      const trackingData = {
         utm_source: urlParams.get('utm_source') || localStorage.getItem('utm_source') || undefined,
         utm_medium: urlParams.get('utm_medium') || localStorage.getItem('utm_medium') || undefined,
         utm_campaign: urlParams.get('utm_campaign') || localStorage.getItem('utm_campaign') || undefined,
         utm_id: urlParams.get('utm_id') || localStorage.getItem('utm_id') || undefined,
         utm_term: urlParams.get('utm_term') || localStorage.getItem('utm_term') || undefined,
         utm_content: urlParams.get('utm_content') || localStorage.getItem('utm_content') || undefined,
+        fbclid: urlParams.get('fbclid') || localStorage.getItem('fbclid') || undefined,
+        gclid: urlParams.get('gclid') || localStorage.getItem('gclid') || undefined,
+        ttclid: urlParams.get('ttclid') || localStorage.getItem('ttclid') || undefined,
+        msclkid: urlParams.get('msclkid') || localStorage.getItem('msclkid') || undefined,
       };
 
-      // Persistir UTMs
-      Object.entries(utmData).forEach(([key, value]) => {
+      // Persistir todos os parâmetros de rastreamento
+      Object.entries(trackingData).forEach(([key, value]) => {
         if (value) localStorage.setItem(key, value);
       });
 
@@ -90,7 +98,7 @@ export const useVisitorTracking = () => {
       // 7. Montar objeto completo
       const data: VisitorData = {
         visitorId,
-        ...utmData,
+        ...trackingData,
         referrer: referrer!,
         landingPage: landingPage!,
         device,
