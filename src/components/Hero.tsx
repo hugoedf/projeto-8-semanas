@@ -22,8 +22,8 @@ const Hero = () => {
     const trackingId = eventId || visitorData?.visitorId || 'unknown';
     
     // 4. Montar URL final do checkout
-    const baseUrl = 'https://pay.hotmart.com/O103097031O';
-    const checkoutUrl = `${baseUrl}?tracking_id=${trackingId}`;
+    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
+    const checkoutUrl = `${baseUrl}&tracking_id=${trackingId}`;
     
     // 5. Log detalhado ANTES do redirecionamento
     console.log('✅ ===== CHECKOUT INICIADO =====');
