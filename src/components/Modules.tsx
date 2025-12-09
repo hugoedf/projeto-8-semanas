@@ -6,11 +6,11 @@ const modules = [{
 }, {
   number: "02",
   title: "Avaliação e Objetivos",
-  description: "Entenda seu nível e metas reais."
+  description: "Entenda seu nível e estabeleça metas realistas."
 }, {
   number: "03",
-  title: "Treinos 8 Semanas",
-  description: "Estratégia progressiva para evolução constante."
+  title: "Treinos Estruturados (8 Semanas)",
+  description: "Estratégia progressiva para evolução semanal."
 }, {
   number: "04",
   title: "Nutrição Estratégica",
@@ -21,16 +21,16 @@ const modules = [{
   description: "Os pilares ignorados que aceleram resultados."
 }, {
   number: "06",
-  title: "Técnicas Avançadas",
-  description: "Drop-set, rest-pause e intensificação."
+  title: "Técnicas Avançadas de Intensificação",
+  description: "Drop-set, rest-pause, negativas e mais."
 }, {
   number: "07",
-  title: "Mentalidade",
-  description: "Constância, foco e disciplina."
+  title: "Mentalidade e Disciplina",
+  description: "Constância, foco e execução de verdade."
 }, {
   number: "08",
-  title: "Acompanhamento",
-  description: "Como medir e ajustar para evoluir sempre."
+  title: "Acompanhamento e Ajustes",
+  description: "Como medir, corrigir e evoluir sempre."
 }];
 const Modules = () => {
   return <section className="py-12 sm:py-20 gradient-hero">

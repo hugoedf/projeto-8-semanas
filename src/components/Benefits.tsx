@@ -4,42 +4,42 @@ const benefits = [
   {
     icon: Dumbbell,
     title: "Treino Inteligente",
-    description: "Treinos estratégicos que realmente geram resultados"
+    description: ""
   },
   {
     icon: Target,
     title: "Montagem Estratégica",
-    description: "Saiba exatamente como estruturar seus treinos semanais"
+    description: ""
   },
   {
     icon: TrendingUp,
     title: "Técnicas Avançadas",
-    description: "Drop-set, rest-pause e intensificação"
+    description: ""
   },
   {
     icon: Apple,
     title: "Nutrição Prática",
-    description: "Como comer para crescer de verdade"
+    description: ""
   },
   {
     icon: Shield,
     title: "Prevenção de Lesões",
-    description: "Técnicas corretas para treinar com segurança"
+    description: ""
   },
   {
     icon: Zap,
     title: "Acompanhamento Real",
-    description: "Acompanhe seu progresso semana a semana"
+    description: ""
   },
   {
     icon: Brain,
     title: "Mentalidade de Disciplina",
-    description: "Desenvolva constância e foco"
+    description: ""
   },
   {
     icon: Calendar,
-    title: "Plano de 8 Semanas",
-    description: "Do dia 1 ao dia 56 completo"
+    title: "Plano Completo de 8 Semanas",
+    description: "(dia 1 ao 56)"
   },
 ];
 
@@ -54,12 +54,10 @@ const Benefits = () => {
             </span>
           </div>
           <h2 className="font-display text-2xl sm:text-3xl md:text-5xl mb-3 sm:mb-4 px-2">
-            Tudo o que você precisa para{" "}
-            <span className="text-gradient">transformar seu corpo</span>
+            Tudo que realmente importa para{" "}
+            <span className="text-gradient">evoluir — sem complicação.</span>
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Um guia completo com estratégias práticas e comprovadas cientificamente
-          </p>
+        
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">

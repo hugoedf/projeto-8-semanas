@@ -7,7 +7,7 @@ const testimonials = [{
 }, {
   name: "Mariana",
   age: "",
-  text: "Treinos finalmente fizeram sentido para mim.",
+  text: "Treinos finalmente fizeram sentido pra mim.",
   rating: 5
 }, {
   name: "Rafael",
@@ -17,7 +17,7 @@ const testimonials = [{
 }, {
   name: "Juliana",
   age: "",
-  text: "A parte da nutrição mudou meu jogo.",
+  text: "A parte de nutrição mudou meu jogo.",
   rating: 5
 }];
 const Testimonials = () => {
