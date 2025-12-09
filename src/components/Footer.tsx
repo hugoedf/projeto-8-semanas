@@ -1,39 +1,60 @@
 import { Link } from "react-router-dom";
+
 const Footer = () => {
-  return <footer className="py-8 sm:py-12 gradient-hero">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center text-white">
-          <div className="mb-6 sm:mb-8">
-            <h3 className="font-display text-xl sm:text-2xl text-primary-foreground mb-2">
-              Método 8x 
+  return (
+    <footer className="bg-background border-t border-border/30">
+      <div className="container mx-auto px-4 py-12 sm:py-16">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Brand Section */}
+          <div className="mb-8">
+            <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-3">
+              Método 8x
             </h3>
-            <p className="text-primary-foreground/70 text-sm sm:text-base px-4">
+            <p className="text-muted-foreground text-sm sm:text-base">
               Transforme seu corpo com treino inteligente de hipertrofia
             </p>
           </div>
-          
-          <div className="border-t border-primary-foreground/20 pt-6 sm:pt-8">
-            <p className="text-primary-foreground/60 text-xs sm:text-sm mb-3 sm:mb-4 px-4">© 2024 Método 8x. Todos os direitos reservados.</p>
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-primary-foreground/60 px-4">
-              <Link to="/termos-de-uso" className="hover:text-accent transition-colors">
+
+          {/* Divider */}
+          <div className="w-full h-px bg-border/40 mb-8" />
+
+          {/* Copyright & Links */}
+          <div className="space-y-4">
+            <p className="text-muted-foreground/70 text-xs sm:text-sm">
+              © 2024 Método 8x. Todos os direitos reservados.
+            </p>
+            
+            <div className="flex flex-wrap justify-center gap-6 text-xs sm:text-sm">
+              <Link 
+                to="/termos-de-uso" 
+                className="text-muted-foreground hover:text-accent transition-colors duration-200"
+              >
                 Termos de Uso
               </Link>
-              <Link to="/politica-de-privacidade" className="hover:text-accent transition-colors">
+              <Link 
+                to="/politica-de-privacidade" 
+                className="text-muted-foreground hover:text-accent transition-colors duration-200"
+              >
                 Política de Privacidade
               </Link>
             </div>
           </div>
-          
-          <div className="mt-6 sm:mt-8 text-xs text-primary-foreground/50 px-4">
-            <p className="mb-2">
-              Este produto não substitui orientação médica ou nutricional profissional.
-            </p>
-            <p>
-              Consulte um profissional antes de iniciar qualquer programa de exercícios.
-            </p>
+
+          {/* Legal Disclaimers */}
+          <div className="mt-10 pt-6 border-t border-border/20">
+            <div className="space-y-2 text-xs text-muted-foreground/60">
+              <p>
+                Este produto não substitui orientação médica ou nutricional profissional.
+              </p>
+              <p>
+                Consulte um profissional antes de iniciar qualquer programa de exercícios.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;
