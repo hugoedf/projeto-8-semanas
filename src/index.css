@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap');
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -9,66 +11,66 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 5%;
+    --foreground: 0 0% 6%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card-foreground: 0 0% 6%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 0 0% 6%;
 
-    --primary: 0 0% 5%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 0 0% 6%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 5%;
+    --secondary-foreground: 0 0% 6%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 18 100% 60%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 18 100% 58%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 18 100% 60%;
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
+    --ring: 18 100% 58%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
     
-    /* Fitness theme colors */
-    --fitness-orange: 18 100% 60%;
-    --fitness-dark: 0 0% 5%;
-    --fitness-gray: 0 0% 15%;
-    --fitness-light: 0 0% 96%;
+    /* Fitness theme colors - Updated palette */
+    --fitness-orange: 18 100% 58%;
+    --fitness-dark: 0 0% 6%;
+    --fitness-darker: 0 0% 5%;
+    --fitness-gray: 20 8% 12%;
+    --fitness-light: 0 0% 97%;
+    --fitness-brown: 20 15% 8%;
     
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--fitness-dark)) 0%, hsl(var(--fitness-gray)) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(18 100% 50%) 100%);
+    /* Gradients - Refined with brown tones */
+    --gradient-hero: linear-gradient(145deg, hsl(20 15% 8%) 0%, hsl(0 0% 6%) 50%, hsl(20 10% 10%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(18 100% 58%) 0%, hsl(18 100% 48%) 100%);
+    --gradient-card-dark: linear-gradient(180deg, hsla(20 10% 15% / 0.6) 0%, hsla(0 0% 8% / 0.8) 100%);
     
-    /* Shadows */
-    --shadow-glow: 0 0 40px hsla(var(--accent) / 0.3);
-    --shadow-card: 0 4px 20px hsla(0 0% 0% / 0.1);
+    /* Shadows - More refined */
+    --shadow-glow: 0 0 50px hsla(18 100% 58% / 0.25);
+    --shadow-glow-strong: 0 0 80px hsla(18 100% 58% / 0.35);
+    --shadow-card: 0 4px 24px hsla(0 0% 0% / 0.08);
+    --shadow-card-hover: 0 8px 32px hsla(0 0% 0% / 0.12);
+    --shadow-card-dark: 0 8px 40px hsla(0 0% 0% / 0.4);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -91,15 +93,15 @@ All colors MUST be HSL.
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 18 100% 60%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 18 100% 58%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 18 100% 60%;
+    --ring: 18 100% 58%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -117,13 +119,26 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', system-ui, sans-serif;
     font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  h1 {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  
+  h2 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
   }
 }
 
@@ -134,6 +149,10 @@ All colors MUST be HSL.
   
   .gradient-accent {
     background: var(--gradient-accent);
+  }
+  
+  .gradient-card-dark {
+    background: var(--gradient-card-dark);
   }
   
   .text-gradient {
@@ -148,12 +167,39 @@ All colors MUST be HSL.
   }
   
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-card);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card-hover);
   }
   
   .glow-accent {
     box-shadow: var(--shadow-glow);
+  }
+  
+  .glow-accent-strong {
+    box-shadow: var(--shadow-glow-strong);
+  }
+  
+  .card-premium {
+    @apply bg-card border border-border/80 rounded-2xl shadow-lg;
+    box-shadow: var(--shadow-card);
+  }
+  
+  .card-premium:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  
+  .card-dark-glass {
+    @apply backdrop-blur-md border border-white/10 rounded-2xl;
+    background: var(--gradient-card-dark);
+    box-shadow: var(--shadow-card-dark);
+  }
+  
+  .section-spacing {
+    @apply py-16 sm:py-24;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
   }
   
   a[href*="lovable"] {

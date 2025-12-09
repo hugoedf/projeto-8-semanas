@@ -50,8 +50,10 @@ export default {
         fitness: {
           orange: "hsl(var(--fitness-orange))",
           dark: "hsl(var(--fitness-dark))",
+          darker: "hsl(var(--fitness-darker))",
           gray: "hsl(var(--fitness-gray))",
           light: "hsl(var(--fitness-light))",
+          brown: "hsl(var(--fitness-brown))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

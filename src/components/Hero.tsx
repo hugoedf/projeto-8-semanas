@@ -43,76 +43,75 @@ const Hero = () => {
     window.open(checkoutUrl, "_blank");
   };
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
-      {/* Background overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,107,53,0.1),transparent_50%)]" />
+      {/* Background overlays for depth */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.12),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,hsla(20,15%,15%,0.4),transparent_40%)]" />
       
-      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 items-center max-w-7xl mx-auto">
+      <div className="container mx-auto px-5 sm:px-6 py-20 sm:py-24 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center max-w-7xl mx-auto">
           {/* Content */}
-          <div className="text-center lg:text-left space-y-5 sm:space-y-8 animate-fade-in px-2 sm:px-0 flex flex-col lg:block">
-            <div className="inline-flex items-center gap-2 text-accent font-bold text-xs sm:text-sm uppercase tracking-wider px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-accent/30 bg-accent/10 mb-4 sm:mb-6 order-1 mx-auto lg:mx-0">
-              <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
+          <div className="text-center lg:text-left space-y-6 sm:space-y-8 animate-fade-in px-1 sm:px-0 flex flex-col lg:block">
+            <div className="inline-flex items-center gap-2 text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-accent/40 bg-accent/10 backdrop-blur-sm mb-2 sm:mb-4 order-1 mx-auto lg:mx-0 shadow-lg shadow-accent/10">
+              <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>MÉTODO 8X: FISIOLOGIA PROGRESSIVA</span>
             </div>
             
-            <h1 className="font-display text-xl sm:text-4xl md:text-6xl leading-tight text-slate-50 break-words order-2 lg:text-4xl">
+            <h1 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.1] text-white break-words order-2 tracking-tight">
               A CIÊNCIA QUE TRANSFORMA ESTÍMULOS EM{" "}
-              <span className="text-accent">HIPERTROFIA REAL</span>
+              <span className="text-accent drop-shadow-[0_0_20px_hsla(18,100%,58%,0.4)]">HIPERTROFIA REAL</span>
             </h1>
             
-            <h2 className="sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 font-normal order-3 font-sans md:text-base text-sm">
+            <h2 className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-white/85 font-normal order-3 font-sans">
               O protocolo de 8 semanas baseado nos ciclos naturais de adaptação muscular, criado para romper o platô e construir um físico denso, forte e resistente — sem treinar no achismo.
             </h2>
             
             {/* Image - Only visible on mobile */}
-            <div className="relative animate-fade-in w-full max-w-[280px] mx-auto lg:hidden order-4 my-6" style={{
+            <div className="relative animate-fade-in w-full max-w-[300px] mx-auto lg:hidden order-4 my-8" style={{
             animationDelay: "0.2s"
           }}>
-              <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
-              <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" src="/lovable-uploads/27a81dc2-1bf2-4070-99d4-1676e2b14ea3.png" />
+              <div className="absolute inset-0 bg-accent/25 rounded-3xl blur-[60px]" />
+              <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift drop-shadow-2xl" src="/lovable-uploads/27a81dc2-1bf2-4070-99d4-1676e2b14ea3.png" />
             </div>
             
-            <div className="space-y-4 sm:space-y-4 order-5">
-              
-              
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full">
-                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-xs sm:text-base md:text-lg px-3 sm:px-8 py-4 sm:py-6 animate-pulse-glow w-full sm:w-auto">
+            <div className="space-y-5 sm:space-y-6 order-5">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full">
+                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-7 animate-pulse-glow w-full sm:w-auto font-semibold tracking-wide shadow-xl shadow-accent/30">
                   QUERO O MÉTODO 8X AGORA 
-                  <ArrowRight className="ml-1 sm:ml-2 flex-shrink-0 w-3 h-3 sm:w-5 sm:h-5" />
+                  <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </div>
               
-              <div className="flex flex-wrap items-center gap-3 sm:gap-6 justify-center lg:justify-start pt-4 sm:pt-4 text-xs sm:text-sm text-slate-200">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  <span>100% Digital</span>
+              <div className="flex flex-wrap items-center gap-4 sm:gap-8 justify-center lg:justify-start pt-2 sm:pt-4 text-xs sm:text-sm text-white/80">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-lg shadow-accent/50" />
+                  <span className="font-medium">100% Digital</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  <span>Acesso Imediato</span>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-lg shadow-accent/50" />
+                  <span className="font-medium">Acesso Imediato</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  <span>Garantia de 7 Dias</span>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-lg shadow-accent/50" />
+                  <span className="font-medium">Garantia de 7 Dias</span>
                 </div>
               </div>
             </div>
           </div>
           
           {/* Image - Only visible on desktop */}
-          <div className="hidden lg:block relative animate-fade-in w-full max-w-md mx-auto lg:max-w-none" style={{
+          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{
           animationDelay: "0.2s"
         }}>
-            <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
-            <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" />
+            <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-[80px] scale-90" />
+            <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full max-w-lg h-auto rounded-2xl shadow-2xl hover-lift drop-shadow-2xl" src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" />
           </div>
         </div>
       </div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden sm:flex">
-        <div className="w-6 h-10 border-2 border-accent/50 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-accent rounded-full" />
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce hidden sm:flex">
+        <div className="w-7 h-11 border-2 border-accent/60 rounded-full flex items-start justify-center p-2 backdrop-blur-sm bg-white/5">
+          <div className="w-1.5 h-3 bg-accent rounded-full shadow-lg shadow-accent/50" />
         </div>
       </div>
     </section>;
