@@ -5,6 +5,7 @@ import { z } from 'https://esm.sh/zod@3.25.76';
 const META_ACCESS_TOKEN = Deno.env.get('META_ACCESS_TOKEN');
 const META_PIXEL_ID = Deno.env.get('META_PIXEL_ID');
 const META_TEST_EVENT_CODE = Deno.env.get('META_TEST_EVENT_CODE');
+const META_CAPI_SECRET = Deno.env.get('META_CAPI_SECRET');
 
 // Allowed origin patterns for CORS validation
 const isAllowedOrigin = (origin: string | null): boolean => {
@@ -27,7 +28,7 @@ const isAllowedOrigin = (origin: string | null): boolean => {
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-meta-capi-secret',
 };
 
 // Input validation schema for Meta CAPI events
@@ -211,19 +212,33 @@ serve(async (req) => {
   try {
     console.log('Meta CAPI - Processando novo evento');
 
-    // Origin validation to prevent abuse
+    // Validate shared secret for authentication
+    const authSecret = req.headers.get('x-meta-capi-secret');
+    if (!META_CAPI_SECRET) {
+      console.error('Meta CAPI - META_CAPI_SECRET não configurado');
+      return new Response(
+        JSON.stringify({ error: 'Configuração de segurança incompleta' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    if (!authSecret || authSecret !== META_CAPI_SECRET) {
+      console.warn('Meta CAPI - Autenticação inválida ou ausente');
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized - Invalid or missing authentication' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Origin validation as secondary check
     const origin = req.headers.get('origin') || '';
     const referer = req.headers.get('referer') || '';
     
     const originAllowed = isAllowedOrigin(origin) || isAllowedOrigin(referer);
     
-    // In production, enforce origin check (allow empty origin for server-to-server calls)
+    // Log origin for monitoring (but secret validation is primary auth)
     if (origin && !originAllowed) {
-      console.warn('Meta CAPI - Origin não permitido:', origin);
-      return new Response(
-        JSON.stringify({ error: 'Forbidden - Origin not allowed' }),
-        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      console.warn('Meta CAPI - Origin não na allowlist, mas secret válido:', origin);
     }
 
     // Validação de configuração
