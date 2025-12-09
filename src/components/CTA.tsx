@@ -4,20 +4,21 @@ import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
 const benefits = ["8 módulos completos de treino e nutrição", "Técnicas avançadas de hipertrofia", "Guia de nutrição estratégica", "Mentalidade e disciplina", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia de 7 dias"];
-
 const CTA = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     // 1. Base URL do checkout da Hotmart
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    
+
     // 2. Construir URL completa com todos os parâmetros de rastreamento
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    
+
     // 3. Log detalhado ANTES do redirecionamento
     console.log('✅ ===== CHECKOUT INICIADO (CTA) =====');
     console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
@@ -32,13 +33,13 @@ const CTA = () => {
       fbclid: localStorage.getItem('fbclid'),
       gclid: localStorage.getItem('gclid'),
       ttclid: localStorage.getItem('ttclid'),
-      msclkid: localStorage.getItem('msclkid'),
+      msclkid: localStorage.getItem('msclkid')
     });
     console.log('========================================');
-    
+
     // 4. Disparar evento de InitiateCheckout
     trackInitiateCheckout(97, 'BRL');
-    
+
     // 5. Abrir checkout em nova aba
     window.open(checkoutUrl, "_blank");
   };
@@ -84,9 +85,7 @@ const CTA = () => {
                       R$ 19,90
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    (Pagamento único — sem parcelamento)
-                  </p>
+                  
                   <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                     Acesso imediato. Conteúdo vitalício. Atualizações gratuitas.
                   </p>
