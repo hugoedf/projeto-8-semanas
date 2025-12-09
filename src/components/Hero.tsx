@@ -61,7 +61,7 @@ const Hero = () => {
             </h1>
             
             <h2 className="sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 font-normal order-3 font-sans md:text-base text-sm">
-              O protocolo de 8 semanas baseado em Fisiologia Progressiva para romper o platô e construir um físico denso, forte e resistente.
+              O protocolo de 8 semanas baseado em Fisiologia Progressiva para romper o platô e construir um físico denso, forte e resistente — sem treinar no achismo.
             </h2>
             
             {/* Image - Only visible on mobile */}

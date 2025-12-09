@@ -15,12 +15,9 @@ const Problems = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 sm:mb-12 animate-fade-in">
           <h2 className="font-display text-2xl sm:text-3xl md:text-5xl mb-3 sm:mb-4 px-2">
-            Você treina, mas algo ainda{" "}
-            <span className="text-accent">parece faltar:</span>
+            Você treina… mas sente que algo ainda{" "}
+            <span className="text-accent">não encaixa?</span>
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Se você se identificou com pelo menos UM desses pontos…
-          </p>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
@@ -44,7 +41,7 @@ const Problems = () => {
         
         <div className="text-center mt-8 sm:mt-12 px-4">
           <p className="text-base sm:text-lg font-semibold text-foreground">
-            O Método 8X foi <span className="text-accent">criado para você.</span>
+            Se você se identificou com pelo menos UM desses pontos… <span className="text-accent">o Método 8X foi feito para você.</span>
           </p>
         </div>
       </div>

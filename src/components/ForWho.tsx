@@ -21,7 +21,7 @@ const ForWho = () => {
             <span className="text-gradient">Método 8x</span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Para iniciantes, intermediários e avançados que querem hipertrofia real, sem achismo e sem perder tempo.
+            Para iniciantes, intermediários e avançados que querem hipertrofia real, baseada em ciência — sem achismo e sem perder tempo.
           </p>
         </div>
         

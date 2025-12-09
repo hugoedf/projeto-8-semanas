@@ -20,26 +20,20 @@ const Guarantee = () => {
                 </h2>
                 
                 <p className="text-primary-foreground/80 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
-                  7 dias de garantia. Sem risco, sem complicação.
+                  Teste, aplique e sinta. Se não gostar, devolvemos 100% do valor.
                 </p>
                 
                 <div className="space-y-2 sm:space-y-3">
                   <div className="flex items-start gap-2 sm:gap-3">
                     <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0 mt-0.5" />
                     <p className="text-primary-foreground/80 text-xs sm:text-sm text-left">
-                      Satisfação total ou seu dinheiro de volta
+                      Sem risco
                     </p>
                   </div>
                   <div className="flex items-start gap-2 sm:gap-3">
                     <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0 mt-0.5" />
                     <p className="text-primary-foreground/80 text-xs sm:text-sm text-left">
-                      Sem complicação, sem burocracia
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2 sm:gap-3">
-                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0 mt-0.5" />
-                    <p className="text-primary-foreground/80 text-xs sm:text-sm text-left">
-                      Risco zero para você
+                      Sem complicação
                     </p>
                   </div>
                 </div>
