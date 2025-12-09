@@ -21,38 +21,38 @@ const testimonials = [{
   rating: 5
 }];
 const Testimonials = () => {
-  return <section className="py-12 sm:py-20 bg-muted">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-12 animate-fade-in">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-5xl mb-3 sm:mb-4 px-2">
+  return <section className="py-16 sm:py-24 bg-muted">
+      <div className="container mx-auto px-5 sm:px-6">
+        <div className="text-center mb-12 sm:mb-14 animate-fade-in">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
             Quem já aplicou o Método 8X está{" "}
             <span className="text-gradient">transformando o físico — e a mente.</span>
           </h2>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">
-          {testimonials.map((testimonial, index) => <div key={index} className="bg-card border border-border rounded-xl p-5 sm:p-6 hover-lift animate-fade-in" style={{
-          animationDelay: `${index * 0.1}s`
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-7xl mx-auto">
+          {testimonials.map((testimonial, index) => <div key={index} className="bg-card border border-border/80 rounded-2xl p-6 sm:p-7 hover-lift animate-fade-in shadow-sm hover:shadow-lg transition-all duration-300" style={{
+          animationDelay: `${index * 0.08}s`
         }}>
-              <div className="flex gap-1 mb-3 sm:mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-accent text-accent" />)}
+              <div className="flex gap-1 mb-4">
+                {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-accent text-accent drop-shadow-sm" />)}
               </div>
               
-              <p className="text-foreground mb-3 sm:mb-4 leading-relaxed text-sm italic">
+              <p className="text-foreground mb-5 leading-relaxed text-sm italic">
                 "{testimonial.text}"
               </p>
               
-              <div className="pt-3 sm:pt-4 border-t border-border">
+              <div className="pt-4 border-t border-border/60">
                 <p className="font-semibold text-foreground text-sm sm:text-base">{testimonial.name}</p>
                 <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.age}</p>
               </div>
             </div>)}
         </div>
         
-        <div className="mt-8 sm:mt-12 text-center px-4">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-4 bg-card border border-border rounded-2xl sm:rounded-full px-4 sm:px-6 py-3 w-full sm:w-auto max-w-sm sm:max-w-none">
+        <div className="mt-12 sm:mt-14 text-center px-4">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-5 bg-card border border-border/80 rounded-2xl sm:rounded-full px-6 sm:px-8 py-4 sm:py-3 w-full sm:w-auto max-w-sm sm:max-w-none shadow-md">
             <div className="flex -space-x-2">
-              {[...Array(5)].map((_, i) => <div key={i} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-accent/20 border-2 border-card flex items-center justify-center">
+              {[...Array(5)].map((_, i) => <div key={i} className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent/20 border-2 border-card flex items-center justify-center shadow-sm">
                   <span className="text-xs font-bold text-accent">★</span>
                 </div>)}
             </div>

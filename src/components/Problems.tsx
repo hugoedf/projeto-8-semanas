@@ -11,30 +11,30 @@ const problems = [
 
 const Problems = () => {
   return (
-    <section className="py-12 sm:py-20 bg-muted">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-12 animate-fade-in">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-5xl mb-3 sm:mb-4 px-2">
+    <section className="py-16 sm:py-24 bg-muted">
+      <div className="container mx-auto px-5 sm:px-6">
+        <div className="text-center mb-12 sm:mb-14 animate-fade-in">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
             Você treina… mas sente que algo{" "}
             <span className="text-accent">não está encaixando?</span>
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
             Se pelo menos UM desses pontos parece familiar, você está a um passo de destravar sua evolução:
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-5xl mx-auto">
           {problems.map((problem, index) => (
             <div
               key={index}
-              className="bg-card border border-border rounded-xl p-4 sm:p-6 hover-lift animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="bg-card border border-border/80 rounded-2xl p-5 sm:p-6 hover-lift animate-fade-in shadow-sm hover:shadow-md transition-all duration-300"
+              style={{ animationDelay: `${index * 0.08}s` }}
             >
-              <div className="flex items-start gap-3 sm:gap-4">
-                <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-destructive/10 flex items-center justify-center">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-destructive/10 flex items-center justify-center shadow-inner">
                   <X className="w-4 h-4 sm:w-5 sm:h-5 text-destructive" />
                 </div>
-                <p className="text-sm sm:text-base text-foreground font-medium leading-relaxed">
+                <p className="text-sm sm:text-base text-foreground font-medium leading-relaxed pt-2">
                   {problem}
                 </p>
               </div>
@@ -42,8 +42,8 @@ const Problems = () => {
           ))}
         </div>
         
-        <div className="text-center mt-8 sm:mt-12 px-4">
-          <p className="text-base sm:text-lg text-muted-foreground mb-2">
+        <div className="text-center mt-12 sm:mt-14 px-4">
+          <p className="text-base sm:text-lg text-muted-foreground mb-3">
             👉 Nada disso é culpa sua.
           </p>
           <p className="text-base sm:text-lg font-semibold text-foreground">
