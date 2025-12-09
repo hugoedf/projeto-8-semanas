@@ -62,10 +62,10 @@ const CTA = () => {
               <div className="bg-card border border-border rounded-2xl p-5 sm:p-8 shadow-xl">
                 <div className="mb-5 sm:mb-6">
                   <span className="text-accent font-bold text-xs sm:text-sm uppercase tracking-wider">
-                    Oferta Especial
+                    OFERTA ESPECIAL — ACESSO COMPLETO AO MÉTODO 8X
                   </span>
                   <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mt-2 mb-3 sm:mb-4">
-                    Tudo o que você precisa para transformar seu corpo
+                    Tudo o que você precisa para transformar seu corpo com estratégia e ciência:
                   </h2>
                 </div>
                 
@@ -79,13 +79,15 @@ const CTA = () => {
                 <div className="border-t border-border pt-5 sm:pt-6 mb-5 sm:mb-6">
                   <div className="flex items-baseline gap-2 mb-2">
                     <span className="text-muted-foreground line-through text-xl sm:text-2xl">
-                      R$ 97,00
+                      DE R$ 97,00
                     </span>
                     <span className="text-accent font-display text-4xl sm:text-5xl font-bold">
-                      R$ 19,90
+                      POR APENAS R$ 19,90
                     </span>
                   </div>
-                  
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                    (Pagamento único — acesso para sempre)
+                  </p>
                   <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                     Acesso imediato. Conteúdo vitalício. Atualizações gratuitas.
                   </p>
