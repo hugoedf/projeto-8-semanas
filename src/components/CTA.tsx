@@ -105,11 +105,11 @@ const CTA = () => {
         
         <div className="mt-12 sm:mt-16 text-center max-w-3xl mx-auto px-4">
           <p className="text-xl sm:text-2xl font-display text-foreground mb-3 sm:mb-4">
-            Daqui 8 semanas você vai olhar no espelho e{" "}
+            Daqui 8 semanas, você vai olhar no espelho e{" "}
             <span className="text-accent">agradecer por ter começado hoje.</span>
           </p>
           <p className="text-base sm:text-lg text-muted-foreground">
-            Não deixe para depois. Seu corpo merece essa transformação. 💪
+            Não deixe para depois. Seu corpo merece essa transformação.
           </p>
         </div>
       </div>
