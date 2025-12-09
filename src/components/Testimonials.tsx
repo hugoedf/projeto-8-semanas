@@ -1,23 +1,23 @@
 import { Star } from "lucide-react";
 const testimonials = [{
-  name: "Carlos Eduardo",
-  age: "28 anos",
-  text: "Em 4 semanas já vi diferença no meu peitoral e braços. Os treinos são desafiadores mas totalmente possíveis de fazer.",
+  name: "Carlos",
+  age: "",
+  text: "4 semanas e já vi diferença real.",
   rating: 5
 }, {
-  name: "Mariana Silva",
-  age: "32 anos",
-  text: "Nunca tinha treinado com tanta clareza. O ebook é objetivo e me ensinou a montar meus próprios treinos.",
+  name: "Mariana",
+  age: "",
+  text: "Treinos finalmente fizeram sentido para mim.",
   rating: 5
 }, {
-  name: "Rafael Santos",
-  age: "25 anos",
-  text: "Simples, direto e eficiente. Finalmente entendi o que fazer na academia para crescer de verdade.",
+  name: "Rafael",
+  age: "",
+  text: "Simples e direto ao ponto.",
   rating: 5
 }, {
-  name: "Juliana Costa",
-  age: "29 anos",
-  text: "A parte de nutrição foi um diferencial. Aprendi a comer para crescer sem complicação.",
+  name: "Juliana",
+  age: "",
+  text: "A parte da nutrição mudou meu jogo.",
   rating: 5
 }];
 const Testimonials = () => {

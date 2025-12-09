@@ -2,23 +2,23 @@ import { UserCheck, Clock, TrendingDown, Dumbbell, Target } from "lucide-react";
 const audience = [{
   icon: UserCheck,
   title: "Iniciantes",
-  description: "Começando do zero e quer fazer certo desde o início"
+  description: "Que querem hipertrofia real"
 }, {
   icon: Clock,
-  title: "Pessoas sem tempo",
-  description: "Treinos eficientes que cabem na sua rotina"
+  title: "Intermediários",
+  description: "Sem achismo e sem perder tempo"
 }, {
   icon: TrendingDown,
-  title: "Quem está estagnado",
-  description: "Treina há meses mas não vê mais resultados"
+  title: "Avançados",
+  description: "Que buscam romper platôs"
 }, {
   icon: Dumbbell,
-  title: "Praticantes avançados",
-  description: "Quer técnicas avançadas para romper platôs"
+  title: "Praticantes",
+  description: "Que querem resultados de verdade"
 }, {
   icon: Target,
   title: "Foco em hipertrofia",
-  description: "Deseja construir massa muscular de verdade"
+  description: "Deseja construir massa muscular real"
 }];
 const ForWho = () => {
   return <section className="py-12 sm:py-20 bg-background">
@@ -29,7 +29,7 @@ const ForWho = () => {
             <span className="text-gradient">Método 8x</span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Este ebook foi criado para pessoas como você, que querem resultados reais
+            Para iniciantes, intermediários e avançados que querem hipertrofia real
           </p>
         </div>
         
