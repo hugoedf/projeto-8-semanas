@@ -3,11 +3,12 @@ import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
 
 // Hotmart webhook handler for Vercel
-const HOTMART_SECRET = 'zpP4f2qiVofDP8ScATDjW5l1GRrXzg24100806';
+// Secret is loaded from Vercel environment variables (never hardcode)
+const HOTMART_SECRET = process.env.HOTMART_SECRET_KEY || '';
 
 // Initialize Supabase client
-const supabaseUrl = process.env.VITE_SUPABASE_URL || '';
-const supabaseKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || '';
+const supabaseUrl = 'https://kfddlytvdzqwopongnew.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmZGRseXR2ZHpxd29wb25nbmV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxMzczOTQsImV4cCI6MjA3OTcxMzM5NH0.4MRUaM-Pip7Bs_smO-NODMkc9OJnZsOXs9B4q2xv5zI';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Hash function for Meta CAPI
