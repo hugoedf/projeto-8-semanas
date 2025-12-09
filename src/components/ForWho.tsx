@@ -1,24 +1,16 @@
-import { UserCheck, Clock, TrendingDown, Dumbbell, Target } from "lucide-react";
+import { UserCheck, TrendingUp, Dumbbell } from "lucide-react";
 const audience = [{
   icon: UserCheck,
   title: "Iniciantes",
-  description: "Começando do zero e quer fazer certo desde o início"
+  description: "Quer fazer certo desde o início"
 }, {
-  icon: Clock,
-  title: "Pessoas sem tempo",
-  description: "Treinos eficientes que cabem na sua rotina"
-}, {
-  icon: TrendingDown,
-  title: "Quem está estagnado",
-  description: "Treina há meses mas não vê mais resultados"
+  icon: TrendingUp,
+  title: "Intermediários",
+  description: "Busca estratégia para romper o platô"
 }, {
   icon: Dumbbell,
-  title: "Praticantes avançados",
-  description: "Quer técnicas avançadas para romper platôs"
-}, {
-  icon: Target,
-  title: "Foco em hipertrofia",
-  description: "Deseja construir massa muscular de verdade"
+  title: "Avançados",
+  description: "Quer hipertrofia real, sem achismo"
 }];
 const ForWho = () => {
   return <section className="py-12 sm:py-20 bg-background">
@@ -29,11 +21,11 @@ const ForWho = () => {
             <span className="text-gradient">Método 8x</span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Este ebook foi criado para pessoas como você, que querem resultados reais
+            Para iniciantes, intermediários e avançados que querem hipertrofia real, sem achismo e sem perder tempo.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
           {audience.map((item, index) => {
           const Icon = item.icon;
           return <div key={index} className="bg-card border border-border rounded-xl p-5 sm:p-6 hover-lift animate-fade-in text-center" style={{

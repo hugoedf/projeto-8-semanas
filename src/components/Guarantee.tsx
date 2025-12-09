@@ -20,8 +20,7 @@ const Guarantee = () => {
                 </h2>
                 
                 <p className="text-primary-foreground/80 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
-                  Experimente o ebook por 7 dias. Se não estiver satisfeito, 
-                  devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia.
+                  7 dias de garantia. Sem risco, sem complicação.
                 </p>
                 
                 <div className="space-y-2 sm:space-y-3">

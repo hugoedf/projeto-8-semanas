@@ -3,8 +3,8 @@ import { Check, Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calenda
 const benefits = [
   {
     icon: Dumbbell,
-    title: "Treino de Hipertrofia Inteligente",
-    description: "Aprenda a construir treinos que realmente geram resultados"
+    title: "Treino Inteligente",
+    description: "Treinos estratégicos que realmente geram resultados"
   },
   {
     icon: Target,
@@ -14,32 +14,32 @@ const benefits = [
   {
     icon: TrendingUp,
     title: "Técnicas Avançadas",
-    description: "Drop-set, rest-pause, superseries e muito mais"
+    description: "Drop-set, rest-pause e intensificação"
   },
   {
     icon: Apple,
-    title: "Nutrição para Crescer",
-    description: "Como comer para ganhar massa muscular de verdade"
+    title: "Nutrição Prática",
+    description: "Como comer para crescer de verdade"
   },
   {
     icon: Shield,
-    title: "Previna Lesões",
-    description: "Técnicas corretas e aquecimento adequado"
+    title: "Prevenção de Lesões",
+    description: "Técnicas corretas para treinar com segurança"
   },
   {
     icon: Zap,
-    title: "Medir Evolução",
+    title: "Acompanhamento Real",
     description: "Acompanhe seu progresso semana a semana"
   },
   {
     icon: Brain,
-    title: "Mentalidade Vencedora",
-    description: "Desenvolva disciplina e constância"
+    title: "Mentalidade de Disciplina",
+    description: "Desenvolva constância e foco"
   },
   {
     icon: Calendar,
-    title: "Planejamento 8 Semanas",
-    description: "Programa completo do dia 1 ao dia 56"
+    title: "Plano de 8 Semanas",
+    description: "Do dia 1 ao dia 56 completo"
   },
 ];
 
