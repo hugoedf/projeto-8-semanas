@@ -6,14 +6,24 @@ const META_ACCESS_TOKEN = Deno.env.get('META_ACCESS_TOKEN');
 const META_PIXEL_ID = Deno.env.get('META_PIXEL_ID');
 const META_TEST_EVENT_CODE = Deno.env.get('META_TEST_EVENT_CODE');
 
-// Allowed origins for CORS validation
-const ALLOWED_ORIGINS = [
-  'https://kfddlytvdzqwopongnew.lovable.app',
-  'https://lovable.dev',
-  'https://preview-kfddlytvdzqwopongnew.lovable.app',
-  'http://localhost:5173',
-  'http://localhost:3000',
-];
+// Allowed origin patterns for CORS validation
+const isAllowedOrigin = (origin: string | null): boolean => {
+  if (!origin) return false;
+  
+  // Allow all Lovable preview and project domains
+  if (origin.includes('.lovable.app') || origin.includes('.lovableproject.com')) {
+    return true;
+  }
+  
+  // Allow specific domains
+  const allowedExact = [
+    'https://lovable.dev',
+    'http://localhost:5173',
+    'http://localhost:3000',
+  ];
+  
+  return allowedExact.includes(origin);
+};
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -205,12 +215,10 @@ serve(async (req) => {
     const origin = req.headers.get('origin') || '';
     const referer = req.headers.get('referer') || '';
     
-    const isAllowedOrigin = ALLOWED_ORIGINS.some(allowed => 
-      origin.startsWith(allowed) || referer.startsWith(allowed)
-    );
+    const originAllowed = isAllowedOrigin(origin) || isAllowedOrigin(referer);
     
     // In production, enforce origin check (allow empty origin for server-to-server calls)
-    if (origin && !isAllowedOrigin) {
+    if (origin && !originAllowed) {
       console.warn('Meta CAPI - Origin não permitido:', origin);
       return new Response(
         JSON.stringify({ error: 'Forbidden - Origin not allowed' }),
