@@ -7,10 +7,15 @@ import { z } from 'zod';
 // Secret is loaded from Vercel environment variables (never hardcode)
 const HOTMART_SECRET = process.env.HOTMART_SECRET_KEY || '';
 
-// Initialize Supabase client
-const supabaseUrl = 'https://kfddlytvdzqwopongnew.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmZGRseXR2ZHpxd29wb25nbmV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxMzczOTQsImV4cCI6MjA3OTcxMzM5NH0.4MRUaM-Pip7Bs_smO-NODMkc9OJnZsOXs9B4q2xv5zI';
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Initialize Supabase client using environment variables
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error('❌ Supabase credentials not configured in environment variables');
+}
+
+const supabase = createClient(supabaseUrl || '', supabaseKey || '');
 
 // Hotmart webhook payload schema for validation
 const hotmartPriceSchema = z.object({
