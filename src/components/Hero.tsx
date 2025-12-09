@@ -4,15 +4,16 @@ import heroImage from "@/assets/hero-ebook-mockup.png";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-
     console.log('✅ ===== CHECKOUT INICIADO (HERO) =====');
     console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
     console.log('📊 Dados do visitante:', visitorData);
@@ -29,13 +30,10 @@ const Hero = () => {
       msclkid: localStorage.getItem('msclkid')
     });
     console.log('========================================');
-
     trackInitiateCheckout(97, 'BRL');
     window.open(checkoutUrl, "_blank");
   };
-
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
       {/* Premium Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(15,100%,59%,0.08),transparent_60%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,hsla(20,80%,40%,0.06),transparent_40%)]" />
@@ -54,7 +52,7 @@ const Hero = () => {
             {/* Main Headline */}
             <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] text-foreground order-2 tracking-tight">
               A CIÊNCIA QUE TRANSFORMA ESTÍMULOS EM{" "}
-              <span className="text-accent">HIPERTROFIA REAL.</span>
+              <span className="text-accent">HIPERTROFIA REAL</span>
             </h1>
             
             {/* Subheadline */}
@@ -63,24 +61,17 @@ const Hero = () => {
             </h2>
             
             {/* Image - Mobile Only */}
-            <div className="relative animate-fade-in w-full max-w-[320px] mx-auto lg:hidden order-4 my-8" style={{ animationDelay: "0.2s" }}>
+            <div className="relative animate-fade-in w-full max-w-[320px] mx-auto lg:hidden order-4 my-8" style={{
+            animationDelay: "0.2s"
+          }}>
               <div className="absolute inset-0 bg-accent/15 rounded-3xl blur-[60px]" />
-              <img 
-                alt="Mockup do Ebook Projeto 8 Semanas" 
-                className="relative z-10 w-full h-auto rounded-2xl shadow-2xl animate-float" 
-                src="/lovable-uploads/27a81dc2-1bf2-4070-99d4-1676e2b14ea3.png" 
-              />
+              <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl animate-float" src="/lovable-uploads/27a81dc2-1bf2-4070-99d4-1676e2b14ea3.png" />
             </div>
             
             {/* CTA Section */}
             <div className="space-y-5 order-5">
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2 w-full">
-                <Button 
-                  variant="cta" 
-                  size="lg" 
-                  onClick={handleCTAClick} 
-                  className="text-sm sm:text-base md:text-lg px-8 sm:px-10 py-5 sm:py-7 animate-pulse-glow w-full sm:w-auto font-bold shadow-lg"
-                >
+                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base md:text-lg px-8 sm:px-10 py-5 sm:py-7 animate-pulse-glow w-full sm:w-auto font-bold shadow-lg">
                   QUERO O MÉTODO 8X AGORA 
                   <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
@@ -105,13 +96,11 @@ const Hero = () => {
           </div>
           
           {/* Image - Desktop Only */}
-          <div className="hidden lg:block relative animate-fade-in w-full max-w-lg mx-auto lg:max-w-none" style={{ animationDelay: "0.2s" }}>
+          <div className="hidden lg:block relative animate-fade-in w-full max-w-lg mx-auto lg:max-w-none" style={{
+          animationDelay: "0.2s"
+        }}>
             <div className="absolute inset-0 bg-accent/15 rounded-3xl blur-[80px]" />
-            <img 
-              alt="Mockup do Ebook Projeto 8 Semanas" 
-              className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift animate-float" 
-              src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
-            />
+            <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift animate-float" src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" />
           </div>
         </div>
       </div>
@@ -122,8 +111,6 @@ const Hero = () => {
           <div className="w-1.5 h-3 bg-accent rounded-full" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
