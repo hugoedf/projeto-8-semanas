@@ -1,6 +1,7 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.85.0';
+import { z } from 'https://esm.sh/zod@3.25.76';
 
 const HOTMART_SECRET_KEY = Deno.env.get('HOTMART_SECRET_KEY');
 const META_ACCESS_TOKEN = Deno.env.get('META_ACCESS_TOKEN');
@@ -12,6 +13,43 @@ const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-hotmart-hottok',
 };
+
+// Hotmart webhook payload schema for validation
+const hotmartPriceSchema = z.object({
+  value: z.number().optional(),
+  currency_code: z.string().max(10).optional(),
+}).optional();
+
+const hotmartAddressSchema = z.object({
+  city: z.string().max(200).optional(),
+  state: z.string().max(100).optional(),
+  country: z.string().max(100).optional(),
+  zip_code: z.string().max(20).optional(),
+}).optional();
+
+const hotmartBuyerSchema = z.object({
+  email: z.string().email().max(255).optional(),
+  name: z.string().max(200).optional(),
+  phone: z.string().max(50).optional(),
+  address: hotmartAddressSchema,
+}).optional();
+
+const hotmartPurchaseSchema = z.object({
+  transaction: z.string().max(100).optional(),
+  tracking_id: z.string().max(100).optional(),
+  price: hotmartPriceSchema,
+  product: z.object({
+    name: z.string().max(500).optional(),
+  }).optional(),
+}).optional();
+
+const hotmartWebhookSchema = z.object({
+  event: z.string().max(100),
+  data: z.object({
+    buyer: hotmartBuyerSchema,
+    purchase: hotmartPurchaseSchema,
+  }).optional(),
+});
 
 /**
  * Valida a assinatura HMAC da Hotmart
@@ -124,13 +162,26 @@ serve(async (req) => {
       }
     }
 
-    console.log('Evento Hotmart:', {
-      event: body.event,
-      transaction_id: body.data?.purchase?.transaction,
+    // Validate incoming payload with zod schema
+    const parseResult = hotmartWebhookSchema.safeParse(body);
+    
+    if (!parseResult.success) {
+      console.error('Validação do payload falhou:', parseResult.error.format());
+      return new Response(
+        JSON.stringify({ error: 'Payload inválido', details: parseResult.error.format() }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const validatedBody = parseResult.data;
+
+    console.log('Evento Hotmart validado:', {
+      event: validatedBody.event,
+      transaction_id: validatedBody.data?.purchase?.transaction,
     });
 
     // Processar apenas eventos de compra
-    if (body.event !== 'PURCHASE_COMPLETE') {
+    if (validatedBody.event !== 'PURCHASE_COMPLETE') {
       console.log('Evento ignorado - não é PURCHASE_COMPLETE');
       return new Response(
         JSON.stringify({ message: 'Evento não processado' }),
@@ -139,7 +190,7 @@ serve(async (req) => {
     }
 
     // Extrair tracking_id (visitorId)
-    const trackingId = body.data?.purchase?.tracking_id || 'not_provided';
+    const trackingId = validatedBody.data?.purchase?.tracking_id || 'not_provided';
     console.log('Tracking ID:', trackingId);
 
     // Buscar dados do visitante no banco de dados
@@ -158,9 +209,9 @@ serve(async (req) => {
       console.log('Dados do visitante recuperados:', visitorData);
     }
 
-    // Extrair dados da compra
-    const purchase = body.data?.purchase;
-    const buyer = body.data?.buyer;
+    // Extrair dados da compra (using validated data)
+    const purchase = validatedBody.data?.purchase;
+    const buyer = validatedBody.data?.buyer;
 
     // Montar dados do evento Purchase para Meta CAPI
     const eventTime = Math.floor(Date.now() / 1000);
