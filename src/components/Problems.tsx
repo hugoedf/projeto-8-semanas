@@ -1,12 +1,12 @@
 import { X } from "lucide-react";
 
 const problems = [
-  "Treinos aleatórios",
-  "Falta de estratégia semanal",
-  "Dúvidas sobre execução",
-  "Falta de constância",
-  "Dificuldade para saber se está evoluindo",
-  "Acreditar que suplemento resolve tudo",
+  "Falta de estratégia nos treinos",
+  "Dieta inconsistente e sem planejamento",
+  "Falta de constância e disciplina",
+  "Não sabe se está evoluindo",
+  "Treinos aleatórios sem progressão",
+  "Acredita que suplementos resolvem tudo",
 ];
 
 const Problems = () => {
@@ -15,11 +15,11 @@ const Problems = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 sm:mb-12 animate-fade-in">
           <h2 className="font-display text-2xl sm:text-3xl md:text-5xl mb-3 sm:mb-4 px-2">
-            Você treina, mas algo ainda parece{" "}
-            <span className="text-accent">faltar:</span>
+            Você se identifica com algum desses{" "}
+            <span className="text-accent">problemas?</span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Se você se identificou com pelo menos UM desses pontos… O Método 8X foi criado para você.
+            Se você respondeu SIM para pelo menos um, este ebook foi feito para você.
           </p>
         </div>
         
@@ -44,7 +44,7 @@ const Problems = () => {
         
         <div className="text-center mt-8 sm:mt-12 px-4">
           <p className="text-base sm:text-lg font-semibold text-foreground">
-            Se você se identificou... <span className="text-accent">O Método 8X foi criado para você.</span>
+            É hora de <span className="text-accent">mudar isso de vez.</span>
           </p>
         </div>
       </div>

@@ -2,35 +2,35 @@ import { BookOpen } from "lucide-react";
 const modules = [{
   number: "01",
   title: "Fundamentos da Hipertrofia",
-  description: "Ciência aplicada ao ganho de massa."
+  description: "Entenda a ciência por trás do ganho de massa muscular e os princípios que regem o crescimento."
 }, {
   number: "02",
   title: "Avaliação e Objetivos",
-  description: "Entenda seu nível e metas reais."
+  description: "Como avaliar seu estado atual e estabelecer metas realistas e alcançáveis."
 }, {
   number: "03",
-  title: "Treinos 8 Semanas",
-  description: "Estratégia progressiva para evolução constante."
+  title: "Treinos Estruturados 8 Semanas",
+  description: "Programação completa de treinos progressivos adaptados ao seu nível."
 }, {
   number: "04",
-  title: "Nutrição Estratégica",
-  description: "Como comer para crescer de verdade."
+  title: "Nutrição Estratégica para Hipertrofia",
+  description: "Aprenda a calcular e estruturar sua dieta para maximizar ganhos."
 }, {
   number: "05",
-  title: "Sono e Recuperação",
-  description: "Os pilares ignorados que aceleram resultados."
+  title: "Sono, Recuperação e Performance",
+  description: "Os pilares esquecidos que fazem toda diferença nos resultados."
 }, {
   number: "06",
-  title: "Técnicas Avançadas",
-  description: "Drop-set, rest-pause e intensificação."
+  title: "Técnicas Avançadas e Intensificação",
+  description: "Drop-set, rest-pause, negativas e outras técnicas para romper platôs."
 }, {
   number: "07",
-  title: "Mentalidade",
-  description: "Constância, foco e disciplina."
+  title: "Mentalidade e Disciplina",
+  description: "Como desenvolver a consistência necessária para transformar seu corpo."
 }, {
   number: "08",
-  title: "Acompanhamento",
-  description: "Como medir e ajustar para evoluir sempre."
+  title: "Acompanhamento e Ajustes",
+  description: "Como monitorar progresso e fazer ajustes inteligentes no caminho."
 }];
 const Modules = () => {
   return <section className="py-12 sm:py-20 gradient-hero">

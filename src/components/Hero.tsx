@@ -54,12 +54,12 @@ const Hero = () => {
             </div>
             
             <h1 className="font-display text-xl sm:text-4xl md:text-6xl leading-tight text-slate-50 break-words order-2 lg:text-4xl">
-              MÉTODO 8X: A CIÊNCIA QUE TRANSFORMA TREINOS EM{" "}
-              <span className="text-accent">RESULTADOS</span>
+              PARE DE TREINAR ERRADO: O GUIA DE 8{" "}
+              <span className="text-accent">SEMANAS PARA RESULTADOS REAIS</span>
             </h1>
             
             <h2 className="sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 font-normal order-3 font-sans md:text-base text-sm">
-              O protocolo de 8 semanas baseado em Fisiologia Progressiva para romper o platô e construir um físico denso, forte e resistente.
+              Aplique a ciência da hipertrofia para quebrar o platô e construir um físico denso e resistente, sem perder tempo com treinos ineficazes
             </h2>
             
             {/* Image - Only visible on mobile */}
