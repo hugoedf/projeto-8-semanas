@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return <footer className="py-8 sm:py-12 gradient-hero">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center text-white">
           <div className="mb-6 sm:mb-8">
             <h3 className="font-display text-xl sm:text-2xl text-primary-foreground mb-2">
               Método 8x 
