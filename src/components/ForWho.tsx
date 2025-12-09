@@ -2,15 +2,15 @@ import { UserCheck, TrendingUp, Dumbbell } from "lucide-react";
 const audience = [{
   icon: UserCheck,
   title: "Iniciantes",
-  description: "Quer fazer certo desde o início"
+  description: "Querem fazer certo desde o primeiro dia"
 }, {
   icon: TrendingUp,
   title: "Intermediários",
-  description: "Busca estratégia para romper o platô"
+  description: "Estagnaram e querem romper o platô"
 }, {
   icon: Dumbbell,
   title: "Avançados",
-  description: "Quer hipertrofia real, sem achismo"
+  description: "Querem treinar com estratégia real"
 }];
 const ForWho = () => {
   return <section className="py-12 sm:py-20 bg-background">
@@ -21,7 +21,7 @@ const ForWho = () => {
             <span className="text-gradient">Método 8x</span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-            Para iniciantes, intermediários e avançados que querem hipertrofia real, baseada em ciência — sem achismo e sem perder tempo.
+            Pessoas que desejam hipertrofia baseada em ciência e querem treinar com clareza e propósito.
           </p>
         </div>
         
@@ -47,10 +47,10 @@ const ForWho = () => {
         <div className="mt-8 sm:mt-12 text-center max-w-3xl mx-auto px-4">
           <div className="bg-accent/10 border border-accent/30 rounded-xl p-5 sm:p-8">
             <p className="text-base sm:text-lg font-semibold text-foreground mb-2">
-              Se você se identificou com pelo menos um perfil acima...
+              Se você se identificou com pelo menos um desses perfis…
             </p>
             <p className="text-accent text-lg sm:text-xl font-bold">
-              Este ebook foi feito especialmente para você! 💪
+              👉 O Método 8X foi feito para você.
             </p>
           </div>
         </div>

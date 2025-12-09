@@ -1,23 +1,23 @@
 import { Star } from "lucide-react";
 const testimonials = [{
-  name: "Carlos Eduardo",
-  age: "28 anos",
-  text: "Em 4 semanas já vi diferença no meu peitoral e braços. Os treinos são desafiadores mas totalmente possíveis de fazer.",
+  name: "Carlos",
+  age: "28",
+  text: "Em 4 semanas já vi diferença no peitoral e braços.",
   rating: 5
 }, {
-  name: "Mariana Silva",
-  age: "32 anos",
-  text: "Nunca tinha treinado com tanta clareza. O ebook é objetivo e me ensinou a montar meus próprios treinos.",
+  name: "Mariana",
+  age: "32",
+  text: "Nunca treinei com tanta clareza. O e-book é direto e objetivo.",
   rating: 5
 }, {
-  name: "Rafael Santos",
-  age: "25 anos",
-  text: "Simples, direto e eficiente. Finalmente entendi o que fazer na academia para crescer de verdade.",
+  name: "Rafael",
+  age: "25",
+  text: "Simples e eficiente. Finalmente entendi como treinar de verdade.",
   rating: 5
 }, {
-  name: "Juliana Costa",
-  age: "29 anos",
-  text: "A parte de nutrição foi um diferencial. Aprendi a comer para crescer sem complicação.",
+  name: "Juliana",
+  age: "29",
+  text: "A parte de nutrição foi um divisor de águas pra mim.",
   rating: 5
 }];
 const Testimonials = () => {
@@ -25,10 +25,9 @@ const Testimonials = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 sm:mb-12 animate-fade-in">
           <h2 className="font-display text-2xl sm:text-3xl md:text-5xl mb-3 sm:mb-4 px-2">
-            Quem já seguiu o método{" "}
-            <span className="text-gradient">está transformando</span>
+            Quem já aplicou o Método 8X está{" "}
+            <span className="text-gradient">transformando o físico — e a mente.</span>
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">Veja o que nossos alunos têm a dizer sobre o Metodo 8x</p>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">

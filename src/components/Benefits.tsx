@@ -4,22 +4,22 @@ const benefits = [
   {
     icon: Dumbbell,
     title: "Treino Inteligente",
-    description: "Aprenda como aplicar estímulos corretos para gerar hipertrofia real."
+    description: "Como aplicar estímulos corretos para gerar hipertrofia real."
   },
   {
     icon: Target,
     title: "Montagem Estratégica",
-    description: "Entenda como organizar seus treinos semanais de forma eficiente."
+    description: "Organizar seus treinos semanais para evitar estagnação."
   },
   {
     icon: TrendingUp,
     title: "Técnicas Avançadas",
-    description: "Drop-set, rest-pause, superséries e intensificação de forma segura."
+    description: "Drop-set, rest-pause, superséries e intensificação de forma segura e eficaz."
   },
   {
     icon: Apple,
     title: "Nutrição para Crescer",
-    description: "Comer do jeito certo para maximizar ganho de massa muscular."
+    description: "Comer do jeito certo para maximizar hipertrofia."
   },
   {
     icon: Shield,
@@ -29,17 +29,17 @@ const benefits = [
   {
     icon: Zap,
     title: "Medir Evolução",
-    description: "Acompanhe seu progresso semanal de maneira simples e prática."
+    description: "Acompanhe seu progresso semanal de maneira simples e objetiva."
   },
   {
     icon: Brain,
     title: "Mentalidade Vencedora",
-    description: "Como desenvolver disciplina, foco e consistência."
+    description: "Disciplina, foco e consistência."
   },
   {
     icon: Calendar,
     title: "Planejamento 8 Semanas",
-    description: "Programa completo do dia 1 ao dia 56."
+    description: "Do dia 1 ao dia 56, passo a passo."
   },
 ];
 

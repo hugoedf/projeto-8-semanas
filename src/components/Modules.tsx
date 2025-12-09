@@ -2,23 +2,23 @@ import { BookOpen } from "lucide-react";
 const modules = [{
   number: "01",
   title: "Fundamentos da Hipertrofia",
-  description: "Ciência aplicada ao ganho de massa."
+  description: "A ciência que rege o ganho de massa muscular."
 }, {
   number: "02",
   title: "Avaliação e Objetivos",
-  description: "Entenda seu nível e estabeleça metas realistas."
+  description: "Entenda seu nível, defina metas e determine sua estratégia inicial."
 }, {
   number: "03",
   title: "Treinos Estruturados (8 Semanas)",
-  description: "Estratégia progressiva para evolução semanal."
+  description: "Progressão real para evolução semanal."
 }, {
   number: "04",
   title: "Nutrição Estratégica",
-  description: "Como comer para crescer de verdade."
+  description: "Como comer para crescer sem complicação."
 }, {
   number: "05",
   title: "Sono e Recuperação",
-  description: "Os pilares ignorados que aceleram resultados."
+  description: "A base invisível que constrói seu físico enquanto você dorme."
 }, {
   number: "06",
   title: "Técnicas Avançadas de Intensificação",
@@ -26,11 +26,11 @@ const modules = [{
 }, {
   number: "07",
   title: "Mentalidade e Disciplina",
-  description: "Constância, foco e execução de verdade."
+  description: "Como construir consistência e um foco sólido."
 }, {
   number: "08",
   title: "Acompanhamento e Ajustes",
-  description: "Como medir, corrigir e evoluir sempre."
+  description: "Como medir progresso e corrigir a rota para não estagnar."
 }];
 const Modules = () => {
   return <section className="py-12 sm:py-20 gradient-hero">
@@ -43,10 +43,10 @@ const Modules = () => {
           </div>
           <h2 className="font-display text-2xl sm:text-3xl md:text-5xl mb-3 sm:mb-4 text-primary-foreground px-2">
             Conheça o conteúdo do{" "}
-            <span className="text-accent">Método 8x </span>
+            <span className="text-accent">Método 8X</span>
           </h2>
           <p className="text-base sm:text-lg text-primary-foreground/80 max-w-2xl mx-auto px-4">
-            8 módulos completos que vão te guiar do básico ao avançado
+            8 módulos que te levam do básico ao avançado — com estratégia.
           </p>
         </div>
         

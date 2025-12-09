@@ -52,16 +52,16 @@ const Hero = () => {
           <div className="text-center lg:text-left space-y-5 sm:space-y-8 animate-fade-in px-2 sm:px-0 flex flex-col lg:block">
             <div className="inline-flex items-center gap-2 text-accent font-bold text-xs sm:text-sm uppercase tracking-wider px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-accent/30 bg-accent/10 mb-4 sm:mb-6 order-1 mx-auto lg:mx-0">
               <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span>MÉTODO 8X: A CIÊNCIA QUE TRANSFORMA</span>
+              <span>MÉTODO 8X: FISIOLOGIA PROGRESSIVA</span>
             </div>
             
             <h1 className="font-display text-xl sm:text-4xl md:text-6xl leading-tight text-slate-50 break-words order-2 lg:text-4xl">
-              MÉTODO 8X: A CIÊNCIA QUE TRANSFORMA{" "}
-              <span className="text-accent">TREINOS EM RESULTADOS</span>
+              A ciência que transforma estímulos em{" "}
+              <span className="text-accent">hipertrofia real.</span>
             </h1>
             
             <h2 className="sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 font-normal order-3 font-sans md:text-base text-sm">
-              O protocolo de 8 semanas baseado em Fisiologia Progressiva para romper o platô e construir um físico denso, forte e resistente — sem treinar no achismo.
+              O protocolo de 8 semanas baseado nos ciclos naturais de adaptação muscular, criado para romper o platô e construir um físico denso, forte e resistente — sem treinar no achismo.
             </h2>
             
             {/* Image - Only visible on mobile */}
@@ -93,7 +93,7 @@ const Hero = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  <span>Garantia 7 Dias</span>
+                  <span>Garantia de 7 Dias</span>
                 </div>
               </div>
             </div>
