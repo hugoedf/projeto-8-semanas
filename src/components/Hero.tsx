@@ -56,8 +56,8 @@ const Hero = () => {
             </div>
             
             <h1 className="font-display text-xl sm:text-4xl md:text-6xl leading-tight text-slate-50 break-words order-2 lg:text-4xl">
-              A ciência que transforma estímulos em{" "}
-              <span className="text-accent">hipertrofia real.</span>
+              A CIÊNCIA QUE TRANSFORMA ESTÍMULOS EM{" "}
+              <span className="text-accent">HIPERTROFIA REAL.</span>
             </h1>
             
             <h2 className="sm:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-slate-50 font-normal order-3 font-sans md:text-base text-sm">
