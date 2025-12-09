@@ -4,7 +4,7 @@ import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-const benefits = ["8 módulos completos de treino e nutrição", "Técnicas avançadas de hipertrofia", "Guia de nutrição estratégica", "Mentalidade e disciplina", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia de 7 dias"];
+const benefits = ["Protocolos de treino para 8 semanas", "Técnicas avançadas explicadas passo a passo", "Guia de nutrição para hipertrofia", "Mentalidade e disciplina", "Acesso vitalício", "Atualizações gratuitas", "Garantia de 7 dias"];
 const CTA = () => {
   const {
     trackInitiateCheckout
@@ -65,7 +65,7 @@ const CTA = () => {
                     OFERTA ESPECIAL — ACESSO COMPLETO AO MÉTODO 8X
                   </span>
                   <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mt-2 mb-3 sm:mb-4">
-                    Tudo o que você precisa para transformar seu corpo com estratégia e ciência:
+                    Tudo o que você precisa para transformar seu corpo com ciência e estratégia:
                   </h2>
                 </div>
                 
@@ -113,7 +113,7 @@ const CTA = () => {
             <span className="text-accent">agradecer por ter começado hoje.</span>
           </p>
           <p className="text-base sm:text-lg text-muted-foreground">
-            O Método 8X é seu próximo passo.
+            O Método 8X é o próximo passo.
           </p>
         </div>
       </div>
