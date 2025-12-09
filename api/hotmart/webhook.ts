@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
+import { z } from 'zod';
 
 // Hotmart webhook handler for Vercel
 // Secret is loaded from Vercel environment variables (never hardcode)
@@ -10,6 +11,39 @@ const HOTMART_SECRET = process.env.HOTMART_SECRET_KEY || '';
 const supabaseUrl = 'https://kfddlytvdzqwopongnew.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmZGRseXR2ZHpxd29wb25nbmV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxMzczOTQsImV4cCI6MjA3OTcxMzM5NH0.4MRUaM-Pip7Bs_smO-NODMkc9OJnZsOXs9B4q2xv5zI';
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Hotmart webhook payload schema for validation
+const hotmartPriceSchema = z.object({
+  value: z.number().optional(),
+  currency_code: z.string().max(10).optional(),
+}).optional();
+
+const hotmartBuyerSchema = z.object({
+  email: z.string().email().max(255).optional(),
+  name: z.string().max(200).optional(),
+  tracking_id: z.string().max(100).optional(),
+}).optional();
+
+const hotmartPurchaseSchema = z.object({
+  transaction: z.string().max(100).optional(),
+  price: hotmartPriceSchema,
+  tracking_id: z.string().max(100).optional(),
+}).optional();
+
+const hotmartProductSchema = z.object({
+  id: z.union([z.string(), z.number()]).optional(),
+  name: z.string().max(500).optional(),
+}).optional();
+
+const hotmartWebhookSchema = z.object({
+  event: z.string().max(100),
+  data: z.object({
+    tracking_id: z.string().max(100).optional(),
+    buyer: hotmartBuyerSchema,
+    purchase: hotmartPurchaseSchema,
+    product: hotmartProductSchema,
+  }).optional(),
+});
 
 // Hash function for Meta CAPI
 const hashSHA256 = async (text: string | undefined | null): Promise<string> => {
@@ -142,10 +176,24 @@ export default async function handler(
       console.log('✅ Token válido');
     }
 
-    // Extract purchase data
-    const { data, event } = req.body;
+    // Validate incoming payload with zod schema
+    const parseResult = hotmartWebhookSchema.safeParse(req.body);
     
-    console.log('📦 Dados recebidos:');
+    if (!parseResult.success) {
+      report.webhookStatus = 'validation_failed';
+      report.errors.push(`Payload inválido: ${parseResult.error.message}`);
+      console.error('❌ Validação do payload falhou:', parseResult.error.format());
+      return res.status(400).json({ 
+        error: 'Invalid webhook payload', 
+        details: parseResult.error.format(),
+        report 
+      });
+    }
+
+    // Extract validated purchase data
+    const { data, event } = parseResult.data;
+    
+    console.log('📦 Dados validados:');
     console.log('Event:', event);
     console.log('Purchase Data:', JSON.stringify(data, null, 2));
 

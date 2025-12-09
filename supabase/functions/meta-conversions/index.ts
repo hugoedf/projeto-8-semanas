@@ -1,14 +1,58 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { z } from 'https://esm.sh/zod@3.25.76';
 
 const META_ACCESS_TOKEN = Deno.env.get('META_ACCESS_TOKEN');
 const META_PIXEL_ID = Deno.env.get('META_PIXEL_ID');
 const META_TEST_EVENT_CODE = Deno.env.get('META_TEST_EVENT_CODE');
 
+// Allowed origins for CORS validation
+const ALLOWED_ORIGINS = [
+  'https://kfddlytvdzqwopongnew.lovable.app',
+  'https://lovable.dev',
+  'https://preview-kfddlytvdzqwopongnew.lovable.app',
+  'http://localhost:5173',
+  'http://localhost:3000',
+];
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// Input validation schema for Meta CAPI events
+const metaEventSchema = z.object({
+  eventName: z.string().min(1).max(100),
+  eventParams: z.record(z.any()).optional().default({}),
+  eventId: z.string().min(1).max(200),
+  visitorId: z.string().max(200).optional(),
+  fbp: z.string().max(200).optional(),
+  fbc: z.string().max(200).optional(),
+  eventSourceUrl: z.string().url().max(2000),
+  utmData: z.object({
+    utm_source: z.string().max(100).optional(),
+    utm_medium: z.string().max(100).optional(),
+    utm_campaign: z.string().max(200).optional(),
+    utm_id: z.string().max(100).optional(),
+    utm_content: z.string().max(200).optional(),
+    utm_term: z.string().max(200).optional(),
+    placement: z.string().max(200).optional(),
+  }).optional().default({}),
+  deviceInfo: z.object({
+    userAgent: z.string().max(500).optional(),
+  }).optional().default({}),
+  userData: z.object({
+    email: z.string().email().max(255).optional(),
+    phone: z.string().max(50).optional(),
+    firstName: z.string().max(100).optional(),
+    lastName: z.string().max(100).optional(),
+    city: z.string().max(100).optional(),
+    state: z.string().max(100).optional(),
+    country: z.string().max(100).optional(),
+    zipCode: z.string().max(20).optional(),
+    age: z.union([z.string(), z.number()]).optional(),
+  }).optional().default({}),
+});
 
 /**
  * Gera hash SHA256 para dados pessoais usando Web Crypto API
@@ -157,6 +201,23 @@ serve(async (req) => {
   try {
     console.log('Meta CAPI - Processando novo evento');
 
+    // Origin validation to prevent abuse
+    const origin = req.headers.get('origin') || '';
+    const referer = req.headers.get('referer') || '';
+    
+    const isAllowedOrigin = ALLOWED_ORIGINS.some(allowed => 
+      origin.startsWith(allowed) || referer.startsWith(allowed)
+    );
+    
+    // In production, enforce origin check (allow empty origin for server-to-server calls)
+    if (origin && !isAllowedOrigin) {
+      console.warn('Meta CAPI - Origin não permitido:', origin);
+      return new Response(
+        JSON.stringify({ error: 'Forbidden - Origin not allowed' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     // Validação de configuração
     if (!META_ACCESS_TOKEN || !META_PIXEL_ID) {
       console.error('Meta CAPI - Configuração inválida');
@@ -166,36 +227,39 @@ serve(async (req) => {
       );
     }
 
-    // Parse dos dados recebidos
-    const body = await req.json();
+    // Parse and validate incoming data with zod schema
+    const rawBody = await req.json();
+    const parseResult = metaEventSchema.safeParse(rawBody);
+    
+    if (!parseResult.success) {
+      console.error('Meta CAPI - Validação falhou:', parseResult.error.format());
+      return new Response(
+        JSON.stringify({ error: 'Invalid request payload', details: parseResult.error.format() }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const {
       eventName,
-      eventParams = {},
+      eventParams,
       eventId,
       visitorId,
       fbp,
       fbc,
       eventSourceUrl,
-      utmData = {},
-      deviceInfo = {},
-      userData = {},
-    } = body;
+      utmData,
+      deviceInfo,
+      userData,
+    } = parseResult.data;
 
-    console.log('Meta CAPI - Dados brutos recebidos:', {
+    console.log('Meta CAPI - Dados validados:', {
       eventName,
       eventId,
+      origin: origin || 'não fornecido',
       hasUtmData: Object.keys(utmData).length > 0,
       hasDeviceInfo: Object.keys(deviceInfo).length > 0,
       hasUserData: Object.keys(userData).length > 0,
     });
-
-    // Validação obrigatória
-    if (!eventName || !eventId || !eventSourceUrl) {
-      return new Response(
-        JSON.stringify({ error: 'eventName, eventId e eventSourceUrl são obrigatórios' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
 
     // Coleta informações do request
     const userAgent = req.headers.get('user-agent') || deviceInfo.userAgent || 'not_provided';
