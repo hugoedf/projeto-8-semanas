@@ -4,18 +4,20 @@ import heroImage from "@/assets/hero-ebook-mockup.png";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     // 1. Base URL do checkout da Hotmart
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    
+
     // 2. Construir URL completa com todos os parâmetros de rastreamento
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    
+
     // 3. Log detalhado ANTES do redirecionamento
     console.log('✅ ===== CHECKOUT INICIADO (HERO) =====');
     console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
@@ -30,13 +32,13 @@ const Hero = () => {
       fbclid: localStorage.getItem('fbclid'),
       gclid: localStorage.getItem('gclid'),
       ttclid: localStorage.getItem('ttclid'),
-      msclkid: localStorage.getItem('msclkid'),
+      msclkid: localStorage.getItem('msclkid')
     });
     console.log('========================================');
-    
+
     // 4. Disparar evento de InitiateCheckout
     trackInitiateCheckout(97, 'BRL');
-    
+
     // 5. Abrir checkout em nova aba
     window.open(checkoutUrl, "_blank");
   };
@@ -102,7 +104,7 @@ const Hero = () => {
           animationDelay: "0.2s"
         }}>
             <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-3xl" />
-            <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" src="/lovable-uploads/c2428d66-3d08-41ce-9f1c-978fbc902a00.png" />
+            <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift" src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" />
           </div>
         </div>
       </div>
