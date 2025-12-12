@@ -20,6 +20,9 @@ export interface VisitorData {
   age?: number;
 }
 
+// Flag para evitar múltiplos inserts
+let hasTracked = false;
+
 /**
  * Hook para gerenciar tracking persistente de visitantes
  * Gera um visitorId único e coleta dados enriquecidos
@@ -32,15 +35,14 @@ export const useVisitorTracking = () => {
     initializeVisitorTracking();
   }, []);
 
-  /**
-   * Inicializa o tracking do visitante
-   */
   const initializeVisitorTracking = async () => {
     try {
       // 1. Obter ou gerar visitorId
       let visitorId = localStorage.getItem('visitor_id');
+      const isNewVisitor = !visitorId;
+      
       if (!visitorId) {
-        visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        visitorId = crypto.randomUUID();
         localStorage.setItem('visitor_id', visitorId);
       }
 
@@ -62,7 +64,7 @@ export const useVisitorTracking = () => {
         msclkid: urlParams.get('msclkid') || localStorage.getItem('msclkid') || undefined,
       };
 
-      // Persistir todos os parâmetros de rastreamento
+      // Persistir parâmetros de rastreamento
       Object.entries(trackingData).forEach(([key, value]) => {
         if (value) localStorage.setItem(key, value);
       });
@@ -82,20 +84,15 @@ export const useVisitorTracking = () => {
       let region = localStorage.getItem('region');
       if (!region) {
         try {
-          const regionData = await fetchRegion();
-          region = regionData;
+          region = await fetchRegion();
           localStorage.setItem('region', region);
-        } catch (error) {
-          console.error('Erro ao obter região:', error);
+        } catch {
           region = 'not_provided';
           localStorage.setItem('region', region);
         }
       }
 
-      // 6. Idade (placeholder - será preenchido pela Hotmart)
-      const age = localStorage.getItem('age') ? parseInt(localStorage.getItem('age')!) : undefined;
-
-      // 7. Montar objeto completo
+      // 6. Montar objeto completo
       const data: VisitorData = {
         visitorId,
         ...trackingData,
@@ -103,13 +100,15 @@ export const useVisitorTracking = () => {
         landingPage: landingPage!,
         device,
         region,
-        age,
       };
 
       setVisitorData(data);
 
-      // 8. Salvar no banco de dados (upsert)
-      await saveVisitorData(data);
+      // 7. Salvar no banco apenas se for novo visitante e não tiver sido salvo ainda
+      if (isNewVisitor && !hasTracked) {
+        hasTracked = true;
+        await insertVisitorData(data);
+      }
 
       setIsLoading(false);
     } catch (error) {
@@ -118,9 +117,6 @@ export const useVisitorTracking = () => {
     }
   };
 
-  /**
-   * Detecta o tipo de dispositivo
-   */
   const detectDevice = (): 'mobile' | 'tablet' | 'desktop' => {
     const ua = navigator.userAgent.toLowerCase();
     if (ua.includes('mobile') || ua.includes('android') || ua.includes('iphone')) {
@@ -132,31 +128,26 @@ export const useVisitorTracking = () => {
     return 'desktop';
   };
 
-  /**
-   * Busca região via ipapi.co
-   */
   const fetchRegion = async (): Promise<string> => {
     try {
       const response = await fetch('https://ipapi.co/json/');
       if (!response.ok) throw new Error('Falha ao obter região');
       
       const data = await response.json();
-      // Retorna cidade, estado, país
-      return `${data.city || ''}, ${data.region || ''}, ${data.country_name || ''}`.trim();
-    } catch (error) {
-      console.error('Erro ao buscar região:', error);
+      return `${data.city || ''}, ${data.region || ''}, ${data.country_name || ''}`.trim() || 'not_provided';
+    } catch {
       return 'not_provided';
     }
   };
 
   /**
-   * Salva dados do visitante no banco de dados
+   * INSERT simples - sem upsert, sem onConflict
    */
-  const saveVisitorData = async (data: VisitorData) => {
+  const insertVisitorData = async (data: VisitorData) => {
     try {
       const { error } = await supabase
         .from('visitor_tracking')
-        .upsert({
+        .insert({
           visitor_id: data.visitorId,
           utm_source: data.utm_source || null,
           utm_medium: data.utm_medium || null,
@@ -168,46 +159,25 @@ export const useVisitorTracking = () => {
           landing_page: data.landingPage,
           device: data.device,
           region: data.region || null,
-          age: data.age || null,
-        }, {
-          onConflict: 'visitor_id'
         });
 
       if (error) {
-        console.error('Erro ao salvar dados do visitante:', error);
+        console.error('Erro ao salvar visitante:', error);
       } else {
-        console.log('Dados do visitante salvos com sucesso');
+        console.log('Visitante salvo com sucesso:', data.visitorId);
       }
     } catch (error) {
-      console.error('Exceção ao salvar dados do visitante:', error);
+      console.error('Exceção ao salvar visitante:', error);
     }
   };
 
-  /**
-   * Retorna os dados do visitante
-   */
   const getVisitorData = (): VisitorData | null => {
     return visitorData;
-  };
-
-  /**
-   * Atualiza a idade do visitante (quando recebido da Hotmart)
-   */
-  const updateAge = async (age: number) => {
-    if (!visitorData) return;
-
-    localStorage.setItem('age', age.toString());
-    const updatedData = { ...visitorData, age };
-    setVisitorData(updatedData);
-
-    // Atualizar no banco
-    await saveVisitorData(updatedData);
   };
 
   return {
     visitorData,
     isLoading,
     getVisitorData,
-    updateAge,
   };
 };
