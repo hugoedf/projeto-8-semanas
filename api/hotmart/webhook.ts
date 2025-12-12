@@ -167,19 +167,16 @@ export default async function handler(
     console.log('Token recebido:', receivedToken ? '***' + receivedToken.slice(-6) : 'NENHUM');
     console.log('Token esperado:', HOTMART_SECRET ? '***' + HOTMART_SECRET.slice(-6) : 'NÃO CONFIGURADO');
 
-    if (!receivedToken) {
-      report.tokenValidation = 'missing';
-      report.warnings.push('Token X-Hotmart-Hottok não enviado no header');
-      console.warn('⚠️ Token não enviado');
-    } else if (receivedToken !== HOTMART_SECRET) {
-      report.tokenValidation = 'invalid';
-      report.errors.push('Token X-Hotmart-Hottok inválido');
-      console.error('❌ Token inválido');
-      return res.status(401).json({ error: 'Invalid token', report });
-    } else {
-      report.tokenValidation = 'valid';
-      console.log('✅ Token válido');
+    // Reject requests without valid token - only Hotmart should call this endpoint
+    if (!receivedToken || receivedToken !== HOTMART_SECRET) {
+      report.tokenValidation = !receivedToken ? 'missing' : 'invalid';
+      report.errors.push(!receivedToken ? 'Token X-Hotmart-Hottok não enviado' : 'Token X-Hotmart-Hottok inválido');
+      console.error('❌ Token inválido ou ausente - rejeitando requisição');
+      return res.status(401).json({ error: 'Unauthorized' });
     }
+    
+    report.tokenValidation = 'valid';
+    console.log('✅ Token válido');
 
     // Validate incoming payload with zod schema
     const parseResult = hotmartWebhookSchema.safeParse(req.body);
