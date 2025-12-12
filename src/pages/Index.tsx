@@ -9,6 +9,7 @@ import Guarantee from "@/components/Guarantee";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
+import { DiagnosticPanel } from "@/components/DiagnosticPanel";
 
 const Index = () => {
   const { trackPageView } = useMetaPixel();
@@ -16,6 +17,7 @@ const Index = () => {
   useEffect(() => {
     trackPageView();
   }, []);
+  
   return (
     <main className="min-h-screen">
       <Hero />
@@ -27,6 +29,9 @@ const Index = () => {
       <Guarantee />
       <CTA />
       <Footer />
+      
+      {/* Painel de diagnóstico - apenas para testes */}
+      <DiagnosticPanel />
     </main>
   );
 };
