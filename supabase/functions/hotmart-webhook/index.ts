@@ -14,6 +14,16 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-hotmart-hottok',
 };
 
+// ============================================
+// MASCARAMENTO DE DADOS SENSÍVEIS
+// ============================================
+function maskEmail(email: string | undefined | null): string {
+  if (!email) return "hidden";
+  const parts = email.split("@");
+  if (parts.length !== 2) return "hidden";
+  return parts[0][0] + "***@" + parts[1];
+}
+
 // Hotmart webhook payload schema for validation
 const hotmartPriceSchema = z.object({
   value: z.number().optional(),
@@ -125,14 +135,17 @@ async function sendPurchaseToMetaCAPI(eventData: any): Promise<boolean> {
     const result = await response.json();
     
     if (response.ok) {
-      console.log('Purchase enviado para Meta CAPI:', result);
+      console.log('Purchase enviado para Meta CAPI:', {
+        events_received: result.events_received,
+        fbtrace_id: result.fbtrace_id,
+      });
       return true;
     } else {
-      console.error('Erro ao enviar para Meta CAPI:', result);
+      console.error('Erro ao enviar para Meta CAPI - status:', response.status);
       return false;
     }
   } catch (error) {
-    console.error('Exceção ao enviar para Meta CAPI:', error);
+    console.error('Exceção ao enviar para Meta CAPI:', error instanceof Error ? error.message : 'unknown');
     return false;
   }
 }
@@ -147,13 +160,22 @@ serve(async (req) => {
 
     // Ler corpo da requisição
     const bodyText = await req.text();
-    const body = JSON.parse(bodyText);
+    let body;
+    try {
+      body = JSON.parse(bodyText);
+    } catch {
+      console.error('Hotmart Webhook - JSON inválido');
+      return new Response(
+        JSON.stringify({ error: 'Bad request' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     // Validar configuração do servidor
     if (!HOTMART_SECRET_KEY) {
       console.error('HOTMART_SECRET_KEY não configurado');
       return new Response(
-        JSON.stringify({ error: 'Server misconfigured' }),
+        JSON.stringify({ error: 'Bad request' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -163,7 +185,7 @@ serve(async (req) => {
     if (!signature) {
       console.error('❌ Token x-hotmart-hottok ausente - rejeitando requisição');
       return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
+        JSON.stringify({ error: 'Bad request' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -172,7 +194,7 @@ serve(async (req) => {
     if (!isValid) {
       console.error('❌ Assinatura inválida - rejeitando requisição');
       return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
+        JSON.stringify({ error: 'Bad request' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -185,23 +207,25 @@ serve(async (req) => {
     if (!parseResult.success) {
       console.error('Validação do payload falhou:', parseResult.error.format());
       return new Response(
-        JSON.stringify({ error: 'Payload inválido', details: parseResult.error.format() }),
+        JSON.stringify({ error: 'Bad request' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const validatedBody = parseResult.data;
 
+    // Log com dados mascarados
     console.log('Evento Hotmart validado:', {
       event: validatedBody.event,
       transaction_id: validatedBody.data?.purchase?.transaction,
+      buyer_email: maskEmail(validatedBody.data?.buyer?.email),
     });
 
     // Processar apenas eventos de compra
     if (validatedBody.event !== 'PURCHASE_COMPLETE') {
       console.log('Evento ignorado - não é PURCHASE_COMPLETE');
       return new Response(
-        JSON.stringify({ message: 'Evento não processado' }),
+        JSON.stringify({ received: true }),
         { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -220,10 +244,15 @@ serve(async (req) => {
       .single();
 
     if (visitorError || !visitorData) {
-      console.error('Erro ao buscar dados do visitante:', visitorError);
+      console.warn('Visitante não encontrado para tracking_id:', trackingId);
       // Continua o processamento mesmo sem dados do visitante
     } else {
-      console.log('Dados do visitante recuperados:', visitorData);
+      console.log('Dados do visitante recuperados:', {
+        visitor_id: visitorData.visitor_id,
+        utm_source: visitorData.utm_source,
+        device: visitorData.device,
+        region: visitorData.region,
+      });
     }
 
     // Extrair dados da compra (using validated data)
@@ -277,16 +306,16 @@ serve(async (req) => {
     // Enviar para Meta CAPI
     await sendPurchaseToMetaCAPI(metaEventData);
 
-    console.log('Webhook processado com sucesso');
+    console.log('Webhook processado com sucesso - transaction:', purchase?.transaction);
 
     return new Response(
       JSON.stringify({ received: true }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    console.error('Erro ao processar webhook:', error);
+    console.error('Erro ao processar webhook:', error instanceof Error ? error.message : 'unknown');
     return new Response(
-      JSON.stringify({ error: 'Internal error' }),
+      JSON.stringify({ error: 'Bad request' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
