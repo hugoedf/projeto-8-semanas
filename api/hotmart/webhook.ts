@@ -305,13 +305,8 @@ export default async function handler(
     console.log('✅ ===== WEBHOOK PROCESSADO COM SUCESSO =====');
     console.log('📊 Relatório Final:', JSON.stringify(report, null, 2));
 
-    // Return success to Hotmart
-    return res.status(200).json({ 
-      received: true,
-      trackingId: purchaseInfo.trackingId,
-      transactionId: purchaseInfo.transactionId,
-      report
-    });
+    // Return minimal success response to Hotmart (no internal details)
+    return res.status(200).json({ received: true });
 
   } catch (error) {
     report.webhookStatus = 'error';
@@ -320,11 +315,7 @@ export default async function handler(
     console.error('Erro:', error);
     console.log('📊 Relatório de Erro:', JSON.stringify(report, null, 2));
     
-    // Always return 200 to prevent Hotmart from retrying
-    return res.status(200).json({ 
-      received: true, 
-      error: error instanceof Error ? error.message : 'Unknown error',
-      report
-    });
+    // Always return 200 to prevent Hotmart from retrying (no internal details)
+    return res.status(200).json({ received: true });
   }
 }
