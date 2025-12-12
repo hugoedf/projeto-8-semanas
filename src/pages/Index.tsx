@@ -30,8 +30,8 @@ const Index = () => {
       <CTA />
       <Footer />
       
-      {/* Painel de diagnóstico - apenas para testes */}
-      <DiagnosticPanel />
+      {/* Painel de diagnóstico - apenas em desenvolvimento */}
+      {import.meta.env.DEV && <DiagnosticPanel />}
     </main>
   );
 };
