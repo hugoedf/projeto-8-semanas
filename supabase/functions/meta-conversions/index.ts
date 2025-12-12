@@ -7,6 +7,55 @@ const META_PIXEL_ID = Deno.env.get('META_PIXEL_ID');
 const META_TEST_EVENT_CODE = Deno.env.get('META_TEST_EVENT_CODE');
 const META_CAPI_SECRET = Deno.env.get('META_CAPI_SECRET');
 
+// ============================================
+// RATE LIMITING - 60 requisições por minuto por IP
+// ============================================
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW_MS = 60000; // 1 minuto
+const RATE_LIMIT_MAX_REQUESTS = 60;
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return false;
+  }
+
+  entry.count++;
+  return true;
+}
+
+// Limpa entradas antigas periodicamente (a cada 5 minutos)
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitMap.entries()) {
+    if (now > entry.resetTime) {
+      rateLimitMap.delete(ip);
+    }
+  }
+}, 300000);
+
+// ============================================
+// MASCARAMENTO DE DADOS SENSÍVEIS
+// ============================================
+function maskEmail(email: string | undefined | null): string {
+  if (!email) return "hidden";
+  const parts = email.split("@");
+  if (parts.length !== 2) return "hidden";
+  return parts[0][0] + "***@" + parts[1];
+}
+
+function maskPhone(phone: string | undefined | null): string {
+  if (!phone || phone.length < 6) return "hidden";
+  return phone.slice(0, 4) + "****" + phone.slice(-2);
+}
+
 // Allowed origin patterns for CORS validation
 const isAllowedOrigin = (origin: string | null): boolean => {
   if (!origin) return false;
@@ -257,6 +306,7 @@ async function sendToMetaCAPI(
  * Edge Function principal para processar eventos de conversão
  * 
  * Implementa fluxo server-side robusto com:
+ * - Rate limiting (60 req/min por IP)
  * - Coleta completa de dados (UTMs, device, região, etc.)
  * - Normalização automática de campos
  * - Hash SHA256 para dados pessoais
@@ -265,8 +315,25 @@ async function sendToMetaCAPI(
  * - Fallbacks com "not_provided"
  */
 serve(async (req) => {
+  // CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  // Extrair IP do cliente para rate limiting
+  const clientIpHeader = req.headers.get("x-forwarded-for") || 
+                         req.headers.get("x-real-ip") || 
+                         req.headers.get("cf-connecting-ip") || 
+                         "unknown";
+  const rateLimitIp = clientIpHeader.split(",")[0].trim();
+
+  // Verificar rate limit ANTES de processar
+  if (!checkRateLimit(rateLimitIp)) {
+    console.warn(`Meta CAPI - Rate limit exceeded for IP: ${rateLimitIp}`);
+    return new Response(
+      JSON.stringify({ error: "Too many requests" }),
+      { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
   }
 
   try {
@@ -277,7 +344,7 @@ serve(async (req) => {
     if (!META_CAPI_SECRET) {
       console.error('Meta CAPI - META_CAPI_SECRET não configurado');
       return new Response(
-        JSON.stringify({ error: 'Configuração de segurança incompleta' }),
+        JSON.stringify({ error: "Bad request" }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -285,7 +352,7 @@ serve(async (req) => {
     if (!authSecret || authSecret !== META_CAPI_SECRET) {
       console.warn('Meta CAPI - Autenticação inválida ou ausente');
       return new Response(
-        JSON.stringify({ error: 'Unauthorized - Invalid or missing authentication' }),
+        JSON.stringify({ error: "Bad request" }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -305,19 +372,29 @@ serve(async (req) => {
     if (!META_ACCESS_TOKEN || !META_PIXEL_ID) {
       console.error('Meta CAPI - Configuração inválida');
       return new Response(
-        JSON.stringify({ error: 'Configuração do Meta Pixel incompleta' }),
+        JSON.stringify({ error: "Bad request" }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     // Parse and validate incoming data with zod schema
-    const rawBody = await req.json();
+    let rawBody;
+    try {
+      rawBody = await req.json();
+    } catch {
+      console.error('Meta CAPI - Body JSON inválido');
+      return new Response(
+        JSON.stringify({ error: "Bad request" }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const parseResult = metaEventSchema.safeParse(rawBody);
     
     if (!parseResult.success) {
       console.error('Meta CAPI - Validação falhou:', parseResult.error.format());
       return new Response(
-        JSON.stringify({ error: 'Invalid request payload', details: parseResult.error.format() }),
+        JSON.stringify({ error: "Bad request" }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -335,6 +412,7 @@ serve(async (req) => {
       userData,
     } = parseResult.data;
 
+    // Log com dados mascarados
     console.log('Meta CAPI - Dados validados:', {
       eventName,
       eventId,
@@ -342,6 +420,8 @@ serve(async (req) => {
       hasUtmData: Object.keys(utmData).length > 0,
       hasDeviceInfo: Object.keys(deviceInfo).length > 0,
       hasUserData: Object.keys(userData).length > 0,
+      email: maskEmail(userData.email),
+      phone: maskPhone(userData.phone),
     });
 
     // Coleta informações do request
@@ -461,27 +541,17 @@ serve(async (req) => {
     if (!metaResult.success) {
       console.error('Meta CAPI - Falha após todas as tentativas:', metaResult.error);
       return new Response(
-        JSON.stringify({
-          error: 'Falha ao enviar para Meta CAPI após múltiplas tentativas',
-          details: metaResult.error,
-        }),
+        JSON.stringify({ error: "Bad request" }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // 6. RESPOSTA DE SUCESSO
+    // 6. RESPOSTA DE SUCESSO (sem dados internos detalhados)
     return new Response(
       JSON.stringify({
         success: true,
         eventName,
         eventId,
-        metaCAPI: metaResult.result,
-        normalizedData: {
-          origem_compra: customData.origem_compra,
-          posicionamento: customData.posicionamento,
-          aparelho: customData.aparelho,
-          regiao: customData.regiao,
-        },
       }),
       {
         status: 200,
@@ -490,16 +560,9 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error('Meta CAPI - Erro crítico:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
     return new Response(
-      JSON.stringify({
-        error: 'Erro interno do servidor',
-        message: errorMessage,
-      }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
+      JSON.stringify({ error: "Bad request" }),
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 });
