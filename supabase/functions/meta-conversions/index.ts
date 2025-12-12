@@ -105,22 +105,82 @@ function detectDevice(userAgent: string): string {
   return 'desktop';
 }
 
+interface GeoData {
+  region: string;
+  city: string;
+  country: string;
+  latitude: number | null;
+  longitude: number | null;
+}
+
 /**
- * Obtém região via ipapi.co
+ * Obtém geolocalização via ipapi.co com fallback para ipwho.is
+ * Mesma lógica robusta da Edge Function /geo
  */
-async function fetchRegionFromIP(ip: string): Promise<string> {
-  if (!ip || ip === 'not_provided') return 'not_provided';
+async function fetchGeoFromIP(ip: string): Promise<GeoData> {
+  const defaultGeo: GeoData = {
+    region: 'not_provided',
+    city: 'not_provided',
+    country: 'not_provided',
+    latitude: null,
+    longitude: null,
+  };
+
+  if (!ip || ip === 'not_provided') return defaultGeo;
   
+  // Tentativa 1: ipapi.co
   try {
-    const response = await fetch(`https://ipapi.co/${ip}/json/`);
-    if (!response.ok) throw new Error('Falha ao obter região');
+    const response = await fetch(`https://ipapi.co/${ip}/json/`, {
+      headers: { 'User-Agent': 'Metodo8X-CAPI/1.0' }
+    });
     
-    const data = await response.json();
-    return `${data.city || ''}, ${data.region || ''}, ${data.country_name || ''}`.trim() || 'not_provided';
+    if (response.ok) {
+      const data = await response.json();
+      if (!data.error) {
+        return {
+          region: data.region || 'not_provided',
+          city: data.city || 'not_provided',
+          country: data.country_name || 'not_provided',
+          latitude: data.latitude || null,
+          longitude: data.longitude || null,
+        };
+      }
+    }
+    console.warn('Meta CAPI - ipapi.co falhou, tentando ipwho.is...');
   } catch (error) {
-    console.error('Erro ao buscar região via ipapi.co:', error);
-    return 'not_provided';
+    console.warn('Meta CAPI - Erro ipapi.co:', error instanceof Error ? error.message : 'unknown');
   }
+
+  // Tentativa 2: ipwho.is (fallback)
+  try {
+    const response = await fetch(`https://ipwho.is/${ip}`);
+    
+    if (response.ok) {
+      const data = await response.json();
+      if (data.success !== false) {
+        return {
+          region: data.region || 'not_provided',
+          city: data.city || 'not_provided',
+          country: data.country || 'not_provided',
+          latitude: data.latitude || null,
+          longitude: data.longitude || null,
+        };
+      }
+    }
+    console.warn('Meta CAPI - ipwho.is também falhou');
+  } catch (error) {
+    console.error('Meta CAPI - Erro ipwho.is:', error instanceof Error ? error.message : 'unknown');
+  }
+
+  return defaultGeo;
+}
+
+/**
+ * Formata região para string legível (compatibilidade)
+ */
+function formatRegionString(geo: GeoData): string {
+  const parts = [geo.city, geo.region, geo.country].filter(p => p && p !== 'not_provided');
+  return parts.length > 0 ? parts.join(', ') : 'not_provided';
 }
 
 /**
@@ -304,8 +364,9 @@ serve(async (req) => {
     // Dispositivo
     const aparelho = detectDevice(userAgent);
 
-    // Região via ipapi.co (assíncrono)
-    const regiao = await fetchRegionFromIP(clientIp);
+    // Geolocalização via ipapi.co/ipwho.is (com fallback robusto)
+    const geoData = await fetchGeoFromIP(clientIp);
+    const regiao = formatRegionString(geoData);
 
     // 2. HASH DE DADOS PESSOAIS (SHA256)
     const hashedUserData: any = {
