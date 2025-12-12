@@ -149,18 +149,35 @@ serve(async (req) => {
     const bodyText = await req.text();
     const body = JSON.parse(bodyText);
 
-    // Validar assinatura (se configurado)
-    const signature = req.headers.get('x-hotmart-hottok');
-    if (signature && HOTMART_SECRET_KEY) {
-      const isValid = await validateHotmartSignature(bodyText, signature);
-      if (!isValid) {
-        console.error('Assinatura inválida');
-        return new Response(
-          JSON.stringify({ error: 'Assinatura inválida' }),
-          { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
+    // Validar configuração do servidor
+    if (!HOTMART_SECRET_KEY) {
+      console.error('HOTMART_SECRET_KEY não configurado');
+      return new Response(
+        JSON.stringify({ error: 'Server misconfigured' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
+
+    // Validar token - SEMPRE rejeitar requisições sem token válido
+    const signature = req.headers.get('x-hotmart-hottok');
+    if (!signature) {
+      console.error('❌ Token x-hotmart-hottok ausente - rejeitando requisição');
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const isValid = await validateHotmartSignature(bodyText, signature);
+    if (!isValid) {
+      console.error('❌ Assinatura inválida - rejeitando requisição');
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    console.log('✅ Token válido');
 
     // Validate incoming payload with zod schema
     const parseResult = hotmartWebhookSchema.safeParse(body);
@@ -263,27 +280,14 @@ serve(async (req) => {
     console.log('Webhook processado com sucesso');
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        message: 'Compra processada',
-        tracking_id: trackingId,
-      }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
+      JSON.stringify({ received: true }),
+      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
     console.error('Erro ao processar webhook:', error);
     return new Response(
-      JSON.stringify({
-        error: 'Erro ao processar webhook',
-        message: error instanceof Error ? error.message : 'Erro desconhecido',
-      }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
+      JSON.stringify({ error: 'Internal error' }),
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 });
