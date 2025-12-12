@@ -112,23 +112,37 @@ export const useDiagnosticMode = () => {
       warnings.push('Nenhuma UTM detectada');
     }
 
-    // 5. Obter IP e geolocalização
+    // 5. Obter IP e geolocalização via Edge Function
     let ip = 'not_provided';
     let city = 'not_provided';
     let state = 'not_provided';
     let country = 'not_provided';
     let region = 'not_provided';
+    let latitude: number | null = null;
+    let longitude: number | null = null;
 
     try {
-      addResult('Geolocalização', 'info', 'Consultando ipapi.co para obter IP e localização...');
+      addResult('Geolocalização', 'info', 'Consultando Edge Function /geo para obter IP e localização...');
       
-      const geoResponse = await fetch('https://ipapi.co/json/');
-      if (geoResponse.ok) {
-        const geoData = await geoResponse.json();
+      const geoResponse = await fetch(
+        'https://kfddlytvdzqwopongnew.supabase.co/functions/v1/geo',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      
+      const geoData = await geoResponse.json();
+      
+      if (geoData.success) {
         ip = geoData.ip || 'not_provided';
         city = geoData.city || 'not_provided';
         state = geoData.region || 'not_provided';
-        country = geoData.country_name || 'not_provided';
+        country = geoData.country || 'not_provided';
+        latitude = geoData.latitude;
+        longitude = geoData.longitude;
         region = `${city}, ${state}, ${country}`;
         
         addResult('Geolocalização', 'success', `IP: ${ip} | Localização: ${region}`, {
@@ -136,15 +150,18 @@ export const useDiagnosticMode = () => {
           city,
           state,
           country,
+          latitude,
+          longitude,
           timezone: geoData.timezone,
           org: geoData.org,
         });
       } else {
-        throw new Error(`Status ${geoResponse.status}`);
+        throw new Error(geoData.error || 'Geo API error');
       }
     } catch (error) {
       addResult('Geolocalização', 'error', `Falha ao obter geolocalização: ${error}`);
       errors.push(`Geolocalização falhou: ${error}`);
+      warnings.push('Usando valores padrão para geolocalização');
     }
 
     // 6. Salvar visitante de teste no Supabase
