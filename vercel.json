@@ -10,5 +10,12 @@
       "source": "/api/(.*)",
       "destination": "/api/$1"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/obrigado",
+      "destination": "https://obrigado-pg.lovable.app",
+      "permanent": false
+    }
   ]
 }
