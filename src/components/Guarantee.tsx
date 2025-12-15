@@ -15,12 +15,12 @@ const Guarantee = () => {
                 </div>
                 
                 <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-5 text-white tracking-tight leading-tight">
-                  Garantia incondicional de{" "}
-                  <span className="text-accent drop-shadow-[0_0_15px_hsla(18,100%,58%,0.3)]">7 dias.</span>
+                  Garantia Incondicional de{" "}
+                  <span className="text-accent drop-shadow-[0_0_15px_hsla(18,100%,58%,0.3)]">7 Dias</span>
                 </h2>
                 
                 <p className="text-white/80 leading-relaxed mb-5 sm:mb-7 text-sm sm:text-base">
-                  Teste o método. Aplique. Sinta a diferença. Se não fizer sentido pra você, devolvemos 100% do valor.
+                  Teste o método. Aplique. Sinta a diferença. Se não fizer sentido pra você, devolvemos 100% do valor. Sem risco. Sem complicação.
                 </p>
                 
                 <div className="space-y-3 sm:space-y-4">

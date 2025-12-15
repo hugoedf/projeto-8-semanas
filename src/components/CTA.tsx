@@ -86,10 +86,7 @@ const CTA = () => {
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm text-muted-foreground mt-1.5">
-                    (Pagamento único — acesso para sempre)
-                  </p>
-                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-                    Acesso imediato. Conteúdo vitalício. Atualizações gratuitas.
+                    Pagamento único. Acesso imediato. Conteúdo vitalício.
                   </p>
                 </div>
                 

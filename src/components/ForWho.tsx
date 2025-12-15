@@ -10,7 +10,7 @@ const audience = [{
 }, {
   icon: Dumbbell,
   title: "Avançados",
-  description: "Querem treinar com estratégia real"
+  description: "Querem treinar com método"
 }];
 const ForWho = () => {
   return <section className="py-16 sm:py-24 bg-background">
@@ -18,10 +18,10 @@ const ForWho = () => {
         <div className="text-center mb-12 sm:mb-14 animate-fade-in">
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
             Para quem é o{" "}
-            <span className="text-gradient">Método 8x</span>
+            <span className="text-gradient">Método 8X?</span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
-            Pessoas que desejam hipertrofia baseada em ciência e querem treinar com clareza e propósito.
+            Pessoas que buscam hipertrofia baseada em ciência.
           </p>
         </div>
         

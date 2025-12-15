@@ -5,7 +5,7 @@ const problems = [
   "Falta de estratégia semanal",
   "Execução inconsistente",
   "Falta de disciplina e constância",
-  "Não sabe se está evoluindo",
+  "Dificuldade para saber se está evoluindo",
   "Acreditar que suplemento resolve tudo",
 ];
 
@@ -44,11 +44,17 @@ const Problems = () => {
         
         <div className="text-center mt-12 sm:mt-14 px-4">
           <p className="text-base sm:text-lg text-muted-foreground mb-3">
-            👉 Nada disso é culpa sua.
+            Nada disso é culpa sua.
           </p>
-          <p className="text-base sm:text-lg font-semibold text-foreground">
+          <p className="text-base sm:text-lg font-semibold text-foreground mb-8">
             Sem ciência e sem método, é impossível evoluir de forma consistente.
           </p>
+          <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto shadow-lg shadow-accent/5">
+            <p className="text-base sm:text-lg text-foreground leading-relaxed">
+              <strong className="text-accent">O Método 8X existe para resolver isso.</strong><br />
+              Um protocolo direto, estratégico e fundamentado em fisiologia, criado para quem quer treinar com clareza, propósito e progressão real.
+            </p>
+          </div>
         </div>
       </div>
     </section>
