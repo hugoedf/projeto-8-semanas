@@ -2,7 +2,7 @@ import { BookOpen } from "lucide-react";
 const modules = [{
   number: "01",
   title: "Fundamentos da Hipertrofia",
-  description: "A ciência que rege o ganho de massa muscular."
+  description: "A base científica do ganho de massa muscular. Você entende por que o músculo cresce e como aplicar isso no treino."
 }, {
   number: "02",
   title: "Avaliação e Objetivos",
