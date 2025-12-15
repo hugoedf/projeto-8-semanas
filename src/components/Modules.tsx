@@ -18,7 +18,7 @@ const modules = [{
 }, {
   number: "05",
   title: "Sono e Recuperação",
-  description: "A base invisível que constrói seu físico enquanto você dorme."
+  description: "Entenda como recuperação, descanso e rotina impactam diretamente seus resultados."
 }, {
   number: "06",
   title: "Técnicas Avançadas de Intensificação",
