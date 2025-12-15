@@ -29,7 +29,7 @@ const modules = [{
   description: "Como construir constância e identidade de treino."
 }, {
   number: "08",
-  title: "Acompanhamento e Ajustes",
+  title: "Auto acompanhamento e Ajustes",
   description: "Como medir progresso e corrigir a rota para não estagnar."
 }];
 const Modules = () => {
