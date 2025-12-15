@@ -38,16 +38,15 @@ const Modules = () => {
         <div className="text-center mb-12 sm:mb-16 animate-fade-in">
           <div className="inline-block mb-4 sm:mb-5">
             <span className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-accent/40 bg-accent/10 backdrop-blur-sm shadow-lg shadow-accent/10">
-              📘 O Conteúdo do Método 8X
+              📘 Conteúdo Completo
+
             </span>
           </div>
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 text-white px-2 tracking-tight">
             O Conteúdo do{" "}
             <span className="text-accent drop-shadow-[0_0_15px_hsla(18,100%,58%,0.3)]">Método 8X</span>
           </h2>
-          <p className="text-base sm:text-lg text-white/75 max-w-2xl mx-auto px-4 leading-relaxed">
-            8 módulos que te ensinam a executar, avaliar e ajustar sua própria evolução — com método e ciência.
-          </p>
+          <p className="text-base sm:text-lg text-white/75 max-w-2xl mx-auto px-4 leading-relaxed">8 módulos que te ensinam a executar, avaliar e ajustar sua evolução — com ciência e método.</p>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-5xl mx-auto">
