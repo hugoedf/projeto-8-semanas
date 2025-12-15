@@ -26,7 +26,7 @@ const modules = [{
 }, {
   number: "07",
   title: "Mentalidade e Disciplina",
-  description: "Como construir consistência e um foco sólido."
+  description: "Como construir constância e identidade de treino."
 }, {
   number: "08",
   title: "Acompanhamento e Ajustes",
@@ -42,11 +42,11 @@ const Modules = () => {
             </span>
           </div>
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 text-white px-2 tracking-tight">
-            Conheça o conteúdo do{" "}
+            O Conteúdo Completo do{" "}
             <span className="text-accent drop-shadow-[0_0_15px_hsla(18,100%,58%,0.3)]">Método 8X</span>
           </h2>
           <p className="text-base sm:text-lg text-white/75 max-w-2xl mx-auto px-4 leading-relaxed">
-            8 módulos que te levam do básico ao avançado — com estratégia.
+            8 módulos que te levam do básico ao avançado — com estratégia e ciência.
           </p>
         </div>
         
