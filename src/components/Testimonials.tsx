@@ -30,6 +30,13 @@ const Testimonials = () => {
           </h2>
         </div>
         
+        <div className="text-center mb-10 sm:mb-12 animate-fade-in">
+          <p className="text-base sm:text-lg text-muted-foreground">
+            Não é motivação.<br />
+            É aplicação do método.
+          </p>
+        </div>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-7xl mx-auto">
           {testimonials.map((testimonial, index) => <div key={index} className="bg-card border border-border/80 rounded-2xl p-6 sm:p-7 hover-lift animate-fade-in shadow-sm hover:shadow-lg transition-all duration-300" style={{
           animationDelay: `${index * 0.08}s`

@@ -27,6 +27,14 @@ const Index = () => {
       <Testimonials />
       <ForWho />
       <Guarantee />
+      <section className="py-12 sm:py-16 bg-muted">
+        <div className="container mx-auto px-5 sm:px-6 text-center animate-fade-in">
+          <p className="text-base sm:text-lg text-foreground max-w-2xl mx-auto leading-relaxed">
+            Se você continuar treinando do mesmo jeito, nada muda.<br />
+            Se aplicar um método, o corpo responde.
+          </p>
+        </div>
+      </section>
       <CTA />
       <Footer />
       
