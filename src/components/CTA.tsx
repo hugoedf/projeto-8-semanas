@@ -4,7 +4,7 @@ import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-const benefits = ["Protocolos de treino para 8 semanas", "Técnicas avançadas explicadas passo a passo", "Guia de nutrição para hipertrofia", "Mentalidade e disciplina", "Acesso vitalício", "Atualizações gratuitas", "Garantia de 7 dias"];
+const benefits = ["Protocolos de treino para 8 semanas", "Protocolos completos de treino para 8 semanas", "Guia de nutrição para hipertrofia", "Mentalidade e disciplina", "Acesso vitalício", "Atualizações gratuitas", "Garantia de 7 dias"];
 const CTA = () => {
   const {
     trackInitiateCheckout
