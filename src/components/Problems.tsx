@@ -1,17 +1,7 @@
 import { X } from "lucide-react";
-
-const problems = [
-  "Treinos aleatórios e sem progressão",
-  "Falta de estratégia semanal",
-  "Execução inconsistente",
-  "Falta de disciplina e constância",
-  "Dificuldade para saber se está evoluindo",
-  "Acreditar que suplemento resolve tudo",
-];
-
+const problems = ["Treinos aleatórios e sem progressão", "Falta de estratégia semanal", "Execução inconsistente", "Falta de disciplina e constância", "Dificuldade para saber se está evoluindo", "Acreditar que suplemento resolve tudo"];
 const Problems = () => {
-  return (
-    <section className="py-16 sm:py-24 bg-muted">
+  return <section className="py-16 sm:py-24 bg-muted">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="text-center mb-12 sm:mb-14 animate-fade-in">
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
@@ -24,12 +14,9 @@ const Problems = () => {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-5xl mx-auto">
-          {problems.map((problem, index) => (
-            <div
-              key={index}
-              className="bg-card border border-border/80 rounded-2xl p-5 sm:p-6 hover-lift animate-fade-in shadow-sm hover:shadow-md transition-all duration-300"
-              style={{ animationDelay: `${index * 0.08}s` }}
-            >
+          {problems.map((problem, index) => <div key={index} className="bg-card border border-border/80 rounded-2xl p-5 sm:p-6 hover-lift animate-fade-in shadow-sm hover:shadow-md transition-all duration-300" style={{
+          animationDelay: `${index * 0.08}s`
+        }}>
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-destructive/10 flex items-center justify-center shadow-inner">
                   <X className="w-4 h-4 sm:w-5 sm:h-5 text-destructive" />
@@ -38,14 +25,11 @@ const Problems = () => {
                   {problem}
                 </p>
               </div>
-            </div>
-          ))}
+            </div>)}
         </div>
         
         <div className="text-center mt-10 sm:mt-12 px-4 animate-fade-in">
-          <p className="text-base sm:text-lg font-semibold text-foreground">
-            Se você continua treinando assim, o platô não é questão de se — é de quando.
-          </p>
+          
         </div>
         
         <div className="text-center mt-8 sm:mt-10 px-4">
@@ -63,8 +47,6 @@ const Problems = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Problems;
