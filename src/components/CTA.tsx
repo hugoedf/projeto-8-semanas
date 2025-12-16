@@ -64,9 +64,7 @@ const CTA = () => {
                   <span className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest">
                     OFERTA ESPECIAL — ACESSO COMPLETO AO MÉTODO 8X
                   </span>
-                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mt-3 mb-4 sm:mb-5 tracking-tight leading-tight">
-                    Tudo o que você precisa para transformar seu corpo com ciência, estratégia e execução — sem achismo.
-                  </h2>
+                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mt-3 mb-4 sm:mb-5 tracking-tight leading-tight">Tudo o que você precisa para transformar seu corpo com ciência e estratégia:</h2>
                   <p className="text-accent font-semibold text-base sm:text-lg">
                     Não é motivacional.<br />
                     É protocolo.
@@ -80,10 +78,7 @@ const CTA = () => {
                     </div>)}
                 </div>
                 
-                <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-7">
-                  O Método 8X não é acompanhamento individual.<br />
-                  É um protocolo que te ensina a executar, avaliar e ajustar sua própria evolução.
-                </p>
+                
                 
                 <div className="border-t border-border/60 pt-6 sm:pt-7 mb-6 sm:mb-7">
                   <div className="flex items-baseline gap-3 mb-2.5 flex-wrap">
