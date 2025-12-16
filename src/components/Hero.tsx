@@ -62,8 +62,7 @@ const Hero = () => {
             </h1>
             
             <h2 className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-white/85 font-normal order-3 font-sans">
-              Treine com Ciência. Evolua em 8 semanas.
-Sem achismo. Sem modinha
+              Um método de 8 semanas para romper o platô e evoluir com estratégia — sem achismo
             </h2>
             
             {/* Image - Only visible on mobile */}
