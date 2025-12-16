@@ -4,17 +4,7 @@ import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-const benefits = [
-  "Protocolos completos de treino para 8 semanas",
-  "Progressão estruturada baseada em fisiologia",
-  "Técnicas avançadas explicadas passo a passo",
-  "Guia prático de nutrição para hipertrofia",
-  "Mentalidade e disciplina para constância real",
-  "Método de autoavaliação e ajustes contínuos",
-  "Acesso vitalício ao conteúdo",
-  "Atualizações gratuitas",
-  "Garantia incondicional de 7 dias"
-];
+const benefits = ["Protocolos de treino para 8 semanas", "Técnicas avançadas explicadas passo a passo", "Guia de nutrição para hipertrofia", "Mentalidade e disciplina", "Acesso vitalício", "Atualizações gratuitas", "Garantia de 7 dias"];
 const CTA = () => {
   const {
     trackInitiateCheckout
@@ -75,34 +65,24 @@ const CTA = () => {
                     OFERTA ESPECIAL — ACESSO COMPLETO AO MÉTODO 8X
                   </span>
                   <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mt-3 mb-4 sm:mb-5 tracking-tight leading-tight">
-                    Tudo o que você precisa para transformar seu corpo com ciência, estratégia e execução — sem achismo.
+                    Tudo o que você precisa para transformar seu corpo com ciência e estratégia:
                   </h2>
                 </div>
                 
-                <p className="text-accent font-semibold text-sm sm:text-base mb-5">
-                  Não é motivacional.<br />
-                  É protocolo.
-                </p>
-                
-                <div className="space-y-3 sm:space-y-4 mb-5">
+                <div className="space-y-3 sm:space-y-4 mb-7 sm:mb-9">
                   {benefits.map((benefit, index) => <div key={index} className="flex items-start gap-3">
                       <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5 drop-shadow-sm" />
                       <span className="text-foreground text-sm sm:text-base">{benefit}</span>
                     </div>)}
                 </div>
                 
-                <p className="text-muted-foreground text-sm mb-7 sm:mb-9">
-                  O Método 8X não é acompanhamento individual.<br />
-                  É um protocolo que te ensina a executar, avaliar e ajustar sua própria evolução.
-                </p>
-                
                 <div className="border-t border-border/60 pt-6 sm:pt-7 mb-6 sm:mb-7">
                   <div className="flex items-baseline gap-3 mb-2.5 flex-wrap">
                     <span className="text-muted-foreground line-through text-xl sm:text-2xl">
-                      De R$ 97,00
+                      DE R$ 97,00
                     </span>
                     <span className="text-accent font-display text-3xl sm:text-4xl md:text-5xl font-bold drop-shadow-sm">
-                      Por apenas R$ 19,90
+                      POR APENAS R$ 19,90
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm text-muted-foreground mt-1.5">
@@ -110,25 +90,15 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <p className="text-center text-foreground text-sm sm:text-base mb-5">
-                  Se você continuar treinando do mesmo jeito,<br />
-                  daqui a 8 semanas… nada muda.
-                </p>
-                
                 <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30" onClick={handleCTAClick}>
                   QUERO O MÉTODO 8X AGORA 
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 
-                <div className="flex items-center justify-center gap-2.5 text-xs sm:text-sm text-muted-foreground mb-5">
+                <div className="flex items-center justify-center gap-2.5 text-xs sm:text-sm text-muted-foreground">
                   <Lock className="w-4 h-4 flex-shrink-0" />
                   <span>Pagamento 100% seguro e protegido</span>
                 </div>
-                
-                <p className="text-center text-muted-foreground text-xs sm:text-sm">
-                  Você não está comprando um treino.<br />
-                  Está comprando clareza, estratégia e um método que finalmente faz sentido.
-                </p>
               </div>
             </div>
           </div>
