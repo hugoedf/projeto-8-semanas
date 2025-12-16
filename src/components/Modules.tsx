@@ -76,8 +76,8 @@ const Modules = () => {
         
         <div className="text-center mt-12 sm:mt-16 animate-fade-in">
           <p className="text-base sm:text-lg text-white/75 max-w-2xl mx-auto px-4 leading-relaxed">
-            O Método 8X não é acompanhamento individual.<br />
-            É um protocolo para autoavaliação e ajustes contínuos.
+            O Método 8X te ensina a pensar como quem evolui.<br />
+            Você aprende a analisar, ajustar e progredir sozinho — com método.
           </p>
         </div>
       </div>

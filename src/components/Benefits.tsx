@@ -59,6 +59,19 @@ const Benefits = () => {
           </h2>
         </div>
         
+        <div className="text-center mb-10 sm:mb-12 animate-fade-in">
+          <p className="text-base sm:text-lg text-foreground font-semibold mb-4">
+            Em 8 semanas, você vai saber exatamente:
+          </p>
+          <div className="flex flex-col items-center gap-2 text-sm sm:text-base text-muted-foreground">
+            <span className="flex items-center gap-2"><span className="text-accent">✔</span> O que treinar</span>
+            <span className="flex items-center gap-2"><span className="text-accent">✔</span> Como progredir</span>
+            <span className="flex items-center gap-2"><span className="text-accent">✔</span> Quando ajustar</span>
+            <span className="flex items-center gap-2"><span className="text-accent">✔</span> Por que seu corpo responde</span>
+            <span className="flex items-center gap-2"><span className="text-accent">✔</span> Como não estagnar nunca mais</span>
+          </div>
+        </div>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-7xl mx-auto">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;

@@ -42,7 +42,13 @@ const Problems = () => {
           ))}
         </div>
         
-        <div className="text-center mt-12 sm:mt-14 px-4">
+        <div className="text-center mt-10 sm:mt-12 px-4 animate-fade-in">
+          <p className="text-base sm:text-lg font-semibold text-foreground">
+            Se você continua treinando assim, o platô não é questão de se — é de quando.
+          </p>
+        </div>
+        
+        <div className="text-center mt-8 sm:mt-10 px-4">
           <p className="text-base sm:text-lg text-muted-foreground mb-3">
             Nada disso é culpa sua.
           </p>
