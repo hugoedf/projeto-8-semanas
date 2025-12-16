@@ -94,7 +94,7 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <p className="text-sm sm:text-base text-foreground mb-4 text-center">Se você continuar treinando do mesmo jeito, daqui a 8 semanas… nada muda.<br />
+                <p className="text-sm sm:text-base text-foreground mb-4 text-center">​<br />
                   daqui a 8 semanas… nada muda.
                 </p>
                 
