@@ -2,35 +2,35 @@ import { Check, Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calenda
 const benefits = [{
   icon: Dumbbell,
   title: "Treino inteligente",
-  description: "Como aplicar estímulos corretos para gerar hipertrofia real."
+  description: "Estímulos certos para hipertrofia real."
 }, {
   icon: Target,
   title: "Montagem estratégica",
-  description: "Organizar seus treinos semanais para evitar estagnação."
+  description: "Treinos semanais sem estagnação."
 }, {
   icon: TrendingUp,
   title: "Técnicas avançadas",
-  description: "Drop-set, rest-pause, superséries e intensificação de forma segura e eficaz."
+  description: "Drop-set, rest-pause e superséries."
 }, {
   icon: Apple,
   title: "Nutrição prática",
-  description: "Comer do jeito certo para maximizar hipertrofia."
+  description: "O que comer para crescer."
 }, {
   icon: Shield,
   title: "Prevenção de lesões",
-  description: "Execução correta e aquecimento estruturado para treinar sem parar."
+  description: "Execução correta e segura."
 }, {
   icon: Zap,
   title: "Acompanhamento real",
-  description: "Acompanhe seu progresso semanal de maneira simples e objetiva."
+  description: "Meça seu progresso toda semana."
 }, {
   icon: Brain,
   title: "Mentalidade de disciplina",
-  description: "Disciplina, foco e consistência."
+  description: "Foco, consistência e constância."
 }, {
   icon: Calendar,
   title: "Plano completo de 8 semanas",
-  description: "Do dia 1 ao dia 56, passo a passo."
+  description: "Do dia 1 ao dia 56."
 }];
 const Benefits = () => {
   return <section className="py-16 sm:py-24 bg-background">
@@ -47,10 +47,6 @@ const Benefits = () => {
           </h2>
         </div>
         
-        <div className="text-center mb-10 sm:mb-12 animate-fade-in">
-          
-          
-        </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-7xl mx-auto">
           {benefits.map((benefit, index) => {
@@ -71,12 +67,6 @@ const Benefits = () => {
         })}
         </div>
         
-        <div className="mt-12 sm:mt-16 text-center px-4">
-          <div className="inline-flex items-center gap-2.5 text-accent font-semibold text-sm sm:text-base bg-accent/5 px-5 py-3 rounded-full border border-accent/20">
-            <Check className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-            <span>E muito mais conteúdo exclusivo dentro do ebook</span>
-          </div>
-        </div>
       </div>
     </section>;
 };
