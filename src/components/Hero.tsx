@@ -62,7 +62,8 @@ const Hero = () => {
             </h1>
             
             <h2 className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-white/85 font-normal order-3 font-sans">
-              Um método de 8 semanas para romper o platô e evoluir com estratégia — sem achismo
+              Um protocolo de 8 semanas baseado na fisiologia da adaptação muscular.
+Criado para romper o platô e construir um físico denso e forte — sem treinar no achismo.
             </h2>
             
             {/* Image - Only visible on mobile */}
