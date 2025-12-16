@@ -62,7 +62,8 @@ const Hero = () => {
             </h1>
             
             <h2 className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-white/85 font-normal order-3 font-sans">
-              O protocolo de 8 semanas baseado nos ciclos naturais de adaptação muscular, criado para romper o platô e construir um físico denso, forte e resistente — sem treinar no achismo.
+              Treine com Ciência. Evolua em 8 semanas.
+Sem achismo. Sem modinha
             </h2>
             
             {/* Image - Only visible on mobile */}
