@@ -29,22 +29,9 @@ const Problems = () => {
         </div>
         
         <div className="text-center mt-10 sm:mt-12 px-4 animate-fade-in">
-          
-        </div>
-        
-        <div className="text-center mt-8 sm:mt-10 px-4">
-          <p className="text-base sm:text-lg text-muted-foreground mb-3">
-            Nada disso é culpa sua.
+          <p className="text-base sm:text-lg text-muted-foreground italic">
+            Se você continua treinando assim, o platô não é questão de <em>se</em> — é de <em>quando</em>.
           </p>
-          <p className="text-base sm:text-lg font-semibold text-foreground mb-8">
-            Sem ciência e sem método, é impossível evoluir de forma consistente.
-          </p>
-          <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto shadow-lg shadow-accent/5">
-            <p className="text-base sm:text-lg text-foreground leading-relaxed">
-              <strong className="text-accent">O Método 8X existe para resolver isso.</strong><br />
-              Um protocolo direto, estratégico e fundamentado em fisiologia, criado para quem quer treinar com clareza, propósito e progressão real.
-            </p>
-          </div>
         </div>
       </div>
     </section>;

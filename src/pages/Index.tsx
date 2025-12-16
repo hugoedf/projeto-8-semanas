@@ -26,6 +26,18 @@ const Index = () => {
       <ForWho />
       <Guarantee />
       
+      {/* Bloco de Decisão Final */}
+      <section className="py-12 sm:py-16 bg-muted">
+        <div className="container mx-auto px-5 sm:px-6">
+          <div className="text-center max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl font-display text-foreground leading-relaxed tracking-tight">
+              Se você continuar treinando do mesmo jeito, <span className="text-accent">nada muda.</span><br />
+              Se aplicar um método, <span className="text-accent">o corpo responde.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+      
       <CTA />
       <Footer />
       
