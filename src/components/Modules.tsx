@@ -73,7 +73,8 @@ const Modules = () => {
         
         <div className="text-center mt-12 sm:mt-16 animate-fade-in">
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
-            <p className="text-base sm:text-lg text-white/90 leading-relaxed">O Método 8X não é apenas um treino pronto.<span className="text-accent font-semibold">O Método 8X não é apenas um treino pronto</span><br />
+            <p className="text-base sm:text-lg text-white/90 leading-relaxed">O Método 8X não é apenas um treino pronto.
+É um método que ensina como estruturar estímulos — com uma rotina prática para aplicar desde a primeira semana.<span className="text-accent font-semibold">O Método 8X não é apenas um treino pronto</span><br />
               É um método que ensina como estruturar estímulos — com uma rotina prática para aplicar desde a primeira semana.
             </p>
           </div>
