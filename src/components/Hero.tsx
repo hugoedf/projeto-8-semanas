@@ -61,10 +61,7 @@ const Hero = () => {
               <span className="text-accent drop-shadow-[0_0_20px_hsla(18,100%,58%,0.4)]">HIPERTROFIA REAL</span>
             </h1>
             
-            <h2 className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-white/85 font-normal order-3 font-sans">
-              Um protocolo de 8 semanas baseado na fisiologia da adaptação muscular.
-Criado para romper o platô e construir um físico denso e forte — sem treinar no achismo.
-            </h2>
+            <h2 className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-white/85 font-normal order-3 font-sans">Um protocolo de 8 semanas baseado na fisiologia da adaptação muscular. Criado para romper o platô e construir um físico denso e forte — sem treinar no achismo</h2>
             
             {/* Image - Only visible on mobile */}
             <div className="relative animate-fade-in w-full max-w-[300px] mx-auto lg:hidden order-4 my-8" style={{

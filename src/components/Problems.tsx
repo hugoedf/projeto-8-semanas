@@ -30,9 +30,7 @@ const Problems = () => {
         </div>
         
         <div className="text-center mt-12 sm:mt-14 px-4">
-          <p className="text-base sm:text-lg text-foreground mb-2">
-            Nada disso é falta de esforço.
-          </p>
+          <p className="text-base sm:text-lg text-foreground mb-2">Nada disso é falta de esforço</p>
           <p className="text-base sm:text-lg font-semibold text-foreground mb-4">
             O problema é treinar sem método
           </p>
