@@ -90,7 +90,7 @@ const CTA = () => {
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm text-muted-foreground mt-1.5">
-                    Pagamento único · Acesso imediato após o pagamento · Conteúdo vitalício
+                    Pagamento único. Acesso imediato. Conteúdo vitalício.
                   </p>
                 </div>
                 
@@ -111,10 +111,8 @@ const CTA = () => {
                   <span>Pagamento 100% seguro e protegido</span>
                 </div>
                 
-                <p className="text-sm sm:text-base text-muted-foreground text-center">
-                  Você não está apenas seguindo um treino.<br />
-                  Você está comprando um método que organiza os estímulos certos, na ordem certa, para o seu corpo evoluir.
-                </p>
+                <p className="text-sm sm:text-base text-muted-foreground text-center">Você não está apenas seguindo um treino
+              </p>
               </div>
             </div>
           </div>
