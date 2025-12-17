@@ -102,7 +102,7 @@ const CTA = () => {
                 </div>
                 
                 <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30" onClick={handleCTAClick}>
-                  QUERO O MÉTODO 8X AGORA 
+                  COMEÇAR AGORA POR R$19,90 
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 

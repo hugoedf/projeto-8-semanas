@@ -97,16 +97,7 @@ Criado para romper o platô e construir um físico denso e forte — sem treinar
                 </div>
               </div>
               
-              <div className="flex justify-center lg:justify-start pt-4">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-sm sm:text-base px-6 sm:px-8 py-4 sm:py-5 bg-white/10 border-white/30 text-white hover:bg-white hover:text-background font-semibold tracking-wide transition-all duration-300"
-                >
-                  Começar agora por R$19,90
-                </Button>
-              </div>
+              
             </div>
           </div>
           
