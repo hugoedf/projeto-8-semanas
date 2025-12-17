@@ -111,7 +111,7 @@ const CTA = () => {
                   <span>Pagamento 100% seguro e protegido</span>
                 </div>
                 
-                <p className="text-sm sm:text-base text-muted-foreground text-left">
+                <p className="text-sm sm:text-base text-muted-foreground text-center">
                   Você não está comprando um treino.<br />
                   Está comprando clareza, estratégia e um método que finalmente faz sentido.
                 </p>
