@@ -114,7 +114,7 @@ const CTA = () => {
                   <span>Pagamento 100% seguro e protegido</span>
                 </div>
                 
-                <p className="text-sm sm:text-base text-muted-foreground text-center">Você não está apenas seguindo um treino
+                <p className="text-sm sm:text-base text-muted-foreground text-center">Você não está apenas seguindo um treino. Você está comprando um método que organiza os estímulos certos, na ordem certa, para o seu corpo evoluir.
               </p>
               </div>
             </div>
