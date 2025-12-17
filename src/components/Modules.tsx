@@ -33,7 +33,7 @@ const modules = [{
   description: "Aprenda a medir evolução e corrigir o rumo sozinho."
 }];
 const Modules = () => {
-  return <section id="modules-section" className="py-16 sm:py-24 gradient-hero">
+  return <section className="py-16 sm:py-24 gradient-hero">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="text-center mb-12 sm:mb-16 animate-fade-in">
           <div className="inline-block mb-4 sm:mb-5">
@@ -73,9 +73,9 @@ const Modules = () => {
         
         <div className="text-center mt-12 sm:mt-16 animate-fade-in">
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
-            <p className="text-base sm:text-lg text-white/90 leading-relaxed">
-              <span className="text-accent font-semibold">O Método 8X não é um treino pronto.</span><br />
-              É o conhecimento que faz qualquer treino funcionar.
+            <p className="text-base sm:text-lg text-white/90 leading-relaxed">O Método 8X não é apenas um treino pronto.
+É um método que ensina como estruturar estímulos — com uma rotina prática para aplicar desde a primeira semana.<span className="text-accent font-semibold">O Método 8X não é apenas um treino pronto</span><br />
+              É um método que ensina como estruturar estímulos — com uma rotina prática para aplicar desde a primeira semana.
             </p>
           </div>
         </div>
