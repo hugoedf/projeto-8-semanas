@@ -1,36 +1,36 @@
 import { BookOpen } from "lucide-react";
 const modules = [{
   number: "01",
-  title: "Fundamentos da Hipertrofia",
-  description: "A base científica do ganho muscular e como aplicar isso no treino."
+  title: "Entenda como o músculo cresce",
+  description: "A base que faz qualquer treino fazer sentido."
 }, {
   number: "02",
-  title: "Avaliação e Objetivos",
-  description: "Entenda seu nível e defina suas metas de forma realista. Você aprende a se avaliar sem acompanhamento externo."
+  title: "Descubra seu ponto de partida",
+  description: "Aprenda a se avaliar e definir metas realistas — sem depender de ninguém."
 }, {
   number: "03",
-  title: "Treinos Estruturados (8 Semanas)",
-  description: "Progressão lógica e semanal para evolução real."
+  title: "8 semanas de treino pronto",
+  description: "Progressão semanal clara para você saber exatamente o que fazer."
 }, {
   number: "04",
-  title: "Nutrição Estratégica",
-  description: "Como comer de forma prática e eficiente para hipertrofia."
+  title: "Coma certo sem complicação",
+  description: "Nutrição prática e eficiente para ganhar músculo."
 }, {
   number: "05",
-  title: "Sono, Recuperação e Performance",
-  description: "A base invisível do crescimento: recuperação e descanso."
+  title: "Descanse para crescer",
+  description: "Como sono e recuperação aceleram seus resultados."
 }, {
   number: "06",
-  title: "Técnicas Avançadas de Intensificação",
-  description: "Drop-set, rest-pause, negativas e como aplicar de forma segura."
+  title: "Técnicas para intensificar",
+  description: "Drop-set, rest-pause e mais — quando e como usar."
 }, {
   number: "07",
-  title: "Mentalidade e Disciplina",
-  description: "Construção de constância, foco e disciplina para evolução contínua."
+  title: "Mentalidade que não falha",
+  description: "Construa constância e foco para nunca mais abandonar."
 }, {
   number: "08",
-  title: "Autoacompanhamento e Ajustes",
-  description: "Como medir sua evolução e fazer ajustes conforme necessário. O método ensina você a se acompanhar e corrigir o curso."
+  title: "Saiba quando ajustar",
+  description: "Aprenda a medir evolução e corrigir o rumo sozinho."
 }];
 const Modules = () => {
   return <section className="py-16 sm:py-24 gradient-hero">
@@ -72,10 +72,12 @@ const Modules = () => {
         </div>
         
         <div className="text-center mt-12 sm:mt-16 animate-fade-in">
-          <p className="text-base sm:text-lg text-white/75 max-w-2xl mx-auto px-4 leading-relaxed">
-            O Método 8X não é acompanhamento individual.<br />
-            É um protocolo para autoavaliação e ajustes contínuos.
-          </p>
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-white/90 leading-relaxed">
+              <span className="text-accent font-semibold">O Método 8X não é um treino pronto.</span><br />
+              É o conhecimento que faz qualquer treino funcionar.
+            </p>
+          </div>
         </div>
       </div>
     </section>;

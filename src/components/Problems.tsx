@@ -1,12 +1,10 @@
 import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const problems = [
-  "Treinos aleatórios e sem progressão",
-  "Falta de estratégia semanal",
-  "Execução inconsistente",
-  "Falta de disciplina e constância",
-  "Dificuldade para saber se está evoluindo",
-  "Acreditar que suplemento resolve tudo",
+  "Você treina, mas sente que não evolui.",
+  "Faz força, mas o corpo não responde.",
+  "Já tentou mudar treino, mas continua travado.",
 ];
 
 const Problems = () => {
@@ -18,12 +16,9 @@ const Problems = () => {
             Você treina… mas sente que algo{" "}
             <span className="text-accent">não está encaixando?</span>
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
-            Se pelo menos UM desses pontos parece familiar, você está a um passo de destravar sua evolução:
-          </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
           {problems.map((problem, index) => (
             <div
               key={index}
@@ -44,17 +39,26 @@ const Problems = () => {
         
         <div className="text-center mt-12 sm:mt-14 px-4">
           <p className="text-base sm:text-lg text-muted-foreground mb-3">
-            Nada disso é culpa sua.
+            Não é falta de esforço.
           </p>
           <p className="text-base sm:text-lg font-semibold text-foreground mb-8">
-            Sem ciência e sem método, é impossível evoluir de forma consistente.
+            É falta de método.
           </p>
-          <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto shadow-lg shadow-accent/5">
+          <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto shadow-lg shadow-accent/5 mb-8">
             <p className="text-base sm:text-lg text-foreground leading-relaxed">
               <strong className="text-accent">O Método 8X existe para resolver isso.</strong><br />
-              Um protocolo direto, estratégico e fundamentado em fisiologia, criado para quem quer treinar com clareza, propósito e progressão real.
+              Um protocolo direto que te ensina a fazer qualquer treino funcionar.
             </p>
           </div>
+          
+          <Button 
+            variant="cta" 
+            size="lg" 
+            onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
+            className="text-sm sm:text-base px-8 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30"
+          >
+            Começar agora por R$19,90
+          </Button>
         </div>
       </div>
     </section>
