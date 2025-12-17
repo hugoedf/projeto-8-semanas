@@ -109,9 +109,8 @@ const CTA = () => {
                 </div>
                 
                 <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-4">
-                  <p className="text-muted-foreground text-center text-base font-semibold">
-                    Por menos que uma mensalidade de academia, você leva um método estruturado para evoluir de verdade.
-                  </p>
+                  <p className="text-muted-foreground text-center text-base font-semibold">Você não está apenas seguindo um treino. 
+Você está comprando um método que organiza os estímulos certos, na ordem certa, para o seu corpo evoluir.</p>
                 </div>
                 
                 
