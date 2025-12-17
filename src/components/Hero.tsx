@@ -40,7 +40,7 @@ const Hero = () => {
     trackInitiateCheckout(97, 'BRL');
 
     // 5. Abrir checkout em nova aba
-    window.open(checkoutUrl, "_blank");
+    window.location.href = checkoutUrl;
   };
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
       {/* Background overlays for depth */}
@@ -73,10 +73,13 @@ const Hero = () => {
             
             <div className="space-y-5 sm:space-y-6 order-5">
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full">
-                <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-7 animate-pulse-glow w-full sm:w-auto font-semibold tracking-wide shadow-xl shadow-accent/30">
-                  QUERO O MÉTODO 8X AGORA 
-                  <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
-                </Button>
+                <div className="flex flex-col items-center lg:items-start gap-2">
+                  <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-7 animate-pulse-glow w-full sm:w-auto font-semibold tracking-wide shadow-xl shadow-accent/30">
+                    QUERO O MÉTODO 8X AGORA 
+                    <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
+                  </Button>
+                  <span className="text-accent font-semibold text-sm sm:text-base">Por apenas R$ 19,90</span>
+                </div>
               </div>
               
               <div className="flex flex-wrap items-center gap-4 sm:gap-8 justify-center lg:justify-start pt-2 sm:pt-4 text-xs sm:text-sm text-white/80">
