@@ -95,7 +95,7 @@ const CTA = () => {
                 </div>
                 
                 <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-6">
-                  <p className="text-sm sm:text-base text-foreground leading-relaxed text-left">
+                  <p className="text-sm sm:text-base text-foreground leading-relaxed text-center">
                     Se você continuar treinando do mesmo jeito, o resultado será o mesmo.<br />
                     <span className="text-accent font-medium">O Método 8X custa menos que uma mensalidade de academia</span> e pode mudar a forma como você treina para sempre.
                   </p>
