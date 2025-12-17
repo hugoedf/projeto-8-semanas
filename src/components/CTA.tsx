@@ -100,7 +100,7 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <p className="text-center text-accent font-semibold text-sm sm:text-base mb-4">
+                <p className="text-center font-semibold text-sm sm:text-base mb-4 text-primary">
                   ⚠️ Oferta disponível por tempo limitado
                 </p>
                 
