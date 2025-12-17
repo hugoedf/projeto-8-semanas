@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useVisitorTracking } from './useVisitorTracking';
+import { getMetaParamBuilder, refreshMetaParams } from '@/utils/metaParameterBuilder';
 
 // Meta Pixel interface
 declare global {
@@ -34,17 +35,21 @@ const shouldFireEvent = (eventName: string, eventId: string): boolean => {
   }
   
   return true;
-}
+};
 
 /**
  * Hook para inicializar e gerenciar o Meta Pixel
- * Carrega o script de forma assíncrona e configura eventos
+ * Implementa Parameter Configurator da Meta para captura de fbp, fbc e user_agent
  */
 export const useMetaPixel = () => {
   const pixelId = import.meta.env.VITE_META_PIXEL_ID;
   const { visitorData } = useVisitorTracking();
+  const paramBuilderRef = useRef(getMetaParamBuilder());
 
   useEffect(() => {
+    // Inicializa/atualiza Parameter Builder
+    paramBuilderRef.current = refreshMetaParams();
+    
     // O Meta Pixel já é carregado no index.html
     // Este hook apenas aguarda que o fbq esteja disponível
     const checkPixelReady = setInterval(() => {
@@ -178,12 +183,12 @@ export const useMetaPixel = () => {
 
   /**
    * Envia evento para a API de Conversões (server-side)
+   * Inclui todos os parâmetros do Parameter Configurator
    */
   const sendToConversionsAPI = async (eventName: string, eventParams: any, eventId: string, userData?: any) => {
     try {
-      // Coleta cookies do Meta Pixel para deduplicação
-      const fbp = getCookie('_fbp');
-      const fbc = getCookie('_fbc');
+      // Obtém parâmetros do Meta Parameter Builder
+      const metaParams = paramBuilderRef.current.getParameters();
 
       // Coleta UTMs da URL ou localStorage (persistente entre sessões)
       const urlParams = new URLSearchParams(window.location.search);
@@ -207,16 +212,6 @@ export const useMetaPixel = () => {
         localStorage.setItem('referrer', document.referrer || 'direct');
       }
 
-      // Detecta informações do dispositivo
-      const deviceInfo = {
-        userAgent: navigator.userAgent,
-        language: navigator.language,
-        screenResolution: `${window.screen.width}x${window.screen.height}`,
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        referrer: document.referrer || 'direct',
-        landingPage: localStorage.getItem('landing_page') || window.location.href,
-      };
-
       const metaCapiSecret = import.meta.env.VITE_META_CAPI_SECRET;
       
       const response = await fetch(
@@ -232,11 +227,12 @@ export const useMetaPixel = () => {
             eventParams,
             eventId,
             visitorId: visitorData?.visitorId,
-            fbp,
-            fbc,
+            // Parâmetros do Meta Parameter Configurator
+            fbp: metaParams.fbp,
+            fbc: metaParams.fbc,
+            client_user_agent: metaParams.client_user_agent,
             eventSourceUrl: window.location.href,
             utmData,
-            deviceInfo,
             userData: userData || {},
           }),
         }
@@ -246,20 +242,15 @@ export const useMetaPixel = () => {
         throw new Error(`CAPI error: ${response.statusText}`);
       }
 
-      console.log('Meta CAPI - Evento enviado com sucesso', { eventName, eventId });
+      console.log('Meta CAPI - Evento enviado com sucesso', { 
+        eventName, 
+        eventId,
+        hasFbp: !!metaParams.fbp,
+        hasFbc: !!metaParams.fbc,
+      });
     } catch (error) {
       console.error('Erro ao enviar evento para CAPI:', error);
     }
-  };
-
-  /**
-   * Função auxiliar para obter cookie
-   */
-  const getCookie = (name: string): string | undefined => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift();
-    return undefined;
   };
 
   return {
