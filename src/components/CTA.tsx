@@ -109,7 +109,7 @@ const CTA = () => {
                 </div>
                 
                 <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-4">
-                  <p className="text-sm text-muted-foreground text-center">
+                  <p className="text-muted-foreground text-center text-base font-semibold">
                     Por menos que uma mensalidade de academia, você leva um método estruturado para evoluir de verdade.
                   </p>
                 </div>
