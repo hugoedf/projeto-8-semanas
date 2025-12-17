@@ -40,9 +40,9 @@ const Problems = () => {
             </p>
           </div>
           
-          <Button variant="cta" size="lg" onClick={() => document.getElementById('cta-section')?.scrollIntoView({
+          <Button variant="cta" size="default" onClick={() => document.getElementById('modules-section')?.scrollIntoView({
           behavior: 'smooth'
-        })} className="text-sm sm:text-base px-8 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30">
+        })} className="text-sm sm:text-base px-6 sm:px-8 py-4 font-semibold tracking-wide shadow-md shadow-accent/20 mt-4 mb-2">
             VER COMO O MÉTODO 8X FUNCIONA
           </Button>
         </div>
