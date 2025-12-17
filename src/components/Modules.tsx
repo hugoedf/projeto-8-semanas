@@ -33,7 +33,7 @@ const modules = [{
   description: "Aprenda a medir evolução e corrigir o rumo sozinho."
 }];
 const Modules = () => {
-  return <section className="py-16 sm:py-24 gradient-hero">
+  return <section id="modules-section" className="py-16 sm:py-24 gradient-hero">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="text-center mb-12 sm:mb-16 animate-fade-in">
           <div className="inline-block mb-4 sm:mb-5">
