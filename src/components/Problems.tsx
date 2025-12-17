@@ -37,28 +37,46 @@ const Problems = () => {
           ))}
         </div>
         
-        <div className="text-center mt-12 sm:mt-14 px-4">
-          <p className="text-base sm:text-lg text-muted-foreground mb-3">
-            Não é falta de esforço.
-          </p>
-          <p className="text-base sm:text-lg font-semibold text-foreground mb-8">
-            É falta de método.
-          </p>
-          <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto shadow-lg shadow-accent/5 mb-8">
-            <p className="text-base sm:text-lg text-foreground leading-relaxed">
-              <strong className="text-accent">O Método 8X existe para resolver isso.</strong><br />
-              Um protocolo direto que te ensina a fazer qualquer treino funcionar.
+        <div className="mt-12 sm:mt-16 px-4 max-w-3xl mx-auto">
+          <div className="space-y-4 text-base sm:text-lg text-foreground/90 leading-relaxed mb-8">
+            <p>
+              Treinar com constância não garante evolução.<br />
+              Muitas pessoas se dedicam, aumentam a carga e mantêm a frequência — mas não veem mudanças reais no corpo.
+            </p>
+            <p>
+              Isso acontece porque evolução não depende apenas de esforço, mas de <strong className="text-foreground">estímulos organizados</strong>.<br />
+              Volume, intensidade e recuperação precisam conversar entre si.
+            </p>
+            <p>
+              Quando isso não acontece, o corpo se adapta — e para de responder.<br />
+              Você treina certo, mas na ordem errada. Aumenta a carga sem dar tempo de recuperação. Ou faz tudo "certinho", mas sem progressão real.
+            </p>
+            <p>
+              A sensação é de estagnação, mesmo com disciplina.<br />
+              Parece que algo está faltando — e está.
+            </p>
+            <p className="font-semibold text-foreground">
+              O problema não é falta de esforço.<br />
+              É falta de método.
             </p>
           </div>
           
-          <Button 
-            variant="cta" 
-            size="lg" 
-            onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
-            className="text-sm sm:text-base px-8 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30"
-          >
-            Começar agora por R$19,90
-          </Button>
+          <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 shadow-lg shadow-accent/5 mb-8">
+            <p className="text-base sm:text-lg text-foreground leading-relaxed">
+              <strong className="text-accent">O Método 8X organiza esses pontos em um sistema simples, progressivo e aplicável</strong> para quem quer evoluir de forma consistente.
+            </p>
+          </div>
+          
+          <div className="text-center">
+            <Button 
+              variant="cta" 
+              size="lg" 
+              onClick={() => document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-sm sm:text-base px-8 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30"
+            >
+              Começar agora por R$19,90
+            </Button>
+          </div>
         </div>
       </div>
     </section>
