@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 const problems = ["Treinos aleatórios e sem progressão", "Falta de estratégia semanal", "Execução inconsistente", "Falta de disciplina e constância", "Dificuldade para saber se está evoluindo", "Acreditar que suplemento resolve tudo"];
 const Problems = () => {
-  return <section className="py-16 sm:py-24 bg-muted">
+  return <section className="py-20 sm:py-28 bg-muted">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="text-center mb-12 sm:mb-14 animate-fade-in">
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
