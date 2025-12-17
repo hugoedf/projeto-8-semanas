@@ -108,8 +108,10 @@ const CTA = () => {
                   <span>Pagamento 100% seguro e protegido</span>
                 </div>
                 
-                <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-6">
-                  
+                <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-4">
+                  <p className="text-sm text-muted-foreground text-center">
+                    Por menos que uma mensalidade de academia, você leva um método estruturado para evoluir de verdade.
+                  </p>
                 </div>
                 
                 
