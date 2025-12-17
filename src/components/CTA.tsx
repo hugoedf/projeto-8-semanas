@@ -41,7 +41,7 @@ const CTA = () => {
     trackInitiateCheckout(97, 'BRL');
 
     // 5. Abrir checkout em nova aba
-    window.open(checkoutUrl, "_blank");
+    window.location.href = checkoutUrl;
   };
   return <section id="cta-section" className="py-20 sm:py-28 bg-background">
       <div className="container mx-auto px-5 sm:px-6">
