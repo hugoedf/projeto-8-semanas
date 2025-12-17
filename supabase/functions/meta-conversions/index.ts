@@ -56,6 +56,120 @@ function maskPhone(phone: string | undefined | null): string {
   return phone.slice(0, 4) + "****" + phone.slice(-2);
 }
 
+// ============================================
+// IP RESOLUTION - Suporte IPv4 e IPv6
+// ============================================
+
+/**
+ * Valida se é um endereço IPv4 válido
+ */
+function isValidIPv4(ip: string): boolean {
+  const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
+  if (!ipv4Regex.test(ip)) return false;
+  const parts = ip.split('.').map(Number);
+  return parts.every(part => part >= 0 && part <= 255);
+}
+
+/**
+ * Valida se é um endereço IPv6 válido
+ */
+function isValidIPv6(ip: string): boolean {
+  // Regex simplificado para IPv6
+  const ipv6Regex = /^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$/;
+  // Também aceita IPv6 com sufixo IPv4
+  const ipv6v4Regex = /^([0-9a-fA-F]{0,4}:){2,6}(\d{1,3}\.){3}\d{1,3}$/;
+  return ipv6Regex.test(ip) || ipv6v4Regex.test(ip);
+}
+
+/**
+ * Valida se é um IP válido (IPv4 ou IPv6)
+ */
+function isValidIP(ip: string): boolean {
+  return isValidIPv4(ip) || isValidIPv6(ip);
+}
+
+/**
+ * Resolve o IP real do cliente a partir dos headers
+ * Seguindo a documentação Meta Parameter Configurator:
+ * - X-Forwarded-For (pode conter múltiplos IPs)
+ * - X-Real-IP
+ * - CF-Connecting-IP (Cloudflare)
+ * - RemoteAddr como fallback
+ */
+function resolveClientIP(req: Request): string {
+  // 1. X-Forwarded-For - formato: "client, proxy1, proxy2"
+  const forwardedFor = req.headers.get('x-forwarded-for');
+  if (forwardedFor) {
+    // Pega o primeiro IP (cliente original)
+    const ips = forwardedFor.split(',').map(ip => ip.trim());
+    for (const ip of ips) {
+      // Remove porta se presente
+      const cleanIP = ip.split(':')[0] || ip;
+      if (isValidIP(cleanIP)) {
+        console.log('Meta CAPI - IP resolvido via X-Forwarded-For:', cleanIP);
+        return cleanIP;
+      }
+    }
+  }
+
+  // 2. X-Real-IP
+  const realIP = req.headers.get('x-real-ip');
+  if (realIP && isValidIP(realIP)) {
+    console.log('Meta CAPI - IP resolvido via X-Real-IP:', realIP);
+    return realIP;
+  }
+
+  // 3. CF-Connecting-IP (Cloudflare)
+  const cfIP = req.headers.get('cf-connecting-ip');
+  if (cfIP && isValidIP(cfIP)) {
+    console.log('Meta CAPI - IP resolvido via CF-Connecting-IP:', cfIP);
+    return cfIP;
+  }
+
+  // 4. True-Client-IP (Akamai, Cloudflare Enterprise)
+  const trueClientIP = req.headers.get('true-client-ip');
+  if (trueClientIP && isValidIP(trueClientIP)) {
+    console.log('Meta CAPI - IP resolvido via True-Client-IP:', trueClientIP);
+    return trueClientIP;
+  }
+
+  console.log('Meta CAPI - IP não resolvido, usando not_provided');
+  return 'not_provided';
+}
+
+// ============================================
+// FBP/FBC VALIDATION - Meta Parameter Configurator
+// ============================================
+
+/**
+ * Valida formato do fbp
+ * Formato esperado: fb.{version}.{timestamp}.{random_id}
+ */
+function isValidFbp(fbp: string | undefined): boolean {
+  if (!fbp) return false;
+  const parts = fbp.split('.');
+  return parts.length === 4 && parts[0] === 'fb' && parts[1] === '1';
+}
+
+/**
+ * Valida formato do fbc
+ * Formato esperado: fb.{version}.{timestamp}.{fbclid}
+ */
+function isValidFbc(fbc: string | undefined): boolean {
+  if (!fbc) return false;
+  const parts = fbc.split('.');
+  return parts.length >= 4 && parts[0] === 'fb' && parts[1] === '1';
+}
+
+/**
+ * Gera fbp server-side se não fornecido pelo cliente
+ */
+function generateServerFbp(): string {
+  const timestamp = Date.now();
+  const randomId = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+  return `fb.1.${timestamp}.${randomId}`;
+}
+
 // Allowed origin patterns for CORS validation
 const isAllowedOrigin = (origin: string | null): boolean => {
   if (!origin) return false;
@@ -70,6 +184,8 @@ const isAllowedOrigin = (origin: string | null): boolean => {
     'https://lovable.dev',
     'http://localhost:5173',
     'http://localhost:3000',
+    'https://www.metodo8xpro.online',
+    'https://metodo8xpro.online',
   ];
   
   return allowedExact.includes(origin);
@@ -88,6 +204,7 @@ const metaEventSchema = z.object({
   visitorId: z.string().max(200).optional(),
   fbp: z.string().max(200).optional(),
   fbc: z.string().max(200).optional(),
+  client_user_agent: z.string().max(1000).optional(), // User agent do cliente
   eventSourceUrl: z.string().url().max(2000),
   utmData: z.object({
     utm_source: z.string().max(100).optional(),
@@ -97,9 +214,6 @@ const metaEventSchema = z.object({
     utm_content: z.string().max(200).optional(),
     utm_term: z.string().max(200).optional(),
     placement: z.string().max(200).optional(),
-  }).optional().default({}),
-  deviceInfo: z.object({
-    userAgent: z.string().max(500).optional(),
   }).optional().default({}),
   userData: z.object({
     email: z.string().email().max(255).optional(),
@@ -152,84 +266,6 @@ function detectDevice(userAgent: string): string {
     return 'tablet';
   }
   return 'desktop';
-}
-
-interface GeoData {
-  region: string;
-  city: string;
-  country: string;
-  latitude: number | null;
-  longitude: number | null;
-}
-
-/**
- * Obtém geolocalização via ipapi.co com fallback para ipwho.is
- * Mesma lógica robusta da Edge Function /geo
- */
-async function fetchGeoFromIP(ip: string): Promise<GeoData> {
-  const defaultGeo: GeoData = {
-    region: 'not_provided',
-    city: 'not_provided',
-    country: 'not_provided',
-    latitude: null,
-    longitude: null,
-  };
-
-  if (!ip || ip === 'not_provided') return defaultGeo;
-  
-  // Tentativa 1: ipapi.co
-  try {
-    const response = await fetch(`https://ipapi.co/${ip}/json/`, {
-      headers: { 'User-Agent': 'Metodo8X-CAPI/1.0' }
-    });
-    
-    if (response.ok) {
-      const data = await response.json();
-      if (!data.error) {
-        return {
-          region: data.region || 'not_provided',
-          city: data.city || 'not_provided',
-          country: data.country_name || 'not_provided',
-          latitude: data.latitude || null,
-          longitude: data.longitude || null,
-        };
-      }
-    }
-    console.warn('Meta CAPI - ipapi.co falhou, tentando ipwho.is...');
-  } catch (error) {
-    console.warn('Meta CAPI - Erro ipapi.co:', error instanceof Error ? error.message : 'unknown');
-  }
-
-  // Tentativa 2: ipwho.is (fallback)
-  try {
-    const response = await fetch(`https://ipwho.is/${ip}`);
-    
-    if (response.ok) {
-      const data = await response.json();
-      if (data.success !== false) {
-        return {
-          region: data.region || 'not_provided',
-          city: data.city || 'not_provided',
-          country: data.country || 'not_provided',
-          latitude: data.latitude || null,
-          longitude: data.longitude || null,
-        };
-      }
-    }
-    console.warn('Meta CAPI - ipwho.is também falhou');
-  } catch (error) {
-    console.error('Meta CAPI - Erro ipwho.is:', error instanceof Error ? error.message : 'unknown');
-  }
-
-  return defaultGeo;
-}
-
-/**
- * Formata região para string legível (compatibilidade)
- */
-function formatRegionString(geo: GeoData): string {
-  const parts = [geo.city, geo.region, geo.country].filter(p => p && p !== 'not_provided');
-  return parts.length > 0 ? parts.join(', ') : 'not_provided';
 }
 
 /**
@@ -305,14 +341,16 @@ async function sendToMetaCAPI(
 /**
  * Edge Function principal para processar eventos de conversão
  * 
- * Implementa fluxo server-side robusto com:
+ * Implementa Meta Parameter Configurator com:
+ * - Captura e validação de fbp/fbc
+ * - Resolução de IP real (IPv4/IPv6)
+ * - client_user_agent em todos os eventos
  * - Rate limiting (60 req/min por IP)
- * - Coleta completa de dados (UTMs, device, região, etc.)
- * - Normalização automática de campos
  * - Hash SHA256 para dados pessoais
  * - Deduplicação via event_id
  * - Retry automático em caso de falha
- * - Fallbacks com "not_provided"
+ * 
+ * IMPORTANTE: Não envia geolocalização manual - Meta infere via IP
  */
 serve(async (req) => {
   // CORS preflight
@@ -320,12 +358,9 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // Extrair IP do cliente para rate limiting
-  const clientIpHeader = req.headers.get("x-forwarded-for") || 
-                         req.headers.get("x-real-ip") || 
-                         req.headers.get("cf-connecting-ip") || 
-                         "unknown";
-  const rateLimitIp = clientIpHeader.split(",")[0].trim();
+  // Resolve IP real do cliente
+  const clientIP = resolveClientIP(req);
+  const rateLimitIp = clientIP !== 'not_provided' ? clientIP : 'unknown';
 
   // Verificar rate limit ANTES de processar
   if (!checkRateLimit(rateLimitIp)) {
@@ -404,33 +439,54 @@ serve(async (req) => {
       eventParams,
       eventId,
       visitorId,
-      fbp,
-      fbc,
+      fbp: clientFbp,
+      fbc: clientFbc,
+      client_user_agent: clientUserAgent,
       eventSourceUrl,
       utmData,
-      deviceInfo,
       userData,
     } = parseResult.data;
 
+    // ============================================
+    // META PARAMETER CONFIGURATOR - Server-side processing
+    // ============================================
+
+    // 1. Processa fbp - usa do cliente se válido, senão gera server-side
+    let fbp: string | undefined;
+    if (isValidFbp(clientFbp)) {
+      fbp = clientFbp;
+      console.log('Meta CAPI - fbp válido do cliente');
+    } else {
+      fbp = generateServerFbp();
+      console.log('Meta CAPI - fbp gerado server-side:', fbp);
+    }
+
+    // 2. Processa fbc - só usa se válido (não gera server-side)
+    let fbc: string | undefined;
+    if (isValidFbc(clientFbc)) {
+      fbc = clientFbc;
+      console.log('Meta CAPI - fbc válido do cliente');
+    }
+
+    // 3. User Agent - prioriza do cliente, fallback para header do request
+    const userAgent = clientUserAgent || req.headers.get('user-agent') || 'not_provided';
+
     // Log com dados mascarados
-    console.log('Meta CAPI - Dados validados:', {
+    console.log('Meta CAPI - Parâmetros processados:', {
       eventName,
       eventId,
       origin: origin || 'não fornecido',
+      client_ip_address: clientIP,
+      has_fbp: !!fbp,
+      has_fbc: !!fbc,
+      has_user_agent: userAgent !== 'not_provided',
       hasUtmData: Object.keys(utmData).length > 0,
-      hasDeviceInfo: Object.keys(deviceInfo).length > 0,
       hasUserData: Object.keys(userData).length > 0,
       email: maskEmail(userData.email),
       phone: maskPhone(userData.phone),
     });
 
-    // Coleta informações do request
-    const userAgent = req.headers.get('user-agent') || deviceInfo.userAgent || 'not_provided';
-    const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0] || 
-                     req.headers.get('x-real-ip') || 
-                     'not_provided';
-
-    // 1. NORMALIZAÇÃO DE DADOS
+    // 4. NORMALIZAÇÃO DE UTMs
     const normalizedUtmSource = normalizeUtmSource(utmData.utm_source);
     const normalizedUtmMedium = utmData.utm_medium || 'not_provided';
     const normalizedUtmCampaign = utmData.utm_campaign || 'not_provided';
@@ -444,21 +500,33 @@ serve(async (req) => {
     // Dispositivo
     const aparelho = detectDevice(userAgent);
 
-    // Geolocalização via ipapi.co/ipwho.is (com fallback robusto)
-    const geoData = await fetchGeoFromIP(clientIp);
-    const regiao = formatRegionString(geoData);
+    // ============================================
+    // USER_DATA - Parâmetros obrigatórios da Meta
+    // ============================================
+    const hashedUserData: Record<string, any> = {};
 
-    // 2. HASH DE DADOS PESSOAIS (SHA256)
-    const hashedUserData: any = {
-      client_ip_address: clientIp !== 'not_provided' ? clientIp : undefined,
-      client_user_agent: userAgent !== 'not_provided' ? userAgent : undefined,
-    };
+    // Parâmetros obrigatórios do Parameter Configurator
+    // client_ip_address - OBRIGATÓRIO
+    if (clientIP !== 'not_provided') {
+      hashedUserData.client_ip_address = clientIP;
+    }
 
-    // Adiciona fbp/fbc para deduplicação
-    if (fbp) hashedUserData.fbp = fbp;
-    if (fbc) hashedUserData.fbc = fbc;
+    // client_user_agent - OBRIGATÓRIO
+    if (userAgent !== 'not_provided') {
+      hashedUserData.client_user_agent = userAgent;
+    }
 
-    // Hash de dados pessoais se fornecidos (aguarda todas as promises)
+    // fbp - Browser Pixel ID
+    if (fbp) {
+      hashedUserData.fbp = fbp;
+    }
+
+    // fbc - Click ID (se disponível)
+    if (fbc) {
+      hashedUserData.fbc = fbc;
+    }
+
+    // Hash de dados pessoais se fornecidos
     if (userData.email) {
       hashedUserData.em = await hashSHA256(userData.email);
     }
@@ -471,28 +539,18 @@ serve(async (req) => {
     if (userData.lastName) {
       hashedUserData.ln = await hashSHA256(userData.lastName);
     }
-    if (userData.city) {
-      hashedUserData.ct = await hashSHA256(userData.city);
-    }
-    if (userData.state) {
-      hashedUserData.st = await hashSHA256(userData.state);
-    }
-    if (userData.country) {
-      hashedUserData.country = await hashSHA256(userData.country);
-    }
-    if (userData.zipCode) {
-      hashedUserData.zp = await hashSHA256(userData.zipCode);
-    }
+    // NOTA: Não enviamos city/state/country/zip - Meta infere via IP
+    // Isso é conforme solicitado: "Não enviar geolocalização manual"
 
-    // 3. MONTA CUSTOM DATA com todos os parâmetros adicionais
-    const customData: any = {
+    // ============================================
+    // CUSTOM_DATA
+    // ============================================
+    const customData: Record<string, any> = {
       ...eventParams,
       visitor_id: visitorId || 'not_provided',
       origem_compra: normalizedUtmSource,
       posicionamento: posicionamento,
       aparelho: aparelho,
-      regiao: regiao,
-      idade: userData.age || 'not_provided',
       utm_source: normalizedUtmSource,
       utm_medium: normalizedUtmMedium,
       utm_campaign: normalizedUtmCampaign,
@@ -504,7 +562,7 @@ serve(async (req) => {
     // Para eventos Purchase, garantir que transaction_id, value e currency estão presentes
     if (eventName === 'Purchase') {
       if (!customData.transaction_id) {
-        customData.transaction_id = eventId; // Usa eventId como fallback
+        customData.transaction_id = eventId;
       }
       if (!customData.value) {
         customData.value = 0;
@@ -514,28 +572,34 @@ serve(async (req) => {
       }
     }
 
-    // 4. MONTA PAYLOAD FINAL para Meta CAPI
+    // ============================================
+    // PAYLOAD FINAL para Meta CAPI
+    // ============================================
     const eventTime = Math.floor(Date.now() / 1000);
     const metaEventData = {
       event_name: eventName,
       event_time: eventTime,
-      event_id: eventId, // Garantia de deduplicação
+      event_id: eventId,
       event_source_url: eventSourceUrl,
       action_source: 'website',
       user_data: hashedUserData,
       custom_data: customData,
     };
 
-    console.log('Meta CAPI - Payload normalizado:', {
+    console.log('Meta CAPI - Payload final:', {
       event_name: eventName,
       event_id: eventId,
+      has_client_ip: !!hashedUserData.client_ip_address,
+      has_user_agent: !!hashedUserData.client_user_agent,
+      has_fbp: !!hashedUserData.fbp,
+      has_fbc: !!hashedUserData.fbc,
       origem_compra: customData.origem_compra,
       posicionamento: customData.posicionamento,
       aparelho: customData.aparelho,
       transaction_id: customData.transaction_id,
     });
 
-    // 5. ENVIA PARA META CAPI com retry automático
+    // ENVIA PARA META CAPI com retry automático
     const metaResult = await sendToMetaCAPI(metaEventData);
 
     if (!metaResult.success) {
@@ -546,7 +610,7 @@ serve(async (req) => {
       );
     }
 
-    // 6. RESPOSTA DE SUCESSO (sem dados internos detalhados)
+    // RESPOSTA DE SUCESSO
     return new Response(
       JSON.stringify({
         success: true,
