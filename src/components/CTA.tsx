@@ -90,13 +90,12 @@ const CTA = () => {
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm text-muted-foreground mt-1.5">
-                    Pagamento único · Acesso imediato após o pagamento · Conteúdo vitalício
+                    Pagamento único. Acesso imediato. Conteúdo vitalício.
                   </p>
                 </div>
                 
                 <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-6">
-                  <p className="text-sm sm:text-base text-foreground leading-relaxed text-center">
-                    Se você continuar treinando do mesmo jeito, o resultado será o mesmo.<br />
+                  <p className="text-sm sm:text-base text-foreground leading-relaxed text-center">O Método 8X custa menos que uma mensalidade de academia e pode mudar a forma como você treina para sempre.<br />
                     <span className="text-accent font-medium">O Método 8X custa menos que uma mensalidade de academia</span> e pode mudar a forma como você treina para sempre.
                   </p>
                 </div>
@@ -111,9 +110,8 @@ const CTA = () => {
                   <span>Pagamento 100% seguro e protegido</span>
                 </div>
                 
-                <p className="text-sm sm:text-base text-muted-foreground text-center">
-                  Você não está apenas seguindo um treino. Você está comprando um método que organiza os estímulos certos, na ordem certa, para o seu corpo evoluir.
-                </p>
+                <p className="text-sm sm:text-base text-muted-foreground text-center">Você não está apenas seguindo um treino
+              </p>
               </div>
             </div>
           </div>
