@@ -34,10 +34,10 @@ const Problems = () => {
             Nada disso é falta de esforço.
           </p>
           <p className="text-base sm:text-lg font-semibold text-foreground mb-4">
-            O problema é treinar sem método.
+            O problema é treinar sem método
           </p>
           <p className="text-lg sm:text-xl font-bold text-accent mb-6">
-            O Método 8X existe para resolver isso.
+            O Método 8X existe para resolver isso
           </p>
           <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto shadow-lg shadow-accent/5 mb-8">
             <p className="text-base sm:text-lg text-foreground leading-relaxed">
