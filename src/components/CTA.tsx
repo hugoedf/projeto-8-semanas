@@ -99,7 +99,7 @@ const CTA = () => {
                 </p>
                 
                 <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30" onClick={handleCTAClick}>
-                  QUERO MEU ACESSO AGORA
+                  Quero meu acesso agora
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 
@@ -108,15 +108,12 @@ const CTA = () => {
                   <span>Pagamento 100% seguro e protegido</span>
                 </div>
                 
-                <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-4">
-                  <p className="text-sm sm:text-base text-foreground leading-relaxed text-center">
-                    <span className="text-accent font-medium">O Método 8X custa menos que uma mensalidade de academia</span> e pode mudar a forma como você treina para sempre.
+                <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-6">
+                  <p className="text-sm leading-relaxed text-center text-primary sm:text-lg">Você está adquirindo um método estruturado — não apenas um treino pronto.<span className="text-accent font-medium">O Método 8X custa menos que uma mensalidade de academia</span> e pode mudar a forma como você treina para sempre.
                   </p>
                 </div>
                 
-                <p className="text-xs sm:text-sm text-muted-foreground text-center">
-                  Você está adquirindo um método estruturado — não apenas um treino pronto.
-                </p>
+                
               </div>
             </div>
           </div>
