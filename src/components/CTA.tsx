@@ -94,10 +94,12 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <p className="text-sm sm:text-base text-foreground mb-4 text-center">
-                  Se você continuar treinando do mesmo jeito,<br />
-                  daqui a 8 semanas… nada muda.
-                </p>
+                <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-6">
+                  <p className="text-sm sm:text-base text-foreground text-center leading-relaxed">
+                    Se você continuar treinando do mesmo jeito, o resultado será o mesmo.<br />
+                    <span className="text-accent font-medium">O Método 8X custa menos que uma mensalidade de academia</span> e pode mudar a forma como você treina para sempre.
+                  </p>
+                </div>
                 
                 <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30" onClick={handleCTAClick}>
                   QUERO O MÉTODO 8X AGORA 
