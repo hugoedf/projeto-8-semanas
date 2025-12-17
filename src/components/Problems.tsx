@@ -2,9 +2,12 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const problems = [
-  "Você treina, mas sente que não evolui.",
-  "Faz força, mas o corpo não responde.",
-  "Já tentou mudar treino, mas continua travado.",
+  "Treinos aleatórios e sem progressão",
+  "Falta de estratégia semanal",
+  "Execução inconsistente",
+  "Falta de disciplina e constância",
+  "Dificuldade para saber se está evoluindo",
+  "Acreditar que suplemento resolve tudo",
 ];
 
 const Problems = () => {
