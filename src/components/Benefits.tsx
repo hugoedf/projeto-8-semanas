@@ -9,7 +9,7 @@ const benefits = [
   {
     icon: Target,
     title: "Montagem estratégica",
-    description: "Organize seus treinos semanais para evitar estagnação."
+    description: "Organizar seus treinos semanais para evitar estagnação."
   },
   {
     icon: TrendingUp,
