@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
+import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 
 /**
  * Provider do Meta Pixel
@@ -9,12 +10,19 @@ import { useMetaPixel } from '@/hooks/useMetaPixel';
  * 1. O Meta Pixel seja inicializado uma única vez
  * 2. O evento PageView seja disparado automaticamente em cada mudança de rota
  * 3. O evento ViewContent seja disparado em páginas de conteúdo
+ * 4. O visitorId esteja disponível antes de disparar eventos
  */
 export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const { trackPageView, trackViewContent } = useMetaPixel();
+  const { visitorData, isLoading } = useVisitorTracking();
 
   useEffect(() => {
+    // Aguarda o visitorId estar disponível antes de disparar eventos
+    if (isLoading || !visitorData?.visitorId) {
+      return;
+    }
+
     // Verifica se já disparou evento nesta sessão para esta rota
     const sessionKey = `meta-pixel-${location.pathname}`;
     const lastFired = sessionStorage.getItem(sessionKey);
@@ -36,6 +44,8 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
       // Marca como disparado nesta sessão
       sessionStorage.setItem(sessionKey, now.toString());
 
+      console.log('Meta Pixel - Disparando eventos com visitorId:', visitorData.visitorId);
+
       // Dispara PageView em cada mudança de rota
       trackPageView();
 
@@ -50,7 +60,7 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
     };
 
     initEvents();
-  }, [location.pathname, trackPageView, trackViewContent]);
+  }, [location.pathname, trackPageView, trackViewContent, visitorData, isLoading]);
 
   return <>{children}</>;
 };
