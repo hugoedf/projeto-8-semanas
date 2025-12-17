@@ -73,12 +73,12 @@ const Hero = () => {
             
             <div className="space-y-5 sm:space-y-6 order-5">
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full">
-                <div className="flex flex-col items-center lg:items-start gap-1.5">
-                  <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-7 animate-pulse-glow w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/30 uppercase">
+                <div className="flex flex-col items-center lg:items-start gap-2">
+                  <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-7 animate-pulse-glow w-full sm:w-auto font-semibold tracking-wide shadow-xl shadow-accent/30">
                     QUERO O MÉTODO 8X AGORA 
                     <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
-                  <span className="font-medium text-base text-[#ff6929]/[0.91]">Por apenas R$ 19,90 — menos que uma mensalidade de academia</span>
+                  <span className="text-accent font-semibold text-sm sm:text-base">Por apenas R$ 19,90 — menos que uma mensalidade de academia</span>
                 </div>
               </div>
               
