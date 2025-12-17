@@ -13,7 +13,7 @@ const audience = [{
   description: "Querem treinar com método"
 }];
 const ForWho = () => {
-  return <section className="py-16 sm:py-24 bg-background">
+  return <section className="py-14 sm:py-20 bg-background">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="text-center mb-12 sm:mb-14 animate-fade-in">
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">

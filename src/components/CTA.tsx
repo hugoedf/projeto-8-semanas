@@ -43,7 +43,7 @@ const CTA = () => {
     // 5. Abrir checkout em nova aba
     window.open(checkoutUrl, "_blank");
   };
-  return <section id="cta-section" className="py-16 sm:py-24 bg-background">
+  return <section id="cta-section" className="py-20 sm:py-28 bg-background">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-14 items-center">
