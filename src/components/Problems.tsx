@@ -36,7 +36,7 @@ const Problems = () => {
           <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto shadow-lg shadow-accent/5 mb-8">
             <p className="text-base sm:text-lg text-foreground leading-relaxed">
               <strong className="text-accent">O Método 8X existe para resolver isso.</strong><br />
-              Um protocolo direto que te ensina a fazer qualquer treino funcionar.
+              Um protocolo direto, estratégico e fundamentado em fisiologia, criado para quem quer treinar com clareza, propósito e progressão real.
             </p>
           </div>
           
