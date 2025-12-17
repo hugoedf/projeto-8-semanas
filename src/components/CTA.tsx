@@ -94,12 +94,6 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-6">
-                  <p className="text-sm sm:text-base text-foreground leading-relaxed text-center">
-                    <span className="text-accent font-medium">O Método 8X custa menos que uma mensalidade de academia</span> e pode mudar a forma como você treina para sempre.
-                  </p>
-                </div>
-                
                 <p className="text-center font-semibold text-sm sm:text-base mb-4 text-primary">
                   ⚠️ Oferta disponível por tempo limitado
                 </p>
@@ -112,6 +106,12 @@ const CTA = () => {
                 <div className="flex items-center justify-center gap-2.5 text-xs sm:text-sm text-muted-foreground mb-5">
                   <Lock className="w-4 h-4 flex-shrink-0" />
                   <span>Pagamento 100% seguro e protegido</span>
+                </div>
+                
+                <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-6">
+                  <p className="text-sm sm:text-base text-foreground leading-relaxed text-center">
+                    <span className="text-accent font-medium">O Método 8X custa menos que uma mensalidade de academia</span> e pode mudar a forma como você treina para sempre.
+                  </p>
                 </div>
                 
                 <p className="text-sm sm:text-base text-muted-foreground text-center">Você não está apenas seguindo um treino. Você está comprando um método que organiza os estímulos certos, na ordem certa, para o seu corpo evoluir.
