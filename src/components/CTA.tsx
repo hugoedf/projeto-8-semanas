@@ -90,7 +90,7 @@ const CTA = () => {
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm text-muted-foreground mt-1.5">
-                    Pagamento único. Acesso imediato. Conteúdo vitalício.
+                    Pagamento único · Acesso imediato após o pagamento · Conteúdo vitalício
                   </p>
                 </div>
                 
