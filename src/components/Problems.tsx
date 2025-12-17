@@ -9,6 +9,9 @@ const Problems = () => {
             Você treina… mas sente que algo{" "}
             <span className="text-accent">não está encaixando?</span>
           </h2>
+          <p className="text-base sm:text-lg text-muted-foreground">
+            Se pelo menos <strong className="text-foreground">UM</strong> desses pontos parece familiar, o problema não é você — é o método.
+          </p>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
@@ -27,15 +30,17 @@ const Problems = () => {
         </div>
         
         <div className="text-center mt-12 sm:mt-14 px-4">
-          <p className="text-base sm:text-lg text-muted-foreground mb-3">
-            Não é falta de esforço.
+          <p className="text-base sm:text-lg text-foreground mb-2">
+            Nada disso é falta de esforço.
           </p>
-          <p className="text-base sm:text-lg font-semibold text-foreground mb-8">
-            É falta de método.
+          <p className="text-base sm:text-lg font-semibold text-foreground mb-4">
+            O problema é treinar sem método.
+          </p>
+          <p className="text-lg sm:text-xl font-bold text-accent mb-6">
+            O Método 8X existe para resolver isso.
           </p>
           <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto shadow-lg shadow-accent/5 mb-8">
             <p className="text-base sm:text-lg text-foreground leading-relaxed">
-              <strong className="text-accent">O Método 8X existe para resolver isso.</strong><br />
               Um protocolo direto, estratégico e fundamentado em fisiologia, criado para quem quer treinar com clareza, propósito e progressão real.
             </p>
           </div>
