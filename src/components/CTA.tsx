@@ -99,8 +99,8 @@ const CTA = () => {
                   +500 pessoas já aplicaram o método. Quando você vai começar?
                 </p>
                 
-                <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30" onClick={handleCTAClick}>
-                  Quero meu acesso agora
+                <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-bold tracking-wide shadow-xl shadow-accent/30 uppercase" onClick={handleCTAClick}>
+                  QUERO MEU ACESSO AGORA
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 

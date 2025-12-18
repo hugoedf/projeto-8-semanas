@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 const problems = ["Treinos aleatórios e sem progressão", "Falta de estratégia semanal", "Execução inconsistente", "Falta de disciplina e constância", "Dificuldade para saber se está evoluindo", "Acreditar que suplemento resolve tudo"];
 const Problems = () => {
@@ -43,10 +43,11 @@ const Problems = () => {
             </p>
           </div>
           
-          <Button variant="cta" size="default" onClick={() => document.getElementById('modules-section')?.scrollIntoView({
+          <Button variant="cta" size="lg" onClick={() => document.getElementById('modules-section')?.scrollIntoView({
           behavior: 'smooth'
-        })} className="text-sm sm:text-base px-6 sm:px-8 py-4 font-semibold tracking-wide shadow-md shadow-accent/20 mt-4 mb-2">
+        })} className="text-sm sm:text-base px-6 sm:px-10 py-5 sm:py-7 animate-pulse-glow font-bold tracking-wide shadow-xl shadow-accent/30 uppercase">
             VER COMO O MÉTODO 8X FUNCIONA
+            <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
           </Button>
         </div>
       </div>
