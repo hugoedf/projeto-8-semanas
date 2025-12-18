@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
+import { useScrollTracking } from '@/hooks/useScrollTracking';
 
 /**
  * Provider do Meta Pixel
@@ -16,6 +17,9 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
   const location = useLocation();
   const { trackPageView, trackViewContent } = useMetaPixel();
   const { visitorData, isLoading } = useVisitorTracking();
+  
+  // Ativa rastreamento de scroll na página principal
+  useScrollTracking();
 
   useEffect(() => {
     // Aguarda o visitorId estar disponível antes de disparar eventos
