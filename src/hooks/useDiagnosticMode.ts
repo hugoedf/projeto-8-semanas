@@ -125,7 +125,7 @@ export const useDiagnosticMode = () => {
       addResult('Geolocalização', 'info', 'Consultando Edge Function /geo para obter IP e localização...');
       
       const geoResponse = await fetch(
-        'https://kfddlytvdzqwopongnew.supabase.co/functions/v1/geo',
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/geo`,
         {
           method: 'GET',
           headers: {
@@ -214,7 +214,7 @@ export const useDiagnosticMode = () => {
       const metaCapiSecret = import.meta.env.VITE_META_CAPI_SECRET;
       
       const response = await fetch(
-        'https://kfddlytvdzqwopongnew.supabase.co/functions/v1/meta-conversions',
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`,
         {
           method: 'POST',
           headers: {
@@ -265,7 +265,7 @@ export const useDiagnosticMode = () => {
       const metaCapiSecret = import.meta.env.VITE_META_CAPI_SECRET;
       
       const response = await fetch(
-        'https://kfddlytvdzqwopongnew.supabase.co/functions/v1/meta-conversions',
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`,
         {
           method: 'POST',
           headers: {
