@@ -16,7 +16,6 @@ export type Database = {
     Tables: {
       visitor_tracking: {
         Row: {
-          age: number | null
           created_at: string | null
           device: string | null
           landing_page: string | null
@@ -32,7 +31,6 @@ export type Database = {
           visitor_id: string
         }
         Insert: {
-          age?: number | null
           created_at?: string | null
           device?: string | null
           landing_page?: string | null
@@ -48,7 +46,6 @@ export type Database = {
           visitor_id: string
         }
         Update: {
-          age?: number | null
           created_at?: string | null
           device?: string | null
           landing_page?: string | null

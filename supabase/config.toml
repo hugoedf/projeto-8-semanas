@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.geo]
 verify_jwt = false
+
+[functions.visitor-tracking]
+verify_jwt = false
