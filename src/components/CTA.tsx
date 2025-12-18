@@ -94,7 +94,7 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <p className="text-center text-sm sm:text-base mb-4 text-primary font-normal">
+                <p className="text-center text-sm sm:text-base mb-4 text-accent font-normal">
                   ⚠️ Oferta disponível por tempo limitado
    +500 pessoas já aplicaram. Quando você vai começar?
                 </p>
