@@ -38,7 +38,7 @@ const CTA = () => {
     console.log('========================================');
 
     // 4. Disparar evento de InitiateCheckout
-    trackInitiateCheckout(19.90, 'BRL');
+    trackInitiateCheckout(97, 'BRL');
 
     // 5. Abrir checkout em nova aba
     window.location.href = checkoutUrl;
@@ -94,8 +94,9 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <p className="text-center font-semibold text-sm sm:text-base mb-4 text-primary">
-                  ⚠️ +500 pessoas já começaram. Oferta por tempo limitado.
+                <p className="text-center text-sm sm:text-base mb-4 text-primary font-normal">
+                  ⚠️ Oferta disponível por tempo limitado
+   +500 pessoas já aplicaram. Quando você vai começar?
                 </p>
                 
                 <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30" onClick={handleCTAClick}>
