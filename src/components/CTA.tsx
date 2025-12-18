@@ -61,7 +61,7 @@ const CTA = () => {
           }}>
               <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-9 shadow-xl">
                 <div className="mb-6 sm:mb-7">
-                  <span className="text-accent text-xs uppercase tracking-widest sm:text-base font-bold">
+                  <span className="text-accent text-xs uppercase tracking-widest font-bold sm:text-sm">
                     OFERTA ESPECIAL — ACESSO COMPLETO AO MÉTODO 8X
                   </span>
                   <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mt-3 mb-4 sm:mb-5 tracking-tight leading-tight">Tudo o que você precisa para transformar seu corpo com ciência e estratégia:</h2>
