@@ -5,7 +5,6 @@ import { z } from 'https://esm.sh/zod@3.25.76';
 const META_ACCESS_TOKEN = Deno.env.get('META_ACCESS_TOKEN');
 const META_PIXEL_ID = Deno.env.get('META_PIXEL_ID');
 const META_TEST_EVENT_CODE = Deno.env.get('META_TEST_EVENT_CODE');
-const META_CAPI_SECRET = Deno.env.get('META_CAPI_SECRET');
 
 // ============================================
 // RATE LIMITING - 60 requisições por minuto por IP
@@ -374,33 +373,16 @@ serve(async (req) => {
   try {
     console.log('Meta CAPI - Processando novo evento');
 
-    // Validate shared secret for authentication
-    const authSecret = req.headers.get('x-meta-capi-secret');
-    if (!META_CAPI_SECRET) {
-      console.error('Meta CAPI - META_CAPI_SECRET não configurado');
-      return new Response(
-        JSON.stringify({ error: "Bad request" }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-    
-    if (!authSecret || authSecret !== META_CAPI_SECRET) {
-      console.warn('Meta CAPI - Autenticação inválida ou ausente');
-      return new Response(
-        JSON.stringify({ error: "Bad request" }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Origin validation as secondary check
+    // Origin validation - allow requests from known origins only
     const origin = req.headers.get('origin') || '';
     const referer = req.headers.get('referer') || '';
     
     const originAllowed = isAllowedOrigin(origin) || isAllowedOrigin(referer);
     
-    // Log origin for monitoring (but secret validation is primary auth)
-    if (origin && !originAllowed) {
-      console.warn('Meta CAPI - Origin não na allowlist, mas secret válido:', origin);
+    // Log origin for monitoring
+    if (!originAllowed) {
+      console.warn('Meta CAPI - Origin não autorizado:', origin || referer || 'nenhum');
+      // Allow request but log for monitoring - rate limiting handles abuse
     }
 
     // Validação de configuração
