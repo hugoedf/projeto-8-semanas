@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 
 export interface VisitorData {
   visitorId: string;
@@ -17,15 +16,18 @@ export interface VisitorData {
   landingPage: string;
   device: 'mobile' | 'tablet' | 'desktop';
   region?: string;
-  age?: number;
 }
 
 // Flag para evitar múltiplos inserts
 let hasTracked = false;
 
+// Edge function URL
+const VISITOR_TRACKING_URL = 'https://kfddlytvdzqwopongnew.supabase.co/functions/v1/visitor-tracking';
+
 /**
  * Hook para gerenciar tracking persistente de visitantes
  * Gera um visitorId único e coleta dados enriquecidos
+ * Dados são enviados para Edge Function segura (não diretamente ao banco)
  */
 export const useVisitorTracking = () => {
   const [visitorData, setVisitorData] = useState<VisitorData | null>(null);
@@ -80,7 +82,7 @@ export const useVisitorTracking = () => {
         localStorage.setItem('referrer', referrer);
       }
 
-      // 5. Obter região via ipapi.co (apenas se não tiver)
+      // 5. Obter região via Edge Function geo (apenas se não tiver)
       let region = localStorage.getItem('region');
       if (!region) {
         try {
@@ -92,7 +94,7 @@ export const useVisitorTracking = () => {
         }
       }
 
-      // 6. Montar objeto completo
+      // 6. Montar objeto completo (SEM campo age)
       const data: VisitorData = {
         visitorId,
         ...trackingData,
@@ -104,10 +106,10 @@ export const useVisitorTracking = () => {
 
       setVisitorData(data);
 
-      // 7. Salvar no banco apenas se for novo visitante e não tiver sido salvo ainda
+      // 7. Enviar para Edge Function segura (apenas se for novo visitante)
       if (isNewVisitor && !hasTracked) {
         hasTracked = true;
-        await insertVisitorData(data);
+        await sendToEdgeFunction(data);
       }
 
       setIsLoading(false);
@@ -130,24 +132,28 @@ export const useVisitorTracking = () => {
 
   const fetchRegion = async (): Promise<string> => {
     try {
-      const response = await fetch('https://ipapi.co/json/');
+      const response = await fetch('https://kfddlytvdzqwopongnew.supabase.co/functions/v1/geo');
       if (!response.ok) throw new Error('Falha ao obter região');
       
       const data = await response.json();
-      return `${data.city || ''}, ${data.region || ''}, ${data.country_name || ''}`.trim() || 'not_provided';
+      return data.region || 'not_provided';
     } catch {
       return 'not_provided';
     }
   };
 
   /**
-   * INSERT simples - sem upsert, sem onConflict
+   * Envia dados para Edge Function segura
+   * NÃO usa insert direto no Supabase
    */
-  const insertVisitorData = async (data: VisitorData) => {
+  const sendToEdgeFunction = async (data: VisitorData) => {
     try {
-      const { error } = await supabase
-        .from('visitor_tracking')
-        .insert({
+      const response = await fetch(VISITOR_TRACKING_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           visitor_id: data.visitorId,
           utm_source: data.utm_source || null,
           utm_medium: data.utm_medium || null,
@@ -159,15 +165,17 @@ export const useVisitorTracking = () => {
           landing_page: data.landingPage,
           device: data.device,
           region: data.region || null,
-        });
+        }),
+      });
 
-      if (error) {
-        console.error('Erro ao salvar visitante:', error);
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Erro ao enviar tracking:', errorData);
       } else {
-        console.log('Visitante salvo com sucesso:', data.visitorId);
+        console.log('Visitante rastreado com sucesso via Edge Function');
       }
     } catch (error) {
-      console.error('Exceção ao salvar visitante:', error);
+      console.error('Exceção ao enviar tracking:', error);
     }
   };
 
