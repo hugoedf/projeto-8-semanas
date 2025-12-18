@@ -131,7 +131,7 @@ export const useMetaPixel = () => {
       const metaCapiSecret = import.meta.env.VITE_META_CAPI_SECRET;
       
       const response = await fetch(
-        'https://kfddlytvdzqwopongnew.supabase.co/functions/v1/meta-conversions',
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`,
         {
           method: 'POST',
           headers: {

@@ -5,6 +5,28 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-forwarded-for, x-real-ip',
 };
 
+// Rate limiting: 60 requests per minute per IP
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_MAX = 60;
+const RATE_LIMIT_WINDOW = 60000; // 1 minute
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+  
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return true;
+  }
+  
+  if (record.count >= RATE_LIMIT_MAX) {
+    return false;
+  }
+  
+  record.count++;
+  return true;
+}
+
 interface GeoResponse {
   ip: string;
   country: string;
@@ -20,6 +42,21 @@ serve(async (req) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  // Get client IP for rate limiting
+  const clientIpForRateLimit = req.headers.get('cf-connecting-ip') || 
+    req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 
+    req.headers.get('x-real-ip') || 
+    'unknown';
+
+  // Check rate limit
+  if (!checkRateLimit(clientIpForRateLimit)) {
+    console.log('[GEO] Rate limit exceeded for IP:', clientIpForRateLimit);
+    return new Response(
+      JSON.stringify({ error: 'Too many requests' }),
+      { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    );
   }
 
   console.log('[GEO] Requisição recebida');
