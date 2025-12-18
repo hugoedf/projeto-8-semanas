@@ -78,7 +78,7 @@ const Hero = () => {
                     QUERO O MÉTODO 8X AGORA 
                     <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
-                  <span className="font-medium text-sm text-white/60">Por apenas <span className="text-accent">R$ 19,90</span> — menos que uma mensalidade de academia</span>
+                  <span className="font-medium text-sm text-[#c4c4c4]">Por apenas <span className="text-accent">R$ 19,90</span> — menos que uma mensalidade de academia</span>
                 </div>
               </div>
               
