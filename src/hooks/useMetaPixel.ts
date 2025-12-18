@@ -128,15 +128,12 @@ export const useMetaPixel = () => {
         landingPage: localStorage.getItem('landing_page') || window.location.href,
       };
 
-      const metaCapiSecret = import.meta.env.VITE_META_CAPI_SECRET;
-      
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'x-meta-capi-secret': metaCapiSecret || '',
           },
           body: JSON.stringify({
             eventName,

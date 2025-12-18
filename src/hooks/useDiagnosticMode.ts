@@ -211,15 +211,12 @@ export const useDiagnosticMode = () => {
     try {
       addResult('Meta CAPI PageView', 'info', 'Enviando evento PageView para Meta Conversions API...');
       
-      const metaCapiSecret = import.meta.env.VITE_META_CAPI_SECRET;
-      
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'x-meta-capi-secret': metaCapiSecret || '',
           },
           body: JSON.stringify({
             eventName: 'PageView',
@@ -262,15 +259,12 @@ export const useDiagnosticMode = () => {
     try {
       addResult('Meta CAPI ViewContent', 'info', 'Enviando evento ViewContent para Meta Conversions API...');
       
-      const metaCapiSecret = import.meta.env.VITE_META_CAPI_SECRET;
-      
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'x-meta-capi-secret': metaCapiSecret || '',
           },
           body: JSON.stringify({
             eventName: 'ViewContent',
