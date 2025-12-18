@@ -1,23 +1,23 @@
 import { Star } from "lucide-react";
 const testimonials = [{
-  name: "Carlos",
-  age: "28",
-  text: "Em 4 semanas já vi diferença no peitoral e braços.",
+  name: "Carlos R.",
+  age: "28 anos — São Paulo",
+  text: "Em 4 semanas ganhei 2cm de braço e finalmente senti o peitoral trabalhando de verdade. O método de progressão fez toda a diferença.",
   rating: 5
 }, {
-  name: "Mariana",
-  age: "32",
-  text: "Nunca treinei com tanta clareza. O e-book é direto e objetivo.",
+  name: "Mariana S.",
+  age: "32 anos — Belo Horizonte",
+  text: "Treino há 3 anos e nunca tive tanta clareza. O e-book me mostrou onde eu estava errando na periodização. Resultado: saí do platô em 6 semanas.",
   rating: 5
 }, {
-  name: "Rafael",
-  age: "25",
-  text: "Simples e eficiente. Finalmente entendi como treinar de verdade.",
+  name: "Rafael M.",
+  age: "25 anos — Rio de Janeiro",
+  text: "Achava que sabia treinar, mas estava desperdiçando estímulo. Apliquei as técnicas de intensificação e meu shape mudou completamente.",
   rating: 5
 }, {
-  name: "Juliana",
-  age: "29",
-  text: "A parte de nutrição foi um divisor de águas pra mim.",
+  name: "Juliana C.",
+  age: "29 anos — Curitiba",
+  text: "A parte de nutrição foi um divisor de águas. Entendi como calcular macros de forma prática e vi resultado no espelho em 3 semanas.",
   rating: 5
 }];
 const Testimonials = () => {
