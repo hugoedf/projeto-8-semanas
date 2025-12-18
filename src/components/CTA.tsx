@@ -94,7 +94,7 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <p className="text-center text-sm mb-4 font-normal sm:text-sm text-muted-foreground">⚠️ Oferta disponível por tempo limitado 
+                <p className="text-center text-sm mb-4 font-normal sm:text-sm text-muted-foreground">⚠️ Oferta disponível por tempo limitado  
 +500 pessoas já aplicaram. Quando você vai começar?</p>
                 
                 <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30" onClick={handleCTAClick}>
