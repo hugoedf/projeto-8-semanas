@@ -37,8 +37,8 @@ const CTA = () => {
     });
     console.log('========================================');
 
-    // 4. Disparar evento de InitiateCheckout
-    trackInitiateCheckout(97, 'BRL');
+    // 4. Disparar evento de InitiateCheckout (valor correto: R$ 19,90)
+    trackInitiateCheckout(19.90, 'BRL');
 
     // 5. Abrir checkout em nova aba
     window.location.href = checkoutUrl;
@@ -94,10 +94,14 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <p className="text-center text-sm mb-4 font-normal sm:text-sm text-muted-foreground">
-                  ⚠️ Oferta disponível por tempo limitado<br />
-                  +500 pessoas já aplicaram. Quando você vai começar?
-                </p>
+                <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-3 mb-4">
+                  <p className="text-center text-sm font-semibold text-destructive">
+                    🔥 ÚLTIMAS HORAS: Preço promocional de R$ 19,90 acaba em breve
+                  </p>
+                  <p className="text-center text-xs text-muted-foreground mt-1">
+                    Depois volta para R$ 97,00 — +500 pessoas já aplicaram o método
+                  </p>
+                </div>
                 
                 <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30" onClick={handleCTAClick}>
                   Quero meu acesso agora
