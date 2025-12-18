@@ -43,12 +43,7 @@ const Problems = () => {
             </p>
           </div>
           
-          <Button variant="cta" size="lg" onClick={() => document.getElementById('modules-section')?.scrollIntoView({
-          behavior: 'smooth'
-        })} className="text-sm sm:text-base px-6 sm:px-10 py-5 sm:py-7 animate-pulse-glow font-bold tracking-wide shadow-xl shadow-accent/30 uppercase">
-            VER COMO O MÉTODO 8X FUNCIONA
-            <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
-          </Button>
+          
         </div>
       </div>
     </section>;
