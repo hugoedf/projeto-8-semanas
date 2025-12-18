@@ -37,7 +37,7 @@ const Hero = () => {
     console.log('========================================');
 
     // 4. Disparar evento de InitiateCheckout
-    trackInitiateCheckout(97, 'BRL');
+    trackInitiateCheckout(19.90, 'BRL');
 
     // 5. Abrir checkout em nova aba
     window.location.href = checkoutUrl;

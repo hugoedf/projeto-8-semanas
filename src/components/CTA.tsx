@@ -38,7 +38,7 @@ const CTA = () => {
     console.log('========================================');
 
     // 4. Disparar evento de InitiateCheckout
-    trackInitiateCheckout(97, 'BRL');
+    trackInitiateCheckout(19.90, 'BRL');
 
     // 5. Abrir checkout em nova aba
     window.location.href = checkoutUrl;
@@ -124,8 +124,11 @@ Você está comprando um método que organiza os estímulos certos, na ordem cer
             Daqui a 8 semanas, você vai olhar no espelho e{" "}
             <span className="text-accent">agradecer por ter começado hoje.</span>
           </p>
-          <p className="text-base sm:text-lg text-muted-foreground">
+          <p className="text-base sm:text-lg text-muted-foreground mb-4">
             O Método 8X é o próximo passo.
+          </p>
+          <p className="text-sm text-muted-foreground/80 italic">
+            💡 Mais de 500 pessoas já aplicaram o método. Quanto mais você espera, mais tempo leva para ver resultado.
           </p>
         </div>
       </div>
