@@ -94,8 +94,11 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <p className="text-center font-semibold text-sm sm:text-base mb-4 text-primary">
+                <p className="text-center font-semibold text-sm sm:text-base mb-2 text-primary">
                   ⚠️ Oferta disponível por tempo limitado
+                </p>
+                <p className="text-center text-xs sm:text-sm text-muted-foreground/80 italic mb-4">
+                  💡 Mais de 500 pessoas já aplicaram o método. Quanto mais você espera, mais tempo leva para ver resultado.
                 </p>
                 
                 <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-semibold tracking-wide shadow-xl shadow-accent/30" onClick={handleCTAClick}>
@@ -124,11 +127,8 @@ Você está comprando um método que organiza os estímulos certos, na ordem cer
             Daqui a 8 semanas, você vai olhar no espelho e{" "}
             <span className="text-accent">agradecer por ter começado hoje.</span>
           </p>
-          <p className="text-base sm:text-lg text-muted-foreground mb-4">
+          <p className="text-base sm:text-lg text-muted-foreground">
             O Método 8X é o próximo passo.
-          </p>
-          <p className="text-sm text-muted-foreground/80 italic">
-            💡 Mais de 500 pessoas já aplicaram o método. Quanto mais você espera, mais tempo leva para ver resultado.
           </p>
         </div>
       </div>
