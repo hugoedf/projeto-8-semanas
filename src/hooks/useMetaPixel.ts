@@ -212,13 +212,13 @@ export const useMetaPixel = () => {
 
   /**
    * Gera event_id único por usuário/dia para InitiateCheckout
-   * Formato: ${visitorId}_checkout_${YYYY-MM-DD}
+   * Formato: hotmart_checkout_${YYYY-MM-DD}_${visitorId}
    * Isso permite deduplicação entre o evento do site e o da Hotmart
    */
   const generateCheckoutEventId = useCallback((): string => {
     const visitorId = visitorData?.visitorId || localStorage.getItem('visitor_id') || 'unknown';
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-    return `${visitorId}_checkout_${today}`;
+    return `hotmart_checkout_${today}_${visitorId}`;
   }, [visitorData?.visitorId]);
 
   /**
