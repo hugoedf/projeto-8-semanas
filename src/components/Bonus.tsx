@@ -25,121 +25,119 @@ const features = [
 
 const Bonus = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-background to-fitness-dark/30 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-fitness-red rounded-full blur-3xl" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20 sm:py-28 bg-background">
+      <div className="container mx-auto px-5 sm:px-6">
         {/* Badge */}
-        <div className="flex justify-center mb-6">
-          <span className="inline-flex items-center gap-2 bg-gradient-to-r from-fitness-red/20 to-primary/20 border border-fitness-red/30 text-fitness-red px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
-            <Gift className="w-4 h-4" />
-            Bônus Exclusivo
-          </span>
-        </div>
-
-        {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4">
-            Você não precisa ler o e-book para aplicar o método.
+        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
+          <div className="inline-block mb-4 sm:mb-5">
+            <span className="inline-flex items-center gap-2 text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-accent/40 bg-accent/10 shadow-sm">
+              <Gift className="w-4 h-4" />
+              Bônus Exclusivo
+            </span>
+          </div>
+          
+          {/* Header */}
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
+            Você não precisa ler o e-book para{" "}
+            <span className="text-gradient">aplicar o método.</span>
           </h2>
-          <p className="text-xl md:text-2xl text-primary font-semibold">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
             O App 8X entrega tudo pronto para execução.
           </p>
         </div>
 
         {/* Core Concept */}
-        <div className="max-w-2xl mx-auto mb-16">
-          <div className="bg-gradient-to-r from-fitness-dark/80 to-fitness-dark/60 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-lg md:text-xl text-muted-foreground mb-2">
+        <div className="max-w-2xl mx-auto mb-12 sm:mb-16 animate-fade-in">
+          <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-8 text-center shadow-sm">
+            <p className="text-base sm:text-lg text-muted-foreground mb-2">
               O <span className="text-foreground font-semibold">Método 8X</span> é o conhecimento.
             </p>
-            <p className="text-lg md:text-xl text-muted-foreground">
-              O <span className="text-primary font-semibold">App 8X</span> é a execução.
+            <p className="text-base sm:text-lg text-muted-foreground">
+              O <span className="text-accent font-semibold">App 8X</span> é a execução.
             </p>
           </div>
         </div>
 
         {/* App Mockup Placeholder + Features */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-12 sm:mb-16 max-w-6xl mx-auto">
           {/* Mockup Placeholder */}
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1 animate-fade-in">
             <div className="relative">
               {/* Phone frame placeholder */}
-              <div className="bg-gradient-to-br from-fitness-dark to-fitness-dark/80 border-2 border-primary/30 rounded-[3rem] p-4 max-w-[300px] mx-auto shadow-2xl shadow-primary/20">
-                <div className="bg-muted/20 rounded-[2.5rem] aspect-[9/19] flex items-center justify-center">
+              <div className="bg-card border border-border/80 rounded-[2.5rem] p-3 sm:p-4 max-w-[280px] mx-auto shadow-lg">
+                <div className="bg-muted/30 rounded-[2rem] aspect-[9/19] flex items-center justify-center border border-border/50">
                   <div className="text-center p-6">
-                    <Smartphone className="w-16 h-16 text-primary/50 mx-auto mb-4" />
-                    <p className="text-muted-foreground text-sm">
-                      Mockup do App 8X
+                    <Smartphone className="w-12 h-12 sm:w-16 sm:h-16 text-accent/40 mx-auto mb-4" />
+                    <p className="text-muted-foreground text-sm font-medium">
+                      App 8X
                     </p>
                     <p className="text-muted-foreground/60 text-xs mt-2">
-                      (Adicionar prints do app aqui)
+                      (Mockup do app)
                     </p>
                   </div>
                 </div>
               </div>
               
               {/* Floating badge */}
-              <div className="absolute -top-4 -right-4 lg:right-0 bg-fitness-red text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse-glow">
+              <div className="absolute -top-3 -right-2 sm:-right-4 lg:right-4 bg-accent text-accent-foreground px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-lg animate-pulse-glow">
                 GRÁTIS
               </div>
             </div>
           </div>
 
           {/* Features Grid */}
-          <div className="order-1 lg:order-2 grid sm:grid-cols-2 gap-6">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-fitness-dark/60 to-fitness-dark/40 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:border-primary/30 transition-all duration-300 group"
-              >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="w-6 h-6 text-primary" />
+          <div className="order-1 lg:order-2 grid sm:grid-cols-2 gap-5 sm:gap-6">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={index}
+                  className="bg-card border border-border/80 rounded-2xl p-6 sm:p-7 hover-lift animate-fade-in group shadow-sm hover:shadow-lg transition-all duration-300"
+                  style={{ animationDelay: `${index * 0.08}s` }}
+                >
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-accent/20 group-hover:scale-105 transition-all duration-300 shadow-inner">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
+                  </div>
+                  <h3 className="font-display text-base sm:text-lg mb-2.5 text-foreground tracking-tight">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
         {/* Value Anchoring */}
-        <div className="max-w-xl mx-auto mb-12">
-          <div className="bg-gradient-to-r from-primary/10 via-fitness-red/10 to-primary/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground mb-2">
+        <div className="max-w-xl mx-auto mb-12 sm:mb-16 animate-fade-in">
+          <div className="bg-card border border-accent/30 rounded-2xl p-6 sm:p-8 text-center shadow-sm">
+            <p className="text-muted-foreground mb-2 text-sm sm:text-base">
               Valor do App 8X:
             </p>
-            <p className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+            <p className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">
               <span className="line-through text-muted-foreground/60">R$ 97,00</span>
             </p>
-            <p className="text-xl md:text-2xl font-bold text-primary">
-              Hoje: <span className="text-fitness-red">GRÁTIS</span> para quem adquirir o Método 8X
+            <p className="text-lg sm:text-xl font-bold">
+              Hoje: <span className="text-accent">GRÁTIS</span>{" "}
+              <span className="text-foreground">para quem adquirir o Método 8X</span>
             </p>
           </div>
         </div>
 
         {/* Impact Phrase */}
-        <div className="text-center mb-12">
-          <p className="text-xl md:text-2xl font-display font-semibold text-foreground italic">
+        <div className="text-center mb-10 sm:mb-12 animate-fade-in">
+          <p className="text-lg sm:text-xl md:text-2xl font-display font-semibold text-foreground italic px-4">
             "Leia se quiser. Execute mesmo sem ler."
           </p>
         </div>
 
         {/* Exclusivity Badge */}
-        <div className="flex justify-center">
-          <div className="inline-flex items-center gap-3 bg-fitness-dark/60 border border-border/50 rounded-full px-6 py-3">
-            <Lock className="w-5 h-5 text-primary" />
-            <span className="text-muted-foreground text-sm">
-              Acesso exclusivo e individual — ativado por compra
-            </span>
+        <div className="text-center animate-fade-in">
+          <div className="inline-flex items-center gap-2.5 text-muted-foreground text-sm sm:text-base bg-muted/50 px-5 py-3 rounded-full border border-border/80">
+            <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0" />
+            <span>Acesso exclusivo e individual — ativado por compra</span>
           </div>
         </div>
       </div>
