@@ -80,7 +80,7 @@ const Hero = () => {
                   </Button>
                   <span className="font-medium text-sm text-[#c4c4c4]">
                     <span className="block md:inline">Por apenas <span className="text-accent">R$ 19,90</span></span>
-                    <span className="block md:inline"> — menos que uma mensalidade de academia</span>
+                    <span className="block md:inline"> Menos que uma mensalidade de academia</span>
                   </span>
                 </div>
               </div>
