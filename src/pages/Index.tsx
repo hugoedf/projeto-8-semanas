@@ -6,6 +6,7 @@ import Testimonials from "@/components/Testimonials";
 import ForWho from "@/components/ForWho";
 import Guarantee from "@/components/Guarantee";
 import CTA from "@/components/CTA";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { DiagnosticPanel } from "@/components/DiagnosticPanel";
 
@@ -21,6 +22,7 @@ const Index = () => {
       <ForWho />
       <Guarantee />
       <CTA />
+      <FAQ />
       <Footer />
       
       {/* Painel de diagnóstico - apenas em desenvolvimento */}
