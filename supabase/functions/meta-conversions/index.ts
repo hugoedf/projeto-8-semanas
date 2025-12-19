@@ -575,6 +575,8 @@ serve(async (req) => {
       has_user_agent: !!hashedUserData.client_user_agent,
       has_fbp: !!hashedUserData.fbp,
       has_fbc: !!hashedUserData.fbc,
+      value: customData.value,
+      currency: customData.currency,
       origem_compra: customData.origem_compra,
       posicionamento: customData.posicionamento,
       aparelho: customData.aparelho,
