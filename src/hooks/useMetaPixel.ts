@@ -211,15 +211,34 @@ export const useMetaPixel = () => {
   }, [generateEventId, sendToConversionsAPI]);
 
   /**
+   * Gera event_id único por usuário/dia para InitiateCheckout
+   * Formato: ${visitorId}_checkout_${YYYY-MM-DD}
+   * Isso permite deduplicação entre o evento do site e o da Hotmart
+   */
+  const generateCheckoutEventId = useCallback((): string => {
+    const visitorId = visitorData?.visitorId || localStorage.getItem('visitor_id') || 'unknown';
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    return `${visitorId}_checkout_${today}`;
+  }, [visitorData?.visitorId]);
+
+  /**
    * Envia evento InitiateCheckout
    * Usado quando usuário clica no botão de compra
+   * 
+   * IMPORTANTE: Usa event_id no formato ${visitorId}_checkout_${YYYY-MM-DD}
+   * para garantir deduplicação entre o evento do site e o da Hotmart
    */
   const trackInitiateCheckout = useCallback((value: number = 19.90, currency: string = 'BRL') => {
     if (window.fbq) {
-      const eventId = generateEventId();
+      // Usa event_id único por usuário/dia para deduplicação com Hotmart
+      const eventId = generateCheckoutEventId();
       
-      // Anti-duplicação
-      if (!shouldFireEvent('InitiateCheckout', eventId)) {
+      // Verifica se já disparou hoje (evita múltiplos cliques)
+      const lastCheckoutKey = 'last_checkout_event_id';
+      const lastCheckout = localStorage.getItem(lastCheckoutKey);
+      
+      if (lastCheckout === eventId) {
+        console.log('Meta Pixel - InitiateCheckout ignorado (já disparado hoje)', { eventId });
         return;
       }
       
@@ -229,13 +248,17 @@ export const useMetaPixel = () => {
         currency: currency,
       };
       
+      // Dispara para o Pixel do navegador
       window.fbq('track', 'InitiateCheckout', params, { eventID: eventId });
       console.log('Meta Pixel - InitiateCheckout enviado', { eventId, value, currency });
       
-      // Envia também para a API de Conversões com value e currency garantidos
+      // Marca como disparado hoje
+      localStorage.setItem(lastCheckoutKey, eventId);
+      
+      // Envia também para a API de Conversões com mesmo event_id
       sendToConversionsAPI('InitiateCheckout', params, eventId);
     }
-  }, [generateEventId, sendToConversionsAPI]);
+  }, [generateCheckoutEventId, sendToConversionsAPI]);
 
   /**
    * Envia evento Purchase (conversão completa)
