@@ -210,37 +210,16 @@ export const useMetaPixel = () => {
     }
   }, [generateEventId, sendToConversionsAPI]);
 
-  /**
-   * Gera event_id único por usuário/dia para InitiateCheckout
-   * Formato: hotmart_checkout_${YYYY-MM-DD}_${visitorId}
-   * Isso permite deduplicação entre o evento do site e o da Hotmart
-   */
-  const generateCheckoutEventId = useCallback((): string => {
-    const visitorId = visitorData?.visitorId || localStorage.getItem('visitor_id') || 'unknown';
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-    return `hotmart_checkout_${today}_${visitorId}`;
-  }, [visitorData?.visitorId]);
 
   /**
    * Envia evento InitiateCheckout
    * Usado quando usuário clica no botão de compra
-   * 
-   * IMPORTANTE: Usa event_id no formato ${visitorId}_checkout_${YYYY-MM-DD}
-   * para garantir deduplicação entre o evento do site e o da Hotmart
+   * Dispara a cada clique para registrar todas as interações
    */
   const trackInitiateCheckout = useCallback((value: number = 19.90, currency: string = 'BRL') => {
     if (window.fbq) {
-      // Usa event_id único por usuário/dia para deduplicação com Hotmart
-      const eventId = generateCheckoutEventId();
-      
-      // Verifica se já disparou hoje (evita múltiplos cliques)
-      const lastCheckoutKey = 'last_checkout_event_id';
-      const lastCheckout = localStorage.getItem(lastCheckoutKey);
-      
-      if (lastCheckout === eventId) {
-        console.log('Meta Pixel - InitiateCheckout ignorado (já disparado hoje)', { eventId });
-        return;
-      }
+      // Gera event_id único para cada clique
+      const eventId = generateEventId();
       
       // IMPORTANTE: Sempre enviar value e currency para a Meta
       const params = {
@@ -252,13 +231,10 @@ export const useMetaPixel = () => {
       window.fbq('track', 'InitiateCheckout', params, { eventID: eventId });
       console.log('Meta Pixel - InitiateCheckout enviado', { eventId, value, currency });
       
-      // Marca como disparado hoje
-      localStorage.setItem(lastCheckoutKey, eventId);
-      
       // Envia também para a API de Conversões com mesmo event_id
       sendToConversionsAPI('InitiateCheckout', params, eventId);
     }
-  }, [generateCheckoutEventId, sendToConversionsAPI]);
+  }, [generateEventId, sendToConversionsAPI]);
 
   /**
    * Envia evento Purchase (conversão completa)
