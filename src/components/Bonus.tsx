@@ -1,4 +1,5 @@
 import { Smartphone, Utensils, Brain, TrendingUp, Gift, Lock } from "lucide-react";
+import appMockup from "@/assets/app-8x-mockup.jpeg";
 
 const features = [
   {
@@ -60,21 +61,17 @@ const Bonus = () => {
 
         {/* App Mockup Placeholder + Features */}
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-12 sm:mb-16 max-w-6xl mx-auto">
-          {/* Mockup Placeholder */}
+          {/* App Mockup Real */}
           <div className="order-2 lg:order-1 animate-fade-in">
             <div className="relative">
-              {/* Phone frame placeholder */}
+              {/* Phone frame with real screenshot */}
               <div className="bg-card border border-border/80 rounded-[2.5rem] p-3 sm:p-4 max-w-[280px] mx-auto shadow-lg">
-                <div className="bg-muted/30 rounded-[2rem] aspect-[9/19] flex items-center justify-center border border-border/50">
-                  <div className="text-center p-6">
-                    <Smartphone className="w-12 h-12 sm:w-16 sm:h-16 text-accent/40 mx-auto mb-4" />
-                    <p className="text-muted-foreground text-sm font-medium">
-                      App 8X
-                    </p>
-                    <p className="text-muted-foreground/60 text-xs mt-2">
-                      (Mockup do app)
-                    </p>
-                  </div>
+                <div className="rounded-[2rem] overflow-hidden border border-border/50">
+                  <img 
+                    src={appMockup} 
+                    alt="App 8X - Sistema de Execução Guiada" 
+                    className="w-full h-auto"
+                  />
                 </div>
               </div>
               
