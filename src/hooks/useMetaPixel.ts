@@ -214,7 +214,7 @@ export const useMetaPixel = () => {
    * Envia evento InitiateCheckout
    * Usado quando usuário clica no botão de compra
    */
-  const trackInitiateCheckout = useCallback((value?: number, currency: string = 'BRL') => {
+  const trackInitiateCheckout = useCallback((value: number = 19.90, currency: string = 'BRL') => {
     if (window.fbq) {
       const eventId = generateEventId();
       
@@ -223,15 +223,16 @@ export const useMetaPixel = () => {
         return;
       }
       
-      const params: any = {
-        currency,
+      // IMPORTANTE: Sempre enviar value e currency para a Meta
+      const params = {
+        value: value,
+        currency: currency,
       };
-      if (value) params.value = value;
       
       window.fbq('track', 'InitiateCheckout', params, { eventID: eventId });
       console.log('Meta Pixel - InitiateCheckout enviado', { eventId, value, currency });
       
-      // Envia também para a API de Conversões
+      // Envia também para a API de Conversões com value e currency garantidos
       sendToConversionsAPI('InitiateCheckout', params, eventId);
     }
   }, [generateEventId, sendToConversionsAPI]);
