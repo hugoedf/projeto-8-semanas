@@ -44,7 +44,7 @@ const Bonus = () => {
         </div>
 
         {/* Main Headline */}
-        <h2 className="font-display text-[19px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center leading-[1.4] sm:leading-tight mb-4 sm:mb-6 animate-fade-in">
+        <h2 className="font-display text-[17px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center leading-[1.4] sm:leading-tight mb-4 sm:mb-6 animate-fade-in">
           <span className="block">Você não vai apenas ler o método.</span>
           <span className="block bg-gradient-to-r from-accent via-orange-400 to-accent bg-clip-text text-transparent drop-shadow-[0_0_30px_hsla(18,100%,58%,0.3)]">
             Você vai executar ele no celular.
