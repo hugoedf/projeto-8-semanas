@@ -39,251 +39,260 @@ Você pode continuar treinando do mesmo jeito e esperando resultados diferentes.
 Clica no botão abaixo. Seu futuro eu agradece."
 */
 
+/*
+TIMING CALCULADO:
+- Duração total: ~165 segundos
+- Velocidade: 0.95x
+- Média: ~2.5 palavras/segundo em português falado
+
+Script dividido em frases com timing proporcional:
+*/
+
 const segments: Segment[] = [
-  // === ABERTURA (0-12s) ===
+  // === ABERTURA (0-15s) ===
   {
     id: 1,
     startTime: 0,
-    endTime: 4,
+    endTime: 3.5,
     text: "Você treina há meses, talvez anos.",
     image: frustration,
   },
   {
     id: 2,
-    startTime: 4,
-    endTime: 8,
+    startTime: 3.5,
+    endTime: 9,
     text: "Segue planilhas, assiste vídeos, tenta fazer tudo certo.",
     image: frustration,
   },
   {
     id: 3,
-    startTime: 8,
-    endTime: 12,
+    startTime: 9,
+    endTime: 15,
     text: "Mas quando olha no espelho, a frustração bate: cadê o resultado?",
     image: frustration,
   },
 
-  // === PROBLEMA (12-24s) ===
+  // === PROBLEMA (15-32s) ===
   {
     id: 4,
-    startTime: 12,
-    endTime: 16,
+    startTime: 15,
+    endTime: 21,
     text: "A verdade é que 90% das pessoas treinam no modo automático.",
     image: gymElite,
   },
   {
     id: 5,
-    startTime: 16,
-    endTime: 20,
+    startTime: 21,
+    endTime: 26,
     text: "Fazem os exercícios, completam as séries,",
     image: gymElite,
   },
   {
     id: 6,
-    startTime: 20,
-    endTime: 24,
+    startTime: 26,
+    endTime: 32,
     text: "mas não entendem o que realmente faz o músculo crescer.",
     image: scienceFiber,
   },
   {
     id: 7,
-    startTime: 24,
-    endTime: 27,
+    startTime: 32,
+    endTime: 36,
     text: "E por isso, ficam estagnados.",
     image: frustration,
   },
 
-  // === VIRADA (27-38s) ===
+  // === VIRADA (36-50s) ===
   {
     id: 8,
-    startTime: 27,
-    endTime: 30,
+    startTime: 36,
+    endTime: 40,
     text: "Eu também passei por isso.",
     image: gymElite,
   },
   {
     id: 9,
-    startTime: 30,
-    endTime: 34,
+    startTime: 40,
+    endTime: 46,
     text: "Até entender que hipertrofia não é sobre treinar mais.",
     image: scienceProtein,
   },
   {
     id: 10,
-    startTime: 34,
-    endTime: 38,
+    startTime: 46,
+    endTime: 52,
     text: "É sobre treinar com estratégia. Com ciência. Com intenção.",
     image: scienceHologram,
   },
 
-  // === SOLUÇÃO (38-52s) ===
+  // === SOLUÇÃO (52-72s) ===
   {
     id: 11,
-    startTime: 38,
-    endTime: 42,
+    startTime: 52,
+    endTime: 58,
     text: "Imagina chegar na academia sabendo exatamente o que fazer.",
     image: gymElite,
   },
   {
     id: 12,
-    startTime: 42,
-    endTime: 45,
+    startTime: 58,
+    endTime: 62,
     text: "Qual exercício priorizar.",
     image: scienceHologram,
   },
   {
     id: 13,
-    startTime: 45,
-    endTime: 48,
+    startTime: 62,
+    endTime: 66,
     text: "Quantas séries. Qual cadência.",
     image: scienceFiber,
   },
   {
     id: 14,
-    startTime: 48,
-    endTime: 52,
+    startTime: 66,
+    endTime: 74,
     text: "Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona.",
     image: scienceProtein,
   },
 
-  // === MÉTODO (52-66s) ===
+  // === MÉTODO (74-92s) ===
   {
     id: 15,
-    startTime: 52,
-    endTime: 55,
+    startTime: 74,
+    endTime: 78,
     text: "Isso é o Método 8X.",
     image: appDevice,
   },
   {
     id: 16,
-    startTime: 55,
-    endTime: 59,
+    startTime: 78,
+    endTime: 85,
     text: "Um e-book completo com 8 semanas de treino estruturado,",
     image: appDevice,
   },
   {
     id: 17,
-    startTime: 59,
-    endTime: 63,
+    startTime: 85,
+    endTime: 92,
     text: "mais um aplicativo exclusivo que guia cada treino seu.",
     image: appDevice,
   },
   {
     id: 18,
-    startTime: 63,
-    endTime: 66,
+    startTime: 92,
+    endTime: 96,
     text: "Sem achismos. Sem improviso.",
     image: scienceHologram,
   },
 
-  // === CONTEÚDO (66-82s) ===
+  // === CONTEÚDO (96-118s) ===
   {
     id: 19,
-    startTime: 66,
-    endTime: 70,
+    startTime: 96,
+    endTime: 100,
     text: "O que você vai aprender:",
     image: scienceHologram,
   },
   {
     id: 20,
-    startTime: 70,
-    endTime: 74,
+    startTime: 100,
+    endTime: 106,
     text: "os 4 pilares da hipertrofia que ninguém te ensinou.",
     image: scienceFiber,
   },
   {
     id: 21,
-    startTime: 74,
-    endTime: 77,
+    startTime: 106,
+    endTime: 111,
     text: "Os 7 erros que sabotam seus resultados.",
     image: frustration,
   },
   {
     id: 22,
-    startTime: 77,
-    endTime: 80,
+    startTime: 111,
+    endTime: 116,
     text: "A técnica que maximiza cada repetição.",
     image: scienceProtein,
   },
   {
     id: 23,
-    startTime: 80,
-    endTime: 84,
+    startTime: 116,
+    endTime: 122,
     text: "E um plano de 8 semanas testado e aprovado.",
     image: appDevice,
   },
 
-  // === OFERTA (84-100s) ===
+  // === OFERTA (122-142s) ===
   {
     id: 24,
-    startTime: 84,
-    endTime: 88,
+    startTime: 122,
+    endTime: 127,
     text: "E o melhor: tudo isso por apenas",
     image: appDevice,
   },
   {
     id: 25,
-    startTime: 88,
-    endTime: 92,
+    startTime: 127,
+    endTime: 132,
     text: "19 reais e 90 centavos.",
     image: appDevice,
   },
   {
     id: 26,
-    startTime: 92,
-    endTime: 96,
+    startTime: 132,
+    endTime: 138,
     text: "Menos que um suplemento que você compra todo mês.",
     image: gymElite,
   },
   {
     id: 27,
-    startTime: 96,
-    endTime: 100,
+    startTime: 138,
+    endTime: 142,
     text: "Com garantia de 7 dias.",
     image: appDevice,
   },
   {
     id: 28,
-    startTime: 100,
-    endTime: 104,
+    startTime: 142,
+    endTime: 149,
     text: "Se não gostar, devolvo seu dinheiro. Sem perguntas.",
     image: appDevice,
   },
 
-  // === DECISÃO (104-118s) ===
+  // === DECISÃO (149-162s) ===
   {
     id: 29,
-    startTime: 104,
-    endTime: 109,
+    startTime: 149,
+    endTime: 154,
     text: "Você pode continuar treinando do mesmo jeito",
     image: frustration,
   },
   {
     id: 30,
-    startTime: 109,
-    endTime: 113,
+    startTime: 154,
+    endTime: 158,
     text: "e esperando resultados diferentes.",
     image: frustration,
   },
   {
     id: 31,
-    startTime: 113,
-    endTime: 118,
+    startTime: 158,
+    endTime: 166,
     text: "Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução.",
     image: gymElite,
   },
 
-  // === CTA FINAL (118s+) ===
+  // === CTA FINAL (166s+) ===
   {
     id: 32,
-    startTime: 118,
-    endTime: 121,
+    startTime: 166,
+    endTime: 170,
     text: "Clica no botão abaixo.",
     image: appDevice,
   },
   {
     id: 33,
-    startTime: 121,
+    startTime: 170,
     endTime: 999,
     text: "Seu futuro eu agradece.",
     image: gymElite,
