@@ -221,9 +221,7 @@ const Bonus = () => {
         <div className="flex justify-center animate-fade-in">
           <div className="inline-flex items-center gap-3 bg-white/[0.04] rounded-full px-5 py-2.5 border border-white/10">
             <Lock className="w-4 h-4 text-accent/70" />
-            <p className="text-gray-400 text-xs sm:text-sm">
-              🔐 Acesso exclusivo • Validação individual • Liberação imediata
-            </p>
+            <p className="text-gray-400 text-xs sm:text-sm">Acesso exclusivo • Validação individual • Liberação imediata</p>
           </div>
         </div>
 
