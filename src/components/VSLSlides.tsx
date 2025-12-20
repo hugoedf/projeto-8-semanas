@@ -25,74 +25,438 @@ Cada segmento = 1-2 linhas, sincronizado com o áudio.
 
 const segments: Segment[] = [
   // === DOR (0-15s) ===
-  { id: 1, startTime: 0, endTime: 3.5, text: "Você treina há meses, talvez anos.", image: frustration, mood: "pain" },
-  { id: 2, startTime: 3.5, endTime: 7, text: "Segue planilhas, assiste vídeos,", image: frustration, mood: "pain" },
-  { id: 3, startTime: 7, endTime: 10, text: "tenta fazer tudo certo.", image: frustration, mood: "pain" },
-  { id: 4, startTime: 10, endTime: 13, text: "Mas quando olha no espelho,", image: frustration, mood: "pain" },
-  { id: 5, startTime: 13, endTime: 16, text: "a frustração bate: cadê o resultado?", image: frustration, mood: "pain" },
+  {
+    id: 1,
+    startTime: 0,
+    endTime: 3.5,
+    text: "Você treina há meses… talvez anos.",
+    image: frustration,
+    mood: "pain",
+  },
+  {
+    id: 2,
+    startTime: 3.5,
+    endTime: 7,
+    text: "Segue planilha, copia treino, vê vídeo…",
+    image: frustration,
+    mood: "pain",
+  },
+  {
+    id: 3,
+    startTime: 7,
+    endTime: 10,
+    text: "e ainda assim, parece que não sai do lugar.",
+    image: frustration,
+    mood: "pain",
+  },
+  {
+    id: 4,
+    startTime: 10,
+    endTime: 13,
+    text: "Aí você olha no espelho…",
+    image: frustration,
+    mood: "pain",
+  },
+  {
+    id: 5,
+    startTime: 13,
+    endTime: 16,
+    text: "e bate a pergunta: “cadê meu resultado?”",
+    image: frustration,
+    mood: "pain",
+  },
 
   // === AGITAÇÃO (16-35s) ===
-  { id: 6, startTime: 16, endTime: 20, text: "A verdade é que 90% das pessoas", image: gymElite, mood: "pain" },
-  { id: 7, startTime: 20, endTime: 24, text: "treinam no modo automático.", image: gymElite, mood: "pain" },
-  { id: 8, startTime: 24, endTime: 28, text: "Fazem os exercícios, completam as séries,", image: gymElite, mood: "pain" },
-  { id: 9, startTime: 28, endTime: 32, text: "mas não entendem o que realmente", image: scienceFiber, mood: "insight" },
-  { id: 10, startTime: 32, endTime: 36, text: "faz o músculo crescer.", image: scienceFiber, mood: "insight" },
-  { id: 11, startTime: 36, endTime: 38, text: "E por isso, ficam estagnados.", image: frustration, mood: "pain" },
+  {
+    id: 6,
+    startTime: 16,
+    endTime: 20,
+    text: "A real? 90% treina no automático.",
+    image: gymElite,
+    mood: "pain",
+  },
+  {
+    id: 7,
+    startTime: 20,
+    endTime: 24,
+    text: "Faz… sua série… e vai embora.",
+    image: gymElite,
+    mood: "pain",
+  },
+  {
+    id: 8,
+    startTime: 24,
+    endTime: 28,
+    text: "Cumpre o “treino do dia”…",
+    image: gymElite,
+    mood: "pain",
+  },
+  {
+    id: 9,
+    startTime: 28,
+    endTime: 32,
+    text: "mas não entende o que, de fato…",
+    image: scienceFiber,
+    mood: "insight",
+  },
+  {
+    id: 10,
+    startTime: 32,
+    endTime: 36,
+    text: "dispara o crescimento muscular.",
+    image: scienceFiber,
+    mood: "insight",
+  },
+  {
+    id: 11,
+    startTime: 36,
+    endTime: 38,
+    text: "Resultado? Estagnação.",
+    image: frustration,
+    mood: "pain",
+  },
 
   // === VIRADA (38-52s) ===
-  { id: 12, startTime: 38, endTime: 41, text: "Eu também passei por isso.", image: gymElite, mood: "insight" },
-  { id: 13, startTime: 41, endTime: 45, text: "Até entender que hipertrofia", image: scienceProtein, mood: "insight" },
-  { id: 14, startTime: 45, endTime: 48, text: "não é sobre treinar mais.", image: scienceProtein, mood: "insight" },
-  { id: 15, startTime: 48, endTime: 52, text: "É sobre treinar com estratégia.", image: scienceHologram, mood: "insight" },
-  { id: 16, startTime: 52, endTime: 55, text: "Com ciência. Com intenção.", image: scienceHologram, mood: "insight" },
+  {
+    id: 12,
+    startTime: 38,
+    endTime: 41,
+    text: "Eu também já fiquei travado assim.",
+    image: gymElite,
+    mood: "insight",
+  },
+  {
+    id: 13,
+    startTime: 41,
+    endTime: 45,
+    text: "Até entender que hipertrofia…",
+    image: scienceProtein,
+    mood: "insight",
+  },
+  {
+    id: 14,
+    startTime: 45,
+    endTime: 48,
+    text: "não é treinar mais. É treinar melhor.",
+    image: scienceProtein,
+    mood: "insight",
+  },
+  {
+    id: 15,
+    startTime: 48,
+    endTime: 52,
+    text: "É estratégia — não esforço aleatório.",
+    image: scienceHologram,
+    mood: "insight",
+  },
+  {
+    id: 16,
+    startTime: 52,
+    endTime: 55,
+    text: "Com ciência. Com intenção. Com método.",
+    image: scienceHologram,
+    mood: "insight",
+  },
 
   // === SOLUÇÃO (55-75s) ===
-  { id: 17, startTime: 55, endTime: 59, text: "Imagina chegar na academia", image: gymElite, mood: "solution" },
-  { id: 18, startTime: 59, endTime: 63, text: "sabendo exatamente o que fazer.", image: scienceHologram, mood: "solution" },
-  { id: 19, startTime: 63, endTime: 67, text: "Qual exercício priorizar.", image: scienceHologram, mood: "solution" },
-  { id: 20, startTime: 67, endTime: 71, text: "Quantas séries. Qual cadência.", image: scienceFiber, mood: "solution" },
-  { id: 21, startTime: 71, endTime: 75, text: "Quanto tempo descansar.", image: scienceFiber, mood: "solution" },
-  { id: 22, startTime: 75, endTime: 79, text: "Tudo baseado no que a ciência", image: scienceProtein, mood: "solution" },
-  { id: 23, startTime: 79, endTime: 82, text: "já provou que funciona.", image: scienceProtein, mood: "solution" },
+  {
+    id: 17,
+    startTime: 55,
+    endTime: 59,
+    text: "Imagina entrar na academia sabendo…",
+    image: gymElite,
+    mood: "solution",
+  },
+  {
+    id: 18,
+    startTime: 59,
+    endTime: 63,
+    text: "exatamente o que fazer pra evoluir.",
+    image: scienceHologram,
+    mood: "solution",
+  },
+  {
+    id: 19,
+    startTime: 63,
+    endTime: 67,
+    text: "Qual exercício priorizar — e por quê.",
+    image: scienceHologram,
+    mood: "solution",
+  },
+  {
+    id: 20,
+    startTime: 67,
+    endTime: 71,
+    text: "Quantas séries. Qual cadência.",
+    image: scienceFiber,
+    mood: "solution",
+  },
+  {
+    id: 21,
+    startTime: 71,
+    endTime: 75,
+    text: "E o descanso certo pra render mais.",
+    image: scienceFiber,
+    mood: "solution",
+  },
+  {
+    id: 22,
+    startTime: 75,
+    endTime: 79,
+    text: "Sem achismo — só o que funciona.",
+    image: scienceProtein,
+    mood: "solution",
+  },
+  {
+    id: 23,
+    startTime: 79,
+    endTime: 82,
+    text: "O que a ciência já provou na prática.",
+    image: scienceProtein,
+    mood: "solution",
+  },
 
   // === MÉTODO 8X (82-100s) ===
-  { id: 24, startTime: 82, endTime: 85, text: "Isso é o Método 8X.", image: appDevice, mood: "offer" },
-  { id: 25, startTime: 85, endTime: 89, text: "Um e-book completo", image: appDevice, mood: "offer" },
-  { id: 26, startTime: 89, endTime: 93, text: "com 8 semanas de treino estruturado,", image: appDevice, mood: "offer" },
-  { id: 27, startTime: 93, endTime: 97, text: "mais um aplicativo exclusivo", image: appDevice, mood: "offer" },
-  { id: 28, startTime: 97, endTime: 101, text: "que guia cada treino seu.", image: appDevice, mood: "offer" },
-  { id: 29, startTime: 101, endTime: 104, text: "Sem achismos. Sem improviso.", image: scienceHologram, mood: "offer" },
+  {
+    id: 24,
+    startTime: 82,
+    endTime: 85,
+    text: "Isso é o Método 8X.",
+    image: appDevice,
+    mood: "offer",
+  },
+  {
+    id: 25,
+    startTime: 85,
+    endTime: 89,
+    text: "Um e-book direto ao ponto.",
+    image: appDevice,
+    mood: "offer",
+  },
+  {
+    id: 26,
+    startTime: 89,
+    endTime: 93,
+    text: "8 semanas de treino estruturado.",
+    image: appDevice,
+    mood: "offer",
+  },
+  {
+    id: 27,
+    startTime: 93,
+    endTime: 97,
+    text: "E um app que guia seu treino em tempo real.",
+    image: appDevice,
+    mood: "offer",
+  },
+  {
+    id: 28,
+    startTime: 97,
+    endTime: 101,
+    text: "Você só executa. Ele direciona.",
+    image: appDevice,
+    mood: "offer",
+  },
+  {
+    id: 29,
+    startTime: 101,
+    endTime: 104,
+    text: "Sem improviso. Sem dúvida. Sem travar.",
+    image: scienceHologram,
+    mood: "offer",
+  },
 
   // === CONTEÚDO (104-125s) ===
-  { id: 30, startTime: 104, endTime: 108, text: "O que você vai aprender:", image: scienceHologram, mood: "solution" },
-  { id: 31, startTime: 108, endTime: 112, text: "os 4 pilares da hipertrofia", image: scienceFiber, mood: "solution" },
-  { id: 32, startTime: 112, endTime: 115, text: "que ninguém te ensinou.", image: scienceFiber, mood: "solution" },
-  { id: 33, startTime: 115, endTime: 119, text: "Os 7 erros que sabotam seus resultados.", image: frustration, mood: "pain" },
-  { id: 34, startTime: 119, endTime: 123, text: "A técnica que maximiza cada repetição.", image: scienceProtein, mood: "solution" },
-  { id: 35, startTime: 123, endTime: 127, text: "E um plano de 8 semanas", image: appDevice, mood: "offer" },
-  { id: 36, startTime: 127, endTime: 130, text: "testado e aprovado.", image: appDevice, mood: "offer" },
+  {
+    id: 30,
+    startTime: 104,
+    endTime: 108,
+    text: "Você vai destravar com isso aqui:",
+    image: scienceHologram,
+    mood: "solution",
+  },
+  {
+    id: 31,
+    startTime: 108,
+    endTime: 112,
+    text: "Os 4 pilares da hipertrofia.",
+    image: scienceFiber,
+    mood: "solution",
+  },
+  {
+    id: 32,
+    startTime: 112,
+    endTime: 115,
+    text: "O que quase ninguém te explica de verdade.",
+    image: scienceFiber,
+    mood: "solution",
+  },
+  {
+    id: 33,
+    startTime: 115,
+    endTime: 119,
+    text: "Os 7 erros que roubam seus ganhos.",
+    image: frustration,
+    mood: "pain",
+  },
+  {
+    id: 34,
+    startTime: 119,
+    endTime: 123,
+    text: "A técnica que faz cada repetição valer.",
+    image: scienceProtein,
+    mood: "solution",
+  },
+  {
+    id: 35,
+    startTime: 123,
+    endTime: 127,
+    text: "E um plano de 8 semanas pra seguir sem falhar.",
+    image: appDevice,
+    mood: "offer",
+  },
+  {
+    id: 36,
+    startTime: 127,
+    endTime: 130,
+    text: "Testado. Ajustado. Pronto pra aplicar.",
+    image: appDevice,
+    mood: "offer",
+  },
 
   // === OFERTA (130-150s) ===
-  { id: 37, startTime: 130, endTime: 134, text: "E o melhor:", image: appDevice, mood: "offer" },
-  { id: 38, startTime: 134, endTime: 138, text: "tudo isso por apenas", image: appDevice, mood: "offer" },
-  { id: 39, startTime: 138, endTime: 142, text: "19 reais e 90 centavos.", image: appDevice, mood: "cta" },
-  { id: 40, startTime: 142, endTime: 146, text: "Menos que um suplemento", image: gymElite, mood: "offer" },
-  { id: 41, startTime: 146, endTime: 149, text: "que você compra todo mês.", image: gymElite, mood: "offer" },
-  { id: 42, startTime: 149, endTime: 153, text: "Com garantia de 7 dias.", image: appDevice, mood: "cta" },
-  { id: 43, startTime: 153, endTime: 157, text: "Se não gostar, devolvo seu dinheiro.", image: appDevice, mood: "cta" },
-  { id: 44, startTime: 157, endTime: 160, text: "Sem perguntas.", image: appDevice, mood: "cta" },
+  {
+    id: 37,
+    startTime: 130,
+    endTime: 134,
+    text: "E o melhor: é simples de começar hoje.",
+    image: appDevice,
+    mood: "offer",
+  },
+  {
+    id: 38,
+    startTime: 134,
+    endTime: 138,
+    text: "Tudo isso por apenas…",
+    image: appDevice,
+    mood: "offer",
+  },
+  {
+    id: 39,
+    startTime: 138,
+    endTime: 142,
+    text: "R$ 19,90.",
+    image: appDevice,
+    mood: "cta",
+  },
+  {
+    id: 40,
+    startTime: 142,
+    endTime: 146,
+    text: "Menos que 1 suplemento por mês.",
+    image: gymElite,
+    mood: "offer",
+  },
+  {
+    id: 41,
+    startTime: 146,
+    endTime: 149,
+    text: "E com retorno que você vê no espelho.",
+    image: gymElite,
+    mood: "offer",
+  },
+  {
+    id: 42,
+    startTime: 149,
+    endTime: 153,
+    text: "E ainda tem garantia de 7 dias.",
+    image: appDevice,
+    mood: "cta",
+  },
+  {
+    id: 43,
+    startTime: 153,
+    endTime: 157,
+    text: "Não curtiu? Eu devolvo seu dinheiro.",
+    image: appDevice,
+    mood: "cta",
+  },
+  {
+    id: 44,
+    startTime: 157,
+    endTime: 160,
+    text: "Sem burocracia. Sem perguntas.",
+    image: appDevice,
+    mood: "cta",
+  },
 
   // === DECISÃO (160-175s) ===
-  { id: 45, startTime: 160, endTime: 164, text: "Você pode continuar treinando", image: frustration, mood: "pain" },
-  { id: 46, startTime: 164, endTime: 168, text: "do mesmo jeito", image: frustration, mood: "pain" },
-  { id: 47, startTime: 168, endTime: 172, text: "e esperando resultados diferentes.", image: frustration, mood: "pain" },
-  { id: 48, startTime: 172, endTime: 176, text: "Ou pode dar o primeiro passo agora", image: gymElite, mood: "cta" },
-  { id: 49, startTime: 176, endTime: 180, text: "e finalmente ter controle", image: scienceHologram, mood: "cta" },
-  { id: 50, startTime: 180, endTime: 184, text: "sobre sua evolução.", image: scienceHologram, mood: "cta" },
+  {
+    id: 45,
+    startTime: 160,
+    endTime: 164,
+    text: "Agora é escolha.",
+    image: frustration,
+    mood: "pain",
+  },
+  {
+    id: 46,
+    startTime: 164,
+    endTime: 168,
+    text: "Continuar no mesmo treino…",
+    image: frustration,
+    mood: "pain",
+  },
+  {
+    id: 47,
+    startTime: 168,
+    endTime: 172,
+    text: "e continuar esperando um milagre.",
+    image: frustration,
+    mood: "pain",
+  },
+  {
+    id: 48,
+    startTime: 172,
+    endTime: 176,
+    text: "Ou começar agora — com direção.",
+    image: gymElite,
+    mood: "cta",
+  },
+  {
+    id: 49,
+    startTime: 176,
+    endTime: 180,
+    text: "Assumir o controle da sua evolução.",
+    image: scienceHologram,
+    mood: "cta",
+  },
+  {
+    id: 50,
+    startTime: 180,
+    endTime: 184,
+    text: "E ver progresso semana após semana.",
+    image: scienceHologram,
+    mood: "cta",
+  },
 
   // === CTA FINAL (184s+) ===
-  { id: 51, startTime: 184, endTime: 188, text: "Clica no botão abaixo.", image: appDevice, mood: "cta" },
-  { id: 52, startTime: 188, endTime: 999, text: "Seu futuro eu agradece.", image: gymElite, mood: "cta" },
+  {
+    id: 51,
+    startTime: 184,
+    endTime: 188,
+    text: "Clica no botão abaixo.",
+    image: appDevice,
+    mood: "cta",
+  },
+  {
+    id: 52,
+    startTime: 188,
+    endTime: 999,
+    text: "Seu “eu” de 8 semanas vai agradecer.",
+    image: gymElite,
+    mood: "cta",
+  },
 ];
 
 interface VSLSlidesProps {
@@ -107,14 +471,35 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
   const [textVisible, setTextVisible] = useState(true);
   const prevImageRef = useRef(segments[0].image);
 
-  useEffect(() => {
-    // Permite ajuste fino sem UI: adicione ?captionOffset=0.6 na URL (segundos)
-    const captionOffset = Number(
-      new URLSearchParams(window.location.search).get("captionOffset") ?? "0"
-    );
-    const t = Math.max(0, currentTime + (Number.isFinite(captionOffset) ? captionOffset : 0));
+  const searchParams = new URLSearchParams(window.location.search);
+  const debugCaptions = searchParams.get("debugCaptions") === "1";
 
-    const newSegment = segments.find((seg) => t >= seg.startTime && t < seg.endTime);
+  // Ajuste fino global: ?captionOffset=0.35 (segundos)
+  const initialOffset = Number(searchParams.get("captionOffset") ?? "0");
+  const [captionOffset, setCaptionOffset] = useState(
+    Number.isFinite(initialOffset) ? initialOffset : 0
+  );
+
+  // Overrides de timing (somente no modo debug)
+  const [timingOverrides, setTimingOverrides] = useState<
+    Record<number, { startTime?: number; endTime?: number }>
+  >({});
+
+  const getSegTiming = (seg: Segment) => {
+    const ov = timingOverrides[seg.id];
+    return {
+      startTime: ov?.startTime ?? seg.startTime,
+      endTime: ov?.endTime ?? seg.endTime,
+    };
+  };
+
+  useEffect(() => {
+    const t = Math.max(0, currentTime + captionOffset);
+
+    const newSegment = segments.find((seg) => {
+      const timing = getSegTiming(seg);
+      return t >= timing.startTime && t < timing.endTime;
+    });
 
     if (newSegment && newSegment.id !== activeSegmentId) {
       // Transição de texto
@@ -135,11 +520,22 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
         }, 500);
       }
     }
-  }, [currentTime, activeSegmentId]);
+  }, [currentTime, activeSegmentId, captionOffset, timingOverrides]);
 
   const activeSegment = segments.find((s) => s.id === activeSegmentId) || segments[0];
   const isCta = activeSegment.mood === "cta";
   const isPrice = activeSegment.id === 39;
+
+  const activeTiming = getSegTiming(activeSegment);
+  const setActiveOverride = (patch: { startTime?: number; endTime?: number }) => {
+    setTimingOverrides((prev) => ({
+      ...prev,
+      [activeSegment.id]: {
+        ...(prev[activeSegment.id] ?? {}),
+        ...patch,
+      },
+    }));
+  };
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
@@ -219,6 +615,77 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       {/* CTA glow effect */}
       {isCta && (
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,hsl(var(--accent)/0.12),transparent_55%)] animate-pulse" />
+      )}
+
+      {/* Debug (só com ?debugCaptions=1) */}
+      {debugCaptions && (
+        <div className="absolute top-3 left-3 z-40 rounded-md bg-black/40 backdrop-blur-sm px-3 py-2 text-xs text-white/90 space-y-1">
+          <div className="font-medium tracking-wide">DEBUG LEGENDAS</div>
+          <div className="text-white/70 tabular-nums">t={currentTime.toFixed(2)}s • seg #{activeSegment.id}</div>
+          <div className="text-white/70 tabular-nums">
+            start={activeTiming.startTime.toFixed(2)} • end={activeTiming.endTime.toFixed(2)}
+          </div>
+
+          <div className="flex flex-wrap gap-1 pt-1">
+            <button
+              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
+              onClick={() => setCaptionOffset((v) => Number((v - 0.1).toFixed(2)))}
+            >
+              offset -0.1
+            </button>
+            <button
+              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
+              onClick={() => setCaptionOffset((v) => Number((v + 0.1).toFixed(2)))}
+            >
+              offset +0.1
+            </button>
+          </div>
+
+          <div className="flex flex-wrap gap-1">
+            <button
+              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
+              onClick={() => setActiveOverride({ startTime: Math.max(0, activeTiming.startTime - 0.1) })}
+            >
+              start -0.1
+            </button>
+            <button
+              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
+              onClick={() => setActiveOverride({ startTime: activeTiming.startTime + 0.1 })}
+            >
+              start +0.1
+            </button>
+            <button
+              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
+              onClick={() => setActiveOverride({ endTime: Math.max(activeTiming.startTime + 0.2, activeTiming.endTime - 0.1) })}
+            >
+              end -0.1
+            </button>
+            <button
+              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
+              onClick={() => setActiveOverride({ endTime: activeTiming.endTime + 0.1 })}
+            >
+              end +0.1
+            </button>
+          </div>
+
+          <div className="pt-1">
+            <button
+              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
+              onClick={() => {
+                // Exporta overrides pra você colar no código
+                console.log("captionOffset=", captionOffset);
+                console.log("timingOverrides=", timingOverrides);
+                navigator.clipboard
+                  ?.writeText(
+                    JSON.stringify({ captionOffset, timingOverrides }, null, 2)
+                  )
+                  .catch(() => undefined);
+              }}
+            >
+              copiar ajustes
+            </button>
+          </div>
+        </div>
       )}
 
       {/* === SUBTITLE CONTAINER (Netflix style) === */}
