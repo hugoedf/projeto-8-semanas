@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -26,6 +27,9 @@ Você pode continuar treinando do mesmo jeito e esperando resultados diferentes.
 Clica no botão abaixo. Seu futuro eu agradece.
 `;
 
+const CACHE_FILE_NAME = 'vsl-audio-v1.mp3';
+const BUCKET_NAME = 'vsl-cache';
+
 serve(async (req) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -33,6 +37,46 @@ serve(async (req) => {
   }
 
   try {
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Try to get cached audio first
+    console.log('🔍 Checking for cached audio...');
+    
+    const { data: cachedFile } = await supabase.storage
+      .from(BUCKET_NAME)
+      .download(CACHE_FILE_NAME);
+
+    if (cachedFile) {
+      console.log('✅ Found cached audio, returning...');
+      
+      const arrayBuffer = await cachedFile.arrayBuffer();
+      const uint8Array = new Uint8Array(arrayBuffer);
+      let binary = '';
+      for (let i = 0; i < uint8Array.length; i++) {
+        binary += String.fromCharCode(uint8Array[i]);
+      }
+      const base64Audio = btoa(binary);
+      
+      console.log('📦 Cached audio size:', Math.round(arrayBuffer.byteLength / 1024), 'KB');
+
+      return new Response(
+        JSON.stringify({ 
+          audioContent: base64Audio,
+          duration: 165,
+          script: VSL_SCRIPT.trim(),
+          cached: true
+        }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    // No cache found, generate new audio
+    console.log('🎙️ No cache found, generating new audio...');
+    
     const ELEVENLABS_API_KEY = Deno.env.get('ELEVENLABS_API_KEY');
     
     if (!ELEVENLABS_API_KEY) {
@@ -40,11 +84,10 @@ serve(async (req) => {
       throw new Error('ELEVENLABS_API_KEY is not configured');
     }
 
-    console.log('🎙️ Starting VSL audio generation...');
     console.log('📝 Script length:', VSL_SCRIPT.length, 'characters');
 
     // Voice ID: Roger - voz masculina profissional em português
-    const voiceId = 'CwhRBWXzGAHq8TQ4Fs17'; // Roger - professional male voice
+    const voiceId = 'CwhRBWXzGAHq8TQ4Fs17';
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
@@ -63,7 +106,7 @@ serve(async (req) => {
             similarity_boost: 0.8,
             style: 0.4,
             use_speaker_boost: true,
-            speed: 0.95, // Slightly slower for clarity
+            speed: 0.95,
           },
         }),
       }
@@ -79,7 +122,23 @@ serve(async (req) => {
 
     const audioBuffer = await response.arrayBuffer();
     
-    // Use Deno's built-in base64 encoding
+    // Cache the audio in Supabase Storage
+    console.log('💾 Caching audio to storage...');
+    const { error: uploadError } = await supabase.storage
+      .from(BUCKET_NAME)
+      .upload(CACHE_FILE_NAME, audioBuffer, {
+        contentType: 'audio/mpeg',
+        upsert: true
+      });
+
+    if (uploadError) {
+      console.error('⚠️ Failed to cache audio:', uploadError.message);
+      // Continue anyway, just log the error
+    } else {
+      console.log('✅ Audio cached successfully');
+    }
+
+    // Convert to base64
     const uint8Array = new Uint8Array(audioBuffer);
     let binary = '';
     for (let i = 0; i < uint8Array.length; i++) {
@@ -92,8 +151,9 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         audioContent: base64Audio,
-        duration: 165, // ~2:45 estimated
-        script: VSL_SCRIPT.trim()
+        duration: 165,
+        script: VSL_SCRIPT.trim(),
+        cached: false
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
