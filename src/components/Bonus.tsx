@@ -1,32 +1,24 @@
 import { Gift, Rocket, Lock, Smartphone, CheckCircle2, Sparkles, Zap, Target, TrendingUp } from "lucide-react";
 import appMockup from "@/assets/app-8x-mockup.jpeg";
-
 const Bonus = () => {
-  const appFeatures = [
-    {
-      icon: Target,
-      title: "Treinos Programados",
-      description: "Cada sessão pronta, sem montar nada sozinho"
-    },
-    {
-      icon: Zap,
-      title: "Alimentação Aplicada",
-      description: "Plano nutricional integrado, sem calcular macros"
-    },
-    {
-      icon: TrendingUp,
-      title: "Progresso Visível",
-      description: "Acompanhe sua evolução semana a semana"
-    },
-    {
-      icon: Sparkles,
-      title: "Técnicas no Tempo Certo",
-      description: "Sem improvisar, execução guiada passo a passo"
-    }
-  ];
-
-  return (
-    <section className="py-20 sm:py-28 lg:py-36 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+  const appFeatures = [{
+    icon: Target,
+    title: "Treinos Programados",
+    description: "Cada sessão pronta, sem montar nada sozinho"
+  }, {
+    icon: Zap,
+    title: "Alimentação Aplicada",
+    description: "Plano nutricional integrado, sem calcular macros"
+  }, {
+    icon: TrendingUp,
+    title: "Progresso Visível",
+    description: "Acompanhe sua evolução semana a semana"
+  }, {
+    icon: Sparkles,
+    title: "Técnicas no Tempo Certo",
+    description: "Sem improvisar, execução guiada passo a passo"
+  }];
+  return <section className="py-20 sm:py-28 lg:py-36 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/8 via-transparent to-transparent" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/10 rounded-full blur-[150px] pointer-events-none" />
@@ -68,11 +60,7 @@ const Bonus = () => {
               {/* Phone Frame */}
               <div className="relative bg-gradient-to-b from-gray-800 to-gray-950 rounded-[2.5rem] p-3 sm:p-4 w-[220px] sm:w-[280px] shadow-2xl shadow-black/60 border border-white/15">
                 <div className="rounded-[2rem] overflow-hidden">
-                  <img 
-                    src={appMockup} 
-                    alt="App 8X - Execução Guiada do Método" 
-                    className="w-full h-auto"
-                  />
+                  <img src={appMockup} alt="App 8X - Execução Guiada do Método" className="w-full h-auto" />
                 </div>
                 {/* Notch */}
                 <div className="absolute top-5 left-1/2 -translate-x-1/2 w-20 h-6 bg-gray-950 rounded-full" />
@@ -125,12 +113,10 @@ const Bonus = () => {
 
             {/* Quick benefits */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-3">
-              {["Sem improviso", "Sem desvio", "Sem achismo"].map((item, i) => (
-                <span key={i} className="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-xs text-gray-300">
+              {["Sem improviso", "Sem desvio", "Sem achismo"].map((item, i) => <span key={i} className="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-xs text-gray-300">
                   <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
                   {item}
-                </span>
-              ))}
+                </span>)}
             </div>
           </div>
         </div>
@@ -142,18 +128,13 @@ const Bonus = () => {
           </p>
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
-            {appFeatures.map((feature, i) => (
-              <div 
-                key={i} 
-                className="group bg-gradient-to-b from-white/[0.06] to-white/[0.02] rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/10 hover:border-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10"
-              >
+            {appFeatures.map((feature, i) => <div key={i} className="group bg-gradient-to-b from-white/[0.06] to-white/[0.02] rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/10 hover:border-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
                 <div className="p-1.5 sm:p-2.5 bg-accent/10 rounded-lg sm:rounded-xl w-fit mb-2 sm:mb-4 group-hover:bg-accent/20 transition-colors">
                   <feature.icon className="w-4 h-4 sm:w-5 sm:h-5 text-accent" />
                 </div>
                 <h4 className="text-white font-semibold text-[11px] sm:text-sm mb-1 sm:mb-2 leading-tight">{feature.title}</h4>
                 <p className="text-gray-500 text-[10px] sm:text-xs leading-snug sm:leading-relaxed hidden sm:block">{feature.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -212,9 +193,7 @@ const Bonus = () => {
             </p>
             <div className="flex items-center justify-center gap-3">
               <Gift className="w-6 h-6 text-accent" />
-              <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-accent to-orange-400 bg-clip-text text-transparent">
-                Incluído GRÁTIS com o Método 8X
-              </p>
+              <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-accent to-orange-400 bg-clip-text text-transparent">Incluso GRÁTIS com o Método 8X</p>
             </div>
             <p className="text-gray-400 text-xs mt-2">
               Apenas para quem garantir o e-book hoje
@@ -247,8 +226,6 @@ const Bonus = () => {
         </div>
 
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Bonus;
