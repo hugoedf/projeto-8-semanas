@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Play, Pause, Volume2, VolumeX, Loader2, RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import VSLSlides from "./VSLSlides";
 
 interface VSLPlayerProps {
   onVideoEnd?: () => void;
@@ -168,30 +167,31 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-lg mx-auto">
+    <div className="relative w-full max-w-2xl mx-auto">
       {/* Player Container */}
       <div className="relative aspect-video bg-fitness-darker rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
         
-        {/* Background with subtle animation */}
-        <div className="absolute inset-0 bg-gradient-to-br from-fitness-brown via-fitness-dark to-fitness-darker">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsla(18,100%,58%,0.08),transparent_70%)]" />
-        </div>
+        {/* VSL Slides - Synchronized visuals */}
+        {hasStarted && <VSLSlides currentTime={currentTime} />}
 
-        {/* Waveform visualization (simplified) */}
-        {isPlaying && (
-          <div className="absolute inset-0 flex items-center justify-center gap-1 opacity-30">
-            {[...Array(20)].map((_, i) => (
-              <div
-                key={i}
-                className="w-1 bg-accent rounded-full animate-pulse"
-                style={{
-                  height: `${20 + Math.random() * 60}%`,
-                  animationDelay: `${i * 0.1}s`,
-                  animationDuration: `${0.5 + Math.random() * 0.5}s`,
-                }}
-              />
-            ))}
-          </div>
+        {/* Pre-start overlay */}
+        {!hasStarted && (
+          <>
+            {/* Background gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/30 via-fitness-dark to-black" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsla(18,100%,58%,0.15),transparent_70%)]" />
+            
+            {/* Pre-start content */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-0 p-6">
+              <div className="text-5xl sm:text-6xl mb-4">🏋️</div>
+              <p className="text-white/90 text-lg sm:text-xl font-display font-bold mb-2 text-center">
+                Descubra o <span className="text-accent">MÉTODO 8X</span>
+              </p>
+              <p className="text-white/60 text-sm text-center">
+                Assista e transforme seus resultados
+              </p>
+            </div>
+          </>
         )}
 
         {/* Center Play Button / Loading */}
@@ -200,12 +200,12 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
             <button
               onClick={togglePlay}
               disabled={isLoading}
-              className="group relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-accent/90 hover:bg-accent flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg shadow-accent/30"
+              className="group relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-accent/90 hover:bg-accent flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg shadow-accent/30"
             >
               {isLoading ? (
-                <Loader2 className="w-10 h-10 sm:w-12 sm:h-12 text-accent-foreground animate-spin" />
+                <Loader2 className="w-8 h-8 sm:w-10 sm:h-10 text-accent-foreground animate-spin" />
               ) : (
-                <Play className="w-10 h-10 sm:w-12 sm:h-12 text-accent-foreground ml-1" fill="currentColor" />
+                <Play className="w-8 h-8 sm:w-10 sm:h-10 text-accent-foreground ml-1" fill="currentColor" />
               )}
               
               {/* Pulse ring */}
@@ -216,33 +216,18 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           </div>
         )}
 
-        {/* Thumbnail Overlay */}
+        {/* Thumbnail text */}
         {!hasStarted && (
-          <div className="absolute inset-0 flex flex-col items-center justify-end pb-16 z-0">
+          <div className="absolute bottom-6 left-0 right-0 flex justify-center z-0">
             <p className="text-white/60 text-sm font-medium tracking-wide uppercase">
               Clique para assistir
             </p>
           </div>
         )}
 
-        {/* Content when playing */}
-        {hasStarted && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-0">
-            <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-4">
-              <Volume2 className="w-8 h-8 text-accent" />
-            </div>
-            <p className="text-white/90 text-lg font-display font-bold mb-2">
-              MÉTODO 8X
-            </p>
-            <p className="text-white/60 text-sm">
-              {isPlaying ? "Reproduzindo..." : hasEnded ? "Vídeo finalizado" : "Pausado"}
-            </p>
-          </div>
-        )}
-
         {/* Controls Bar - Only show after started */}
         {hasStarted && (
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-20">
             {/* Progress Bar */}
             <div 
               className="w-full h-1.5 bg-white/20 rounded-full mb-3 cursor-pointer group"
@@ -258,40 +243,40 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
             {/* Controls */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   onClick={togglePlay}
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
                 >
                   {isPlaying ? (
-                    <Pause className="w-5 h-5 text-white" />
+                    <Pause className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   ) : (
-                    <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
+                    <Play className="w-4 h-4 sm:w-5 sm:h-5 text-white ml-0.5" fill="currentColor" />
                   )}
                 </button>
 
                 {hasEnded && (
                   <button
                     onClick={restart}
-                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
                   >
-                    <RotateCcw className="w-5 h-5 text-white" />
+                    <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </button>
                 )}
 
                 <button
                   onClick={toggleMute}
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
                 >
                   {isMuted ? (
-                    <VolumeX className="w-5 h-5 text-white" />
+                    <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   ) : (
-                    <Volume2 className="w-5 h-5 text-white" />
+                    <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   )}
                 </button>
               </div>
 
-              <div className="text-white/70 text-sm font-medium tabular-nums">
+              <div className="text-white/70 text-xs sm:text-sm font-medium tabular-nums">
                 {formatTime(currentTime)} / {formatTime(duration || 165)}
               </div>
             </div>
