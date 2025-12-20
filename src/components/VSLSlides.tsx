@@ -427,33 +427,7 @@ const VSLSlides = ({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,hsl(var(--accent)/0.12),transparent_55%)] animate-pulse" />
       )}
 
-      {/* === LEGENDA - POSIÇÃO FIXA NA PARTE INFERIOR === */}
-      <div className="absolute bottom-4 left-0 right-0 px-4 sm:px-8 md:px-12 z-20">
-        <div
-          className={`text-center transition-opacity ease-out ${
-            textVisible ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ transitionDuration: `${captionFadeMs}ms` }}
-        >
-          <div className="inline-block max-w-3xl">
-            <div className="inline-block rounded bg-black/60 px-4 py-2">
-              <p
-                className={`font-sans font-semibold leading-snug text-white ${
-                  isPrice
-                    ? "text-2xl sm:text-3xl md:text-4xl text-accent"
-                    : "text-base sm:text-lg md:text-xl"
-                }`}
-                style={{
-                  textShadow: "0 2px 8px rgba(0,0,0,0.9)",
-                  letterSpacing: "0.01em",
-                }}
-              >
-                {activeSegment.text}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* === LEGENDAS DESATIVADAS === */}
 
       {/* === CTA INDICATOR === */}
       {isCta && (
