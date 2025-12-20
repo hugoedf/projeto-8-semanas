@@ -1,16 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap } from "lucide-react";
-import heroImage from "@/assets/hero-ebook-mockup.png";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
+import VSLPlayer from "@/components/VSLPlayer";
+import { useState } from "react";
 const Hero = () => {
-  const {
-    trackInitiateCheckout
-  } = useMetaPixel();
-  const {
-    visitorData
-  } = useVisitorTracking();
+  const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
+  const [vslEnded, setVslEnded] = useState(false);
+
+  const handleVSLEnd = () => {
+    setVslEnded(true);
+    console.log('📊 VSL completed - CTA emphasis activated');
+  };
+
   const handleCTAClick = () => {
     // 1. Base URL do checkout da Hotmart
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
@@ -68,23 +72,19 @@ const Hero = () => {
               Chega de treinar sem resultado. Em 8 semanas, você vai entender <span className="text-white font-medium">exatamente</span> como fazer cada treino valer de verdade — e finalmente ter controle sobre seus resultados.
             </p>
             
-            {/* Image - Mobile only */}
-            <div className="relative w-full max-w-[280px] mx-auto lg:hidden order-4 mb-8">
+            {/* VSL Player - Mobile only */}
+            <div className="relative w-full max-w-[340px] mx-auto lg:hidden order-4 mb-8">
               <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
-              <img 
-                alt="Mockup do Ebook Projeto 8 Semanas" 
-                className="relative z-10 w-full h-auto rounded-xl shadow-2xl" 
-                src="/lovable-uploads/c1941b90-f63e-4025-b105-03df2eac90b0.png" 
-              />
+              <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
             
             {/* CTA Section - Limpo e focado */}
-            <div className="order-5 space-y-4">
+            <div className={`order-5 space-y-4 transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
               <Button 
                 variant="cta" 
                 size="lg" 
                 onClick={handleCTAClick} 
-                className="text-base sm:text-lg px-8 sm:px-12 py-6 sm:py-7 animate-pulse-glow w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase"
+                className={`text-base sm:text-lg px-8 sm:px-12 py-6 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
               >
                 QUERO COMEÇAR AGORA
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -101,14 +101,12 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Image - Desktop only */}
+          {/* VSL Player - Desktop only */}
           <div className="hidden lg:flex justify-center relative animate-fade-in" style={{ animationDelay: "0.15s" }}>
             <div className="absolute inset-0 bg-accent/15 rounded-3xl blur-[60px] scale-90" />
-            <img 
-              alt="Mockup do Ebook Projeto 8 Semanas" 
-              className="relative z-10 w-full max-w-md h-auto rounded-2xl shadow-2xl hover-lift" 
-              src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
-            />
+            <div className="relative z-10 w-full max-w-lg">
+              <VSLPlayer onVideoEnd={handleVSLEnd} />
+            </div>
           </div>
         </div>
       </div>

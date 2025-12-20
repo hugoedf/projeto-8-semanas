@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.visitor-tracking]
 verify_jwt = false
+
+[functions.elevenlabs-vsl]
+verify_jwt = false
