@@ -22,84 +22,125 @@ interface Slide {
   image: string;
 }
 
-// Legendas sincronizadas com o áudio do roteiro (~165 segundos total)
-// Timing ajustado baseado na velocidade de fala do ElevenLabs (speed: 0.95)
+/*
+ROTEIRO VSL COMPLETO (velocidade 0.95 = ~165 segundos):
+
+[0-15s] Parágrafo 1:
+"Você treina há meses, talvez anos. Segue planilhas, assiste vídeos, tenta fazer tudo certo. 
+Mas quando olha no espelho, a frustração bate: cadê o resultado?"
+
+[15-35s] Parágrafo 2:
+"A verdade é que 90% das pessoas treinam no modo automático. Fazem os exercícios, completam as séries, 
+mas não entendem o que realmente faz o músculo crescer. E por isso, ficam estagnados."
+
+[35-52s] Parágrafo 3:
+"Eu também passei por isso. Até entender que hipertrofia não é sobre treinar mais. 
+É sobre treinar com estratégia. Com ciência. Com intenção."
+
+[52-75s] Parágrafo 4:
+"Imagina chegar na academia sabendo exatamente o que fazer. Qual exercício priorizar. 
+Quantas séries. Qual cadência. Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona."
+
+[75-95s] Parágrafo 5:
+"Isso é o Método 8X. Um e-book completo com 8 semanas de treino estruturado, 
+mais um aplicativo exclusivo que guia cada treino seu. Sem achismos. Sem improviso."
+
+[95-120s] Parágrafo 6:
+"O que você vai aprender: os 4 pilares da hipertrofia que ninguém te ensinou. 
+Os 7 erros que sabotam seus resultados. A técnica que maximiza cada repetição. 
+E um plano de 8 semanas testado e aprovado."
+
+[120-145s] Parágrafo 7:
+"E o melhor: tudo isso por apenas 19 reais e 90 centavos. Menos que um suplemento que você compra todo mês. 
+Com garantia de 7 dias. Se não gostar, devolvo seu dinheiro. Sem perguntas."
+
+[145-160s] Parágrafo 8:
+"Você pode continuar treinando do mesmo jeito e esperando resultados diferentes. 
+Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução."
+
+[160-170s] Parágrafo 9:
+"Clica no botão abaixo. Seu futuro eu agradece."
+*/
+
 const slides: Slide[] = [
-  // === BLOCO 1: DOR (0-22s) ===
-  // "Você treina há meses, talvez anos. Segue planilhas, assiste vídeos, tenta fazer tudo certo."
+  // === PARÁGRAFO 1: DOR INICIAL (0-15s) ===
+  // "Você treina há meses, talvez anos."
   {
     id: 1,
     startTime: 0,
-    endTime: 5,
+    endTime: 4,
     caption: "VOCÊ TREINA HÁ MESES...",
     image: moodPain1,
   },
+  // "Segue planilhas, assiste vídeos, tenta fazer tudo certo."
   {
     id: 2,
-    startTime: 5,
-    endTime: 10,
-    caption: "TALVEZ ANOS.",
+    startTime: 4,
+    endTime: 9,
+    caption: "TENTA FAZER TUDO CERTO.",
     image: moodPain2,
   },
   // "Mas quando olha no espelho, a frustração bate: cadê o resultado?"
   {
     id: 3,
-    startTime: 10,
-    endTime: 16,
-    caption: "MAS CADÊ O RESULTADO?",
+    startTime: 9,
+    endTime: 15,
+    caption: "CADÊ O RESULTADO?",
     highlightWords: ["RESULTADO"],
     image: moodPain3,
   },
-  {
-    id: 4,
-    startTime: 16,
-    endTime: 22,
-    caption: "A FRUSTRAÇÃO BATE.",
-    highlightWords: ["FRUSTRAÇÃO"],
-    image: moodPain3,
-  },
 
-  // === BLOCO 2: AGITAÇÃO (22-42s) ===
+  // === PARÁGRAFO 2: AGITAÇÃO (15-35s) ===
   // "A verdade é que 90% das pessoas treinam no modo automático."
   {
-    id: 5,
-    startTime: 22,
-    endTime: 28,
+    id: 4,
+    startTime: 15,
+    endTime: 21,
     caption: "90% DAS PESSOAS",
     highlightWords: ["90%"],
     image: moodPain2,
   },
   {
-    id: 6,
-    startTime: 28,
-    endTime: 34,
-    caption: "TREINAM NO MODO AUTOMÁTICO.",
+    id: 5,
+    startTime: 21,
+    endTime: 26,
+    caption: "TREINAM NO AUTOMÁTICO.",
     highlightWords: ["AUTOMÁTICO"],
     image: moodPain1,
   },
   // "Fazem os exercícios, completam as séries, mas não entendem o que realmente faz o músculo crescer."
   {
-    id: 7,
-    startTime: 34,
-    endTime: 42,
-    caption: "MAS NÃO ENTENDEM O QUE FAZ O MÚSCULO CRESCER.",
+    id: 6,
+    startTime: 26,
+    endTime: 33,
+    caption: "NÃO ENTENDEM O QUE FAZ O MÚSCULO CRESCER.",
     highlightWords: ["MÚSCULO CRESCER"],
     image: moodInsight1,
   },
+  // "E por isso, ficam estagnados."
+  {
+    id: 7,
+    startTime: 33,
+    endTime: 35,
+    caption: "FICAM ESTAGNADOS.",
+    highlightWords: ["ESTAGNADOS"],
+    image: moodPain3,
+  },
 
-  // === BLOCO 3: INSIGHT (42-62s) ===
-  // "Eu também passei por isso. Até entender que hipertrofia não é sobre treinar mais."
+  // === PARÁGRAFO 3: INSIGHT (35-52s) ===
+  // "Eu também passei por isso."
   {
     id: 8,
-    startTime: 42,
-    endTime: 48,
+    startTime: 35,
+    endTime: 39,
     caption: "EU TAMBÉM PASSEI POR ISSO.",
     image: moodInsight1,
   },
+  // "Até entender que hipertrofia não é sobre treinar mais."
   {
     id: 9,
-    startTime: 48,
-    endTime: 54,
+    startTime: 39,
+    endTime: 45,
     caption: "HIPERTROFIA NÃO É SOBRE TREINAR MAIS.",
     highlightWords: ["TREINAR MAIS"],
     image: moodInsight2,
@@ -107,47 +148,47 @@ const slides: Slide[] = [
   // "É sobre treinar com estratégia. Com ciência. Com intenção."
   {
     id: 10,
-    startTime: 54,
-    endTime: 62,
+    startTime: 45,
+    endTime: 52,
     caption: "É SOBRE TREINAR COM ESTRATÉGIA.",
     highlightWords: ["ESTRATÉGIA"],
     image: moodInsight2,
   },
 
-  // === BLOCO 4: SOLUÇÃO (62-90s) ===
+  // === PARÁGRAFO 4: SOLUÇÃO (52-75s) ===
   // "Imagina chegar na academia sabendo exatamente o que fazer."
   {
     id: 11,
-    startTime: 62,
-    endTime: 70,
+    startTime: 52,
+    endTime: 59,
     caption: "IMAGINA SABER EXATAMENTE O QUE FAZER.",
     highlightWords: ["EXATAMENTE"],
     image: moodSolution1,
   },
-  // "Qual exercício priorizar. Quantas séries. Qual cadência. Quanto tempo descansar."
+  // "Qual exercício priorizar. Quantas séries. Qual cadência."
   {
     id: 12,
-    startTime: 70,
-    endTime: 80,
-    caption: "CADA EXERCÍCIO. CADA SÉRIE. CADA DESCANSO.",
+    startTime: 59,
+    endTime: 66,
+    caption: "CADA EXERCÍCIO. CADA SÉRIE.",
     image: moodSolution2,
   },
-  // "Tudo baseado no que a ciência já provou que funciona."
+  // "Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona."
   {
     id: 13,
-    startTime: 80,
-    endTime: 90,
+    startTime: 66,
+    endTime: 75,
     caption: "BASEADO NO QUE A CIÊNCIA PROVOU.",
     highlightWords: ["CIÊNCIA"],
     image: moodSolution3,
   },
 
-  // === BLOCO 5: MÉTODO 8X (90-115s) ===
+  // === PARÁGRAFO 5: MÉTODO 8X (75-95s) ===
   // "Isso é o Método 8X."
   {
     id: 14,
-    startTime: 90,
-    endTime: 96,
+    startTime: 75,
+    endTime: 80,
     caption: "ISSO É O MÉTODO 8X.",
     highlightWords: ["8X"],
     image: moodOffer1,
@@ -155,8 +196,8 @@ const slides: Slide[] = [
   // "Um e-book completo com 8 semanas de treino estruturado"
   {
     id: 15,
-    startTime: 96,
-    endTime: 104,
+    startTime: 80,
+    endTime: 87,
     caption: "8 SEMANAS DE TREINO ESTRUTURADO.",
     highlightWords: ["8 SEMANAS"],
     image: moodOffer2,
@@ -164,18 +205,18 @@ const slides: Slide[] = [
   // "mais um aplicativo exclusivo que guia cada treino seu. Sem achismos. Sem improviso."
   {
     id: 16,
-    startTime: 104,
-    endTime: 115,
+    startTime: 87,
+    endTime: 95,
     caption: "SEM ACHISMO. SEM IMPROVISO.",
     image: moodOffer1,
   },
 
-  // === BLOCO 6: O QUE VOCÊ VAI APRENDER (115-135s) ===
-  // "O que você vai aprender: os 4 pilares da hipertrofia..."
+  // === PARÁGRAFO 6: CONTEÚDO (95-120s) ===
+  // "O que você vai aprender: os 4 pilares da hipertrofia que ninguém te ensinou."
   {
     id: 17,
-    startTime: 115,
-    endTime: 122,
+    startTime: 95,
+    endTime: 104,
     caption: "OS 4 PILARES DA HIPERTROFIA.",
     highlightWords: ["4 PILARES"],
     image: moodSolution2,
@@ -183,79 +224,90 @@ const slides: Slide[] = [
   // "Os 7 erros que sabotam seus resultados."
   {
     id: 18,
-    startTime: 122,
-    endTime: 128,
+    startTime: 104,
+    endTime: 110,
     caption: "OS 7 ERROS QUE TE SABOTAM.",
     highlightWords: ["7 ERROS"],
     image: moodSolution3,
   },
-  // "E um plano de 8 semanas testado e aprovado."
+  // "A técnica que maximiza cada repetição. E um plano de 8 semanas testado e aprovado."
   {
     id: 19,
-    startTime: 128,
-    endTime: 135,
+    startTime: 110,
+    endTime: 120,
     caption: "UM PLANO TESTADO E APROVADO.",
     highlightWords: ["TESTADO"],
     image: moodOffer2,
   },
 
-  // === BLOCO 7: OFERTA (135-155s) ===
+  // === PARÁGRAFO 7: OFERTA (120-145s) ===
   // "E o melhor: tudo isso por apenas 19 reais e 90 centavos."
   {
     id: 20,
-    startTime: 135,
-    endTime: 142,
+    startTime: 120,
+    endTime: 127,
     caption: "TUDO ISSO POR APENAS",
     image: moodOffer1,
   },
   {
     id: 21,
-    startTime: 142,
-    endTime: 148,
+    startTime: 127,
+    endTime: 132,
     caption: "R$ 19,90",
     highlightWords: ["R$ 19,90"],
     image: moodOffer1,
   },
-  // "Com garantia de 7 dias."
+  // "Menos que um suplemento que você compra todo mês."
   {
     id: 22,
-    startTime: 148,
-    endTime: 155,
+    startTime: 132,
+    endTime: 137,
+    caption: "MENOS QUE UM SUPLEMENTO.",
+    image: moodOffer2,
+  },
+  // "Com garantia de 7 dias. Se não gostar, devolvo seu dinheiro. Sem perguntas."
+  {
+    id: 23,
+    startTime: 137,
+    endTime: 145,
     caption: "GARANTIA DE 7 DIAS.",
     highlightWords: ["7 DIAS"],
     image: moodOffer2,
   },
 
-  // === BLOCO 8: CTA (155-175s) ===
-  // "Você pode continuar treinando do mesmo jeito..."
+  // === PARÁGRAFO 8: DECISÃO (145-160s) ===
+  // "Você pode continuar treinando do mesmo jeito e esperando resultados diferentes."
   {
-    id: 23,
-    startTime: 155,
-    endTime: 162,
+    id: 24,
+    startTime: 145,
+    endTime: 152,
     caption: "VOCÊ PODE CONTINUAR IGUAL...",
     image: moodPain2,
   },
-  // "Ou pode dar o primeiro passo agora."
+  // "Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução."
   {
-    id: 24,
-    startTime: 162,
-    endTime: 168,
+    id: 25,
+    startTime: 152,
+    endTime: 160,
     caption: "OU DAR O PRIMEIRO PASSO AGORA.",
     highlightWords: ["PRIMEIRO PASSO"],
     image: moodCta,
   },
-  // "Clica no botão abaixo. Seu futuro eu agradece."
+
+  // === PARÁGRAFO 9: CTA FINAL (160-170s) ===
+  // "Clica no botão abaixo."
   {
-    id: 25,
-    startTime: 168,
-    endTime: 175,
+    id: 26,
+    startTime: 160,
+    endTime: 165,
     caption: "CLICA NO BOTÃO ABAIXO.",
     highlightWords: ["BOTÃO"],
     image: moodCta,
   },
+  // "Seu futuro eu agradece."
   {
-    id: 26,
-    startTime: 175,
+    id: 27,
+    startTime: 165,
     endTime: 200,
     caption: "SEU FUTURO EU VAI AGRADECER.",
     highlightWords: ["FUTURO"],
@@ -289,22 +341,22 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
         setTimeout(() => {
           setDisplayedImage(newSlide.image);
           setImageTransitioning(false);
-        }, 500);
+        }, 400);
       }
       
-      // Transição de texto
+      // Transição de texto - mais rápida para melhor sincronização
       setIsTransitioning(true);
       setTimeout(() => {
         setActiveSlideId(newSlide.id);
         setTimeout(() => {
           setIsTransitioning(false);
-        }, 50);
-      }, 120);
+        }, 30);
+      }, 80);
     }
   }, [currentTime, activeSlideId]);
 
   const activeSlide = slides.find((s) => s.id === activeSlideId) || slides[0];
-  const isCtaSlide = activeSlide.id >= 24;
+  const isCtaSlide = activeSlide.id >= 25;
   const isPriceSlide = activeSlide.id === 21;
 
   const renderCaption = (text: string, highlights?: string[]) => {
@@ -328,7 +380,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
     <div className="absolute inset-0 overflow-hidden bg-black">
       {/* Background Image Layer - Current */}
       <div 
-        className={`absolute inset-0 transition-all duration-700 ease-out ${imageTransitioning ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
+        className={`absolute inset-0 transition-all duration-500 ease-out ${imageTransitioning ? 'opacity-0 scale-102' : 'opacity-100 scale-100'}`}
       >
         <div
           className="absolute inset-0"
@@ -343,7 +395,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       
       {/* Background Image Layer - Next (for crossfade) */}
       <div 
-        className={`absolute inset-0 transition-all duration-700 ease-out ${imageTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}
+        className={`absolute inset-0 transition-all duration-500 ease-out ${imageTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-102'}`}
       >
         <div
           className="absolute inset-0"
@@ -364,7 +416,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           filter: 'brightness(0.3) saturate(0.6)',
-          opacity: 0.7,
+          opacity: 0.6,
         }}
       />
       
@@ -381,10 +433,10 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
 
       {/* Caption Container */}
       <div 
-        className={`absolute inset-0 flex items-center justify-center p-6 sm:p-10 md:p-16 transition-all duration-300 ease-out ${
+        className={`absolute inset-0 flex items-center justify-center p-6 sm:p-10 md:p-16 transition-all duration-200 ease-out ${
           isTransitioning 
-            ? 'opacity-0 blur-sm transform translate-y-3 scale-98' 
-            : 'opacity-100 blur-0 transform translate-y-0 scale-100'
+            ? 'opacity-0 blur-sm transform translate-y-2' 
+            : 'opacity-100 blur-0 transform translate-y-0'
         }`}
       >
         <div className="text-center max-w-5xl mx-auto">
@@ -413,7 +465,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
           </h1>
 
           {/* CTA arrow indicator on final slides */}
-          {activeSlide.id >= 25 && (
+          {activeSlide.id >= 26 && (
             <div className="mt-10 sm:mt-14">
               <div 
                 className="w-14 h-14 sm:w-16 sm:h-16 mx-auto border-2 border-accent rounded-full flex items-center justify-center animate-bounce"
@@ -443,7 +495,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       {/* Minimal progress line */}
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5">
         <div 
-          className="h-full bg-gradient-to-r from-accent/70 to-accent transition-all duration-200 ease-out"
+          className="h-full bg-gradient-to-r from-accent/70 to-accent transition-all duration-150 ease-out"
           style={{ 
             width: `${((activeSlide.id) / slides.length) * 100}%` 
           }}
@@ -466,8 +518,8 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
         .animate-kenBurns {
           animation: kenBurns 25s ease-in-out infinite;
         }
-        .scale-98 {
-          transform: scale(0.98);
+        .scale-102 {
+          transform: scale(1.02);
         }
       `}</style>
     </div>
