@@ -31,16 +31,13 @@ const Bonus = () => {
         <div className="text-center mb-8 sm:mb-10 animate-fade-in">
           <span className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] px-5 py-2.5 rounded-full bg-gradient-to-r from-accent/15 to-orange-500/15 border border-accent/30 shadow-lg shadow-accent/10">
             <Gift className="w-4 h-4 animate-pulse" />
-            Bônus Exclusivo 
+            Bônus Exclusivo Incluído
           </span>
         </div>
 
         {/* Main Headline */}
-        <h2 className="font-display text-[17px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center leading-[1.4] sm:leading-tight mb-4 sm:mb-6 animate-fade-in">
-          <span className="block">Você não vai apenas ler o método.</span>
-          <span className="block bg-gradient-to-r from-accent via-orange-400 to-accent bg-clip-text text-transparent drop-shadow-[0_0_30px_hsla(18,100%,58%,0.3)]">
-            Você vai executar ele no celular.
-          </span>
+        <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center leading-tight mb-4 sm:mb-6 animate-fade-in">
+          O método no seu bolso. <span className="bg-gradient-to-r from-accent via-orange-400 to-accent bg-clip-text text-transparent drop-shadow-[0_0_30px_hsla(18,100%,58%,0.3)]">Resultados na sua vida.</span>
         </h2>
 
         <p className="text-center text-gray-400 text-base sm:text-lg mb-12 sm:mb-16 max-w-2xl mx-auto animate-fade-in">
