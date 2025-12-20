@@ -1,295 +1,98 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-// Importar todas as imagens cinematográficas
-import moodPain1 from "@/assets/vsl-mood-pain.jpg";
-import moodPain2 from "@/assets/vsl-pain-2.jpg";
-import moodPain3 from "@/assets/vsl-pain-3.jpg";
-import moodInsight1 from "@/assets/vsl-mood-insight.jpg";
-import moodInsight2 from "@/assets/vsl-insight-2.jpg";
-import moodSolution1 from "@/assets/vsl-mood-solution.jpg";
-import moodSolution2 from "@/assets/vsl-solution-2.jpg";
-import moodSolution3 from "@/assets/vsl-solution-3.jpg";
-import moodOffer1 from "@/assets/vsl-mood-offer.jpg";
-import moodOffer2 from "@/assets/vsl-offer-2.jpg";
-import moodCta from "@/assets/vsl-mood-cta.jpg";
+// Imagens HIGH-TECH + Academia
+import scienceFiber from "@/assets/vsl-science-muscle-fiber.jpg";
+import scienceHologram from "@/assets/vsl-science-hologram.jpg";
+import scienceProtein from "@/assets/vsl-science-protein.jpg";
+import gymElite from "@/assets/vsl-gym-elite.jpg";
+import frustration from "@/assets/vsl-frustration.jpg";
+import appDevice from "@/assets/vsl-app-device.jpg";
 
-interface Slide {
+interface Segment {
   id: number;
   startTime: number;
   endTime: number;
-  caption: string;
-  highlightWords?: string[];
+  text: string; // Copy de impacto (fiel ao áudio mas otimizado)
   image: string;
+  mood: "pain" | "insight" | "solution" | "offer" | "cta";
 }
 
 /*
-ROTEIRO VSL COMPLETO (velocidade 0.95 = ~165 segundos):
-
-[0-15s] Parágrafo 1:
-"Você treina há meses, talvez anos. Segue planilhas, assiste vídeos, tenta fazer tudo certo. 
-Mas quando olha no espelho, a frustração bate: cadê o resultado?"
-
-[15-35s] Parágrafo 2:
-"A verdade é que 90% das pessoas treinam no modo automático. Fazem os exercícios, completam as séries, 
-mas não entendem o que realmente faz o músculo crescer. E por isso, ficam estagnados."
-
-[35-52s] Parágrafo 3:
-"Eu também passei por isso. Até entender que hipertrofia não é sobre treinar mais. 
-É sobre treinar com estratégia. Com ciência. Com intenção."
-
-[52-75s] Parágrafo 4:
-"Imagina chegar na academia sabendo exatamente o que fazer. Qual exercício priorizar. 
-Quantas séries. Qual cadência. Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona."
-
-[75-95s] Parágrafo 5:
-"Isso é o Método 8X. Um e-book completo com 8 semanas de treino estruturado, 
-mais um aplicativo exclusivo que guia cada treino seu. Sem achismos. Sem improviso."
-
-[95-120s] Parágrafo 6:
-"O que você vai aprender: os 4 pilares da hipertrofia que ninguém te ensinou. 
-Os 7 erros que sabotam seus resultados. A técnica que maximiza cada repetição. 
-E um plano de 8 semanas testado e aprovado."
-
-[120-145s] Parágrafo 7:
-"E o melhor: tudo isso por apenas 19 reais e 90 centavos. Menos que um suplemento que você compra todo mês. 
-Com garantia de 7 dias. Se não gostar, devolvo seu dinheiro. Sem perguntas."
-
-[145-160s] Parágrafo 8:
-"Você pode continuar treinando do mesmo jeito e esperando resultados diferentes. 
-Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução."
-
-[160-170s] Parágrafo 9:
-"Clica no botão abaixo. Seu futuro eu agradece."
+ROTEIRO VSL COMPLETO (~165 segundos):
+Dividido em segmentos curtos para legenda estilo Netflix.
+Cada segmento = 1-2 linhas, sincronizado com o áudio.
 */
 
-const slides: Slide[] = [
-  // === PARÁGRAFO 1: DOR INICIAL (0-15s) ===
-  {
-    id: 1,
-    startTime: 0,
-    endTime: 4,
-    caption: "VOCÊ TREINA HÁ MESES, TALVEZ ANOS.",
-    image: moodPain1,
-  },
-  {
-    id: 2,
-    startTime: 4,
-    endTime: 11,
-    caption: "SEGUE PLANILHAS, ASSISTE VÍDEOS, TENTA FAZER TUDO CERTO.",
-    image: moodPain2,
-  },
-  {
-    id: 3,
-    startTime: 11,
-    endTime: 15,
-    caption: "MAS NO ESPELHO... CADÊ O RESULTADO?",
-    highlightWords: ["RESULTADO"],
-    image: moodPain3,
-  },
+const segments: Segment[] = [
+  // === DOR (0-15s) ===
+  { id: 1, startTime: 0, endTime: 3.5, text: "Você treina há meses, talvez anos.", image: frustration, mood: "pain" },
+  { id: 2, startTime: 3.5, endTime: 7, text: "Segue planilhas, assiste vídeos,", image: frustration, mood: "pain" },
+  { id: 3, startTime: 7, endTime: 10, text: "tenta fazer tudo certo.", image: frustration, mood: "pain" },
+  { id: 4, startTime: 10, endTime: 13, text: "Mas quando olha no espelho,", image: frustration, mood: "pain" },
+  { id: 5, startTime: 13, endTime: 16, text: "a frustração bate: cadê o resultado?", image: frustration, mood: "pain" },
 
-  // === PARÁGRAFO 2: AGITAÇÃO (15-35s) ===
-  {
-    id: 4,
-    startTime: 15,
-    endTime: 22,
-    caption: "A VERDADE É QUE 90% TREINAM NO MODO AUTOMÁTICO.",
-    highlightWords: ["90%", "AUTOMÁTICO"],
-    image: moodPain2,
-  },
-  {
-    id: 5,
-    startTime: 22,
-    endTime: 30,
-    caption: "FAZEM OS EXERCÍCIOS, COMPLETAM AS SÉRIES...",
-    image: moodPain1,
-  },
-  {
-    id: 6,
-    startTime: 30,
-    endTime: 34,
-    caption: "MAS NÃO ENTENDEM O QUE FAZ O MÚSCULO CRESCER.",
-    highlightWords: ["MÚSCULO", "CRESCER"],
-    image: moodInsight1,
-  },
-  {
-    id: 7,
-    startTime: 34,
-    endTime: 35,
-    caption: "E POR ISSO, FICAM ESTAGNADOS.",
-    highlightWords: ["ESTAGNADOS"],
-    image: moodPain3,
-  },
+  // === AGITAÇÃO (16-35s) ===
+  { id: 6, startTime: 16, endTime: 20, text: "A verdade é que 90% das pessoas", image: gymElite, mood: "pain" },
+  { id: 7, startTime: 20, endTime: 24, text: "treinam no modo automático.", image: gymElite, mood: "pain" },
+  { id: 8, startTime: 24, endTime: 28, text: "Fazem os exercícios, completam as séries,", image: gymElite, mood: "pain" },
+  { id: 9, startTime: 28, endTime: 32, text: "mas não entendem o que realmente", image: scienceFiber, mood: "insight" },
+  { id: 10, startTime: 32, endTime: 36, text: "faz o músculo crescer.", image: scienceFiber, mood: "insight" },
+  { id: 11, startTime: 36, endTime: 38, text: "E por isso, ficam estagnados.", image: frustration, mood: "pain" },
 
-  // === PARÁGRAFO 3: INSIGHT (35-52s) ===
-  {
-    id: 8,
-    startTime: 35,
-    endTime: 39,
-    caption: "EU TAMBÉM PASSEI POR ISSO.",
-    image: moodInsight1,
-  },
-  {
-    id: 9,
-    startTime: 39,
-    endTime: 45,
-    caption: "ATÉ ENTENDER QUE HIPERTROFIA NÃO É SOBRE TREINAR MAIS.",
-    highlightWords: ["HIPERTROFIA", "TREINAR MAIS"],
-    image: moodInsight2,
-  },
-  {
-    id: 10,
-    startTime: 45,
-    endTime: 52,
-    caption: "É SOBRE TREINAR COM ESTRATÉGIA. COM CIÊNCIA. COM INTENÇÃO.",
-    highlightWords: ["ESTRATÉGIA", "CIÊNCIA", "INTENÇÃO"],
-    image: moodInsight2,
-  },
+  // === VIRADA (38-52s) ===
+  { id: 12, startTime: 38, endTime: 41, text: "Eu também passei por isso.", image: gymElite, mood: "insight" },
+  { id: 13, startTime: 41, endTime: 45, text: "Até entender que hipertrofia", image: scienceProtein, mood: "insight" },
+  { id: 14, startTime: 45, endTime: 48, text: "não é sobre treinar mais.", image: scienceProtein, mood: "insight" },
+  { id: 15, startTime: 48, endTime: 52, text: "É sobre treinar com estratégia.", image: scienceHologram, mood: "insight" },
+  { id: 16, startTime: 52, endTime: 55, text: "Com ciência. Com intenção.", image: scienceHologram, mood: "insight" },
 
-  // === PARÁGRAFO 4: SOLUÇÃO (52-75s) ===
-  {
-    id: 11,
-    startTime: 52,
-    endTime: 60,
-    caption: "IMAGINA CHEGAR NA ACADEMIA SABENDO EXATAMENTE O QUE FAZER.",
-    highlightWords: ["EXATAMENTE"],
-    image: moodSolution1,
-  },
-  {
-    id: 12,
-    startTime: 60,
-    endTime: 68,
-    caption: "QUAL EXERCÍCIO PRIORIZAR. QUANTAS SÉRIES. QUAL CADÊNCIA.",
-    image: moodSolution2,
-  },
-  {
-    id: 13,
-    startTime: 68,
-    endTime: 75,
-    caption: "QUANTO DESCANSAR... TUDO BASEADO NO QUE A CIÊNCIA PROVOU.",
-    highlightWords: ["CIÊNCIA"],
-    image: moodSolution3,
-  },
+  // === SOLUÇÃO (55-75s) ===
+  { id: 17, startTime: 55, endTime: 59, text: "Imagina chegar na academia", image: gymElite, mood: "solution" },
+  { id: 18, startTime: 59, endTime: 63, text: "sabendo exatamente o que fazer.", image: scienceHologram, mood: "solution" },
+  { id: 19, startTime: 63, endTime: 67, text: "Qual exercício priorizar.", image: scienceHologram, mood: "solution" },
+  { id: 20, startTime: 67, endTime: 71, text: "Quantas séries. Qual cadência.", image: scienceFiber, mood: "solution" },
+  { id: 21, startTime: 71, endTime: 75, text: "Quanto tempo descansar.", image: scienceFiber, mood: "solution" },
+  { id: 22, startTime: 75, endTime: 79, text: "Tudo baseado no que a ciência", image: scienceProtein, mood: "solution" },
+  { id: 23, startTime: 79, endTime: 82, text: "já provou que funciona.", image: scienceProtein, mood: "solution" },
 
-  // === PARÁGRAFO 5: MÉTODO 8X (75-95s) ===
-  {
-    id: 14,
-    startTime: 75,
-    endTime: 80,
-    caption: "ISSO É O MÉTODO 8X.",
-    highlightWords: ["8X"],
-    image: moodOffer1,
-  },
-  {
-    id: 15,
-    startTime: 80,
-    endTime: 88,
-    caption: "UM E-BOOK COMPLETO COM 8 SEMANAS DE TREINO ESTRUTURADO.",
-    highlightWords: ["8 SEMANAS"],
-    image: moodOffer2,
-  },
-  {
-    id: 16,
-    startTime: 88,
-    endTime: 95,
-    caption: "E UM APLICATIVO EXCLUSIVO QUE GUIA CADA TREINO. SEM ACHISMO. SEM IMPROVISO.",
-    highlightWords: ["SEM ACHISMO", "SEM IMPROVISO"],
-    image: moodOffer1,
-  },
+  // === MÉTODO 8X (82-100s) ===
+  { id: 24, startTime: 82, endTime: 85, text: "Isso é o Método 8X.", image: appDevice, mood: "offer" },
+  { id: 25, startTime: 85, endTime: 89, text: "Um e-book completo", image: appDevice, mood: "offer" },
+  { id: 26, startTime: 89, endTime: 93, text: "com 8 semanas de treino estruturado,", image: appDevice, mood: "offer" },
+  { id: 27, startTime: 93, endTime: 97, text: "mais um aplicativo exclusivo", image: appDevice, mood: "offer" },
+  { id: 28, startTime: 97, endTime: 101, text: "que guia cada treino seu.", image: appDevice, mood: "offer" },
+  { id: 29, startTime: 101, endTime: 104, text: "Sem achismos. Sem improviso.", image: scienceHologram, mood: "offer" },
 
-  // === PARÁGRAFO 6: CONTEÚDO (95-120s) ===
-  {
-    id: 17,
-    startTime: 95,
-    endTime: 104,
-    caption: "O QUE VOCÊ VAI APRENDER: OS 4 PILARES DA HIPERTROFIA QUE NINGUÉM TE ENSINOU.",
-    highlightWords: ["4 PILARES"],
-    image: moodSolution2,
-  },
-  {
-    id: 18,
-    startTime: 104,
-    endTime: 111,
-    caption: "OS 7 ERROS QUE SABOTAM SEUS RESULTADOS.",
-    highlightWords: ["7 ERROS", "RESULTADOS"],
-    image: moodSolution3,
-  },
-  {
-    id: 19,
-    startTime: 111,
-    endTime: 120,
-    caption: "A TÉCNICA QUE MAXIMIZA CADA REPETIÇÃO. E UM PLANO DE 8 SEMANAS TESTADO E APROVADO.",
-    highlightWords: ["MAXIMIZA", "TESTADO"],
-    image: moodOffer2,
-  },
+  // === CONTEÚDO (104-125s) ===
+  { id: 30, startTime: 104, endTime: 108, text: "O que você vai aprender:", image: scienceHologram, mood: "solution" },
+  { id: 31, startTime: 108, endTime: 112, text: "os 4 pilares da hipertrofia", image: scienceFiber, mood: "solution" },
+  { id: 32, startTime: 112, endTime: 115, text: "que ninguém te ensinou.", image: scienceFiber, mood: "solution" },
+  { id: 33, startTime: 115, endTime: 119, text: "Os 7 erros que sabotam seus resultados.", image: frustration, mood: "pain" },
+  { id: 34, startTime: 119, endTime: 123, text: "A técnica que maximiza cada repetição.", image: scienceProtein, mood: "solution" },
+  { id: 35, startTime: 123, endTime: 127, text: "E um plano de 8 semanas", image: appDevice, mood: "offer" },
+  { id: 36, startTime: 127, endTime: 130, text: "testado e aprovado.", image: appDevice, mood: "offer" },
 
-  // === PARÁGRAFO 7: OFERTA (120-145s) ===
-  {
-    id: 20,
-    startTime: 120,
-    endTime: 128,
-    caption: "E O MELHOR: TUDO ISSO POR APENAS 19 REAIS E 90 CENTAVOS.",
-    highlightWords: ["APENAS"],
-    image: moodOffer1,
-  },
-  {
-    id: 21,
-    startTime: 128,
-    endTime: 132,
-    caption: "R$ 19,90",
-    highlightWords: ["R$ 19,90"],
-    image: moodOffer1,
-  },
-  {
-    id: 22,
-    startTime: 132,
-    endTime: 138,
-    caption: "MENOS QUE UM SUPLEMENTO QUE VOCÊ COMPRA TODO MÊS.",
-    image: moodOffer2,
-  },
-  {
-    id: 23,
-    startTime: 138,
-    endTime: 145,
-    caption: "GARANTIA DE 7 DIAS. SE NÃO GOSTAR, DEVOLVO SEU DINHEIRO. SEM PERGUNTAS.",
-    highlightWords: ["7 DIAS", "DEVOLVO"],
-    image: moodOffer2,
-  },
+  // === OFERTA (130-150s) ===
+  { id: 37, startTime: 130, endTime: 134, text: "E o melhor:", image: appDevice, mood: "offer" },
+  { id: 38, startTime: 134, endTime: 138, text: "tudo isso por apenas", image: appDevice, mood: "offer" },
+  { id: 39, startTime: 138, endTime: 142, text: "19 reais e 90 centavos.", image: appDevice, mood: "cta" },
+  { id: 40, startTime: 142, endTime: 146, text: "Menos que um suplemento", image: gymElite, mood: "offer" },
+  { id: 41, startTime: 146, endTime: 149, text: "que você compra todo mês.", image: gymElite, mood: "offer" },
+  { id: 42, startTime: 149, endTime: 153, text: "Com garantia de 7 dias.", image: appDevice, mood: "cta" },
+  { id: 43, startTime: 153, endTime: 157, text: "Se não gostar, devolvo seu dinheiro.", image: appDevice, mood: "cta" },
+  { id: 44, startTime: 157, endTime: 160, text: "Sem perguntas.", image: appDevice, mood: "cta" },
 
-  // === PARÁGRAFO 8: DECISÃO (145-160s) ===
-  {
-    id: 24,
-    startTime: 145,
-    endTime: 153,
-    caption: "VOCÊ PODE CONTINUAR TREINANDO DO MESMO JEITO...",
-    highlightWords: ["CONTINUAR"],
-    image: moodPain2,
-  },
-  {
-    id: 25,
-    startTime: 153,
-    endTime: 160,
-    caption: "OU DAR O PRIMEIRO PASSO AGORA E TER CONTROLE DA SUA EVOLUÇÃO.",
-    highlightWords: ["PRIMEIRO PASSO", "CONTROLE"],
-    image: moodCta,
-  },
+  // === DECISÃO (160-175s) ===
+  { id: 45, startTime: 160, endTime: 164, text: "Você pode continuar treinando", image: frustration, mood: "pain" },
+  { id: 46, startTime: 164, endTime: 168, text: "do mesmo jeito", image: frustration, mood: "pain" },
+  { id: 47, startTime: 168, endTime: 172, text: "e esperando resultados diferentes.", image: frustration, mood: "pain" },
+  { id: 48, startTime: 172, endTime: 176, text: "Ou pode dar o primeiro passo agora", image: gymElite, mood: "cta" },
+  { id: 49, startTime: 176, endTime: 180, text: "e finalmente ter controle", image: scienceHologram, mood: "cta" },
+  { id: 50, startTime: 180, endTime: 184, text: "sobre sua evolução.", image: scienceHologram, mood: "cta" },
 
-  // === PARÁGRAFO 9: CTA FINAL (160s+) ===
-  {
-    id: 26,
-    startTime: 160,
-    endTime: 164,
-    caption: "CLICA NO BOTÃO ABAIXO.",
-    highlightWords: ["BOTÃO"],
-    image: moodCta,
-  },
-  {
-    id: 27,
-    startTime: 164,
-    endTime: 999,
-    caption: "SEU FUTURO EU AGRADECE.",
-    highlightWords: ["FUTURO"],
-    image: moodCta,
-  },
+  // === CTA FINAL (184s+) ===
+  { id: 51, startTime: 184, endTime: 188, text: "Clica no botão abaixo.", image: appDevice, mood: "cta" },
+  { id: 52, startTime: 188, endTime: 999, text: "Seu futuro eu agradece.", image: gymElite, mood: "cta" },
 ];
 
 interface VSLSlidesProps {
@@ -297,208 +100,218 @@ interface VSLSlidesProps {
 }
 
 const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
-  const [activeSlideId, setActiveSlideId] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [displayedImage, setDisplayedImage] = useState(slides[0].image);
-  const [nextImage, setNextImage] = useState(slides[0].image);
+  const [activeSegmentId, setActiveSegmentId] = useState(1);
+  const [displayedImage, setDisplayedImage] = useState(segments[0].image);
+  const [nextImage, setNextImage] = useState(segments[0].image);
   const [imageTransitioning, setImageTransitioning] = useState(false);
+  const [textVisible, setTextVisible] = useState(true);
+  const prevImageRef = useRef(segments[0].image);
 
   useEffect(() => {
-    const newSlide = slides.find(
-      (slide) => currentTime >= slide.startTime && currentTime < slide.endTime
+    const newSegment = segments.find(
+      (seg) => currentTime >= seg.startTime && currentTime < seg.endTime
     );
-    
-    if (newSlide && newSlide.id !== activeSlideId) {
-      const currentSlide = slides.find((s) => s.id === activeSlideId);
-      
-      // Transição de imagem se mudou a imagem
-      if (currentSlide?.image !== newSlide.image) {
-        setNextImage(newSlide.image);
+
+    if (newSegment && newSegment.id !== activeSegmentId) {
+      // Transição de texto
+      setTextVisible(false);
+      setTimeout(() => {
+        setActiveSegmentId(newSegment.id);
+        setTextVisible(true);
+      }, 100);
+
+      // Transição de imagem (só se mudou)
+      if (prevImageRef.current !== newSegment.image) {
+        setNextImage(newSegment.image);
         setImageTransitioning(true);
         setTimeout(() => {
-          setDisplayedImage(newSlide.image);
+          setDisplayedImage(newSegment.image);
+          prevImageRef.current = newSegment.image;
           setImageTransitioning(false);
-        }, 400);
+        }, 500);
       }
-      
-      // Transição de texto - mais rápida para melhor sincronização
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setActiveSlideId(newSlide.id);
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 30);
-      }, 80);
     }
-  }, [currentTime, activeSlideId]);
+  }, [currentTime, activeSegmentId]);
 
-  const activeSlide = slides.find((s) => s.id === activeSlideId) || slides[0];
-  const isCtaSlide = activeSlide.id >= 25;
-  const isPriceSlide = activeSlide.id === 21;
-
-  const renderCaption = (text: string, highlights?: string[]) => {
-    if (!highlights || highlights.length === 0) {
-      return <span>{text}</span>;
-    }
-
-    let result = text;
-    highlights.forEach((word) => {
-      const regex = new RegExp(`(${word})`, "gi");
-      result = result.replace(
-        regex,
-        `<span class="text-accent drop-shadow-[0_0_40px_hsl(var(--accent)/0.7)]">$1</span>`
-      );
-    });
-
-    return <span dangerouslySetInnerHTML={{ __html: result }} />;
-  };
+  const activeSegment = segments.find((s) => s.id === activeSegmentId) || segments[0];
+  const isCta = activeSegment.mood === "cta";
+  const isPrice = activeSegment.id === 39;
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
-      {/* Background Image Layer - Current */}
-      <div 
-        className={`absolute inset-0 transition-all duration-500 ease-out ${imageTransitioning ? 'opacity-0 scale-102' : 'opacity-100 scale-100'}`}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${displayedImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'brightness(0.35) saturate(0.7)',
-          }}
-        />
-      </div>
+      {/* === BACKGROUND LAYERS === */}
       
-      {/* Background Image Layer - Next (for crossfade) */}
-      <div 
-        className={`absolute inset-0 transition-all duration-500 ease-out ${imageTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-102'}`}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${nextImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'brightness(0.35) saturate(0.7)',
-          }}
-        />
-      </div>
-
-      {/* Slow Ken Burns effect layer */}
-      <div 
-        className="absolute inset-0 animate-kenBurns"
-        style={{
-          backgroundImage: `url(${displayedImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'brightness(0.3) saturate(0.6)',
-          opacity: 0.6,
-        }}
-      />
-      
-      {/* Dark gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/80" />
-      
-      {/* Vignette effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_60%,rgba(0,0,0,0.9)_100%)]" />
-      
-      {/* Accent glow for CTA slides */}
-      {isCtaSlide && (
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_70%,hsl(var(--accent)/0.2),transparent_50%)] animate-pulse" />
-      )}
-
-      {/* Caption Container */}
-      <div 
-        className={`absolute inset-0 flex items-center justify-center p-6 sm:p-10 md:p-16 transition-all duration-200 ease-out ${
-          isTransitioning 
-            ? 'opacity-0 blur-sm transform translate-y-2' 
-            : 'opacity-100 blur-0 transform translate-y-0'
+      {/* Current Image */}
+      <div
+        className={`absolute inset-0 transition-all duration-700 ease-out ${
+          imageTransitioning ? "opacity-0 scale-105" : "opacity-100 scale-100"
         }`}
       >
-        <div className="text-center max-w-5xl mx-auto">
-          {/* Main Caption */}
-          <h1 
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${displayedImage})`,
+            filter: "brightness(0.35) saturate(0.8)",
+          }}
+        />
+      </div>
+
+      {/* Next Image (crossfade) */}
+      <div
+        className={`absolute inset-0 transition-all duration-700 ease-out ${
+          imageTransitioning ? "opacity-100 scale-100" : "opacity-0 scale-105"
+        }`}
+      >
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${nextImage})`,
+            filter: "brightness(0.35) saturate(0.8)",
+          }}
+        />
+      </div>
+
+      {/* === HIGH-TECH OVERLAYS === */}
+      
+      {/* Dark gradient base */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/80" />
+
+      {/* Scan lines effect */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 255, 0.03) 2px,
+            rgba(0, 255, 255, 0.03) 4px
+          )`,
+        }}
+      />
+
+      {/* Vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.5)_70%,rgba(0,0,0,0.95)_100%)]" />
+
+      {/* HUD corner accents */}
+      <div className="absolute top-4 left-4 w-16 h-16 border-l-2 border-t-2 border-cyan-500/30 opacity-50" />
+      <div className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-cyan-500/30 opacity-50" />
+      <div className="absolute bottom-20 left-4 w-16 h-16 border-l-2 border-b-2 border-cyan-500/30 opacity-50" />
+      <div className="absolute bottom-20 right-4 w-16 h-16 border-r-2 border-b-2 border-cyan-500/30 opacity-50" />
+
+      {/* Subtle grid overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.02]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: "50px 50px",
+        }}
+      />
+
+      {/* CTA glow effect */}
+      {isCta && (
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,hsl(var(--accent)/0.15),transparent_50%)] animate-pulse" />
+      )}
+
+      {/* === SUBTITLE CONTAINER (Netflix style) === */}
+      <div className="absolute bottom-16 left-0 right-0 px-4 sm:px-8 md:px-16 z-20">
+        <div
+          className={`text-center transition-all duration-150 ease-out ${
+            textVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-2"
+          }`}
+        >
+          {/* Subtitle text */}
+          <p
             className={`
-              font-display font-black uppercase leading-[1.05] tracking-tight
+              font-sans font-semibold leading-relaxed
               text-white
-              ${isPriceSlide 
-                ? "text-5xl sm:text-6xl md:text-7xl lg:text-8xl" 
-                : isCtaSlide
-                  ? "text-3xl sm:text-4xl md:text-5xl lg:text-6xl" 
-                  : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+              ${isPrice 
+                ? "text-3xl sm:text-4xl md:text-5xl text-accent" 
+                : "text-lg sm:text-xl md:text-2xl"
               }
             `}
             style={{
               textShadow: `
-                0 2px 8px rgba(0,0,0,0.95),
-                0 4px 25px rgba(0,0,0,0.9),
-                0 8px 50px rgba(0,0,0,0.7)
+                0 0 10px rgba(0,0,0,0.9),
+                0 2px 4px rgba(0,0,0,0.9),
+                0 4px 8px rgba(0,0,0,0.7),
+                2px 2px 8px rgba(0,0,0,0.8),
+                -2px -2px 8px rgba(0,0,0,0.8)
               `,
-              letterSpacing: "-0.02em",
+              letterSpacing: "0.02em",
             }}
           >
-            {renderCaption(activeSlide.caption, activeSlide.highlightWords)}
-          </h1>
-
-          {/* CTA arrow indicator on final slides */}
-          {activeSlide.id >= 26 && (
-            <div className="mt-10 sm:mt-14">
-              <div 
-                className="w-14 h-14 sm:w-16 sm:h-16 mx-auto border-2 border-accent rounded-full flex items-center justify-center animate-bounce"
-                style={{
-                  boxShadow: "0 0 50px hsl(var(--accent)/0.5), inset 0 0 25px hsl(var(--accent)/0.15)",
-                }}
-              >
-                <svg 
-                  className="w-7 h-7 sm:w-8 sm:h-8 text-accent" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2.5} 
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-                  />
-                </svg>
-              </div>
-            </div>
-          )}
+            {activeSegment.text}
+          </p>
         </div>
       </div>
 
-      {/* Minimal progress line */}
-      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5">
-        <div 
-          className="h-full bg-gradient-to-r from-accent/70 to-accent transition-all duration-150 ease-out"
-          style={{ 
-            width: `${((activeSlide.id) / slides.length) * 100}%` 
+      {/* === CTA INDICATOR === */}
+      {activeSegment.id >= 51 && (
+        <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20">
+          <div
+            className="w-12 h-12 border-2 border-cyan-400/60 rounded-full flex items-center justify-center animate-bounce"
+            style={{
+              boxShadow: "0 0 30px rgba(0,255,255,0.3), inset 0 0 15px rgba(0,255,255,0.1)",
+            }}
+          >
+            <svg
+              className="w-6 h-6 text-cyan-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
+        </div>
+      )}
+
+      {/* === PROGRESS INDICATOR === */}
+      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/5 z-30">
+        <div
+          className="h-full bg-gradient-to-r from-cyan-500/50 to-cyan-400 transition-all duration-200 ease-out"
+          style={{
+            width: `${(activeSegment.id / segments.length) * 100}%`,
           }}
         />
       </div>
 
-      {/* CSS for Ken Burns animation */}
-      <style>{`
-        @keyframes kenBurns {
-          0% {
-            transform: scale(1) translate(0, 0);
-          }
-          50% {
-            transform: scale(1.08) translate(-1%, -1%);
-          }
-          100% {
-            transform: scale(1) translate(0, 0);
-          }
-        }
-        .animate-kenBurns {
-          animation: kenBurns 25s ease-in-out infinite;
-        }
-        .scale-102 {
-          transform: scale(1.02);
-        }
-      `}</style>
+      {/* === MOOD INDICATOR (subtle) === */}
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-sm rounded-full border border-cyan-500/20">
+          <div
+            className={`w-2 h-2 rounded-full ${
+              activeSegment.mood === "pain"
+                ? "bg-red-500"
+                : activeSegment.mood === "insight"
+                ? "bg-yellow-500"
+                : activeSegment.mood === "solution"
+                ? "bg-blue-500"
+                : activeSegment.mood === "offer"
+                ? "bg-green-500"
+                : "bg-cyan-400"
+            }`}
+          />
+          <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 font-mono">
+            {activeSegment.mood === "pain" && "PROBLEMA"}
+            {activeSegment.mood === "insight" && "REVELAÇÃO"}
+            {activeSegment.mood === "solution" && "SOLUÇÃO"}
+            {activeSegment.mood === "offer" && "OFERTA"}
+            {activeSegment.mood === "cta" && "AÇÃO"}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
