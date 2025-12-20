@@ -3,24 +3,24 @@ import appMockup from "@/assets/app-8x-mockup.jpeg";
 
 const Bonus = () => {
   return (
-    <section className="py-20 sm:py-28 lg:py-36 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+    <section className="py-16 sm:py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/5 via-transparent to-transparent" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/8 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
-      <div className="container mx-auto px-5 sm:px-6 relative z-10 max-w-4xl">
+      <div className="container mx-auto px-5 sm:px-6 relative z-10 max-w-3xl">
         
-        {/* Badge */}
-        <div className="text-center mb-10 animate-fade-in">
-          <span className="inline-flex items-center gap-2.5 text-accent font-bold text-sm uppercase tracking-[0.2em] px-6 py-3 rounded-full bg-accent/10 border border-accent/30 shadow-[0_0_30px_-5px] shadow-accent/20">
-            <Gift className="w-5 h-5" />
+        {/* Badge - mais discreto */}
+        <div className="text-center mb-6 sm:mb-8 animate-fade-in">
+          <span className="inline-flex items-center gap-2 text-accent font-semibold text-xs uppercase tracking-[0.15em] px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
+            <Gift className="w-4 h-4" />
             Bônus Exclusivo
           </span>
         </div>
 
-        {/* Headline */}
-        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center leading-[1.15] mb-16 sm:mb-20 animate-fade-in">
+        {/* Headline - hierarquia refinada */}
+        <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white text-center leading-snug mb-12 sm:mb-14 animate-fade-in">
           O método já está pronto.
           <br />
           <span className="bg-gradient-to-r from-accent via-orange-400 to-accent bg-clip-text text-transparent">
@@ -28,92 +28,87 @@ const Bonus = () => {
           </span>
         </h2>
 
-        {/* App Mockup Hero */}
-        <div className="flex flex-col items-center mb-16 sm:mb-20 animate-fade-in">
+        {/* App Mockup Hero - compacto */}
+        <div className="flex flex-col items-center mb-10 sm:mb-14 animate-fade-in">
           
-          {/* Mockup with enhanced glow */}
-          <div className="relative mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-orange-500/20 rounded-[3rem] blur-[60px] scale-110" />
-            <div className="absolute inset-0 bg-accent/20 rounded-[3rem] blur-[100px] scale-125 animate-pulse" />
-            <div className="relative bg-gradient-to-b from-gray-800 to-gray-950 rounded-[2.5rem] p-3 sm:p-4 w-[220px] sm:w-[280px] shadow-2xl shadow-black/50 border border-white/10">
-              <div className="rounded-[2rem] overflow-hidden">
+          {/* Mockup com glow */}
+          <div className="relative mb-5">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-orange-500/15 rounded-[2.5rem] blur-[50px] scale-110" />
+            <div className="absolute inset-0 bg-accent/15 rounded-[2.5rem] blur-[80px] scale-125 animate-pulse" />
+            <div className="relative bg-gradient-to-b from-gray-800 to-gray-950 rounded-[2rem] p-2.5 sm:p-3 w-[180px] sm:w-[220px] shadow-2xl shadow-black/50 border border-white/10">
+              <div className="rounded-[1.5rem] overflow-hidden">
                 <img 
                   src={appMockup} 
                   alt="App 8X" 
                   className="w-full h-auto"
                 />
               </div>
-              <div className="absolute top-5 left-1/2 -translate-x-1/2 w-20 h-6 bg-gray-950 rounded-full" />
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-5 bg-gray-950 rounded-full" />
             </div>
-            <div className="absolute -top-3 -right-3 bg-gradient-to-r from-accent to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg shadow-accent/30">
+            <div className="absolute -top-2 -right-2 bg-gradient-to-r from-accent to-orange-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg shadow-accent/30">
               GRÁTIS
             </div>
           </div>
 
-          {/* App title */}
-          <div className="flex items-center gap-3 mb-4">
-            <Rocket className="w-6 h-6 text-accent" />
-            <span className="font-display font-bold text-2xl sm:text-3xl text-white">App 8X</span>
+          {/* App title - mais compacto */}
+          <div className="flex items-center gap-2 mb-2">
+            <Rocket className="w-5 h-5 text-accent" />
+            <span className="font-display font-bold text-lg sm:text-xl text-white">App 8X</span>
           </div>
           
-          <p className="text-lg sm:text-xl text-accent font-semibold mb-6">
+          <p className="text-sm sm:text-base text-accent font-medium mb-4">
             Execução guiada do Método 8X
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-gray-400 text-sm sm:text-base">
-            <span>Sem improviso.</span>
-            <span className="hidden sm:block text-accent/50">•</span>
-            <span>Sem interpretação errada.</span>
-            <span className="hidden sm:block text-accent/50">•</span>
-            <span>Sem desvio do método.</span>
+          <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 text-gray-500 text-xs sm:text-sm">
+            <span>Sem improviso</span>
+            <span className="text-accent/40">•</span>
+            <span>Sem interpretação errada</span>
+            <span className="text-accent/40">•</span>
+            <span>Sem desvio do método</span>
           </div>
         </div>
 
-        {/* Pain point */}
-        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
-          <p className="text-base sm:text-lg text-gray-400 leading-relaxed mb-6 max-w-xl mx-auto">
-            A maioria das pessoas não falha por falta de método.
-            <br />
-            <span className="text-white font-medium">Falha porque executa sem clareza — ou para cedo demais.</span>
+        {/* Pain point - texto menor e respirado */}
+        <div className="text-center mb-10 sm:mb-12 animate-fade-in">
+          <p className="text-sm text-gray-500 leading-relaxed mb-4 max-w-md mx-auto">
+            A maioria não falha por falta de método.
+            <span className="text-gray-300 font-medium"> Falha porque executa sem clareza.</span>
           </p>
           
-          <div className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-8 bg-white/5 backdrop-blur-sm rounded-2xl px-6 sm:px-8 py-4 border border-white/10">
-            <p className="text-sm sm:text-base text-white">
-              👉 O App 8X resolve a execução.
-            </p>
-            <p className="text-sm sm:text-base text-white">
-              👉 O Método 8X sustenta a decisão de continuar.
-            </p>
+          <div className="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-xs sm:text-sm text-gray-300">
+            <p>👉 O App resolve a execução.</p>
+            <p>👉 O Método sustenta a decisão.</p>
           </div>
           
-          <p className="text-accent font-semibold mt-6 text-sm sm:text-base">
+          <p className="text-accent text-xs sm:text-sm font-medium mt-3 opacity-80">
             Um sem o outro quebra o processo.
           </p>
         </div>
 
-        {/* Lista de benefícios */}
-        <div className="mb-14 sm:mb-18 animate-fade-in">
-          <p className="text-base sm:text-lg font-semibold text-white text-center mb-8">
-            Com o App 8X, você executa exatamente o que está no método:
+        {/* Lista de benefícios - cards mais leves */}
+        <div className="mb-10 sm:mb-14 animate-fade-in">
+          <p className="text-sm text-gray-400 text-center mb-5">
+            Com o App, você executa exatamente o que está no método:
           </p>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3 max-w-lg mx-auto">
             {[
-              { yes: "Treinos definidos", no: "Nada de montar por conta própria" },
-              { yes: "Alimentação aplicada", no: "Nada de calcular ou adaptar" },
-              { yes: "Técnicas no tempo certo", no: "Nada de estudar fora de contexto" },
-              { yes: "Progresso visível", no: "Nada de achismo" },
+              { yes: "Treinos definidos", no: "Sem montar sozinho" },
+              { yes: "Alimentação aplicada", no: "Sem calcular" },
+              { yes: "Técnicas no tempo certo", no: "Sem improvisar" },
+              { yes: "Progresso visível", no: "Sem achismo" },
             ].map((item, i) => (
               <div 
                 key={i} 
-                className="bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-accent/30 transition-colors"
+                className="bg-white/[0.04] rounded-lg p-3 border border-white/5"
               >
-                <p className="text-sm sm:text-base text-white flex items-start gap-2 mb-2">
-                  <span className="text-green-400 flex-shrink-0">✔️</span> 
+                <p className="text-xs sm:text-sm text-white flex items-center gap-1.5 mb-1">
+                  <span className="text-green-400 text-[10px]">✔</span> 
                   <span>{item.yes}</span>
                 </p>
-                <p className="text-sm text-gray-500 flex items-start gap-2 pl-6">
-                  <span className="text-red-400/70 flex-shrink-0">❌</span> 
+                <p className="text-[10px] sm:text-xs text-gray-600 flex items-center gap-1.5 pl-4">
+                  <span className="text-red-400/50 text-[10px]">✕</span> 
                   <span>{item.no}</span>
                 </p>
               </div>
@@ -121,57 +116,49 @@ const Bonus = () => {
           </div>
         </div>
 
-        {/* Warning */}
-        <div className="text-center mb-14 sm:mb-18 animate-fade-in">
-          <div className="inline-block bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-2xl px-6 sm:px-8 py-5 border border-amber-500/20">
-            <p className="text-amber-400 font-semibold text-sm sm:text-base mb-1">
-              ⚠️ Sem entendimento, a execução quebra.
-            </p>
-            <p className="text-white text-sm sm:text-base">
-              É o entendimento que sustenta a consistência.
-            </p>
-          </div>
-        </div>
-
-        {/* Valor */}
-        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
-          <p className="text-gray-400 text-sm sm:text-base mb-2">
-            💰 Valor real do App 8X: <span className="line-through">R$ 97</span>
+        {/* Warning - discreto */}
+        <div className="text-center mb-10 sm:mb-12 animate-fade-in">
+          <p className="text-xs sm:text-sm text-amber-400/80">
+            ⚠️ Sem entendimento, a execução quebra.
           </p>
-          <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-accent to-orange-400 bg-clip-text text-transparent">
-            🎁 Incluído gratuitamente com o Método 8X
+          <p className="text-xs text-gray-500 mt-1">
+            É o entendimento que sustenta a consistência.
           </p>
         </div>
 
-        {/* Fechamento */}
-        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
-          <div className="space-y-1 text-gray-400 text-sm sm:text-base mb-8">
-            <p>Execute com direção.</p>
-            <p>Execute com consciência.</p>
-            <p className="text-white font-medium">Execute o método — não apenas o treino.</p>
+        {/* Valor - destaque forte para conversão */}
+        <div className="text-center mb-8 sm:mb-10 animate-fade-in bg-gradient-to-r from-accent/10 via-orange-500/10 to-accent/10 rounded-2xl py-5 px-6 border border-accent/20">
+          <p className="text-gray-500 text-xs mb-1">
+            Valor real: <span className="line-through">R$ 97</span>
+          </p>
+          <p className="text-base sm:text-lg font-bold bg-gradient-to-r from-accent to-orange-400 bg-clip-text text-transparent">
+            🎁 Incluído grátis com o Método 8X
+          </p>
+        </div>
+
+        {/* Fechamento - frase de impacto */}
+        <div className="text-center mb-8 sm:mb-10 animate-fade-in">
+          <div className="text-gray-500 text-xs sm:text-sm mb-5 space-y-0.5">
+            <p>Execute com direção. Execute com consciência.</p>
+            <p className="text-gray-300">Execute o método — não apenas o treino.</p>
           </div>
           
-          <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white leading-tight">
+          <p className="text-lg sm:text-xl font-display font-bold text-white leading-snug">
             Quem só executa, começa.
             <br />
             <span className="bg-gradient-to-r from-accent to-orange-400 bg-clip-text text-transparent">
-              Quem entende o método, continua até o resultado.
+              Quem entende, continua até o resultado.
             </span>
           </p>
         </div>
 
-        {/* Acesso exclusivo */}
+        {/* Acesso exclusivo - pill compacto */}
         <div className="flex justify-center animate-fade-in">
-          <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-sm rounded-full px-5 sm:px-6 py-3 border border-white/10">
-            <Lock className="w-4 h-4 text-accent" />
-            <div className="text-left">
-              <p className="text-white text-xs sm:text-sm font-medium">
-                🔐 Acesso exclusivo e protegido
-              </p>
-              <p className="text-gray-500 text-[10px] sm:text-xs">
-                Liberado apenas para compradores. Individual. Validado. Não transferível.
-              </p>
-            </div>
+          <div className="inline-flex items-center gap-2 bg-white/[0.03] rounded-full px-4 py-2 border border-white/5">
+            <Lock className="w-3.5 h-3.5 text-accent/70" />
+            <p className="text-gray-500 text-[10px] sm:text-xs">
+              🔐 Acesso exclusivo • Individual • Validado
+            </p>
           </div>
         </div>
 
