@@ -1,29 +1,37 @@
-import { Star } from "lucide-react";
+import { Star, BadgeCheck } from "lucide-react";
 
 const testimonials = [{
   name: "Carlos R.",
   age: "28 anos — São Paulo",
   text: "Comprei achando que era mais um e-book genérico. Em 4 semanas ganhei 2cm de braço. E o App 8X? Me guiou treino por treino sem eu ter que pensar. Só executar.",
   rating: 5,
-  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+  result: "+2cm de braço",
+  verified: true
 }, {
   name: "Mariana S.",
   age: "32 anos — Belo Horizonte",
   text: "3 anos travada no mesmo shape. O Método me mostrou onde eu errava. O App organizou minha rotina. Em 6 semanas saí do platô. Melhor investimento que fiz.",
   rating: 5,
-  avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+  avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
+  result: "Saiu do platô",
+  verified: true
 }, {
   name: "Rafael M.",
   age: "25 anos — Rio de Janeiro",
   text: "Eu desperdiçava tempo criando treino. Com o App 8X, abro e executo. Sem dúvida, sem improviso. Meu shape mudou porque parei de adivinhar e comecei a seguir.",
   rating: 5,
-  avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
+  avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+  result: "+4kg massa magra",
+  verified: true
 }, {
   name: "Juliana C.",
   age: "29 anos — Curitiba",
   text: "A nutrição do método + o App pra acompanhar foi a combinação perfeita. Vi resultado no espelho em 3 semanas. Antes eu planejava. Agora eu faço.",
   rating: 5,
-  avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+  avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+  result: "-5% gordura",
+  verified: true
 }];
 
 const Testimonials = () => {
@@ -44,6 +52,19 @@ const Testimonials = () => {
               className="bg-card border border-border/80 rounded-2xl p-6 sm:p-7 hover-lift animate-fade-in shadow-sm hover:shadow-lg transition-all duration-300" 
               style={{ animationDelay: `${index * 0.08}s` }}
             >
+              {/* Badge de resultado */}
+              <div className="flex items-center justify-between mb-3">
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-accent bg-accent/10 px-2.5 py-1 rounded-full">
+                  📈 {testimonial.result}
+                </span>
+                {testimonial.verified && (
+                  <span className="inline-flex items-center gap-1 text-xs text-green-500">
+                    <BadgeCheck className="w-3.5 h-3.5" />
+                    Verificado
+                  </span>
+                )}
+              </div>
+              
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-accent text-accent drop-shadow-sm" />

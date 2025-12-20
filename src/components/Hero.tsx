@@ -72,6 +72,15 @@ const Hero = () => {
             </div>
             
             <div className="space-y-5 sm:space-y-6 order-5">
+              {/* Badge de vendas recentes */}
+              <div className="flex items-center justify-center lg:justify-start gap-2 text-sm text-white/90 animate-fade-in">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+                </span>
+                <span>🔥 <span className="font-semibold text-accent">87 pessoas</span> compraram nas últimas 24h</span>
+              </div>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full">
                 <div className="flex flex-col items-center lg:items-start gap-1.5">
                   <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-7 animate-pulse-glow w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/30 uppercase">

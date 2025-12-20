@@ -114,6 +114,16 @@ export default {
             boxShadow: "0 0 40px hsla(var(--accent) / 0.6)",
           },
         },
+        "slide-in-bottom": {
+          from: {
+            transform: "translateY(100%)",
+            opacity: "0",
+          },
+          to: {
+            transform: "translateY(0)",
+            opacity: "1",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -121,6 +131,7 @@ export default {
         "fade-in": "fade-in 0.6s ease-out",
         "slide-in": "slide-in 0.5s ease-out",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "slide-in-bottom": "slide-in-bottom 0.4s ease-out",
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
