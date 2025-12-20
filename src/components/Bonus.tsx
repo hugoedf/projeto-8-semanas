@@ -45,10 +45,12 @@ const Bonus = () => {
 
         {/* Main Headline */}
         <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center leading-tight mb-4 sm:mb-6 animate-fade-in">
-          Você não vai apenas ler o método.
+          <span className="block sm:inline">Você não vai</span>
+          <span className="block sm:inline"> apenas ler o método.</span>
           <br />
           <span className="bg-gradient-to-r from-accent via-orange-400 to-accent bg-clip-text text-transparent drop-shadow-[0_0_30px_hsla(18,100%,58%,0.3)]">
-            Você vai executar ele no celular.
+            <span className="block sm:inline">Você vai executar</span>
+            <span className="block sm:inline"> ele no celular.</span>
           </span>
         </h2>
 
@@ -138,21 +140,21 @@ const Bonus = () => {
 
         {/* Features Grid */}
         <div className="mb-16 sm:mb-20 animate-fade-in">
-          <p className="text-center text-gray-400 text-sm mb-8">
+          <p className="text-center text-gray-400 text-sm mb-6 sm:mb-8">
             Com o App 8X, você executa <span className="text-white">exatamente</span> o que está no método:
           </p>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
             {appFeatures.map((feature, i) => (
               <div 
                 key={i} 
-                className="group bg-gradient-to-b from-white/[0.06] to-white/[0.02] rounded-2xl p-5 border border-white/10 hover:border-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10"
+                className="group bg-gradient-to-b from-white/[0.06] to-white/[0.02] rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-white/10 hover:border-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10"
               >
-                <div className="p-2.5 bg-accent/10 rounded-xl w-fit mb-4 group-hover:bg-accent/20 transition-colors">
-                  <feature.icon className="w-5 h-5 text-accent" />
+                <div className="p-1.5 sm:p-2.5 bg-accent/10 rounded-lg sm:rounded-xl w-fit mb-2 sm:mb-4 group-hover:bg-accent/20 transition-colors">
+                  <feature.icon className="w-4 h-4 sm:w-5 sm:h-5 text-accent" />
                 </div>
-                <h4 className="text-white font-semibold text-sm mb-2">{feature.title}</h4>
-                <p className="text-gray-500 text-xs leading-relaxed">{feature.description}</p>
+                <h4 className="text-white font-semibold text-[11px] sm:text-sm mb-1 sm:mb-2 leading-tight">{feature.title}</h4>
+                <p className="text-gray-500 text-[10px] sm:text-xs leading-snug sm:leading-relaxed hidden sm:block">{feature.description}</p>
               </div>
             ))}
           </div>
