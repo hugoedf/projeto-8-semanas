@@ -147,7 +147,7 @@ const Bonus = () => {
             Quem só executa, começa.
             <br />
             <span className="bg-gradient-to-r from-accent to-orange-400 bg-clip-text text-transparent">
-              Quem entende, continua até o resultado.
+              Quem entende o método, continua até o resultado.
             </span>
           </p>
         </div>
