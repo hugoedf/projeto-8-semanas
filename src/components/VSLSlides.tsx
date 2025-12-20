@@ -301,9 +301,17 @@ const segments: Segment[] = [
 
 interface VSLSlidesProps {
   currentTime: number;
+  /** Quantos segundos a legenda “adianta” em relação ao áudio (ex: 0.5) */
+  captionLeadSeconds?: number;
+  /** Duração do fade in/out da legenda em ms */
+  captionFadeMs?: number;
 }
 
-const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
+const VSLSlides = ({
+  currentTime,
+  captionLeadSeconds = 0.5,
+  captionFadeMs = 160,
+}: VSLSlidesProps) => {
   const [activeSegmentId, setActiveSegmentId] = useState(1);
   const [displayedImage, setDisplayedImage] = useState(segments[0].image);
   const [nextImage, setNextImage] = useState(segments[0].image);
@@ -312,24 +320,16 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
   const prevImageRef = useRef(segments[0].image);
 
   useEffect(() => {
-    // Mostra a legenda um pouco ANTES do áudio para ficar mais congruente.
-    // Lead fixo pequeno para evitar “atraso percebido”.
-    const CAPTION_LEAD_SECONDS = 0.5;
-    const CAPTION_FADE_MS = 160;
+    // Mostra a legenda ANTES do áudio (look-ahead) para eliminar “atraso percebido”.
+    const t = Math.max(0, currentTime + captionLeadSeconds);
 
-    const t = Math.max(0, currentTime + CAPTION_LEAD_SECONDS);
-
-    const newSegment = segments.find((seg) => {
-      return t >= seg.startTime && t < seg.endTime;
-    });
+    const newSegment = segments.find((seg) => t >= seg.startTime && t < seg.endTime);
 
     if (newSegment && newSegment.id !== activeSegmentId) {
-      // Transição de texto
+      // Fade out rápido, troca o texto invisível e faz fade in no próximo frame.
       setTextVisible(false);
-      setTimeout(() => {
-        setActiveSegmentId(newSegment.id);
-        setTextVisible(true);
-      }, CAPTION_FADE_MS);
+      setActiveSegmentId(newSegment.id);
+      requestAnimationFrame(() => setTextVisible(true));
 
       // Transição de imagem (só se mudou)
       if (prevImageRef.current !== newSegment.image) {
@@ -342,7 +342,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
         }, 500);
       }
     }
-  }, [currentTime, activeSegmentId]);
+  }, [currentTime, activeSegmentId, captionLeadSeconds]);
 
   const activeSegment = segments.find((s) => s.id === activeSegmentId) || segments[0];
   const isPrice = activeSegment.id === 25;
@@ -433,7 +433,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
           className={`text-center transition-opacity ease-out ${
             textVisible ? "opacity-100" : "opacity-0"
           }`}
-          style={{ transitionDuration: "160ms" }}
+          style={{ transitionDuration: `${captionFadeMs}ms` }}
         >
           <div className="inline-block max-w-3xl">
             <div className="inline-block rounded bg-black/60 px-4 py-2">
