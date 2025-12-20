@@ -31,7 +31,7 @@ const Bonus = () => {
         <div className="text-center mb-8 sm:mb-10 animate-fade-in">
           <span className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] px-5 py-2.5 rounded-full bg-gradient-to-r from-accent/15 to-orange-500/15 border border-accent/30 shadow-lg shadow-accent/10">
             <Gift className="w-4 h-4 animate-pulse" />
-            Bônus Exclusivo Incluído
+            Bônus Exclusivo
           </span>
         </div>
 
