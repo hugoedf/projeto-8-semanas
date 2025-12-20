@@ -167,116 +167,124 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto">
-      {/* Player Container */}
-      <div className="relative aspect-video bg-fitness-darker rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+    <div className="relative w-full max-w-3xl mx-auto">
+      {/* Player Container - Cinematic aspect ratio */}
+      <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.8)]">
         
         {/* VSL Slides - Synchronized visuals */}
         {hasStarted && <VSLSlides currentTime={currentTime} />}
 
-        {/* Pre-start overlay */}
+        {/* Pre-start overlay - Cinematic */}
         {!hasStarted && (
           <>
-            {/* Background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/30 via-fitness-dark to-black" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsla(18,100%,58%,0.15),transparent_70%)]" />
+            {/* Dark cinematic background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black" />
             
-            {/* Pre-start content */}
+            {/* Vignette */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.5)_70%,rgba(0,0,0,0.9)_100%)]" />
+            
+            {/* Subtle accent glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,hsl(var(--accent)/0.08),transparent_50%)]" />
+            
+            {/* Pre-start content - Clean and minimal */}
             <div className="absolute inset-0 flex flex-col items-center justify-center z-0 p-6">
-              <div className="text-5xl sm:text-6xl mb-4">🏋️</div>
-              <p className="text-white/90 text-lg sm:text-xl font-display font-bold mb-2 text-center">
-                Descubra o <span className="text-accent">MÉTODO 8X</span>
+              <p className="text-white/90 text-xl sm:text-2xl md:text-3xl font-display font-black uppercase tracking-wider mb-3 text-center"
+                 style={{ textShadow: "0 4px 20px rgba(0,0,0,0.8)" }}>
+                MÉTODO <span className="text-accent">8X</span>
               </p>
-              <p className="text-white/60 text-sm text-center">
-                Assista e transforme seus resultados
+              <p className="text-white/50 text-sm tracking-widest uppercase">
+                O Método que vai mudar seus resultados
               </p>
             </div>
           </>
         )}
 
-        {/* Center Play Button / Loading */}
+        {/* Center Play Button - Premium minimal */}
         {!hasStarted && (
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <button
               onClick={togglePlay}
               disabled={isLoading}
-              className="group relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-accent/90 hover:bg-accent flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg shadow-accent/30"
+              className="group relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white/30 hover:border-accent/80 bg-black/40 hover:bg-accent/20 backdrop-blur-sm flex items-center justify-center transition-all duration-500 hover:scale-110"
+              style={{
+                boxShadow: "0 0 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05)",
+              }}
             >
               {isLoading ? (
-                <Loader2 className="w-8 h-8 sm:w-10 sm:h-10 text-accent-foreground animate-spin" />
+                <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 text-white animate-spin" />
               ) : (
-                <Play className="w-8 h-8 sm:w-10 sm:h-10 text-accent-foreground ml-1" fill="currentColor" />
+                <Play className="w-6 h-6 sm:w-8 sm:h-8 text-white ml-1 group-hover:text-accent transition-colors" fill="currentColor" />
               )}
               
-              {/* Pulse ring */}
+              {/* Subtle pulse ring */}
               {!isLoading && (
-                <span className="absolute inset-0 rounded-full bg-accent/50 animate-ping" />
+                <span className="absolute inset-0 rounded-full border border-white/20 animate-ping opacity-30" />
               )}
             </button>
           </div>
         )}
 
-        {/* Thumbnail text */}
+        {/* Thumbnail text - Minimal */}
         {!hasStarted && (
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center z-0">
-            <p className="text-white/60 text-sm font-medium tracking-wide uppercase">
+          <div className="absolute bottom-8 left-0 right-0 flex justify-center z-0">
+            <p className="text-white/40 text-xs sm:text-sm tracking-[0.3em] uppercase">
               Clique para assistir
             </p>
           </div>
         )}
 
-        {/* Controls Bar - Only show after started */}
+        {/* Controls Bar - Minimal and elegant */}
         {hasStarted && (
-          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-20">
-            {/* Progress Bar */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 bg-gradient-to-t from-black via-black/80 to-transparent z-20">
+            {/* Progress Bar - Thin and elegant */}
             <div 
-              className="w-full h-1.5 bg-white/20 rounded-full mb-3 cursor-pointer group"
+              className="w-full h-1 bg-white/10 rounded-full mb-4 cursor-pointer group"
               onClick={handleProgressClick}
             >
               <div 
                 className="h-full bg-accent rounded-full relative transition-all duration-100"
                 style={{ width: `${progress}%` }}
               >
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg transform scale-0 group-hover:scale-100" />
               </div>
             </div>
 
             {/* Controls */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <button
                   onClick={togglePlay}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center transition-all duration-300"
                 >
                   {isPlaying ? (
-                    <Pause className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                    <Pause className="w-4 h-4 text-white/90" />
                   ) : (
-                    <Play className="w-4 h-4 sm:w-5 sm:h-5 text-white ml-0.5" fill="currentColor" />
+                    <Play className="w-4 h-4 text-white/90 ml-0.5" fill="currentColor" />
                   )}
                 </button>
 
                 {hasEnded && (
                   <button
                     onClick={restart}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center transition-all duration-300"
                   >
-                    <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                    <RotateCcw className="w-4 h-4 text-white/90" />
                   </button>
                 )}
 
                 <button
                   onClick={toggleMute}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center transition-all duration-300"
                 >
                   {isMuted ? (
-                    <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                    <VolumeX className="w-4 h-4 text-white/90" />
                   ) : (
-                    <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                    <Volume2 className="w-4 h-4 text-white/90" />
                   )}
                 </button>
               </div>
 
-              <div className="text-white/70 text-xs sm:text-sm font-medium tabular-nums">
+              <div className="text-white/50 text-xs font-medium tabular-nums tracking-wider">
                 {formatTime(currentTime)} / {formatTime(duration || 165)}
               </div>
             </div>
