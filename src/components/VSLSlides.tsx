@@ -1,102 +1,206 @@
 import { useState, useEffect } from "react";
-import heroMockup from "@/assets/hero-ebook-mockup.png";
-import appMockup from "@/assets/app-8x-mockup.jpeg";
-import guaranteeBadge from "@/assets/guarantee-badge-final.png";
 
 interface Slide {
   id: number;
   startTime: number;
   endTime: number;
-  headline: string;
-  subtext: string;
+  caption: string;
   highlightWords?: string[];
-  emoji?: string;
-  image?: string;
-  bgGradient: string;
+  visualMood: "pain" | "insight" | "solution" | "offer" | "cta";
 }
 
+// Legendas sincronizadas com o áudio - frases curtas e impactantes
 const slides: Slide[] = [
   {
     id: 1,
     startTime: 0,
-    endTime: 20,
-    headline: "Você treina há meses...",
-    subtext: "Cadê o resultado?",
-    highlightWords: ["meses", "resultado"],
-    emoji: "😔",
-    bgGradient: "from-red-900/50 via-fitness-dark to-black",
+    endTime: 8,
+    caption: "VOCÊ ESTÁ TREINANDO...",
+    visualMood: "pain",
   },
   {
     id: 2,
-    startTime: 20,
-    endTime: 38,
-    headline: "90% das pessoas",
-    subtext: "treinam no modo automático",
-    highlightWords: ["90%", "automático"],
-    emoji: "❌",
-    bgGradient: "from-orange-900/50 via-fitness-dark to-black",
+    startTime: 8,
+    endTime: 14,
+    caption: "MAS NÃO ESTÁ EVOLUINDO.",
+    highlightWords: ["EVOLUINDO"],
+    visualMood: "pain",
   },
   {
     id: 3,
-    startTime: 38,
-    endTime: 55,
-    headline: "Hipertrofia não é sobre treinar mais",
-    subtext: "É sobre treinar com ESTRATÉGIA",
-    highlightWords: ["ESTRATÉGIA"],
-    emoji: "💡",
-    bgGradient: "from-yellow-900/50 via-fitness-dark to-black",
+    startTime: 14,
+    endTime: 22,
+    caption: "CADÊ O RESULTADO?",
+    highlightWords: ["RESULTADO"],
+    visualMood: "pain",
   },
   {
     id: 4,
-    startTime: 55,
-    endTime: 80,
-    headline: "Imagine saber EXATAMENTE",
-    subtext: "o que fazer em cada treino",
-    highlightWords: ["EXATAMENTE"],
-    emoji: "🎯",
-    bgGradient: "from-blue-900/50 via-fitness-dark to-black",
+    startTime: 22,
+    endTime: 30,
+    caption: "90% DAS PESSOAS TREINAM NO ESCURO.",
+    highlightWords: ["90%", "ESCURO"],
+    visualMood: "pain",
   },
   {
     id: 5,
-    startTime: 80,
-    endTime: 105,
-    headline: "MÉTODO 8X",
-    subtext: "E-book + Aplicativo Exclusivo",
-    highlightWords: ["8X"],
-    image: "product",
-    bgGradient: "from-accent/40 via-fitness-dark to-black",
+    startTime: 30,
+    endTime: 38,
+    caption: "FAZEM OS EXERCÍCIOS. COMPLETAM AS SÉRIES.",
+    visualMood: "pain",
   },
   {
     id: 6,
-    startTime: 105,
-    endTime: 130,
-    headline: "O que você vai dominar",
-    subtext: "4 Pilares • 7 Erros • 8 Semanas",
-    highlightWords: ["4", "7", "8"],
-    emoji: "📚",
-    bgGradient: "from-purple-900/50 via-fitness-dark to-black",
+    startTime: 38,
+    endTime: 46,
+    caption: "MAS NÃO ENTENDEM O QUE FAZ O MÚSCULO CRESCER.",
+    highlightWords: ["MÚSCULO CRESCER"],
+    visualMood: "insight",
   },
   {
     id: 7,
-    startTime: 130,
-    endTime: 150,
-    headline: "Apenas R$ 19,90",
-    subtext: "Garantia incondicional de 7 dias",
-    highlightWords: ["R$ 19,90", "7 dias"],
-    image: "guarantee",
-    bgGradient: "from-green-900/50 via-fitness-dark to-black",
+    startTime: 46,
+    endTime: 54,
+    caption: "NÃO É FALTA DE ESFORÇO.",
+    highlightWords: ["ESFORÇO"],
+    visualMood: "insight",
   },
   {
     id: 8,
-    startTime: 150,
+    startTime: 54,
+    endTime: 62,
+    caption: "É FALTA DE MÉTODO.",
+    highlightWords: ["MÉTODO"],
+    visualMood: "insight",
+  },
+  {
+    id: 9,
+    startTime: 62,
+    endTime: 72,
+    caption: "HIPERTROFIA NÃO É SOBRE TREINAR MAIS.",
+    highlightWords: ["TREINAR MAIS"],
+    visualMood: "insight",
+  },
+  {
+    id: 10,
+    startTime: 72,
+    endTime: 82,
+    caption: "É SOBRE TREINAR COM ESTRATÉGIA.",
+    highlightWords: ["ESTRATÉGIA"],
+    visualMood: "solution",
+  },
+  {
+    id: 11,
+    startTime: 82,
+    endTime: 92,
+    caption: "IMAGINA SABER EXATAMENTE O QUE FAZER.",
+    highlightWords: ["EXATAMENTE"],
+    visualMood: "solution",
+  },
+  {
+    id: 12,
+    startTime: 92,
+    endTime: 102,
+    caption: "QUAL EXERCÍCIO. QUANTAS SÉRIES. QUANTO DESCANSAR.",
+    visualMood: "solution",
+  },
+  {
+    id: 13,
+    startTime: 102,
+    endTime: 112,
+    caption: "TUDO BASEADO NO QUE A CIÊNCIA PROVOU.",
+    highlightWords: ["CIÊNCIA"],
+    visualMood: "solution",
+  },
+  {
+    id: 14,
+    startTime: 112,
+    endTime: 120,
+    caption: "MÉTODO 8X",
+    highlightWords: ["8X"],
+    visualMood: "offer",
+  },
+  {
+    id: 15,
+    startTime: 120,
+    endTime: 128,
+    caption: "8 SEMANAS. UM MÉTODO.",
+    highlightWords: ["8 SEMANAS"],
+    visualMood: "offer",
+  },
+  {
+    id: 16,
+    startTime: 128,
+    endTime: 136,
+    caption: "SEM ACHISMO. SEM CONFUSÃO.",
+    visualMood: "offer",
+  },
+  {
+    id: 17,
+    startTime: 136,
+    endTime: 144,
+    caption: "VOCÊ SABE O QUE FAZER.",
+    visualMood: "offer",
+  },
+  {
+    id: 18,
+    startTime: 144,
+    endTime: 152,
+    caption: "E EXECUTA DO JEITO CERTO.",
+    highlightWords: ["JEITO CERTO"],
+    visualMood: "offer",
+  },
+  {
+    id: 19,
+    startTime: 152,
+    endTime: 160,
+    caption: "APENAS R$ 19,90",
+    highlightWords: ["R$ 19,90"],
+    visualMood: "offer",
+  },
+  {
+    id: 20,
+    startTime: 160,
+    endTime: 168,
+    caption: "GARANTIA DE 7 DIAS.",
+    highlightWords: ["7 DIAS"],
+    visualMood: "offer",
+  },
+  {
+    id: 21,
+    startTime: 168,
+    endTime: 180,
+    caption: "COMECE HOJE.",
+    highlightWords: ["HOJE"],
+    visualMood: "cta",
+  },
+  {
+    id: 22,
+    startTime: 180,
     endTime: 200,
-    headline: "Seu futuro eu agradece",
-    subtext: "CLICA NO BOTÃO ABAIXO",
-    highlightWords: ["futuro", "BOTÃO"],
-    emoji: "🚀",
-    bgGradient: "from-accent/60 via-fitness-dark to-black",
+    caption: "SEU FUTURO EU VAI AGRADECER.",
+    highlightWords: ["FUTURO"],
+    visualMood: "cta",
   },
 ];
+
+// Gradientes cinematográficos por mood
+const moodGradients: Record<string, string> = {
+  pain: "from-black via-zinc-900 to-black",
+  insight: "from-black via-zinc-800 to-black",
+  solution: "from-black via-zinc-900/90 to-black",
+  offer: "from-black via-accent/10 to-black",
+  cta: "from-black via-accent/20 to-black",
+};
+
+// Overlay styles por mood
+const moodOverlays: Record<string, string> = {
+  pain: "bg-gradient-to-t from-black/80 via-transparent to-black/60",
+  insight: "bg-gradient-to-t from-black/70 via-transparent to-black/50",
+  solution: "bg-gradient-to-br from-black/60 via-transparent to-black/40",
+  offer: "bg-gradient-to-t from-black/50 via-transparent to-black/30",
+  cta: "bg-gradient-to-t from-black/40 via-transparent to-black/20",
+};
 
 interface VSLSlidesProps {
   currentTime: number;
@@ -105,6 +209,7 @@ interface VSLSlidesProps {
 const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
   const [activeSlideId, setActiveSlideId] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [prevMood, setPrevMood] = useState<string>("pain");
 
   useEffect(() => {
     const newSlide = slides.find(
@@ -112,122 +217,129 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
     );
     
     if (newSlide && newSlide.id !== activeSlideId) {
+      const currentSlide = slides.find((s) => s.id === activeSlideId);
+      if (currentSlide) {
+        setPrevMood(currentSlide.visualMood);
+      }
+      
       setIsTransitioning(true);
       setTimeout(() => {
         setActiveSlideId(newSlide.id);
-        setIsTransitioning(false);
-      }, 150);
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 50);
+      }, 200);
     }
   }, [currentTime, activeSlideId]);
 
   const activeSlide = slides.find((s) => s.id === activeSlideId) || slides[0];
 
-  const highlightText = (text: string, words?: string[]) => {
-    if (!words || words.length === 0) return text;
-    
-    let result = text;
-    words.forEach((word) => {
-      const regex = new RegExp(`(${word})`, "gi");
-      result = result.replace(regex, `<span class="text-accent font-black">$1</span>`);
-    });
-    return result;
-  };
+  const renderCaption = (text: string, highlights?: string[]) => {
+    if (!highlights || highlights.length === 0) {
+      return <span>{text}</span>;
+    }
 
-  const renderImage = () => {
-    if (activeSlide.image === "product") {
-      return (
-        <div className="flex items-center justify-center gap-4 mb-4 animate-[slideIn_0.6s_ease-out]">
-          <img 
-            src={heroMockup} 
-            alt="E-book Método 8X" 
-            className="h-28 sm:h-36 object-contain drop-shadow-2xl"
-          />
-          <img 
-            src={appMockup} 
-            alt="App Método 8X" 
-            className="h-24 sm:h-32 object-contain drop-shadow-2xl"
-          />
-        </div>
+    let result = text;
+    highlights.forEach((word) => {
+      const regex = new RegExp(`(${word})`, "gi");
+      result = result.replace(
+        regex,
+        `<span class="text-accent drop-shadow-[0_0_30px_hsl(var(--accent)/0.5)]">$1</span>`
       );
-    }
-    if (activeSlide.image === "guarantee") {
-      return (
-        <div className="flex items-center justify-center mb-4 animate-[slideIn_0.6s_ease-out]">
-          <img 
-            src={guaranteeBadge} 
-            alt="Garantia de 7 dias" 
-            className="h-24 sm:h-32 object-contain drop-shadow-2xl"
-          />
-        </div>
-      );
-    }
-    return null;
+    });
+
+    return <span dangerouslySetInnerHTML={{ __html: result }} />;
   };
 
   return (
-    <div className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-      {/* Dynamic Background Gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${activeSlide.bgGradient} transition-colors duration-500`} />
+    <div className="absolute inset-0 overflow-hidden">
+      {/* Cinematic Background */}
+      <div 
+        className={`absolute inset-0 bg-gradient-to-br ${moodGradients[activeSlide.visualMood]} transition-all duration-700`}
+      />
       
-      {/* Radial glow effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,hsla(18,100%,58%,0.15),transparent_60%)]" />
+      {/* Animated grain/noise overlay for cinematic feel */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        }}
+      />
+      
+      {/* Vignette effect */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_70%,rgba(0,0,0,0.8)_100%)]" />
+      
+      {/* Dynamic mood overlay */}
+      <div className={`absolute inset-0 ${moodOverlays[activeSlide.visualMood]} transition-all duration-700`} />
+      
+      {/* Subtle animated glow for premium feel */}
+      {activeSlide.visualMood === "cta" && (
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,hsl(var(--accent)/0.15),transparent_50%)] animate-pulse" />
+      )}
 
-      {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center max-w-md">
-        
-        {/* Emoji */}
-        {activeSlide.emoji && !activeSlide.image && (
-          <div 
-            className="text-6xl sm:text-7xl mb-4 animate-[emojiBounce_2s_ease-in-out_infinite]"
-            style={{ animationDelay: '0.3s' }}
+      {/* Caption Container */}
+      <div 
+        className={`absolute inset-0 flex items-center justify-center p-6 sm:p-10 transition-all duration-500 ${
+          isTransitioning 
+            ? 'opacity-0 blur-sm transform scale-95' 
+            : 'opacity-100 blur-0 transform scale-100'
+        }`}
+      >
+        <div className="text-center max-w-3xl mx-auto">
+          {/* Main Caption */}
+          <h1 
+            className={`
+              font-display font-black uppercase tracking-wide leading-tight
+              text-white drop-shadow-2xl
+              ${activeSlide.visualMood === "cta" 
+                ? "text-3xl sm:text-4xl md:text-5xl lg:text-6xl" 
+                : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+              }
+            `}
+            style={{
+              textShadow: "0 4px 30px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,0.9)",
+              letterSpacing: activeSlide.visualMood === "cta" ? "0.05em" : "0.02em",
+            }}
           >
-            {activeSlide.emoji}
-          </div>
-        )}
+            {renderCaption(activeSlide.caption, activeSlide.highlightWords)}
+          </h1>
 
-        {/* Image */}
-        {activeSlide.image && renderImage()}
-
-        {/* Headline */}
-        <h2 
-          className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white leading-tight mb-3 animate-[textReveal_0.5s_ease-out]"
-          dangerouslySetInnerHTML={{ 
-            __html: highlightText(activeSlide.headline, activeSlide.highlightWords) 
-          }}
-        />
-
-        {/* Subtext */}
-        <p 
-          className="text-base sm:text-lg text-white/80 font-medium animate-[textReveal_0.5s_ease-out_0.2s_both]"
-          dangerouslySetInnerHTML={{ 
-            __html: highlightText(activeSlide.subtext, activeSlide.highlightWords) 
-          }}
-        />
-
-        {/* CTA Arrow on last slide */}
-        {activeSlide.id === 8 && (
-          <div className="mt-6 animate-bounce">
-            <div className="flex flex-col items-center text-accent">
-              <span className="text-3xl">👇</span>
+          {/* CTA indicator on final slides */}
+          {activeSlide.visualMood === "cta" && activeSlide.id >= 21 && (
+            <div className="mt-8 sm:mt-12 animate-bounce">
+              <div 
+                className="w-12 h-12 sm:w-14 sm:h-14 mx-auto border-2 border-accent/60 rounded-full flex items-center justify-center"
+                style={{
+                  boxShadow: "0 0 30px hsl(var(--accent)/0.3)",
+                }}
+              >
+                <svg 
+                  className="w-6 h-6 sm:w-7 sm:h-7 text-accent" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+                  />
+                </svg>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
-      {/* Slide indicator dots */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-1.5">
-        {slides.map((slide) => (
-          <div 
-            key={slide.id}
-            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-              slide.id === activeSlideId 
-                ? 'bg-accent w-4' 
-                : slide.id < activeSlideId 
-                  ? 'bg-accent/50' 
-                  : 'bg-white/30'
-            }`}
-          />
-        ))}
+      {/* Progress indicator - subtle bottom line */}
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/10">
+        <div 
+          className="h-full bg-accent/60 transition-all duration-300"
+          style={{ 
+            width: `${((activeSlide.id) / slides.length) * 100}%` 
+          }}
+        />
       </div>
     </div>
   );
