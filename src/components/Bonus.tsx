@@ -129,7 +129,7 @@ const Bonus = () => {
         {/* Valor - destaque forte para conversão */}
         <div className="text-center mb-8 sm:mb-10 animate-fade-in bg-gradient-to-r from-accent/10 via-orange-500/10 to-accent/10 rounded-2xl py-5 px-6 border border-accent/20">
           <p className="text-gray-500 text-xs mb-1">
-            Valor real: <span className="line-through">R$ 97</span>
+            Valor real do App 8X: <span className="line-through">R$ 97</span>
           </p>
           <p className="text-base sm:text-lg font-bold bg-gradient-to-r from-accent to-orange-400 bg-clip-text text-transparent">
             🎁 Incluído grátis com o Método 8X
