@@ -173,6 +173,11 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     }
   };
 
+  // Autoplay on mount
+  useEffect(() => {
+    startPlayback();
+  }, []);
+
   // Cleanup
   useEffect(() => {
     return () => {
