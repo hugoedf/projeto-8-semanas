@@ -313,8 +313,10 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
 
   useEffect(() => {
     // Mostra a legenda um pouco ANTES do áudio para ficar mais congruente.
-    // (lead time fixo e pequeno para evitar “atraso percebido”)
-    const CAPTION_LEAD_SECONDS = 0.3;
+    // Lead fixo pequeno para evitar “atraso percebido”.
+    const CAPTION_LEAD_SECONDS = 0.5;
+    const CAPTION_FADE_MS = 160;
+
     const t = Math.max(0, currentTime + CAPTION_LEAD_SECONDS);
 
     const newSegment = segments.find((seg) => {
@@ -327,7 +329,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       setTimeout(() => {
         setActiveSegmentId(newSegment.id);
         setTextVisible(true);
-      }, 80);
+      }, CAPTION_FADE_MS);
 
       // Transição de imagem (só se mudou)
       if (prevImageRef.current !== newSegment.image) {
@@ -428,9 +430,10 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       {/* === LEGENDA - POSIÇÃO FIXA NA PARTE INFERIOR === */}
       <div className="absolute bottom-4 left-0 right-0 px-4 sm:px-8 md:px-12 z-20">
         <div
-          className={`text-center transition-opacity duration-100 ease-out ${
+          className={`text-center transition-opacity ease-out ${
             textVisible ? "opacity-100" : "opacity-0"
           }`}
+          style={{ transitionDuration: "160ms" }}
         >
           <div className="inline-block max-w-3xl">
             <div className="inline-block rounded bg-black/60 px-4 py-2">
