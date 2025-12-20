@@ -309,7 +309,7 @@ interface VSLSlidesProps {
 
 const VSLSlides = ({
   currentTime,
-  captionLeadSeconds = 0.5,
+  captionLeadSeconds = 1.0,
   captionFadeMs = 160,
 }: VSLSlidesProps) => {
   const [activeSegmentId, setActiveSegmentId] = useState(1);
