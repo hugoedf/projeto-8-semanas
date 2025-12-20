@@ -120,11 +120,11 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         });
 
         // SFX sutis (impacto sem poluição)
-        // 39: preço | 42: garantia | 51: CTA final
+        // preço (~127s) | garantia (~138s) | CTA final (~166s)
         const sfxCues: Array<{ key: string; t: number; type: "hit" | "spark" }> = [
-          { key: "price", t: 138, type: "hit" },
-          { key: "guarantee", t: 149, type: "spark" },
-          { key: "cta", t: 184, type: "hit" },
+          { key: "price", t: 127, type: "hit" },
+          { key: "guarantee", t: 138, type: "spark" },
+          { key: "cta", t: 166, type: "hit" },
         ];
         sfxCues.forEach((cue) => {
           if (audio.currentTime >= cue.t && !firedSfxRef.current.has(cue.key)) {
