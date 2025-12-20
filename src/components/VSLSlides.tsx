@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
 
-// Importar imagens cinematográficas
-import moodPain from "@/assets/vsl-mood-pain.jpg";
-import moodInsight from "@/assets/vsl-mood-insight.jpg";
-import moodSolution from "@/assets/vsl-mood-solution.jpg";
-import moodOffer from "@/assets/vsl-mood-offer.jpg";
+// Importar todas as imagens cinematográficas
+import moodPain1 from "@/assets/vsl-mood-pain.jpg";
+import moodPain2 from "@/assets/vsl-pain-2.jpg";
+import moodPain3 from "@/assets/vsl-pain-3.jpg";
+import moodInsight1 from "@/assets/vsl-mood-insight.jpg";
+import moodInsight2 from "@/assets/vsl-insight-2.jpg";
+import moodSolution1 from "@/assets/vsl-mood-solution.jpg";
+import moodSolution2 from "@/assets/vsl-solution-2.jpg";
+import moodSolution3 from "@/assets/vsl-solution-3.jpg";
+import moodOffer1 from "@/assets/vsl-mood-offer.jpg";
+import moodOffer2 from "@/assets/vsl-offer-2.jpg";
 import moodCta from "@/assets/vsl-mood-cta.jpg";
 
 interface Slide {
@@ -13,11 +19,11 @@ interface Slide {
   endTime: number;
   caption: string;
   highlightWords?: string[];
-  visualMood: "pain" | "insight" | "solution" | "offer" | "cta";
+  image: string;
 }
 
 // Legendas sincronizadas com o áudio do roteiro (~165 segundos total)
-// Baseado no script: "Você treina há meses..."
+// Timing ajustado baseado na velocidade de fala do ElevenLabs (speed: 0.95)
 const slides: Slide[] = [
   // === BLOCO 1: DOR (0-22s) ===
   // "Você treina há meses, talvez anos. Segue planilhas, assiste vídeos, tenta fazer tudo certo."
@@ -26,14 +32,14 @@ const slides: Slide[] = [
     startTime: 0,
     endTime: 5,
     caption: "VOCÊ TREINA HÁ MESES...",
-    visualMood: "pain",
+    image: moodPain1,
   },
   {
     id: 2,
     startTime: 5,
     endTime: 10,
     caption: "TALVEZ ANOS.",
-    visualMood: "pain",
+    image: moodPain2,
   },
   // "Mas quando olha no espelho, a frustração bate: cadê o resultado?"
   {
@@ -42,7 +48,7 @@ const slides: Slide[] = [
     endTime: 16,
     caption: "MAS CADÊ O RESULTADO?",
     highlightWords: ["RESULTADO"],
-    visualMood: "pain",
+    image: moodPain3,
   },
   {
     id: 4,
@@ -50,7 +56,7 @@ const slides: Slide[] = [
     endTime: 22,
     caption: "A FRUSTRAÇÃO BATE.",
     highlightWords: ["FRUSTRAÇÃO"],
-    visualMood: "pain",
+    image: moodPain3,
   },
 
   // === BLOCO 2: AGITAÇÃO (22-42s) ===
@@ -61,7 +67,7 @@ const slides: Slide[] = [
     endTime: 28,
     caption: "90% DAS PESSOAS",
     highlightWords: ["90%"],
-    visualMood: "pain",
+    image: moodPain2,
   },
   {
     id: 6,
@@ -69,7 +75,7 @@ const slides: Slide[] = [
     endTime: 34,
     caption: "TREINAM NO MODO AUTOMÁTICO.",
     highlightWords: ["AUTOMÁTICO"],
-    visualMood: "pain",
+    image: moodPain1,
   },
   // "Fazem os exercícios, completam as séries, mas não entendem o que realmente faz o músculo crescer."
   {
@@ -78,7 +84,7 @@ const slides: Slide[] = [
     endTime: 42,
     caption: "MAS NÃO ENTENDEM O QUE FAZ O MÚSCULO CRESCER.",
     highlightWords: ["MÚSCULO CRESCER"],
-    visualMood: "insight",
+    image: moodInsight1,
   },
 
   // === BLOCO 3: INSIGHT (42-62s) ===
@@ -88,7 +94,7 @@ const slides: Slide[] = [
     startTime: 42,
     endTime: 48,
     caption: "EU TAMBÉM PASSEI POR ISSO.",
-    visualMood: "insight",
+    image: moodInsight1,
   },
   {
     id: 9,
@@ -96,7 +102,7 @@ const slides: Slide[] = [
     endTime: 54,
     caption: "HIPERTROFIA NÃO É SOBRE TREINAR MAIS.",
     highlightWords: ["TREINAR MAIS"],
-    visualMood: "insight",
+    image: moodInsight2,
   },
   // "É sobre treinar com estratégia. Com ciência. Com intenção."
   {
@@ -105,7 +111,7 @@ const slides: Slide[] = [
     endTime: 62,
     caption: "É SOBRE TREINAR COM ESTRATÉGIA.",
     highlightWords: ["ESTRATÉGIA"],
-    visualMood: "insight",
+    image: moodInsight2,
   },
 
   // === BLOCO 4: SOLUÇÃO (62-90s) ===
@@ -116,7 +122,7 @@ const slides: Slide[] = [
     endTime: 70,
     caption: "IMAGINA SABER EXATAMENTE O QUE FAZER.",
     highlightWords: ["EXATAMENTE"],
-    visualMood: "solution",
+    image: moodSolution1,
   },
   // "Qual exercício priorizar. Quantas séries. Qual cadência. Quanto tempo descansar."
   {
@@ -124,7 +130,7 @@ const slides: Slide[] = [
     startTime: 70,
     endTime: 80,
     caption: "CADA EXERCÍCIO. CADA SÉRIE. CADA DESCANSO.",
-    visualMood: "solution",
+    image: moodSolution2,
   },
   // "Tudo baseado no que a ciência já provou que funciona."
   {
@@ -133,7 +139,7 @@ const slides: Slide[] = [
     endTime: 90,
     caption: "BASEADO NO QUE A CIÊNCIA PROVOU.",
     highlightWords: ["CIÊNCIA"],
-    visualMood: "solution",
+    image: moodSolution3,
   },
 
   // === BLOCO 5: MÉTODO 8X (90-115s) ===
@@ -144,7 +150,7 @@ const slides: Slide[] = [
     endTime: 96,
     caption: "ISSO É O MÉTODO 8X.",
     highlightWords: ["8X"],
-    visualMood: "offer",
+    image: moodOffer1,
   },
   // "Um e-book completo com 8 semanas de treino estruturado"
   {
@@ -153,7 +159,7 @@ const slides: Slide[] = [
     endTime: 104,
     caption: "8 SEMANAS DE TREINO ESTRUTURADO.",
     highlightWords: ["8 SEMANAS"],
-    visualMood: "offer",
+    image: moodOffer2,
   },
   // "mais um aplicativo exclusivo que guia cada treino seu. Sem achismos. Sem improviso."
   {
@@ -161,7 +167,7 @@ const slides: Slide[] = [
     startTime: 104,
     endTime: 115,
     caption: "SEM ACHISMO. SEM IMPROVISO.",
-    visualMood: "offer",
+    image: moodOffer1,
   },
 
   // === BLOCO 6: O QUE VOCÊ VAI APRENDER (115-135s) ===
@@ -172,7 +178,7 @@ const slides: Slide[] = [
     endTime: 122,
     caption: "OS 4 PILARES DA HIPERTROFIA.",
     highlightWords: ["4 PILARES"],
-    visualMood: "offer",
+    image: moodSolution2,
   },
   // "Os 7 erros que sabotam seus resultados."
   {
@@ -181,7 +187,7 @@ const slides: Slide[] = [
     endTime: 128,
     caption: "OS 7 ERROS QUE TE SABOTAM.",
     highlightWords: ["7 ERROS"],
-    visualMood: "offer",
+    image: moodSolution3,
   },
   // "E um plano de 8 semanas testado e aprovado."
   {
@@ -190,7 +196,7 @@ const slides: Slide[] = [
     endTime: 135,
     caption: "UM PLANO TESTADO E APROVADO.",
     highlightWords: ["TESTADO"],
-    visualMood: "offer",
+    image: moodOffer2,
   },
 
   // === BLOCO 7: OFERTA (135-155s) ===
@@ -200,7 +206,7 @@ const slides: Slide[] = [
     startTime: 135,
     endTime: 142,
     caption: "TUDO ISSO POR APENAS",
-    visualMood: "offer",
+    image: moodOffer1,
   },
   {
     id: 21,
@@ -208,7 +214,7 @@ const slides: Slide[] = [
     endTime: 148,
     caption: "R$ 19,90",
     highlightWords: ["R$ 19,90"],
-    visualMood: "offer",
+    image: moodOffer1,
   },
   // "Com garantia de 7 dias."
   {
@@ -217,7 +223,7 @@ const slides: Slide[] = [
     endTime: 155,
     caption: "GARANTIA DE 7 DIAS.",
     highlightWords: ["7 DIAS"],
-    visualMood: "offer",
+    image: moodOffer2,
   },
 
   // === BLOCO 8: CTA (155-175s) ===
@@ -227,7 +233,7 @@ const slides: Slide[] = [
     startTime: 155,
     endTime: 162,
     caption: "VOCÊ PODE CONTINUAR IGUAL...",
-    visualMood: "cta",
+    image: moodPain2,
   },
   // "Ou pode dar o primeiro passo agora."
   {
@@ -236,7 +242,7 @@ const slides: Slide[] = [
     endTime: 168,
     caption: "OU DAR O PRIMEIRO PASSO AGORA.",
     highlightWords: ["PRIMEIRO PASSO"],
-    visualMood: "cta",
+    image: moodCta,
   },
   // "Clica no botão abaixo. Seu futuro eu agradece."
   {
@@ -245,7 +251,7 @@ const slides: Slide[] = [
     endTime: 175,
     caption: "CLICA NO BOTÃO ABAIXO.",
     highlightWords: ["BOTÃO"],
-    visualMood: "cta",
+    image: moodCta,
   },
   {
     id: 26,
@@ -253,18 +259,9 @@ const slides: Slide[] = [
     endTime: 200,
     caption: "SEU FUTURO EU VAI AGRADECER.",
     highlightWords: ["FUTURO"],
-    visualMood: "cta",
+    image: moodCta,
   },
 ];
-
-// Mapear moods para imagens
-const moodImages: Record<string, string> = {
-  pain: moodPain,
-  insight: moodInsight,
-  solution: moodSolution,
-  offer: moodOffer,
-  cta: moodCta,
-};
 
 interface VSLSlidesProps {
   currentTime: number;
@@ -273,8 +270,8 @@ interface VSLSlidesProps {
 const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
   const [activeSlideId, setActiveSlideId] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [currentImage, setCurrentImage] = useState(moodPain);
-  const [nextImage, setNextImage] = useState(moodPain);
+  const [displayedImage, setDisplayedImage] = useState(slides[0].image);
+  const [nextImage, setNextImage] = useState(slides[0].image);
   const [imageTransitioning, setImageTransitioning] = useState(false);
 
   useEffect(() => {
@@ -284,17 +281,15 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
     
     if (newSlide && newSlide.id !== activeSlideId) {
       const currentSlide = slides.find((s) => s.id === activeSlideId);
-      const newMood = newSlide.visualMood;
-      const currentMood = currentSlide?.visualMood;
       
-      // Transição de imagem se mudou o mood
-      if (currentMood !== newMood) {
-        setNextImage(moodImages[newMood]);
+      // Transição de imagem se mudou a imagem
+      if (currentSlide?.image !== newSlide.image) {
+        setNextImage(newSlide.image);
         setImageTransitioning(true);
         setTimeout(() => {
-          setCurrentImage(moodImages[newMood]);
+          setDisplayedImage(newSlide.image);
           setImageTransitioning(false);
-        }, 600);
+        }, 500);
       }
       
       // Transição de texto
@@ -304,11 +299,13 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
         setTimeout(() => {
           setIsTransitioning(false);
         }, 50);
-      }, 150);
+      }, 120);
     }
   }, [currentTime, activeSlideId]);
 
   const activeSlide = slides.find((s) => s.id === activeSlideId) || slides[0];
+  const isCtaSlide = activeSlide.id >= 24;
+  const isPriceSlide = activeSlide.id === 21;
 
   const renderCaption = (text: string, highlights?: string[]) => {
     if (!highlights || highlights.length === 0) {
@@ -320,7 +317,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       const regex = new RegExp(`(${word})`, "gi");
       result = result.replace(
         regex,
-        `<span class="text-accent drop-shadow-[0_0_40px_hsl(var(--accent)/0.6)]">$1</span>`
+        `<span class="text-accent drop-shadow-[0_0_40px_hsl(var(--accent)/0.7)]">$1</span>`
       );
     });
 
@@ -331,73 +328,83 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
     <div className="absolute inset-0 overflow-hidden bg-black">
       {/* Background Image Layer - Current */}
       <div 
-        className={`absolute inset-0 transition-opacity duration-700 ${imageTransitioning ? 'opacity-0' : 'opacity-100'}`}
-        style={{
-          backgroundImage: `url(${currentImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'brightness(0.4) saturate(0.8)',
-        }}
-      />
+        className={`absolute inset-0 transition-all duration-700 ease-out ${imageTransitioning ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${displayedImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'brightness(0.35) saturate(0.7)',
+          }}
+        />
+      </div>
       
       {/* Background Image Layer - Next (for crossfade) */}
       <div 
-        className={`absolute inset-0 transition-opacity duration-700 ${imageTransitioning ? 'opacity-100' : 'opacity-0'}`}
-        style={{
-          backgroundImage: `url(${nextImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'brightness(0.4) saturate(0.8)',
-        }}
-      />
+        className={`absolute inset-0 transition-all duration-700 ease-out ${imageTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${nextImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'brightness(0.35) saturate(0.7)',
+          }}
+        />
+      </div>
 
-      {/* Slow zoom/pan animation overlay */}
+      {/* Slow Ken Burns effect layer */}
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 animate-kenBurns"
         style={{
-          backgroundImage: `url(${currentImage})`,
+          backgroundImage: `url(${displayedImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          filter: 'brightness(0.35) saturate(0.7)',
-          animation: 'slowZoom 30s ease-in-out infinite alternate',
+          filter: 'brightness(0.3) saturate(0.6)',
+          opacity: 0.7,
         }}
       />
       
       {/* Dark gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/80" />
       
       {/* Vignette effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.3)_50%,rgba(0,0,0,0.8)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_60%,rgba(0,0,0,0.9)_100%)]" />
       
-      {/* Subtle accent glow for CTA */}
-      {activeSlide.visualMood === "cta" && (
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_70%,hsl(var(--accent)/0.15),transparent_50%)] animate-pulse" />
+      {/* Accent glow for CTA slides */}
+      {isCtaSlide && (
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_70%,hsl(var(--accent)/0.2),transparent_50%)] animate-pulse" />
       )}
 
       {/* Caption Container */}
       <div 
-        className={`absolute inset-0 flex items-center justify-center p-8 sm:p-12 transition-all duration-400 ${
+        className={`absolute inset-0 flex items-center justify-center p-6 sm:p-10 md:p-16 transition-all duration-300 ease-out ${
           isTransitioning 
-            ? 'opacity-0 blur-sm transform translate-y-4' 
-            : 'opacity-100 blur-0 transform translate-y-0'
+            ? 'opacity-0 blur-sm transform translate-y-3 scale-98' 
+            : 'opacity-100 blur-0 transform translate-y-0 scale-100'
         }`}
       >
-        <div className="text-center max-w-4xl mx-auto">
+        <div className="text-center max-w-5xl mx-auto">
           {/* Main Caption */}
           <h1 
             className={`
-              font-display font-black uppercase leading-[1.1] tracking-tight
+              font-display font-black uppercase leading-[1.05] tracking-tight
               text-white
-              ${activeSlide.visualMood === "cta" || activeSlide.id === 21
-                ? "text-4xl sm:text-5xl md:text-6xl lg:text-7xl" 
-                : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+              ${isPriceSlide 
+                ? "text-5xl sm:text-6xl md:text-7xl lg:text-8xl" 
+                : isCtaSlide
+                  ? "text-3xl sm:text-4xl md:text-5xl lg:text-6xl" 
+                  : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
               }
             `}
             style={{
               textShadow: `
-                0 2px 10px rgba(0,0,0,0.9),
-                0 4px 30px rgba(0,0,0,0.8),
-                0 8px 60px rgba(0,0,0,0.6)
+                0 2px 8px rgba(0,0,0,0.95),
+                0 4px 25px rgba(0,0,0,0.9),
+                0 8px 50px rgba(0,0,0,0.7)
               `,
               letterSpacing: "-0.02em",
             }}
@@ -405,13 +412,13 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
             {renderCaption(activeSlide.caption, activeSlide.highlightWords)}
           </h1>
 
-          {/* CTA arrow indicator on final slide */}
+          {/* CTA arrow indicator on final slides */}
           {activeSlide.id >= 25 && (
             <div className="mt-10 sm:mt-14">
               <div 
                 className="w-14 h-14 sm:w-16 sm:h-16 mx-auto border-2 border-accent rounded-full flex items-center justify-center animate-bounce"
                 style={{
-                  boxShadow: "0 0 40px hsl(var(--accent)/0.4), inset 0 0 20px hsl(var(--accent)/0.1)",
+                  boxShadow: "0 0 50px hsl(var(--accent)/0.5), inset 0 0 25px hsl(var(--accent)/0.15)",
                 }}
               >
                 <svg 
@@ -436,22 +443,31 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       {/* Minimal progress line */}
       <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5">
         <div 
-          className="h-full bg-gradient-to-r from-accent/80 to-accent transition-all duration-300 ease-out"
+          className="h-full bg-gradient-to-r from-accent/70 to-accent transition-all duration-200 ease-out"
           style={{ 
             width: `${((activeSlide.id) / slides.length) * 100}%` 
           }}
         />
       </div>
 
-      {/* CSS for slow zoom animation */}
+      {/* CSS for Ken Burns animation */}
       <style>{`
-        @keyframes slowZoom {
+        @keyframes kenBurns {
           0% {
-            transform: scale(1) translateX(0);
+            transform: scale(1) translate(0, 0);
+          }
+          50% {
+            transform: scale(1.08) translate(-1%, -1%);
           }
           100% {
-            transform: scale(1.1) translateX(-2%);
+            transform: scale(1) translate(0, 0);
           }
+        }
+        .animate-kenBurns {
+          animation: kenBurns 25s ease-in-out infinite;
+        }
+        .scale-98 {
+          transform: scale(0.98);
         }
       `}</style>
     </div>
