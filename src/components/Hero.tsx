@@ -44,88 +44,79 @@ const Hero = () => {
   };
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
       {/* Background overlays for depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.12),transparent_60%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,hsla(20,15%,15%,0.4),transparent_40%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
-      <div className="container mx-auto px-5 sm:px-6 py-20 sm:py-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center max-w-7xl mx-auto">
+      <div className="container mx-auto px-5 sm:px-6 py-16 sm:py-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center max-w-7xl mx-auto">
           {/* Content */}
-          <div className="text-center lg:text-left space-y-6 sm:space-y-8 animate-fade-in px-1 sm:px-0 flex flex-col lg:block">
-            <div className="inline-flex items-center gap-2 text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-accent/40 bg-accent/10 backdrop-blur-sm mb-2 sm:mb-4 order-1 mx-auto lg:mx-0 shadow-lg shadow-accent/10">
-              <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span>MÉTODO 8X: FISIOLOGIA PROGRESSIVA</span>
+          <div className="text-center lg:text-left animate-fade-in px-1 sm:px-0 flex flex-col lg:block">
+            
+            {/* Badge minimalista */}
+            <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-6 order-1 mx-auto lg:mx-0">
+              <Zap className="w-4 h-4" />
+              <span>MÉTODO 8X</span>
             </div>
             
-            <h1 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.1] text-white break-words order-2 tracking-tight">
+            {/* Título - mantido conforme solicitado */}
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.08] text-white order-2 tracking-tight mb-6">
               A CIÊNCIA QUE TRANSFORMA ESTÍMULOS EM{" "}
-              <span className="text-accent drop-shadow-[0_0_20px_hsla(18,100%,58%,0.4)]">HIPERTROFIA REAL</span>
+              <span className="text-accent">HIPERTROFIA REAL</span>
             </h1>
             
-            <h2 className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-white/85 font-normal order-3 font-sans">Um protocolo de 8 semanas baseado na fisiologia da adaptação muscular. Criado para romper o platô e construir um físico denso e forte — sem treinar no achismo</h2>
+            {/* Subtítulo mais persuasivo e direto */}
+            <p className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 text-white/80 order-3 mb-8">
+              Chega de treinar sem resultado. Em 8 semanas, você vai entender <span className="text-white font-medium">exatamente</span> o que fazer para seu músculo crescer — e finalmente ver a diferença no espelho.
+            </p>
             
-            {/* Image - Only visible on mobile */}
-            <div className="relative animate-fade-in w-full max-w-[300px] mx-auto lg:hidden order-4 my-8" style={{
-            animationDelay: "0.2s"
-          }}>
-              <div className="absolute inset-0 bg-accent/25 rounded-3xl blur-[60px]" />
-              <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl hover-lift drop-shadow-2xl" src="/lovable-uploads/c1941b90-f63e-4025-b105-03df2eac90b0.png" />
+            {/* Image - Mobile only */}
+            <div className="relative w-full max-w-[280px] mx-auto lg:hidden order-4 mb-8">
+              <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
+              <img 
+                alt="Mockup do Ebook Projeto 8 Semanas" 
+                className="relative z-10 w-full h-auto rounded-xl shadow-2xl" 
+                src="/lovable-uploads/c1941b90-f63e-4025-b105-03df2eac90b0.png" 
+              />
             </div>
             
-            <div className="space-y-5 sm:space-y-6 order-5">
-              {/* Badge de vendas recentes */}
-              <div className="flex items-center justify-center lg:justify-start gap-2 text-sm text-white/90 animate-fade-in">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
-                </span>
-                <span>🔥 <span className="font-semibold text-accent">87 pessoas</span> compraram nas últimas 24h</span>
-              </div>
+            {/* CTA Section - Limpo e focado */}
+            <div className="order-5 space-y-4">
+              <Button 
+                variant="cta" 
+                size="lg" 
+                onClick={handleCTAClick} 
+                className="text-base sm:text-lg px-8 sm:px-12 py-6 sm:py-7 animate-pulse-glow w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase"
+              >
+                QUERO COMEÇAR AGORA
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2 sm:pt-4 w-full">
-                <div className="flex flex-col items-center lg:items-start gap-1.5">
-                  <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-7 animate-pulse-glow w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/30 uppercase">
-                    QUERO O MÉTODO 8X AGORA 
-                    <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
-                  </Button>
-                  <span className="font-medium text-sm text-muted-foreground">
-                    💥 <span className="text-accent">R$ 19,90</span> → e-book + App 8X GRÁTIS!
-                  </span>
-                </div>
-              </div>
-              
-              <div className="flex flex-wrap items-center gap-4 sm:gap-8 justify-center lg:justify-start pt-2 sm:pt-4 text-xs sm:text-sm text-white/80">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-lg shadow-accent/50" />
-                  <span className="font-medium">100% Digital</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-lg shadow-accent/50" />
-                  <span className="font-medium">Acesso Imediato</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <div className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-lg shadow-accent/50" />
-                  <span className="font-medium">Garantia de 7 Dias</span>
-                </div>
-              </div>
-              
-              
+              {/* Preço + Oferta - Uma linha só */}
+              <p className="text-sm sm:text-base text-white/70">
+                <span className="text-accent font-semibold">R$ 19,90</span>
+                <span className="mx-2">•</span>
+                <span>E-book + App 8X incluso</span>
+                <span className="mx-2">•</span>
+                <span>Garantia de 7 dias</span>
+              </p>
             </div>
           </div>
           
-          {/* Image - Only visible on desktop */}
-          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{
-          animationDelay: "0.2s"
-        }}>
-            <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-[80px] scale-90" />
-            <img alt="Mockup do Ebook Projeto 8 Semanas" className="relative z-10 w-full max-w-lg h-auto rounded-2xl shadow-2xl hover-lift drop-shadow-2xl" src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" />
+          {/* Image - Desktop only */}
+          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{ animationDelay: "0.15s" }}>
+            <div className="absolute inset-0 bg-accent/15 rounded-3xl blur-[60px] scale-90" />
+            <img 
+              alt="Mockup do Ebook Projeto 8 Semanas" 
+              className="relative z-10 w-full max-w-md h-auto rounded-2xl shadow-2xl hover-lift" 
+              src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
+            />
           </div>
         </div>
       </div>
       
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce hidden sm:flex">
-        <div className="w-7 h-11 border-2 border-accent/60 rounded-full flex items-start justify-center p-2 backdrop-blur-sm bg-white/5">
-          <div className="w-1.5 h-3 bg-accent rounded-full shadow-lg shadow-accent/50" />
+      {/* Scroll indicator - mais sutil */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60">
+        <div className="w-6 h-10 border border-white/30 rounded-full flex items-start justify-center p-2">
+          <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
       </div>
     </section>;
