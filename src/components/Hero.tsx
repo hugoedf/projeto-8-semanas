@@ -79,7 +79,7 @@ const Hero = () => {
                     <ArrowRight className="ml-2 flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
                   <span className="font-medium text-sm text-[#c4c4c4]">
-                    <span className="block md:inline">💥 R$ 19,90  → e-book + App 8X GRÁTIS! <span className="text-accent">R$ 19,90</span></span>
+                    <span className="block md:inline"> R$ 19,90 ​→ e-book + App 8X GRÁTIS! <span className="text-accent">R$ 19,90</span></span>
                     
                   </span>
                 </div>
