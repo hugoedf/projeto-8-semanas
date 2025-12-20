@@ -37,7 +37,7 @@ const Bonus = () => {
 
         {/* Main Headline */}
         <h2 className="font-display text-[22px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center leading-[1.25] sm:leading-tight mb-3 sm:mb-6 animate-fade-in tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-          <span className="block">Você não vai apenas ler o método.</span>
+          <span className="block">BÔNUS EXCLUSIVO INCLUSO</span>
           <span className="block bg-gradient-to-r from-accent via-orange-400 to-accent bg-clip-text text-transparent drop-shadow-[0_0_30px_hsla(18,100%,58%,0.4)]">
             Você vai executar ele no celular.
           </span>
