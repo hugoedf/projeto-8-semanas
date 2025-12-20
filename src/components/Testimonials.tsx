@@ -2,22 +2,22 @@ import { Star } from "lucide-react";
 const testimonials = [{
   name: "Carlos R.",
   age: "28 anos — São Paulo",
-  text: "Em 4 semanas ganhei 2cm de braço e finalmente senti o peitoral trabalhando de verdade. O método de progressão fez toda a diferença.",
+  text: "Comprei achando que era mais um e-book genérico. Em 4 semanas ganhei 2cm de braço. E o App 8X? Me guiou treino por treino sem eu ter que pensar. Só executar.",
   rating: 5
 }, {
   name: "Mariana S.",
   age: "32 anos — Belo Horizonte",
-  text: "Treino há 3 anos e nunca tive tanta clareza. O e-book me mostrou onde eu estava errando na periodização. Resultado: saí do platô em 6 semanas.",
+  text: "3 anos travada no mesmo shape. O Método me mostrou onde eu errava. O App organizou minha rotina. Em 6 semanas saí do platô. Melhor investimento que fiz.",
   rating: 5
 }, {
   name: "Rafael M.",
   age: "25 anos — Rio de Janeiro",
-  text: "Achava que sabia treinar, mas estava desperdiçando estímulo. Apliquei as técnicas de intensificação e meu shape mudou completamente.",
+  text: "Eu desperdiçava tempo criando treino. Com o App 8X, abro e executo. Sem dúvida, sem improviso. Meu shape mudou porque parei de adivinhar e comecei a seguir.",
   rating: 5
 }, {
   name: "Juliana C.",
   age: "29 anos — Curitiba",
-  text: "A parte de nutrição foi um divisor de águas. Entendi como calcular macros de forma prática e vi resultado no espelho em 3 semanas.",
+  text: "A nutrição do método + o App pra acompanhar foi a combinação perfeita. Vi resultado no espelho em 3 semanas. Antes eu planejava. Agora eu faço.",
   rating: 5
 }];
 const Testimonials = () => {
