@@ -189,18 +189,8 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
   const hasStarted = phase === "playing" || phase === "ended";
 
-  // Modo calibração: ?calibrate=1 na URL
-  const isCalibrating = new URLSearchParams(window.location.search).get("calibrate") === "1";
-
   return (
     <div className="relative w-full max-w-3xl mx-auto">
-      {/* Painel de calibração */}
-      {isCalibrating && hasStarted && (
-        <div className="fixed top-4 left-4 z-50 bg-black/90 text-white px-4 py-2 rounded-lg font-mono text-lg border border-accent/50">
-          ⏱️ <span className="text-accent font-bold">{currentTime.toFixed(2)}s</span>
-        </div>
-      )}
-
       {/* Player Container - Cinematic aspect ratio */}
       <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.8)]">
         {/* VSL Slides - Synchronized visuals */}
