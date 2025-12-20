@@ -108,9 +108,13 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
   const prevImageRef = useRef(segments[0].image);
 
   useEffect(() => {
-    const newSegment = segments.find(
-      (seg) => currentTime >= seg.startTime && currentTime < seg.endTime
+    // Permite ajuste fino sem UI: adicione ?captionOffset=0.6 na URL (segundos)
+    const captionOffset = Number(
+      new URLSearchParams(window.location.search).get("captionOffset") ?? "0"
     );
+    const t = Math.max(0, currentTime + (Number.isFinite(captionOffset) ? captionOffset : 0));
+
+    const newSegment = segments.find((seg) => t >= seg.startTime && t < seg.endTime);
 
     if (newSegment && newSegment.id !== activeSegmentId) {
       // Transição de texto
@@ -140,7 +144,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
       {/* === BACKGROUND LAYERS === */}
-      
+
       {/* Current Image */}
       <div
         className={`absolute inset-0 transition-all duration-700 ease-out ${
@@ -151,7 +155,8 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url(${displayedImage})`,
-            filter: "brightness(0.35) saturate(0.8)",
+            // Mais claro para combinar com a página e permitir ver o visual
+            filter: "brightness(0.55) saturate(0.95)",
           }}
         />
       </div>
@@ -166,88 +171,85 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url(${nextImage})`,
-            filter: "brightness(0.35) saturate(0.8)",
+            filter: "brightness(0.55) saturate(0.95)",
           }}
         />
       </div>
 
-      {/* === HIGH-TECH OVERLAYS === */}
-      
-      {/* Dark gradient base */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/80" />
+      {/* === HIGH-TECH OVERLAYS (suaves) === */}
 
-      {/* Scan lines effect */}
+      {/* Gradient base (menos dark) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35" />
+
+      {/* Scan lines effect (bem sutil) */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        className="absolute inset-0 pointer-events-none opacity-[0.02]"
         style={{
           backgroundImage: `repeating-linear-gradient(
             0deg,
             transparent,
             transparent 2px,
-            rgba(0, 255, 255, 0.03) 2px,
-            rgba(0, 255, 255, 0.03) 4px
+            hsl(var(--accent) / 0.06) 2px,
+            hsl(var(--accent) / 0.06) 4px
           )`,
         }}
       />
 
-      {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.5)_70%,rgba(0,0,0,0.95)_100%)]" />
+      {/* Vignette (bem leve) */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.35)_75%,rgba(0,0,0,0.7)_100%)]" />
 
       {/* HUD corner accents */}
-      <div className="absolute top-4 left-4 w-16 h-16 border-l-2 border-t-2 border-cyan-500/30 opacity-50" />
-      <div className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-cyan-500/30 opacity-50" />
-      <div className="absolute bottom-20 left-4 w-16 h-16 border-l-2 border-b-2 border-cyan-500/30 opacity-50" />
-      <div className="absolute bottom-20 right-4 w-16 h-16 border-r-2 border-b-2 border-cyan-500/30 opacity-50" />
+      <div className="absolute top-4 left-4 w-16 h-16 border-l-2 border-t-2 border-accent/25 opacity-50" />
+      <div className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-accent/25 opacity-50" />
+      <div className="absolute bottom-20 left-4 w-16 h-16 border-l-2 border-b-2 border-accent/25 opacity-50" />
+      <div className="absolute bottom-20 right-4 w-16 h-16 border-r-2 border-b-2 border-accent/25 opacity-50" />
 
       {/* Subtle grid overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.02]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)
+            linear-gradient(hsl(var(--accent) / 0.10) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--accent) / 0.10) 1px, transparent 1px)
           `,
-          backgroundSize: "50px 50px",
+          backgroundSize: "56px 56px",
         }}
       />
 
       {/* CTA glow effect */}
       {isCta && (
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,hsl(var(--accent)/0.15),transparent_50%)] animate-pulse" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,hsl(var(--accent)/0.12),transparent_55%)] animate-pulse" />
       )}
 
       {/* === SUBTITLE CONTAINER (Netflix style) === */}
       <div className="absolute bottom-16 left-0 right-0 px-4 sm:px-8 md:px-16 z-20">
         <div
           className={`text-center transition-all duration-150 ease-out ${
-            textVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-2"
+            textVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
           }`}
         >
           {/* Subtitle text */}
-          <p
-            className={`
-              font-sans font-semibold leading-relaxed
-              text-white
-              ${isPrice 
-                ? "text-3xl sm:text-4xl md:text-5xl text-accent" 
-                : "text-lg sm:text-xl md:text-2xl"
-              }
-            `}
-            style={{
-              textShadow: `
-                0 0 10px rgba(0,0,0,0.9),
-                0 2px 4px rgba(0,0,0,0.9),
-                0 4px 8px rgba(0,0,0,0.7),
-                2px 2px 8px rgba(0,0,0,0.8),
-                -2px -2px 8px rgba(0,0,0,0.8)
-              `,
-              letterSpacing: "0.02em",
-            }}
-          >
-            {activeSegment.text}
-          </p>
+          <div className="inline-block max-w-4xl">
+            <div className="inline-block rounded-md bg-black/35 backdrop-blur-[2px] px-4 py-2">
+              <p
+                className={`font-sans font-semibold leading-relaxed text-white ${
+                  isPrice
+                    ? "text-3xl sm:text-4xl md:text-5xl text-accent"
+                    : "text-lg sm:text-xl md:text-2xl"
+                }`}
+                style={{
+                  textShadow: `
+                    0 0 10px rgba(0,0,0,0.85),
+                    0 2px 4px rgba(0,0,0,0.85),
+                    0 4px 10px rgba(0,0,0,0.55)
+                  `,
+                  letterSpacing: "0.01em",
+                }}
+              >
+                {activeSegment.text}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -255,13 +257,14 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       {activeSegment.id >= 51 && (
         <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20">
           <div
-            className="w-12 h-12 border-2 border-cyan-400/60 rounded-full flex items-center justify-center animate-bounce"
+            className="w-12 h-12 border-2 border-accent/60 rounded-full flex items-center justify-center animate-bounce"
             style={{
-              boxShadow: "0 0 30px rgba(0,255,255,0.3), inset 0 0 15px rgba(0,255,255,0.1)",
+              boxShadow:
+                "0 0 30px hsl(var(--accent)/0.25), inset 0 0 15px hsl(var(--accent)/0.10)",
             }}
           >
             <svg
-              className="w-6 h-6 text-cyan-400"
+              className="w-6 h-6 text-accent"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -280,37 +283,9 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       {/* === PROGRESS INDICATOR === */}
       <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/5 z-30">
         <div
-          className="h-full bg-gradient-to-r from-cyan-500/50 to-cyan-400 transition-all duration-200 ease-out"
-          style={{
-            width: `${(activeSegment.id / segments.length) * 100}%`,
-          }}
+          className="h-full bg-gradient-to-r from-accent/40 to-accent transition-all duration-200 ease-out"
+          style={{ width: `${(activeSegment.id / segments.length) * 100}%` }}
         />
-      </div>
-
-      {/* === MOOD INDICATOR (subtle) === */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-sm rounded-full border border-cyan-500/20">
-          <div
-            className={`w-2 h-2 rounded-full ${
-              activeSegment.mood === "pain"
-                ? "bg-red-500"
-                : activeSegment.mood === "insight"
-                ? "bg-yellow-500"
-                : activeSegment.mood === "solution"
-                ? "bg-blue-500"
-                : activeSegment.mood === "offer"
-                ? "bg-green-500"
-                : "bg-cyan-400"
-            }`}
-          />
-          <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 font-mono">
-            {activeSegment.mood === "pain" && "PROBLEMA"}
-            {activeSegment.mood === "insight" && "REVELAÇÃO"}
-            {activeSegment.mood === "solution" && "SOLUÇÃO"}
-            {activeSegment.mood === "offer" && "OFERTA"}
-            {activeSegment.mood === "cta" && "AÇÃO"}
-          </span>
-        </div>
       </div>
     </div>
   );
