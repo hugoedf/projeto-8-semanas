@@ -12,450 +12,281 @@ interface Segment {
   id: number;
   startTime: number;
   endTime: number;
-  text: string; // Copy de impacto (fiel ao áudio mas otimizado)
+  text: string;
   image: string;
-  mood: "pain" | "insight" | "solution" | "offer" | "cta";
 }
 
 /*
-ROTEIRO VSL COMPLETO (~165 segundos):
-Dividido em segmentos curtos para legenda estilo Netflix.
-Cada segmento = 1-2 linhas, sincronizado com o áudio.
+LEGENDAS = TRANSCRIÇÃO EXATA DO ÁUDIO
+Script original (~78 segundos de fala, velocidade 0.95x ≈ 82s):
+
+"Você treina há meses, talvez anos. Segue planilhas, assiste vídeos, tenta fazer tudo certo. Mas quando olha no espelho, a frustração bate: cadê o resultado?
+
+A verdade é que 90% das pessoas treinam no modo automático. Fazem os exercícios, completam as séries, mas não entendem o que realmente faz o músculo crescer. E por isso, ficam estagnados.
+
+Eu também passei por isso. Até entender que hipertrofia não é sobre treinar mais. É sobre treinar com estratégia. Com ciência. Com intenção.
+
+Imagina chegar na academia sabendo exatamente o que fazer. Qual exercício priorizar. Quantas séries. Qual cadência. Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona.
+
+Isso é o Método 8X. Um e-book completo com 8 semanas de treino estruturado, mais um aplicativo exclusivo que guia cada treino seu. Sem achismos. Sem improviso.
+
+O que você vai aprender: os 4 pilares da hipertrofia que ninguém te ensinou. Os 7 erros que sabotam seus resultados. A técnica que maximiza cada repetição. E um plano de 8 semanas testado e aprovado.
+
+E o melhor: tudo isso por apenas 19 reais e 90 centavos. Menos que um suplemento que você compra todo mês. Com garantia de 7 dias. Se não gostar, devolvo seu dinheiro. Sem perguntas.
+
+Você pode continuar treinando do mesmo jeito e esperando resultados diferentes. Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução.
+
+Clica no botão abaixo. Seu futuro eu agradece."
 */
 
 const segments: Segment[] = [
-  // === DOR (0-15s) ===
+  // === ABERTURA (0-12s) ===
   {
     id: 1,
     startTime: 0,
-    endTime: 3.5,
-    text: "Você treina há meses… talvez anos.",
+    endTime: 4,
+    text: "Você treina há meses, talvez anos.",
     image: frustration,
-    mood: "pain",
   },
   {
     id: 2,
-    startTime: 3.5,
-    endTime: 7,
-    text: "Segue planilha, copia treino, vê vídeo…",
+    startTime: 4,
+    endTime: 8,
+    text: "Segue planilhas, assiste vídeos, tenta fazer tudo certo.",
     image: frustration,
-    mood: "pain",
   },
   {
     id: 3,
-    startTime: 7,
-    endTime: 10,
-    text: "e ainda assim, parece que não sai do lugar.",
+    startTime: 8,
+    endTime: 12,
+    text: "Mas quando olha no espelho, a frustração bate: cadê o resultado?",
     image: frustration,
-    mood: "pain",
   },
+
+  // === PROBLEMA (12-24s) ===
   {
     id: 4,
-    startTime: 10,
-    endTime: 13,
-    text: "Aí você olha no espelho…",
-    image: frustration,
-    mood: "pain",
+    startTime: 12,
+    endTime: 16,
+    text: "A verdade é que 90% das pessoas treinam no modo automático.",
+    image: gymElite,
   },
   {
     id: 5,
-    startTime: 13,
-    endTime: 16,
-    text: "e bate a pergunta: “cadê meu resultado?”",
-    image: frustration,
-    mood: "pain",
-  },
-
-  // === AGITAÇÃO (16-35s) ===
-  {
-    id: 6,
     startTime: 16,
     endTime: 20,
-    text: "A real? 90% treina no automático.",
+    text: "Fazem os exercícios, completam as séries,",
     image: gymElite,
-    mood: "pain",
+  },
+  {
+    id: 6,
+    startTime: 20,
+    endTime: 24,
+    text: "mas não entendem o que realmente faz o músculo crescer.",
+    image: scienceFiber,
   },
   {
     id: 7,
-    startTime: 20,
-    endTime: 24,
-    text: "Faz… sua série… e vai embora.",
-    image: gymElite,
-    mood: "pain",
+    startTime: 24,
+    endTime: 27,
+    text: "E por isso, ficam estagnados.",
+    image: frustration,
   },
+
+  // === VIRADA (27-38s) ===
   {
     id: 8,
-    startTime: 24,
-    endTime: 28,
-    text: "Cumpre o “treino do dia”…",
+    startTime: 27,
+    endTime: 30,
+    text: "Eu também passei por isso.",
     image: gymElite,
-    mood: "pain",
   },
   {
     id: 9,
-    startTime: 28,
-    endTime: 32,
-    text: "mas não entende o que, de fato…",
-    image: scienceFiber,
-    mood: "insight",
+    startTime: 30,
+    endTime: 34,
+    text: "Até entender que hipertrofia não é sobre treinar mais.",
+    image: scienceProtein,
   },
   {
     id: 10,
-    startTime: 32,
-    endTime: 36,
-    text: "dispara o crescimento muscular.",
-    image: scienceFiber,
-    mood: "insight",
-  },
-  {
-    id: 11,
-    startTime: 36,
+    startTime: 34,
     endTime: 38,
-    text: "Resultado? Estagnação.",
-    image: frustration,
-    mood: "pain",
+    text: "É sobre treinar com estratégia. Com ciência. Com intenção.",
+    image: scienceHologram,
   },
 
-  // === VIRADA (38-52s) ===
+  // === SOLUÇÃO (38-52s) ===
+  {
+    id: 11,
+    startTime: 38,
+    endTime: 42,
+    text: "Imagina chegar na academia sabendo exatamente o que fazer.",
+    image: gymElite,
+  },
   {
     id: 12,
-    startTime: 38,
-    endTime: 41,
-    text: "Eu também já fiquei travado assim.",
-    image: gymElite,
-    mood: "insight",
+    startTime: 42,
+    endTime: 45,
+    text: "Qual exercício priorizar.",
+    image: scienceHologram,
   },
   {
     id: 13,
-    startTime: 41,
-    endTime: 45,
-    text: "Até entender que hipertrofia…",
-    image: scienceProtein,
-    mood: "insight",
+    startTime: 45,
+    endTime: 48,
+    text: "Quantas séries. Qual cadência.",
+    image: scienceFiber,
   },
   {
     id: 14,
-    startTime: 45,
-    endTime: 48,
-    text: "não é treinar mais. É treinar melhor.",
-    image: scienceProtein,
-    mood: "insight",
-  },
-  {
-    id: 15,
     startTime: 48,
     endTime: 52,
-    text: "É estratégia — não esforço aleatório.",
-    image: scienceHologram,
-    mood: "insight",
+    text: "Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona.",
+    image: scienceProtein,
+  },
+
+  // === MÉTODO (52-66s) ===
+  {
+    id: 15,
+    startTime: 52,
+    endTime: 55,
+    text: "Isso é o Método 8X.",
+    image: appDevice,
   },
   {
     id: 16,
-    startTime: 52,
-    endTime: 55,
-    text: "Com ciência. Com intenção. Com método.",
-    image: scienceHologram,
-    mood: "insight",
-  },
-
-  // === SOLUÇÃO (55-75s) ===
-  {
-    id: 17,
     startTime: 55,
     endTime: 59,
-    text: "Imagina entrar na academia sabendo…",
-    image: gymElite,
-    mood: "solution",
+    text: "Um e-book completo com 8 semanas de treino estruturado,",
+    image: appDevice,
+  },
+  {
+    id: 17,
+    startTime: 59,
+    endTime: 63,
+    text: "mais um aplicativo exclusivo que guia cada treino seu.",
+    image: appDevice,
   },
   {
     id: 18,
-    startTime: 59,
-    endTime: 63,
-    text: "exatamente o que fazer pra evoluir.",
+    startTime: 63,
+    endTime: 66,
+    text: "Sem achismos. Sem improviso.",
     image: scienceHologram,
-    mood: "solution",
   },
+
+  // === CONTEÚDO (66-82s) ===
   {
     id: 19,
-    startTime: 63,
-    endTime: 67,
-    text: "Qual exercício priorizar — e por quê.",
+    startTime: 66,
+    endTime: 70,
+    text: "O que você vai aprender:",
     image: scienceHologram,
-    mood: "solution",
   },
   {
     id: 20,
-    startTime: 67,
-    endTime: 71,
-    text: "Quantas séries. Qual cadência.",
+    startTime: 70,
+    endTime: 74,
+    text: "os 4 pilares da hipertrofia que ninguém te ensinou.",
     image: scienceFiber,
-    mood: "solution",
   },
   {
     id: 21,
-    startTime: 71,
-    endTime: 75,
-    text: "E o descanso certo pra render mais.",
-    image: scienceFiber,
-    mood: "solution",
+    startTime: 74,
+    endTime: 77,
+    text: "Os 7 erros que sabotam seus resultados.",
+    image: frustration,
   },
   {
     id: 22,
-    startTime: 75,
-    endTime: 79,
-    text: "Sem achismo — só o que funciona.",
+    startTime: 77,
+    endTime: 80,
+    text: "A técnica que maximiza cada repetição.",
     image: scienceProtein,
-    mood: "solution",
   },
   {
     id: 23,
-    startTime: 79,
-    endTime: 82,
-    text: "O que a ciência já provou na prática.",
-    image: scienceProtein,
-    mood: "solution",
+    startTime: 80,
+    endTime: 84,
+    text: "E um plano de 8 semanas testado e aprovado.",
+    image: appDevice,
   },
 
-  // === MÉTODO 8X (82-100s) ===
+  // === OFERTA (84-100s) ===
   {
     id: 24,
-    startTime: 82,
-    endTime: 85,
-    text: "Isso é o Método 8X.",
+    startTime: 84,
+    endTime: 88,
+    text: "E o melhor: tudo isso por apenas",
     image: appDevice,
-    mood: "offer",
   },
   {
     id: 25,
-    startTime: 85,
-    endTime: 89,
-    text: "Um e-book direto ao ponto.",
+    startTime: 88,
+    endTime: 92,
+    text: "19 reais e 90 centavos.",
     image: appDevice,
-    mood: "offer",
   },
   {
     id: 26,
-    startTime: 89,
-    endTime: 93,
-    text: "8 semanas de treino estruturado.",
-    image: appDevice,
-    mood: "offer",
+    startTime: 92,
+    endTime: 96,
+    text: "Menos que um suplemento que você compra todo mês.",
+    image: gymElite,
   },
   {
     id: 27,
-    startTime: 93,
-    endTime: 97,
-    text: "E um app que guia seu treino em tempo real.",
+    startTime: 96,
+    endTime: 100,
+    text: "Com garantia de 7 dias.",
     image: appDevice,
-    mood: "offer",
   },
   {
     id: 28,
-    startTime: 97,
-    endTime: 101,
-    text: "Você só executa. Ele direciona.",
-    image: appDevice,
-    mood: "offer",
-  },
-  {
-    id: 29,
-    startTime: 101,
+    startTime: 100,
     endTime: 104,
-    text: "Sem improviso. Sem dúvida. Sem travar.",
-    image: scienceHologram,
-    mood: "offer",
+    text: "Se não gostar, devolvo seu dinheiro. Sem perguntas.",
+    image: appDevice,
   },
 
-  // === CONTEÚDO (104-125s) ===
+  // === DECISÃO (104-118s) ===
+  {
+    id: 29,
+    startTime: 104,
+    endTime: 109,
+    text: "Você pode continuar treinando do mesmo jeito",
+    image: frustration,
+  },
   {
     id: 30,
-    startTime: 104,
-    endTime: 108,
-    text: "Você vai destravar com isso aqui:",
-    image: scienceHologram,
-    mood: "solution",
+    startTime: 109,
+    endTime: 113,
+    text: "e esperando resultados diferentes.",
+    image: frustration,
   },
   {
     id: 31,
-    startTime: 108,
-    endTime: 112,
-    text: "Os 4 pilares da hipertrofia.",
-    image: scienceFiber,
-    mood: "solution",
+    startTime: 113,
+    endTime: 118,
+    text: "Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução.",
+    image: gymElite,
   },
+
+  // === CTA FINAL (118s+) ===
   {
     id: 32,
-    startTime: 112,
-    endTime: 115,
-    text: "O que quase ninguém te explica de verdade.",
-    image: scienceFiber,
-    mood: "solution",
+    startTime: 118,
+    endTime: 121,
+    text: "Clica no botão abaixo.",
+    image: appDevice,
   },
   {
     id: 33,
-    startTime: 115,
-    endTime: 119,
-    text: "Os 7 erros que roubam seus ganhos.",
-    image: frustration,
-    mood: "pain",
-  },
-  {
-    id: 34,
-    startTime: 119,
-    endTime: 123,
-    text: "A técnica que faz cada repetição valer.",
-    image: scienceProtein,
-    mood: "solution",
-  },
-  {
-    id: 35,
-    startTime: 123,
-    endTime: 127,
-    text: "E um plano de 8 semanas pra seguir sem falhar.",
-    image: appDevice,
-    mood: "offer",
-  },
-  {
-    id: 36,
-    startTime: 127,
-    endTime: 130,
-    text: "Testado. Ajustado. Pronto pra aplicar.",
-    image: appDevice,
-    mood: "offer",
-  },
-
-  // === OFERTA (130-150s) ===
-  {
-    id: 37,
-    startTime: 130,
-    endTime: 134,
-    text: "E o melhor: é simples de começar hoje.",
-    image: appDevice,
-    mood: "offer",
-  },
-  {
-    id: 38,
-    startTime: 134,
-    endTime: 138,
-    text: "Tudo isso por apenas…",
-    image: appDevice,
-    mood: "offer",
-  },
-  {
-    id: 39,
-    startTime: 138,
-    endTime: 142,
-    text: "R$ 19,90.",
-    image: appDevice,
-    mood: "cta",
-  },
-  {
-    id: 40,
-    startTime: 142,
-    endTime: 146,
-    text: "Menos que 1 suplemento por mês.",
-    image: gymElite,
-    mood: "offer",
-  },
-  {
-    id: 41,
-    startTime: 146,
-    endTime: 149,
-    text: "E com retorno que você vê no espelho.",
-    image: gymElite,
-    mood: "offer",
-  },
-  {
-    id: 42,
-    startTime: 149,
-    endTime: 153,
-    text: "E ainda tem garantia de 7 dias.",
-    image: appDevice,
-    mood: "cta",
-  },
-  {
-    id: 43,
-    startTime: 153,
-    endTime: 157,
-    text: "Não curtiu? Eu devolvo seu dinheiro.",
-    image: appDevice,
-    mood: "cta",
-  },
-  {
-    id: 44,
-    startTime: 157,
-    endTime: 160,
-    text: "Sem burocracia. Sem perguntas.",
-    image: appDevice,
-    mood: "cta",
-  },
-
-  // === DECISÃO (160-175s) ===
-  {
-    id: 45,
-    startTime: 160,
-    endTime: 164,
-    text: "Agora é escolha.",
-    image: frustration,
-    mood: "pain",
-  },
-  {
-    id: 46,
-    startTime: 164,
-    endTime: 168,
-    text: "Continuar no mesmo treino…",
-    image: frustration,
-    mood: "pain",
-  },
-  {
-    id: 47,
-    startTime: 168,
-    endTime: 172,
-    text: "e continuar esperando um milagre.",
-    image: frustration,
-    mood: "pain",
-  },
-  {
-    id: 48,
-    startTime: 172,
-    endTime: 176,
-    text: "Ou começar agora — com direção.",
-    image: gymElite,
-    mood: "cta",
-  },
-  {
-    id: 49,
-    startTime: 176,
-    endTime: 180,
-    text: "Assumir o controle da sua evolução.",
-    image: scienceHologram,
-    mood: "cta",
-  },
-  {
-    id: 50,
-    startTime: 180,
-    endTime: 184,
-    text: "E ver progresso semana após semana.",
-    image: scienceHologram,
-    mood: "cta",
-  },
-
-  // === CTA FINAL (184s+) ===
-  {
-    id: 51,
-    startTime: 184,
-    endTime: 188,
-    text: "Clica no botão abaixo.",
-    image: appDevice,
-    mood: "cta",
-  },
-  {
-    id: 52,
-    startTime: 188,
+    startTime: 121,
     endTime: 999,
-    text: "Seu “eu” de 8 semanas vai agradecer.",
+    text: "Seu futuro eu agradece.",
     image: gymElite,
-    mood: "cta",
   },
 ];
 
@@ -471,34 +302,11 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
   const [textVisible, setTextVisible] = useState(true);
   const prevImageRef = useRef(segments[0].image);
 
-  const searchParams = new URLSearchParams(window.location.search);
-  const debugCaptions = searchParams.get("debugCaptions") === "1";
-
-  // Ajuste fino global: ?captionOffset=0.35 (segundos)
-  const initialOffset = Number(searchParams.get("captionOffset") ?? "0");
-  const [captionOffset, setCaptionOffset] = useState(
-    Number.isFinite(initialOffset) ? initialOffset : 0
-  );
-
-  // Overrides de timing (somente no modo debug)
-  const [timingOverrides, setTimingOverrides] = useState<
-    Record<number, { startTime?: number; endTime?: number }>
-  >({});
-
-  const getSegTiming = (seg: Segment) => {
-    const ov = timingOverrides[seg.id];
-    return {
-      startTime: ov?.startTime ?? seg.startTime,
-      endTime: ov?.endTime ?? seg.endTime,
-    };
-  };
-
   useEffect(() => {
-    const t = Math.max(0, currentTime + captionOffset);
+    const t = currentTime;
 
     const newSegment = segments.find((seg) => {
-      const timing = getSegTiming(seg);
-      return t >= timing.startTime && t < timing.endTime;
+      return t >= seg.startTime && t < seg.endTime;
     });
 
     if (newSegment && newSegment.id !== activeSegmentId) {
@@ -507,7 +315,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       setTimeout(() => {
         setActiveSegmentId(newSegment.id);
         setTextVisible(true);
-      }, 100);
+      }, 80);
 
       // Transição de imagem (só se mudou)
       if (prevImageRef.current !== newSegment.image) {
@@ -520,22 +328,11 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
         }, 500);
       }
     }
-  }, [currentTime, activeSegmentId, captionOffset, timingOverrides]);
+  }, [currentTime, activeSegmentId]);
 
   const activeSegment = segments.find((s) => s.id === activeSegmentId) || segments[0];
-  const isCta = activeSegment.mood === "cta";
-  const isPrice = activeSegment.id === 39;
-
-  const activeTiming = getSegTiming(activeSegment);
-  const setActiveOverride = (patch: { startTime?: number; endTime?: number }) => {
-    setTimingOverrides((prev) => ({
-      ...prev,
-      [activeSegment.id]: {
-        ...(prev[activeSegment.id] ?? {}),
-        ...patch,
-      },
-    }));
-  };
+  const isPrice = activeSegment.id === 25;
+  const isCta = activeSegment.id >= 32;
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
@@ -551,7 +348,6 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url(${displayedImage})`,
-            // Mais claro para combinar com a página e permitir ver o visual
             filter: "brightness(0.55) saturate(0.95)",
           }}
         />
@@ -572,12 +368,12 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
         />
       </div>
 
-      {/* === HIGH-TECH OVERLAYS (suaves) === */}
+      {/* === OVERLAYS (suaves) === */}
 
-      {/* Gradient base (menos dark) */}
+      {/* Gradient base */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35" />
 
-      {/* Scan lines effect (bem sutil) */}
+      {/* Scan lines effect (sutil) */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.02]"
         style={{
@@ -591,7 +387,7 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
         }}
       />
 
-      {/* Vignette (bem leve) */}
+      {/* Vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.35)_75%,rgba(0,0,0,0.7)_100%)]" />
 
       {/* HUD corner accents */}
@@ -617,99 +413,23 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,hsl(var(--accent)/0.12),transparent_55%)] animate-pulse" />
       )}
 
-      {/* Debug (só com ?debugCaptions=1) */}
-      {debugCaptions && (
-        <div className="absolute top-3 left-3 z-40 rounded-md bg-black/40 backdrop-blur-sm px-3 py-2 text-xs text-white/90 space-y-1">
-          <div className="font-medium tracking-wide">DEBUG LEGENDAS</div>
-          <div className="text-white/70 tabular-nums">t={currentTime.toFixed(2)}s • seg #{activeSegment.id}</div>
-          <div className="text-white/70 tabular-nums">
-            start={activeTiming.startTime.toFixed(2)} • end={activeTiming.endTime.toFixed(2)}
-          </div>
-
-          <div className="flex flex-wrap gap-1 pt-1">
-            <button
-              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
-              onClick={() => setCaptionOffset((v) => Number((v - 0.1).toFixed(2)))}
-            >
-              offset -0.1
-            </button>
-            <button
-              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
-              onClick={() => setCaptionOffset((v) => Number((v + 0.1).toFixed(2)))}
-            >
-              offset +0.1
-            </button>
-          </div>
-
-          <div className="flex flex-wrap gap-1">
-            <button
-              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
-              onClick={() => setActiveOverride({ startTime: Math.max(0, activeTiming.startTime - 0.1) })}
-            >
-              start -0.1
-            </button>
-            <button
-              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
-              onClick={() => setActiveOverride({ startTime: activeTiming.startTime + 0.1 })}
-            >
-              start +0.1
-            </button>
-            <button
-              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
-              onClick={() => setActiveOverride({ endTime: Math.max(activeTiming.startTime + 0.2, activeTiming.endTime - 0.1) })}
-            >
-              end -0.1
-            </button>
-            <button
-              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
-              onClick={() => setActiveOverride({ endTime: activeTiming.endTime + 0.1 })}
-            >
-              end +0.1
-            </button>
-          </div>
-
-          <div className="pt-1">
-            <button
-              className="rounded bg-white/10 hover:bg-white/15 px-2 py-1"
-              onClick={() => {
-                // Exporta overrides pra você colar no código
-                console.log("captionOffset=", captionOffset);
-                console.log("timingOverrides=", timingOverrides);
-                navigator.clipboard
-                  ?.writeText(
-                    JSON.stringify({ captionOffset, timingOverrides }, null, 2)
-                  )
-                  .catch(() => undefined);
-              }}
-            >
-              copiar ajustes
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* === SUBTITLE CONTAINER (Netflix style) === */}
-      <div className="absolute bottom-16 left-0 right-0 px-4 sm:px-8 md:px-16 z-20">
+      {/* === LEGENDA - POSIÇÃO FIXA NA PARTE INFERIOR === */}
+      <div className="absolute bottom-4 left-0 right-0 px-4 sm:px-8 md:px-12 z-20">
         <div
-          className={`text-center transition-all duration-150 ease-out ${
-            textVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+          className={`text-center transition-opacity duration-100 ease-out ${
+            textVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          {/* Subtitle text */}
-          <div className="inline-block max-w-4xl">
-            <div className="inline-block rounded-md bg-black/35 backdrop-blur-[2px] px-4 py-2">
+          <div className="inline-block max-w-3xl">
+            <div className="inline-block rounded bg-black/60 px-4 py-2">
               <p
-                className={`font-sans font-semibold leading-relaxed text-white ${
+                className={`font-sans font-semibold leading-snug text-white ${
                   isPrice
-                    ? "text-3xl sm:text-4xl md:text-5xl text-accent"
-                    : "text-lg sm:text-xl md:text-2xl"
+                    ? "text-2xl sm:text-3xl md:text-4xl text-accent"
+                    : "text-base sm:text-lg md:text-xl"
                 }`}
                 style={{
-                  textShadow: `
-                    0 0 10px rgba(0,0,0,0.85),
-                    0 2px 4px rgba(0,0,0,0.85),
-                    0 4px 10px rgba(0,0,0,0.55)
-                  `,
+                  textShadow: "0 2px 8px rgba(0,0,0,0.9)",
                   letterSpacing: "0.01em",
                 }}
               >
@@ -721,8 +441,8 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
       </div>
 
       {/* === CTA INDICATOR === */}
-      {activeSegment.id >= 51 && (
-        <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20">
+      {isCta && (
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20">
           <div
             className="w-12 h-12 border-2 border-accent/60 rounded-full flex items-center justify-center animate-bounce"
             style={{
