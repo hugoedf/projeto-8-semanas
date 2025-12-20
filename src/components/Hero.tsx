@@ -65,7 +65,7 @@ const Hero = () => {
             
             {/* Subtítulo mais persuasivo e direto */}
             <p className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 text-white/80 order-3 mb-8">
-              Chega de treinar sem resultado. Em 8 semanas, você vai entender <span className="text-white font-medium">exatamente</span> o que fazer para seu músculo crescer — e finalmente ver a diferença no espelho.
+              Chega de treinar sem resultado. Em 8 semanas, você vai entender <span className="text-white font-medium">exatamente</span> como fazer cada treino valer de verdade — e finalmente ter controle sobre seus resultados.
             </p>
             
             {/* Image - Mobile only */}
