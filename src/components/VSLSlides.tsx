@@ -312,7 +312,10 @@ const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
   const prevImageRef = useRef(segments[0].image);
 
   useEffect(() => {
-    const t = currentTime;
+    // Mostra a legenda um pouco ANTES do áudio para ficar mais congruente.
+    // (lead time fixo e pequeno para evitar “atraso percebido”)
+    const CAPTION_LEAD_SECONDS = 0.3;
+    const t = Math.max(0, currentTime + CAPTION_LEAD_SECONDS);
 
     const newSegment = segments.find((seg) => {
       return t >= seg.startTime && t < seg.endTime;
