@@ -64,71 +64,63 @@ Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evoluçã
 
 const slides: Slide[] = [
   // === PARÁGRAFO 1: DOR INICIAL (0-15s) ===
-  // "Você treina há meses, talvez anos."
   {
     id: 1,
     startTime: 0,
     endTime: 4,
-    caption: "VOCÊ TREINA HÁ MESES...",
+    caption: "VOCÊ TREINA HÁ MESES, TALVEZ ANOS.",
     image: moodPain1,
   },
-  // "Segue planilhas, assiste vídeos, tenta fazer tudo certo."
   {
     id: 2,
     startTime: 4,
-    endTime: 9,
-    caption: "TENTA FAZER TUDO CERTO.",
+    endTime: 11,
+    caption: "SEGUE PLANILHAS, ASSISTE VÍDEOS, TENTA FAZER TUDO CERTO.",
     image: moodPain2,
   },
-  // "Mas quando olha no espelho, a frustração bate: cadê o resultado?"
   {
     id: 3,
-    startTime: 9,
+    startTime: 11,
     endTime: 15,
-    caption: "CADÊ O RESULTADO?",
+    caption: "MAS NO ESPELHO... CADÊ O RESULTADO?",
     highlightWords: ["RESULTADO"],
     image: moodPain3,
   },
 
   // === PARÁGRAFO 2: AGITAÇÃO (15-35s) ===
-  // "A verdade é que 90% das pessoas treinam no modo automático."
   {
     id: 4,
     startTime: 15,
-    endTime: 21,
-    caption: "90% DAS PESSOAS",
-    highlightWords: ["90%"],
+    endTime: 22,
+    caption: "A VERDADE É QUE 90% TREINAM NO MODO AUTOMÁTICO.",
+    highlightWords: ["90%", "AUTOMÁTICO"],
     image: moodPain2,
   },
   {
     id: 5,
-    startTime: 21,
-    endTime: 26,
-    caption: "TREINAM NO AUTOMÁTICO.",
-    highlightWords: ["AUTOMÁTICO"],
+    startTime: 22,
+    endTime: 30,
+    caption: "FAZEM OS EXERCÍCIOS, COMPLETAM AS SÉRIES...",
     image: moodPain1,
   },
-  // "Fazem os exercícios, completam as séries, mas não entendem o que realmente faz o músculo crescer."
   {
     id: 6,
-    startTime: 26,
-    endTime: 33,
-    caption: "NÃO ENTENDEM O QUE FAZ O MÚSCULO CRESCER.",
-    highlightWords: ["MÚSCULO CRESCER"],
+    startTime: 30,
+    endTime: 34,
+    caption: "MAS NÃO ENTENDEM O QUE FAZ O MÚSCULO CRESCER.",
+    highlightWords: ["MÚSCULO", "CRESCER"],
     image: moodInsight1,
   },
-  // "E por isso, ficam estagnados."
   {
     id: 7,
-    startTime: 33,
+    startTime: 34,
     endTime: 35,
-    caption: "FICAM ESTAGNADOS.",
+    caption: "E POR ISSO, FICAM ESTAGNADOS.",
     highlightWords: ["ESTAGNADOS"],
     image: moodPain3,
   },
 
   // === PARÁGRAFO 3: INSIGHT (35-52s) ===
-  // "Eu também passei por isso."
   {
     id: 8,
     startTime: 35,
@@ -136,55 +128,49 @@ const slides: Slide[] = [
     caption: "EU TAMBÉM PASSEI POR ISSO.",
     image: moodInsight1,
   },
-  // "Até entender que hipertrofia não é sobre treinar mais."
   {
     id: 9,
     startTime: 39,
     endTime: 45,
-    caption: "HIPERTROFIA NÃO É SOBRE TREINAR MAIS.",
-    highlightWords: ["TREINAR MAIS"],
+    caption: "ATÉ ENTENDER QUE HIPERTROFIA NÃO É SOBRE TREINAR MAIS.",
+    highlightWords: ["HIPERTROFIA", "TREINAR MAIS"],
     image: moodInsight2,
   },
-  // "É sobre treinar com estratégia. Com ciência. Com intenção."
   {
     id: 10,
     startTime: 45,
     endTime: 52,
-    caption: "É SOBRE TREINAR COM ESTRATÉGIA.",
-    highlightWords: ["ESTRATÉGIA"],
+    caption: "É SOBRE TREINAR COM ESTRATÉGIA. COM CIÊNCIA. COM INTENÇÃO.",
+    highlightWords: ["ESTRATÉGIA", "CIÊNCIA", "INTENÇÃO"],
     image: moodInsight2,
   },
 
   // === PARÁGRAFO 4: SOLUÇÃO (52-75s) ===
-  // "Imagina chegar na academia sabendo exatamente o que fazer."
   {
     id: 11,
     startTime: 52,
-    endTime: 59,
-    caption: "IMAGINA SABER EXATAMENTE O QUE FAZER.",
+    endTime: 60,
+    caption: "IMAGINA CHEGAR NA ACADEMIA SABENDO EXATAMENTE O QUE FAZER.",
     highlightWords: ["EXATAMENTE"],
     image: moodSolution1,
   },
-  // "Qual exercício priorizar. Quantas séries. Qual cadência."
   {
     id: 12,
-    startTime: 59,
-    endTime: 66,
-    caption: "CADA EXERCÍCIO. CADA SÉRIE.",
+    startTime: 60,
+    endTime: 68,
+    caption: "QUAL EXERCÍCIO PRIORIZAR. QUANTAS SÉRIES. QUAL CADÊNCIA.",
     image: moodSolution2,
   },
-  // "Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona."
   {
     id: 13,
-    startTime: 66,
+    startTime: 68,
     endTime: 75,
-    caption: "BASEADO NO QUE A CIÊNCIA PROVOU.",
+    caption: "QUANTO DESCANSAR... TUDO BASEADO NO QUE A CIÊNCIA PROVOU.",
     highlightWords: ["CIÊNCIA"],
     image: moodSolution3,
   },
 
   // === PARÁGRAFO 5: MÉTODO 8X (75-95s) ===
-  // "Isso é o Método 8X."
   {
     id: 14,
     startTime: 75,
@@ -193,123 +179,114 @@ const slides: Slide[] = [
     highlightWords: ["8X"],
     image: moodOffer1,
   },
-  // "Um e-book completo com 8 semanas de treino estruturado"
   {
     id: 15,
     startTime: 80,
-    endTime: 87,
-    caption: "8 SEMANAS DE TREINO ESTRUTURADO.",
+    endTime: 88,
+    caption: "UM E-BOOK COMPLETO COM 8 SEMANAS DE TREINO ESTRUTURADO.",
     highlightWords: ["8 SEMANAS"],
     image: moodOffer2,
   },
-  // "mais um aplicativo exclusivo que guia cada treino seu. Sem achismos. Sem improviso."
   {
     id: 16,
-    startTime: 87,
+    startTime: 88,
     endTime: 95,
-    caption: "SEM ACHISMO. SEM IMPROVISO.",
+    caption: "E UM APLICATIVO EXCLUSIVO QUE GUIA CADA TREINO. SEM ACHISMO. SEM IMPROVISO.",
+    highlightWords: ["SEM ACHISMO", "SEM IMPROVISO"],
     image: moodOffer1,
   },
 
   // === PARÁGRAFO 6: CONTEÚDO (95-120s) ===
-  // "O que você vai aprender: os 4 pilares da hipertrofia que ninguém te ensinou."
   {
     id: 17,
     startTime: 95,
     endTime: 104,
-    caption: "OS 4 PILARES DA HIPERTROFIA.",
+    caption: "O QUE VOCÊ VAI APRENDER: OS 4 PILARES DA HIPERTROFIA QUE NINGUÉM TE ENSINOU.",
     highlightWords: ["4 PILARES"],
     image: moodSolution2,
   },
-  // "Os 7 erros que sabotam seus resultados."
   {
     id: 18,
     startTime: 104,
-    endTime: 110,
-    caption: "OS 7 ERROS QUE TE SABOTAM.",
-    highlightWords: ["7 ERROS"],
+    endTime: 111,
+    caption: "OS 7 ERROS QUE SABOTAM SEUS RESULTADOS.",
+    highlightWords: ["7 ERROS", "RESULTADOS"],
     image: moodSolution3,
   },
-  // "A técnica que maximiza cada repetição. E um plano de 8 semanas testado e aprovado."
   {
     id: 19,
-    startTime: 110,
+    startTime: 111,
     endTime: 120,
-    caption: "UM PLANO TESTADO E APROVADO.",
-    highlightWords: ["TESTADO"],
+    caption: "A TÉCNICA QUE MAXIMIZA CADA REPETIÇÃO. E UM PLANO DE 8 SEMANAS TESTADO E APROVADO.",
+    highlightWords: ["MAXIMIZA", "TESTADO"],
     image: moodOffer2,
   },
 
   // === PARÁGRAFO 7: OFERTA (120-145s) ===
-  // "E o melhor: tudo isso por apenas 19 reais e 90 centavos."
   {
     id: 20,
     startTime: 120,
-    endTime: 127,
-    caption: "TUDO ISSO POR APENAS",
+    endTime: 128,
+    caption: "E O MELHOR: TUDO ISSO POR APENAS 19 REAIS E 90 CENTAVOS.",
+    highlightWords: ["APENAS"],
     image: moodOffer1,
   },
   {
     id: 21,
-    startTime: 127,
+    startTime: 128,
     endTime: 132,
     caption: "R$ 19,90",
     highlightWords: ["R$ 19,90"],
     image: moodOffer1,
   },
-  // "Menos que um suplemento que você compra todo mês."
   {
     id: 22,
     startTime: 132,
-    endTime: 137,
-    caption: "MENOS QUE UM SUPLEMENTO.",
+    endTime: 138,
+    caption: "MENOS QUE UM SUPLEMENTO QUE VOCÊ COMPRA TODO MÊS.",
     image: moodOffer2,
   },
-  // "Com garantia de 7 dias. Se não gostar, devolvo seu dinheiro. Sem perguntas."
   {
     id: 23,
-    startTime: 137,
+    startTime: 138,
     endTime: 145,
-    caption: "GARANTIA DE 7 DIAS.",
-    highlightWords: ["7 DIAS"],
+    caption: "GARANTIA DE 7 DIAS. SE NÃO GOSTAR, DEVOLVO SEU DINHEIRO. SEM PERGUNTAS.",
+    highlightWords: ["7 DIAS", "DEVOLVO"],
     image: moodOffer2,
   },
 
   // === PARÁGRAFO 8: DECISÃO (145-160s) ===
-  // "Você pode continuar treinando do mesmo jeito e esperando resultados diferentes."
   {
     id: 24,
     startTime: 145,
-    endTime: 152,
-    caption: "VOCÊ PODE CONTINUAR IGUAL...",
+    endTime: 153,
+    caption: "VOCÊ PODE CONTINUAR TREINANDO DO MESMO JEITO...",
+    highlightWords: ["CONTINUAR"],
     image: moodPain2,
   },
-  // "Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução."
   {
     id: 25,
-    startTime: 152,
+    startTime: 153,
     endTime: 160,
-    caption: "OU DAR O PRIMEIRO PASSO AGORA.",
-    highlightWords: ["PRIMEIRO PASSO"],
+    caption: "OU DAR O PRIMEIRO PASSO AGORA E TER CONTROLE DA SUA EVOLUÇÃO.",
+    highlightWords: ["PRIMEIRO PASSO", "CONTROLE"],
     image: moodCta,
   },
 
-  // === PARÁGRAFO 9: CTA FINAL (160-170s) ===
-  // "Clica no botão abaixo."
+  // === PARÁGRAFO 9: CTA FINAL (160s+) ===
   {
     id: 26,
     startTime: 160,
-    endTime: 165,
+    endTime: 164,
     caption: "CLICA NO BOTÃO ABAIXO.",
     highlightWords: ["BOTÃO"],
     image: moodCta,
   },
-  // "Seu futuro eu agradece."
   {
     id: 27,
-    startTime: 165,
-    endTime: 200,
-    caption: "SEU FUTURO EU VAI AGRADECER.",
+    startTime: 164,
+    endTime: 999,
+    caption: "SEU FUTURO EU AGRADECE.",
     highlightWords: ["FUTURO"],
     image: moodCta,
   },
