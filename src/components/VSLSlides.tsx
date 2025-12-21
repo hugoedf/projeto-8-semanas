@@ -1,223 +1,65 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from 'react';
 
-// BLOCO 1 — FRUSTRAÇÃO
-import block1Frustration from "@/assets/vsl-block1-frustration.jpg";
-import block1Stagnation from "@/assets/vsl-block1-stagnation.jpg";
+// Block 1 - Pain/Frustration (12 scenes)
+import b1MirrorFrustration from '@/assets/vsl/b1-mirror-frustration.jpg';
+import b1FaceCloseup from '@/assets/vsl/b1-face-closeup.jpg';
+import b1HandsGrip from '@/assets/vsl/b1-hands-grip.jpg';
+import b1ExhaustedBench from '@/assets/vsl/b1-exhausted-bench.jpg';
+import b1LostStare from '@/assets/vsl/b1-lost-stare.jpg';
+import b1SweatCloseup from '@/assets/vsl/b1-sweat-closeup.jpg';
+import b1EmptyGym from '@/assets/vsl/b1-empty-gym.jpg';
+import b1BodyCompare from '@/assets/vsl/b1-body-compare.jpg';
+import b1DoubtEyes from '@/assets/vsl/b1-doubt-eyes.jpg';
+import b1HeavyWeight from '@/assets/vsl/b1-heavy-weight.jpg';
+import b1WallLean from '@/assets/vsl/b1-wall-lean.jpg';
+import b1ClenchedFist from '@/assets/vsl/b1-clenched-fist.jpg';
 
-// BLOCO 2 — CONFLITO  
-import block2Autopilot from "@/assets/vsl-block2-autopilot.jpg";
-import block2Confusion from "@/assets/vsl-block2-confusion.jpg";
+// Block 2 - Conflict/Confusion (10 scenes)
+import b2AutopilotTraining from '@/assets/vsl/b2-autopilot-training.jpg';
+import b2GymChaos from '@/assets/vsl/b2-gym-chaos.jpg';
+import b2NotebookBlur from '@/assets/vsl/b2-notebook-blur.jpg';
+import b2SwitchingExercises from '@/assets/vsl/b2-switching-exercises.jpg';
+import b2ConfusedLook from '@/assets/vsl/b2-confused-look.jpg';
+import b2ChaoticGym from '@/assets/vsl/b2-chaotic-gym.jpg';
+import b2PoorForm from '@/assets/vsl/b2-poor-form.jpg';
+import b2Hesitation from '@/assets/vsl/b2-hesitation.jpg';
+import b2TreadmillNowhere from '@/assets/vsl/b2-treadmill-nowhere.jpg';
+import b2MentalFatigue from '@/assets/vsl/b2-mental-fatigue.jpg';
 
-// BLOCO 3 — VIRADA / CONSCIÊNCIA
-import block3Focus from "@/assets/vsl-block3-focus.jpg";
-import block3Awareness from "@/assets/vsl-block3-awareness.jpg";
+// Block 3 - Turning Point/Awareness (8 scenes)
+import b3LightShift from '@/assets/vsl/b3-light-shift.jpg';
+import b3DeepBreath from '@/assets/vsl/b3-deep-breath.jpg';
+import b3FocusedEyes from '@/assets/vsl/b3-focused-eyes.jpg';
+import b3ConfidentPosture from '@/assets/vsl/b3-confident-posture.jpg';
+import b3MuscleActivation from '@/assets/vsl/b3-muscle-activation.jpg';
+import b3ClarityMoment from '@/assets/vsl/b3-clarity-moment.jpg';
+import b3PurposefulGrip from '@/assets/vsl/b3-purposeful-grip.jpg';
+import b3WalkingPurpose from '@/assets/vsl/b3-walking-purpose.jpg';
 
-// BLOCO 4 — MÉTODO / CONTROLE
-import block4Technique from "@/assets/vsl-block4-technique.jpg";
-import block4Control from "@/assets/vsl-block4-control.jpg";
+// Block 4 - Control/Method (8 scenes)
+import b4PerfectCurl from '@/assets/vsl/b4-perfect-curl.jpg';
+import b4BackDefinition from '@/assets/vsl/b4-back-definition.jpg';
+import b4BenchControl from '@/assets/vsl/b4-bench-control.jpg';
+import b4ChestContraction from '@/assets/vsl/b4-chest-contraction.jpg';
+import b4SquatForm from '@/assets/vsl/b4-squat-form.jpg';
+import b4ForearmDetail from '@/assets/vsl/b4-forearm-detail.jpg';
+import b4ShoulderPress from '@/assets/vsl/b4-shoulder-press.jpg';
+import b4TricepControl from '@/assets/vsl/b4-tricep-control.jpg';
 
-// BLOCO 5 — RESULTADO
-import block5Confidence from "@/assets/vsl-block5-confidence.jpg";
-import block5Result from "@/assets/vsl-block5-result.jpg";
+// Block 5 - Result/Confidence (6 scenes)
+import b5ConfidentStand from '@/assets/vsl/b5-confident-stand.jpg';
+import b5ConfidentFace from '@/assets/vsl/b5-confident-face.jpg';
+import b5MirrorResult from '@/assets/vsl/b5-mirror-result.jpg';
+import b5ConfidentWalk from '@/assets/vsl/b5-confident-walk.jpg';
+import b5DefinedMuscles from '@/assets/vsl/b5-defined-muscles.jpg';
+import b5WorkoutComplete from '@/assets/vsl/b5-workout-complete.jpg';
 
-// BLOCO 6 — DECISÃO / CTA
-import block6Cta from "@/assets/vsl-block6-cta.jpg";
-import block6Decision from "@/assets/vsl-block6-decision.jpg";
-
-interface Segment {
-  id: number;
-  startTime: number;
-  endTime: number;
-  text: string;
-  image: string;
-  block: number;
-}
-
-/*
-ESTRUTURA DA NARRATIVA VISUAL — 6 BLOCOS
-Sincronizável com áudio externo (~170 segundos total)
-
-BLOCO 1 (0-25s) — FRUSTRAÇÃO
-BLOCO 2 (25-45s) — CONFLITO  
-BLOCO 3 (45-65s) — VIRADA
-BLOCO 4 (65-100s) — MÉTODO
-BLOCO 5 (100-145s) — RESULTADO/OFERTA
-BLOCO 6 (145s+) — CTA FINAL
-*/
-
-const segments: Segment[] = [
-  // === BLOCO 1 — FRUSTRAÇÃO (0-25s) ===
-  {
-    id: 1,
-    startTime: 0,
-    endTime: 8,
-    text: "",
-    image: block1Frustration,
-    block: 1,
-  },
-  {
-    id: 2,
-    startTime: 8,
-    endTime: 16,
-    text: "",
-    image: block1Stagnation,
-    block: 1,
-  },
-  {
-    id: 3,
-    startTime: 16,
-    endTime: 25,
-    text: "",
-    image: block1Frustration,
-    block: 1,
-  },
-
-  // === BLOCO 2 — CONFLITO (25-45s) ===
-  {
-    id: 4,
-    startTime: 25,
-    endTime: 32,
-    text: "",
-    image: block2Autopilot,
-    block: 2,
-  },
-  {
-    id: 5,
-    startTime: 32,
-    endTime: 38,
-    text: "",
-    image: block2Confusion,
-    block: 2,
-  },
-  {
-    id: 6,
-    startTime: 38,
-    endTime: 45,
-    text: "",
-    image: block1Stagnation,
-    block: 2,
-  },
-
-  // === BLOCO 3 — VIRADA / CONSCIÊNCIA (45-65s) ===
-  {
-    id: 7,
-    startTime: 45,
-    endTime: 52,
-    text: "",
-    image: block3Focus,
-    block: 3,
-  },
-  {
-    id: 8,
-    startTime: 52,
-    endTime: 58,
-    text: "",
-    image: block3Awareness,
-    block: 3,
-  },
-  {
-    id: 9,
-    startTime: 58,
-    endTime: 65,
-    text: "",
-    image: block3Focus,
-    block: 3,
-  },
-
-  // === BLOCO 4 — MÉTODO / CONTROLE (65-100s) ===
-  {
-    id: 10,
-    startTime: 65,
-    endTime: 75,
-    text: "",
-    image: block4Technique,
-    block: 4,
-  },
-  {
-    id: 11,
-    startTime: 75,
-    endTime: 85,
-    text: "",
-    image: block4Control,
-    block: 4,
-  },
-  {
-    id: 12,
-    startTime: 85,
-    endTime: 92,
-    text: "",
-    image: block4Technique,
-    block: 4,
-  },
-  {
-    id: 13,
-    startTime: 92,
-    endTime: 100,
-    text: "",
-    image: block4Control,
-    block: 4,
-  },
-
-  // === BLOCO 5 — RESULTADO / OFERTA (100-145s) ===
-  {
-    id: 14,
-    startTime: 100,
-    endTime: 110,
-    text: "",
-    image: block5Confidence,
-    block: 5,
-  },
-  {
-    id: 15,
-    startTime: 110,
-    endTime: 120,
-    text: "",
-    image: block5Result,
-    block: 5,
-  },
-  {
-    id: 16,
-    startTime: 120,
-    endTime: 130,
-    text: "",
-    image: block5Confidence,
-    block: 5,
-  },
-  {
-    id: 17,
-    startTime: 130,
-    endTime: 145,
-    text: "",
-    image: block5Result,
-    block: 5,
-  },
-
-  // === BLOCO 6 — DECISÃO / CTA FINAL (145s+) ===
-  {
-    id: 18,
-    startTime: 145,
-    endTime: 155,
-    text: "",
-    image: block1Frustration,
-    block: 6,
-  },
-  {
-    id: 19,
-    startTime: 155,
-    endTime: 165,
-    text: "",
-    image: block6Cta,
-    block: 6,
-  },
-  {
-    id: 20,
-    startTime: 165,
-    endTime: 999,
-    text: "",
-    image: block6Decision,
-    block: 6,
-  },
-];
+// Block 6 - Final Decision/CTA (5 scenes)
+import b6DecisionSilhouette from '@/assets/vsl/b6-decision-silhouette.jpg';
+import b6SpotlightWeights from '@/assets/vsl/b6-spotlight-weights.jpg';
+import b6EyesDecision from '@/assets/vsl/b6-eyes-decision.jpg';
+import b6ReachingBar from '@/assets/vsl/b6-reaching-bar.jpg';
+import b6FinalStance from '@/assets/vsl/b6-final-stance.jpg';
 
 interface VSLSlidesProps {
   currentTime: number;
@@ -225,160 +67,150 @@ interface VSLSlidesProps {
   captionFadeMs?: number;
 }
 
-const VSLSlides = ({
-  currentTime,
-  captionLeadSeconds = 0,
-  captionFadeMs = 160,
-}: VSLSlidesProps) => {
-  const [activeSegmentId, setActiveSegmentId] = useState(1);
-  const [displayedImage, setDisplayedImage] = useState(segments[0].image);
-  const [nextImage, setNextImage] = useState(segments[0].image);
-  const [imageTransitioning, setImageTransitioning] = useState(false);
-  const prevImageRef = useRef(segments[0].image);
+const SCENE_DURATION = 4;
+
+const scenes = [
+  // Block 1 - 12 scenes
+  { image: b1MirrorFrustration, block: 1 },
+  { image: b1FaceCloseup, block: 1 },
+  { image: b1HandsGrip, block: 1 },
+  { image: b1ExhaustedBench, block: 1 },
+  { image: b1LostStare, block: 1 },
+  { image: b1SweatCloseup, block: 1 },
+  { image: b1EmptyGym, block: 1 },
+  { image: b1BodyCompare, block: 1 },
+  { image: b1DoubtEyes, block: 1 },
+  { image: b1HeavyWeight, block: 1 },
+  { image: b1WallLean, block: 1 },
+  { image: b1ClenchedFist, block: 1 },
+  // Block 2 - 10 scenes
+  { image: b2AutopilotTraining, block: 2 },
+  { image: b2GymChaos, block: 2 },
+  { image: b2NotebookBlur, block: 2 },
+  { image: b2SwitchingExercises, block: 2 },
+  { image: b2ConfusedLook, block: 2 },
+  { image: b2ChaoticGym, block: 2 },
+  { image: b2PoorForm, block: 2 },
+  { image: b2Hesitation, block: 2 },
+  { image: b2TreadmillNowhere, block: 2 },
+  { image: b2MentalFatigue, block: 2 },
+  // Block 3 - 8 scenes
+  { image: b3LightShift, block: 3 },
+  { image: b3DeepBreath, block: 3 },
+  { image: b3FocusedEyes, block: 3 },
+  { image: b3ConfidentPosture, block: 3 },
+  { image: b3MuscleActivation, block: 3 },
+  { image: b3ClarityMoment, block: 3 },
+  { image: b3PurposefulGrip, block: 3 },
+  { image: b3WalkingPurpose, block: 3 },
+  // Block 4 - 8 scenes
+  { image: b4PerfectCurl, block: 4 },
+  { image: b4BackDefinition, block: 4 },
+  { image: b4BenchControl, block: 4 },
+  { image: b4ChestContraction, block: 4 },
+  { image: b4SquatForm, block: 4 },
+  { image: b4ForearmDetail, block: 4 },
+  { image: b4ShoulderPress, block: 4 },
+  { image: b4TricepControl, block: 4 },
+  // Block 5 - 6 scenes
+  { image: b5ConfidentStand, block: 5 },
+  { image: b5ConfidentFace, block: 5 },
+  { image: b5MirrorResult, block: 5 },
+  { image: b5ConfidentWalk, block: 5 },
+  { image: b5DefinedMuscles, block: 5 },
+  { image: b5WorkoutComplete, block: 5 },
+  // Block 6 - 5 scenes
+  { image: b6DecisionSilhouette, block: 6 },
+  { image: b6SpotlightWeights, block: 6 },
+  { image: b6EyesDecision, block: 6 },
+  { image: b6ReachingBar, block: 6 },
+  { image: b6FinalStance, block: 6 },
+];
+
+const VSLSlides = ({ currentTime }: VSLSlidesProps) => {
+  const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
+  const [nextSceneIndex, setNextSceneIndex] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevIndexRef = useRef(0);
+
+  const getSceneIndexFromTime = useCallback((time: number) => {
+    const index = Math.floor(time / SCENE_DURATION);
+    return Math.min(index, scenes.length - 1);
+  }, []);
 
   useEffect(() => {
-    const t = Math.max(0, currentTime + captionLeadSeconds);
-    const newSegment = segments.find((seg) => t >= seg.startTime && t < seg.endTime);
-
-    if (newSegment && newSegment.id !== activeSegmentId) {
-      setActiveSegmentId(newSegment.id);
-
-      // Transição de imagem cinematográfica
-      if (prevImageRef.current !== newSegment.image) {
-        setNextImage(newSegment.image);
-        setImageTransitioning(true);
-        setTimeout(() => {
-          setDisplayedImage(newSegment.image);
-          prevImageRef.current = newSegment.image;
-          setImageTransitioning(false);
-        }, 800); // Transição mais lenta e suave
-      }
+    const targetIndex = getSceneIndexFromTime(currentTime);
+    
+    if (targetIndex !== prevIndexRef.current) {
+      setNextSceneIndex(targetIndex);
+      setIsTransitioning(true);
+      
+      const timer = setTimeout(() => {
+        setCurrentSceneIndex(targetIndex);
+        prevIndexRef.current = targetIndex;
+        setIsTransitioning(false);
+      }, 800);
+      
+      return () => clearTimeout(timer);
     }
-  }, [currentTime, activeSegmentId, captionLeadSeconds]);
+  }, [currentTime, getSceneIndexFromTime]);
 
-  const activeSegment = segments.find((s) => s.id === activeSegmentId) || segments[0];
-  const isCta = activeSegment.block === 6;
-  const isResult = activeSegment.block === 5;
+  const currentScene = scenes[currentSceneIndex];
+  const nextScene = scenes[nextSceneIndex];
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
-      {/* === BACKGROUND LAYERS === */}
-
-      {/* Current Image - with Ken Burns effect */}
+      {/* Current Scene */}
       <div
-        className={`absolute inset-0 transition-all duration-1000 ease-out ${
-          imageTransitioning ? "opacity-0 scale-110" : "opacity-100 scale-100"
+        className={`absolute inset-0 transition-opacity duration-[800ms] ease-in-out ${
+          isTransitioning ? 'opacity-0' : 'opacity-100'
         }`}
-        style={{
-          animation: !imageTransitioning ? "kenBurns 12s ease-in-out infinite alternate" : "none",
-        }}
+        style={{ animation: 'kenBurns 8s ease-in-out infinite alternate' }}
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(${displayedImage})`,
-            filter: "brightness(0.5) saturate(0.9) contrast(1.1)",
+            backgroundImage: `url(${currentScene.image})`,
+            filter: 'brightness(0.55) saturate(0.9) contrast(1.1)',
           }}
         />
       </div>
 
-      {/* Next Image (crossfade) */}
+      {/* Next Scene (crossfade) */}
       <div
-        className={`absolute inset-0 transition-all duration-1000 ease-out ${
-          imageTransitioning ? "opacity-100 scale-100" : "opacity-0 scale-110"
+        className={`absolute inset-0 transition-opacity duration-[800ms] ease-in-out ${
+          isTransitioning ? 'opacity-100' : 'opacity-0'
         }`}
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url(${nextImage})`,
-            filter: "brightness(0.5) saturate(0.9) contrast(1.1)",
+            backgroundImage: `url(${nextScene.image})`,
+            filter: 'brightness(0.55) saturate(0.9) contrast(1.1)',
           }}
         />
       </div>
 
-      {/* === OVERLAYS CINEMATOGRÁFICOS === */}
+      {/* Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.5)_70%,rgba(0,0,0,0.85)_100%)]" />
+      
+      {/* Letterbox */}
+      <div className="absolute top-0 left-0 right-0 h-[4%] bg-black" />
+      <div className="absolute bottom-0 left-0 right-0 h-[4%] bg-black" />
 
-      {/* Gradient base - dark premium */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/50" />
-
-      {/* Orange accent glow - sutil */}
+      {/* Film grain */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-20"
+        className="absolute inset-0 pointer-events-none opacity-[0.025] mix-blend-overlay"
         style={{
-          background: "radial-gradient(ellipse at 20% 80%, hsl(25 95% 50% / 0.15), transparent 50%)",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* Vignette forte */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_60%,rgba(0,0,0,0.85)_100%)]" />
-
-      {/* Film grain overlay */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Letterbox bars - cinematic aspect */}
-      <div className="absolute top-0 left-0 right-0 h-[5%] bg-black" />
-      <div className="absolute bottom-0 left-0 right-0 h-[5%] bg-black" />
-
-      {/* CTA glow effect - only on final block */}
-      {isCta && (
-        <div 
-          className="absolute inset-0 animate-pulse"
-          style={{
-            background: "radial-gradient(circle at 50% 70%, hsl(25 95% 50% / 0.08), transparent 45%)",
-          }}
-        />
-      )}
-
-      {/* Result block - warmer tone */}
-      {isResult && (
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(180deg, transparent 0%, hsl(30 40% 50% / 0.05) 100%)",
-          }}
-        />
-      )}
-
-      {/* === PROGRESS INDICATOR === */}
-      <div className="absolute bottom-[5%] left-0 right-0 h-[2px] bg-white/5 z-30">
-        <div
-          className="h-full transition-all duration-500 ease-out"
-          style={{ 
-            width: `${(activeSegment.id / segments.length) * 100}%`,
-            background: "linear-gradient(90deg, hsl(25 95% 50% / 0.3), hsl(25 95% 50% / 0.6))",
-          }}
-        />
-      </div>
-
-      {/* Block indicator - discreto */}
-      <div className="absolute bottom-[7%] left-1/2 -translate-x-1/2 flex gap-2 z-30">
-        {[1, 2, 3, 4, 5, 6].map((block) => (
-          <div
-            key={block}
-            className={`w-2 h-2 rounded-full transition-all duration-500 ${
-              activeSegment.block >= block 
-                ? "bg-orange-500/60" 
-                : "bg-white/10"
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Ken Burns keyframes */}
       <style>{`
         @keyframes kenBurns {
-          0% {
-            transform: scale(1) translate(0, 0);
-          }
-          100% {
-            transform: scale(1.08) translate(-1%, -1%);
-          }
+          0% { transform: scale(1) translate(0, 0); }
+          100% { transform: scale(1.1) translate(-1.5%, -1%); }
         }
       `}</style>
     </div>
