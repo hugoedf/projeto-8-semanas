@@ -3,10 +3,12 @@ import { ArrowRight, Shield, Clock, Sparkles } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
+import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 
 const IntermediateCTA = () => {
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
+  const { ctaVisible } = useCTAVisibility();
 
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
@@ -22,7 +24,7 @@ const IntermediateCTA = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 bg-gradient-to-b from-muted via-accent/5 to-muted">
+    <section className={`py-12 sm:py-16 bg-gradient-to-b from-muted via-accent/5 to-muted transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-2xl mx-auto text-center">
           {/* Badge */}

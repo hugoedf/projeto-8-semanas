@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MetaPixelProvider } from "@/components/MetaPixelProvider";
+import { CTAVisibilityProvider } from "@/contexts/CTAVisibilityContext";
 import Index from "./pages/Index";
 import TermsOfUse from "./pages/TermsOfUse";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -18,13 +19,15 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <MetaPixelProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/termos-de-uso" element={<TermsOfUse />} />
-            <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <CTAVisibilityProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/termos-de-uso" element={<TermsOfUse />} />
+              <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </CTAVisibilityProvider>
         </MetaPixelProvider>
       </BrowserRouter>
     </TooltipProvider>

@@ -4,6 +4,7 @@ import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
+import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 const benefits = ["Protocolos completos de treino para 8 semanas", "Progressão estruturada baseada em fisiologia", "Técnicas avançadas explicadas passo a passo", "Guia prático de nutrição para hipertrofia", "Mentalidade e disciplina para constância real", "Método de autoavaliação e ajustes contínuos", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia incondicional de 7 dias"];
 const CTA = () => {
   const {
@@ -12,6 +13,7 @@ const CTA = () => {
   const {
     visitorData
   } = useVisitorTracking();
+  const { ctaVisible } = useCTAVisibility();
   const handleCTAClick = () => {
     // 1. Base URL do checkout da Hotmart
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
@@ -43,7 +45,7 @@ const CTA = () => {
     // 5. Abrir checkout em nova aba
     window.location.href = checkoutUrl;
   };
-  return <section id="cta-section" className="py-20 sm:py-28 bg-background">
+  return <section id="cta-section" className={`py-20 sm:py-28 bg-background transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-14 items-center">
