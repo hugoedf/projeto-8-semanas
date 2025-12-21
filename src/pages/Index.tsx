@@ -13,29 +13,32 @@ import { DiagnosticPanel } from "@/components/DiagnosticPanel";
 import UrgencyBanner from "@/components/UrgencyBanner";
 import IntermediateCTA from "@/components/IntermediateCTA";
 import FloatingCTA from "@/components/FloatingCTA";
+import { VSLProvider } from "@/hooks/useVSLState";
 
 const Index = () => {
   
   return (
-    <main className="min-h-screen pt-10 sm:pt-11">
-      <UrgencyBanner />
-      <Hero />
-      <Problems />
-      <Benefits />
-      <Modules />
-      <Bonus />
-      <Testimonials />
-      <IntermediateCTA />
-      <ForWho />
-      <Guarantee />
-      <CTA />
-      <FAQ />
-      <Footer />
-      <FloatingCTA />
-      
-      {/* Painel de diagnóstico - apenas em desenvolvimento */}
-      {import.meta.env.DEV && <DiagnosticPanel />}
-    </main>
+    <VSLProvider>
+      <main className="min-h-screen pt-10 sm:pt-11">
+        <UrgencyBanner />
+        <Hero />
+        <Problems />
+        <Benefits />
+        <Modules />
+        <Bonus />
+        <Testimonials />
+        <IntermediateCTA />
+        <ForWho />
+        <Guarantee />
+        <CTA />
+        <FAQ />
+        <Footer />
+        <FloatingCTA />
+        
+        {/* Painel de diagnóstico - apenas em desenvolvimento */}
+        {import.meta.env.DEV && <DiagnosticPanel />}
+      </main>
+    </VSLProvider>
   );
 };
 
