@@ -1,12 +1,28 @@
 import { useState, useEffect, useRef } from "react";
 
-// Imagens CINEMATOGRÁFICAS FITNESS
-import scienceFiber from "@/assets/vsl-science-fiber-new.jpg";
-import scienceHologram from "@/assets/vsl-science-hologram-new.jpg";
-import scienceProtein from "@/assets/vsl-science-protein-new.jpg";
-import gymElite from "@/assets/vsl-gym-elite-new.jpg";
-import frustration from "@/assets/vsl-frustration-new.jpg";
-import appDevice from "@/assets/vsl-app-device-new.jpg";
+// BLOCO 1 — FRUSTRAÇÃO
+import block1Frustration from "@/assets/vsl-block1-frustration.jpg";
+import block1Stagnation from "@/assets/vsl-block1-stagnation.jpg";
+
+// BLOCO 2 — CONFLITO  
+import block2Autopilot from "@/assets/vsl-block2-autopilot.jpg";
+import block2Confusion from "@/assets/vsl-block2-confusion.jpg";
+
+// BLOCO 3 — VIRADA / CONSCIÊNCIA
+import block3Focus from "@/assets/vsl-block3-focus.jpg";
+import block3Awareness from "@/assets/vsl-block3-awareness.jpg";
+
+// BLOCO 4 — MÉTODO / CONTROLE
+import block4Technique from "@/assets/vsl-block4-technique.jpg";
+import block4Control from "@/assets/vsl-block4-control.jpg";
+
+// BLOCO 5 — RESULTADO
+import block5Confidence from "@/assets/vsl-block5-confidence.jpg";
+import block5Result from "@/assets/vsl-block5-result.jpg";
+
+// BLOCO 6 — DECISÃO / CTA
+import block6Cta from "@/assets/vsl-block6-cta.jpg";
+import block6Decision from "@/assets/vsl-block6-decision.jpg";
 
 interface Segment {
   id: number;
@@ -14,324 +30,220 @@ interface Segment {
   endTime: number;
   text: string;
   image: string;
+  block: number;
 }
 
 /*
-LEGENDAS = TRANSCRIÇÃO EXATA DO ÁUDIO
-Script original (~78 segundos de fala, velocidade 0.95x ≈ 82s):
+ESTRUTURA DA NARRATIVA VISUAL — 6 BLOCOS
+Sincronizável com áudio externo (~170 segundos total)
 
-"Você treina há meses, talvez anos. Segue planilhas, assiste vídeos, tenta fazer tudo certo. Mas quando olha no espelho, a frustração bate: cadê o resultado?
-
-A verdade é que 90% das pessoas treinam no modo automático. Fazem os exercícios, completam as séries, mas não entendem o que realmente faz o músculo crescer. E por isso, ficam estagnados.
-
-Eu também passei por isso. Até entender que hipertrofia não é sobre treinar mais. É sobre treinar com estratégia. Com ciência. Com intenção.
-
-Imagina chegar na academia sabendo exatamente o que fazer. Qual exercício priorizar. Quantas séries. Qual cadência. Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona.
-
-Isso é o Método 8X. Um e-book completo com 8 semanas de treino estruturado, mais um aplicativo exclusivo que guia cada treino seu. Sem achismos. Sem improviso.
-
-O que você vai aprender: os 4 pilares da hipertrofia que ninguém te ensinou. Os 7 erros que sabotam seus resultados. A técnica que maximiza cada repetição. E um plano de 8 semanas testado e aprovado.
-
-E o melhor: tudo isso por apenas 19 reais e 90 centavos. Menos que um suplemento que você compra todo mês. Com garantia de 7 dias. Se não gostar, devolvo seu dinheiro. Sem perguntas.
-
-Você pode continuar treinando do mesmo jeito e esperando resultados diferentes. Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução.
-
-Clica no botão abaixo. Seu futuro eu agradece."
-*/
-
-/*
-TIMING CALCULADO:
-- Duração total: ~165 segundos
-- Velocidade: 0.95x
-- Média: ~2.5 palavras/segundo em português falado
-
-Script dividido em frases com timing proporcional:
+BLOCO 1 (0-25s) — FRUSTRAÇÃO
+BLOCO 2 (25-45s) — CONFLITO  
+BLOCO 3 (45-65s) — VIRADA
+BLOCO 4 (65-100s) — MÉTODO
+BLOCO 5 (100-145s) — RESULTADO/OFERTA
+BLOCO 6 (145s+) — CTA FINAL
 */
 
 const segments: Segment[] = [
-  // === ABERTURA (0-15s) ===
+  // === BLOCO 1 — FRUSTRAÇÃO (0-25s) ===
   {
     id: 1,
     startTime: 0,
-    endTime: 3.5,
-    text: "Você treina há meses, talvez anos.",
-    image: frustration,
+    endTime: 8,
+    text: "",
+    image: block1Frustration,
+    block: 1,
   },
   {
     id: 2,
-    startTime: 3.5,
-    endTime: 9,
-    text: "Segue planilhas, assiste vídeos, tenta fazer tudo certo.",
-    image: frustration,
+    startTime: 8,
+    endTime: 16,
+    text: "",
+    image: block1Stagnation,
+    block: 1,
   },
   {
     id: 3,
-    startTime: 9,
-    endTime: 15,
-    text: "Mas quando olha no espelho, a frustração bate: cadê o resultado?",
-    image: frustration,
+    startTime: 16,
+    endTime: 25,
+    text: "",
+    image: block1Frustration,
+    block: 1,
   },
 
-  // === PROBLEMA (15-32s) ===
+  // === BLOCO 2 — CONFLITO (25-45s) ===
   {
     id: 4,
-    startTime: 15,
-    endTime: 21,
-    text: "A verdade é que 90% das pessoas treinam no modo automático.",
-    image: gymElite,
+    startTime: 25,
+    endTime: 32,
+    text: "",
+    image: block2Autopilot,
+    block: 2,
   },
   {
     id: 5,
-    startTime: 21,
-    endTime: 26,
-    text: "Fazem os exercícios, completam as séries,",
-    image: gymElite,
+    startTime: 32,
+    endTime: 38,
+    text: "",
+    image: block2Confusion,
+    block: 2,
   },
   {
     id: 6,
-    startTime: 26,
-    endTime: 32,
-    text: "mas não entendem o que realmente faz o músculo crescer.",
-    image: scienceFiber,
-  },
-  {
-    id: 7,
-    startTime: 32,
-    endTime: 36,
-    text: "E por isso, ficam estagnados.",
-    image: frustration,
+    startTime: 38,
+    endTime: 45,
+    text: "",
+    image: block1Stagnation,
+    block: 2,
   },
 
-  // === VIRADA (36-50s) ===
+  // === BLOCO 3 — VIRADA / CONSCIÊNCIA (45-65s) ===
+  {
+    id: 7,
+    startTime: 45,
+    endTime: 52,
+    text: "",
+    image: block3Focus,
+    block: 3,
+  },
   {
     id: 8,
-    startTime: 36,
-    endTime: 40,
-    text: "Eu também passei por isso.",
-    image: gymElite,
+    startTime: 52,
+    endTime: 58,
+    text: "",
+    image: block3Awareness,
+    block: 3,
   },
   {
     id: 9,
-    startTime: 40,
-    endTime: 46,
-    text: "Até entender que hipertrofia não é sobre treinar mais.",
-    image: scienceProtein,
-  },
-  {
-    id: 10,
-    startTime: 46,
-    endTime: 52,
-    text: "É sobre treinar com estratégia. Com ciência. Com intenção.",
-    image: scienceHologram,
+    startTime: 58,
+    endTime: 65,
+    text: "",
+    image: block3Focus,
+    block: 3,
   },
 
-  // === SOLUÇÃO (52-72s) ===
+  // === BLOCO 4 — MÉTODO / CONTROLE (65-100s) ===
+  {
+    id: 10,
+    startTime: 65,
+    endTime: 75,
+    text: "",
+    image: block4Technique,
+    block: 4,
+  },
   {
     id: 11,
-    startTime: 52,
-    endTime: 58,
-    text: "Imagina chegar na academia sabendo exatamente o que fazer.",
-    image: gymElite,
+    startTime: 75,
+    endTime: 85,
+    text: "",
+    image: block4Control,
+    block: 4,
   },
   {
     id: 12,
-    startTime: 58,
-    endTime: 62,
-    text: "Qual exercício priorizar.",
-    image: scienceHologram,
+    startTime: 85,
+    endTime: 92,
+    text: "",
+    image: block4Technique,
+    block: 4,
   },
   {
     id: 13,
-    startTime: 62,
-    endTime: 66,
-    text: "Quantas séries. Qual cadência.",
-    image: scienceFiber,
-  },
-  {
-    id: 14,
-    startTime: 66,
-    endTime: 74,
-    text: "Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona.",
-    image: scienceProtein,
+    startTime: 92,
+    endTime: 100,
+    text: "",
+    image: block4Control,
+    block: 4,
   },
 
-  // === MÉTODO (74-92s) ===
+  // === BLOCO 5 — RESULTADO / OFERTA (100-145s) ===
+  {
+    id: 14,
+    startTime: 100,
+    endTime: 110,
+    text: "",
+    image: block5Confidence,
+    block: 5,
+  },
   {
     id: 15,
-    startTime: 74,
-    endTime: 78,
-    text: "Isso é o Método 8X.",
-    image: appDevice,
+    startTime: 110,
+    endTime: 120,
+    text: "",
+    image: block5Result,
+    block: 5,
   },
   {
     id: 16,
-    startTime: 78,
-    endTime: 85,
-    text: "Um e-book completo com 8 semanas de treino estruturado,",
-    image: appDevice,
+    startTime: 120,
+    endTime: 130,
+    text: "",
+    image: block5Confidence,
+    block: 5,
   },
   {
     id: 17,
-    startTime: 85,
-    endTime: 92,
-    text: "mais um aplicativo exclusivo que guia cada treino seu.",
-    image: appDevice,
-  },
-  {
-    id: 18,
-    startTime: 92,
-    endTime: 96,
-    text: "Sem achismos. Sem improviso.",
-    image: scienceHologram,
+    startTime: 130,
+    endTime: 145,
+    text: "",
+    image: block5Result,
+    block: 5,
   },
 
-  // === CONTEÚDO (96-118s) ===
+  // === BLOCO 6 — DECISÃO / CTA FINAL (145s+) ===
+  {
+    id: 18,
+    startTime: 145,
+    endTime: 155,
+    text: "",
+    image: block1Frustration,
+    block: 6,
+  },
   {
     id: 19,
-    startTime: 96,
-    endTime: 100,
-    text: "O que você vai aprender:",
-    image: scienceHologram,
+    startTime: 155,
+    endTime: 165,
+    text: "",
+    image: block6Cta,
+    block: 6,
   },
   {
     id: 20,
-    startTime: 100,
-    endTime: 106,
-    text: "os 4 pilares da hipertrofia que ninguém te ensinou.",
-    image: scienceFiber,
-  },
-  {
-    id: 21,
-    startTime: 106,
-    endTime: 111,
-    text: "Os 7 erros que sabotam seus resultados.",
-    image: frustration,
-  },
-  {
-    id: 22,
-    startTime: 111,
-    endTime: 116,
-    text: "A técnica que maximiza cada repetição.",
-    image: scienceProtein,
-  },
-  {
-    id: 23,
-    startTime: 116,
-    endTime: 122,
-    text: "E um plano de 8 semanas testado e aprovado.",
-    image: appDevice,
-  },
-
-  // === OFERTA (122-142s) ===
-  {
-    id: 24,
-    startTime: 122,
-    endTime: 127,
-    text: "E o melhor: tudo isso por apenas",
-    image: appDevice,
-  },
-  {
-    id: 25,
-    startTime: 127,
-    endTime: 132,
-    text: "19 reais e 90 centavos.",
-    image: appDevice,
-  },
-  {
-    id: 26,
-    startTime: 132,
-    endTime: 138,
-    text: "Menos que um suplemento que você compra todo mês.",
-    image: gymElite,
-  },
-  {
-    id: 27,
-    startTime: 138,
-    endTime: 142,
-    text: "Com garantia de 7 dias.",
-    image: appDevice,
-  },
-  {
-    id: 28,
-    startTime: 142,
-    endTime: 149,
-    text: "Se não gostar, devolvo seu dinheiro. Sem perguntas.",
-    image: appDevice,
-  },
-
-  // === DECISÃO (149-162s) ===
-  {
-    id: 29,
-    startTime: 149,
-    endTime: 154,
-    text: "Você pode continuar treinando do mesmo jeito",
-    image: frustration,
-  },
-  {
-    id: 30,
-    startTime: 154,
-    endTime: 158,
-    text: "e esperando resultados diferentes.",
-    image: frustration,
-  },
-  {
-    id: 31,
-    startTime: 158,
-    endTime: 166,
-    text: "Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução.",
-    image: gymElite,
-  },
-
-  // === CTA FINAL (166s+) ===
-  {
-    id: 32,
-    startTime: 166,
-    endTime: 170,
-    text: "Clica no botão abaixo.",
-    image: appDevice,
-  },
-  {
-    id: 33,
-    startTime: 170,
+    startTime: 165,
     endTime: 999,
-    text: "Seu futuro eu agradece.",
-    image: gymElite,
+    text: "",
+    image: block6Decision,
+    block: 6,
   },
 ];
 
 interface VSLSlidesProps {
   currentTime: number;
-  /** Quantos segundos a legenda “adianta” em relação ao áudio (ex: 0.5) */
   captionLeadSeconds?: number;
-  /** Duração do fade in/out da legenda em ms */
   captionFadeMs?: number;
 }
 
 const VSLSlides = ({
   currentTime,
-  captionLeadSeconds = 2.5,
+  captionLeadSeconds = 0,
   captionFadeMs = 160,
 }: VSLSlidesProps) => {
   const [activeSegmentId, setActiveSegmentId] = useState(1);
   const [displayedImage, setDisplayedImage] = useState(segments[0].image);
   const [nextImage, setNextImage] = useState(segments[0].image);
   const [imageTransitioning, setImageTransitioning] = useState(false);
-  const [textVisible, setTextVisible] = useState(true);
   const prevImageRef = useRef(segments[0].image);
 
   useEffect(() => {
-    // Mostra a legenda ANTES do áudio (look-ahead) para eliminar “atraso percebido”.
     const t = Math.max(0, currentTime + captionLeadSeconds);
-
     const newSegment = segments.find((seg) => t >= seg.startTime && t < seg.endTime);
 
     if (newSegment && newSegment.id !== activeSegmentId) {
-      // Fade out rápido, troca o texto invisível e faz fade in no próximo frame.
-      setTextVisible(false);
       setActiveSegmentId(newSegment.id);
-      requestAnimationFrame(() => setTextVisible(true));
 
-      // Transição de imagem (só se mudou)
+      // Transição de imagem cinematográfica
       if (prevImageRef.current !== newSegment.image) {
         setNextImage(newSegment.image);
         setImageTransitioning(true);
@@ -339,105 +251,136 @@ const VSLSlides = ({
           setDisplayedImage(newSegment.image);
           prevImageRef.current = newSegment.image;
           setImageTransitioning(false);
-        }, 500);
+        }, 800); // Transição mais lenta e suave
       }
     }
   }, [currentTime, activeSegmentId, captionLeadSeconds]);
 
   const activeSegment = segments.find((s) => s.id === activeSegmentId) || segments[0];
-  const isPrice = activeSegment.id === 25;
-  const isCta = activeSegment.id >= 32;
+  const isCta = activeSegment.block === 6;
+  const isResult = activeSegment.block === 5;
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
       {/* === BACKGROUND LAYERS === */}
 
-      {/* Current Image */}
+      {/* Current Image - with Ken Burns effect */}
       <div
-        className={`absolute inset-0 transition-all duration-700 ease-out ${
-          imageTransitioning ? "opacity-0 scale-105" : "opacity-100 scale-100"
+        className={`absolute inset-0 transition-all duration-1000 ease-out ${
+          imageTransitioning ? "opacity-0 scale-110" : "opacity-100 scale-100"
         }`}
+        style={{
+          animation: !imageTransitioning ? "kenBurns 12s ease-in-out infinite alternate" : "none",
+        }}
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url(${displayedImage})`,
-            filter: "brightness(0.55) saturate(0.95)",
+            filter: "brightness(0.5) saturate(0.9) contrast(1.1)",
           }}
         />
       </div>
 
       {/* Next Image (crossfade) */}
       <div
-        className={`absolute inset-0 transition-all duration-700 ease-out ${
-          imageTransitioning ? "opacity-100 scale-100" : "opacity-0 scale-105"
+        className={`absolute inset-0 transition-all duration-1000 ease-out ${
+          imageTransitioning ? "opacity-100 scale-100" : "opacity-0 scale-110"
         }`}
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url(${nextImage})`,
-            filter: "brightness(0.55) saturate(0.95)",
+            filter: "brightness(0.5) saturate(0.9) contrast(1.1)",
           }}
         />
       </div>
 
-      {/* === OVERLAYS (suaves) === */}
+      {/* === OVERLAYS CINEMATOGRÁFICOS === */}
 
-      {/* Gradient base */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/35" />
+      {/* Gradient base - dark premium */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/50" />
 
-      {/* Scan lines effect (sutil) */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.02]"
+      {/* Orange accent glow - sutil */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-20"
         style={{
-          backgroundImage: `repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            hsl(var(--accent) / 0.06) 2px,
-            hsl(var(--accent) / 0.06) 4px
-          )`,
+          background: "radial-gradient(ellipse at 20% 80%, hsl(25 95% 50% / 0.15), transparent 50%)",
         }}
       />
 
-      {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.35)_75%,rgba(0,0,0,0.7)_100%)]" />
+      {/* Vignette forte */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_60%,rgba(0,0,0,0.85)_100%)]" />
 
-      {/* HUD corner accents */}
-      <div className="absolute top-4 left-4 w-16 h-16 border-l-2 border-t-2 border-accent/25 opacity-50" />
-      <div className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-accent/25 opacity-50" />
-      <div className="absolute bottom-20 left-4 w-16 h-16 border-l-2 border-b-2 border-accent/25 opacity-50" />
-      <div className="absolute bottom-20 right-4 w-16 h-16 border-r-2 border-b-2 border-accent/25 opacity-50" />
-
-      {/* Subtle grid overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.02]"
+      {/* Film grain overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay"
         style={{
-          backgroundImage: `
-            linear-gradient(hsl(var(--accent) / 0.10) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--accent) / 0.10) 1px, transparent 1px)
-          `,
-          backgroundSize: "56px 56px",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* CTA glow effect */}
+      {/* Letterbox bars - cinematic aspect */}
+      <div className="absolute top-0 left-0 right-0 h-[5%] bg-black" />
+      <div className="absolute bottom-0 left-0 right-0 h-[5%] bg-black" />
+
+      {/* CTA glow effect - only on final block */}
       {isCta && (
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,hsl(var(--accent)/0.12),transparent_55%)] animate-pulse" />
+        <div 
+          className="absolute inset-0 animate-pulse"
+          style={{
+            background: "radial-gradient(circle at 50% 70%, hsl(25 95% 50% / 0.08), transparent 45%)",
+          }}
+        />
       )}
 
-      {/* === LEGENDAS DESATIVADAS === */}
-
-      {/* === CTA INDICATOR REMOVIDO === */}
+      {/* Result block - warmer tone */}
+      {isResult && (
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(180deg, transparent 0%, hsl(30 40% 50% / 0.05) 100%)",
+          }}
+        />
+      )}
 
       {/* === PROGRESS INDICATOR === */}
-      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/5 z-30">
+      <div className="absolute bottom-[5%] left-0 right-0 h-[2px] bg-white/5 z-30">
         <div
-          className="h-full bg-gradient-to-r from-accent/40 to-accent transition-all duration-200 ease-out"
-          style={{ width: `${(activeSegment.id / segments.length) * 100}%` }}
+          className="h-full transition-all duration-500 ease-out"
+          style={{ 
+            width: `${(activeSegment.id / segments.length) * 100}%`,
+            background: "linear-gradient(90deg, hsl(25 95% 50% / 0.3), hsl(25 95% 50% / 0.6))",
+          }}
         />
       </div>
+
+      {/* Block indicator - discreto */}
+      <div className="absolute bottom-[7%] left-1/2 -translate-x-1/2 flex gap-2 z-30">
+        {[1, 2, 3, 4, 5, 6].map((block) => (
+          <div
+            key={block}
+            className={`w-2 h-2 rounded-full transition-all duration-500 ${
+              activeSegment.block >= block 
+                ? "bg-orange-500/60" 
+                : "bg-white/10"
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Ken Burns keyframes */}
+      <style>{`
+        @keyframes kenBurns {
+          0% {
+            transform: scale(1) translate(0, 0);
+          }
+          100% {
+            transform: scale(1.08) translate(-1%, -1%);
+          }
+        }
+      `}</style>
     </div>
   );
 };
