@@ -4,16 +4,15 @@ import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import VSLPlayer from "@/components/VSLPlayer";
-import { useVSLState } from "@/hooks/useVSLState";
-
+import { useState } from "react";
 const Hero = () => {
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
-  const { hasVSLEnded, setHasVSLEnded } = useVSLState();
+  const [vslEnded, setVslEnded] = useState(false);
 
   const handleVSLEnd = () => {
-    setHasVSLEnded(true);
-    console.log('📊 VSL completed - CTA unlocked');
+    setVslEnded(true);
+    console.log('📊 VSL completed - CTA emphasis activated');
   };
 
   const handleCTAClick = () => {
@@ -79,29 +78,27 @@ const Hero = () => {
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
             
-            {/* CTA Section - Só aparece após o vídeo terminar */}
-            {hasVSLEnded && (
-              <div className="order-5 space-y-4 animate-fade-in">
-                <Button 
-                  variant="cta" 
-                  size="lg" 
-                  onClick={handleCTAClick} 
-                  className="text-base sm:text-lg px-8 sm:px-12 py-6 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase animate-pulse-glow ring-2 ring-accent/50"
-                >
-                  QUERO COMEÇAR AGORA
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-                
-                {/* Preço + Oferta - Uma linha só */}
-                <p className="text-sm sm:text-base text-white/70">
-                  <span className="text-accent font-semibold">R$ 19,90</span>
-                  <span className="mx-2">•</span>
-                  <span>E-book + App 8X incluso</span>
-                  <span className="mx-2">•</span>
-                  <span>Garantia de 7 dias</span>
-                </p>
-              </div>
-            )}
+            {/* CTA Section - Limpo e focado */}
+            <div className={`order-5 space-y-4 transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
+              <Button 
+                variant="cta" 
+                size="lg" 
+                onClick={handleCTAClick} 
+                className={`text-base sm:text-lg px-8 sm:px-12 py-6 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
+              >
+                QUERO COMEÇAR AGORA
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+              
+              {/* Preço + Oferta - Uma linha só */}
+              <p className="text-sm sm:text-base text-white/70">
+                <span className="text-accent font-semibold">R$ 19,90</span>
+                <span className="mx-2">•</span>
+                <span>E-book + App 8X incluso</span>
+                <span className="mx-2">•</span>
+                <span>Garantia de 7 dias</span>
+              </p>
+            </div>
           </div>
           
           {/* VSL Player - Desktop only */}

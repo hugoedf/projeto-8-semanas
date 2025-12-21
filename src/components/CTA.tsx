@@ -4,17 +4,14 @@ import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-import { useVSLState } from "@/hooks/useVSLState";
-
 const benefits = ["Protocolos completos de treino para 8 semanas", "Progressão estruturada baseada em fisiologia", "Técnicas avançadas explicadas passo a passo", "Guia prático de nutrição para hipertrofia", "Mentalidade e disciplina para constância real", "Método de autoavaliação e ajustes contínuos", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia incondicional de 7 dias"];
-
 const CTA = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  const { hasVSLEnded } = useVSLState();
-
-  // Não renderiza se o VSL não terminou
-  if (!hasVSLEnded) return null;
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     // 1. Base URL do checkout da Hotmart
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
