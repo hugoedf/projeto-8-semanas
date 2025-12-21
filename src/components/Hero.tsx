@@ -5,10 +5,12 @@ import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import VSLPlayer from "@/components/VSLPlayer";
 import { useState } from "react";
+import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 const Hero = () => {
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
   const [vslEnded, setVslEnded] = useState(false);
+  const { ctaVisible } = useCTAVisibility();
 
   const handleVSLEnd = () => {
     setVslEnded(true);
@@ -79,7 +81,7 @@ const Hero = () => {
             </div>
             
             {/* CTA Section - Limpo e focado */}
-            <div className={`order-5 space-y-4 transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
+            <div className={`order-5 space-y-4 transition-all duration-500 ${vslEnded ? 'scale-105' : ''} ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
               <Button 
                 variant="cta" 
                 size="lg" 

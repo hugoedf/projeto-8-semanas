@@ -3,11 +3,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, X } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
+import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 
 const FloatingCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const { trackInitiateCheckout } = useMetaPixel();
+  const { ctaVisible } = useCTAVisibility();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +44,7 @@ const FloatingCTA = () => {
     setIsVisible(false);
   };
 
-  if (!isVisible) return null;
+  if (!isVisible || !ctaVisible) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden animate-slide-in-bottom">

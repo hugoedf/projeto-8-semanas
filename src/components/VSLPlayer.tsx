@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Play, Pause, Maximize, Volume2, VolumeX } from "lucide-react";
 import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
+import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 
 interface VSLPlayerProps {
   onVideoEnd?: () => void;
@@ -20,6 +21,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const milestonesRef = useRef<Set<number>>(new Set());
   const controlsTimeoutRef = useRef<number | null>(null);
+  const { reportVideoTime } = useCTAVisibility();
 
   const startPlayback = async () => {
     if (!videoRef.current || isPlaying) return;
@@ -93,6 +95,9 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     setCurrentTime(videoCurrentTime);
     setDuration(videoDuration);
     onProgress?.(currentProgress);
+
+    // Report video time for CTA visibility
+    reportVideoTime(videoCurrentTime);
 
     // Track milestones
     const milestones = [25, 50, 75, 100];
