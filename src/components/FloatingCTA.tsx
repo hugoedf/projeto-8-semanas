@@ -3,13 +3,21 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, X } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
+import { useVSLState } from "@/hooks/useVSLState";
 
 const FloatingCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const { trackInitiateCheckout } = useMetaPixel();
+  const { hasVSLEnded } = useVSLState();
 
   useEffect(() => {
+    // Só mostra se o VSL terminou
+    if (!hasVSLEnded) {
+      setIsVisible(false);
+      return;
+    }
+
     const handleScroll = () => {
       const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
       
@@ -23,7 +31,7 @@ const FloatingCTA = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isDismissed]);
+  }, [isDismissed, hasVSLEnded]);
 
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
