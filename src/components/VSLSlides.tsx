@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 
-// Imagens HIGH-TECH + Academia
-import scienceFiber from "@/assets/vsl-science-muscle-fiber.jpg";
-import scienceHologram from "@/assets/vsl-science-hologram.jpg";
-import scienceProtein from "@/assets/vsl-science-protein.jpg";
-import gymElite from "@/assets/vsl-gym-elite.jpg";
-import frustration from "@/assets/vsl-frustration.jpg";
-import appDevice from "@/assets/vsl-app-device.jpg";
+// Imagens CINEMATOGRÁFICAS FITNESS
+import scienceFiber from "@/assets/vsl-science-fiber-new.jpg";
+import scienceHologram from "@/assets/vsl-science-hologram-new.jpg";
+import scienceProtein from "@/assets/vsl-science-protein-new.jpg";
+import gymElite from "@/assets/vsl-gym-elite-new.jpg";
+import frustration from "@/assets/vsl-frustration-new.jpg";
+import appDevice from "@/assets/vsl-app-device-new.jpg";
 
 interface Segment {
   id: number;
