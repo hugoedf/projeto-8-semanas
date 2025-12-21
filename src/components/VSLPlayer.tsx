@@ -54,16 +54,21 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       {/* Player Container */}
       <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.8)]">
         
-        {/* Video Element */}
+        {/* Video Element with format fallback */}
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
-          src="/videos/vsl-main.mov"
           playsInline
           preload="metadata"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
-        />
+        >
+          {/* MP4 first (best compatibility) */}
+          <source src="/videos/vsl-main.mp4" type="video/mp4" />
+          {/* MOV fallback (Safari/Apple devices) */}
+          <source src="/videos/vsl-main.mov" type="video/quicktime" />
+          Seu navegador não suporta vídeos.
+        </video>
 
         {/* Pre-start overlay */}
         {!isPlaying && !hasEnded && (
