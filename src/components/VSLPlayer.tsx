@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
-import { Play } from "lucide-react";
+import { Play, Volume2, VolumeX } from "lucide-react";
 import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
+import VSLAudioVisualLayer from "./VSLAudioVisualLayer";
+import { useVSLAudio } from "@/hooks/useVSLAudio";
 
 interface VSLPlayerProps {
   onVideoEnd?: () => void;
@@ -10,8 +12,18 @@ interface VSLPlayerProps {
 const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasEnded, setHasEnded] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [sfxEnabled, setSfxEnabled] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const milestonesRef = useRef<Set<number>>(new Set());
+
+  // Hook para efeitos sonoros
+  useVSLAudio({
+    isPlaying: isPlaying && sfxEnabled,
+    currentTime,
+    volume: 0.3,
+  });
 
   const startPlayback = async () => {
     if (!videoRef.current || isPlaying) return;
@@ -28,8 +40,13 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     if (!videoRef.current) return;
     
     const video = videoRef.current;
-    const duration = video.duration || 0;
-    const currentProgress = duration > 0 ? (video.currentTime / duration) * 100 : 0;
+    const videoDuration = video.duration || 0;
+    const videoCurrentTime = video.currentTime || 0;
+    const currentProgress = videoDuration > 0 ? (videoCurrentTime / videoDuration) * 100 : 0;
+    
+    // Atualiza estados para camada audiovisual
+    setCurrentTime(videoCurrentTime);
+    setDuration(videoDuration);
     
     onProgress?.(currentProgress);
 
@@ -63,6 +80,11 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           preload="metadata"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
+          onLoadedMetadata={() => {
+            if (videoRef.current) {
+              setDuration(videoRef.current.duration);
+            }
+          }}
         >
           {/* MP4 first (best compatibility) */}
           <source src="/videos/vsl-main.mp4" type="video/mp4" />
@@ -70,6 +92,15 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           <source src="/videos/vsl-main.mov" type="video/quicktime" />
           Seu navegador não suporta vídeos.
         </video>
+
+        {/* Camada de efeitos audiovisuais */}
+        {isPlaying && (
+          <VSLAudioVisualLayer
+            isPlaying={isPlaying}
+            currentTime={currentTime}
+            duration={duration}
+          />
+        )}
 
         {/* Pre-start overlay */}
         {!isPlaying && !hasEnded && (
@@ -124,6 +155,21 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
               </p>
             </div>
           </>
+        )}
+
+        {/* Botão de toggle SFX (durante reprodução) */}
+        {isPlaying && (
+          <button
+            onClick={() => setSfxEnabled(!sfxEnabled)}
+            className="absolute top-3 right-3 z-30 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+            aria-label={sfxEnabled ? "Desativar efeitos sonoros" : "Ativar efeitos sonoros"}
+          >
+            {sfxEnabled ? (
+              <Volume2 className="w-4 h-4 text-white/70" />
+            ) : (
+              <VolumeX className="w-4 h-4 text-white/50" />
+            )}
+          </button>
         )}
       </div>
 
