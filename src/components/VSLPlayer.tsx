@@ -1,7 +1,6 @@
-import { useRef, useState } from "react";
-import { Play, Volume2, VolumeX } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { Play, Pause, Maximize, Volume2, VolumeX } from "lucide-react";
 import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
-import { useVSLBackgroundMusic } from "@/hooks/useVSLBackgroundMusic";
 
 interface VSLPlayerProps {
   onVideoEnd?: () => void;
@@ -11,15 +10,16 @@ interface VSLPlayerProps {
 const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasEnded, setHasEnded] = useState(false);
-  const [musicEnabled, setMusicEnabled] = useState(true);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [showControls, setShowControls] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const milestonesRef = useRef<Set<number>>(new Set());
-
-  // Hook para música de fundo minimalista
-  const { isLoading: musicLoading } = useVSLBackgroundMusic({
-    isPlaying: isPlaying && musicEnabled,
-    volume: 0.12, // Volume baixo para não competir com narração
-  });
+  const controlsTimeoutRef = useRef<number | null>(null);
 
   const startPlayback = async () => {
     if (!videoRef.current || isPlaying) return;
@@ -27,9 +27,57 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     try {
       await videoRef.current.play();
       setIsPlaying(true);
+      setHasStarted(true);
     } catch (error) {
       console.error("Error playing video:", error);
     }
+  };
+
+  const togglePlayPause = async () => {
+    if (!videoRef.current) return;
+    
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      try {
+        await videoRef.current.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.error("Error playing video:", error);
+      }
+    }
+  };
+
+  const toggleMute = () => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
+  };
+
+  const toggleFullscreen = async () => {
+    if (!containerRef.current) return;
+    
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else {
+        await containerRef.current.requestFullscreen();
+      }
+    } catch (error) {
+      console.error("Fullscreen error:", error);
+    }
+  };
+
+  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!videoRef.current) return;
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickPosition = (e.clientX - rect.left) / rect.width;
+    const newTime = clickPosition * duration;
+    
+    videoRef.current.currentTime = newTime;
+    setCurrentTime(newTime);
   };
 
   const handleTimeUpdate = () => {
@@ -40,6 +88,9 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     const videoCurrentTime = video.currentTime || 0;
     const currentProgress = videoDuration > 0 ? (videoCurrentTime / videoDuration) * 100 : 0;
     
+    setProgress(currentProgress);
+    setCurrentTime(videoCurrentTime);
+    setDuration(videoDuration);
     onProgress?.(currentProgress);
 
     // Track milestones
@@ -59,8 +110,41 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     console.log("🏁 VSL ended");
   };
 
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
+
+  const handleMouseMove = () => {
+    setShowControls(true);
+    
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+    
+    controlsTimeoutRef.current = window.setTimeout(() => {
+      if (isPlaying) {
+        setShowControls(false);
+      }
+    }, 3000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="relative w-full max-w-3xl mx-auto">
+    <div 
+      ref={containerRef}
+      className="relative w-full max-w-3xl mx-auto group"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => isPlaying && setShowControls(false)}
+    >
       {/* Player Container */}
       <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.8)]">
         
@@ -72,6 +156,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           preload="metadata"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
+          onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
         >
           {/* MP4 first (best compatibility) */}
           <source src="/videos/vsl-main.mp4" type="video/mp4" />
@@ -81,7 +166,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         </video>
 
         {/* Pre-start overlay */}
-        {!isPlaying && !hasEnded && (
+        {!hasStarted && (
           <>
             {/* Thumbnail background */}
             <div 
@@ -135,19 +220,89 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           </>
         )}
 
-        {/* Botão de toggle música (durante reprodução) */}
-        {isPlaying && (
-          <button
-            onClick={() => setMusicEnabled(!musicEnabled)}
-            className="absolute top-3 right-3 z-30 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
-            aria-label={musicEnabled ? "Desativar música de fundo" : "Ativar música de fundo"}
+        {/* Custom Controls Overlay (when video has started) */}
+        {hasStarted && (
+          <div 
+            className={`absolute inset-0 transition-opacity duration-300 ${
+              showControls || !isPlaying ? "opacity-100" : "opacity-0"
+            }`}
           >
-            {musicEnabled ? (
-              <Volume2 className="w-4 h-4 text-white/70" />
-            ) : (
-              <VolumeX className="w-4 h-4 text-white/50" />
-            )}
-          </button>
+            {/* Center play/pause button */}
+            <div 
+              className="absolute inset-0 flex items-center justify-center cursor-pointer"
+              onClick={togglePlayPause}
+            >
+              {!isPlaying && (
+                <button
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center border border-white/20 hover:border-accent/50 transition-all hover:scale-110"
+                  aria-label={isPlaying ? "Pausar" : "Reproduzir"}
+                >
+                  <Play className="w-8 h-8 text-white ml-1" fill="currentColor" />
+                </button>
+              )}
+            </div>
+
+            {/* Bottom controls bar */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-4 pb-3 pt-10">
+              {/* Progress bar */}
+              <div 
+                className="w-full h-1.5 bg-white/20 rounded-full cursor-pointer mb-3 group/progress"
+                onClick={handleProgressClick}
+              >
+                <div 
+                  className="h-full bg-accent rounded-full relative transition-all"
+                  style={{ width: `${progress}%` }}
+                >
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-accent rounded-full opacity-0 group-hover/progress:opacity-100 transition-opacity shadow-lg" />
+                </div>
+              </div>
+
+              {/* Controls row */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  {/* Play/Pause */}
+                  <button
+                    onClick={togglePlayPause}
+                    className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
+                    aria-label={isPlaying ? "Pausar" : "Reproduzir"}
+                  >
+                    {isPlaying ? (
+                      <Pause className="w-5 h-5 text-white" />
+                    ) : (
+                      <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
+                    )}
+                  </button>
+
+                  {/* Volume */}
+                  <button
+                    onClick={toggleMute}
+                    className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
+                    aria-label={isMuted ? "Ativar som" : "Silenciar"}
+                  >
+                    {isMuted ? (
+                      <VolumeX className="w-5 h-5 text-white/70" />
+                    ) : (
+                      <Volume2 className="w-5 h-5 text-white" />
+                    )}
+                  </button>
+
+                  {/* Time */}
+                  <span className="text-white/70 text-xs font-mono">
+                    {formatTime(currentTime)} / {formatTime(duration)}
+                  </span>
+                </div>
+
+                {/* Fullscreen */}
+                <button
+                  onClick={toggleFullscreen}
+                  className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
+                  aria-label="Tela cheia"
+                >
+                  <Maximize className="w-5 h-5 text-white" />
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 
