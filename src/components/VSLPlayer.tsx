@@ -247,6 +247,18 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           </>
         )}
 
+        {/* Pulsing "Ativar Som" button when muted */}
+        {hasStarted && isMuted && isPlaying && (
+          <button
+            onClick={toggleMute}
+            className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full font-semibold text-sm shadow-lg animate-pulse hover:scale-105 transition-transform"
+            style={{ boxShadow: '0 0 20px hsl(var(--accent) / 0.5)' }}
+          >
+            <Volume2 className="w-4 h-4" />
+            Ativar Som
+          </button>
+        )}
+
         {/* Custom Controls Overlay (when video has started) */}
         {hasStarted && (
           <div 
