@@ -76,19 +76,34 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     const video = videoRef.current;
     if (!video) return;
 
+    // Handle when video actually starts playing
+    const handlePlay = () => {
+      setIsPlaying(true);
+      setHasStarted(true);
+      console.log('▶️ Vídeo iniciado');
+    };
+
+    video.addEventListener('play', handlePlay);
+
     const attemptAutoplay = async () => {
       try {
         video.muted = true;
+        setIsMuted(true);
         await video.play();
-        setIsPlaying(true);
-        setHasStarted(true);
         console.log('▶️ Autoplay iniciado (muted)');
       } catch (error) {
         console.log('⏸️ Autoplay bloqueado pelo navegador:', error);
+        // If autoplay fails, user will need to click play button
       }
     };
 
-    attemptAutoplay();
+    // Small delay to ensure video element is ready
+    const timer = setTimeout(attemptAutoplay, 100);
+
+    return () => {
+      video.removeEventListener('play', handlePlay);
+      clearTimeout(timer);
+    };
   }, []);
 
   // Block seeking via keyboard
