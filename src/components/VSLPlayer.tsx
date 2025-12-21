@@ -12,7 +12,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasEnded, setHasEnded] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -70,6 +70,26 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       console.error("Fullscreen error:", error);
     }
   };
+
+  // Autoplay on mount (muted)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const attemptAutoplay = async () => {
+      try {
+        video.muted = true;
+        await video.play();
+        setIsPlaying(true);
+        setHasStarted(true);
+        console.log('▶️ Autoplay iniciado (muted)');
+      } catch (error) {
+        console.log('⏸️ Autoplay bloqueado pelo navegador:', error);
+      }
+    };
+
+    attemptAutoplay();
+  }, []);
 
   // Block seeking via keyboard
   useEffect(() => {
@@ -159,7 +179,8 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
           playsInline
-          preload="metadata"
+          muted
+          preload="auto"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
           onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
