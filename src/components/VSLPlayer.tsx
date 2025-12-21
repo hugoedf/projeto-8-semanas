@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Play } from "lucide-react";
+import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
 
 interface VSLPlayerProps {
   onVideoEnd?: () => void;
@@ -73,8 +74,11 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         {/* Pre-start overlay */}
         {!isPlaying && !hasEnded && (
           <>
-            {/* Dark cinematic background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-black via-zinc-900 to-black" />
+            {/* Thumbnail background */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${vslThumbnail})` }}
+            />
 
             {/* Vignette */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.5)_70%,rgba(0,0,0,0.9)_100%)]" />
