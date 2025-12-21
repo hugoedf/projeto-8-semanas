@@ -69,16 +69,17 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     }
   };
 
-  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!videoRef.current) return;
+  // Block seeking via keyboard
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        e.preventDefault();
+      }
+    };
     
-    const rect = e.currentTarget.getBoundingClientRect();
-    const clickPosition = (e.clientX - rect.left) / rect.width;
-    const newTime = clickPosition * duration;
-    
-    videoRef.current.currentTime = newTime;
-    setCurrentTime(newTime);
-  };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleTimeUpdate = () => {
     if (!videoRef.current) return;
@@ -244,17 +245,12 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
             {/* Bottom controls bar */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-4 pb-3 pt-10">
-              {/* Progress bar */}
-              <div 
-                className="w-full h-1.5 bg-white/20 rounded-full cursor-pointer mb-3 group/progress"
-                onClick={handleProgressClick}
-              >
+              {/* Progress bar (read-only, no seeking) */}
+              <div className="w-full h-1.5 bg-white/20 rounded-full mb-3">
                 <div 
-                  className="h-full bg-accent rounded-full relative transition-all"
+                  className="h-full bg-accent rounded-full transition-all"
                   style={{ width: `${progress}%` }}
-                >
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-accent rounded-full opacity-0 group-hover/progress:opacity-100 transition-opacity shadow-lg" />
-                </div>
+                />
               </div>
 
               {/* Controls row */}
