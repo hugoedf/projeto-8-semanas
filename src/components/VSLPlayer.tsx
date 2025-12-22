@@ -262,6 +262,19 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           </>
         )}
 
+        {/* Unmute Overlay - Shows when video is playing muted */}
+        {hasStarted && isMuted && isPlaying && (
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30">
+            <button
+              onClick={toggleMute}
+              className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-3 rounded-full shadow-2xl animate-pulse transition-all duration-300 hover:scale-105"
+            >
+              <VolumeX className="w-6 h-6" />
+              <span className="text-base font-bold uppercase tracking-wide">Ativar Som</span>
+            </button>
+          </div>
+        )}
+
         {/* Custom Controls Overlay (when video has started) */}
         {hasStarted && (
           <div 
