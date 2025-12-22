@@ -15,6 +15,9 @@ verify_jwt = false
 [functions.elevenlabs-vsl]
 verify_jwt = false
 
+[functions.dashboard-auth]
+verify_jwt = false
+
 [functions.dashboard-events]
 verify_jwt = false
 

@@ -116,6 +116,14 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [days, setDays] = useState(30);
+  
+  // Password protection state
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return sessionStorage.getItem('dashboard_auth') === 'true';
+  });
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -137,8 +145,36 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [days]);
+    if (isAuthenticated) {
+      fetchData();
+    }
+  }, [days, isAuthenticated]);
+
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthLoading(true);
+    setAuthError('');
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('dashboard-auth', {
+        body: { password },
+      });
+      
+      if (error) throw error;
+      
+      if (data?.success) {
+        sessionStorage.setItem('dashboard_auth', 'true');
+        setIsAuthenticated(true);
+      } else {
+        setAuthError(data?.error || 'Senha incorreta');
+      }
+    } catch (err) {
+      console.error('Auth error:', err);
+      setAuthError('Erro ao verificar senha');
+    } finally {
+      setAuthLoading(false);
+    }
+  };
 
   const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
     if (trend === 'up') return <TrendingUp className="w-5 h-5 text-green-500" />;
@@ -191,6 +227,53 @@ export default function Dashboard() {
     </div>
   );
 
+
+  // Password protection screen
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl">Dashboard Protegido</CardTitle>
+            <p className="text-muted-foreground text-sm mt-2">
+              Digite a senha para acessar o dashboard
+            </p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handlePasswordSubmit} className="space-y-4">
+              <div>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Senha"
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                  autoFocus
+                />
+              </div>
+              {authError && (
+                <p className="text-sm text-destructive text-center">{authError}</p>
+              )}
+              <Button 
+                type="submit" 
+                className="w-full" 
+                disabled={authLoading || !password}
+              >
+                {authLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Verificando...
+                  </>
+                ) : (
+                  'Acessar Dashboard'
+                )}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
