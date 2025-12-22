@@ -11,6 +11,9 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Event types for the full funnel
+const FUNNEL_EVENTS = ['PageView', 'VSLStart', 'VSL15s', 'VSL30s', 'CTAClick', 'InitiateCheckout', 'Purchase'];
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -22,7 +25,9 @@ serve(async (req) => {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
 
-    // Get events overview
+    console.log(`Fetching events for last ${days} days, since ${startDate.toISOString()}`);
+
+    // Get events
     const { data: events, error: eventsError } = await supabase
       .from('meta_events')
       .select('*')
@@ -36,6 +41,8 @@ serve(async (req) => {
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    console.log(`Found ${events?.length || 0} events`);
 
     // Calculate metrics
     const eventCounts: Record<string, number> = {};
@@ -56,17 +63,50 @@ serve(async (req) => {
       if (event.visitor_id) uniqueVisitors.add(event.visitor_id);
 
       // Sum values
-      if (event.value) totalValue += parseFloat(event.value);
+      if (event.value) totalValue += parseFloat(String(event.value));
     });
 
-    // Calculate funnel
-    const pageViews = eventCounts['PageView'] || 0;
-    const viewContent = eventCounts['ViewContent'] || 0;
-    const initiateCheckout = eventCounts['InitiateCheckout'] || 0;
-    const purchases = eventCounts['Purchase'] || 0;
+    // Calculate full funnel with all stages
+    const funnelData = {
+      pageViews: eventCounts['PageView'] || 0,
+      vslStart: eventCounts['VSLStart'] || 0,
+      vsl15s: eventCounts['VSL15s'] || 0,
+      vsl30s: eventCounts['VSL30s'] || 0,
+      ctaClick: eventCounts['CTAClick'] || 0,
+      initiateCheckout: eventCounts['InitiateCheckout'] || 0,
+      purchases: eventCounts['Purchase'] || 0,
+    };
+
+    // Calculate conversion rates between stages
+    const calcRate = (current: number, previous: number) => 
+      previous > 0 ? ((current / previous) * 100).toFixed(1) : '0.0';
+    
+    const calcDropoff = (current: number, previous: number) =>
+      previous > 0 ? ((1 - current / previous) * 100).toFixed(1) : '0.0';
+
+    const funnelRates = {
+      pageToVslStart: calcRate(funnelData.vslStart, funnelData.pageViews),
+      vslStartTo15s: calcRate(funnelData.vsl15s, funnelData.vslStart),
+      vsl15sTo30s: calcRate(funnelData.vsl30s, funnelData.vsl15s),
+      vsl30sToCta: calcRate(funnelData.ctaClick, funnelData.vsl30s),
+      ctaToCheckout: calcRate(funnelData.initiateCheckout, funnelData.ctaClick),
+      checkoutToPurchase: calcRate(funnelData.purchases, funnelData.initiateCheckout),
+      overallConversion: calcRate(funnelData.purchases, funnelData.pageViews),
+    };
+
+    const dropoffs = {
+      pageToVslStart: calcDropoff(funnelData.vslStart, funnelData.pageViews),
+      vslStartTo15s: calcDropoff(funnelData.vsl15s, funnelData.vslStart),
+      vsl15sTo30s: calcDropoff(funnelData.vsl30s, funnelData.vsl15s),
+      vsl30sToCta: calcDropoff(funnelData.ctaClick, funnelData.vsl30s),
+      ctaToCheckout: calcDropoff(funnelData.initiateCheckout, funnelData.ctaClick),
+      checkoutToPurchase: calcDropoff(funnelData.purchases, funnelData.initiateCheckout),
+    };
 
     // Calculate conversion rate
-    const conversionRate = pageViews > 0 ? ((purchases / pageViews) * 100).toFixed(2) : '0.00';
+    const conversionRate = funnelData.pageViews > 0 
+      ? ((funnelData.purchases / funnelData.pageViews) * 100).toFixed(2) 
+      : '0.00';
 
     // Calculate 7-day comparison
     const sevenDaysAgo = new Date();
@@ -80,10 +120,37 @@ serve(async (req) => {
       return date >= fourteenDaysAgo && date < sevenDaysAgo;
     }) || [];
 
+    // Calculate detailed weekly comparison by event type
+    const last7EventCounts: Record<string, number> = {};
+    const prev7EventCounts: Record<string, number> = {};
+    let last7Value = 0;
+    let prev7Value = 0;
+
+    last7Days.forEach(e => {
+      last7EventCounts[e.event_name] = (last7EventCounts[e.event_name] || 0) + 1;
+      if (e.value) last7Value += parseFloat(String(e.value));
+    });
+
+    prev7Days.forEach(e => {
+      prev7EventCounts[e.event_name] = (prev7EventCounts[e.event_name] || 0) + 1;
+      if (e.value) prev7Value += parseFloat(String(e.value));
+    });
+
     const last7DaysCount = last7Days.length;
     const prev7DaysCount = prev7Days.length;
     const weekOverWeekChange = prev7DaysCount > 0 
       ? (((last7DaysCount - prev7DaysCount) / prev7DaysCount) * 100).toFixed(1)
+      : '0.0';
+
+    // Calculate week over week for conversions
+    const last7Purchases = last7EventCounts['Purchase'] || 0;
+    const prev7Purchases = prev7EventCounts['Purchase'] || 0;
+    const purchaseWoWChange = prev7Purchases > 0
+      ? (((last7Purchases - prev7Purchases) / prev7Purchases) * 100).toFixed(1)
+      : '0.0';
+
+    const valueWoWChange = prev7Value > 0
+      ? (((last7Value - prev7Value) / prev7Value) * 100).toFixed(1)
       : '0.0';
 
     // Calculate trend (last 3 days vs previous 3 days)
@@ -102,6 +169,15 @@ serve(async (req) => {
     if (last3Days.length > prev3Days.length * 1.1) trend = 'up';
     else if (last3Days.length < prev3Days.length * 0.9) trend = 'down';
 
+    // Calculate historical averages for alerts
+    const avgDailyEvents = Object.keys(dailyEvents).length > 0
+      ? (events?.length || 0) / Object.keys(dailyEvents).length
+      : 0;
+    
+    const avgDailyConversions = Object.keys(dailyEvents).length > 0
+      ? funnelData.purchases / Object.keys(dailyEvents).length
+      : 0;
+
     // Calculate alerts
     const alerts: Array<{ type: string; message: string; severity: 'warning' | 'error' | 'info' }> = [];
 
@@ -114,27 +190,37 @@ serve(async (req) => {
       });
     }
 
+    // Check for conversion drop
+    if (parseFloat(purchaseWoWChange) < -50 && prev7Purchases > 0) {
+      alerts.push({
+        type: 'conversion_drop',
+        message: `Queda brusca de ${Math.abs(parseFloat(purchaseWoWChange))}% nas conversões em relação à semana anterior`,
+        severity: 'error'
+      });
+    }
+
     // Check for unusual spikes
     if (parseFloat(weekOverWeekChange) > 100) {
       alerts.push({
         type: 'spike',
-        message: `Aumento de ${weekOverWeekChange}% nos eventos em relação à semana anterior`,
+        message: `Pico anormal: aumento de ${weekOverWeekChange}% nos eventos em relação à semana anterior`,
         severity: 'warning'
       });
     }
 
     // Check for low conversion rate
-    if (pageViews > 100 && parseFloat(conversionRate) < 1) {
+    if (funnelData.pageViews > 100 && parseFloat(conversionRate) < 1) {
       alerts.push({
         type: 'low_conversion',
-        message: 'Taxa de conversão abaixo de 1%',
+        message: 'Taxa de conversão abaixo de 1% - abaixo da média histórica',
         severity: 'warning'
       });
     }
 
     // Check for no recent events
     const today = new Date().toISOString().split('T')[0];
-    if (!dailyEvents[today] || Object.values(dailyEvents[today]).reduce((a, b) => a + b, 0) === 0) {
+    const todayEvents = dailyEvents[today] ? Object.values(dailyEvents[today]).reduce((a, b) => a + b, 0) : 0;
+    if (todayEvents === 0) {
       alerts.push({
         type: 'no_events',
         message: 'Nenhum evento registrado hoje',
@@ -142,13 +228,25 @@ serve(async (req) => {
       });
     }
 
-    // Format daily data for charts
+    // Check for high funnel drop-off
+    if (parseFloat(dropoffs.vslStartTo15s) > 70 && funnelData.vslStart > 10) {
+      alerts.push({
+        type: 'high_dropoff',
+        message: `Alta desistência (${dropoffs.vslStartTo15s}%) entre início do VSL e 15 segundos`,
+        severity: 'warning'
+      });
+    }
+
+    // Format daily data for charts - include all event types
     const chartData = Object.entries(dailyEvents)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([date, counts]) => ({
         date,
         PageView: counts['PageView'] || 0,
-        ViewContent: counts['ViewContent'] || 0,
+        VSLStart: counts['VSLStart'] || 0,
+        VSL15s: counts['VSL15s'] || 0,
+        VSL30s: counts['VSL30s'] || 0,
+        CTAClick: counts['CTAClick'] || 0,
         InitiateCheckout: counts['InitiateCheckout'] || 0,
         Purchase: counts['Purchase'] || 0,
         total: Object.values(counts).reduce((a, b) => a + b, 0)
@@ -163,25 +261,32 @@ serve(async (req) => {
         eventCounts
       },
       funnel: {
-        pageViews,
-        viewContent,
-        initiateCheckout,
-        purchases,
-        dropoffs: {
-          viewToCheckout: viewContent > 0 ? ((1 - initiateCheckout / viewContent) * 100).toFixed(1) : '0',
-          checkoutToPurchase: initiateCheckout > 0 ? ((1 - purchases / initiateCheckout) * 100).toFixed(1) : '0'
-        }
+        ...funnelData,
+        rates: funnelRates,
+        dropoffs
       },
       performance: {
         trend,
         weekOverWeekChange: parseFloat(weekOverWeekChange),
+        purchaseWoWChange: parseFloat(purchaseWoWChange),
+        valueWoWChange: parseFloat(valueWoWChange),
         last7Days: last7DaysCount,
-        prev7Days: prev7DaysCount
+        prev7Days: prev7DaysCount,
+        last7Purchases,
+        prev7Purchases,
+        last7Value,
+        prev7Value,
+        last7EventCounts,
+        prev7EventCounts,
+        avgDailyEvents: Math.round(avgDailyEvents),
+        avgDailyConversions: avgDailyConversions.toFixed(2)
       },
       alerts,
       chartData,
       lastUpdated: new Date().toISOString()
     };
+
+    console.log('Dashboard response generated successfully');
 
     return new Response(
       JSON.stringify(response),
