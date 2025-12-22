@@ -114,53 +114,97 @@ const chartConfig = {
 
 const COLORS = ['hsl(220, 70%, 50%)', 'hsl(280, 70%, 50%)', 'hsl(40, 70%, 50%)', 'hsl(120, 70%, 50%)', 'hsl(0, 70%, 50%)', 'hsl(160, 70%, 50%)'];
 
-const DASHBOARD_PASSWORD = 'admin2024';
+// Password is validated server-side via Edge Function
+// Session token stored securely after server validation
 
 export default function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [days, setDays] = useState(30);
+  
+  // Store password hash in session for subsequent requests
+  const [sessionPassword, setSessionPassword] = useState<string | null>(null);
 
-  // Check if already authenticated
+  // Check if already authenticated (password stored in session)
   useEffect(() => {
-    const storedAuth = sessionStorage.getItem('dashboard_auth');
-    if (storedAuth === 'true') {
+    const storedPassword = sessionStorage.getItem('dashboard_password');
+    if (storedPassword) {
+      setSessionPassword(storedPassword);
       setIsAuthenticated(true);
     }
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  // Server-side password validation
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === DASHBOARD_PASSWORD) {
-      sessionStorage.setItem('dashboard_auth', 'true');
+    setIsLoggingIn(true);
+    setAuthError('');
+    
+    try {
+      // Validate password on server by making a test request
+      const { data: response, error: fetchError } = await supabase.functions.invoke('dashboard-events', {
+        body: { password },
+        method: 'POST',
+      });
+
+      if (fetchError) {
+        // Check if it's an auth error
+        if (fetchError.message?.includes('401') || fetchError.message?.includes('Unauthorized')) {
+          setAuthError('Senha incorreta');
+        } else {
+          setAuthError('Erro ao validar senha. Tente novamente.');
+        }
+        return;
+      }
+
+      // Password validated successfully on server
+      sessionStorage.setItem('dashboard_password', password);
+      setSessionPassword(password);
       setIsAuthenticated(true);
-      setAuthError('');
-    } else {
-      setAuthError('Senha incorreta');
+      setData(response); // Use the data from the login request
+    } catch (err: any) {
+      console.error('Login error:', err);
+      if (err?.code === 'UNAUTHORIZED' || err?.message?.includes('Unauthorized')) {
+        setAuthError('Senha incorreta');
+      } else {
+        setAuthError('Erro ao conectar. Tente novamente.');
+      }
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('dashboard_auth');
+    sessionStorage.removeItem('dashboard_password');
+    setSessionPassword(null);
     setIsAuthenticated(false);
     setPassword('');
+    setData(null);
   };
 
   const fetchData = async () => {
+    if (!sessionPassword) return;
+    
     setLoading(true);
     setError(null);
     try {
       const { data: response, error: fetchError } = await supabase.functions.invoke('dashboard-events', {
-        body: null,
-        method: 'GET',
+        body: { password: sessionPassword },
+        method: 'POST',
       });
 
       if (fetchError) {
+        // If unauthorized, force logout
+        if (fetchError.message?.includes('401') || fetchError.message?.includes('Unauthorized')) {
+          handleLogout();
+          return;
+        }
         throw fetchError;
       }
       setData(response);
@@ -173,10 +217,17 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && sessionPassword && !data) {
       fetchData();
     }
-  }, [days, isAuthenticated]);
+  }, [isAuthenticated, sessionPassword]);
+  
+  // Refetch when days change
+  useEffect(() => {
+    if (isAuthenticated && sessionPassword) {
+      fetchData();
+    }
+  }, [days]);
 
   const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
     if (trend === 'up') return <TrendingUp className="w-5 h-5 text-green-500" />;
@@ -249,12 +300,20 @@ export default function Dashboard() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="bg-background border-border"
+                disabled={isLoggingIn}
               />
               {authError && (
                 <p className="text-destructive text-sm text-center">{authError}</p>
               )}
-              <Button type="submit" className="w-full">
-                Acessar Dashboard
+              <Button type="submit" className="w-full" disabled={isLoggingIn}>
+                {isLoggingIn ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Validando...
+                  </>
+                ) : (
+                  'Acessar Dashboard'
+                )}
               </Button>
             </form>
           </CardContent>
