@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { Play, Pause, Maximize, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause, Maximize } from "lucide-react";
 import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -184,22 +184,13 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
     const attemptAutoplay = async () => {
       try {
-        // Try to play with sound first
+        // Play with sound - no fallback to muted
         video.muted = false;
         setIsMuted(false);
         await video.play();
         console.log('▶️ Autoplay iniciado com som');
       } catch (error) {
-        console.log('⏸️ Autoplay com som bloqueado, tentando mudo:', error);
-        // If autoplay with sound fails, try muted
-        try {
-          video.muted = true;
-          setIsMuted(true);
-          await video.play();
-          console.log('▶️ Autoplay iniciado (muted)');
-        } catch (mutedError) {
-          console.log('⏸️ Autoplay bloqueado pelo navegador:', mutedError);
-        }
+        console.log('⏸️ Autoplay bloqueado pelo navegador:', error);
       }
     };
 
@@ -423,19 +414,6 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
                       <Pause className="w-5 h-5 text-white" />
                     ) : (
                       <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
-                    )}
-                  </button>
-
-                  {/* Volume */}
-                  <button
-                    onClick={toggleMute}
-                    className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
-                    aria-label={isMuted ? "Ativar som" : "Silenciar"}
-                  >
-                    {isMuted ? (
-                      <VolumeX className="w-5 h-5 text-white/70" />
-                    ) : (
-                      <Volume2 className="w-5 h-5 text-white" />
                     )}
                   </button>
 
