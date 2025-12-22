@@ -2,12 +2,12 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
-const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY');
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+const DASHBOARD_PASSWORD = Deno.env.get('DASHBOARD_PASSWORD');
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-dashboard-password',
 };
 
 // Helper functions
@@ -49,6 +49,43 @@ serve(async (req) => {
   }
 
   try {
+    // ===== SERVER-SIDE PASSWORD VALIDATION =====
+    // Get password from header (secure) or body (for POST requests)
+    let providedPassword: string | null = null;
+    
+    // Check header first (preferred method)
+    providedPassword = req.headers.get('x-dashboard-password');
+    
+    // If not in header, check body for POST requests
+    if (!providedPassword && req.method === 'POST') {
+      try {
+        const body = await req.clone().json();
+        providedPassword = body?.password;
+      } catch {
+        // Body parsing failed, continue with header check
+      }
+    }
+
+    // Validate password
+    if (!DASHBOARD_PASSWORD) {
+      console.error('DASHBOARD_PASSWORD secret not configured');
+      return new Response(
+        JSON.stringify({ error: 'Server configuration error', code: 'CONFIG_ERROR' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!providedPassword || providedPassword !== DASHBOARD_PASSWORD) {
+      console.log('Dashboard: Unauthorized access attempt');
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized', code: 'UNAUTHORIZED' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log('Dashboard: Password validated successfully');
+    // ===== END PASSWORD VALIDATION =====
+
     const url = new URL(req.url);
     const days = parseInt(url.searchParams.get('days') || '30');
     const startDate = new Date();
