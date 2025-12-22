@@ -1,10 +1,16 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { z } from 'https://esm.sh/zod@3.25.76';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const META_ACCESS_TOKEN = Deno.env.get('META_ACCESS_TOKEN');
 const META_PIXEL_ID = Deno.env.get('META_PIXEL_ID');
 const META_TEST_EVENT_CODE = Deno.env.get('META_TEST_EVENT_CODE');
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+
+// Supabase client for storing events locally
+const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
 
 // ============================================
 // RATE LIMITING - 60 requisições por minuto por IP
@@ -582,6 +588,33 @@ serve(async (req) => {
       aparelho: customData.aparelho,
       transaction_id: customData.transaction_id,
     });
+
+    // SALVA EVENTO LOCALMENTE PARA DASHBOARD (antes de enviar ao Meta)
+    try {
+      const { error: insertError } = await supabase
+        .from('meta_events')
+        .insert({
+          event_name: eventName,
+          event_id: eventId,
+          event_time: new Date().toISOString(),
+          visitor_id: visitorId || null,
+          page_url: eventSourceUrl,
+          utm_source: utmData.utm_source || null,
+          utm_medium: utmData.utm_medium || null,
+          utm_campaign: utmData.utm_campaign || null,
+          device: aparelho !== 'not_provided' ? aparelho : null,
+          value: customData.value || null,
+          currency: customData.currency || null,
+        });
+
+      if (insertError) {
+        console.error('Meta CAPI - Erro ao salvar evento localmente:', insertError);
+      } else {
+        console.log('Meta CAPI - Evento salvo localmente com sucesso');
+      }
+    } catch (dbError) {
+      console.error('Meta CAPI - Exceção ao salvar evento:', dbError);
+    }
 
     // ENVIA PARA META CAPI com retry automático
     const metaResult = await sendToMetaCAPI(metaEventData);

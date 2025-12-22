@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      meta_events: {
+        Row: {
+          created_at: string
+          currency: string | null
+          device: string | null
+          event_id: string
+          event_name: string
+          event_time: string
+          id: string
+          page_url: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          value: number | null
+          visitor_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          currency?: string | null
+          device?: string | null
+          event_id: string
+          event_name: string
+          event_time?: string
+          id?: string
+          page_url?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          value?: number | null
+          visitor_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          currency?: string | null
+          device?: string | null
+          event_id?: string
+          event_name?: string
+          event_time?: string
+          id?: string
+          page_url?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          value?: number | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       visitor_tracking: {
         Row: {
           created_at: string | null
