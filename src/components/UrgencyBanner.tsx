@@ -110,57 +110,51 @@ const UrgencyBanner = () => {
   const isHighUrgency = visitCount >= 3;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-destructive via-destructive/90 to-orange-600 text-white py-2.5 px-4 shadow-lg">
-      <div className="container mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-center">
-        {/* Contador */}
-        <div className="flex items-center gap-2 animate-pulse">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-destructive via-destructive/90 to-orange-600 text-white py-1.5 sm:py-2.5 px-3 sm:px-4 shadow-lg">
+      <div className="container mx-auto flex items-center justify-center gap-2 sm:gap-6 text-center">
+        {/* Contador - sempre visível */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {isHighUrgency ? (
-            <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300" />
+            <AlertTriangle className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-yellow-300" />
           ) : (
-            <Flame className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300" />
+            <Flame className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-yellow-300 animate-pulse" />
           )}
-          <span className="text-xs sm:text-sm font-medium">
+          <span className="text-[11px] sm:text-sm font-medium hidden sm:inline">
             {getUrgencyMessage(visitCount)}
           </span>
-          <div className="flex items-center gap-1 font-mono font-bold text-sm sm:text-base">
-            <span className="bg-black/30 px-1.5 py-0.5 rounded">
+          <div className="flex items-center gap-0.5 sm:gap-1 font-mono font-bold text-xs sm:text-base">
+            <span className="bg-black/30 px-1 sm:px-1.5 py-0.5 rounded text-[11px] sm:text-base">
               {formatNumber(timeLeft.hours)}
             </span>
             <span className="text-yellow-300">:</span>
-            <span className="bg-black/30 px-1.5 py-0.5 rounded">
+            <span className="bg-black/30 px-1 sm:px-1.5 py-0.5 rounded text-[11px] sm:text-base">
               {formatNumber(timeLeft.minutes)}
             </span>
             <span className="text-yellow-300">:</span>
-            <span className="bg-black/30 px-1.5 py-0.5 rounded">
+            <span className="bg-black/30 px-1 sm:px-1.5 py-0.5 rounded text-[11px] sm:text-base">
               {formatNumber(timeLeft.seconds)}
             </span>
           </div>
         </div>
 
-        {/* Separador */}
+        {/* Separador - apenas desktop */}
         <div className="hidden sm:block w-px h-4 bg-white/30" />
 
-        {/* Vagas restantes */}
-        <div className="flex items-center gap-2">
+        {/* Vagas restantes - apenas desktop */}
+        <div className="hidden sm:flex items-center gap-2">
           <span className="text-xs sm:text-sm font-medium">
-            <span className="font-bold text-yellow-300">{slotsRemaining}</span> de 100 vagas restantes
+            <span className="font-bold text-yellow-300">{slotsRemaining}</span> de 100 vagas
           </span>
         </div>
 
-        {/* Separador */}
-        <div className="hidden sm:block w-px h-4 bg-white/30" />
-
-        {/* Visualizadores */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400"></span>
-            </span>
-            <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          </div>
-          <span className="text-xs sm:text-sm font-medium">
-            <span className="font-bold">{viewersCount}</span> online
+        {/* Visualizadores - compacto no mobile */}
+        <div className="flex items-center gap-1 sm:gap-2">
+          <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-green-400"></span>
+          </span>
+          <span className="text-[11px] sm:text-sm font-medium">
+            <span className="font-bold">{viewersCount}</span> <span className="hidden sm:inline">online</span>
           </span>
         </div>
       </div>
