@@ -110,48 +110,36 @@ const UrgencyBanner = () => {
   const isHighUrgency = visitCount >= 3;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-destructive via-destructive/90 to-orange-600 text-white py-1.5 sm:py-2.5 px-3 sm:px-4 shadow-lg">
-      <div className="container mx-auto flex items-center justify-center gap-2 sm:gap-6 text-center">
-        {/* CTA + Timer - Mobile: compacto */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          {isHighUrgency ? (
-            <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300 flex-shrink-0" />
-          ) : (
-            <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300 animate-pulse flex-shrink-0" />
-          )}
-          <span className="text-[10px] sm:text-sm font-medium">
-            <span className="hidden sm:inline">Bônus de lançamento expira em:</span>
-            <span className="sm:hidden text-yellow-300 font-bold">Bônus</span>
+    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-destructive/95 to-destructive/80 text-white py-2 sm:py-2.5 px-3 sm:px-4 shadow-md">
+      <div className="container mx-auto flex items-center justify-center gap-3 sm:gap-5">
+        {/* Bônus + Timer */}
+        <div className="flex items-center gap-2">
+          <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300 flex-shrink-0" />
+          <span className="text-[11px] sm:text-sm font-medium whitespace-nowrap">
+            Bônus de lançamento:
           </span>
-          <div className="flex items-center gap-0.5 font-mono font-bold text-[11px] sm:text-base">
-            <span className="bg-black/30 px-1 py-0.5 rounded">
+          <div className="flex items-center gap-0.5 font-mono font-bold text-xs sm:text-base">
+            <span className="bg-black/20 px-1.5 py-0.5 rounded">
               {formatNumber(timeLeft.hours)}
             </span>
-            <span className="text-yellow-300">:</span>
-            <span className="bg-black/30 px-1 py-0.5 rounded">
+            <span className="text-yellow-300/80">:</span>
+            <span className="bg-black/20 px-1.5 py-0.5 rounded">
               {formatNumber(timeLeft.minutes)}
             </span>
-            <span className="text-yellow-300">:</span>
-            <span className="bg-black/30 px-1 py-0.5 rounded">
+            <span className="text-yellow-300/80">:</span>
+            <span className="bg-black/20 px-1.5 py-0.5 rounded">
               {formatNumber(timeLeft.seconds)}
             </span>
           </div>
         </div>
 
-        {/* Separador + Vagas - apenas desktop */}
-        <div className="hidden sm:flex items-center gap-4">
-          <div className="w-px h-4 bg-white/30" />
-          <span className="text-sm font-medium">
-            <span className="font-bold text-yellow-300">{slotsRemaining}</span> vagas
+        {/* Pessoas online - sempre visível */}
+        <div className="flex items-center gap-1.5">
+          <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60"></span>
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-green-400"></span>
           </span>
-          <div className="w-px h-4 bg-white/30" />
-          <div className="flex items-center gap-1.5">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
-            </span>
-            <span className="text-sm">{viewersCount} online</span>
-          </div>
+          <span className="text-[10px] sm:text-sm opacity-90">{viewersCount}</span>
         </div>
       </div>
     </div>
