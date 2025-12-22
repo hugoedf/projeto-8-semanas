@@ -62,39 +62,15 @@ const hotmartWebhookSchema = z.object({
 });
 
 /**
- * Valida a assinatura HMAC da Hotmart
+ * Valida o token da Hotmart (comparação direta)
+ * A Hotmart envia o hottok configurado no painel
  */
-async function validateHotmartSignature(body: string, signature: string): Promise<boolean> {
+function validateHotmartToken(receivedToken: string): boolean {
   if (!HOTMART_SECRET_KEY) {
-    console.error('HOTMART_SECRET_KEY não configurado');
+    console.error('❌ HOTMART_SECRET_KEY não configurado');
     return false;
   }
-
-  try {
-    const encoder = new TextEncoder();
-    const key = await crypto.subtle.importKey(
-      'raw',
-      encoder.encode(HOTMART_SECRET_KEY),
-      { name: 'HMAC', hash: 'SHA-256' },
-      false,
-      ['sign']
-    );
-
-    const signatureBuffer = await crypto.subtle.sign(
-      'HMAC',
-      key,
-      encoder.encode(body)
-    );
-
-    const expectedSignature = Array.from(new Uint8Array(signatureBuffer))
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('');
-
-    return expectedSignature === signature;
-  } catch (error) {
-    console.error('Erro ao validar assinatura:', error);
-    return false;
-  }
+  return receivedToken === HOTMART_SECRET_KEY;
 }
 
 /**
@@ -190,9 +166,10 @@ serve(async (req) => {
       );
     }
 
-    const isValid = await validateHotmartSignature(bodyText, signature);
+    // Validar token da Hotmart (comparação direta)
+    const isValid = validateHotmartToken(signature);
     if (!isValid) {
-      console.error('❌ Assinatura inválida - rejeitando requisição');
+      console.error('❌ Token inválido - rejeitando requisição');
       return new Response(
         JSON.stringify({ error: 'Bad request' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
