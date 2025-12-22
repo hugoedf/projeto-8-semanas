@@ -589,6 +589,59 @@ serve(async (req) => {
       transaction_id: customData.transaction_id,
     });
 
+    // Detecta OS do dispositivo
+    const detectOS = (ua: string): string => {
+      if (!ua) return 'unknown';
+      const lower = ua.toLowerCase();
+      if (lower.includes('iphone') || lower.includes('ipad') || lower.includes('ipod')) return 'ios';
+      if (lower.includes('android')) return 'android';
+      if (lower.includes('windows')) return 'windows';
+      if (lower.includes('mac')) return 'macos';
+      if (lower.includes('linux')) return 'linux';
+      return 'other';
+    };
+
+    // Detecta plataforma publisher baseado em utm_source e referrer
+    const detectPublisherPlatform = (source: string | undefined, eventUrl: string): string => {
+      const s = (source || '').toLowerCase();
+      if (s.includes('facebook') || s.includes('fb')) return 'facebook';
+      if (s.includes('instagram') || s.includes('ig')) return 'instagram';
+      if (s.includes('messenger')) return 'messenger';
+      if (s.includes('audience_network') || s.includes('an')) return 'audience_network';
+      // Fallback baseado na URL
+      if (eventUrl.includes('facebook')) return 'facebook';
+      if (eventUrl.includes('instagram')) return 'instagram';
+      return 'unknown';
+    };
+
+    // Detecta posicionamento baseado em utm_content ou placement
+    const detectPlacement = (utmContent: string | undefined, placement: string | undefined): string => {
+      const p = (utmContent || placement || '').toLowerCase();
+      if (p.includes('feed')) return 'feed';
+      if (p.includes('story') || p.includes('stories')) return 'stories';
+      if (p.includes('reel')) return 'reels';
+      if (p.includes('explore')) return 'explore';
+      if (p.includes('search')) return 'search';
+      if (p.includes('marketplace')) return 'marketplace';
+      if (p.includes('video')) return 'video_feeds';
+      if (p.includes('right_column') || p.includes('right')) return 'right_column';
+      if (p.includes('audience_network') || p.includes('an_')) return 'audience_network';
+      return 'unknown';
+    };
+
+    // Extrai IDs da campanha dos UTMs
+    const extractCampaignId = (utmCampaign: string | undefined): string | null => {
+      if (!utmCampaign) return null;
+      // Tenta extrair ID numérico do campaign name
+      const match = utmCampaign.match(/(\d{10,})/);
+      return match ? match[1] : null;
+    };
+
+    const os = detectOS(userAgent);
+    const publisherPlatform = detectPublisherPlatform(utmData.utm_source, eventSourceUrl);
+    const placement = detectPlacement(utmData.utm_content, utmData.placement);
+    const campaignId = extractCampaignId(utmData.utm_campaign);
+
     // SALVA EVENTO LOCALMENTE PARA DASHBOARD (antes de enviar ao Meta)
     try {
       const { error: insertError } = await supabase
@@ -605,12 +658,28 @@ serve(async (req) => {
           device: aparelho !== 'not_provided' ? aparelho : null,
           value: customData.value || null,
           currency: customData.currency || null,
+          // Novos campos para análise avançada
+          publisher_platform: publisherPlatform !== 'unknown' ? publisherPlatform : null,
+          placement: placement !== 'unknown' ? placement : null,
+          os: os !== 'unknown' ? os : null,
+          country: userData.country || null,
+          region: userData.state || null,
+          city: userData.city || null,
+          campaign_id: campaignId || utmData.utm_id || null,
+          adset_id: null, // Seria necessário passar via UTM
+          ad_id: null, // Seria necessário passar via UTM
         });
 
       if (insertError) {
         console.error('Meta CAPI - Erro ao salvar evento localmente:', insertError);
       } else {
-        console.log('Meta CAPI - Evento salvo localmente com sucesso');
+        console.log('Meta CAPI - Evento salvo localmente com sucesso:', {
+          event_name: eventName,
+          publisher_platform: publisherPlatform,
+          placement,
+          device: aparelho,
+          os,
+        });
       }
     } catch (dbError) {
       console.error('Meta CAPI - Exceção ao salvar evento:', dbError);

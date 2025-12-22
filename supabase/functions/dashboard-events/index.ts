@@ -11,8 +11,38 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Event types for the full funnel
-const FUNNEL_EVENTS = ['PageView', 'VSLStart', 'VSL15s', 'VSL30s', 'CTAClick', 'InitiateCheckout', 'Purchase'];
+// Helper functions
+const calcRate = (current: number, previous: number) => 
+  previous > 0 ? ((current / previous) * 100).toFixed(1) : '0.0';
+
+const calcDropoff = (current: number, previous: number) =>
+  previous > 0 ? ((1 - current / previous) * 100).toFixed(1) : '0.0';
+
+const calcWoWChange = (current: number, previous: number) =>
+  previous > 0 ? (((current - previous) / previous) * 100).toFixed(1) : '0.0';
+
+// Aggregate events by dimension
+function aggregateByDimension(events: any[], dimension: string) {
+  const aggregated: Record<string, { events: number; conversions: number; value: number }> = {};
+  
+  events.forEach(event => {
+    const key = event[dimension] || 'unknown';
+    if (!aggregated[key]) {
+      aggregated[key] = { events: 0, conversions: 0, value: 0 };
+    }
+    aggregated[key].events++;
+    if (event.event_name === 'Purchase') {
+      aggregated[key].conversions++;
+      aggregated[key].value += parseFloat(String(event.value || 0));
+    }
+  });
+
+  return Object.entries(aggregated).map(([name, data]) => ({
+    name,
+    ...data,
+    conversionRate: data.events > 0 ? ((data.conversions / data.events) * 100).toFixed(2) : '0.00',
+  })).sort((a, b) => b.events - a.events);
+}
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -25,7 +55,7 @@ serve(async (req) => {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
 
-    console.log(`Fetching events for last ${days} days, since ${startDate.toISOString()}`);
+    console.log(`Dashboard: Fetching events for last ${days} days`);
 
     // Get events
     const { data: events, error: eventsError } = await supabase
@@ -51,22 +81,17 @@ serve(async (req) => {
     let totalValue = 0;
 
     events?.forEach((event) => {
-      // Count by event type
       eventCounts[event.event_name] = (eventCounts[event.event_name] || 0) + 1;
-
-      // Count by day
+      
       const day = new Date(event.event_time).toISOString().split('T')[0];
       if (!dailyEvents[day]) dailyEvents[day] = {};
       dailyEvents[day][event.event_name] = (dailyEvents[day][event.event_name] || 0) + 1;
 
-      // Track unique visitors
       if (event.visitor_id) uniqueVisitors.add(event.visitor_id);
-
-      // Sum values
       if (event.value) totalValue += parseFloat(String(event.value));
     });
 
-    // Calculate full funnel with all stages
+    // Full funnel data
     const funnelData = {
       pageViews: eventCounts['PageView'] || 0,
       vslStart: eventCounts['VSLStart'] || 0,
@@ -76,13 +101,6 @@ serve(async (req) => {
       initiateCheckout: eventCounts['InitiateCheckout'] || 0,
       purchases: eventCounts['Purchase'] || 0,
     };
-
-    // Calculate conversion rates between stages
-    const calcRate = (current: number, previous: number) => 
-      previous > 0 ? ((current / previous) * 100).toFixed(1) : '0.0';
-    
-    const calcDropoff = (current: number, previous: number) =>
-      previous > 0 ? ((1 - current / previous) * 100).toFixed(1) : '0.0';
 
     const funnelRates = {
       pageToVslStart: calcRate(funnelData.vslStart, funnelData.pageViews),
@@ -103,12 +121,7 @@ serve(async (req) => {
       checkoutToPurchase: calcDropoff(funnelData.purchases, funnelData.initiateCheckout),
     };
 
-    // Calculate conversion rate
-    const conversionRate = funnelData.pageViews > 0 
-      ? ((funnelData.purchases / funnelData.pageViews) * 100).toFixed(2) 
-      : '0.00';
-
-    // Calculate 7-day comparison
+    // Weekly comparison
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     const fourteenDaysAgo = new Date();
@@ -120,40 +133,24 @@ serve(async (req) => {
       return date >= fourteenDaysAgo && date < sevenDaysAgo;
     }) || [];
 
-    // Calculate detailed weekly comparison by event type
-    const last7EventCounts: Record<string, number> = {};
-    const prev7EventCounts: Record<string, number> = {};
-    let last7Value = 0;
-    let prev7Value = 0;
+    let last7Value = 0, prev7Value = 0;
+    let last7Purchases = 0, prev7Purchases = 0;
 
     last7Days.forEach(e => {
-      last7EventCounts[e.event_name] = (last7EventCounts[e.event_name] || 0) + 1;
-      if (e.value) last7Value += parseFloat(String(e.value));
+      if (e.event_name === 'Purchase') {
+        last7Purchases++;
+        last7Value += parseFloat(String(e.value || 0));
+      }
     });
 
     prev7Days.forEach(e => {
-      prev7EventCounts[e.event_name] = (prev7EventCounts[e.event_name] || 0) + 1;
-      if (e.value) prev7Value += parseFloat(String(e.value));
+      if (e.event_name === 'Purchase') {
+        prev7Purchases++;
+        prev7Value += parseFloat(String(e.value || 0));
+      }
     });
 
-    const last7DaysCount = last7Days.length;
-    const prev7DaysCount = prev7Days.length;
-    const weekOverWeekChange = prev7DaysCount > 0 
-      ? (((last7DaysCount - prev7DaysCount) / prev7DaysCount) * 100).toFixed(1)
-      : '0.0';
-
-    // Calculate week over week for conversions
-    const last7Purchases = last7EventCounts['Purchase'] || 0;
-    const prev7Purchases = prev7EventCounts['Purchase'] || 0;
-    const purchaseWoWChange = prev7Purchases > 0
-      ? (((last7Purchases - prev7Purchases) / prev7Purchases) * 100).toFixed(1)
-      : '0.0';
-
-    const valueWoWChange = prev7Value > 0
-      ? (((last7Value - prev7Value) / prev7Value) * 100).toFixed(1)
-      : '0.0';
-
-    // Calculate trend (last 3 days vs previous 3 days)
+    // Trend calculation
     const threeDaysAgo = new Date();
     threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
     const sixDaysAgo = new Date();
@@ -169,55 +166,72 @@ serve(async (req) => {
     if (last3Days.length > prev3Days.length * 1.1) trend = 'up';
     else if (last3Days.length < prev3Days.length * 0.9) trend = 'down';
 
-    // Calculate historical averages for alerts
-    const avgDailyEvents = Object.keys(dailyEvents).length > 0
-      ? (events?.length || 0) / Object.keys(dailyEvents).length
-      : 0;
-    
-    const avgDailyConversions = Object.keys(dailyEvents).length > 0
-      ? funnelData.purchases / Object.keys(dailyEvents).length
-      : 0;
+    // Analytics by dimension
+    const byPlatform = aggregateByDimension(events || [], 'publisher_platform');
+    const byPlacement = aggregateByDimension(events || [], 'placement');
+    const byDevice = aggregateByDimension(events || [], 'device');
+    const byOS = aggregateByDimension(events || [], 'os');
+    const byCountry = aggregateByDimension(events || [], 'country');
+    const byRegion = aggregateByDimension(events || [], 'region');
+    const byCity = aggregateByDimension(events || [], 'city');
+    const bySource = aggregateByDimension(events || [], 'utm_source');
+    const byCampaign = aggregateByDimension(events || [], 'utm_campaign');
 
-    // Calculate alerts
+    // Generate alerts
     const alerts: Array<{ type: string; message: string; severity: 'warning' | 'error' | 'info' }> = [];
+    const weekOverWeekChange = parseFloat(calcWoWChange(last7Days.length, prev7Days.length));
+    const purchaseWoWChange = parseFloat(calcWoWChange(last7Purchases, prev7Purchases));
 
-    // Check for sudden drops
-    if (parseFloat(weekOverWeekChange) < -30) {
+    if (weekOverWeekChange < -30) {
       alerts.push({
         type: 'drop',
-        message: `Queda de ${Math.abs(parseFloat(weekOverWeekChange))}% nos eventos em relação à semana anterior`,
+        message: `Queda de ${Math.abs(weekOverWeekChange)}% nos eventos vs semana anterior`,
         severity: 'error'
       });
     }
 
-    // Check for conversion drop
-    if (parseFloat(purchaseWoWChange) < -50 && prev7Purchases > 0) {
+    if (purchaseWoWChange < -50 && prev7Purchases > 0) {
       alerts.push({
         type: 'conversion_drop',
-        message: `Queda brusca de ${Math.abs(parseFloat(purchaseWoWChange))}% nas conversões em relação à semana anterior`,
+        message: `Queda brusca de ${Math.abs(purchaseWoWChange)}% nas conversões`,
         severity: 'error'
       });
     }
 
-    // Check for unusual spikes
-    if (parseFloat(weekOverWeekChange) > 100) {
+    if (weekOverWeekChange > 100) {
       alerts.push({
         type: 'spike',
-        message: `Pico anormal: aumento de ${weekOverWeekChange}% nos eventos em relação à semana anterior`,
+        message: `Pico anormal: +${weekOverWeekChange}% nos eventos`,
         severity: 'warning'
       });
     }
 
-    // Check for low conversion rate
-    if (funnelData.pageViews > 100 && parseFloat(conversionRate) < 1) {
-      alerts.push({
-        type: 'low_conversion',
-        message: 'Taxa de conversão abaixo de 1% - abaixo da média histórica',
-        severity: 'warning'
-      });
-    }
+    // Check for underperforming dimensions
+    const avgConversionRate = funnelData.pageViews > 0 
+      ? (funnelData.purchases / funnelData.pageViews) * 100 
+      : 0;
 
-    // Check for no recent events
+    byPlacement.forEach(p => {
+      if (p.events > 50 && parseFloat(p.conversionRate) < avgConversionRate * 0.5) {
+        alerts.push({
+          type: 'placement_underperform',
+          message: `Posicionamento "${p.name}" com conversão ${p.conversionRate}% (abaixo da média)`,
+          severity: 'warning'
+        });
+      }
+    });
+
+    // Check for opportunities
+    byRegion.forEach(r => {
+      if (r.events > 20 && parseFloat(r.conversionRate) > avgConversionRate * 1.5) {
+        alerts.push({
+          type: 'region_opportunity',
+          message: `Região "${r.name}" com conversão ${r.conversionRate}% acima da média - oportunidade!`,
+          severity: 'info'
+        });
+      }
+    });
+
     const today = new Date().toISOString().split('T')[0];
     const todayEvents = dailyEvents[today] ? Object.values(dailyEvents[today]).reduce((a, b) => a + b, 0) : 0;
     if (todayEvents === 0) {
@@ -228,16 +242,7 @@ serve(async (req) => {
       });
     }
 
-    // Check for high funnel drop-off
-    if (parseFloat(dropoffs.vslStartTo15s) > 70 && funnelData.vslStart > 10) {
-      alerts.push({
-        type: 'high_dropoff',
-        message: `Alta desistência (${dropoffs.vslStartTo15s}%) entre início do VSL e 15 segundos`,
-        severity: 'warning'
-      });
-    }
-
-    // Format daily data for charts - include all event types
+    // Chart data
     const chartData = Object.entries(dailyEvents)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([date, counts]) => ({
@@ -252,12 +257,16 @@ serve(async (req) => {
         total: Object.values(counts).reduce((a, b) => a + b, 0)
       }));
 
+    const avgDailyEvents = Object.keys(dailyEvents).length > 0
+      ? Math.round((events?.length || 0) / Object.keys(dailyEvents).length)
+      : 0;
+
     const response = {
       overview: {
         totalEvents: events?.length || 0,
         uniqueVisitors: uniqueVisitors.size,
         totalValue,
-        conversionRate: parseFloat(conversionRate),
+        conversionRate: parseFloat(calcRate(funnelData.purchases, funnelData.pageViews)),
         eventCounts
       },
       funnel: {
@@ -267,19 +276,30 @@ serve(async (req) => {
       },
       performance: {
         trend,
-        weekOverWeekChange: parseFloat(weekOverWeekChange),
-        purchaseWoWChange: parseFloat(purchaseWoWChange),
-        valueWoWChange: parseFloat(valueWoWChange),
-        last7Days: last7DaysCount,
-        prev7Days: prev7DaysCount,
+        weekOverWeekChange,
+        purchaseWoWChange: parseFloat(calcWoWChange(last7Purchases, prev7Purchases)),
+        valueWoWChange: parseFloat(calcWoWChange(last7Value, prev7Value)),
+        last7Days: last7Days.length,
+        prev7Days: prev7Days.length,
         last7Purchases,
         prev7Purchases,
         last7Value,
         prev7Value,
-        last7EventCounts,
-        prev7EventCounts,
-        avgDailyEvents: Math.round(avgDailyEvents),
-        avgDailyConversions: avgDailyConversions.toFixed(2)
+        avgDailyEvents,
+        avgDailyConversions: Object.keys(dailyEvents).length > 0 
+          ? (funnelData.purchases / Object.keys(dailyEvents).length).toFixed(2)
+          : '0.00'
+      },
+      analytics: {
+        byPlatform,
+        byPlacement,
+        byDevice,
+        byOS,
+        byCountry,
+        byRegion,
+        byCity,
+        bySource,
+        byCampaign,
       },
       alerts,
       chartData,
