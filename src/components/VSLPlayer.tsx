@@ -1,7 +1,9 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Play, Pause, Maximize, Volume2, VolumeX } from "lucide-react";
 import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 
 interface VSLPlayerProps {
   onVideoEnd?: () => void;
@@ -12,7 +14,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasEnded, setHasEnded] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
-  const [isMuted, setIsMuted] = useState(false); // Start with sound
+  const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -22,6 +24,98 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const milestonesRef = useRef<Set<number>>(new Set());
   const controlsTimeoutRef = useRef<number | null>(null);
   const { reportVideoTime } = useCTAVisibility();
+  const { visitorData } = useVisitorTracking();
+
+  // VSL Event Tracking - tracks sent to avoid duplicates
+  const vslEventsTrackedRef = useRef<{
+    VSLStart: boolean;
+    VSL15s: boolean;
+    VSL30s: boolean;
+  }>({
+    VSLStart: false,
+    VSL15s: false,
+    VSL30s: false,
+  });
+
+  // Generate unique event ID
+  const generateEventId = useCallback((): string => {
+    const base = visitorData?.visitorId || 'unknown';
+    return `${base}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  }, [visitorData?.visitorId]);
+
+  // Send VSL event to Meta Conversions API
+  const sendVSLEvent = useCallback(async (eventName: 'VSLStart' | 'VSL15s' | 'VSL30s') => {
+    // Check if already tracked
+    if (vslEventsTrackedRef.current[eventName]) {
+      console.log(`VSL Event ${eventName} already tracked, skipping`);
+      return;
+    }
+
+    // Mark as tracked immediately to prevent race conditions
+    vslEventsTrackedRef.current[eventName] = true;
+
+    const eventId = generateEventId();
+    console.log(`📊 VSL Event: ${eventName}`, { eventId });
+
+    try {
+      // Collect UTM data
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmData = {
+        utm_source: urlParams.get('utm_source') || localStorage.getItem('utm_source') || undefined,
+        utm_medium: urlParams.get('utm_medium') || localStorage.getItem('utm_medium') || undefined,
+        utm_campaign: urlParams.get('utm_campaign') || localStorage.getItem('utm_campaign') || undefined,
+        utm_id: urlParams.get('utm_id') || localStorage.getItem('utm_id') || undefined,
+        utm_content: urlParams.get('utm_content') || localStorage.getItem('utm_content') || undefined,
+        utm_term: urlParams.get('utm_term') || localStorage.getItem('utm_term') || undefined,
+      };
+
+      // Get fbp and fbc from cookies
+      const getCookie = (name: string): string | undefined => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop()?.split(';').shift();
+        return undefined;
+      };
+
+      const response = await fetch(
+        `https://kfddlytvdzqwopongnew.supabase.co/functions/v1/meta-conversions`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            eventName,
+            eventParams: {},
+            eventId,
+            visitorId: visitorData?.visitorId,
+            fbp: getCookie('_fbp'),
+            fbc: getCookie('_fbc'),
+            client_user_agent: navigator.userAgent,
+            eventSourceUrl: window.location.href,
+            utmData,
+            deviceInfo: {
+              userAgent: navigator.userAgent,
+              language: navigator.language,
+              screenResolution: `${window.screen.width}x${window.screen.height}`,
+              timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+              referrer: document.referrer || '',
+              landingPage: window.location.href,
+            },
+            userData: {},
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        console.error(`VSL Event ${eventName} failed:`, response.statusText);
+      } else {
+        console.log(`✅ VSL Event ${eventName} sent successfully`);
+      }
+    } catch (error) {
+      console.error(`Error sending VSL event ${eventName}:`, error);
+    }
+  }, [generateEventId, visitorData?.visitorId]);
 
   const startPlayback = async () => {
     if (!videoRef.current || isPlaying) return;
@@ -76,11 +170,14 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Handle when video actually starts playing
+    // Handle when video actually starts playing - track VSLStart
     const handlePlay = () => {
       setIsPlaying(true);
       setHasStarted(true);
       console.log('▶️ Vídeo iniciado');
+      
+      // Send VSLStart event
+      sendVSLEvent('VSLStart');
     };
 
     video.addEventListener('play', handlePlay);
@@ -113,7 +210,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       video.removeEventListener('play', handlePlay);
       clearTimeout(timer);
     };
-  }, []);
+  }, [sendVSLEvent]);
 
   // Block seeking via keyboard
   useEffect(() => {
@@ -143,9 +240,18 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     // Report video time for CTA visibility
     reportVideoTime(videoCurrentTime);
 
-    // Track milestones
-    const milestones = [25, 50, 75, 100];
-    milestones.forEach((milestone) => {
+    // Track VSL milestones (15s and 30s)
+    if (videoCurrentTime >= 15 && !vslEventsTrackedRef.current.VSL15s) {
+      sendVSLEvent('VSL15s');
+    }
+    
+    if (videoCurrentTime >= 30 && !vslEventsTrackedRef.current.VSL30s) {
+      sendVSLEvent('VSL30s');
+    }
+
+    // Track percentage milestones (for logging only)
+    const percentMilestones = [25, 50, 75, 100];
+    percentMilestones.forEach((milestone) => {
       if (currentProgress >= milestone && !milestonesRef.current.has(milestone)) {
         milestonesRef.current.add(milestone);
         console.log(`📊 VSL milestone: ${milestone}%`);

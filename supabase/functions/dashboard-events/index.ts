@@ -2,9 +2,8 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
+const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY');
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-
-const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -50,6 +49,64 @@ serve(async (req) => {
   }
 
   try {
+    // =============== JWT AUTHENTICATION ===============
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader) {
+      console.log('Dashboard: No Authorization header');
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized - No token provided' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    
+    // Create client with anon key to verify user
+    const supabaseAuth = createClient(SUPABASE_URL!, SUPABASE_ANON_KEY!);
+    
+    // Verify JWT and get user
+    const { data: { user }, error: authError } = await supabaseAuth.auth.getUser(token);
+    
+    if (authError || !user) {
+      console.log('Dashboard: Invalid token or user not found', authError?.message);
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized - Invalid token' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log(`Dashboard: User authenticated: ${user.id}`);
+
+    // =============== ADMIN ROLE CHECK ===============
+    // Use service role client to check admin role (bypasses RLS)
+    const supabaseService = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
+    
+    const { data: roleData, error: roleError } = await supabaseService
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', user.id)
+      .eq('role', 'admin')
+      .maybeSingle();
+
+    if (roleError) {
+      console.error('Dashboard: Error checking admin role', roleError);
+      return new Response(
+        JSON.stringify({ error: 'Internal error checking permissions' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!roleData) {
+      console.log(`Dashboard: User ${user.id} is not an admin`);
+      return new Response(
+        JSON.stringify({ error: 'Forbidden - Admin access required' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log(`Dashboard: Admin access granted for user ${user.id}`);
+
+    // =============== DASHBOARD DATA ===============
     const url = new URL(req.url);
     const days = parseInt(url.searchParams.get('days') || '30');
     const startDate = new Date();
@@ -57,8 +114,8 @@ serve(async (req) => {
 
     console.log(`Dashboard: Fetching events for last ${days} days`);
 
-    // Get events
-    const { data: events, error: eventsError } = await supabase
+    // Get events using service role client (bypasses RLS on meta_events)
+    const { data: events, error: eventsError } = await supabaseService
       .from('meta_events')
       .select('*')
       .gte('event_time', startDate.toISOString())
