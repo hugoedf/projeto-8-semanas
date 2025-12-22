@@ -15,11 +15,8 @@ verify_jwt = false
 [functions.elevenlabs-vsl]
 verify_jwt = false
 
-[functions.dashboard-auth]
-verify_jwt = false
-
 [functions.dashboard-events]
-verify_jwt = false
+verify_jwt = true
 
 [functions.vsl-background-music]
 verify_jwt = false

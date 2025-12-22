@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -23,7 +24,8 @@ import {
   Globe,
   MapPin,
   LayoutGrid,
-  Loader2
+  Loader2,
+  LogOut
 } from 'lucide-react';
 import {
   ChartContainer,
@@ -43,6 +45,7 @@ import {
   Cell
 } from 'recharts';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 
 interface AnalyticsData {
   name: string;
@@ -112,18 +115,26 @@ const chartConfig = {
 const COLORS = ['hsl(220, 70%, 50%)', 'hsl(280, 70%, 50%)', 'hsl(40, 70%, 50%)', 'hsl(120, 70%, 50%)', 'hsl(0, 70%, 50%)', 'hsl(160, 70%, 50%)'];
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const { isAuthenticated, isAdmin, loading: authLoading, roleLoading, signOut, user } = useAuth();
+  
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [days, setDays] = useState(30);
-  
-  // Password protection state
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return sessionStorage.getItem('dashboard_auth') === 'true';
-  });
-  const [password, setPassword] = useState('');
-  const [authError, setAuthError] = useState('');
-  const [authLoading, setAuthLoading] = useState(false);
+
+  // Redirect non-authenticated or non-admin users
+  useEffect(() => {
+    if (!authLoading && !roleLoading) {
+      if (!isAuthenticated) {
+        console.log('Dashboard: Not authenticated, redirecting to /auth');
+        navigate('/auth');
+      } else if (!isAdmin) {
+        console.log('Dashboard: Not admin, redirecting to /');
+        navigate('/');
+      }
+    }
+  }, [authLoading, roleLoading, isAuthenticated, isAdmin, navigate]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -134,7 +145,20 @@ export default function Dashboard() {
         method: 'GET',
       });
 
-      if (fetchError) throw fetchError;
+      if (fetchError) {
+        // Handle specific error cases
+        if (fetchError.message?.includes('401') || fetchError.message?.includes('Unauthorized')) {
+          setError('Sessão expirada. Faça login novamente.');
+          navigate('/auth');
+          return;
+        }
+        if (fetchError.message?.includes('403') || fetchError.message?.includes('Forbidden')) {
+          setError('Acesso negado. Você precisa ser administrador.');
+          navigate('/');
+          return;
+        }
+        throw fetchError;
+      }
       setData(response);
     } catch (err) {
       console.error('Error fetching dashboard data:', err);
@@ -145,35 +169,14 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && isAdmin && !authLoading && !roleLoading) {
       fetchData();
     }
-  }, [days, isAuthenticated]);
+  }, [days, isAuthenticated, isAdmin, authLoading, roleLoading]);
 
-  const handlePasswordSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setAuthLoading(true);
-    setAuthError('');
-    
-    try {
-      const { data, error } = await supabase.functions.invoke('dashboard-auth', {
-        body: { password },
-      });
-      
-      if (error) throw error;
-      
-      if (data?.success) {
-        sessionStorage.setItem('dashboard_auth', 'true');
-        setIsAuthenticated(true);
-      } else {
-        setAuthError(data?.error || 'Senha incorreta');
-      }
-    } catch (err) {
-      console.error('Auth error:', err);
-      setAuthError('Erro ao verificar senha');
-    } finally {
-      setAuthLoading(false);
-    }
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/auth');
   };
 
   const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
@@ -227,52 +230,21 @@ export default function Dashboard() {
     </div>
   );
 
-
-  // Password protection screen
-  if (!isAuthenticated) {
+  // Show loading while checking auth
+  if (authLoading || roleLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Dashboard Protegido</CardTitle>
-            <p className="text-muted-foreground text-sm mt-2">
-              Digite a senha para acessar o dashboard
-            </p>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handlePasswordSubmit} className="space-y-4">
-              <div>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Senha"
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                  autoFocus
-                />
-              </div>
-              {authError && (
-                <p className="text-sm text-destructive text-center">{authError}</p>
-              )}
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={authLoading || !password}
-              >
-                {authLoading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Verificando...
-                  </>
-                ) : (
-                  'Acessar Dashboard'
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-accent" />
+          <p className="text-muted-foreground">Verificando autenticação...</p>
+        </div>
       </div>
     );
+  }
+
+  // Only render dashboard if authenticated and admin
+  if (!isAuthenticated || !isAdmin) {
+    return null; // Will redirect via useEffect
   }
 
   if (loading) {
@@ -317,6 +289,7 @@ export default function Dashboard() {
             <h1 className="text-2xl md:text-3xl font-bold text-foreground">Dashboard de Performance</h1>
             <p className="text-sm text-muted-foreground">
               Atualizado: {new Date(data.lastUpdated).toLocaleString('pt-BR')}
+              {user?.email && <span className="ml-2">• Logado como: {user.email}</span>}
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -338,6 +311,10 @@ export default function Dashboard() {
             <Button variant="outline" size="sm" onClick={fetchData}>
               <RefreshCw className="w-4 h-4 mr-2" />
               Atualizar
+            </Button>
+            <Button variant="outline" size="sm" onClick={handleSignOut}>
+              <LogOut className="w-4 h-4 mr-2" />
+              Sair
             </Button>
           </div>
         </div>
@@ -477,15 +454,21 @@ export default function Dashboard() {
                             <Icon className="w-4 h-4" />
                             {stage.label}
                           </span>
-                          <span className="font-medium">{stage.value} ({percentage.toFixed(1)}%)</span>
+                          <span className="font-medium text-foreground">{stage.value.toLocaleString('pt-BR')}</span>
                         </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
-                          <div 
-                            className={`h-full rounded-full transition-all ${
-                              stage.name === 'Purchase' ? 'bg-green-500' : 'bg-accent'
-                            }`}
-                            style={{ width: `${percentage}%` }} 
+                        <div className="h-3 bg-muted rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-accent transition-all duration-500"
+                            style={{ width: `${percentage}%` }}
                           />
+                        </div>
+                        <div className="flex justify-between text-xs text-muted-foreground">
+                          <span>{percentage.toFixed(1)}% do total</span>
+                          {idx > 0 && (
+                            <span className="text-red-400">
+                              -{data.funnel.dropoffs[Object.keys(data.funnel.dropoffs)[idx - 1]]}% dropoff
+                            </span>
+                          )}
                         </div>
                       </div>
                     );
@@ -496,34 +479,54 @@ export default function Dashboard() {
               {/* Weekly Comparison */}
               <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="text-lg">Comparação Semanal</CardTitle>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <TrendIcon trend={data.performance.trend} />
+                    Comparativo Semanal
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center p-4 bg-muted/30 rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">Eventos</p>
-                      <p className="text-xl font-bold">{data.performance.last7Days}</p>
-                      <p className="text-xs text-muted-foreground">vs {data.performance.prev7Days}</p>
-                      <ChangeIndicator value={data.performance.weekOverWeekChange} />
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <p className="text-sm text-muted-foreground">Últimos 7 dias</p>
+                        <p className="text-2xl font-bold text-foreground">{data.performance.last7Days.toLocaleString('pt-BR')}</p>
+                        <p className="text-xs text-muted-foreground">eventos</p>
+                      </div>
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <p className="text-sm text-muted-foreground">7 dias anteriores</p>
+                        <p className="text-2xl font-bold text-foreground">{data.performance.prev7Days.toLocaleString('pt-BR')}</p>
+                        <p className="text-xs text-muted-foreground">eventos</p>
+                      </div>
                     </div>
-                    <div className="text-center p-4 bg-muted/30 rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">Conversões</p>
-                      <p className="text-xl font-bold">{data.performance.last7Purchases}</p>
-                      <p className="text-xs text-muted-foreground">vs {data.performance.prev7Purchases}</p>
-                      <ChangeIndicator value={data.performance.purchaseWoWChange} />
+                    
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Variação de eventos</span>
+                        <ChangeIndicator value={data.performance.weekOverWeekChange} />
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Variação de compras</span>
+                        <ChangeIndicator value={data.performance.purchaseWoWChange} />
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Variação de receita</span>
+                        <ChangeIndicator value={data.performance.valueWoWChange} />
+                      </div>
                     </div>
-                    <div className="text-center p-4 bg-muted/30 rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">Receita</p>
-                      <p className="text-lg font-bold">R$ {data.performance.last7Value.toLocaleString('pt-BR', { minimumFractionDigits: 0 })}</p>
-                      <ChangeIndicator value={data.performance.valueWoWChange} />
-                    </div>
-                    <div className="text-center p-4 bg-muted/30 rounded-lg flex flex-col items-center justify-center">
-                      <p className="text-xs text-muted-foreground mb-1">Tendência</p>
-                      <TrendIcon trend={data.performance.trend} />
-                      <p className="text-sm font-medium mt-1">
-                        {data.performance.trend === 'up' ? 'Subindo' : 
-                         data.performance.trend === 'down' ? 'Caindo' : 'Estável'}
-                      </p>
+
+                    <div className="pt-4 border-t border-border">
+                      <div className="grid grid-cols-2 gap-4 text-center">
+                        <div>
+                          <p className="text-2xl font-bold text-green-500">{data.performance.last7Purchases}</p>
+                          <p className="text-xs text-muted-foreground">Compras (7d)</p>
+                        </div>
+                        <div>
+                          <p className="text-2xl font-bold text-accent">
+                            R$ {data.performance.last7Value.toLocaleString('pt-BR', { minimumFractionDigits: 0 })}
+                          </p>
+                          <p className="text-xs text-muted-foreground">Receita (7d)</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -534,23 +537,17 @@ export default function Dashboard() {
             <div className="grid lg:grid-cols-2 gap-6">
               <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="text-lg">Eventos por Dia</CardTitle>
+                  <CardTitle className="text-lg">Eventos ao Longo do Tempo</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ChartContainer config={chartConfig} className="h-[250px]">
+                  <ChartContainer config={chartConfig} className="h-[300px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={data.chartData}>
-                        <XAxis 
-                          dataKey="date" 
-                          stroke="hsl(var(--muted-foreground))"
-                          fontSize={10}
-                          tickFormatter={(value) => new Date(value).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
-                        />
-                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                        <XAxis dataKey="date" tick={{ fontSize: 10 }} />
+                        <YAxis tick={{ fontSize: 10 }} />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <Line type="monotone" dataKey="PageView" stroke={chartConfig.PageView.color} strokeWidth={2} dot={false} />
-                        <Line type="monotone" dataKey="CTAClick" stroke={chartConfig.CTAClick.color} strokeWidth={2} dot={false} />
-                        <Line type="monotone" dataKey="Purchase" stroke={chartConfig.Purchase.color} strokeWidth={2} dot={false} />
+                        <Line type="monotone" dataKey="total" stroke="hsl(var(--accent))" strokeWidth={2} dot={false} />
+                        <Line type="monotone" dataKey="Purchase" stroke="hsl(120, 70%, 50%)" strokeWidth={2} dot={false} />
                       </LineChart>
                     </ResponsiveContainer>
                   </ChartContainer>
@@ -562,16 +559,13 @@ export default function Dashboard() {
                   <CardTitle className="text-lg">Eventos por Tipo</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ChartContainer config={chartConfig} className="h-[250px]">
+                  <ChartContainer config={chartConfig} className="h-[300px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart 
-                        data={funnelStages.map(s => ({ name: s.label, value: s.value }))}
-                        layout="vertical"
-                      >
-                        <XAxis type="number" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                        <YAxis type="category" dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} width={80} />
+                      <BarChart data={Object.entries(data.overview.eventCounts).map(([name, count]) => ({ name, count }))}>
+                        <XAxis dataKey="name" tick={{ fontSize: 9 }} angle={-45} textAnchor="end" height={60} />
+                        <YAxis tick={{ fontSize: 10 }} />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <Bar dataKey="value" fill="hsl(var(--accent))" radius={[0, 4, 4, 0]} />
+                        <Bar dataKey="count" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
                   </ChartContainer>
@@ -586,7 +580,7 @@ export default function Dashboard() {
               <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
-                    <Globe className="w-5 h-5" />
+                    <LayoutGrid className="w-5 h-5" />
                     Performance por Plataforma
                   </CardTitle>
                 </CardHeader>
@@ -600,20 +594,20 @@ export default function Dashboard() {
                   <CardTitle className="text-lg">Distribuição por Plataforma</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[250px]">
+                  <div className="h-[300px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
-                          data={data.analytics.byPlatform.filter(p => p.events > 0)}
+                          data={data.analytics.byPlatform.slice(0, 5)}
                           dataKey="events"
                           nameKey="name"
                           cx="50%"
                           cy="50%"
-                          outerRadius={80}
-                          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          outerRadius={100}
+                          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                           labelLine={false}
                         >
-                          {data.analytics.byPlatform.map((_, index) => (
+                          {data.analytics.byPlatform.slice(0, 5).map((_, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
@@ -630,10 +624,7 @@ export default function Dashboard() {
           <TabsContent value="placement" className="space-y-6">
             <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <LayoutGrid className="w-5 h-5" />
-                  Performance por Posicionamento
-                </CardTitle>
+                <CardTitle className="text-lg">Performance por Posicionamento</CardTitle>
               </CardHeader>
               <CardContent>
                 <AnalyticsTable data={data.analytics.byPlacement} title="Posicionamento" />
@@ -646,16 +637,16 @@ export default function Dashboard() {
                   <CardTitle className="text-lg">Eventos por Posicionamento</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[250px]">
+                  <ChartContainer config={chartConfig} className="h-[300px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={data.analytics.byPlacement.slice(0, 6)}>
-                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                        <ChartTooltip />
-                        <Bar dataKey="events" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
+                      <BarChart data={data.analytics.byPlacement.slice(0, 8)} layout="vertical">
+                        <XAxis type="number" tick={{ fontSize: 10 }} />
+                        <YAxis dataKey="name" type="category" tick={{ fontSize: 9 }} width={100} />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                        <Bar dataKey="events" fill="hsl(220, 70%, 50%)" radius={[0, 4, 4, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
-                  </div>
+                  </ChartContainer>
                 </CardContent>
               </Card>
 
@@ -664,16 +655,16 @@ export default function Dashboard() {
                   <CardTitle className="text-lg">Conversões por Posicionamento</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[250px]">
+                  <ChartContainer config={chartConfig} className="h-[300px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={data.analytics.byPlacement.slice(0, 6)}>
-                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                        <ChartTooltip />
-                        <Bar dataKey="conversions" fill="hsl(120, 70%, 50%)" radius={[4, 4, 0, 0]} />
+                      <BarChart data={data.analytics.byPlacement.slice(0, 8)} layout="vertical">
+                        <XAxis type="number" tick={{ fontSize: 10 }} />
+                        <YAxis dataKey="name" type="category" tick={{ fontSize: 9 }} width={100} />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                        <Bar dataKey="conversions" fill="hsl(120, 70%, 50%)" radius={[0, 4, 4, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
-                  </div>
+                  </ChartContainer>
                 </CardContent>
               </Card>
             </div>
@@ -698,33 +689,31 @@ export default function Dashboard() {
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
                     <Monitor className="w-5 h-5" />
-                    Performance por Sistema Operacional
+                    Performance por Sistema
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <AnalyticsTable data={data.analytics.byOS} title="OS" />
+                  <AnalyticsTable data={data.analytics.byOS} title="Sistema" />
                 </CardContent>
               </Card>
             </div>
 
             <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-lg">Comparação Mobile vs Desktop</CardTitle>
+                <CardTitle className="text-lg">Mobile vs Desktop</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-8">
                   {data.analytics.byDevice.slice(0, 2).map((device, idx) => (
-                    <div key={idx} className="text-center p-6 bg-muted/30 rounded-lg">
-                      {device.name === 'mobile' ? (
-                        <Smartphone className="w-10 h-10 mx-auto mb-3 text-accent" />
-                      ) : (
-                        <Monitor className="w-10 h-10 mx-auto mb-3 text-accent" />
-                      )}
-                      <p className="text-lg font-bold capitalize">{device.name}</p>
-                      <p className="text-3xl font-bold text-foreground mt-2">{device.events.toLocaleString('pt-BR')}</p>
+                    <div key={device.name} className="text-center p-6 bg-muted/30 rounded-lg">
+                      {idx === 0 ? <Smartphone className="w-12 h-12 mx-auto mb-4 text-accent" /> : <Monitor className="w-12 h-12 mx-auto mb-4 text-accent" />}
+                      <p className="text-xl font-bold text-foreground capitalize">{device.name}</p>
+                      <p className="text-3xl font-bold text-accent mt-2">{device.events.toLocaleString('pt-BR')}</p>
                       <p className="text-sm text-muted-foreground">eventos</p>
-                      <p className="text-xl font-bold text-green-500 mt-2">{device.conversions}</p>
-                      <p className="text-sm text-muted-foreground">conversões ({device.conversionRate}%)</p>
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <p className="text-lg font-medium text-green-500">{device.conversions} conversões</p>
+                        <p className="text-sm text-muted-foreground">Taxa: {device.conversionRate}%</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -778,16 +767,16 @@ export default function Dashboard() {
             <div className="grid lg:grid-cols-2 gap-6">
               <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="text-lg">Performance por Fonte (UTM Source)</CardTitle>
+                  <CardTitle className="text-lg">Por Origem (UTM Source)</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <AnalyticsTable data={data.analytics.bySource} title="Fonte" />
+                  <AnalyticsTable data={data.analytics.bySource} title="Origem" />
                 </CardContent>
               </Card>
 
               <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="text-lg">Performance por Campanha</CardTitle>
+                  <CardTitle className="text-lg">Por Campanha (UTM Campaign)</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <AnalyticsTable data={data.analytics.byCampaign} title="Campanha" />
