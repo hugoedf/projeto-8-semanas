@@ -71,7 +71,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     }
   };
 
-  // Autoplay on mount (muted)
+  // Autoplay on mount (muted) after 2 second delay to show thumbnail
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -97,8 +97,8 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       }
     };
 
-    // Small delay to ensure video element is ready
-    const timer = setTimeout(attemptAutoplay, 100);
+    // 2 second delay to show thumbnail before autoplay
+    const timer = setTimeout(attemptAutoplay, 2000);
 
     return () => {
       video.removeEventListener('play', handlePlay);
