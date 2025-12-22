@@ -12,7 +12,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasEnded, setHasEnded] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
-  const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay
+  const [isMuted, setIsMuted] = useState(false); // Start with sound
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -71,7 +71,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     }
   };
 
-  // Autoplay on mount (muted) after 2 second delay to show thumbnail
+  // Autoplay on mount with sound after 2 second delay to show thumbnail
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -87,13 +87,22 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
     const attemptAutoplay = async () => {
       try {
-        video.muted = true;
-        setIsMuted(true);
+        // Try to play with sound first
+        video.muted = false;
+        setIsMuted(false);
         await video.play();
-        console.log('▶️ Autoplay iniciado (muted)');
+        console.log('▶️ Autoplay iniciado com som');
       } catch (error) {
-        console.log('⏸️ Autoplay bloqueado pelo navegador:', error);
-        // If autoplay fails, user will need to click play button
+        console.log('⏸️ Autoplay com som bloqueado, tentando mudo:', error);
+        // If autoplay with sound fails, try muted
+        try {
+          video.muted = true;
+          setIsMuted(true);
+          await video.play();
+          console.log('▶️ Autoplay iniciado (muted)');
+        } catch (mutedError) {
+          console.log('⏸️ Autoplay bloqueado pelo navegador:', mutedError);
+        }
       }
     };
 
@@ -263,18 +272,6 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           </>
         )}
 
-        {/* Unmute Overlay - Shows when video is playing muted */}
-        {hasStarted && isMuted && isPlaying && (
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30">
-            <button
-              onClick={toggleMute}
-              className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-3 rounded-full shadow-2xl animate-pulse transition-all duration-300 hover:scale-105"
-            >
-              <VolumeX className="w-6 h-6" />
-              <span className="text-base font-bold uppercase tracking-wide">Ativar Som</span>
-            </button>
-          </div>
-        )}
 
         {/* Custom Controls Overlay (when video has started) */}
         {hasStarted && (
