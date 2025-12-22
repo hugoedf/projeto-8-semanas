@@ -17,14 +17,17 @@ interface CTAVisibilityProviderProps {
 }
 
 export const CTAVisibilityProvider = ({ children }: CTAVisibilityProviderProps) => {
-  const [ctaVisible, setCtaVisible] = useState(false);
+  // CTAs always visible now - no waiting for video
+  const [ctaVisible, setCtaVisible] = useState(true);
+  const [ctaIntensified, setCtaIntensified] = useState(false);
 
   const reportVideoTime = useCallback((seconds: number) => {
-    if (seconds >= 10 && !ctaVisible) {
-      setCtaVisible(true);
-      console.log('🎯 CTAs liberados após 10s de reprodução do vídeo');
+    // Intensify CTA after 10s of video (pulse stronger, etc)
+    if (seconds >= 10 && !ctaIntensified) {
+      setCtaIntensified(true);
+      console.log('🎯 CTAs intensificados após 10s de reprodução do vídeo');
     }
-  }, [ctaVisible]);
+  }, [ctaIntensified]);
 
   return (
     <CTAVisibilityContext.Provider value={{ ctaVisible, reportVideoTime }}>

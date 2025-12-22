@@ -298,8 +298,8 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
               >
                 MÉTODO <span className="text-accent">8X</span>
               </p>
-              <p className="text-white/50 text-sm tracking-widest uppercase">
-                O Método que vai mudar seus resultados
+              <p className="text-white/50 text-sm tracking-widest uppercase text-center max-w-xs">
+                O ERRO que 90% dos caras cometem no treino
               </p>
             </div>
 
@@ -322,9 +322,12 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
             </div>
 
             {/* Click to watch text */}
-            <div className="absolute bottom-8 left-0 right-0 flex justify-center z-0">
+            <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center gap-1 z-0">
               <p className="text-white/40 text-xs sm:text-sm tracking-[0.3em] uppercase">
                 Clique para assistir
+              </p>
+              <p className="text-accent/70 text-[10px] sm:text-xs">
+                Assista os primeiros 30 segundos — pode mudar tudo
               </p>
             </div>
           </>
