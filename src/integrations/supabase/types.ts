@@ -16,6 +16,11 @@ export type Database = {
     Tables: {
       meta_events: {
         Row: {
+          ad_id: string | null
+          adset_id: string | null
+          campaign_id: string | null
+          city: string | null
+          country: string | null
           created_at: string
           currency: string | null
           device: string | null
@@ -23,7 +28,11 @@ export type Database = {
           event_name: string
           event_time: string
           id: string
+          os: string | null
           page_url: string | null
+          placement: string | null
+          publisher_platform: string | null
+          region: string | null
           utm_campaign: string | null
           utm_medium: string | null
           utm_source: string | null
@@ -31,6 +40,11 @@ export type Database = {
           visitor_id: string | null
         }
         Insert: {
+          ad_id?: string | null
+          adset_id?: string | null
+          campaign_id?: string | null
+          city?: string | null
+          country?: string | null
           created_at?: string
           currency?: string | null
           device?: string | null
@@ -38,7 +52,11 @@ export type Database = {
           event_name: string
           event_time?: string
           id?: string
+          os?: string | null
           page_url?: string | null
+          placement?: string | null
+          publisher_platform?: string | null
+          region?: string | null
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
@@ -46,6 +64,11 @@ export type Database = {
           visitor_id?: string | null
         }
         Update: {
+          ad_id?: string | null
+          adset_id?: string | null
+          campaign_id?: string | null
+          city?: string | null
+          country?: string | null
           created_at?: string
           currency?: string | null
           device?: string | null
@@ -53,7 +76,11 @@ export type Database = {
           event_name?: string
           event_time?: string
           id?: string
+          os?: string | null
           page_url?: string | null
+          placement?: string | null
+          publisher_platform?: string | null
+          region?: string | null
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
