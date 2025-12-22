@@ -120,7 +120,8 @@ const UrgencyBanner = () => {
             <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300 animate-pulse flex-shrink-0" />
           )}
           <span className="text-[10px] sm:text-sm font-medium">
-            <span className="text-yellow-300 font-bold">3 bônus</span> grátis em:
+            <span className="hidden sm:inline">Bônus de lançamento expira em:</span>
+            <span className="sm:hidden text-yellow-300 font-bold">Bônus</span>
           </span>
           <div className="flex items-center gap-0.5 font-mono font-bold text-[11px] sm:text-base">
             <span className="bg-black/30 px-1 py-0.5 rounded">
