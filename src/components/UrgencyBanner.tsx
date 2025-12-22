@@ -11,12 +11,12 @@ const getInitialDuration = (visitCount: number): number => {
   }
 };
 
-// Mensagem contextual baseada na urgência
+// Mensagem contextual baseada na urgência - focada em bônus/lançamento
 const getUrgencyMessage = (visitCount: number): string => {
   switch (visitCount) {
-    case 1: return "Preço sobe em:";
-    case 2: return "Última chance! Sobe em:";
-    default: return "Oferta acabando:";
+    case 1: return "Bônus de lançamento expira em:";
+    case 2: return "Última chance! Bônus expira em:";
+    default: return "Oferta de lançamento termina em:";
   }
 };
 
@@ -24,6 +24,7 @@ const UrgencyBanner = () => {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [viewersCount, setViewersCount] = useState(0);
   const [visitCount, setVisitCount] = useState(1);
+  const [slotsRemaining, setSlotsRemaining] = useState(0);
 
   useEffect(() => {
     // Recuperar contagem de visitas
@@ -83,6 +84,16 @@ const UrgencyBanner = () => {
     const baseCount = 89 + Math.floor(Math.random() * 67);
     setViewersCount(baseCount);
 
+    // Simular vagas restantes (entre 12 e 23 de 100)
+    const storedSlots = localStorage.getItem('urgency_slots_remaining');
+    if (storedSlots) {
+      setSlotsRemaining(parseInt(storedSlots));
+    } else {
+      const initialSlots = 12 + Math.floor(Math.random() * 12); // 12-23 vagas
+      setSlotsRemaining(initialSlots);
+      localStorage.setItem('urgency_slots_remaining', initialSlots.toString());
+    }
+
     // Variar ligeiramente a cada 5-15 segundos
     const interval = setInterval(() => {
       setViewersCount(prev => {
@@ -129,6 +140,16 @@ const UrgencyBanner = () => {
         {/* Separador */}
         <div className="hidden sm:block w-px h-4 bg-white/30" />
 
+        {/* Vagas restantes */}
+        <div className="flex items-center gap-2">
+          <span className="text-xs sm:text-sm font-medium">
+            <span className="font-bold text-yellow-300">{slotsRemaining}</span> de 100 vagas restantes
+          </span>
+        </div>
+
+        {/* Separador */}
+        <div className="hidden sm:block w-px h-4 bg-white/30" />
+
         {/* Visualizadores */}
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5">
@@ -139,7 +160,7 @@ const UrgencyBanner = () => {
             <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </div>
           <span className="text-xs sm:text-sm font-medium">
-            <span className="font-bold">{viewersCount}</span> pessoas online agora
+            <span className="font-bold">{viewersCount}</span> online
           </span>
         </div>
       </div>

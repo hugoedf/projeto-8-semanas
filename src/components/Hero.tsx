@@ -81,7 +81,7 @@ const Hero = () => {
             </div>
             
             {/* CTA Section - Limpo e focado */}
-            <div className={`order-5 space-y-4 transition-all duration-500 ${vslEnded ? 'scale-105' : ''} ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <div className={`order-5 space-y-4 transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
               <Button 
                 variant="cta" 
                 size="lg" 
