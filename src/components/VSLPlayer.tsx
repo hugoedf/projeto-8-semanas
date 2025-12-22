@@ -193,6 +193,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
+          poster={vslThumbnail}
           playsInline
           muted
           preload="auto"
