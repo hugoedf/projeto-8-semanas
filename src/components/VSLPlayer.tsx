@@ -43,7 +43,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     return `${base}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }, [visitorData?.visitorId]);
 
-  // Send VSL event to Meta Conversions API
+  // Send VSL event to internal dashboard only (not to Meta CAPI)
   const sendVSLEvent = useCallback(async (eventName: 'VSLStart' | 'VSL15s' | 'VSL30s') => {
     // Check if already tracked
     if (vslEventsTrackedRef.current[eventName]) {
@@ -55,62 +55,24 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     vslEventsTrackedRef.current[eventName] = true;
 
     const eventId = generateEventId();
-    console.log(`📊 VSL Event: ${eventName}`, { eventId });
+    console.log(`📊 VSL Event (Dashboard only): ${eventName}`, { eventId, visitorId: visitorData?.visitorId });
 
     try {
-      // Collect UTM data
-      const urlParams = new URLSearchParams(window.location.search);
-      const utmData = {
-        utm_source: urlParams.get('utm_source') || localStorage.getItem('utm_source') || undefined,
-        utm_medium: urlParams.get('utm_medium') || localStorage.getItem('utm_medium') || undefined,
-        utm_campaign: urlParams.get('utm_campaign') || localStorage.getItem('utm_campaign') || undefined,
-        utm_id: urlParams.get('utm_id') || localStorage.getItem('utm_id') || undefined,
-        utm_content: urlParams.get('utm_content') || localStorage.getItem('utm_content') || undefined,
-        utm_term: urlParams.get('utm_term') || localStorage.getItem('utm_term') || undefined,
-      };
+      // Send to internal dashboard-events function only
+      const response = await supabase.functions.invoke('dashboard-events', {
+        body: {
+          event_type: eventName,
+          visitor_id: visitorData?.visitorId,
+          event_id: eventId,
+          page_url: window.location.href,
+          timestamp: new Date().toISOString(),
+        },
+      });
 
-      // Get fbp and fbc from cookies
-      const getCookie = (name: string): string | undefined => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop()?.split(';').shift();
-        return undefined;
-      };
-
-      const response = await fetch(
-        `https://kfddlytvdzqwopongnew.supabase.co/functions/v1/meta-conversions`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            eventName,
-            eventParams: {},
-            eventId,
-            visitorId: visitorData?.visitorId,
-            fbp: getCookie('_fbp'),
-            fbc: getCookie('_fbc'),
-            client_user_agent: navigator.userAgent,
-            eventSourceUrl: window.location.href,
-            utmData,
-            deviceInfo: {
-              userAgent: navigator.userAgent,
-              language: navigator.language,
-              screenResolution: `${window.screen.width}x${window.screen.height}`,
-              timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-              referrer: document.referrer || '',
-              landingPage: window.location.href,
-            },
-            userData: {},
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        console.error(`VSL Event ${eventName} failed:`, response.statusText);
+      if (response.error) {
+        console.error(`VSL Event ${eventName} failed:`, response.error);
       } else {
-        console.log(`✅ VSL Event ${eventName} sent successfully`);
+        console.log(`✅ VSL Event ${eventName} sent to dashboard`);
       }
     } catch (error) {
       console.error(`Error sending VSL event ${eventName}:`, error);
