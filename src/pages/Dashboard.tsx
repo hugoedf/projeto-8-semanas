@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,7 +23,6 @@ import {
   Globe,
   MapPin,
   LayoutGrid,
-  LogOut,
   Loader2
 } from 'lucide-react';
 import {
@@ -45,7 +43,6 @@ import {
   Cell
 } from 'recharts';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth';
 
 interface AnalyticsData {
   name: string;
@@ -115,22 +112,10 @@ const chartConfig = {
 const COLORS = ['hsl(220, 70%, 50%)', 'hsl(280, 70%, 50%)', 'hsl(40, 70%, 50%)', 'hsl(120, 70%, 50%)', 'hsl(0, 70%, 50%)', 'hsl(160, 70%, 50%)'];
 
 export default function Dashboard() {
-  const { user, loading: authLoading, signOut, isAuthenticated, isAdmin, roleLoading } = useAuth();
-  const navigate = useNavigate();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [days, setDays] = useState(30);
-
-  useEffect(() => {
-    if (!authLoading && !roleLoading) {
-      if (!isAuthenticated) {
-        navigate('/auth');
-      } else if (!isAdmin) {
-        navigate('/');
-      }
-    }
-  }, [authLoading, roleLoading, isAuthenticated, isAdmin, navigate]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -152,15 +137,8 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (isAuthenticated && isAdmin) {
-      fetchData();
-    }
-  }, [days, isAuthenticated, isAdmin]);
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/auth');
-  };
+    fetchData();
+  }, [days]);
 
   const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
     if (trend === 'up') return <TrendingUp className="w-5 h-5 text-green-500" />;
@@ -213,17 +191,6 @@ export default function Dashboard() {
     </div>
   );
 
-  if (authLoading || roleLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-accent" />
-      </div>
-    );
-  }
-
-  if (!isAuthenticated || !isAdmin) {
-    return null;
-  }
 
   if (loading) {
     return (
@@ -266,7 +233,7 @@ export default function Dashboard() {
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-foreground">Dashboard de Performance</h1>
             <p className="text-sm text-muted-foreground">
-              {user?.email} • Atualizado: {new Date(data.lastUpdated).toLocaleString('pt-BR')}
+              Atualizado: {new Date(data.lastUpdated).toLocaleString('pt-BR')}
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -288,10 +255,6 @@ export default function Dashboard() {
             <Button variant="outline" size="sm" onClick={fetchData}>
               <RefreshCw className="w-4 h-4 mr-2" />
               Atualizar
-            </Button>
-            <Button variant="ghost" size="sm" onClick={handleSignOut}>
-              <LogOut className="w-4 h-4 mr-2" />
-              Sair
             </Button>
           </div>
         </div>
