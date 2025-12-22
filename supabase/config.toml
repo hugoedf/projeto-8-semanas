@@ -16,7 +16,7 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.dashboard-events]
-verify_jwt = true
+verify_jwt = false
 
 [functions.vsl-background-music]
 verify_jwt = false

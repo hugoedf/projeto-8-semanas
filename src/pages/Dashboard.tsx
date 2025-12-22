@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -25,7 +25,8 @@ import {
   MapPin,
   LayoutGrid,
   Loader2,
-  LogOut
+  LogOut,
+  Lock
 } from 'lucide-react';
 import {
   ChartContainer,
@@ -45,7 +46,6 @@ import {
   Cell
 } from 'recharts';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth';
 
 interface AnalyticsData {
   name: string;
@@ -114,27 +114,42 @@ const chartConfig = {
 
 const COLORS = ['hsl(220, 70%, 50%)', 'hsl(280, 70%, 50%)', 'hsl(40, 70%, 50%)', 'hsl(120, 70%, 50%)', 'hsl(0, 70%, 50%)', 'hsl(160, 70%, 50%)'];
 
+const DASHBOARD_PASSWORD = 'admin2024';
+
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const { isAuthenticated, isAdmin, loading: authLoading, roleLoading, signOut, user } = useAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState('');
   
   const [data, setData] = useState<DashboardData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [days, setDays] = useState(30);
 
-  // Redirect non-authenticated or non-admin users
+  // Check if already authenticated
   useEffect(() => {
-    if (!authLoading && !roleLoading) {
-      if (!isAuthenticated) {
-        console.log('Dashboard: Not authenticated, redirecting to /auth');
-        navigate('/auth');
-      } else if (!isAdmin) {
-        console.log('Dashboard: Not admin, redirecting to /');
-        navigate('/');
-      }
+    const storedAuth = sessionStorage.getItem('dashboard_auth');
+    if (storedAuth === 'true') {
+      setIsAuthenticated(true);
     }
-  }, [authLoading, roleLoading, isAuthenticated, isAdmin, navigate]);
+  }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === DASHBOARD_PASSWORD) {
+      sessionStorage.setItem('dashboard_auth', 'true');
+      setIsAuthenticated(true);
+      setAuthError('');
+    } else {
+      setAuthError('Senha incorreta');
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('dashboard_auth');
+    setIsAuthenticated(false);
+    setPassword('');
+  };
 
   const fetchData = async () => {
     setLoading(true);
@@ -146,17 +161,6 @@ export default function Dashboard() {
       });
 
       if (fetchError) {
-        // Handle specific error cases
-        if (fetchError.message?.includes('401') || fetchError.message?.includes('Unauthorized')) {
-          setError('Sessão expirada. Faça login novamente.');
-          navigate('/auth');
-          return;
-        }
-        if (fetchError.message?.includes('403') || fetchError.message?.includes('Forbidden')) {
-          setError('Acesso negado. Você precisa ser administrador.');
-          navigate('/');
-          return;
-        }
         throw fetchError;
       }
       setData(response);
@@ -169,15 +173,10 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (isAuthenticated && isAdmin && !authLoading && !roleLoading) {
+    if (isAuthenticated) {
       fetchData();
     }
-  }, [days, isAuthenticated, isAdmin, authLoading, roleLoading]);
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/auth');
-  };
+  }, [days, isAuthenticated]);
 
   const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
     if (trend === 'up') return <TrendingUp className="w-5 h-5 text-green-500" />;
@@ -230,21 +229,38 @@ export default function Dashboard() {
     </div>
   );
 
-  // Show loading while checking auth
-  if (authLoading || roleLoading) {
+  // Show login form if not authenticated
+  if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-accent" />
-          <p className="text-muted-foreground">Verificando autenticação...</p>
-        </div>
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <Card className="w-full max-w-md bg-card border-border">
+          <CardHeader className="text-center">
+            <div className="mx-auto w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mb-4">
+              <Lock className="w-6 h-6 text-accent" />
+            </div>
+            <CardTitle className="text-2xl">Dashboard Protegido</CardTitle>
+            <p className="text-muted-foreground text-sm">Digite a senha para acessar</p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <Input
+                type="password"
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-background border-border"
+              />
+              {authError && (
+                <p className="text-destructive text-sm text-center">{authError}</p>
+              )}
+              <Button type="submit" className="w-full">
+                Acessar Dashboard
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
       </div>
     );
-  }
-
-  // Only render dashboard if authenticated and admin
-  if (!isAuthenticated || !isAdmin) {
-    return null; // Will redirect via useEffect
   }
 
   if (loading) {
@@ -289,7 +305,6 @@ export default function Dashboard() {
             <h1 className="text-2xl md:text-3xl font-bold text-foreground">Dashboard de Performance</h1>
             <p className="text-sm text-muted-foreground">
               Atualizado: {new Date(data.lastUpdated).toLocaleString('pt-BR')}
-              {user?.email && <span className="ml-2">• Logado como: {user.email}</span>}
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -312,7 +327,7 @@ export default function Dashboard() {
               <RefreshCw className="w-4 h-4 mr-2" />
               Atualizar
             </Button>
-            <Button variant="outline" size="sm" onClick={handleSignOut}>
+            <Button variant="outline" size="sm" onClick={handleLogout}>
               <LogOut className="w-4 h-4 mr-2" />
               Sair
             </Button>
