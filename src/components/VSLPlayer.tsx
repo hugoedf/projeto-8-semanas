@@ -310,7 +310,6 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           className="absolute inset-0 w-full h-full object-cover"
           poster={vslThumbnail}
           playsInline
-          muted
           preload="auto"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
