@@ -285,7 +285,14 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
             />
 
             {/* Vignette */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_70%,rgba(0,0,0,0.8)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_70%,rgba(0,0,0,0.85)_100%)]" />
+
+            {/* Texto provocativo no topo */}
+            <div className="absolute top-4 sm:top-6 left-0 right-0 text-center z-0 px-4">
+              <p className="text-white/80 text-xs sm:text-sm tracking-widest uppercase">
+                O ERRO que 90% dos caras cometem no treino
+              </p>
+            </div>
 
             {/* Play button centralizado */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -300,6 +307,13 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
                 />
                 <span className="absolute inset-0 rounded-full border border-white/30 opacity-40 animate-ping" />
               </button>
+            </div>
+
+            {/* Micro-copy na base */}
+            <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 text-center z-0 px-4">
+              <p className="text-accent/80 text-[10px] sm:text-xs">
+                Assista os primeiros 30 segundos — pode mudar tudo
+              </p>
             </div>
           </>
         )}
