@@ -3,20 +3,18 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, X } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 
 const FloatingCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const { trackInitiateCheckout } = useMetaPixel();
-  const { ctaVisible } = useCTAVisibility();
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
       
-      // Mostrar após 40% de scroll e antes de chegar no CTA final (85%)
-      const shouldShow = scrollPercentage > 40 && scrollPercentage < 85;
+      // Mostrar após 50% de scroll e antes de chegar no CTA final (85%)
+      const shouldShow = scrollPercentage > 50 && scrollPercentage < 85;
       
       if (!isDismissed) {
         setIsVisible(shouldShow);
@@ -44,7 +42,7 @@ const FloatingCTA = () => {
     setIsVisible(false);
   };
 
-  if (!isVisible || !ctaVisible) return null;
+  if (!isVisible) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden animate-slide-in-bottom">
