@@ -115,7 +115,7 @@ const chartConfig = {
 const COLORS = ['hsl(220, 70%, 50%)', 'hsl(280, 70%, 50%)', 'hsl(40, 70%, 50%)', 'hsl(120, 70%, 50%)', 'hsl(0, 70%, 50%)', 'hsl(160, 70%, 50%)'];
 
 export default function Dashboard() {
-  const { user, loading: authLoading, signOut, isAuthenticated } = useAuth();
+  const { user, loading: authLoading, signOut, isAuthenticated, isAdmin, roleLoading } = useAuth();
   const navigate = useNavigate();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -123,10 +123,14 @@ export default function Dashboard() {
   const [days, setDays] = useState(30);
 
   useEffect(() => {
-    if (!authLoading && !isAuthenticated) {
-      navigate('/auth');
+    if (!authLoading && !roleLoading) {
+      if (!isAuthenticated) {
+        navigate('/auth');
+      } else if (!isAdmin) {
+        navigate('/');
+      }
     }
-  }, [authLoading, isAuthenticated, navigate]);
+  }, [authLoading, roleLoading, isAuthenticated, isAdmin, navigate]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -148,10 +152,10 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && isAdmin) {
       fetchData();
     }
-  }, [days, isAuthenticated]);
+  }, [days, isAuthenticated, isAdmin]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -209,7 +213,7 @@ export default function Dashboard() {
     </div>
   );
 
-  if (authLoading) {
+  if (authLoading || roleLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-accent" />
@@ -217,7 +221,7 @@ export default function Dashboard() {
     );
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !isAdmin) {
     return null;
   }
 
