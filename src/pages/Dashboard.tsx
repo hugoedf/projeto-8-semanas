@@ -74,6 +74,18 @@ interface DashboardData {
     rates: Record<string, string>;
     dropoffs: Record<string, string>;
   };
+  engagement: {
+    vslPlayRate: string;
+    vslRetention15s: string;
+    vslRetention30s: string;
+    vslToCTARate: string;
+    avgEventsPerVisitor: string;
+    bounceRate: string;
+    visitorsWithVSLStart: number;
+    visitorsWith15s: number;
+    visitorsWith30s: number;
+    visitorsWithCTA: number;
+  };
   performance: {
     trend: 'up' | 'down' | 'stable';
     weekOverWeekChange: number;
@@ -493,8 +505,9 @@ export default function Dashboard() {
         </div>
 
         {/* Tabs for different sections */}
-        <Tabs defaultValue="funnel" className="space-y-4">
+        <Tabs defaultValue="engagement" className="space-y-4">
           <TabsList className="bg-card border border-border">
+            <TabsTrigger value="engagement">Engajamento</TabsTrigger>
             <TabsTrigger value="funnel">Funil</TabsTrigger>
             <TabsTrigger value="platform">Plataforma</TabsTrigger>
             <TabsTrigger value="placement">Posicionamento</TabsTrigger>
@@ -502,6 +515,153 @@ export default function Dashboard() {
             <TabsTrigger value="region">Região</TabsTrigger>
             <TabsTrigger value="source">Origem</TabsTrigger>
           </TabsList>
+
+          {/* Engagement Tab */}
+          <TabsContent value="engagement" className="space-y-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Card className="bg-card border-border">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-2">
+                    <Play className="w-4 h-4" />
+                    Taxa de Play VSL
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-foreground">
+                    {data.engagement?.vslPlayRate || '0.0'}%
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {data.engagement?.visitorsWithVSLStart || 0} de {data.overview.uniqueVisitors} visitantes
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card border-border">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    Retenção 15s
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-foreground">
+                    {data.engagement?.vslRetention15s || '0.0'}%
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {data.engagement?.visitorsWith15s || 0} assistiram 15s+
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card border-border">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    Retenção 30s
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-foreground">
+                    {data.engagement?.vslRetention30s || '0.0'}%
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {data.engagement?.visitorsWith30s || 0} assistiram 30s+
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card border-border">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-2">
+                    <MousePointer className="w-4 h-4" />
+                    VSL → CTA
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-accent">
+                    {data.engagement?.vslToCTARate || '0.0'}%
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {data.engagement?.visitorsWithCTA || 0} clicaram no CTA
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="bg-card border-border">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Activity className="w-5 h-5" />
+                    Métricas de Engajamento
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-muted/30 rounded-lg">
+                    <span className="text-sm text-muted-foreground">Eventos por Visitante</span>
+                    <span className="text-lg font-bold text-foreground">
+                      {data.engagement?.avgEventsPerVisitor || '0.0'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-muted/30 rounded-lg">
+                    <span className="text-sm text-muted-foreground">Taxa de Bounce</span>
+                    <span className={`text-lg font-bold ${parseFloat(data.engagement?.bounceRate || '0') > 50 ? 'text-red-500' : 'text-green-500'}`}>
+                      {data.engagement?.bounceRate || '0.0'}%
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-muted/30 rounded-lg">
+                    <span className="text-sm text-muted-foreground">Média Diária de Eventos</span>
+                    <span className="text-lg font-bold text-foreground">
+                      {data.performance.avgDailyEvents}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-muted/30 rounded-lg">
+                    <span className="text-sm text-muted-foreground">Média Diária de Conversões</span>
+                    <span className="text-lg font-bold text-green-500">
+                      {data.performance.avgDailyConversions}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card border-border">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Play className="w-5 h-5" />
+                    Funil de Retenção VSL
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {[
+                    { label: 'Visitantes', value: data.overview.uniqueVisitors, color: 'bg-blue-500' },
+                    { label: 'Iniciaram VSL', value: data.engagement?.visitorsWithVSLStart || 0, color: 'bg-purple-500' },
+                    { label: 'Assistiram 15s', value: data.engagement?.visitorsWith15s || 0, color: 'bg-yellow-500' },
+                    { label: 'Assistiram 30s', value: data.engagement?.visitorsWith30s || 0, color: 'bg-orange-500' },
+                    { label: 'Clicaram CTA', value: data.engagement?.visitorsWithCTA || 0, color: 'bg-green-500' },
+                  ].map((item, idx) => {
+                    const percentage = data.overview.uniqueVisitors > 0 
+                      ? ((item.value / data.overview.uniqueVisitors) * 100)
+                      : 0;
+                    return (
+                      <div key={idx} className="space-y-1">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">{item.label}</span>
+                          <span className="font-medium text-foreground">{item.value.toLocaleString('pt-BR')}</span>
+                        </div>
+                        <div className="h-3 bg-muted rounded-full overflow-hidden">
+                          <div
+                            className={`h-full ${item.color} transition-all duration-500`}
+                            style={{ width: `${percentage}%` }}
+                          />
+                        </div>
+                        <p className="text-xs text-muted-foreground">{percentage.toFixed(1)}%</p>
+                      </div>
+                    );
+                  })}
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
 
           {/* Funnel Tab */}
           <TabsContent value="funnel" className="space-y-6">

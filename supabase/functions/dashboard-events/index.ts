@@ -117,6 +117,10 @@ serve(async (req) => {
     const eventCounts: Record<string, number> = {};
     const dailyEvents: Record<string, Record<string, number>> = {};
     const uniqueVisitors = new Set<string>();
+    const visitorsWithVSLStart = new Set<string>();
+    const visitorsWith15s = new Set<string>();
+    const visitorsWith30s = new Set<string>();
+    const visitorsWithCTA = new Set<string>();
     let totalValue = 0;
 
     events?.forEach((event) => {
@@ -126,7 +130,13 @@ serve(async (req) => {
       if (!dailyEvents[day]) dailyEvents[day] = {};
       dailyEvents[day][event.event_name] = (dailyEvents[day][event.event_name] || 0) + 1;
 
-      if (event.visitor_id) uniqueVisitors.add(event.visitor_id);
+      if (event.visitor_id) {
+        uniqueVisitors.add(event.visitor_id);
+        if (event.event_name === 'VSLStart') visitorsWithVSLStart.add(event.visitor_id);
+        if (event.event_name === 'VSL15s') visitorsWith15s.add(event.visitor_id);
+        if (event.event_name === 'VSL30s') visitorsWith30s.add(event.visitor_id);
+        if (event.event_name === 'CTAClick') visitorsWithCTA.add(event.visitor_id);
+      }
       if (event.value) totalValue += parseFloat(String(event.value));
     });
 
@@ -300,6 +310,26 @@ serve(async (req) => {
       ? Math.round((events?.length || 0) / Object.keys(dailyEvents).length)
       : 0;
 
+    // Engagement metrics
+    const vslPlayRate = uniqueVisitors.size > 0 
+      ? ((visitorsWithVSLStart.size / uniqueVisitors.size) * 100).toFixed(1)
+      : '0.0';
+    const vslRetention15s = visitorsWithVSLStart.size > 0
+      ? ((visitorsWith15s.size / visitorsWithVSLStart.size) * 100).toFixed(1)
+      : '0.0';
+    const vslRetention30s = visitorsWithVSLStart.size > 0
+      ? ((visitorsWith30s.size / visitorsWithVSLStart.size) * 100).toFixed(1)
+      : '0.0';
+    const vslToCTARate = visitorsWithVSLStart.size > 0
+      ? ((visitorsWithCTA.size / visitorsWithVSLStart.size) * 100).toFixed(1)
+      : '0.0';
+    const avgEventsPerVisitor = uniqueVisitors.size > 0
+      ? ((events?.length || 0) / uniqueVisitors.size).toFixed(1)
+      : '0.0';
+    const bounceRate = uniqueVisitors.size > 0
+      ? (((uniqueVisitors.size - visitorsWithVSLStart.size) / uniqueVisitors.size) * 100).toFixed(1)
+      : '0.0';
+
     const response = {
       overview: {
         totalEvents: events?.length || 0,
@@ -312,6 +342,18 @@ serve(async (req) => {
         ...funnelData,
         rates: funnelRates,
         dropoffs
+      },
+      engagement: {
+        vslPlayRate,
+        vslRetention15s,
+        vslRetention30s,
+        vslToCTARate,
+        avgEventsPerVisitor,
+        bounceRate,
+        visitorsWithVSLStart: visitorsWithVSLStart.size,
+        visitorsWith15s: visitorsWith15s.size,
+        visitorsWith30s: visitorsWith30s.size,
+        visitorsWithCTA: visitorsWithCTA.size,
       },
       performance: {
         trend,
