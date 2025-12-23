@@ -87,7 +87,7 @@ const Hero = () => {
             <p className="text-xs sm:text-base text-white/70 order-6 mt-4 whitespace-nowrap">
               <span className="text-white/90 font-medium">+500 pessoas já evoluíram</span>
               <span className="mx-1 sm:mx-2 text-white/40">•</span>
-              <span className="text-accent font-bold">R$19,90</span>
+              <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>
               <span className="mx-1 sm:mx-2 text-white/40">•</span>
               <span>Menos que uma refeição</span>
             </p>
