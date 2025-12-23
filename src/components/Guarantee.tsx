@@ -3,51 +3,49 @@ import guaranteeBadge from "@/assets/guarantee-badge.png";
 
 const Guarantee = () => {
   return (
-    <section className="py-16 sm:py-24 gradient-hero">
+    <section className="py-14 sm:py-24 gradient-hero">
       <div className="container mx-auto px-5 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="card-dark-glass p-7 sm:p-10 md:p-14 animate-fade-in">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 items-center">
-              <div className="text-center md:text-left order-2 md:order-1">
-                <div className="inline-flex items-center gap-2.5 text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-accent/40 bg-accent/10 mb-5 sm:mb-7 shadow-lg shadow-accent/10">
-                  <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span>Garantia Total</span>
-                </div>
-                
-                <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-5 text-white tracking-tight leading-tight">
-                  Garantia Incondicional de{" "}
-                  <span className="text-accent drop-shadow-[0_0_15px_hsla(18,100%,58%,0.3)]">7 Dias</span>
-                </h2>
-                
-                <p className="text-white/80 leading-relaxed mb-5 sm:mb-7 text-sm sm:text-base">
-                  Teste o método. Aplique. Sinta a diferença. Se não fizer sentido pra você, devolvemos 100% do valor. Sem risco. Sem complicação.
-                </p>
-                
-                <div className="space-y-3 sm:space-y-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5 drop-shadow-sm" />
-                    <p className="text-white/80 text-sm sm:text-base text-left font-medium">
-                      Sem risco
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5 drop-shadow-sm" />
-                    <p className="text-white/80 text-sm sm:text-base text-left font-medium">
-                      Sem complicação
-                    </p>
-                  </div>
-                </div>
+        <div className="max-w-lg mx-auto text-center">
+          <div className="card-dark-glass p-6 sm:p-10 animate-fade-in">
+            
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 text-accent font-semibold text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-accent/40 bg-accent/10 mb-6 shadow-lg shadow-accent/10">
+              <Shield className="w-4 h-4" />
+              <span>Garantia Total</span>
+            </div>
+            
+            {/* Selo de garantia - Centralizado */}
+            <div className="flex justify-center mb-6">
+              <div className="relative w-36 h-36 sm:w-48 sm:h-48">
+                <div className="absolute inset-0 bg-accent/25 rounded-full blur-[40px]" />
+                <img
+                  src={guaranteeBadge}
+                  alt="Selo de Garantia 7 Dias"
+                  className="relative z-10 w-full h-full object-contain drop-shadow-2xl"
+                />
               </div>
-              
-              <div className="flex justify-center order-1 md:order-2">
-                <div className="relative w-52 h-52 sm:w-60 sm:h-60 md:w-72 md:h-72">
-                  <div className="absolute inset-0 bg-accent/25 rounded-full blur-[50px]" />
-                  <img
-                    src={guaranteeBadge}
-                    alt="Selo de Garantia 7 Dias"
-                    className="relative z-10 w-full h-full object-contain glow-accent-strong drop-shadow-2xl"
-                  />
-                </div>
+            </div>
+            
+            {/* Título */}
+            <h2 className="font-display text-xl sm:text-3xl mb-4 text-white tracking-tight leading-tight">
+              Garantia Incondicional de{" "}
+              <span className="text-accent drop-shadow-[0_0_15px_hsla(18,100%,58%,0.3)]">7 Dias</span>
+            </h2>
+            
+            {/* Texto */}
+            <p className="text-white/80 leading-relaxed mb-6 text-sm sm:text-base px-2">
+              Teste o método. Aplique. Sinta a diferença. Se não fizer sentido pra você, devolvemos 100% do valor.
+            </p>
+            
+            {/* Benefícios - Vertical */}
+            <div className="flex flex-col gap-3 max-w-xs mx-auto">
+              <div className="flex items-center justify-center gap-2.5 bg-white/5 border border-white/10 rounded-lg px-4 py-3">
+                <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                <span className="text-white/90 text-sm font-medium">Sem risco</span>
+              </div>
+              <div className="flex items-center justify-center gap-2.5 bg-white/5 border border-white/10 rounded-lg px-4 py-3">
+                <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                <span className="text-white/90 text-sm font-medium">Sem complicação</span>
               </div>
             </div>
           </div>
