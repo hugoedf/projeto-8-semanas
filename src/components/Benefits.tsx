@@ -3,43 +3,43 @@ import { Check, Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calenda
 const benefits = [
   {
     icon: Dumbbell,
-    title: "Treino inteligente",
-    description: "Como aplicar estímulos corretos para gerar hipertrofia real."
+    title: "Saber o que fazer",
+    description: "Chega de perder tempo com treinos aleatórios. Cada exercício tem um propósito."
   },
   {
     icon: Target,
-    title: "Montagem estratégica",
-    description: "Organizar seus treinos semanais para evitar estagnação."
+    title: "Ver progresso real",
+    description: "Semana a semana, você vai sentir a diferença no espelho e na força."
   },
   {
     icon: TrendingUp,
-    title: "Técnicas avançadas",
-    description: "Drop-set, rest-pause, superséries e intensificação de forma segura e eficaz."
+    title: "Quebrar estagnação",
+    description: "Técnicas que forçam seu corpo a continuar evoluindo."
   },
   {
     icon: Apple,
-    title: "Nutrição prática",
-    description: "Comer do jeito certo para maximizar hipertrofia."
+    title: "Comer sem neura",
+    description: "Nutrição simples que funciona, sem frescura ou complicação."
   },
   {
     icon: Shield,
-    title: "Prevenção de lesões",
-    description: "Execução correta e aquecimento estruturado para treinar sem parar."
+    title: "Treinar sem lesão",
+    description: "Execução correta para não se machucar e não perder tempo parado."
   },
   {
     icon: Zap,
-    title: "Acompanhamento real",
-    description: "Acompanhe seu progresso semanal de maneira simples e objetiva."
+    title: "Economizar tempo",
+    description: "Treinos eficientes. Resultados máximos no menor tempo."
   },
   {
     icon: Brain,
-    title: "Mentalidade de disciplina",
-    description: "Disciplina, foco e consistência."
+    title: "Ter clareza mental",
+    description: "Saber exatamente o que fazer elimina a ansiedade do treino."
   },
   {
     icon: Calendar,
-    title: "Plano completo de 8 semanas",
-    description: "Do dia 1 ao dia 56, passo a passo."
+    title: "Manter consistência",
+    description: "Um plano claro de 8 semanas que você consegue seguir."
   },
 ];
 
@@ -49,9 +49,12 @@ const Benefits = () => {
       <div className="container mx-auto px-5 sm:px-6">
         <div className="text-center mb-8 sm:mb-10 animate-fade-in">
           <h2 className="font-display text-xl sm:text-3xl md:text-4xl mb-3 px-2 tracking-tight">
-            O que você vai dominar em{" "}
+            O que muda na sua vida em{" "}
             <span className="text-gradient">8 semanas:</span>
           </h2>
+          <p className="text-muted-foreground text-sm sm:text-base max-w-lg mx-auto">
+            Não é só sobre ganhar músculo. É sobre treinar com confiança.
+          </p>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">

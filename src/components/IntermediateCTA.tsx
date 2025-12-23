@@ -30,17 +30,17 @@ const IntermediateCTA = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 text-accent font-semibold text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-accent/40 bg-accent/10 mb-6">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>OFERTA POR TEMPO LIMITADO</span>
+            <span>DECISÃO SIMPLES</span>
           </div>
 
-          {/* Headline */}
+          {/* Headline emocional */}
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 tracking-tight">
-            Pronto para sua{" "}
-            <span className="text-gradient">transformação?</span>
+            Você pode continuar tentando sozinho.<br />
+            <span className="text-gradient">Ou pode seguir um caminho que funciona.</span>
           </h2>
 
           <p className="text-muted-foreground text-base sm:text-lg mb-6 max-w-lg mx-auto">
-            Mais de 500 pessoas já começaram. O método está comprovado. A única pergunta é: quando você vai começar?
+            Mais de 500 pessoas já pararam de estagnar. O método está pronto. A próxima evolução é sua.
           </p>
 
           {/* Preço */}
@@ -49,14 +49,14 @@ const IntermediateCTA = () => {
             <span className="text-accent font-display text-3xl sm:text-4xl font-bold">R$ 19,90</span>
           </div>
 
-          {/* Botão */}
+          {/* Botão emocional */}
           <Button 
             variant="cta" 
             size="lg" 
             onClick={handleCTAClick}
             className="text-xs sm:text-base px-4 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase mb-6 w-full sm:w-auto max-w-full whitespace-normal leading-tight"
           >
-            <span className="flex-1 text-center">Quero executar o Método 8X por 8 semanas</span>
+            <span className="flex-1 text-center">QUERO PARAR DE ESTAGNAR AGORA</span>
             <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
           </Button>
 

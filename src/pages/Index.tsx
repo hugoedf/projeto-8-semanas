@@ -13,6 +13,7 @@ import { DiagnosticPanel } from "@/components/DiagnosticPanel";
 import UrgencyBanner from "@/components/UrgencyBanner";
 import IntermediateCTA from "@/components/IntermediateCTA";
 import FloatingCTA from "@/components/FloatingCTA";
+import ValueAnchor from "@/components/ValueAnchor";
 
 const Index = () => {
   
@@ -21,6 +22,7 @@ const Index = () => {
       <UrgencyBanner />
       <Hero />
       <Problems />
+      <ValueAnchor />
       <Benefits />
       <Modules />
       <Bonus />
