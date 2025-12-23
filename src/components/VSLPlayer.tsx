@@ -276,10 +276,13 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           className="absolute inset-0 w-full h-full object-cover"
           poster={vslThumbnail}
           playsInline
-          preload="metadata"
+          webkit-playsinline="true"
+          x-webkit-airplay="allow"
+          preload="auto"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
           onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+          onCanPlay={() => console.log('📱 Vídeo pronto para reproduzir')}
         >
           {/* MP4 first (best compatibility) */}
           <source src="/videos/vsl-main.mp4" type="video/mp4" />
