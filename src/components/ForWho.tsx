@@ -25,7 +25,7 @@ const ForWho = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
           {audience.map((item, index) => {
           const Icon = item.icon;
           return <div key={index} className="bg-card border border-border/80 rounded-2xl p-6 sm:p-8 hover-lift animate-fade-in text-center shadow-sm hover:shadow-lg transition-all duration-300" style={{

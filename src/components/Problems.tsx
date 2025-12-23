@@ -38,9 +38,9 @@ const Problems = () => {
             Você está treinando sem um método claro.
           </p>
           
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
-            {painPoints.map((point, index) => <div key={index} className="flex items-center gap-2 bg-destructive/10 border border-destructive/20 rounded-full px-4 py-2">
-                <X className="w-4 h-4 text-destructive" />
+          <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-2 sm:gap-3 mb-6">
+            {painPoints.map((point, index) => <div key={index} className="flex items-center justify-center gap-2 bg-destructive/10 border border-destructive/20 rounded-full px-4 py-2 w-full sm:w-auto">
+                <X className="w-4 h-4 text-destructive flex-shrink-0" />
                 <span className="text-sm font-medium text-foreground">{point}</span>
               </div>)}
           </div>

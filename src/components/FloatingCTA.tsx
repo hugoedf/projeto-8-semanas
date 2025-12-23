@@ -73,10 +73,10 @@ const FloatingCTA = () => {
             variant="cta" 
             size="sm"
             onClick={handleCTAClick}
-            className="text-xs px-3 py-4 font-bold shadow-lg shadow-accent/30 uppercase whitespace-nowrap animate-pulse-glow"
+            className="text-xs px-3 py-4 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow flex-shrink-0"
           >
-            QUERO O MÉTODO
-            <ArrowRight className="ml-1 w-3.5 h-3.5" />
+            <span>QUERO O MÉTODO</span>
+            <ArrowRight className="ml-1 w-3.5 h-3.5 flex-shrink-0" />
           </Button>
 
           {/* Fechar */}

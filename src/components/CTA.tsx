@@ -98,9 +98,9 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <Button variant="cta" size="lg" className="w-full text-sm sm:text-base py-5 sm:py-6 mb-3 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase" onClick={handleCTAClick}>
-                  Quero executar o Método 8X por 8 semanas
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                <Button variant="cta" size="lg" className="w-full max-w-full text-xs sm:text-base py-5 sm:py-6 mb-3 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase whitespace-normal leading-tight px-3 sm:px-6" onClick={handleCTAClick}>
+                  <span className="flex-1 text-center">Quero executar o Método 8X por 8 semanas</span>
+                  <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
                 </Button>
                 
                 <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">

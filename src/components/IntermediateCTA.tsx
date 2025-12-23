@@ -54,10 +54,10 @@ const IntermediateCTA = () => {
             variant="cta" 
             size="lg" 
             onClick={handleCTAClick}
-            className="text-sm sm:text-base px-6 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase mb-6"
+            className="text-xs sm:text-base px-4 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase mb-6 w-full sm:w-auto max-w-full whitespace-normal leading-tight"
           >
-            Quero executar o Método 8X por 8 semanas
-            <ArrowRight className="ml-2 w-4 h-4" />
+            <span className="flex-1 text-center">Quero executar o Método 8X por 8 semanas</span>
+            <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
           </Button>
 
           {/* Trust badges */}
