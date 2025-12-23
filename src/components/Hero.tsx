@@ -65,7 +65,7 @@ const Hero = () => {
             </h1>
             
             {/* Subtítulo emocional */}
-            <p className="sm:text-xl leading-relaxed max-w-xl text-white/80 mb-5 sm:mb-6 px-2 sm:px-0 text-lg">
+            <p className="sm:text-xl leading-relaxed max-w-xl text-white/80 mb-5 sm:mb-6 px-2 sm:px-0 text-base">
               Chega de treinar no escuro. Em <span className="text-accent font-semibold">8 semanas</span>, você vai executar o que funciona — <span className="text-white font-medium">sem dúvida, sem estagnação.</span>
             </p>
             
