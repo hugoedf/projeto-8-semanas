@@ -1,3 +1,5 @@
+import { X, AlertCircle, ArrowDown } from "lucide-react";
+
 const painPoints = [
   "Treina pesado, mas o corpo não acompanha",
   "Segue uma rotina, mas o shape parece sempre igual",
@@ -14,58 +16,87 @@ const explanationPoints = [
 
 const Problems = () => {
   return (
-    <section className="py-16 sm:py-24 bg-muted">
-      <div className="container mx-auto px-5 sm:px-6">
-        <div className="max-w-xl mx-auto text-center">
+    <section className="py-20 sm:py-28 bg-background relative overflow-hidden">
+      {/* Subtle background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-transparent to-muted/50 pointer-events-none" />
+      
+      <div className="container mx-auto px-5 sm:px-6 relative z-10">
+        <div className="max-w-2xl mx-auto">
           
           {/* 1️⃣ Headline provocativa */}
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-8 tracking-tight text-foreground animate-fade-in">
-            Você treina, se esforça…<br />
-            <span className="text-accent">e mesmo assim não vê resultado?</span>
-          </h2>
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-foreground leading-tight">
+              Você treina, se esforça…
+            </h2>
+            <p className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-accent mt-2">
+              e mesmo assim não vê resultado?
+            </p>
+          </div>
           
-          {/* 2️⃣ Lista de dores reais */}
-          <div className="flex flex-col gap-3 mb-10 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          {/* 2️⃣ Lista de dores reais - Cards com impacto */}
+          <div className="space-y-3 mb-12 animate-fade-in" style={{ animationDelay: '0.15s' }}>
             {painPoints.map((point, index) => (
-              <p 
+              <div 
                 key={index} 
-                className="text-muted-foreground text-base sm:text-lg"
+                className="flex items-center gap-4 bg-destructive/5 border border-destructive/10 rounded-xl px-5 py-4 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/20"
               >
-                – {point}
-              </p>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-destructive/10 flex items-center justify-center">
+                  <X className="w-4 h-4 text-destructive" />
+                </div>
+                <p className="text-foreground/90 text-base sm:text-lg font-medium">
+                  {point}
+                </p>
+              </div>
             ))}
           </div>
           
+          {/* Visual break - Arrow indicator */}
+          <div className="flex justify-center mb-10 animate-fade-in" style={{ animationDelay: '0.25s' }}>
+            <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+              <ArrowDown className="w-5 h-5 text-accent animate-bounce" />
+            </div>
+          </div>
+          
           {/* 3️⃣ Subtítulo de ruptura */}
-          <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <p className="text-foreground font-semibold text-lg sm:text-xl">
-              O problema <span className="text-accent">não é falta de esforço.</span>
+          <div className="text-center mb-10 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-5 py-2 mb-4">
+              <AlertCircle className="w-4 h-4 text-accent" />
+              <span className="text-sm font-semibold text-accent uppercase tracking-wider">A verdade</span>
+            </div>
+            <p className="text-foreground font-display text-xl sm:text-2xl md:text-3xl">
+              O problema <span className="text-accent font-semibold">não é falta de esforço.</span>
             </p>
           </div>
           
           {/* 4️⃣ Explicação lógica da dor */}
-          <div className="flex flex-col gap-4 mb-10 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            {explanationPoints.map((point, index) => (
-              <p 
-                key={index}
-                className="text-muted-foreground text-base sm:text-lg"
-              >
-                {point.text} <span className="text-foreground font-medium">{point.highlight}</span>
-              </p>
-            ))}
+          <div className="bg-card border border-border/60 rounded-2xl p-6 sm:p-8 mb-10 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="space-y-4">
+              {explanationPoints.map((point, index) => (
+                <p 
+                  key={index}
+                  className="text-muted-foreground text-base sm:text-lg text-center"
+                >
+                  {point.text} <span className="text-foreground font-semibold">{point.highlight}</span>
+                </p>
+              ))}
+            </div>
           </div>
           
           {/* 5️⃣ Fechamento de autoridade */}
-          <div className="pt-6 border-t border-border/40 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <p className="text-muted-foreground text-base sm:text-lg mb-2">
-              A maioria das pessoas treina assim por anos.
-            </p>
-            <p className="text-muted-foreground text-base sm:text-lg mb-2">
-              Não porque não querem evoluir —
-            </p>
-            <p className="text-foreground font-medium text-base sm:text-lg">
-              mas porque ninguém ensinou um <span className="text-accent">sistema estruturado, progressivo e aplicável.</span>
-            </p>
+          <div className="text-center animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            <div className="max-w-lg mx-auto">
+              <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+                A maioria das pessoas treina assim por anos.
+                <br />
+                Não porque não querem evoluir —
+              </p>
+              <p className="text-foreground font-medium text-lg sm:text-xl mt-4 leading-relaxed">
+                mas porque ninguém ensinou um{" "}
+                <span className="text-accent underline decoration-accent/30 underline-offset-4">
+                  sistema estruturado, progressivo e aplicável.
+                </span>
+              </p>
+            </div>
           </div>
           
         </div>
