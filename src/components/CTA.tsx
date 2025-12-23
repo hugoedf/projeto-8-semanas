@@ -85,7 +85,7 @@ const CTA = () => {
                 </div>
                 
                 <Button variant="cta" size="lg" className="w-full max-w-full text-xs sm:text-base py-5 sm:py-6 mb-3 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase whitespace-normal leading-tight px-3 sm:px-6" onClick={handleCTAClick}>
-                  <span className="flex-1 text-center">SIM! QUERO EXECUTAR O MÉTODO 8X</span>
+                  <span className="flex-1 text-center">GARANTIR MINHA VAGA AGORA</span>
                   <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
                 </Button>
                 
