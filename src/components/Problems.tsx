@@ -1,15 +1,8 @@
 import { X, CheckCircle2, Smartphone } from "lucide-react";
 import appMockup from "@/assets/app-8x-mockup.jpeg";
-
-const painPoints = [
-  "Você treina pesado, mas o espelho não muda",
-  "Faz de tudo, mas continua no mesmo shape há meses", 
-  "Cansou de ver os outros evoluindo enquanto você patina"
-];
-
+const painPoints = ["Você treina pesado, mas o espelho não muda", "Faz de tudo, mas continua no mesmo shape há meses", "Cansou de ver os outros evoluindo enquanto você patina"];
 const Problems = () => {
-  return (
-    <section className="py-16 sm:py-24 bg-muted">
+  return <section className="py-16 sm:py-24 bg-muted">
       <div className="container mx-auto px-5 sm:px-6">
         
         {/* BLOCO DE DOR - Direto e visual */}
@@ -19,19 +12,14 @@ const Problems = () => {
           </h2>
           
           <div className="flex flex-col gap-3 mb-6 max-w-lg mx-auto">
-            {painPoints.map((point, index) => (
-              <div 
-                key={index} 
-                className="flex items-start gap-3 bg-destructive/10 border border-destructive/20 rounded-xl px-4 py-3 text-left"
-              >
+            {painPoints.map((point, index) => <div key={index} className="flex items-start gap-3 bg-destructive/10 border border-destructive/20 rounded-xl px-4 py-3 text-left">
                 <X className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
                 <span className="text-sm sm:text-base font-medium text-foreground">{point}</span>
-              </div>
-            ))}
+              </div>)}
           </div>
           
-          <p className="text-base sm:text-lg text-muted-foreground">
-            <span className="font-semibold text-foreground">O problema não é você.</span> É treinar sem um método que funciona.
+          <p className="text-base sm:text-lg text-muted-foreground">O problema não é você. 
+É treinar sem um método que funciona.<span className="font-semibold text-foreground">O problema não é você.</span> É treinar sem um método que funciona.
           </p>
         </div>
 
@@ -45,15 +33,7 @@ const Problems = () => {
                   <div className="absolute inset-0 bg-accent/20 rounded-[2rem] blur-[40px] scale-105" />
                   <div className="relative bg-gradient-to-b from-gray-800 to-gray-950 rounded-[2rem] p-2.5 w-[180px] sm:w-[220px] shadow-xl border border-white/10">
                     <div className="rounded-[1.5rem] overflow-hidden">
-                      <img 
-                        src={appMockup} 
-                        alt="App 8X - Execução Guiada" 
-                        className="w-full h-auto" 
-                        width={220} 
-                        height={306} 
-                        loading="lazy" 
-                        decoding="async" 
-                      />
+                      <img src={appMockup} alt="App 8X - Execução Guiada" className="w-full h-auto" width={220} height={306} loading="lazy" decoding="async" />
                     </div>
                   </div>
                 </div>
@@ -77,23 +57,16 @@ const Problems = () => {
                 </p>
                 
                 <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                  {["Treino do dia pronto", "Acompanha sua evolução", "Zero improviso"].map((item, i) => (
-                    <span 
-                      key={i} 
-                      className="inline-flex items-center gap-1.5 bg-accent/10 border border-accent/20 rounded-full px-3 py-1.5 text-xs text-accent font-medium"
-                    >
+                  {["Treino do dia pronto", "Acompanha sua evolução", "Zero improviso"].map((item, i) => <span key={i} className="inline-flex items-center gap-1.5 bg-accent/10 border border-accent/20 rounded-full px-3 py-1.5 text-xs text-accent font-medium">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       {item}
-                    </span>
-                  ))}
+                    </span>)}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Problems;
