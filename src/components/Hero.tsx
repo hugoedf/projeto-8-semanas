@@ -69,8 +69,22 @@ const Hero = () => {
               Chega de treinar no escuro. Em <span className="text-accent font-semibold">8 semanas</span>, você vai executar o que funciona — <span className="text-white font-medium">sem dúvida, sem estagnação.</span>
             </p>
             
-            {/* Prova social + preço + âncora - separado do CTA */}
-            <p className="text-sm sm:text-base text-white/70 order-4 mb-6">
+            {/* VSL Player - Mobile only */}
+            <div className="relative w-full max-w-[340px] mx-auto lg:hidden order-4 mb-6">
+              <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
+              <VSLPlayer onVideoEnd={handleVSLEnd} />
+            </div>
+            
+            {/* CTA limpa - apenas o botão */}
+            <div className={`order-5 transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
+              <Button variant="cta" size="lg" onClick={handleCTAClick} className={`text-sm sm:text-lg px-6 sm:px-12 py-5 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}>
+                QUERO EVOLUIR EM 8 SEMANAS
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </div>
+            
+            {/* Prova social + preço + âncora - abaixo do CTA */}
+            <p className="text-sm sm:text-base text-white/70 order-6 mt-4">
               <span className="text-white/90 font-medium">+500 pessoas já evoluíram</span>
               <span className="mx-2 text-white/40">•</span>
               <span className="text-white/50 line-through">R$97</span>
@@ -78,20 +92,6 @@ const Hero = () => {
               <span className="mx-2 text-white/40">•</span>
               <span>Menos que uma refeição</span>
             </p>
-            
-            {/* VSL Player - Mobile only */}
-            <div className="relative w-full max-w-[340px] mx-auto lg:hidden order-5 mb-6">
-              <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
-              <VSLPlayer onVideoEnd={handleVSLEnd} />
-            </div>
-            
-            {/* CTA limpa - apenas o botão */}
-            <div className={`order-6 transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
-              <Button variant="cta" size="lg" onClick={handleCTAClick} className={`text-sm sm:text-lg px-6 sm:px-12 py-5 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}>
-                QUERO EVOLUIR EM 8 SEMANAS
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </div>
           </div>
           
           {/* VSL Player - Desktop only */}
