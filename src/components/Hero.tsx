@@ -84,7 +84,7 @@ const Hero = () => {
             </div>
             
             {/* Prova social + preço + âncora - abaixo do CTA */}
-            <p className="text-[11px] sm:text-base text-white/70 mt-4 text-center">
+            <p className="sm:text-base text-white/70 mt-4 text-center text-xs">
               <span className="text-white/90 font-medium">+500 já evoluíram</span>
               <span className="mx-1 sm:mx-2 text-white/40">•</span>
               <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>
