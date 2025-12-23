@@ -51,7 +51,7 @@ const IntermediateCTA = () => {
 
           {/* Botão com prazo específico */}
           <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-xs sm:text-base px-4 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase mb-6 w-full sm:w-auto max-w-full whitespace-normal leading-tight">
-            <span className="flex-1 text-center">QUERO EVOLUIR NAS PRÓXIMAS 8 SEMANAS</span>
+            <span className="flex-1 text-center">GARANTIR MINHA VAGA AGORA</span>
             <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
           </Button>
 
