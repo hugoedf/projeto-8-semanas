@@ -10,6 +10,17 @@ const AppShowcase = () => {
   return (
     <section className="py-16 sm:py-20 bg-muted/50">
       <div className="container mx-auto px-5 sm:px-6">
+        {/* Transição persuasiva */}
+        <div className="text-center mb-10 max-w-xl mx-auto animate-fade-in">
+          <p className="text-muted-foreground text-base sm:text-lg">
+            Tudo isso é possível com o <span className="text-foreground font-semibold">Método 8X</span>. 
+            Mas saber o que fazer é só metade do caminho...
+          </p>
+          <p className="text-accent font-medium text-lg sm:text-xl mt-2">
+            Você precisa executar.
+          </p>
+        </div>
+        
         <div className="max-w-4xl mx-auto animate-fade-in">
           <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-10 shadow-lg">
             <div className="grid md:grid-cols-2 gap-8 items-center">
