@@ -71,7 +71,7 @@ const Hero = () => {
             
             {/* Subtítulo mais persuasivo e direto */}
             <p className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 text-white/80 order-3 mb-8">
-              Chega de treinar sem resultado. Em 8 semanas, você vai entender <span className="text-white font-medium">exatamente</span> como fazer cada treino valer de verdade — e finalmente ter controle sobre seus resultados.
+              Você não precisa treinar mais. Precisa treinar com <span className="text-white font-medium">método, execução guiada e progressão clara</span> por 8 semanas.
             </p>
             
             {/* VSL Player - Mobile only */}

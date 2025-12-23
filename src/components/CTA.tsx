@@ -5,7 +5,7 @@ import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
-const benefits = ["Protocolos completos de treino para 8 semanas", "Progressão estruturada baseada em fisiologia", "Técnicas avançadas explicadas passo a passo", "Guia prático de nutrição para hipertrofia", "Mentalidade e disciplina para constância real", "Método de autoavaliação e ajustes contínuos", "Acesso vitalício ao conteúdo", "Atualizações gratuitas", "Garantia incondicional de 7 dias"];
+const benefits = ["8 semanas de treino com progressão clara", "Execução guiada pelo App 8X", "Nutrição prática e objetiva", "Técnicas avançadas no momento certo", "Acesso vitalício", "Garantia incondicional de 7 dias"];
 const CTA = () => {
   const {
     trackInitiateCheckout
@@ -45,17 +45,17 @@ const CTA = () => {
     // 5. Abrir checkout em nova aba
     window.location.href = checkoutUrl;
   };
-  return <section id="cta-section" className={`py-20 sm:py-28 bg-background transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+  return <section id="cta-section" className={`py-12 sm:py-16 bg-background transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className="container mx-auto px-5 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-14 items-center">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Image */}
             <div className="order-2 lg:order-1 animate-fade-in">
               <div className="relative">
-                <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-[60px] scale-95" />
+                <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[40px] scale-95" />
                 <img 
                   alt="Treino de Hipertrofia" 
-                  className="relative z-10 w-full h-auto rounded-2xl shadow-2xl drop-shadow-xl" 
+                  className="relative z-10 w-full h-auto rounded-xl shadow-xl" 
                   src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg"
                   width={651}
                   height={977}
@@ -66,78 +66,50 @@ const CTA = () => {
             </div>
             
             {/* Content */}
-            <div className="order-1 lg:order-2 animate-fade-in" style={{
-            animationDelay: "0.2s"
-          }}>
-              <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-9 shadow-xl">
-                <div className="mb-6 sm:mb-7">
-                  <span className="text-accent text-xs uppercase tracking-widest font-bold sm:text-sm">
-                    OFERTA ESPECIAL — ACESSO COMPLETO AO MÉTODO 8X
+            <div className="order-1 lg:order-2 animate-fade-in">
+              <div className="bg-card border border-border/80 rounded-xl p-5 sm:p-7 shadow-lg">
+                <div className="mb-5">
+                  <span className="text-accent text-xs uppercase tracking-widest font-bold">
+                    ACESSO COMPLETO
                   </span>
-                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mt-3 mb-4 sm:mb-5 tracking-tight leading-tight">Tudo o que você precisa para transformar seu corpo com ciência e estratégia:</h2>
-                  <p className="text-accent font-semibold text-base sm:text-lg">
-                    Não é motivacional.<br />
-                    É protocolo.
-                  </p>
+                  <h2 className="font-display text-xl sm:text-2xl md:text-3xl mt-2 mb-3 tracking-tight leading-tight">
+                    Método 8X + App 8X
+                  </h2>
                 </div>
                 
-                <div className="space-y-3 sm:space-y-4 mb-7 sm:mb-9">
-                  {benefits.map((benefit, index) => <div key={index} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5 drop-shadow-sm" />
-                      <span className="text-foreground text-sm sm:text-base">{benefit}</span>
+                <div className="space-y-2.5 mb-6">
+                  {benefits.map((benefit, index) => <div key={index} className="flex items-start gap-2.5">
+                      <Check className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-foreground text-sm">{benefit}</span>
                     </div>)}
                 </div>
                 
-                
-                
-                <div className="border-t border-border/60 pt-6 sm:pt-7 mb-6 sm:mb-7">
-                  <div className="flex items-baseline gap-3 mb-2.5 flex-wrap">
-                    <span className="text-muted-foreground line-through text-xl sm:text-2xl">
-                      DE R$ 97,00
+                <div className="border-t border-border/60 pt-5 mb-5">
+                  <div className="flex items-baseline gap-3 mb-2">
+                    <span className="text-muted-foreground line-through text-lg">
+                      R$ 97
                     </span>
-                    <span className="text-accent font-display text-3xl sm:text-4xl md:text-5xl font-bold drop-shadow-sm">
-                      POR APENAS R$ 19,90
+                    <span className="text-accent font-display text-2xl sm:text-3xl font-bold">
+                      R$ 19,90
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-muted-foreground mt-1.5">
-                    Pagamento único · Acesso imediato após o pagamento · Conteúdo vitalício
+                  <p className="text-xs text-muted-foreground">
+                    Pagamento único · Acesso imediato · Conteúdo vitalício
                   </p>
                 </div>
                 
-                <p className="text-center text-sm mb-4 text-muted-foreground">
-                  ⚡ <span className="font-semibold text-accent">Preço especial de lançamento: R$ 19,90</span><br />
-                  +500 pessoas já aplicaram o método. Quando você vai começar?
-                </p>
-                
-                <Button variant="cta" size="lg" className="w-full text-base sm:text-lg py-6 sm:py-7 mb-4 animate-pulse-glow font-bold tracking-wide shadow-xl shadow-accent/30 uppercase" onClick={handleCTAClick}>
-                  QUERO MEU ACESSO AGORA
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                <Button variant="cta" size="lg" className="w-full text-sm sm:text-base py-5 sm:py-6 mb-3 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase" onClick={handleCTAClick}>
+                  Quero executar o Método 8X por 8 semanas
+                  <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
                 
-                <div className="flex items-center justify-center gap-2.5 text-xs sm:text-sm text-muted-foreground mb-5">
-                  <Lock className="w-4 h-4 flex-shrink-0" />
-                  <span>Pagamento 100% seguro e protegido</span>
+                <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>Pagamento 100% seguro</span>
                 </div>
-                
-                <div className="bg-muted/50 border border-border/40 rounded-xl p-4 mb-4">
-                  <p className="text-muted-foreground text-center text-base font-semibold">Você não está apenas seguindo um treino. 
-Você está comprando um método que organiza os estímulos certos, na ordem certa, para o seu corpo evoluir.</p>
-                </div>
-                
-                
               </div>
             </div>
           </div>
-        </div>
-        
-        <div className="mt-14 sm:mt-20 text-center max-w-3xl mx-auto px-4">
-          <p className="text-xl sm:text-2xl font-display text-foreground mb-3 sm:mb-4 tracking-tight">
-            Daqui a 8 semanas, você vai olhar no espelho e{" "}
-            <span className="text-accent">agradecer por ter começado hoje.</span>
-          </p>
-          <p className="text-base sm:text-lg text-muted-foreground">
-            O Método 8X é o próximo passo.
-          </p>
         </div>
       </div>
     </section>;
