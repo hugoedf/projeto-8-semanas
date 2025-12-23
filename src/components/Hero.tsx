@@ -55,7 +55,7 @@ const Hero = () => {
             {/* Badge com prova social */}
             <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-6 order-1 mx-auto lg:mx-0">
               <Zap className="w-4 h-4" />
-              <span>+500 PESSOAS JÁ EVOLUÍRAM</span>
+              <span>MÉTODO 8X</span>
             </div>
             
             {/* Título - mantido conforme solicitado */}
