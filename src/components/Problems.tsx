@@ -1,4 +1,5 @@
 import { X, AlertCircle, ArrowDown } from "lucide-react";
+import { useStaggeredAnimation, useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const painPoints = [
   "Treina pesado, mas o corpo não acompanha",
@@ -15,6 +16,11 @@ const explanationPoints = [
 ];
 
 const Problems = () => {
+  const { ref: headlineRef, isVisible: headlineVisible } = useScrollAnimation();
+  const { ref: painRef, isVisible: painVisible, getItemStyle: getPainStyle } = useStaggeredAnimation(painPoints.length, 80);
+  const { ref: explanationRef, isVisible: explanationVisible } = useScrollAnimation();
+  const { ref: closingRef, isVisible: closingVisible } = useScrollAnimation();
+
   return (
     <section className="py-20 sm:py-28 bg-background relative overflow-hidden">
       {/* Subtle background gradient */}
@@ -24,7 +30,15 @@ const Problems = () => {
         <div className="max-w-2xl mx-auto">
           
           {/* 1️⃣ Headline provocativa */}
-          <div className="text-center mb-12 animate-fade-in">
+          <div 
+            ref={headlineRef}
+            className="text-center mb-12"
+            style={{
+              opacity: headlineVisible ? 1 : 0,
+              transform: headlineVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+            }}
+          >
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-foreground leading-tight">
               Você treina, se esforça…
             </h2>
@@ -34,11 +48,12 @@ const Problems = () => {
           </div>
           
           {/* 2️⃣ Lista de dores reais - Cards com impacto */}
-          <div className="space-y-3 mb-12 animate-fade-in" style={{ animationDelay: '0.15s' }}>
+          <div ref={painRef} className="space-y-3 mb-12">
             {painPoints.map((point, index) => (
               <div 
                 key={index} 
                 className="flex items-center gap-4 bg-destructive/5 border border-destructive/10 rounded-xl px-5 py-4 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/20"
+                style={getPainStyle(index)}
               >
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-destructive/10 flex items-center justify-center">
                   <X className="w-4 h-4 text-destructive" />
@@ -51,14 +66,29 @@ const Problems = () => {
           </div>
           
           {/* Visual break - Arrow indicator */}
-          <div className="flex justify-center mb-10 animate-fade-in" style={{ animationDelay: '0.25s' }}>
+          <div 
+            className="flex justify-center mb-10"
+            style={{
+              opacity: painVisible ? 1 : 0,
+              transform: painVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.5s ease-out 0.4s, transform 0.5s ease-out 0.4s'
+            }}
+          >
             <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
               <ArrowDown className="w-5 h-5 text-accent animate-bounce" />
             </div>
           </div>
           
           {/* 3️⃣ Subtítulo de ruptura */}
-          <div className="text-center mb-10 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <div 
+            ref={explanationRef}
+            className="text-center mb-10"
+            style={{
+              opacity: explanationVisible ? 1 : 0,
+              transform: explanationVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+            }}
+          >
             <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-5 py-2 mb-4">
               <AlertCircle className="w-4 h-4 text-accent" />
               <span className="text-sm font-semibold text-accent uppercase tracking-wider">A verdade</span>
@@ -69,7 +99,14 @@ const Problems = () => {
           </div>
           
           {/* 4️⃣ Explicação lógica da dor */}
-          <div className="bg-card border border-border/60 rounded-2xl p-6 sm:p-8 mb-10 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <div 
+            className="bg-card border border-border/60 rounded-2xl p-6 sm:p-8 mb-10"
+            style={{
+              opacity: explanationVisible ? 1 : 0,
+              transform: explanationVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s'
+            }}
+          >
             <div className="space-y-4">
               {explanationPoints.map((point, index) => (
                 <p 
@@ -83,7 +120,15 @@ const Problems = () => {
           </div>
           
           {/* 5️⃣ Fechamento de autoridade */}
-          <div className="text-center animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          <div 
+            ref={closingRef}
+            className="text-center"
+            style={{
+              opacity: closingVisible ? 1 : 0,
+              transform: closingVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+            }}
+          >
             <div className="max-w-lg mx-auto">
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
                 A maioria das pessoas treina assim por anos.

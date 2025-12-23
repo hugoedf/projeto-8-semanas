@@ -1,4 +1,5 @@
-import { Smartphone, CheckCircle2, Play, BarChart3, Clock } from "lucide-react";
+import { Smartphone, Play, BarChart3, Clock } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const appFeatures = [
   { icon: Play, text: "Treino do dia pronto" },
@@ -7,11 +8,22 @@ const appFeatures = [
 ];
 
 const AppShowcase = () => {
+  const { ref: introRef, isVisible: introVisible } = useScrollAnimation();
+  const { ref: cardRef, isVisible: cardVisible } = useScrollAnimation();
+
   return (
     <section className="py-16 sm:py-20 bg-muted/50">
       <div className="container mx-auto px-5 sm:px-6">
         {/* Transição persuasiva */}
-        <div className="text-center mb-10 max-w-xl mx-auto animate-fade-in">
+        <div 
+          ref={introRef}
+          className="text-center mb-10 max-w-xl mx-auto"
+          style={{
+            opacity: introVisible ? 1 : 0,
+            transform: introVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+          }}
+        >
           <p className="text-muted-foreground text-base sm:text-lg">
             Tudo isso é possível com o <span className="text-foreground font-semibold">Método 8X</span>. 
             Mas saber o que fazer é só metade do caminho...
@@ -21,7 +33,15 @@ const AppShowcase = () => {
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto animate-fade-in">
+        <div 
+          ref={cardRef}
+          className="max-w-4xl mx-auto"
+          style={{
+            opacity: cardVisible ? 1 : 0,
+            transform: cardVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease-out 0.15s, transform 0.6s ease-out 0.15s'
+          }}
+        >
           <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-10 shadow-lg">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               {/* Video do App */}

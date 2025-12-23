@@ -1,4 +1,4 @@
-import { BookOpen } from "lucide-react";
+import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 
 const modules = [
   {
@@ -44,10 +44,21 @@ const modules = [
 ];
 
 const Modules = () => {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(modules.length, 60);
+
   return (
     <section id="modules-section" className="py-16 sm:py-24 gradient-hero">
       <div className="container mx-auto px-5 sm:px-6">
-        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
+        <div 
+          ref={titleRef}
+          className="text-center mb-12 sm:mb-16"
+          style={{
+            opacity: titleVisible ? 1 : 0,
+            transform: titleVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+          }}
+        >
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 text-white px-2 tracking-tight leading-tight">
             8 semanas. <span className="text-accent">Tudo que você precisa.</span>
           </h2>
@@ -56,12 +67,12 @@ const Modules = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
+        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
           {modules.map((module, index) => (
             <div 
               key={index} 
-              className="card-dark-glass p-5 sm:p-6 hover-lift animate-fade-in transition-all duration-300 rounded-2xl" 
-              style={{ animationDelay: `${index * 0.05}s` }}
+              className="card-dark-glass p-5 sm:p-6 hover-lift transition-all duration-300 rounded-2xl" 
+              style={getItemStyle(index)}
             >
               <div className="flex flex-col gap-3">
                 <div className="w-12 h-12 rounded-xl bg-accent/15 flex items-center justify-center border border-accent/30">
