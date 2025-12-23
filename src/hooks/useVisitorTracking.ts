@@ -18,28 +18,95 @@ export interface VisitorData {
   region?: string;
 }
 
-// Flag para evitar múltiplos inserts
+// Global singleton state to prevent multiple initializations
+let globalVisitorData: VisitorData | null = null;
+let initializationPromise: Promise<VisitorData> | null = null;
 let hasTracked = false;
 
 // Edge function URL
 const VISITOR_TRACKING_URL = 'https://kfddlytvdzqwopongnew.supabase.co/functions/v1/visitor-tracking';
 
-/**
- * Hook para gerenciar tracking persistente de visitantes
- * Gera um visitorId único e coleta dados enriquecidos
- * Dados são enviados para Edge Function segura (não diretamente ao banco)
- */
-export const useVisitorTracking = () => {
-  const [visitorData, setVisitorData] = useState<VisitorData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+const detectDevice = (): 'mobile' | 'tablet' | 'desktop' => {
+  const ua = navigator.userAgent.toLowerCase();
+  if (ua.includes('mobile') || ua.includes('android') || ua.includes('iphone')) {
+    return 'mobile';
+  }
+  if (ua.includes('tablet') || ua.includes('ipad')) {
+    return 'tablet';
+  }
+  return 'desktop';
+};
 
-  useEffect(() => {
-    initializeVisitorTracking();
-  }, []);
+const fetchRegion = async (): Promise<string> => {
+  // Check localStorage first to avoid network call
+  const cachedRegion = localStorage.getItem('region');
+  if (cachedRegion) {
+    return cachedRegion;
+  }
+  
+  try {
+    const response = await fetch('https://kfddlytvdzqwopongnew.supabase.co/functions/v1/geo');
+    if (!response.ok) throw new Error('Falha ao obter região');
+    
+    const data = await response.json();
+    const region = data.region || 'not_provided';
+    localStorage.setItem('region', region);
+    return region;
+  } catch {
+    localStorage.setItem('region', 'not_provided');
+    return 'not_provided';
+  }
+};
 
-  const initializeVisitorTracking = async () => {
+const sendToEdgeFunction = async (data: VisitorData) => {
+  try {
+    const response = await fetch(VISITOR_TRACKING_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        visitor_id: data.visitorId,
+        utm_source: data.utm_source || null,
+        utm_medium: data.utm_medium || null,
+        utm_campaign: data.utm_campaign || null,
+        utm_id: data.utm_id || null,
+        utm_term: data.utm_term || null,
+        utm_content: data.utm_content || null,
+        referrer: data.referrer,
+        landing_page: data.landingPage,
+        device: data.device,
+        region: data.region || null,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Erro ao enviar tracking:', errorData);
+    } else {
+      console.log('Visitante rastreado com sucesso via Edge Function');
+    }
+  } catch (error) {
+    console.error('Exceção ao enviar tracking:', error);
+  }
+};
+
+// Singleton initialization function
+const initializeVisitorData = async (): Promise<VisitorData> => {
+  // Return cached data if available
+  if (globalVisitorData) {
+    return globalVisitorData;
+  }
+  
+  // Return existing promise if initialization is in progress
+  if (initializationPromise) {
+    return initializationPromise;
+  }
+  
+  // Start new initialization
+  initializationPromise = (async () => {
     try {
-      // 1. Obter ou gerar visitorId
+      // 1. Get or generate visitorId
       let visitorId = localStorage.getItem('visitor_id');
       const isNewVisitor = !visitorId;
       
@@ -48,10 +115,10 @@ export const useVisitorTracking = () => {
         localStorage.setItem('visitor_id', visitorId);
       }
 
-      // 2. Detectar device
+      // 2. Detect device
       const device = detectDevice();
 
-      // 3. Coletar UTMs e clickIDs da URL
+      // 3. Collect UTMs and clickIDs from URL
       const urlParams = new URLSearchParams(window.location.search);
       const trackingData = {
         utm_source: urlParams.get('utm_source') || localStorage.getItem('utm_source') || undefined,
@@ -66,12 +133,12 @@ export const useVisitorTracking = () => {
         msclkid: urlParams.get('msclkid') || localStorage.getItem('msclkid') || undefined,
       };
 
-      // Persistir parâmetros de rastreamento
+      // Persist tracking params
       Object.entries(trackingData).forEach(([key, value]) => {
         if (value) localStorage.setItem(key, value);
       });
 
-      // 4. Coletar landing page e referrer (apenas na primeira visita)
+      // 4. Collect landing page and referrer (only on first visit)
       let landingPage = localStorage.getItem('landing_page');
       let referrer = localStorage.getItem('referrer');
       
@@ -82,19 +149,10 @@ export const useVisitorTracking = () => {
         localStorage.setItem('referrer', referrer);
       }
 
-      // 5. Obter região via Edge Function geo (apenas se não tiver)
-      let region = localStorage.getItem('region');
-      if (!region) {
-        try {
-          region = await fetchRegion();
-          localStorage.setItem('region', region);
-        } catch {
-          region = 'not_provided';
-          localStorage.setItem('region', region);
-        }
-      }
+      // 5. Get region (uses cache internally)
+      const region = await fetchRegion();
 
-      // 6. Montar objeto completo (SEM campo age)
+      // 6. Build complete object
       const data: VisitorData = {
         visitorId,
         ...trackingData,
@@ -104,80 +162,56 @@ export const useVisitorTracking = () => {
         region,
       };
 
-      setVisitorData(data);
+      // Cache globally
+      globalVisitorData = data;
 
-      // 7. Enviar para Edge Function segura (apenas se for novo visitante)
+      // 7. Send to Edge Function (only for new visitors)
       if (isNewVisitor && !hasTracked) {
         hasTracked = true;
-        await sendToEdgeFunction(data);
+        // Use requestIdleCallback to avoid blocking
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => sendToEdgeFunction(data));
+        } else {
+          setTimeout(() => sendToEdgeFunction(data), 100);
+        }
       }
 
-      setIsLoading(false);
+      return data;
     } catch (error) {
       console.error('Erro ao inicializar visitor tracking:', error);
+      throw error;
+    }
+  })();
+  
+  return initializationPromise;
+};
+
+/**
+ * Hook para gerenciar tracking persistente de visitantes
+ * Uses global singleton to prevent multiple API calls
+ */
+export const useVisitorTracking = () => {
+  const [visitorData, setVisitorData] = useState<VisitorData | null>(globalVisitorData);
+  const [isLoading, setIsLoading] = useState(!globalVisitorData);
+
+  useEffect(() => {
+    // If already initialized, use cached data
+    if (globalVisitorData) {
+      setVisitorData(globalVisitorData);
       setIsLoading(false);
+      return;
     }
-  };
 
-  const detectDevice = (): 'mobile' | 'tablet' | 'desktop' => {
-    const ua = navigator.userAgent.toLowerCase();
-    if (ua.includes('mobile') || ua.includes('android') || ua.includes('iphone')) {
-      return 'mobile';
-    }
-    if (ua.includes('tablet') || ua.includes('ipad')) {
-      return 'tablet';
-    }
-    return 'desktop';
-  };
-
-  const fetchRegion = async (): Promise<string> => {
-    try {
-      const response = await fetch('https://kfddlytvdzqwopongnew.supabase.co/functions/v1/geo');
-      if (!response.ok) throw new Error('Falha ao obter região');
-      
-      const data = await response.json();
-      return data.region || 'not_provided';
-    } catch {
-      return 'not_provided';
-    }
-  };
-
-  /**
-   * Envia dados para Edge Function segura
-   * NÃO usa insert direto no Supabase
-   */
-  const sendToEdgeFunction = async (data: VisitorData) => {
-    try {
-      const response = await fetch(VISITOR_TRACKING_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          visitor_id: data.visitorId,
-          utm_source: data.utm_source || null,
-          utm_medium: data.utm_medium || null,
-          utm_campaign: data.utm_campaign || null,
-          utm_id: data.utm_id || null,
-          utm_term: data.utm_term || null,
-          utm_content: data.utm_content || null,
-          referrer: data.referrer,
-          landing_page: data.landingPage,
-          device: data.device,
-          region: data.region || null,
-        }),
+    // Initialize using singleton
+    initializeVisitorData()
+      .then((data) => {
+        setVisitorData(data);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
       });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error('Erro ao enviar tracking:', errorData);
-      } else {
-        console.log('Visitante rastreado com sucesso via Edge Function');
-      }
-    } catch (error) {
-      console.error('Exceção ao enviar tracking:', error);
-    }
-  };
+  }, []);
 
   const getVisitorData = (): VisitorData | null => {
     return visitorData;

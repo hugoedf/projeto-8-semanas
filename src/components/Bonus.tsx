@@ -57,7 +57,15 @@ const Bonus = () => {
               {/* Phone Frame */}
               <div className="relative bg-gradient-to-b from-gray-800 to-gray-950 rounded-[2.5rem] p-3 sm:p-4 w-[220px] sm:w-[280px] shadow-2xl shadow-black/60 border border-white/15">
                 <div className="rounded-[2rem] overflow-hidden">
-                  <img src={appMockup} alt="App 8X - Execução Guiada do Método" className="w-full h-auto" />
+                  <img 
+                    src={appMockup} 
+                    alt="App 8X - Execução Guiada do Método" 
+                    className="w-full h-auto"
+                    width={340}
+                    height={473}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 {/* Notch */}
                 <div className="absolute top-5 left-1/2 -translate-x-1/2 w-20 h-6 bg-gray-950 rounded-full" />

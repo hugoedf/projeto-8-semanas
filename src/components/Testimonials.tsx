@@ -80,6 +80,10 @@ const Testimonials = () => {
                   src={testimonial.avatar} 
                   alt={testimonial.name}
                   className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border-2 border-accent/30"
+                  width={44}
+                  height={44}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div>
                   <p className="font-semibold text-foreground text-sm sm:text-base">{testimonial.name}</p>
@@ -99,6 +103,10 @@ const Testimonials = () => {
                   src={t.avatar} 
                   alt=""
                   className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-card object-cover shadow-sm"
+                  width={36}
+                  height={36}
+                  loading="lazy"
+                  decoding="async"
                 />
               ))}
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent/20 border-2 border-card flex items-center justify-center shadow-sm">
