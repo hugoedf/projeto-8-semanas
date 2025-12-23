@@ -18,8 +18,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 const Index = () => {
   
   return (
-    <main className="min-h-screen pt-10 sm:pt-11">
-      <UrgencyBanner />
+    <main className="min-h-screen">
       <Hero />
       {/* 1. DOR - Identificação emocional */}
       <Problems />

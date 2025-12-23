@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const faqItems = [
   {
@@ -29,29 +30,49 @@ const faqItems = [
 ];
 
 const FAQ = () => {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  const { ref: accordionRef, isVisible: accordionVisible } = useScrollAnimation();
+
   return (
     <section className="py-16 px-4 bg-background">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10">
+        <h2 
+          ref={titleRef}
+          className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10"
+          style={{
+            opacity: titleVisible ? 1 : 0,
+            transform: titleVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+          }}
+        >
           Perguntas Frequentes
         </h2>
         
-        <Accordion type="single" collapsible className="w-full space-y-3">
-          {faqItems.map((item, index) => (
-            <AccordionItem 
-              key={index} 
-              value={`item-${index}`}
-              className="border border-border/50 rounded-lg px-4 bg-card/30"
-            >
-              <AccordionTrigger className="text-left text-foreground hover:no-underline py-5 text-base md:text-lg font-medium">
-                {item.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground text-sm md:text-base pb-5">
-                {item.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <div
+          ref={accordionRef}
+          style={{
+            opacity: accordionVisible ? 1 : 0,
+            transform: accordionVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease-out 0.1s, transform 0.6s ease-out 0.1s'
+          }}
+        >
+          <Accordion type="single" collapsible className="w-full space-y-3">
+            {faqItems.map((item, index) => (
+              <AccordionItem 
+                key={index} 
+                value={`item-${index}`}
+                className="border border-border/50 rounded-lg px-4 bg-card/30"
+              >
+                <AccordionTrigger className="text-left text-foreground hover:no-underline py-5 text-base md:text-lg font-medium">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground text-sm md:text-base pb-5">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
       </div>
     </section>
   );
