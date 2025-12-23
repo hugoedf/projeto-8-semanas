@@ -53,8 +53,8 @@ const FloatingCTA = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden animate-slide-in-bottom">
-      <div className="bg-card/95 backdrop-blur-lg border-t border-accent/20 shadow-2xl shadow-black/30 px-3 py-2.5 safe-area-inset-bottom">
+    <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden animate-slide-in-bottom">
+      <div className="bg-card/98 backdrop-blur-xl border-t-2 border-accent/40 shadow-[0_-8px_30px_rgba(0,0,0,0.4)] px-3 py-3 safe-area-inset-bottom">
         <div className="flex items-center justify-between gap-2">
           {/* Preço */}
           <div className="flex items-center gap-2 min-w-0">
