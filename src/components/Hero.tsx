@@ -52,43 +52,45 @@ const Hero = () => {
           {/* Content */}
           <div className="text-center lg:text-left animate-fade-in px-1 sm:px-0 flex flex-col lg:block">
             
-            {/* Badge com prova social */}
+            {/* Badge */}
             <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-6 order-1 mx-auto lg:mx-0">
               <Zap className="w-4 h-4" />
               <span>MÉTODO 8X</span>
             </div>
             
-            {/* Título - mantido conforme solicitado */}
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.08] text-white order-2 tracking-tight mb-6">
+            {/* Título */}
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.08] text-white order-2 tracking-tight mb-5">
               A CIÊNCIA QUE TRANSFORMA ESTÍMULOS EM{" "}
               <span className="text-accent">HIPERTROFIA REAL</span>
             </h1>
             
-            {/* Subtítulo mais emocional */}
-            <p className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 text-white/80 order-3 mb-6">
+            {/* Subtítulo emocional */}
+            <p className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 text-white/80 order-3 mb-4">
               Chega de treinar no escuro. Em <span className="text-accent font-semibold">8 semanas</span>, você vai executar o que funciona — <span className="text-white font-medium">sem dúvida, sem estagnação.</span>
             </p>
             
-            {/* VSL Player - Mobile only - ANTES do botão */}
-            <div className="relative w-full max-w-[340px] mx-auto lg:hidden order-4 mb-6">
+            {/* Prova social + preço + âncora - separado do CTA */}
+            <p className="text-sm sm:text-base text-white/70 order-4 mb-6">
+              <span className="text-white/90 font-medium">+500 pessoas já evoluíram</span>
+              <span className="mx-2 text-white/40">•</span>
+              <span className="text-white/50 line-through">R$97</span>
+              <span className="text-accent font-bold ml-1">R$19,90</span>
+              <span className="mx-2 text-white/40">•</span>
+              <span>Menos que uma refeição</span>
+            </p>
+            
+            {/* VSL Player - Mobile only */}
+            <div className="relative w-full max-w-[340px] mx-auto lg:hidden order-5 mb-6">
               <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
             
-            {/* CTA Section DEPOIS do vídeo no mobile */}
-            <div className={`order-5 space-y-4 transition-all duration-500 mb-8 ${vslEnded ? 'scale-105' : ''}`}>
-              <Button variant="cta" size="lg" onClick={handleCTAClick} className={`text-sm sm:text-lg px-4 sm:px-12 py-5 sm:py-7 w-full max-w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase leading-tight whitespace-normal ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}>
-                <span className="flex-1">QUERO EVOLUIR EM 8 SEMANAS</span>
-                <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
+            {/* CTA limpa - apenas o botão */}
+            <div className={`order-6 transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
+              <Button variant="cta" size="lg" onClick={handleCTAClick} className={`text-sm sm:text-lg px-6 sm:px-12 py-5 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}>
+                QUERO EVOLUIR EM 8 SEMANAS
+                <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              
-              {/* Ancoragem simplificada */}
-              <p className="text-sm sm:text-base text-white/70">
-                <span className="text-white/50 line-through mr-2">R$ 97</span>
-                <span className="text-accent font-bold text-lg">R$ 19,90</span>
-                <span className="mx-2">•</span>
-                <span>Menos que uma refeição</span>
-              </p>
             </div>
           </div>
           
