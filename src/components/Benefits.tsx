@@ -45,34 +45,34 @@ const benefits = [
 
 const Benefits = () => {
   return (
-    <section className="py-12 sm:py-16 bg-background">
+    <section className="py-16 sm:py-24 bg-background">
       <div className="container mx-auto px-5 sm:px-6">
-        <div className="text-center mb-8 sm:mb-10 animate-fade-in">
-          <h2 className="font-display text-xl sm:text-3xl md:text-4xl mb-3 px-2 tracking-tight">
+        <div className="text-center mb-12 sm:mb-16 animate-fade-in">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 px-2 tracking-tight text-foreground leading-tight">
             O que muda na sua vida em{" "}
-            <span className="text-gradient">8 semanas:</span>
+            <span className="text-accent">8 semanas:</span>
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-lg mx-auto">
+          <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto">
             Não é só sobre ganhar músculo. É sobre treinar com confiança.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <div
                 key={index}
-                className="bg-card border border-border/80 rounded-xl p-4 sm:p-5 hover-lift animate-fade-in group shadow-sm hover:shadow-md transition-all duration-300"
+                className="bg-card border border-border/80 rounded-2xl p-5 sm:p-6 hover-lift animate-fade-in group shadow-sm hover:shadow-lg transition-all duration-300"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
-                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-all duration-300">
-                  <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-accent" />
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
                 </div>
-                <h3 className="font-display text-sm sm:text-base mb-1 text-foreground tracking-tight">
+                <h3 className="font-display text-base sm:text-lg mb-2 text-foreground tracking-tight font-medium">
                   {benefit.title}
                 </h3>
-                <p className="text-muted-foreground text-xs leading-relaxed">
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
                   {benefit.description}
                 </p>
               </div>
