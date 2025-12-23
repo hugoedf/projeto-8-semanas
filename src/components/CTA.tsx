@@ -74,10 +74,10 @@ const CTA = () => {
                     ÚLTIMA CHANCE
                   </span>
                   <h2 className="font-display text-xl sm:text-2xl md:text-3xl mt-2 mb-2 tracking-tight leading-tight">
-                    Sua evolução começa agora
+                    Sua decisão de hoje muda seus próximos 8 anos
                   </h2>
                   <p className="text-muted-foreground text-sm">
-                    Método 8X + App 8X — tudo que você precisa para os próximos 8 semanas.
+                    Tudo isso por menos que uma refeição — e transforma como você treina para sempre.
                   </p>
                 </div>
                 
@@ -100,7 +100,7 @@ const CTA = () => {
                     </span>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    Pagamento único · Acesso imediato · Conteúdo vitalício
+                    Pagamento único · Acesso imediato · Menos que um lanche
                   </p>
                 </div>
                 
@@ -110,7 +110,7 @@ const CTA = () => {
                   className="w-full max-w-full text-xs sm:text-base py-5 sm:py-6 mb-3 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase whitespace-normal leading-tight px-3 sm:px-6" 
                   onClick={handleCTAClick}
                 >
-                  <span className="flex-1 text-center">SIM! Quero começar a evoluir</span>
+                  <span className="flex-1 text-center">SIM! QUERO EXECUTAR O MÉTODO 8X</span>
                   <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
                 </Button>
                 

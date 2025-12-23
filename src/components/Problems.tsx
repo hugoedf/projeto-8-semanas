@@ -1,7 +1,11 @@
 import { X, CheckCircle2, Smartphone } from "lucide-react";
 import appMockup from "@/assets/app-8x-mockup.jpeg";
 
-const painPoints = ["Estímulo errado", "Progressão confusa", "Execução inconsistente"];
+const painPoints = [
+  "Você treina pesado, mas o espelho não muda",
+  "Faz de tudo, mas continua no mesmo shape há meses", 
+  "Cansou de ver os outros evoluindo enquanto você patina"
+];
 
 const Problems = () => {
   return (
@@ -10,27 +14,24 @@ const Problems = () => {
         
         {/* BLOCO DE DOR - Direto e visual */}
         <div className="text-center mb-12 sm:mb-16 animate-fade-in max-w-2xl mx-auto">
-          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-6 tracking-tight text-foreground">
-            Você <span className="text-accent">não está falhando.</span>
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 tracking-tight text-foreground">
+            Se identificou com <span className="text-accent">alguma dessas?</span>
           </h2>
-          <p className="text-lg sm:text-xl text-foreground font-medium mb-6">
-            Você está treinando sem um método claro.
-          </p>
           
-          <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-2 sm:gap-3 mb-6">
+          <div className="flex flex-col gap-3 mb-6 max-w-lg mx-auto">
             {painPoints.map((point, index) => (
               <div 
                 key={index} 
-                className="flex items-center justify-center gap-2 bg-destructive/10 border border-destructive/20 rounded-full px-4 py-2 w-full sm:w-auto"
+                className="flex items-start gap-3 bg-destructive/10 border border-destructive/20 rounded-xl px-4 py-3 text-left"
               >
-                <X className="w-4 h-4 text-destructive flex-shrink-0" />
-                <span className="text-sm font-medium text-foreground">{point}</span>
+                <X className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                <span className="text-sm sm:text-base font-medium text-foreground">{point}</span>
               </div>
             ))}
           </div>
           
           <p className="text-base sm:text-lg text-muted-foreground">
-            <span className="font-semibold text-foreground">Resultado:</span> esforço alto, evolução baixa.
+            <span className="font-semibold text-foreground">O problema não é você.</span> É treinar sem um método que funciona.
           </p>
         </div>
 
