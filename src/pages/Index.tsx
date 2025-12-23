@@ -13,13 +13,18 @@ import { DiagnosticPanel } from "@/components/DiagnosticPanel";
 import UrgencyBanner from "@/components/UrgencyBanner";
 import IntermediateCTA from "@/components/IntermediateCTA";
 import FloatingCTA from "@/components/FloatingCTA";
+import ValueAnchor from "@/components/ValueAnchor";
+
 const Index = () => {
-  return <main className="min-h-screen pt-10 sm:pt-11">
+  
+  return (
+    <main className="min-h-screen pt-10 sm:pt-11">
       <UrgencyBanner />
       <Hero />
       <Problems />
+      <ValueAnchor />
       <Benefits />
-      
+      <Modules />
       <Bonus />
       <Testimonials />
       <IntermediateCTA />
@@ -32,6 +37,9 @@ const Index = () => {
       
       {/* Painel de diagnóstico - apenas em desenvolvimento */}
       {import.meta.env.DEV && <DiagnosticPanel />}
-    </main>;
+    </main>
+  );
 };
+
 export default Index;
+
