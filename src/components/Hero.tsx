@@ -1,17 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, X } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import VSLPlayer from "@/components/VSLPlayer";
 import { useState } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
-
-const painPoints = [
-  "Você treina, mas não vê mudança no espelho",
-  "Faz tudo 'certinho', mas os resultados não aparecem",
-  "Começa motivado, mas desanima em semanas"
-];
 
 const Hero = () => {
   const { trackInitiateCheckout } = useMetaPixel();
@@ -63,24 +57,6 @@ const Hero = () => {
             <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-6 order-1 mx-auto lg:mx-0">
               <Zap className="w-4 h-4" />
               <span>MÉTODO 8X</span>
-            </div>
-            
-            {/* MICRO-BLOCO DE DOR - Emoção primeiro */}
-            <div className="mb-6 order-2">
-              <div className="space-y-2 mb-4">
-                {painPoints.map((point, index) => (
-                  <div 
-                    key={index} 
-                    className="flex items-center gap-2 justify-center lg:justify-start text-white/80"
-                  >
-                    <X className="w-4 h-4 text-destructive flex-shrink-0" />
-                    <span className="text-sm sm:text-base">{point}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="text-white/60 text-sm sm:text-base">
-                O problema <span className="text-white font-medium">não é você</span>. É a falta de um método claro.
-              </p>
             </div>
             
             {/* Título - mantido conforme solicitado */}
