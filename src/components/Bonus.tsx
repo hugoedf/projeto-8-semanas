@@ -1,32 +1,24 @@
 import { Smartphone, BookOpen, Zap, Target, TrendingUp, Timer, BarChart3, Dumbbell } from "lucide-react";
 import appMockup from "@/assets/app-8x-mockup.jpeg";
-
 const Bonus = () => {
-  const appFeatures = [
-    {
-      icon: Dumbbell,
-      title: "8 Semanas Programadas",
-      description: "Treino pronto, dia a dia"
-    },
-    {
-      icon: Timer,
-      title: "Timer Inteligente",
-      description: "Descanso otimizado automático"
-    },
-    {
-      icon: TrendingUp,
-      title: "Progressão de Cargas",
-      description: "Aumento automático, sem achismo"
-    },
-    {
-      icon: BarChart3,
-      title: "Acompanhamento",
-      description: "Veja sua evolução semana a semana"
-    }
-  ];
-
-  return (
-    <section className="py-12 sm:py-16 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+  const appFeatures = [{
+    icon: Dumbbell,
+    title: "8 Semanas Programadas",
+    description: "Treino pronto, dia a dia"
+  }, {
+    icon: Timer,
+    title: "Timer Inteligente",
+    description: "Descanso otimizado automático"
+  }, {
+    icon: TrendingUp,
+    title: "Progressão de Cargas",
+    description: "Aumento automático, sem achismo"
+  }, {
+    icon: BarChart3,
+    title: "Acompanhamento",
+    description: "Veja sua evolução semana a semana"
+  }];
+  return <section className="py-12 sm:py-16 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/8 via-transparent to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
@@ -89,8 +81,7 @@ const Bonus = () => {
             O que você recebe no App 8X:
           </p>
           <div className="grid grid-cols-2 gap-3">
-            {appFeatures.map((feature, index) => (
-              <div key={index} className="flex items-start gap-2.5">
+            {appFeatures.map((feature, index) => <div key={index} className="flex items-start gap-2.5">
                 <div className="w-7 h-7 rounded-lg bg-accent/15 flex items-center justify-center flex-shrink-0">
                   <feature.icon className="w-3.5 h-3.5 text-accent" />
                 </div>
@@ -98,15 +89,14 @@ const Bonus = () => {
                   <p className="text-white text-xs font-semibold leading-tight">{feature.title}</p>
                   <p className="text-gray-500 text-[11px] leading-tight">{feature.description}</p>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
         {/* Price Anchoring */}
         <div className="text-center animate-fade-in">
           <p className="text-gray-500 text-xs mb-2">
-            Apps de treino cobram <span className="line-through">R$29/mês</span>
+            Apps de treino cobram <span className="line-through">R$39,90/mês</span>
           </p>
           <div className="inline-flex items-center gap-3 bg-accent/10 rounded-full px-5 py-2.5 border border-accent/25">
             <Zap className="w-5 h-5 text-accent" />
@@ -117,8 +107,6 @@ const Bonus = () => {
         </div>
 
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Bonus;
