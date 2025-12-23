@@ -59,7 +59,7 @@ const Hero = () => {
             </div>
             
             {/* Título */}
-            <h1 className="font-display sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.1] text-white tracking-tight mb-4 sm:mb-5 px-2 sm:px-0 text-3xl">
+            <h1 className="font-display sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.1] text-white tracking-tight mb-4 sm:mb-5 px-2 sm:px-0 text-2xl">
               A CIÊNCIA QUE TRANSFORMA ESTÍMULOS EM{" "}
               <span className="text-accent">HIPERTROFIA REAL</span>
             </h1>
