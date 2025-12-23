@@ -23,8 +23,8 @@ let globalVisitorData: VisitorData | null = null;
 let initializationPromise: Promise<VisitorData> | null = null;
 let hasTracked = false;
 
-// Edge function URL
-const VISITOR_TRACKING_URL = 'https://kfddlytvdzqwopongnew.supabase.co/functions/v1/visitor-tracking';
+// Edge function URL - uses environment variable
+const VISITOR_TRACKING_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/visitor-tracking`;
 
 const detectDevice = (): 'mobile' | 'tablet' | 'desktop' => {
   const ua = navigator.userAgent.toLowerCase();
@@ -45,7 +45,7 @@ const fetchRegion = async (): Promise<string> => {
   }
   
   try {
-    const response = await fetch('https://kfddlytvdzqwopongnew.supabase.co/functions/v1/geo');
+    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/geo`);
     if (!response.ok) throw new Error('Falha ao obter região');
     
     const data = await response.json();

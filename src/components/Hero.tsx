@@ -43,11 +43,11 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
+  return <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden gradient-hero pt-10">
       {/* Background overlays for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
-      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-12 sm:pb-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
           {/* Content */}
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">

@@ -110,24 +110,24 @@ const UrgencyBanner = () => {
   const isHighUrgency = visitCount >= 3;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-destructive/95 to-destructive/80 text-white py-2 sm:py-2.5 px-3 sm:px-4 shadow-md">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-gray-950/95 backdrop-blur-sm text-white py-2 sm:py-2.5 px-3 sm:px-4 border-b border-accent/20">
       <div className="container mx-auto flex items-center justify-center gap-3 sm:gap-5">
         {/* Bônus + Timer */}
         <div className="flex items-center gap-2">
-          <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300 flex-shrink-0" />
-          <span className="text-[11px] sm:text-sm font-medium whitespace-nowrap">
+          <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent flex-shrink-0" />
+          <span className="text-[11px] sm:text-sm font-medium whitespace-nowrap text-white/80">
             {getUrgencyMessage(visitCount)}
           </span>
           <div className="flex items-center gap-0.5 font-mono font-bold text-xs sm:text-base">
-            <span className="bg-black/20 px-1.5 py-0.5 rounded">
+            <span className="bg-accent/20 text-accent px-1.5 py-0.5 rounded">
               {formatNumber(timeLeft.hours)}
             </span>
-            <span className="text-yellow-300/80">:</span>
-            <span className="bg-black/20 px-1.5 py-0.5 rounded">
+            <span className="text-accent/60">:</span>
+            <span className="bg-accent/20 text-accent px-1.5 py-0.5 rounded">
               {formatNumber(timeLeft.minutes)}
             </span>
-            <span className="text-yellow-300/80">:</span>
-            <span className="bg-black/20 px-1.5 py-0.5 rounded">
+            <span className="text-accent/60">:</span>
+            <span className="bg-accent/20 text-accent px-1.5 py-0.5 rounded">
               {formatNumber(timeLeft.seconds)}
             </span>
           </div>
@@ -139,7 +139,7 @@ const UrgencyBanner = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60"></span>
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-green-400"></span>
           </span>
-          <span className="text-[10px] sm:text-sm opacity-90">{viewersCount}</span>
+          <span className="text-[10px] sm:text-sm text-white/70">{viewersCount}</span>
         </div>
       </div>
     </div>
