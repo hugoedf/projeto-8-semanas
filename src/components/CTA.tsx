@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight, Lock } from "lucide-react";
+import { Check, ArrowRight, Lock, Clock } from "lucide-react";
 import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
@@ -56,7 +56,7 @@ const CTA = () => {
                 <div className="mb-5">
                   <span className="text-accent text-xs uppercase tracking-widest font-bold">⚡ OFERTA DE LANÇAMENTO</span>
                   <h2 className="font-display text-xl sm:text-2xl md:text-3xl mt-2 mb-2 tracking-tight leading-tight">
-                    Sua decisão de hoje muda seus próximos 8 anos
+                    Comece hoje. Veja resultados em 8 semanas.
                   </h2>
                   <p className="text-muted-foreground text-sm">
                     Tudo isso por menos que uma refeição — e transforma como você treina para sempre.
@@ -79,8 +79,9 @@ const CTA = () => {
                       R$ 19,90
                     </span>
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    Pagamento único · Acesso imediato · Menos que um lanche
+                  <p className="text-xs text-muted-foreground flex items-center justify-start gap-1.5">
+                    <Clock className="w-3 h-3" />
+                    <span>Oferta por tempo limitado · Pagamento único · Acesso imediato</span>
                   </p>
                 </div>
                 

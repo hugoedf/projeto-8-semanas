@@ -277,7 +277,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           playsInline
           webkit-playsinline="true"
           x-webkit-airplay="allow"
-          preload="auto"
+          preload="metadata"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
           onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
