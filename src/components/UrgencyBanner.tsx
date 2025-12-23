@@ -116,7 +116,7 @@ const UrgencyBanner = () => {
         <div className="flex items-center gap-2">
           <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-300 flex-shrink-0" />
           <span className="text-[11px] sm:text-sm font-medium whitespace-nowrap">
-            Bônus de lançamento:
+            {getUrgencyMessage(visitCount)}
           </span>
           <div className="flex items-center gap-0.5 font-mono font-bold text-xs sm:text-base">
             <span className="bg-black/20 px-1.5 py-0.5 rounded">
