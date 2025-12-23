@@ -10,24 +10,16 @@ const FloatingCTA = () => {
   const { trackInitiateCheckout } = useMetaPixel();
 
   useEffect(() => {
-    // Show after 5 seconds OR 20% scroll (whichever comes first)
-    const timer = setTimeout(() => {
-      if (!isDismissed) {
-        setIsVisible(true);
-      }
-    }, 5000);
-
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
-        // Use requestAnimationFrame to batch DOM reads
         requestAnimationFrame(() => {
           const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
           
-          // Show after 20% scroll and hide near CTA final (85%)
-          if (scrollPercentage > 20 && scrollPercentage < 85 && !isDismissed) {
+          // Mostrar apenas após 50% de scroll e esconder perto do CTA final (85%)
+          if (scrollPercentage >= 50 && scrollPercentage < 85 && !isDismissed) {
             setIsVisible(true);
-          } else if (scrollPercentage >= 85) {
+          } else if (scrollPercentage < 50 || scrollPercentage >= 85) {
             setIsVisible(false);
           }
           ticking = false;
@@ -38,7 +30,6 @@ const FloatingCTA = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
-      clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isDismissed]);
