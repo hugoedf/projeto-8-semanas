@@ -5,29 +5,28 @@ import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import appMockup from "@/assets/app-8x-mockup.jpeg";
-
 const painPoints = ["Estímulo errado", "Progressão confusa", "Execução inconsistente"];
-
 const Problems = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  const { ctaVisible } = useCTAVisibility();
-
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
+  const {
+    ctaVisible
+  } = useCTAVisibility();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-
     console.log('✅ ===== CHECKOUT INICIADO (EARLY OFFER) =====');
     console.log('🔗 URL final:', checkoutUrl);
     console.log('📊 Dados do visitante:', visitorData);
     console.log('=============================================');
-
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  return (
-    <section className="py-16 sm:py-24 bg-muted">
+  return <section className="py-16 sm:py-24 bg-muted">
       <div className="container mx-auto px-5 sm:px-6">
         
         {/* BLOCO DE DOR - Direto e visual */}
@@ -40,12 +39,10 @@ const Problems = () => {
           </p>
           
           <div className="flex flex-wrap justify-center gap-3 mb-6">
-            {painPoints.map((point, index) => (
-              <div key={index} className="flex items-center gap-2 bg-destructive/10 border border-destructive/20 rounded-full px-4 py-2">
+            {painPoints.map((point, index) => <div key={index} className="flex items-center gap-2 bg-destructive/10 border border-destructive/20 rounded-full px-4 py-2">
                 <X className="w-4 h-4 text-destructive" />
                 <span className="text-sm font-medium text-foreground">{point}</span>
-              </div>
-            ))}
+              </div>)}
           </div>
           
           <p className="text-base sm:text-lg text-muted-foreground">
@@ -63,15 +60,7 @@ const Problems = () => {
                   <div className="absolute inset-0 bg-accent/20 rounded-[2rem] blur-[40px] scale-105" />
                   <div className="relative bg-gradient-to-b from-gray-800 to-gray-950 rounded-[2rem] p-2.5 w-[180px] sm:w-[220px] shadow-xl border border-white/10">
                     <div className="rounded-[1.5rem] overflow-hidden">
-                      <img 
-                        src={appMockup} 
-                        alt="App 8X - Execução Guiada" 
-                        className="w-full h-auto"
-                        width={220}
-                        height={306}
-                        loading="lazy"
-                        decoding="async"
-                      />
+                      <img src={appMockup} alt="App 8X - Execução Guiada" className="w-full h-auto" width={220} height={306} loading="lazy" decoding="async" />
                     </div>
                   </div>
                 </div>
@@ -90,12 +79,10 @@ const Problems = () => {
                   Você abre, executa o treino do dia e acompanha sua evolução semana a semana — <span className="text-foreground font-medium">sem improviso.</span>
                 </p>
                 <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                  {["Treinos prontos", "Progressão clara", "Sem achismo"].map((item, i) => (
-                    <span key={i} className="inline-flex items-center gap-1.5 bg-accent/10 border border-accent/20 rounded-full px-3 py-1.5 text-xs text-accent font-medium">
+                  {["Treinos prontos", "Progressão clara", "Sem achismo"].map((item, i) => <span key={i} className="inline-flex items-center gap-1.5 bg-accent/10 border border-accent/20 rounded-full px-3 py-1.5 text-xs text-accent font-medium">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       {item}
-                    </span>
-                  ))}
+                    </span>)}
                 </div>
               </div>
             </div>
@@ -104,44 +91,9 @@ const Problems = () => {
 
         {/* AJUSTE 4 - Oferta mais cedo */}
         <div className={`max-w-xl mx-auto text-center animate-fade-in transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          <div className="bg-gradient-to-b from-accent/10 to-accent/5 border border-accent/30 rounded-2xl p-6 sm:p-8 shadow-lg shadow-accent/10">
-            <h3 className="font-display text-lg sm:text-xl md:text-2xl mb-4 tracking-tight">
-              Acesso completo ao <span className="text-accent">Método 8X + App 8X</span>
-            </h3>
-            
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-muted-foreground line-through text-lg">R$ 97</span>
-              <span className="text-accent font-display text-3xl sm:text-4xl font-bold">R$ 19,90</span>
-            </div>
-            
-            <div className="flex flex-wrap justify-center gap-3 mb-6 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-green-500" />
-                8 semanas de execução guiada
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-green-500" />
-                Sem improviso
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-green-500" />
-                Garantia incondicional de 7 dias
-              </span>
-            </div>
-            
-            <Button 
-              variant="cta" 
-              size="lg" 
-              onClick={handleCTAClick}
-              className="text-base sm:text-lg px-8 py-6 animate-pulse-glow font-bold tracking-wide shadow-xl shadow-accent/30 uppercase"
-            >
-              Quero executar o Método 8X por 8 semanas
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </div>
+          
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
 export default Problems;
