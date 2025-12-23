@@ -300,7 +300,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
             {/* Texto provocativo no topo */}
             <div className="absolute top-4 sm:top-6 left-0 right-0 text-center z-0 px-4">
               <p className="text-white/80 text-xs sm:text-sm tracking-widest uppercase">
-                O ERRO que 90% dos caras cometem no treino
+                O ERRO que 90% das pessoas cometem no treino
               </p>
             </div>
 
