@@ -257,13 +257,26 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       {/* Player Container */}
       <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.8)]">
         
-        {/* Video Element with format fallback */}
+        {/* LCP Image - Video thumbnail with high priority */}
+        {!hasStarted && (
+          <img
+            src={vslThumbnail}
+            alt="VSL Thumbnail"
+            className="absolute inset-0 w-full h-full object-cover"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+            decoding="async"
+          />
+        )}
+        
+        {/* Video Element with format fallback - lazy loaded */}
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
           poster={vslThumbnail}
           playsInline
-          preload="auto"
+          preload="metadata"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
           onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
@@ -278,11 +291,6 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         {/* Pre-start overlay */}
         {!hasStarted && (
           <>
-            {/* Thumbnail background */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${vslThumbnail})` }}
-            />
 
             {/* Vignette */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_70%,rgba(0,0,0,0.85)_100%)]" />

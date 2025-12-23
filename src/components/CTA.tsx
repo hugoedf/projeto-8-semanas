@@ -53,7 +53,15 @@ const CTA = () => {
             <div className="order-2 lg:order-1 animate-fade-in">
               <div className="relative">
                 <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-[60px] scale-95" />
-                <img alt="Treino de Hipertrofia" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl drop-shadow-xl" src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg" />
+                <img 
+                  alt="Treino de Hipertrofia" 
+                  className="relative z-10 w-full h-auto rounded-2xl shadow-2xl drop-shadow-xl" 
+                  src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg"
+                  width={651}
+                  height={977}
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
             </div>
             

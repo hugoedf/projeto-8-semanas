@@ -17,18 +17,26 @@ const FloatingCTA = () => {
       }
     }, 5000);
 
+    let ticking = false;
     const handleScroll = () => {
-      const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      
-      // Show after 20% scroll and hide near CTA final (85%)
-      if (scrollPercentage > 20 && scrollPercentage < 85 && !isDismissed) {
-        setIsVisible(true);
-      } else if (scrollPercentage >= 85) {
-        setIsVisible(false);
+      if (!ticking) {
+        // Use requestAnimationFrame to batch DOM reads
+        requestAnimationFrame(() => {
+          const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+          
+          // Show after 20% scroll and hide near CTA final (85%)
+          if (scrollPercentage > 20 && scrollPercentage < 85 && !isDismissed) {
+            setIsVisible(true);
+          } else if (scrollPercentage >= 85) {
+            setIsVisible(false);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
