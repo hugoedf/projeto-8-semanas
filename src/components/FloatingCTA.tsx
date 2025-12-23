@@ -16,9 +16,10 @@ const FloatingCTA = () => {
         requestAnimationFrame(() => {
           const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
           
-          if (scrollPercentage >= 50 && scrollPercentage < 85 && !isDismissed) {
+          // Aparece em 40% e permanece até o final, só some se voltar abaixo de 40%
+          if (scrollPercentage >= 40 && !isDismissed) {
             setIsVisible(true);
-          } else if (scrollPercentage < 50 || scrollPercentage >= 85) {
+          } else if (scrollPercentage < 40) {
             setIsVisible(false);
           }
           ticking = false;
@@ -54,7 +55,7 @@ const FloatingCTA = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden animate-slide-in-bottom">
-      <div className="bg-card/98 backdrop-blur-xl border-t-2 border-accent/40 shadow-[0_-8px_30px_rgba(0,0,0,0.4)] px-3 py-3 safe-area-inset-bottom">
+      <div className="bg-background/95 backdrop-blur-md border-t border-accent/30 shadow-2xl px-3 py-3 safe-area-inset-bottom">
         <div className="flex items-center justify-between gap-2">
           {/* Preço */}
           <div className="flex items-center gap-2 min-w-0">
