@@ -68,7 +68,7 @@ const Bonus = () => {
           <div className="inline-flex items-center gap-3 bg-accent/10 rounded-full px-5 py-2.5 border border-accent/25">
             <Gift className="w-5 h-5 text-accent" />
             <p className="text-sm font-semibold text-white">
-              App 8X incluso <span className="text-accent">GRÁTIS</span>
+              App 8X incluso 
             </p>
           </div>
         </div>
