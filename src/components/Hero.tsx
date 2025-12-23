@@ -84,12 +84,11 @@ const Hero = () => {
             </div>
             
             {/* Prova social + preço + âncora - abaixo do CTA */}
-            <p className="text-sm sm:text-base text-white/70 order-6 mt-4">
+            <p className="text-xs sm:text-base text-white/70 order-6 mt-4 whitespace-nowrap">
               <span className="text-white/90 font-medium">+500 pessoas já evoluíram</span>
-              <span className="mx-2 text-white/40">•</span>
-              
-              <span className="text-accent font-bold ml-1">R$19,90</span>
-              <span className="mx-2 text-white/40">•</span>
+              <span className="mx-1 sm:mx-2 text-white/40">•</span>
+              <span className="text-accent font-bold">R$19,90</span>
+              <span className="mx-1 sm:mx-2 text-white/40">•</span>
               <span>Menos que uma refeição</span>
             </p>
           </div>
