@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Lock } from "lucide-react";
-import gymTraining from "@/assets/gym-training.jpg";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
@@ -8,7 +7,7 @@ import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 
 const benefits = [
   "8 semanas de treino — sem improviso",
-  "App 8X incluso — treino guiado no celular",
+  "App 8X incluso — treino guiado",
   "Nutrição prática — sem complicação",
   "Técnicas avançadas — no momento certo",
   "Acesso vitalício — seu para sempre",
@@ -46,79 +45,70 @@ const CTA = () => {
   };
 
   return (
-    <section id="cta-section" className={`py-12 sm:py-16 bg-background transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+    <section 
+      id="cta-section" 
+      className={`py-14 sm:py-20 bg-background transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+    >
       <div className="container mx-auto px-5 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            {/* Image */}
-            <div className="order-2 lg:order-1 animate-fade-in">
-              <div className="relative">
-                <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[40px] scale-95" />
-                <img 
-                  alt="Treino de Hipertrofia" 
-                  className="relative z-10 w-full h-auto rounded-xl shadow-xl" 
-                  src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg"
-                  width={651}
-                  height={977}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
+        <div className="max-w-md mx-auto text-center">
+          
+          {/* Card principal */}
+          <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-8 shadow-lg animate-fade-in">
+            
+            {/* Badge */}
+            <span className="text-accent text-xs uppercase tracking-widest font-bold">
+              ÚLTIMA CHANCE
+            </span>
+            
+            {/* Título */}
+            <h2 className="font-display text-lg sm:text-2xl mt-3 mb-2 tracking-tight leading-tight">
+              Sua decisão de hoje muda seus próximos 8 anos
+            </h2>
+            
+            <p className="text-muted-foreground text-sm mb-6">
+              Tudo isso por menos que uma refeição — e transforma como você treina para sempre.
+            </p>
+            
+            {/* Lista de benefícios - Vertical */}
+            <div className="flex flex-col gap-2 mb-6 text-left">
+              {benefits.map((benefit, index) => (
+                <div key={index} className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground text-sm">{benefit}</span>
+                </div>
+              ))}
             </div>
             
-            {/* Content */}
-            <div className="order-1 lg:order-2 animate-fade-in">
-              <div className="bg-card border border-border/80 rounded-xl p-5 sm:p-7 shadow-lg">
-                <div className="mb-5">
-                  <span className="text-accent text-xs uppercase tracking-widest font-bold">
-                    ÚLTIMA CHANCE
-                  </span>
-                  <h2 className="font-display text-xl sm:text-2xl md:text-3xl mt-2 mb-2 tracking-tight leading-tight">
-                    Sua decisão de hoje muda seus próximos 8 anos
-                  </h2>
-                  <p className="text-muted-foreground text-sm">
-                    Tudo isso por menos que uma refeição — e transforma como você treina para sempre.
-                  </p>
-                </div>
-                
-                <div className="space-y-2.5 mb-6">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground text-sm">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
-                
-                <div className="border-t border-border/60 pt-5 mb-5">
-                  <div className="flex items-baseline gap-3 mb-2">
-                    <span className="text-muted-foreground line-through text-lg">
-                      R$ 97
-                    </span>
-                    <span className="text-accent font-display text-2xl sm:text-3xl font-bold">
-                      R$ 19,90
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Pagamento único · Acesso imediato · Menos que um lanche
-                  </p>
-                </div>
-                
-                <Button 
-                  variant="cta" 
-                  size="lg" 
-                  className="w-full max-w-full text-xs sm:text-base py-5 sm:py-6 mb-3 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase whitespace-normal leading-tight px-3 sm:px-6" 
-                  onClick={handleCTAClick}
-                >
-                  <span className="flex-1 text-center">SIM! QUERO EXECUTAR O MÉTODO 8X</span>
-                  <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
-                </Button>
-                
-                <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-                  <Lock className="w-3.5 h-3.5" />
-                  <span>Pagamento 100% seguro</span>
-                </div>
+            {/* Preço destacado */}
+            <div className="border-t border-border/60 pt-5 mb-5">
+              <div className="flex items-baseline justify-center gap-3 mb-1">
+                <span className="text-muted-foreground line-through text-base">
+                  R$ 97
+                </span>
+                <span className="text-accent font-display text-3xl sm:text-4xl font-bold drop-shadow-[0_0_15px_hsl(var(--accent)/0.4)]">
+                  R$ 19,90
+                </span>
               </div>
+              <p className="text-xs text-muted-foreground">
+                Pagamento único · Acesso imediato
+              </p>
+            </div>
+            
+            {/* Botão CTA - Full width */}
+            <Button 
+              variant="cta" 
+              size="lg" 
+              className="w-full text-sm sm:text-base py-5 sm:py-6 mb-4 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase" 
+              onClick={handleCTAClick}
+            >
+              SIM! QUERO EXECUTAR O MÉTODO 8X
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+            
+            {/* Segurança */}
+            <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+              <Lock className="w-3.5 h-3.5" />
+              <span>Pagamento 100% seguro</span>
             </div>
           </div>
         </div>
