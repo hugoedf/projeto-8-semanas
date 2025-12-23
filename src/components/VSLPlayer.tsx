@@ -59,7 +59,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     console.log(`📊 VSL Event: ${eventName}`, { eventId, visitorId: visitorData?.visitorId });
 
     try {
-      const response = await fetch('https://kfddlytvdzqwopongnew.supabase.co/functions/v1/meta-conversions', {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
