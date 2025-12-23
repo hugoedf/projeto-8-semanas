@@ -1,5 +1,4 @@
 import { X, CheckCircle2, Smartphone } from "lucide-react";
-import appMockup from "@/assets/app-8x-mockup.jpeg";
 const painPoints = ["Você treina pesado, mas o espelho não muda", "Faz de tudo, mas continua no mesmo shape há meses", "Cansou de ver os outros evoluindo enquanto você patina"];
 const Problems = () => {
   return <section className="py-16 sm:py-24 bg-muted">
@@ -28,13 +27,20 @@ const Problems = () => {
         <div className="max-w-4xl mx-auto mb-12 sm:mb-16 animate-fade-in">
           <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-10 shadow-lg">
             <div className="grid md:grid-cols-2 gap-8 items-center">
-              {/* Imagem do App */}
+              {/* Video do App */}
               <div className="flex justify-center order-2 md:order-1">
                 <div className="relative">
                   <div className="absolute inset-0 bg-accent/20 rounded-[2rem] blur-[40px] scale-105" />
                   <div className="relative bg-gradient-to-b from-gray-800 to-gray-950 rounded-[2rem] p-2.5 w-[180px] sm:w-[220px] shadow-xl border border-white/10">
                     <div className="rounded-[1.5rem] overflow-hidden">
-                      <img src={appMockup} alt="App 8X - Execução Guiada" className="w-full h-auto" width={220} height={306} loading="lazy" decoding="async" />
+                      <video 
+                        src="/videos/app-demo.mp4" 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline
+                        className="w-full h-auto"
+                      />
                     </div>
                   </div>
                 </div>
