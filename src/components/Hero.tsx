@@ -60,17 +60,23 @@ const Hero = () => {
             </div>
             
             {/* Título - mantido conforme solicitado */}
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.08] text-white order-3 tracking-tight mb-6">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.08] text-white order-2 tracking-tight mb-6">
               A CIÊNCIA QUE TRANSFORMA ESTÍMULOS EM{" "}
               <span className="text-accent">HIPERTROFIA REAL</span>
             </h1>
             
             {/* Subtítulo mais persuasivo e direto */}
-            <p className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 text-white/80 order-4 mb-6">
+            <p className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 text-white/80 order-3 mb-6">
               Em <span className="text-accent font-semibold">8 semanas</span>, você vai saber exatamente o que fazer em cada treino — sem achismo, sem improviso.
             </p>
             
-            {/* CTA Section ANTES do vídeo */}
+            {/* VSL Player - Mobile only - ANTES do botão */}
+            <div className="relative w-full max-w-[340px] mx-auto lg:hidden order-4 mb-6">
+              <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
+              <VSLPlayer onVideoEnd={handleVSLEnd} />
+            </div>
+            
+            {/* CTA Section DEPOIS do vídeo no mobile */}
             <div className={`order-5 space-y-4 transition-all duration-500 mb-8 ${vslEnded ? 'scale-105' : ''}`}>
               <Button 
                 variant="cta" 
@@ -90,12 +96,6 @@ const Hero = () => {
                 <span className="mx-2">•</span>
                 <span>7 dias de garantia</span>
               </p>
-            </div>
-            
-            {/* VSL Player - Mobile only */}
-            <div className="relative w-full max-w-[340px] mx-auto lg:hidden order-6">
-              <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
-              <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
           </div>
           
