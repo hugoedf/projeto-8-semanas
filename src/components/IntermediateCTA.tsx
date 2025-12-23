@@ -40,23 +40,23 @@ const IntermediateCTA = () => {
           </h2>
 
           <p className="text-muted-foreground text-base sm:text-lg mb-6 max-w-lg mx-auto">
-            Mais de 500 pessoas já pararam de estagnar. O método está pronto. A próxima evolução é sua.
+            +500 pessoas já aplicaram o método. Menos que uma refeição para transformar seus próximos 8 anos de treino.
           </p>
 
-          {/* Preço */}
+          {/* Preço com ancoragem */}
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="text-muted-foreground line-through text-lg">R$ 97</span>
             <span className="text-accent font-display text-3xl sm:text-4xl font-bold">R$ 19,90</span>
           </div>
 
-          {/* Botão emocional */}
+          {/* Botão com prazo específico */}
           <Button 
             variant="cta" 
             size="lg" 
             onClick={handleCTAClick}
             className="text-xs sm:text-base px-4 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase mb-6 w-full sm:w-auto max-w-full whitespace-normal leading-tight"
           >
-            <span className="flex-1 text-center">QUERO PARAR DE ESTAGNAR AGORA</span>
+            <span className="flex-1 text-center">QUERO EVOLUIR NAS PRÓXIMAS 8 SEMANAS</span>
             <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
           </Button>
 

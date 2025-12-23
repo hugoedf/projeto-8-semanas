@@ -53,10 +53,10 @@ const Hero = () => {
           {/* Content */}
           <div className="text-center lg:text-left animate-fade-in px-1 sm:px-0 flex flex-col lg:block">
             
-            {/* Badge minimalista */}
+            {/* Badge com prova social */}
             <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-6 order-1 mx-auto lg:mx-0">
               <Zap className="w-4 h-4" />
-              <span>MÉTODO 8X</span>
+              <span>+500 PESSOAS JÁ EVOLUÍRAM</span>
             </div>
             
             {/* Título - mantido conforme solicitado */}
@@ -65,9 +65,9 @@ const Hero = () => {
               <span className="text-accent">HIPERTROFIA REAL</span>
             </h1>
             
-            {/* Subtítulo mais persuasivo e direto */}
+            {/* Subtítulo mais emocional */}
             <p className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 text-white/80 order-3 mb-6">
-              Em <span className="text-accent font-semibold">8 semanas</span>, você vai saber exatamente o que fazer em cada treino — sem achismo, sem improviso.
+              Chega de treinar no escuro. Em <span className="text-accent font-semibold">8 semanas</span>, você vai executar o que funciona — <span className="text-white font-medium">sem dúvida, sem estagnação.</span>
             </p>
             
             {/* VSL Player - Mobile only - ANTES do botão */}
@@ -84,17 +84,16 @@ const Hero = () => {
                 onClick={handleCTAClick} 
                 className={`text-sm sm:text-lg px-4 sm:px-12 py-5 sm:py-7 w-full max-w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase leading-tight whitespace-normal ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
               >
-                <span className="flex-1">QUERO PARAR DE ESTAGNAR</span>
+                <span className="flex-1">QUERO EVOLUIR NAS PRÓXIMAS 8 SEMANAS</span>
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
               
-              {/* Preço + Oferta */}
+              {/* Ancoragem simplificada */}
               <p className="text-sm sm:text-base text-white/70">
-                <span className="text-accent font-semibold">R$ 19,90</span>
+                <span className="text-white/50 line-through mr-2">R$ 97</span>
+                <span className="text-accent font-bold text-lg">R$ 19,90</span>
                 <span className="mx-2">•</span>
-                <span>Método + App 8X</span>
-                <span className="mx-2">•</span>
-                <span>7 dias de garantia</span>
+                <span>Menos que uma refeição</span>
               </p>
             </div>
           </div>
