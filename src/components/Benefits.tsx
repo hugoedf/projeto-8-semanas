@@ -54,7 +54,7 @@ const Benefits = () => {
           </h2>
         </div>
         
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
@@ -69,7 +69,7 @@ const Benefits = () => {
                 <h3 className="font-display text-sm sm:text-base mb-1 text-foreground tracking-tight">
                   {benefit.title}
                 </h3>
-                <p className="text-muted-foreground text-xs leading-relaxed hidden sm:block">
+                <p className="text-muted-foreground text-xs leading-relaxed">
                   {benefit.description}
                 </p>
               </div>

@@ -86,10 +86,10 @@ const Hero = () => {
                 variant="cta" 
                 size="lg" 
                 onClick={handleCTAClick} 
-                className={`text-base sm:text-lg px-8 sm:px-12 py-6 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
+                className={`text-sm sm:text-lg px-4 sm:px-12 py-5 sm:py-7 w-full max-w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase leading-tight whitespace-normal ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
               >
-                QUERO COMEÇAR AGORA
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <span className="flex-1">QUERO COMEÇAR AGORA</span>
+                <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
               
               {/* Preço + Oferta - Uma linha só */}

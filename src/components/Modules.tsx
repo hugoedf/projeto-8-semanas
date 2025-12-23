@@ -41,7 +41,7 @@ const Modules = () => {
           </h2>
         </div>
         
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
           {modules.map((module, index) => <div key={index} className="card-dark-glass p-4 sm:p-5 hover-lift animate-fade-in transition-all duration-300" style={{
           animationDelay: `${index * 0.05}s`
         }}>
@@ -54,6 +54,9 @@ const Modules = () => {
                 <h3 className="font-display text-sm sm:text-base text-white tracking-tight leading-tight">
                   {module.title}
                 </h3>
+                <p className="text-white/70 text-xs leading-relaxed">
+                  {module.description}
+                </p>
               </div>
             </div>)}
         </div>
