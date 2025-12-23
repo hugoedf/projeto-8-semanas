@@ -18,8 +18,7 @@ const Problems = () => {
               </div>)}
           </div>
           
-          <p className="text-base sm:text-lg text-muted-foreground">O problema não é você. 
-É treinar sem um método que funciona.<span className="font-semibold text-foreground">O problema não é você.</span> É treinar sem um método que funciona.
+          <p className="text-base sm:text-lg text-muted-foreground">.O problema não é você. É treinar sem um método que funciona.<span className="font-semibold text-foreground">O problema não é você.</span> É treinar sem um método que funciona.
           </p>
         </div>
 
