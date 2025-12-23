@@ -2,7 +2,6 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { Play, Pause, Maximize } from "lucide-react";
 import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
-import { supabase } from "@/integrations/supabase/client";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 
 interface VSLPlayerProps {
@@ -43,7 +42,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     return `${base}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }, [visitorData?.visitorId]);
 
-  // Send VSL event to meta_events table directly (not through password-protected dashboard)
+  // Send VSL event via meta-conversions edge function (bypasses RLS)
   const sendVSLEvent = useCallback(async (eventName: 'VSLStart' | 'VSL15s' | 'VSL30s') => {
     // Check if already tracked
     if (vslEventsTrackedRef.current[eventName]) {
@@ -55,21 +54,29 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     vslEventsTrackedRef.current[eventName] = true;
 
     const eventId = generateEventId();
+    const device = /mobile|android|iphone|ipad/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+    
     console.log(`📊 VSL Event: ${eventName}`, { eventId, visitorId: visitorData?.visitorId });
 
     try {
-      // Insert directly into meta_events table for dashboard tracking
-      const { error } = await supabase.from('meta_events').insert({
-        event_name: eventName,
-        event_id: eventId,
-        visitor_id: visitorData?.visitorId || null,
-        page_url: window.location.href,
-        device: /mobile|android|iphone|ipad/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
-        event_time: new Date().toISOString(),
+      const response = await fetch('https://kfddlytvdzqwopongnew.supabase.co/functions/v1/meta-conversions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          eventName,
+          eventId,
+          eventSourceUrl: window.location.href,
+          visitorId: visitorData?.visitorId || null,
+          device,
+          fbp: localStorage.getItem('_fbp') || undefined,
+          fbc: localStorage.getItem('_fbc') || undefined,
+        }),
       });
 
-      if (error) {
-        console.error(`VSL Event ${eventName} failed:`, error);
+      if (!response.ok) {
+        console.error(`VSL Event ${eventName} failed:`, response.status);
       } else {
         console.log(`✅ VSL Event ${eventName} tracked`);
       }
