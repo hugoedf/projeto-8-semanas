@@ -5,23 +5,25 @@ import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
-const benefits = ["8 semanas de treino com progressão clara", "Execução guiada pelo App 8X", "Nutrição prática e objetiva", "Técnicas avançadas no momento certo", "Acesso vitalício", "Garantia incondicional de 7 dias"];
-const CTA = () => {
-  const {
-    trackInitiateCheckout
-  } = useMetaPixel();
-  const {
-    visitorData
-  } = useVisitorTracking();
-  const { ctaVisible } = useCTAVisibility();
-  const handleCTAClick = () => {
-    // 1. Base URL do checkout da Hotmart
-    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
 
-    // 2. Construir URL completa com todos os parâmetros de rastreamento
+const benefits = [
+  "8 semanas de treino — sem improviso",
+  "App 8X incluso — treino guiado no celular",
+  "Nutrição prática — sem complicação",
+  "Técnicas avançadas — no momento certo",
+  "Acesso vitalício — seu para sempre",
+  "Garantia de 7 dias — risco zero"
+];
+
+const CTA = () => {
+  const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
+  const { ctaVisible } = useCTAVisibility();
+
+  const handleCTAClick = () => {
+    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
 
-    // 3. Log detalhado ANTES do redirecionamento
     console.log('✅ ===== CHECKOUT INICIADO (CTA) =====');
     console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
     console.log('📊 Dados do visitante:', visitorData);
@@ -39,13 +41,12 @@ const CTA = () => {
     });
     console.log('========================================');
 
-    // 4. Disparar evento de InitiateCheckout (valor correto: R$ 19,90)
     trackInitiateCheckout(19.90, 'BRL');
-
-    // 5. Abrir checkout em nova aba
     window.location.href = checkoutUrl;
   };
-  return <section id="cta-section" className={`py-12 sm:py-16 bg-background transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+
+  return (
+    <section id="cta-section" className={`py-12 sm:py-16 bg-background transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -70,18 +71,23 @@ const CTA = () => {
               <div className="bg-card border border-border/80 rounded-xl p-5 sm:p-7 shadow-lg">
                 <div className="mb-5">
                   <span className="text-accent text-xs uppercase tracking-widest font-bold">
-                    ACESSO COMPLETO
+                    ÚLTIMA CHANCE
                   </span>
-                  <h2 className="font-display text-xl sm:text-2xl md:text-3xl mt-2 mb-3 tracking-tight leading-tight">
-                    Método 8X + App 8X
+                  <h2 className="font-display text-xl sm:text-2xl md:text-3xl mt-2 mb-2 tracking-tight leading-tight">
+                    Sua evolução começa agora
                   </h2>
+                  <p className="text-muted-foreground text-sm">
+                    Método 8X + App 8X — tudo que você precisa para os próximos 8 semanas.
+                  </p>
                 </div>
                 
                 <div className="space-y-2.5 mb-6">
-                  {benefits.map((benefit, index) => <div key={index} className="flex items-start gap-2.5">
+                  {benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-2.5">
                       <Check className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
                       <span className="text-foreground text-sm">{benefit}</span>
-                    </div>)}
+                    </div>
+                  ))}
                 </div>
                 
                 <div className="border-t border-border/60 pt-5 mb-5">
@@ -98,8 +104,13 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <Button variant="cta" size="lg" className="w-full max-w-full text-xs sm:text-base py-5 sm:py-6 mb-3 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase whitespace-normal leading-tight px-3 sm:px-6" onClick={handleCTAClick}>
-                  <span className="flex-1 text-center">Quero executar o Método 8X por 8 semanas</span>
+                <Button 
+                  variant="cta" 
+                  size="lg" 
+                  className="w-full max-w-full text-xs sm:text-base py-5 sm:py-6 mb-3 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase whitespace-normal leading-tight px-3 sm:px-6" 
+                  onClick={handleCTAClick}
+                >
+                  <span className="flex-1 text-center">SIM! Quero começar a evoluir</span>
                   <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
                 </Button>
                 
@@ -112,6 +123,8 @@ const CTA = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default CTA;

@@ -16,7 +16,6 @@ const FloatingCTA = () => {
         requestAnimationFrame(() => {
           const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
           
-          // Mostrar apenas após 50% de scroll e esconder perto do CTA final (85%)
           if (scrollPercentage >= 50 && scrollPercentage < 85 && !isDismissed) {
             setIsVisible(true);
           } else if (scrollPercentage < 50 || scrollPercentage >= 85) {
@@ -64,18 +63,18 @@ const FloatingCTA = () => {
               <span className="text-accent font-bold text-xl">R$ 19,90</span>
             </div>
             <p className="text-xs text-muted-foreground truncate">
-              E-book + App 8X Grátis
+              Garantia de 7 dias
             </p>
           </div>
 
-          {/* Botão */}
+          {/* Botão emocional */}
           <Button 
             variant="cta" 
             size="sm"
             onClick={handleCTAClick}
             className="text-xs px-3 py-4 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow flex-shrink-0"
           >
-            <span>QUERO O MÉTODO</span>
+            <span>QUERO EVOLUIR</span>
             <ArrowRight className="ml-1 w-3.5 h-3.5 flex-shrink-0" />
           </Button>
 
