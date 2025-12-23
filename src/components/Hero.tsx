@@ -6,22 +6,24 @@ import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import VSLPlayer from "@/components/VSLPlayer";
 import { useState } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
-
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const [vslEnded, setVslEnded] = useState(false);
-  const { ctaVisible } = useCTAVisibility();
-
+  const {
+    ctaVisible
+  } = useCTAVisibility();
   const handleVSLEnd = () => {
     setVslEnded(true);
     console.log('📊 VSL completed - CTA emphasis activated');
   };
-
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-
     console.log('✅ ===== CHECKOUT INICIADO (HERO) =====');
     console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
     console.log('📊 Dados do visitante:', visitorData);
@@ -38,13 +40,10 @@ const Hero = () => {
       msclkid: localStorage.getItem('msclkid')
     });
     console.log('========================================');
-
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
       {/* Background overlays for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
@@ -78,13 +77,8 @@ const Hero = () => {
             
             {/* CTA Section DEPOIS do vídeo no mobile */}
             <div className={`order-5 space-y-4 transition-all duration-500 mb-8 ${vslEnded ? 'scale-105' : ''}`}>
-              <Button 
-                variant="cta" 
-                size="lg" 
-                onClick={handleCTAClick} 
-                className={`text-sm sm:text-lg px-4 sm:px-12 py-5 sm:py-7 w-full max-w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase leading-tight whitespace-normal ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
-              >
-                <span className="flex-1">QUERO EVOLUIR NAS PRÓXIMAS 8 SEMANAS</span>
+              <Button variant="cta" size="lg" onClick={handleCTAClick} className={`text-sm sm:text-lg px-4 sm:px-12 py-5 sm:py-7 w-full max-w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase leading-tight whitespace-normal ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}>
+                <span className="flex-1">QUERO EVOLUIR EM 8 SEMANAS</span>
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
               
@@ -99,7 +93,9 @@ const Hero = () => {
           </div>
           
           {/* VSL Player - Desktop only */}
-          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{ animationDelay: "0.15s" }}>
+          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{
+          animationDelay: "0.15s"
+        }}>
             <div className="absolute inset-0 bg-accent/15 rounded-3xl blur-[60px] scale-90" />
             <div className="relative z-10 w-full max-w-lg">
               <VSLPlayer onVideoEnd={handleVSLEnd} />
@@ -114,8 +110,6 @@ const Hero = () => {
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
