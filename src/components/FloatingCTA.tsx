@@ -54,17 +54,12 @@ const FloatingCTA = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden animate-slide-in-bottom">
-      <div className="bg-card/95 backdrop-blur-lg border-t border-accent/20 shadow-2xl shadow-black/30 px-4 py-3 safe-area-inset-bottom">
-        <div className="flex items-center gap-3">
+      <div className="bg-card/95 backdrop-blur-lg border-t border-accent/20 shadow-2xl shadow-black/30 px-3 py-2.5 safe-area-inset-bottom">
+        <div className="flex items-center justify-between gap-2">
           {/* Preço */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-baseline gap-2">
-              <span className="text-muted-foreground line-through text-sm">R$ 97</span>
-              <span className="text-accent font-bold text-xl">R$ 19,90</span>
-            </div>
-            <p className="text-xs text-muted-foreground truncate">
-              Garantia de 7 dias
-            </p>
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-muted-foreground line-through text-xs">R$97</span>
+            <span className="text-accent font-bold text-lg">R$19,90</span>
           </div>
 
           {/* Botão emocional */}
@@ -72,16 +67,16 @@ const FloatingCTA = () => {
             variant="cta" 
             size="sm"
             onClick={handleCTAClick}
-            className="text-xs px-3 py-4 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow flex-shrink-0"
+            className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow whitespace-nowrap"
           >
-            <span>QUERO EVOLUIR</span>
-            <ArrowRight className="ml-1 w-3.5 h-3.5 flex-shrink-0" />
+            EVOLUIR AGORA
+            <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
           </Button>
 
           {/* Fechar */}
           <button 
             onClick={handleDismiss}
-            className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
+            className="p-1 text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
             aria-label="Fechar"
           >
             <X className="w-4 h-4" />
