@@ -75,21 +75,50 @@ const Bonus = () => {
           </div>
         </div>
 
-        {/* App Features */}
-        <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-5 max-w-2xl mx-auto mb-6 animate-fade-in">
-          <p className="text-white text-center text-sm font-semibold mb-4">
-            O que você recebe no App 8X:
-          </p>
-          <div className="grid grid-cols-2 gap-3">
-            {appFeatures.map((feature, index) => <div key={index} className="flex items-start gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-accent/15 flex items-center justify-center flex-shrink-0">
-                  <feature.icon className="w-3.5 h-3.5 text-accent" />
+        {/* App Demo Video + Features */}
+        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto mb-6 animate-fade-in">
+          {/* Phone Mockup with Video */}
+          <div className="flex justify-center">
+            <div className="relative w-[200px] sm:w-[220px]">
+              {/* Phone Frame */}
+              <div className="relative bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl shadow-accent/20 border border-gray-700">
+                {/* Notch */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-20 h-5 bg-gray-900 rounded-full z-10" />
+                {/* Screen */}
+                <div className="relative rounded-[2rem] overflow-hidden bg-black aspect-[9/19.5]">
+                  <video 
+                    src="/videos/app-demo.mp4"
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div>
-                  <p className="text-white text-xs font-semibold leading-tight">{feature.title}</p>
-                  <p className="text-gray-500 text-[11px] leading-tight">{feature.description}</p>
+              </div>
+              {/* Glow Effect */}
+              <div className="absolute inset-0 -z-10 blur-3xl bg-accent/20 rounded-full scale-75" />
+            </div>
+          </div>
+
+          {/* Features List */}
+          <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-5 flex flex-col justify-center">
+            <p className="text-white text-sm font-semibold mb-4">
+              O que você recebe no App 8X:
+            </p>
+            <div className="grid gap-3">
+              {appFeatures.map((feature, index) => (
+                <div key={index} className="flex items-start gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-accent/15 flex items-center justify-center flex-shrink-0">
+                    <feature.icon className="w-3.5 h-3.5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-white text-xs font-semibold leading-tight">{feature.title}</p>
+                    <p className="text-gray-500 text-[11px] leading-tight">{feature.description}</p>
+                  </div>
                 </div>
-              </div>)}
+              ))}
+            </div>
           </div>
         </div>
 
