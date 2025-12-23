@@ -43,7 +43,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     return `${base}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }, [visitorData?.visitorId]);
 
-  // Send VSL event to internal dashboard only (not to Meta CAPI)
+  // Send VSL event to meta_events table directly (not through password-protected dashboard)
   const sendVSLEvent = useCallback(async (eventName: 'VSLStart' | 'VSL15s' | 'VSL30s') => {
     // Check if already tracked
     if (vslEventsTrackedRef.current[eventName]) {
@@ -55,24 +55,23 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     vslEventsTrackedRef.current[eventName] = true;
 
     const eventId = generateEventId();
-    console.log(`📊 VSL Event (Dashboard only): ${eventName}`, { eventId, visitorId: visitorData?.visitorId });
+    console.log(`📊 VSL Event: ${eventName}`, { eventId, visitorId: visitorData?.visitorId });
 
     try {
-      // Send to internal dashboard-events function only
-      const response = await supabase.functions.invoke('dashboard-events', {
-        body: {
-          event_type: eventName,
-          visitor_id: visitorData?.visitorId,
-          event_id: eventId,
-          page_url: window.location.href,
-          timestamp: new Date().toISOString(),
-        },
+      // Insert directly into meta_events table for dashboard tracking
+      const { error } = await supabase.from('meta_events').insert({
+        event_name: eventName,
+        event_id: eventId,
+        visitor_id: visitorData?.visitorId || null,
+        page_url: window.location.href,
+        device: /mobile|android|iphone|ipad/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+        event_time: new Date().toISOString(),
       });
 
-      if (response.error) {
-        console.error(`VSL Event ${eventName} failed:`, response.error);
+      if (error) {
+        console.error(`VSL Event ${eventName} failed:`, error);
       } else {
-        console.log(`✅ VSL Event ${eventName} sent to dashboard`);
+        console.log(`✅ VSL Event ${eventName} tracked`);
       }
     } catch (error) {
       console.error(`Error sending VSL event ${eventName}:`, error);
