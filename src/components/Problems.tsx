@@ -1,79 +1,72 @@
-import { X, CheckCircle2, Smartphone } from "lucide-react";
-const painPoints = ["Você treina pesado, mas o espelho não muda", "Faz de tudo, mas continua no mesmo shape há meses", "Cansou de ver os outros evoluindo enquanto você patina"];
+import { X, AlertTriangle } from "lucide-react";
+
+const painPoints = [
+  "Você treina pesado, mas o espelho não muda",
+  "Faz de tudo, mas continua no mesmo shape há meses", 
+  "Cansou de ver os outros evoluindo enquanto você patina"
+];
+
+const hiddenProblems = [
+  "Treinar sem método é só cansar o corpo",
+  "Repetir os mesmos exercícios mata sua evolução",
+  "Sem progressão, seu corpo para de responder"
+];
+
 const Problems = () => {
-  return <section className="py-16 sm:py-24 bg-muted">
+  return (
+    <section className="py-16 sm:py-24 bg-muted">
       <div className="container mx-auto px-5 sm:px-6">
         
-        {/* BLOCO DE DOR - Direto e visual */}
-        <div className="text-center mb-12 sm:mb-16 animate-fade-in max-w-2xl mx-auto">
+        {/* BLOCO DE DOR - Expandido e emocional */}
+        <div className="text-center mb-10 sm:mb-14 animate-fade-in max-w-2xl mx-auto">
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 tracking-tight text-foreground">
             Se identificou com <span className="text-accent">alguma dessas?</span>
           </h2>
           
-          <div className="flex flex-col gap-3 mb-6 max-w-lg mx-auto">
-            {painPoints.map((point, index) => <div key={index} className="flex items-start gap-3 bg-destructive/10 border border-destructive/20 rounded-xl px-4 py-3 text-left">
+          <div className="flex flex-col gap-3 mb-8 max-w-lg mx-auto">
+            {painPoints.map((point, index) => (
+              <div 
+                key={index} 
+                className="flex items-start gap-3 bg-destructive/10 border border-destructive/20 rounded-xl px-4 py-3 text-left"
+              >
                 <X className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
                 <span className="text-sm sm:text-base font-medium text-foreground">{point}</span>
-              </div>)}
+              </div>
+            ))}
           </div>
-          
-          <p className="text-base sm:text-lg text-muted-foreground">
-            <span className="font-semibold text-foreground">O problema não é você.</span><br />
-            É treinar sem um método que funciona.
-          </p>
         </div>
 
-        {/* APP 8X - Como facilitador de execução */}
-        <div className="max-w-4xl mx-auto mb-12 sm:mb-16 animate-fade-in">
-          <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-10 shadow-lg">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              {/* Video do App */}
-              <div className="flex justify-center order-2 md:order-1">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-accent/20 rounded-[2rem] blur-[40px] scale-105" />
-                  <div className="relative bg-gradient-to-b from-gray-800 to-gray-950 rounded-[2rem] p-2.5 w-[180px] sm:w-[220px] shadow-xl border border-white/10">
-                    <div className="rounded-[1.5rem] overflow-hidden">
-                      <video 
-                        src="/videos/app-demo.mp4" 
-                        autoPlay 
-                        loop 
-                        muted 
-                        playsInline
-                        className="w-full h-auto"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Texto - App como facilitador */}
-              <div className="order-1 md:order-2 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
-                  <Smartphone className="w-5 h-5 text-accent" />
-                  <span className="text-accent font-bold text-sm uppercase tracking-wider">INCLUSO GRÁTIS</span>
-                </div>
-                
-                {/* Frase-chave conforme solicitado */}
-                <h3 className="font-display text-xl sm:text-2xl md:text-3xl mb-4 tracking-tight">
-                  O método ensina <span className="text-accent">o que fazer.</span><br />
-                  O App garante que você <span className="text-accent">faça certo.</span>
-                </h3>
-                
-                <p className="text-muted-foreground text-base leading-relaxed mb-4">
-                  Chega de decorar planilha ou ficar perdido na academia. Você abre o app, vê o treino do dia e executa — <span className="text-foreground font-medium">cada repetição no seu ritmo.</span>
-                </p>
-                
-                <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                  {["Treino do dia pronto", "Acompanha sua evolução", "Zero improviso"].map((item, i) => <span key={i} className="inline-flex items-center gap-1.5 bg-accent/10 border border-accent/20 rounded-full px-3 py-1.5 text-xs text-accent font-medium">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      {item}
-                    </span>)}
-                </div>
-              </div>
-            </div>
+        {/* O PROBLEMA REAL - Transição para solução */}
+        <div className="max-w-2xl mx-auto text-center animate-fade-in">
+          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-2 mb-6">
+            <AlertTriangle className="w-4 h-4 text-accent" />
+            <span className="text-sm font-semibold text-accent uppercase tracking-wider">O problema real</span>
           </div>
+          
+          <p className="text-lg sm:text-xl text-foreground font-medium mb-6">
+            <span className="text-accent">O problema não é você.</span><br />
+            É treinar sem um método que funciona.
+          </p>
+          
+          <div className="grid sm:grid-cols-3 gap-3 mb-8">
+            {hiddenProblems.map((problem, index) => (
+              <div 
+                key={index}
+                className="bg-card border border-border/60 rounded-lg p-4 text-center"
+              >
+                <p className="text-sm text-muted-foreground">{problem}</p>
+              </div>
+            ))}
+          </div>
+          
+          <p className="text-muted-foreground text-base max-w-lg mx-auto">
+            A maioria dos caras na academia treina há anos e nunca sai do lugar. 
+            Não porque são preguiçosos — <span className="text-foreground font-medium">porque ninguém ensinou o caminho certo.</span>
+          </p>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Problems;
