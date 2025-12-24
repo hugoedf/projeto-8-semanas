@@ -3,6 +3,13 @@ import whatsapp2 from "@/assets/testimonials/whatsapp-2.jpeg";
 import whatsapp3 from "@/assets/testimonials/whatsapp-3.jpeg";
 import whatsapp4 from "@/assets/testimonials/whatsapp-4.jpeg";
 import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const testimonialImages = [{
   src: whatsapp1,
@@ -21,6 +28,24 @@ const testimonialImages = [{
   highlight: "Clareza total",
   description: "De 1h30 enrolando para 45min de treino focado"
 }];
+
+const TestimonialCard = ({ testimonial, style }: { testimonial: typeof testimonialImages[0]; style?: React.CSSProperties }) => (
+  <div className="group" style={style}>
+    <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/10 bg-[#0b141a] hover:scale-[1.02] transition-transform duration-300">
+      <div className="absolute top-3 left-3 z-10">
+        <span className="inline-flex items-center gap-1 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
+          ✨ {testimonial.highlight}
+        </span>
+      </div>
+      <img src={testimonial.src} alt={`Depoimento WhatsApp - ${testimonial.highlight}`} className="w-full h-auto object-cover" loading="lazy" decoding="async" />
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12">
+        <p className="text-white/90 text-sm font-medium">
+          {testimonial.description}
+        </p>
+      </div>
+    </div>
+  </div>
+);
 
 const Testimonials = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
@@ -48,33 +73,33 @@ const Testimonials = () => {
           </p>
         </div>
         
-        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-7xl mx-auto">
-          {testimonialImages.map((testimonial, index) => (
-            <div 
-              key={index} 
-              className="group"
-              style={getItemStyle(index)}
-            >
-              {/* Container do print */}
-              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/10 bg-[#0b141a] hover:scale-[1.02] transition-transform duration-300">
-                {/* Badge de destaque */}
-                <div className="absolute top-3 left-3 z-10">
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
-                    ✨ {testimonial.highlight}
-                  </span>
-                </div>
-                
-                {/* Imagem do WhatsApp */}
-                <img src={testimonial.src} alt={`Depoimento WhatsApp - ${testimonial.highlight}`} className="w-full h-auto object-cover" loading="lazy" decoding="async" />
-                
-                {/* Gradient overlay no bottom */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12">
-                  <p className="text-white/90 text-sm font-medium">
-                    {testimonial.description}
-                  </p>
-                </div>
-              </div>
+        {/* Mobile: Carousel */}
+        <div className="sm:hidden" ref={cardsRef}>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2">
+              {testimonialImages.map((testimonial, index) => (
+                <CarouselItem key={index} className="pl-2 basis-[85%]">
+                  <TestimonialCard testimonial={testimonial} style={getItemStyle(index)} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-2 mt-4">
+              <CarouselPrevious className="static translate-y-0 h-8 w-8" />
+              <CarouselNext className="static translate-y-0 h-8 w-8" />
             </div>
+          </Carousel>
+        </div>
+
+        {/* Desktop: Grid */}
+        <div ref={cardsRef} className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-7xl mx-auto">
+          {testimonialImages.map((testimonial, index) => (
+            <TestimonialCard key={index} testimonial={testimonial} style={getItemStyle(index)} />
           ))}
         </div>
         
