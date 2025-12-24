@@ -52,8 +52,8 @@ const Benefits = () => {
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas:</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-            Não é só sobre ganhar músculo. É sobre treinar com método, sair do escuro e finalmente ver resultados que realmente transformam seu corpo e sua confiança.
+          <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto">
+            Não é só sobre ganhar músculo. É sobre treinar com confiança.
           </p>
         </div>
         
