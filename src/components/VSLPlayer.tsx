@@ -164,12 +164,13 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   useEffect(() => {
     const initAudio = async () => {
       setAudioMode('loading');
-      await vslAudio.initialize();
-      
-      if (vslAudio.state.isReady) {
+
+      const result = await vslAudio.initialize();
+
+      if (result.isReady) {
         setAudioMode('ai');
         console.log("🎬 Usando áudio AI com SFX");
-        
+
         // Configura callback de término
         vslAudio.onEnded(() => {
           setHasEnded(true);
@@ -179,12 +180,12 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         });
       } else {
         setAudioMode('video');
-        console.log("📹 Fallback para áudio do vídeo");
+        console.log("📹 Áudio AI indisponível (vídeo mutado)");
       }
     };
-    
+
     initAudio();
-  }, []);
+  }, [onVideoEnd, vslAudio]);
 
   // Sincroniza SFX com tempo do vídeo
   useEffect(() => {
@@ -211,17 +212,20 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     video.addEventListener('play', handlePlay);
 
     const attemptAutoplay = async () => {
+      // Evita múltiplos autoplays (causa eco)
+      if (hasStarted || isPlaying) return;
+
       // Aguarda áudio AI estar pronto
       if (audioMode === 'loading') {
         console.log('⏳ Aguardando áudio AI...');
         return;
       }
-      
+
       try {
         // SEMPRE muta o vídeo - áudio AI é a única fonte de som
         video.muted = true;
         await video.play();
-        
+
         if (vslAudio.state.isReady) {
           await vslAudio.play();
           setAudioMode('ai');

@@ -123,11 +123,16 @@ export const useVSLAudio = () => {
     }
   }, []);
 
-  // Inicializa todo o áudio
+  // Inicializa todo o áudio (idempotente) e retorna o resultado
   const initialize = useCallback(async () => {
-    if (state.isLoading || state.isReady) return;
+    if (state.isLoading) {
+      return { isReady: state.isReady, sfxLoaded: state.sfxLoaded };
+    }
+    if (state.isReady) {
+      return { isReady: true, sfxLoaded: state.sfxLoaded };
+    }
 
-    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
     try {
       // Carrega narração e SFX em paralelo
@@ -145,6 +150,7 @@ export const useVSLAudio = () => {
       });
 
       console.log("🎬 Sistema de áudio VSL pronto");
+      return { isReady: narrationSuccess, sfxLoaded: sfxSuccess };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
       setState({
@@ -154,8 +160,9 @@ export const useVSLAudio = () => {
         narrationLoaded: false,
         sfxLoaded: false,
       });
+      return { isReady: false, sfxLoaded: false };
     }
-  }, [state.isLoading, state.isReady, loadNarration, loadSFX]);
+  }, [state.isLoading, state.isReady, state.sfxLoaded, loadNarration, loadSFX]);
 
   // Toca SFX no tempo correto
   const checkAndPlaySFX = useCallback((currentTime: number) => {
@@ -180,11 +187,16 @@ export const useVSLAudio = () => {
     }
   }, []);
 
-  // Inicia playback sincronizado
+  // Inicia playback sincronizado (idempotente)
   const play = useCallback(async () => {
     if (!narrationRef.current || !state.isReady) {
       console.warn("Áudio não está pronto");
       return false;
+    }
+
+    // Evita "eco" (múltiplos play() em cima do mesmo áudio)
+    if (!narrationRef.current.paused && isPlayingRef.current) {
+      return true;
     }
 
     try {
