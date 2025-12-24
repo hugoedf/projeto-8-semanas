@@ -1,10 +1,10 @@
-import { X, AlertCircle, ArrowDown, TrendingDown, Clock, Users, Frown } from "lucide-react";
+import { X, AlertCircle, ArrowDown } from "lucide-react";
 
 const painPoints = [
-  { text: "Treina pesado, mas o corpo não acompanha", icon: TrendingDown },
-  { text: "Segue uma rotina, mas o shape parece sempre igual", icon: Clock },
-  { text: "Passam semanas, meses… e nada muda", icon: Frown },
-  { text: "Vê outras pessoas evoluindo mais rápido fazendo menos", icon: Users }
+  "Treina pesado, mas o corpo não acompanha",
+  "Segue uma rotina, mas o shape parece sempre igual",
+  "Passam semanas, meses… e nada muda",
+  "Vê outras pessoas evoluindo mais rápido fazendo menos"
 ];
 
 const explanationPoints = [
@@ -24,7 +24,7 @@ const Problems = () => {
         <div className="max-w-2xl mx-auto">
           
           {/* 1️⃣ Headline provocativa */}
-          <div className="text-center mb-14">
+          <div className="text-center mb-12">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-foreground leading-tight">
               Você treina, se esforça…
             </h2>
@@ -33,39 +33,21 @@ const Problems = () => {
             </p>
           </div>
           
-          {/* 2️⃣ Lista de dores reais - Cards com impacto visual aprimorado */}
-          <div className="space-y-4 mb-14">
-            {painPoints.map((point, index) => {
-              const IconComponent = point.icon;
-              return (
-                <div 
-                  key={index} 
-                  className="group relative flex items-center gap-4 bg-destructive/5 border border-destructive/15 rounded-2xl px-5 sm:px-6 py-5 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/25 shadow-sm hover:shadow-md"
-                >
-                  {/* Número do problema */}
-                  <div className="absolute -left-2 sm:-left-3 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-destructive/20 flex items-center justify-center shadow-sm">
-                    <span className="text-xs font-bold text-destructive">{index + 1}</span>
-                  </div>
-                  
-                  {/* Ícone contextual */}
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-destructive/10 border border-destructive/10 flex items-center justify-center group-hover:bg-destructive/15 transition-colors">
-                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-destructive/80" />
-                  </div>
-                  
-                  {/* Texto do problema */}
-                  <div className="flex-1 min-w-0">
-                    <p className="text-foreground text-base sm:text-lg font-medium leading-snug">
-                      {point.text}
-                    </p>
-                  </div>
-                  
-                  {/* X indicator */}
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-destructive/15 flex items-center justify-center">
-                    <X className="w-4 h-4 text-destructive" strokeWidth={2.5} />
-                  </div>
+          {/* 2️⃣ Lista de dores reais - Cards originais */}
+          <div className="space-y-3 mb-12">
+            {painPoints.map((point, index) => (
+              <div 
+                key={index} 
+                className="flex items-center gap-4 bg-destructive/5 border border-destructive/10 rounded-xl px-5 py-4 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/20"
+              >
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-destructive/10 flex items-center justify-center">
+                  <X className="w-4 h-4 text-destructive" />
                 </div>
-              );
-            })}
+                <p className="text-foreground/90 text-base sm:text-lg font-medium">
+                  {point}
+                </p>
+              </div>
+            ))}
           </div>
           
           {/* Visual break - Arrow indicator com destaque */}
