@@ -46,7 +46,7 @@ const benefits = [
 
 const Benefits = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(benefits.length, 80, 'slideLeft');
+  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(benefits.length, 60);
 
   return (
     <section className="py-16 sm:py-24 bg-background">
@@ -56,8 +56,8 @@ const Benefits = () => {
           className="text-center mb-12 sm:mb-16"
           style={{
             opacity: titleVisible ? 1 : 0,
-            transform: titleVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
+            transform: titleVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
           }}
         >
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 px-2 tracking-tight text-foreground leading-tight">

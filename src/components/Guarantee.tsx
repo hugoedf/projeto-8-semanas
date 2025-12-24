@@ -1,24 +1,12 @@
 import { Shield, CheckCircle } from "lucide-react";
 import guaranteeBadge from "@/assets/guarantee-badge.png";
-import { useScrollAnimation, useStampAnimation } from "@/hooks/useScrollAnimation";
 
 const Guarantee = () => {
-  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
-  const { ref: sealRef, isVisible: sealVisible, className: stampClassName } = useStampAnimation();
-  
   return (
     <section className="py-16 sm:py-24 gradient-hero">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          <div 
-            ref={contentRef}
-            className="card-dark-glass p-7 sm:p-10 md:p-14"
-            style={{
-              opacity: contentVisible ? 1 : 0,
-              transform: contentVisible ? 'translateY(0)' : 'translateY(16px)',
-              transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-            }}
-          >
+          <div className="card-dark-glass p-7 sm:p-10 md:p-14 animate-fade-in">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 items-center">
               <div className="text-center md:text-left order-2 md:order-1">
                 <div className="inline-flex items-center gap-2.5 text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-accent/40 bg-accent/10 mb-5 sm:mb-7 shadow-lg shadow-accent/10">
@@ -52,10 +40,7 @@ const Guarantee = () => {
               </div>
               
               <div className="flex justify-center order-1 md:order-2">
-                <div 
-                  ref={sealRef}
-                  className={`relative w-52 h-52 sm:w-60 sm:h-60 md:w-72 md:h-72 ${stampClassName}`}
-                >
+                <div className="relative w-52 h-52 sm:w-60 sm:h-60 md:w-72 md:h-72">
                   <div className="absolute inset-0 bg-accent/25 rounded-full blur-[50px]" />
                   <img
                     src={guaranteeBadge}

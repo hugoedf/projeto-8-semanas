@@ -17,7 +17,7 @@ const audience = [{
 
 const ForWho = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(audience.length, 100, 'slideLeft');
+  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(audience.length, 100);
   const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
 
   return (
@@ -28,8 +28,8 @@ const ForWho = () => {
           className="text-center mb-12 sm:mb-14"
           style={{
             opacity: titleVisible ? 1 : 0,
-            transform: titleVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
+            transform: titleVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
           }}
         >
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
@@ -69,8 +69,8 @@ const ForWho = () => {
           className="mt-12 sm:mt-14 text-center max-w-3xl mx-auto px-4"
           style={{
             opacity: ctaVisible ? 1 : 0,
-            transform: ctaVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
+            transform: ctaVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
           }}
         >
           <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 shadow-lg shadow-accent/5">

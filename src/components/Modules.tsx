@@ -45,7 +45,7 @@ const modules = [
 
 const Modules = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(modules.length, 80, 'fadeUp');
+  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(modules.length, 60);
 
   return (
     <section id="modules-section" className="py-16 sm:py-24 gradient-hero">
@@ -55,8 +55,8 @@ const Modules = () => {
           className="text-center mb-12 sm:mb-16"
           style={{
             opacity: titleVisible ? 1 : 0,
-            transform: titleVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
+            transform: titleVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
           }}
         >
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 text-white px-2 tracking-tight leading-tight">
@@ -71,7 +71,7 @@ const Modules = () => {
           {modules.map((module, index) => (
             <div 
               key={index} 
-              className="card-dark-glass p-5 sm:p-6 hover-lift transition-all duration-300 rounded-2xl border border-transparent hover:border-accent/20" 
+              className="card-dark-glass p-5 sm:p-6 hover-lift transition-all duration-300 rounded-2xl" 
               style={getItemStyle(index)}
             >
               <div className="flex flex-col gap-3">
