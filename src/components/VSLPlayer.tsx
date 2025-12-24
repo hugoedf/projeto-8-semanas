@@ -94,22 +94,21 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     if (!videoRef.current || isPlaying) return;
     
     try {
-      // Tenta usar áudio AI se disponível
-      if (vslAudio.state.isReady && audioMode === 'ai') {
-        videoRef.current.muted = true; // Muta vídeo original
-        await videoRef.current.play();
+      // SEMPRE muta o vídeo original - o áudio AI é a única fonte de som
+      videoRef.current.muted = true;
+      await videoRef.current.play();
+      
+      // Toca áudio AI se disponível
+      if (vslAudio.state.isReady) {
         await vslAudio.play();
-        setIsPlaying(true);
-        setHasStarted(true);
+        setAudioMode('ai');
         console.log("▶️ Playback iniciado com áudio AI + SFX");
       } else {
-        // Fallback para áudio do vídeo
-        videoRef.current.muted = false;
-        await videoRef.current.play();
-        setIsPlaying(true);
-        setHasStarted(true);
-        console.log("▶️ Playback iniciado com áudio original");
+        console.log("⚠️ Áudio AI não disponível, vídeo mutado");
       }
+      
+      setIsPlaying(true);
+      setHasStarted(true);
     } catch (error) {
       console.error("Error playing video:", error);
     }
@@ -219,17 +218,17 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       }
       
       try {
-        if (audioMode === 'ai' && vslAudio.state.isReady) {
-          video.muted = true; // Muta vídeo quando usando áudio AI
-          await video.play();
+        // SEMPRE muta o vídeo - áudio AI é a única fonte de som
+        video.muted = true;
+        await video.play();
+        
+        if (vslAudio.state.isReady) {
           await vslAudio.play();
+          setAudioMode('ai');
           setIsMuted(false);
           console.log('▶️ Autoplay iniciado com áudio AI');
         } else {
-          video.muted = false;
-          setIsMuted(false);
-          await video.play();
-          console.log('▶️ Autoplay iniciado com som original');
+          console.log('⚠️ Áudio AI não disponível no autoplay');
         }
       } catch (error) {
         console.log('⏸️ Autoplay bloqueado pelo navegador:', error);
