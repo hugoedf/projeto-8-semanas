@@ -1,5 +1,4 @@
 import { Smartphone, BookOpen, Zap, TrendingUp, Timer, BarChart3, Dumbbell } from "lucide-react";
-
 const Bonus = () => {
   const appFeatures = [{
     icon: Dumbbell,
@@ -18,9 +17,7 @@ const Bonus = () => {
     title: "Acompanhamento",
     description: "Veja sua evolução semana a semana"
   }];
-
-  return (
-    <section className="py-12 sm:py-16 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+  return <section className="py-12 sm:py-16 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/8 via-transparent to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
@@ -36,9 +33,9 @@ const Bonus = () => {
             </span>
           </div>
 
-          <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white text-center leading-tight mb-3">
-            Isso não é só um e-book. E não é só um app.<br />
-            <span className="text-accent">É um Sistema.</span>
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white text-center leading-tight mb-3">Isso não é só um e-book, e não é só um app.
+É um Sistema.<br />
+            <span className="text-accent">Você entra em um Sistema.</span>
           </h2>
 
           <p className="text-gray-400 text-center text-sm sm:text-base mb-8 max-w-xl mx-auto">
@@ -84,11 +81,7 @@ const Bonus = () => {
             O que você recebe no App 8X:
           </p>
           <div className="grid grid-cols-2 gap-3">
-            {appFeatures.map((feature, index) => (
-              <div 
-                key={index} 
-                className="flex items-start gap-2.5"
-              >
+            {appFeatures.map((feature, index) => <div key={index} className="flex items-start gap-2.5">
                 <div className="w-7 h-7 rounded-lg bg-accent/15 flex items-center justify-center flex-shrink-0">
                   <feature.icon className="w-3.5 h-3.5 text-accent" />
                 </div>
@@ -96,8 +89,7 @@ const Bonus = () => {
                   <p className="text-white text-xs font-semibold leading-tight">{feature.title}</p>
                   <p className="text-gray-500 text-[11px] leading-tight">{feature.description}</p>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -115,8 +107,6 @@ const Bonus = () => {
         </div>
 
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Bonus;
