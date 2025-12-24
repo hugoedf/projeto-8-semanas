@@ -1,10 +1,10 @@
-import { X, AlertCircle, ArrowDown } from "lucide-react";
+import { X, AlertCircle, ArrowDown, TrendingDown, Clock, Users, Frown } from "lucide-react";
 
 const painPoints = [
-  "Treina pesado, mas o corpo não acompanha",
-  "Segue uma rotina, mas o shape parece sempre igual",
-  "Passam semanas, meses… e nada muda",
-  "Vê outras pessoas evoluindo mais rápido fazendo menos"
+  { text: "Treina pesado, mas o corpo não acompanha", icon: TrendingDown },
+  { text: "Segue uma rotina, mas o shape parece sempre igual", icon: Clock },
+  { text: "Passam semanas, meses… e nada muda", icon: Frown },
+  { text: "Vê outras pessoas evoluindo mais rápido fazendo menos", icon: Users }
 ];
 
 const explanationPoints = [
@@ -24,7 +24,7 @@ const Problems = () => {
         <div className="max-w-2xl mx-auto">
           
           {/* 1️⃣ Headline provocativa */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-foreground leading-tight">
               Você treina, se esforça…
             </h2>
@@ -33,66 +33,96 @@ const Problems = () => {
             </p>
           </div>
           
-          {/* 2️⃣ Lista de dores reais - Cards com impacto */}
-          <div className="space-y-3 mb-12">
-            {painPoints.map((point, index) => (
-              <div 
-                key={index} 
-                className="flex items-center gap-4 bg-destructive/5 border border-destructive/10 rounded-xl px-5 py-4 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/20"
-              >
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-destructive/10 flex items-center justify-center">
-                  <X className="w-4 h-4 text-destructive" />
+          {/* 2️⃣ Lista de dores reais - Cards com impacto visual aprimorado */}
+          <div className="space-y-4 mb-14">
+            {painPoints.map((point, index) => {
+              const IconComponent = point.icon;
+              return (
+                <div 
+                  key={index} 
+                  className="group relative flex items-center gap-4 bg-destructive/5 border border-destructive/15 rounded-2xl px-5 sm:px-6 py-5 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/25 shadow-sm hover:shadow-md"
+                >
+                  {/* Número do problema */}
+                  <div className="absolute -left-2 sm:-left-3 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-destructive/20 flex items-center justify-center shadow-sm">
+                    <span className="text-xs font-bold text-destructive">{index + 1}</span>
+                  </div>
+                  
+                  {/* Ícone contextual */}
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-destructive/10 border border-destructive/10 flex items-center justify-center group-hover:bg-destructive/15 transition-colors">
+                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-destructive/80" />
+                  </div>
+                  
+                  {/* Texto do problema */}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-foreground text-base sm:text-lg font-medium leading-snug">
+                      {point.text}
+                    </p>
+                  </div>
+                  
+                  {/* X indicator */}
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-destructive/15 flex items-center justify-center">
+                    <X className="w-4 h-4 text-destructive" strokeWidth={2.5} />
+                  </div>
                 </div>
-                <p className="text-foreground/90 text-base sm:text-lg font-medium">
-                  {point}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
           
-          {/* Visual break - Arrow indicator */}
-          <div className="flex justify-center mb-10">
-            <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
-              <ArrowDown className="w-5 h-5 text-accent animate-bounce" />
+          {/* Visual break - Arrow indicator com destaque */}
+          <div className="flex justify-center mb-12">
+            <div className="relative">
+              <div className="absolute inset-0 bg-accent/20 rounded-full blur-xl" />
+              <div className="relative w-14 h-14 rounded-full bg-accent/10 border-2 border-accent/30 flex items-center justify-center shadow-lg">
+                <ArrowDown className="w-6 h-6 text-accent animate-bounce" />
+              </div>
             </div>
           </div>
           
           {/* 3️⃣ Subtítulo de ruptura */}
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-5 py-2 mb-4">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/25 rounded-full px-6 py-2.5 mb-5 shadow-sm">
               <AlertCircle className="w-4 h-4 text-accent" />
-              <span className="text-sm font-semibold text-accent uppercase tracking-wider">A verdade</span>
+              <span className="text-sm font-bold text-accent uppercase tracking-widest">A verdade</span>
             </div>
-            <p className="text-foreground font-display text-xl sm:text-2xl md:text-3xl">
+            <p className="text-foreground font-display text-xl sm:text-2xl md:text-3xl leading-relaxed">
               O problema <span className="text-accent font-semibold">não é falta de esforço.</span>
             </p>
           </div>
           
-          {/* 4️⃣ Explicação lógica da dor */}
-          <div className="bg-card border border-border/60 rounded-2xl p-6 sm:p-8 mb-10">
-            <div className="space-y-4">
-              {explanationPoints.map((point, index) => (
-                <p 
-                  key={index}
-                  className="text-muted-foreground text-base sm:text-lg text-center"
-                >
-                  {point.text} <span className="text-foreground font-semibold">{point.highlight}</span>
-                </p>
-              ))}
+          {/* 4️⃣ Explicação lógica da dor - Card premium */}
+          <div className="relative mb-12">
+            <div className="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent rounded-3xl blur-2xl" />
+            <div className="relative bg-card/80 backdrop-blur-sm border border-border/80 rounded-2xl p-7 sm:p-10 shadow-xl">
+              <div className="space-y-5">
+                {explanationPoints.map((point, index) => (
+                  <div 
+                    key={index}
+                    className="flex items-start gap-3 sm:gap-4"
+                  >
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-muted/50 flex items-center justify-center mt-0.5">
+                      <div className="w-2 h-2 rounded-full bg-accent/60" />
+                    </div>
+                    <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+                      {point.text}{" "}
+                      <span className="text-foreground font-semibold">{point.highlight}</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           
           {/* 5️⃣ Fechamento de autoridade */}
           <div className="text-center">
-            <div className="max-w-lg mx-auto">
+            <div className="max-w-lg mx-auto bg-muted/30 rounded-2xl p-6 sm:p-8 border border-border/40">
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
                 A maioria das pessoas treina assim por anos.
                 <br />
                 Não porque não querem evoluir —
               </p>
-              <p className="text-foreground font-medium text-lg sm:text-xl mt-4 leading-relaxed">
+              <p className="text-foreground font-medium text-lg sm:text-xl mt-5 leading-relaxed">
                 mas porque ninguém ensinou um{" "}
-                <span className="text-accent underline decoration-accent/30 underline-offset-4">
+                <span className="text-accent underline decoration-accent/40 underline-offset-4 decoration-2">
                   sistema estruturado, progressivo e aplicável.
                 </span>
               </p>
