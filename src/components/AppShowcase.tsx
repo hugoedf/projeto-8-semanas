@@ -1,5 +1,4 @@
 import { Smartphone, Play, BarChart3, Clock } from "lucide-react";
-import { useScrollAnimation, useZoomFloatAnimation } from "@/hooks/useScrollAnimation";
 
 const appFeatures = [
   { icon: Play, text: "Treino do dia pronto" },
@@ -8,23 +7,11 @@ const appFeatures = [
 ];
 
 const AppShowcase = () => {
-  const { ref: introRef, isVisible: introVisible } = useScrollAnimation();
-  const { ref: cardRef, isVisible: cardVisible } = useScrollAnimation();
-  const { ref: mockupRef, isVisible: mockupVisible, style: mockupStyle, floatClassName } = useZoomFloatAnimation();
-
   return (
     <section className="py-16 sm:py-20 bg-muted/50">
       <div className="container mx-auto px-5 sm:px-6">
         {/* Transição persuasiva */}
-        <div 
-          ref={introRef}
-          className="text-center mb-10 max-w-xl mx-auto"
-          style={{
-            opacity: introVisible ? 1 : 0,
-            transform: introVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-          }}
-        >
+        <div className="text-center mb-10 max-w-xl mx-auto">
           <p className="text-muted-foreground text-base sm:text-lg">
             Tudo isso é possível com o <span className="text-foreground font-semibold">Método 8X</span>. 
             Mas saber o que fazer é só metade do caminho...
@@ -34,24 +21,12 @@ const AppShowcase = () => {
           </p>
         </div>
         
-        <div 
-          ref={cardRef}
-          className="max-w-4xl mx-auto"
-          style={{
-            opacity: cardVisible ? 1 : 0,
-            transform: cardVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out 0.1s, transform 0.4s ease-out 0.1s'
-          }}
-        >
+        <div className="max-w-4xl mx-auto">
           <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-10 shadow-lg">
             <div className="grid md:grid-cols-2 gap-8 items-center">
-              {/* Video do App - Zoom In + Float */}
+              {/* Video do App */}
               <div className="flex justify-center order-2 md:order-1">
-                <div 
-                  ref={mockupRef}
-                  className={`relative ${floatClassName}`}
-                  style={mockupStyle}
-                >
+                <div className="relative animate-float">
                   <div className="absolute inset-0 bg-accent/20 rounded-[2rem] blur-[40px] scale-105" />
                   <div className="relative bg-gradient-to-b from-gray-800 to-gray-950 rounded-[2rem] p-2.5 w-[180px] sm:w-[220px] shadow-xl border border-white/10">
                     <div className="rounded-[1.5rem] overflow-hidden">

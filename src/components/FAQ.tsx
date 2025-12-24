@@ -4,7 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 
 const faqItems = [
   {
@@ -30,32 +29,20 @@ const faqItems = [
 ];
 
 const FAQ = () => {
-  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { ref: accordionRef, isVisible: accordionVisible, getItemStyle } = useStaggeredAnimation(faqItems.length, 80, 'fadeUp');
-
   return (
     <section className="py-16 px-4 bg-background">
       <div className="max-w-3xl mx-auto">
-        <h2 
-          ref={titleRef}
-          className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10"
-          style={{
-            opacity: titleVisible ? 1 : 0,
-            transform: titleVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-          }}
-        >
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10">
           Perguntas Frequentes
         </h2>
         
-        <div ref={accordionRef}>
+        <div>
           <Accordion type="single" collapsible className="w-full space-y-3">
             {faqItems.map((item, index) => (
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
                 className="border border-border/50 rounded-lg px-4 bg-card/30"
-                style={getItemStyle(index)}
               >
                 <AccordionTrigger className="text-left text-foreground hover:no-underline py-5 text-base md:text-lg font-medium">
                   {item.question}

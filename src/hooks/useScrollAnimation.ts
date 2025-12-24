@@ -14,16 +14,30 @@ const DEFAULT_ROOT_MARGIN = '0px 0px -20% 0px';
 export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
   const { threshold = 0.1, rootMargin = DEFAULT_ROOT_MARGIN, triggerOnce = true } = options;
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  // Default to visible for mobile safety - prevents elements from being hidden
+  const [isVisible, setIsVisible] = useState(true);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
+    // Check if IntersectionObserver is supported
+    if (typeof IntersectionObserver === 'undefined') {
+      setIsVisible(true);
+      return;
+    }
+
+    // Reset to false initially only if observer is available
+    if (!hasAnimated) {
+      setIsVisible(false);
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          setHasAnimated(true);
           if (triggerOnce) {
             observer.unobserve(element);
           }
@@ -36,8 +50,16 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
 
     observer.observe(element);
 
-    return () => observer.disconnect();
-  }, [threshold, rootMargin, triggerOnce]);
+    // Safety timeout - ensure element becomes visible after 2s regardless
+    const safetyTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(safetyTimer);
+    };
+  }, [threshold, rootMargin, triggerOnce, hasAnimated]);
 
   return { ref, isVisible };
 };
@@ -98,31 +120,33 @@ export const useStaggeredAnimation = (
   return { ref, isVisible, getItemStyle, getItemClassName };
 };
 
-// Hook for zoom + floating animation (AppShowcase mockup)
+// Hook for zoom + floating animation (AppShowcase mockup) - simplified for mobile
 export const useZoomFloatAnimation = () => {
   const { ref, isVisible } = useScrollAnimation();
   
+  // Simple fade-in style, no transform that might cause issues
   const style: React.CSSProperties = {
     opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'scale(1)' : 'scale(0.95)',
-    transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+    transition: 'opacity 0.5s ease-out',
   };
 
-  // Add floating class after zoom completes
+  // Only add float class after visible - removed problematic zoom transform
   const floatClassName = isVisible ? 'animate-float' : '';
 
   return { ref, isVisible, style, floatClassName };
 };
 
-// Hook for stamp effect (Guarantee seal)
+// Hook for stamp effect (Guarantee seal) - simplified for mobile
 export const useStampAnimation = () => {
   const { ref, isVisible } = useScrollAnimation();
   
-  const style: React.CSSProperties = isVisible 
-    ? {} 
-    : { opacity: 0, transform: 'scale(1.3)' };
+  // Simple opacity transition, no scale transform
+  const style: React.CSSProperties = {
+    opacity: isVisible ? 1 : 0,
+    transition: 'opacity 0.4s ease-out',
+  };
 
-  const className = isVisible ? 'animate-stamp' : 'opacity-0';
+  const className = '';
 
   return { ref, isVisible, style, className };
 };

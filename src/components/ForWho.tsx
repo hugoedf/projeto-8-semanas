@@ -1,5 +1,4 @@
 import { UserCheck, TrendingUp, Dumbbell } from "lucide-react";
-import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 
 const audience = [{
   icon: UserCheck,
@@ -16,22 +15,10 @@ const audience = [{
 }];
 
 const ForWho = () => {
-  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(audience.length, 100, 'slideLeft');
-  const { ref: ctaRef, isVisible: ctaVisible } = useScrollAnimation();
-
   return (
     <section className="py-14 sm:py-20 bg-background">
       <div className="container mx-auto px-5 sm:px-6">
-        <div 
-          ref={titleRef}
-          className="text-center mb-12 sm:mb-14"
-          style={{
-            opacity: titleVisible ? 1 : 0,
-            transform: titleVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-          }}
-        >
+        <div className="text-center mb-12 sm:mb-14">
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
             Para quem é o{" "}
             <span className="text-gradient">Método 8X?</span>
@@ -41,14 +28,13 @@ const ForWho = () => {
           </p>
         </div>
         
-        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
           {audience.map((item, index) => {
             const Icon = item.icon;
             return (
               <div 
                 key={index} 
                 className="bg-card border border-border/80 rounded-2xl p-6 sm:p-8 hover-lift text-center shadow-sm hover:shadow-lg transition-all duration-300"
-                style={getItemStyle(index)}
               >
                 <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-2xl bg-accent/10 flex items-center justify-center mb-4 sm:mb-5 mx-auto shadow-inner">
                   <Icon className="w-7 h-7 sm:w-9 sm:h-9 text-accent" />
@@ -64,15 +50,7 @@ const ForWho = () => {
           })}
         </div>
         
-        <div 
-          ref={ctaRef}
-          className="mt-12 sm:mt-14 text-center max-w-3xl mx-auto px-4"
-          style={{
-            opacity: ctaVisible ? 1 : 0,
-            transform: ctaVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-          }}
-        >
+        <div className="mt-12 sm:mt-14 text-center max-w-3xl mx-auto px-4">
           <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 shadow-lg shadow-accent/5">
             <p className="text-base sm:text-lg font-semibold text-foreground mb-2.5">
               Se você se identificou com pelo menos um desses perfis…
