@@ -349,82 +349,23 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         )}
 
 
-        {/* Custom Controls Overlay (when video has started) */}
+        {/* Invisible click area for play/pause only (when video has started) */}
         {hasStarted && (
           <div 
-            className={`absolute inset-0 transition-opacity duration-300 ${
-              showControls || !isPlaying ? "opacity-100" : "opacity-0"
-            }`}
+            className="absolute inset-0 cursor-pointer"
+            onClick={togglePlayPause}
           >
-            {/* Center play/pause button */}
-            <div 
-              className="absolute inset-0 flex items-center justify-center cursor-pointer"
-              onClick={togglePlayPause}
-            >
-              {!isPlaying && (
+            {/* Center play button only when paused */}
+            {!isPlaying && (
+              <div className="absolute inset-0 flex items-center justify-center">
                 <button
                   className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center border border-white/20 hover:border-accent/50 transition-all hover:scale-110"
-                  aria-label={isPlaying ? "Pausar" : "Reproduzir"}
+                  aria-label="Reproduzir"
                 >
                   <Play className="w-8 h-8 text-white ml-1" fill="currentColor" />
                 </button>
-              )}
-            </div>
-
-            {/* Bottom controls bar */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-4 pb-3 pt-10">
-              {/* Progress bar (read-only, no seeking) */}
-              <div className="w-full h-1.5 bg-white/20 rounded-full mb-3">
-                <div 
-                  className="h-full bg-accent rounded-full transition-all"
-                  style={{ width: `${progress}%` }}
-                />
               </div>
-
-              {/* Controls row */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  {/* Play/Pause */}
-                  <button
-                    onClick={togglePlayPause}
-                    className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
-                    aria-label={isPlaying ? "Pausar" : "Reproduzir"}
-                  >
-                    {isPlaying ? (
-                      <Pause className="w-5 h-5 text-white" />
-                    ) : (
-                      <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
-                    )}
-                  </button>
-
-                  {/* Time */}
-                  <span className="text-white/70 text-xs font-mono">
-                    {formatTime(currentTime)} / {formatTime(duration)}
-                  </span>
-                  {/* Volume/Mute */}
-                  <button
-                    onClick={toggleMute}
-                    className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
-                    aria-label={isMuted ? "Ativar som" : "Mutar"}
-                  >
-                    {isMuted ? (
-                      <VolumeX className="w-5 h-5 text-white" />
-                    ) : (
-                      <Volume2 className="w-5 h-5 text-white" />
-                    )}
-                  </button>
-                </div>
-
-                {/* Fullscreen */}
-                <button
-                  onClick={toggleFullscreen}
-                  className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
-                  aria-label="Tela cheia"
-                >
-                  <Maximize className="w-5 h-5 text-white" />
-                </button>
-              </div>
-            </div>
+            )}
           </div>
         )}
       </div>
