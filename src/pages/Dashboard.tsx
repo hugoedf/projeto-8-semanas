@@ -127,7 +127,7 @@ const chartConfig = {
 const COLORS = ['hsl(220, 70%, 50%)', 'hsl(280, 70%, 50%)', 'hsl(40, 70%, 50%)', 'hsl(120, 70%, 50%)', 'hsl(0, 70%, 50%)', 'hsl(160, 70%, 50%)'];
 
 // Password is validated server-side via Edge Function
-// Session token stored securely after server validation
+// Session token stored securely after server validation (no plaintext passwords)
 
 export default function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -140,26 +140,37 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [days, setDays] = useState(30);
   
-  // Store password hash in session for subsequent requests
-  const [sessionPassword, setSessionPassword] = useState<string | null>(null);
+  // Store session token (not password) for subsequent requests
+  const [sessionToken, setSessionToken] = useState<string | null>(null);
 
-  // Check if already authenticated (password stored in session)
+  // Check if already authenticated (token stored in session)
   useEffect(() => {
-    const storedPassword = sessionStorage.getItem('dashboard_password');
-    if (storedPassword) {
-      setSessionPassword(storedPassword);
-      setIsAuthenticated(true);
+    const storedSession = sessionStorage.getItem('dashboard_session');
+    if (storedSession) {
+      try {
+        const session = JSON.parse(storedSession);
+        // Check if session is still valid
+        if (session.expires && Date.now() < session.expires) {
+          setSessionToken(session.token);
+          setIsAuthenticated(true);
+        } else {
+          // Session expired, clear it
+          sessionStorage.removeItem('dashboard_session');
+        }
+      } catch {
+        sessionStorage.removeItem('dashboard_session');
+      }
     }
   }, []);
 
-  // Server-side password validation
+  // Server-side password validation with token exchange
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoggingIn(true);
     setAuthError('');
     
     try {
-      // Validate password on server by making a test request
+      // Validate password on server and receive session token
       const { data: response, error: fetchError } = await supabase.functions.invoke('dashboard-events', {
         body: { password },
         method: 'POST',
@@ -175,11 +186,19 @@ export default function Dashboard() {
         return;
       }
 
-      // Password validated successfully on server
-      sessionStorage.setItem('dashboard_password', password);
-      setSessionPassword(password);
+      // Store session token (not password) after successful validation
+      if (response?.sessionToken && response?.sessionExpires) {
+        const sessionData = {
+          token: response.sessionToken,
+          expires: response.sessionExpires
+        };
+        sessionStorage.setItem('dashboard_session', JSON.stringify(sessionData));
+        setSessionToken(response.sessionToken);
+      }
+      
       setIsAuthenticated(true);
       setData(response); // Use the data from the login request
+      setPassword(''); // Clear password from state immediately
     } catch (err: any) {
       console.error('Login error:', err);
       if (err?.code === 'UNAUTHORIZED' || err?.message?.includes('Unauthorized')) {
@@ -193,27 +212,28 @@ export default function Dashboard() {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('dashboard_password');
-    setSessionPassword(null);
+    sessionStorage.removeItem('dashboard_session');
+    setSessionToken(null);
     setIsAuthenticated(false);
     setPassword('');
     setData(null);
   };
 
   const fetchData = async () => {
-    if (!sessionPassword) return;
+    if (!sessionToken) return;
     
     setLoading(true);
     setError(null);
     try {
       const { data: response, error: fetchError } = await supabase.functions.invoke('dashboard-events', {
-        body: { password: sessionPassword },
+        headers: { 'x-dashboard-token': sessionToken },
         method: 'POST',
+        body: {},
       });
 
       if (fetchError) {
-        // If unauthorized, force logout
-        if (fetchError.message?.includes('401') || fetchError.message?.includes('Unauthorized')) {
+        // If session expired, force logout
+        if (fetchError.message?.includes('401') || fetchError.message?.includes('SESSION_EXPIRED')) {
           handleLogout();
           return;
         }
@@ -229,14 +249,14 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (isAuthenticated && sessionPassword && !data) {
+    if (isAuthenticated && sessionToken && !data) {
       fetchData();
     }
-  }, [isAuthenticated, sessionPassword]);
+  }, [isAuthenticated, sessionToken]);
   
   // Refetch when days change
   useEffect(() => {
-    if (isAuthenticated && sessionPassword) {
+    if (isAuthenticated && sessionToken) {
       fetchData();
     }
   }, [days]);

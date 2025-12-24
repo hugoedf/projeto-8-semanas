@@ -5,10 +5,66 @@ const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 const DASHBOARD_PASSWORD = Deno.env.get('DASHBOARD_PASSWORD');
 
+// Session token secret - derived from dashboard password for simplicity
+const TOKEN_EXPIRY_MS = 3600000; // 1 hour
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-dashboard-password',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-dashboard-token',
 };
+
+// Generate a session token (HMAC-based)
+async function generateSessionToken(): Promise<{ token: string; expires: number }> {
+  const expires = Date.now() + TOKEN_EXPIRY_MS;
+  const data = `dashboard_session:${expires}`;
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(DASHBOARD_PASSWORD),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
+  const signatureHex = Array.from(new Uint8Array(signature))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  return { token: `${expires}:${signatureHex}`, expires };
+}
+
+// Validate session token
+async function validateSessionToken(token: string): Promise<boolean> {
+  if (!token || !DASHBOARD_PASSWORD) return false;
+  
+  const parts = token.split(':');
+  if (parts.length !== 2) return false;
+  
+  const [expiresStr, providedSignature] = parts;
+  const expires = parseInt(expiresStr, 10);
+  
+  // Check expiry
+  if (isNaN(expires) || Date.now() > expires) {
+    console.log('Dashboard: Token expired');
+    return false;
+  }
+  
+  // Verify signature
+  const data = `dashboard_session:${expires}`;
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(DASHBOARD_PASSWORD),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
+  const expectedSignature = Array.from(new Uint8Array(signature))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  
+  return providedSignature === expectedSignature;
+}
 
 // Helper functions
 const calcRate = (current: number, previous: number) => 
@@ -49,24 +105,7 @@ serve(async (req) => {
   }
 
   try {
-    // ===== SERVER-SIDE PASSWORD VALIDATION =====
-    // Get password from header (secure) or body (for POST requests)
-    let providedPassword: string | null = null;
-    
-    // Check header first (preferred method)
-    providedPassword = req.headers.get('x-dashboard-password');
-    
-    // If not in header, check body for POST requests
-    if (!providedPassword && req.method === 'POST') {
-      try {
-        const body = await req.clone().json();
-        providedPassword = body?.password;
-      } catch {
-        // Body parsing failed, continue with header check
-      }
-    }
-
-    // Validate password
+    // ===== SERVER-SIDE AUTHENTICATION =====
     if (!DASHBOARD_PASSWORD) {
       console.error('DASHBOARD_PASSWORD secret not configured');
       return new Response(
@@ -75,16 +114,55 @@ serve(async (req) => {
       );
     }
 
-    if (!providedPassword || providedPassword !== DASHBOARD_PASSWORD) {
-      console.log('Dashboard: Unauthorized access attempt');
+    let isAuthenticated = false;
+    let isLoginRequest = false;
+    
+    // Check for session token first (preferred method)
+    const sessionToken = req.headers.get('x-dashboard-token');
+    if (sessionToken) {
+      isAuthenticated = await validateSessionToken(sessionToken);
+      if (!isAuthenticated) {
+        console.log('Dashboard: Invalid or expired session token');
+        return new Response(
+          JSON.stringify({ error: 'Session expired', code: 'SESSION_EXPIRED' }),
+          { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      console.log('Dashboard: Session token validated');
+    }
+    
+    // If no token, check for password login (initial authentication)
+    if (!isAuthenticated && req.method === 'POST') {
+      try {
+        const body = await req.clone().json();
+        const providedPassword = body?.password;
+        
+        if (providedPassword) {
+          isLoginRequest = true;
+          if (providedPassword === DASHBOARD_PASSWORD) {
+            isAuthenticated = true;
+            console.log('Dashboard: Password validated, generating session token');
+          } else {
+            console.log('Dashboard: Invalid password');
+            return new Response(
+              JSON.stringify({ error: 'Unauthorized', code: 'UNAUTHORIZED' }),
+              { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            );
+          }
+        }
+      } catch {
+        // Body parsing failed
+      }
+    }
+    
+    if (!isAuthenticated) {
+      console.log('Dashboard: No valid authentication provided');
       return new Response(
         JSON.stringify({ error: 'Unauthorized', code: 'UNAUTHORIZED' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
-
-    console.log('Dashboard: Password validated successfully');
-    // ===== END PASSWORD VALIDATION =====
+    // ===== END AUTHENTICATION =====
 
     const url = new URL(req.url);
     const days = parseInt(url.searchParams.get('days') || '30');
@@ -330,7 +408,18 @@ serve(async (req) => {
       ? (((uniqueVisitors.size - visitorsWithVSLStart.size) / uniqueVisitors.size) * 100).toFixed(1)
       : '0.0';
 
+    // Generate session token for login requests
+    let sessionTokenData = null;
+    if (isLoginRequest) {
+      sessionTokenData = await generateSessionToken();
+    }
+
     const response = {
+      // Include session token only on login
+      ...(sessionTokenData && { 
+        sessionToken: sessionTokenData.token,
+        sessionExpires: sessionTokenData.expires 
+      }),
       overview: {
         totalEvents: events?.length || 0,
         uniqueVisitors: uniqueVisitors.size,
