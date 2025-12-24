@@ -1,5 +1,4 @@
 import { Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calendar } from "lucide-react";
-import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 
 const benefits = [
   {
@@ -45,21 +44,10 @@ const benefits = [
 ];
 
 const Benefits = () => {
-  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(benefits.length, 80, 'slideLeft');
-
   return (
     <section className="py-16 sm:py-24 bg-background">
       <div className="container mx-auto px-5 sm:px-6">
-        <div 
-          ref={titleRef}
-          className="text-center mb-12 sm:mb-16"
-          style={{
-            opacity: titleVisible ? 1 : 0,
-            transform: titleVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-          }}
-        >
+        <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 px-2 tracking-tight text-foreground leading-tight">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas:</span>
@@ -69,14 +57,13 @@ const Benefits = () => {
           </p>
         </div>
         
-        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <div
                 key={index}
                 className="bg-card border border-border/80 rounded-2xl p-5 sm:p-6 hover-lift group shadow-sm hover:shadow-lg transition-all duration-300"
-                style={getItemStyle(index)}
               >
                 <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
                   <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />

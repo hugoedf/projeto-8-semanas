@@ -1,5 +1,4 @@
 import { Smartphone, BookOpen, Zap, TrendingUp, Timer, BarChart3, Dumbbell } from "lucide-react";
-import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 
 const Bonus = () => {
   const appFeatures = [{
@@ -20,11 +19,6 @@ const Bonus = () => {
     description: "Veja sua evolução semana a semana"
   }];
 
-  const { ref: headlineRef, isVisible: headlineVisible } = useScrollAnimation();
-  const { ref: pillarsRef, isVisible: pillarsVisible, getItemStyle: getPillarStyle } = useStaggeredAnimation(2, 150, 'slideLeft');
-  const { ref: featuresRef, isVisible: featuresVisible, getItemStyle: getFeatureStyle } = useStaggeredAnimation(appFeatures.length, 80, 'fadeUp');
-  const { ref: priceRef, isVisible: priceVisible } = useScrollAnimation();
-
   return (
     <section className="py-12 sm:py-16 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
       {/* Background effects */}
@@ -34,14 +28,7 @@ const Bonus = () => {
       <div className="container mx-auto px-5 sm:px-6 relative z-10 max-w-4xl">
         
         {/* Badge & Headline */}
-        <div 
-          ref={headlineRef}
-          style={{
-            opacity: headlineVisible ? 1 : 0,
-            transform: headlineVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-          }}
-        >
+        <div>
           <div className="text-center mb-6">
             <span className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] px-4 py-2 rounded-full bg-accent/15 border border-accent/30">
               <Smartphone className="w-4 h-4" />
@@ -60,12 +47,9 @@ const Bonus = () => {
         </div>
 
         {/* Two Pillars */}
-        <div ref={pillarsRef} className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-8">
+        <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-8">
           {/* Pilar 1 - E-book */}
-          <div 
-            className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 text-center"
-            style={getPillarStyle(0)}
-          >
+          <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 text-center">
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-accent/20 flex items-center justify-center">
               <BookOpen className="w-6 h-6 text-accent" />
             </div>
@@ -77,10 +61,7 @@ const Bonus = () => {
           </div>
           
           {/* Pilar 2 - App */}
-          <div 
-            className="bg-accent/10 border border-accent/30 rounded-xl p-5 text-center relative overflow-hidden"
-            style={getPillarStyle(1)}
-          >
+          <div className="bg-accent/10 border border-accent/30 rounded-xl p-5 text-center relative overflow-hidden">
             <div className="absolute top-2 right-2">
               <span className="text-[10px] uppercase tracking-wider bg-accent/20 text-accent px-2 py-0.5 rounded-full font-bold">
                 Incluso
@@ -98,15 +79,7 @@ const Bonus = () => {
         </div>
 
         {/* App Features */}
-        <div 
-          ref={featuresRef}
-          className="bg-gray-900/50 border border-gray-800 rounded-xl p-5 max-w-2xl mx-auto mb-6"
-          style={{
-            opacity: featuresVisible ? 1 : 0,
-            transform: featuresVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-          }}
-        >
+        <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-5 max-w-2xl mx-auto mb-6">
           <p className="text-white text-center text-sm font-semibold mb-4">
             O que você recebe no App 8X:
           </p>
@@ -115,7 +88,6 @@ const Bonus = () => {
               <div 
                 key={index} 
                 className="flex items-start gap-2.5"
-                style={getFeatureStyle(index)}
               >
                 <div className="w-7 h-7 rounded-lg bg-accent/15 flex items-center justify-center flex-shrink-0">
                   <feature.icon className="w-3.5 h-3.5 text-accent" />
@@ -130,15 +102,7 @@ const Bonus = () => {
         </div>
 
         {/* Price Anchoring */}
-        <div 
-          ref={priceRef}
-          className="text-center"
-          style={{
-            opacity: priceVisible ? 1 : 0,
-            transform: priceVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-          }}
-        >
+        <div className="text-center">
           <p className="text-gray-500 text-xs mb-2">
             Apps de treino cobram <span className="line-through">R$39,90/mês</span>
           </p>

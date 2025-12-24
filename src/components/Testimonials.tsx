@@ -2,7 +2,6 @@ import whatsapp1 from "@/assets/testimonials/whatsapp-1.jpeg";
 import whatsapp2 from "@/assets/testimonials/whatsapp-2.jpeg";
 import whatsapp3 from "@/assets/testimonials/whatsapp-3.jpeg";
 import whatsapp4 from "@/assets/testimonials/whatsapp-4.jpeg";
-import { useScrollAnimation, useStaggeredAnimation } from "@/hooks/useScrollAnimation";
 import {
   Carousel,
   CarouselContent,
@@ -29,8 +28,8 @@ const testimonialImages = [{
   description: "De 1h30 enrolando para 45min de treino focado"
 }];
 
-const TestimonialCard = ({ testimonial, style }: { testimonial: typeof testimonialImages[0]; style?: React.CSSProperties }) => (
-  <div className="group" style={style}>
+const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImages[0] }) => (
+  <div className="group">
     <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/10 bg-[#0b141a] hover:scale-[1.02] transition-transform duration-300">
       <div className="absolute top-3 left-3 z-10">
         <span className="inline-flex items-center gap-1 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
@@ -48,22 +47,10 @@ const TestimonialCard = ({ testimonial, style }: { testimonial: typeof testimoni
 );
 
 const Testimonials = () => {
-  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(testimonialImages.length, 100, 'popIn');
-  const { ref: badgeRef, isVisible: badgeVisible } = useScrollAnimation();
-
   return (
     <section className="py-16 sm:py-24 bg-muted">
       <div className="container mx-auto px-5 sm:px-6">
-        <div 
-          ref={titleRef}
-          className="text-center mb-12 sm:mb-14"
-          style={{
-            opacity: titleVisible ? 1 : 0,
-            transform: titleVisible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
-          }}
-        >
+        <div className="text-center mb-12 sm:mb-14">
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
             Quem já aplicou o Método 8X está{" "}
             <span className="text-gradient">transformando o físico — e a mente.</span>
@@ -74,7 +61,7 @@ const Testimonials = () => {
         </div>
         
         {/* Mobile: Carousel */}
-        <div className="sm:hidden" ref={cardsRef}>
+        <div className="sm:hidden">
           <Carousel
             opts={{
               align: "start",
@@ -85,7 +72,7 @@ const Testimonials = () => {
             <CarouselContent className="-ml-2">
               {testimonialImages.map((testimonial, index) => (
                 <CarouselItem key={index} className="pl-2 basis-[85%]">
-                  <TestimonialCard testimonial={testimonial} style={getItemStyle(index)} />
+                  <TestimonialCard testimonial={testimonial} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -97,21 +84,13 @@ const Testimonials = () => {
         </div>
 
         {/* Desktop: Grid */}
-        <div ref={cardsRef} className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-7xl mx-auto">
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-7xl mx-auto">
           {testimonialImages.map((testimonial, index) => (
-            <TestimonialCard key={index} testimonial={testimonial} style={getItemStyle(index)} />
+            <TestimonialCard key={index} testimonial={testimonial} />
           ))}
         </div>
         
-        <div 
-          ref={badgeRef}
-          className="mt-12 sm:mt-14 text-center px-4"
-          style={{
-            opacity: badgeVisible ? 1 : 0,
-            transform: badgeVisible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
-          }}
-        >
+        <div className="mt-12 sm:mt-14 text-center px-4">
           <div className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-5 bg-card border border-border/80 rounded-2xl sm:rounded-full px-6 sm:px-8 py-4 sm:py-3 w-full sm:w-auto max-w-sm sm:max-w-none shadow-md">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4].map(i => (
