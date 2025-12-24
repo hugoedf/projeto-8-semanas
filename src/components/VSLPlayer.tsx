@@ -102,17 +102,21 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
   const togglePlayPause = async () => {
     if (!videoRef.current) return;
-    
+
     if (isPlaying) {
       videoRef.current.pause();
       setIsPlaying(false);
-    } else {
-      try {
-        await videoRef.current.play();
-        setIsPlaying(true);
-      } catch (error) {
-        console.error("Error playing video:", error);
-      }
+      return;
+    }
+
+    try {
+      // Mobile-first: always ensure we are not muted when user explicitly hits play.
+      videoRef.current.muted = false;
+      await videoRef.current.play();
+      setIsMuted(false);
+      setIsPlaying(true);
+    } catch (error) {
+      console.error("Error playing video:", error);
     }
   };
 
@@ -137,46 +141,48 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     }
   };
 
-  // Autoplay on mount with sound after 2 second delay to show thumbnail
+  // Autoplay (desktop only). On mobile, we avoid any autoplay to guarantee audio works on user gesture.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    const isMobile = /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent);
 
     // Handle when video actually starts playing - track VSLStart
     const handlePlay = () => {
       setIsPlaying(true);
       setHasStarted(true);
+      setIsMuted(video.muted);
       console.log('▶️ Vídeo iniciado');
-      
+
       // Send VSLStart event
       sendVSLEvent('VSLStart');
     };
 
     video.addEventListener('play', handlePlay);
 
+    // Mobile-first rule: no autoplay attempts on mobile (prevents muted autoplay & audio lock).
+    if (isMobile) {
+      return () => {
+        video.removeEventListener('play', handlePlay);
+      };
+    }
+
     const attemptAutoplay = async () => {
       if (hasStarted || isPlaying) return;
 
       try {
-        // Tenta autoplay com som
+        // Try autoplay with sound (desktop browsers may allow)
         video.muted = false;
         await video.play();
         setIsMuted(false);
         console.log('▶️ Autoplay com som');
       } catch (error) {
-        // Autoplay bloqueado - tenta mutado
-        try {
-          video.muted = true;
-          await video.play();
-          setIsMuted(true);
-          console.log('▶️ Autoplay mutado (navegador bloqueou som)');
-        } catch (e) {
-          console.log('⏸️ Autoplay bloqueado:', e);
-        }
+        // If blocked, do nothing and wait for user click.
+        console.log('⏸️ Autoplay bloqueado (aguardando clique):', error);
       }
     };
 
-    // Delay para mostrar thumbnail
     const timer = setTimeout(attemptAutoplay, 2500);
 
     return () => {
