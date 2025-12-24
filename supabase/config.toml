@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.vsl-background-music]
 verify_jwt = false
+
+[functions.vsl-sfx]
+verify_jwt = false

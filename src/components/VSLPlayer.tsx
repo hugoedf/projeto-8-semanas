@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { Play, Pause, Maximize } from "lucide-react";
+import { Play, Pause, Maximize, Volume2, VolumeX, Loader2 } from "lucide-react";
 import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
+import { useVSLAudio } from "@/hooks/useVSLAudio";
 
 interface VSLPlayerProps {
   onVideoEnd?: () => void;
@@ -18,12 +19,16 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showControls, setShowControls] = useState(false);
+  const [audioMode, setAudioMode] = useState<'loading' | 'ai' | 'video'>('loading');
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const milestonesRef = useRef<Set<number>>(new Set());
   const controlsTimeoutRef = useRef<number | null>(null);
   const { reportVideoTime } = useCTAVisibility();
   const { visitorData } = useVisitorTracking();
+  
+  // Hook para áudio AI (narração + SFX)
+  const vslAudio = useVSLAudio();
 
   // VSL Event Tracking - tracks sent to avoid duplicates
   const vslEventsTrackedRef = useRef<{
@@ -89,9 +94,22 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     if (!videoRef.current || isPlaying) return;
     
     try {
-      await videoRef.current.play();
-      setIsPlaying(true);
-      setHasStarted(true);
+      // Tenta usar áudio AI se disponível
+      if (vslAudio.state.isReady && audioMode === 'ai') {
+        videoRef.current.muted = true; // Muta vídeo original
+        await videoRef.current.play();
+        await vslAudio.play();
+        setIsPlaying(true);
+        setHasStarted(true);
+        console.log("▶️ Playback iniciado com áudio AI + SFX");
+      } else {
+        // Fallback para áudio do vídeo
+        videoRef.current.muted = false;
+        await videoRef.current.play();
+        setIsPlaying(true);
+        setHasStarted(true);
+        console.log("▶️ Playback iniciado com áudio original");
+      }
     } catch (error) {
       console.error("Error playing video:", error);
     }
@@ -102,10 +120,14 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     
     if (isPlaying) {
       videoRef.current.pause();
+      if (audioMode === 'ai') vslAudio.pause();
       setIsPlaying(false);
     } else {
       try {
         await videoRef.current.play();
+        if (audioMode === 'ai' && vslAudio.state.isReady) {
+          await vslAudio.play();
+        }
         setIsPlaying(true);
       } catch (error) {
         console.error("Error playing video:", error);
@@ -114,9 +136,15 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   };
 
   const toggleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
+    if (audioMode === 'ai') {
+      // Toggle mute no áudio AI
+      const newMuted = !isMuted;
+      vslAudio.setVolume(newMuted ? 0 : 1);
+      setIsMuted(newMuted);
+    } else if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
   };
 
   const toggleFullscreen = async () => {
@@ -132,6 +160,39 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       console.error("Fullscreen error:", error);
     }
   };
+
+  // Inicializa áudio AI ao montar
+  useEffect(() => {
+    const initAudio = async () => {
+      setAudioMode('loading');
+      await vslAudio.initialize();
+      
+      if (vslAudio.state.isReady) {
+        setAudioMode('ai');
+        console.log("🎬 Usando áudio AI com SFX");
+        
+        // Configura callback de término
+        vslAudio.onEnded(() => {
+          setHasEnded(true);
+          setIsPlaying(false);
+          onVideoEnd?.();
+          console.log("🏁 VSL ended");
+        });
+      } else {
+        setAudioMode('video');
+        console.log("📹 Fallback para áudio do vídeo");
+      }
+    };
+    
+    initAudio();
+  }, []);
+
+  // Sincroniza SFX com tempo do vídeo
+  useEffect(() => {
+    if (audioMode === 'ai' && isPlaying) {
+      vslAudio.syncToTime(currentTime);
+    }
+  }, [currentTime, audioMode, isPlaying]);
 
   // Autoplay on mount with sound after 2 second delay to show thumbnail
   useEffect(() => {
@@ -151,25 +212,38 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     video.addEventListener('play', handlePlay);
 
     const attemptAutoplay = async () => {
+      // Aguarda áudio AI estar pronto
+      if (audioMode === 'loading') {
+        console.log('⏳ Aguardando áudio AI...');
+        return;
+      }
+      
       try {
-        // Play with sound - no fallback to muted
-        video.muted = false;
-        setIsMuted(false);
-        await video.play();
-        console.log('▶️ Autoplay iniciado com som');
+        if (audioMode === 'ai' && vslAudio.state.isReady) {
+          video.muted = true; // Muta vídeo quando usando áudio AI
+          await video.play();
+          await vslAudio.play();
+          setIsMuted(false);
+          console.log('▶️ Autoplay iniciado com áudio AI');
+        } else {
+          video.muted = false;
+          setIsMuted(false);
+          await video.play();
+          console.log('▶️ Autoplay iniciado com som original');
+        }
       } catch (error) {
         console.log('⏸️ Autoplay bloqueado pelo navegador:', error);
       }
     };
 
-    // 2 second delay to show thumbnail before autoplay
-    const timer = setTimeout(attemptAutoplay, 2000);
+    // Delay para mostrar thumbnail e esperar áudio carregar
+    const timer = setTimeout(attemptAutoplay, 2500);
 
     return () => {
       video.removeEventListener('play', handlePlay);
       clearTimeout(timer);
     };
-  }, [sendVSLEvent]);
+  }, [sendVSLEvent, audioMode, vslAudio.state.isReady]);
 
   // Block seeking via keyboard
   useEffect(() => {
@@ -297,8 +371,18 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           Seu navegador não suporta vídeos.
         </video>
 
+        {/* Loading overlay */}
+        {audioMode === 'loading' && !hasStarted && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-20">
+            <div className="flex flex-col items-center gap-3">
+              <Loader2 className="w-10 h-10 text-accent animate-spin" />
+              <p className="text-white/70 text-sm">Carregando áudio...</p>
+            </div>
+          </div>
+        )}
+
         {/* Pre-start overlay */}
-        {!hasStarted && (
+        {!hasStarted && audioMode !== 'loading' && (
           <>
 
             {/* Vignette */}
@@ -329,7 +413,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
             {/* Micro-copy na base */}
             <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 text-center z-0 px-4">
               <p className="text-accent/80 text-[10px] sm:text-xs">
-                Assista os primeiros 30 segundos — pode mudar tudo
+                {vslAudio.state.sfxLoaded ? "🔊 Áudio com efeitos sonoros" : "Assista os primeiros 30 segundos — pode mudar tudo"}
               </p>
             </div>
           </>
@@ -388,6 +472,25 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
                   <span className="text-white/70 text-xs font-mono">
                     {formatTime(currentTime)} / {formatTime(duration)}
                   </span>
+                  {/* Volume/Mute */}
+                  <button
+                    onClick={toggleMute}
+                    className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
+                    aria-label={isMuted ? "Ativar som" : "Mutar"}
+                  >
+                    {isMuted ? (
+                      <VolumeX className="w-5 h-5 text-white" />
+                    ) : (
+                      <Volume2 className="w-5 h-5 text-white" />
+                    )}
+                  </button>
+
+                  {/* Audio mode indicator */}
+                  {audioMode === 'ai' && vslAudio.state.sfxLoaded && (
+                    <span className="text-accent/60 text-[10px] uppercase tracking-wider">
+                      SFX
+                    </span>
+                  )}
                 </div>
 
                 {/* Fullscreen */}
