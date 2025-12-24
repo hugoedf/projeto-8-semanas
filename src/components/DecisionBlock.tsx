@@ -4,6 +4,9 @@ const DecisionBlock = () => {
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-2xl mx-auto text-center">
           <div className="bg-card/80 border border-border/60 rounded-2xl p-8 sm:p-10">
+            <p className="text-muted-foreground text-base sm:text-lg mb-5 leading-relaxed">
+              Não é sobre fazer mais esforço. É sobre finalmente direcionar o esforço certo.
+            </p>
             <p className="text-muted-foreground text-lg sm:text-xl mb-3">
               A decisão é simples:
             </p>

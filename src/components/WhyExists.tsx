@@ -11,8 +11,8 @@ const WhyExists = () => {
           {/* Texto limpo - bloco editorial */}
           <div className="bg-card/60 border border-border/60 rounded-2xl p-6 sm:p-8">
             <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4">
-              Depois de observar por anos pessoas treinando pesado, se dedicando e mesmo assim ficando estagnadas, ficou claro que o problema não era falta de esforço —{" "}
-              <span className="text-foreground font-medium">era falta de um sistema simples, progressivo e aplicável no dia a dia.</span>
+              Depois de anos vendo pessoas se dedicarem de verdade — treinando pesado, abrindo mão de tempo e mesmo assim ficando estagnadas — ficou claro que o problema não era esforço.{" "}
+              <span className="text-foreground font-medium">Era falta de um sistema simples, progressivo e aplicável no dia a dia.</span>
             </p>
             <p className="text-foreground text-base sm:text-lg leading-relaxed font-medium">
               O Método 8X nasceu para resolver exatamente isso: transformar conhecimento em execução, sem improviso, sem achismo e sem depender de motivação.
