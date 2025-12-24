@@ -24,7 +24,7 @@ const Problems = () => {
         <div className="max-w-2xl mx-auto">
           
           {/* 1️⃣ Headline provocativa */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-foreground leading-tight">
               Você treina, se esforça…
             </h2>
@@ -33,12 +33,22 @@ const Problems = () => {
             </p>
           </div>
           
+          {/* Introdução emocional antes das dores */}
+          <div className="text-center mb-10">
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+              E o pior não é treinar pesado.
+            </p>
+            <p className="text-foreground font-medium text-lg sm:text-xl mt-2">
+              É sentir que o esforço não está voltando em forma de resultado.
+            </p>
+          </div>
+          
           {/* 2️⃣ Lista de dores reais - Cards originais */}
-          <div className="space-y-3 mb-12">
+          <div className="space-y-3 sm:space-y-4 mb-12">
             {painPoints.map((point, index) => (
               <div 
                 key={index} 
-                className="flex items-center gap-4 bg-destructive/5 border border-destructive/10 rounded-xl px-5 py-4 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/20"
+                className="flex items-center gap-4 bg-destructive/5 border border-destructive/10 rounded-xl px-5 py-4 sm:py-5 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/20"
               >
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-destructive/10 flex items-center justify-center">
                   <X className="w-4 h-4 text-destructive" />
@@ -61,7 +71,7 @@ const Problems = () => {
           </div>
           
           {/* 3️⃣ Subtítulo de ruptura */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/25 rounded-full px-6 py-2.5 mb-5 shadow-sm">
               <AlertCircle className="w-4 h-4 text-accent" />
               <span className="text-sm font-bold text-accent uppercase tracking-widest">A verdade</span>
@@ -72,7 +82,7 @@ const Problems = () => {
           </div>
           
           {/* 4️⃣ Explicação lógica da dor - Card premium */}
-          <div className="relative mb-12">
+          <div className="relative mb-10">
             <div className="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent rounded-3xl blur-2xl" />
             <div className="relative bg-card/80 backdrop-blur-sm border border-border/80 rounded-2xl p-7 sm:p-10 shadow-xl">
               <div className="space-y-5">
@@ -91,6 +101,16 @@ const Problems = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+          
+          {/* Insight destacado visualmente */}
+          <div className="text-center mb-12">
+            <div className="bg-muted/40 border-l-4 border-accent/60 rounded-r-xl px-6 py-5 max-w-xl mx-auto">
+              <p className="text-muted-foreground text-base sm:text-lg italic leading-relaxed">
+                "Sem um sistema claro, o corpo faz exatamente o que foi programado para fazer:{" "}
+                <span className="text-foreground font-medium not-italic">se adaptar… e parar de evoluir.</span>"
+              </p>
             </div>
           </div>
           

@@ -1,4 +1,4 @@
-import { UserCheck, TrendingUp, Dumbbell } from "lucide-react";
+import { UserCheck, TrendingUp, Dumbbell, X } from "lucide-react";
 
 const audience = [{
   icon: UserCheck,
@@ -13,6 +13,12 @@ const audience = [{
   title: "Avançados",
   description: "Querem treinar com método"
 }];
+
+const notFor = [
+  "Procura milagre",
+  "Não quer seguir um plano",
+  "Não treina com regularidade"
+];
 
 const ForWho = () => {
   return (
@@ -58,6 +64,25 @@ const ForWho = () => {
             <p className="text-accent text-lg sm:text-xl font-bold">
               👉 O Método 8X foi feito para você.
             </p>
+          </div>
+        </div>
+        
+        {/* Bloco "Para quem NÃO é" - Filtro de comprador */}
+        <div className="mt-12 sm:mt-14 max-w-xl mx-auto">
+          <div className="bg-muted/30 border border-border/40 rounded-xl p-5 sm:p-6">
+            <p className="text-muted-foreground text-sm sm:text-base text-center mb-4">
+              O Método 8X <span className="font-medium text-foreground">não é para quem:</span>
+            </p>
+            <div className="space-y-2">
+              {notFor.map((item, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
+                    <X className="w-3 h-3 text-muted-foreground" />
+                  </div>
+                  <p className="text-muted-foreground text-sm">{item}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
