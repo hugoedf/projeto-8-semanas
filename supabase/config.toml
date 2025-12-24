@@ -12,17 +12,5 @@ verify_jwt = false
 [functions.visitor-tracking]
 verify_jwt = false
 
-[functions.elevenlabs-vsl]
-verify_jwt = false
-
 [functions.dashboard-events]
-verify_jwt = false
-
-[functions.vsl-background-music]
-verify_jwt = false
-
-[functions.vsl-sfx]
-verify_jwt = false
-
-[functions.download-vsl-audio]
 verify_jwt = false
