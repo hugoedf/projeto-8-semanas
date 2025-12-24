@@ -298,16 +298,15 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           playsInline
           webkit-playsinline="true"
           x-webkit-airplay="allow"
-          preload="metadata"
+          preload="auto"
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
           onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
           onCanPlay={() => console.log('📱 Vídeo pronto para reproduzir')}
         >
-          {/* MP4 first (best compatibility) */}
           <source src="/videos/vsl-main.mp4" type="video/mp4" />
-          {/* MOV fallback (Safari/Apple devices) */}
-          <source src="/videos/vsl-main.mov" type="video/quicktime" />
           Seu navegador não suporta vídeos.
         </video>
 
