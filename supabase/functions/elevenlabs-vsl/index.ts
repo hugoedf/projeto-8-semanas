@@ -6,28 +6,51 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// VSL Script - Roteiro otimizado para conversão (2:45)
+// VSL Script - Roteiro otimizado para conversão extrema (1:50)
+// Marcações de SFX e pausas para pós-produção
 const VSL_SCRIPT = `
-Você treina há meses, talvez anos. Segue planilhas, assiste vídeos, tenta fazer tudo certo. Mas quando olha no espelho, a frustração bate: cadê o resultado?
+Para.
 
-A verdade é que 90% das pessoas treinam no modo automático. Fazem os exercícios, completam as séries, mas não entendem o que realmente faz o músculo crescer. E por isso, ficam estagnados.
+Antes de fechar esse vídeo, me responde uma coisa: quantos meses você já treina... sem ver diferença real no espelho?
 
-Eu também passei por isso. Até entender que hipertrofia não é sobre treinar mais. É sobre treinar com estratégia. Com ciência. Com intenção.
+Se você tá aqui, é porque algo não tá funcionando. E eu sei exatamente o que é.
 
-Imagina chegar na academia sabendo exatamente o que fazer. Qual exercício priorizar. Quantas séries. Qual cadência. Quanto tempo descansar. Tudo baseado no que a ciência já provou que funciona.
+Você acorda cedo. Vai pra academia. Faz os exercícios. Completa as séries. Sai suado. Repete tudo de novo na semana seguinte. Mas o corpo? Continua o mesmo.
 
-Isso é o Método 8X. Um e-book completo com 8 semanas de treino estruturado, mais um aplicativo exclusivo que guia cada treino seu. Sem achismos. Sem improviso.
+E a pior parte? Você vê outros caras evoluindo. Com menos tempo de treino que você. E fica se perguntando: o que eu tô fazendo de errado?
 
-O que você vai aprender: os 4 pilares da hipertrofia que ninguém te ensinou. Os 7 erros que sabotam seus resultados. A técnica que maximiza cada repetição. E um plano de 8 semanas testado e aprovado.
+Eu vou te contar.
 
-E o melhor: tudo isso por apenas 19 reais e 90 centavos. Menos que um suplemento que você compra todo mês. Com garantia de 7 dias. Se não gostar, devolvo seu dinheiro. Sem perguntas.
+O problema não é esforço. Não é genética. Não é suplemento.
 
-Você pode continuar treinando do mesmo jeito e esperando resultados diferentes. Ou pode dar o primeiro passo agora e finalmente ter controle sobre sua evolução.
+O problema é que você treina no escuro. Sem estratégia. Sem entender o que realmente faz o músculo crescer.
 
-Clica no botão abaixo. Seu futuro eu agradece.
+E aqui tá a verdade que ninguém te conta: treinar mais não resolve. Você pode passar horas na academia e não construir um grama de músculo. Porque hipertrofia não é sobre quantidade. É sobre precisão.
+
+Cada repetição tem que ter intenção. Cada série precisa de um propósito. Cada descanso tem um tempo ideal. Isso não é achismo. É ciência.
+
+E é exatamente isso que o Método 8X entrega.
+
+Um e-book completo com 8 semanas de treino estruturado. Mais um aplicativo que guia cada sessão sua. Exercício por exercício. Série por série. Sem improvisar. Sem dúvida.
+
+Você vai aprender os 4 pilares da hipertrofia que 90% das pessoas ignora. Os 7 erros que sabotam seu progresso. E a técnica que transforma cada repetição em resultado.
+
+E quanto custa tudo isso? Menos do que você gasta num pote de whey que não vai resolver nada sozinho.
+
+19 reais e 90 centavos. Com garantia de 7 dias.
+
+Se não funcionar pra você, devolvo cada centavo. Sem perguntas.
+
+Agora você tem duas escolhas.
+
+Continuar treinando do mesmo jeito, esperando um resultado diferente. Ou clicar no botão abaixo e finalmente assumir o controle da sua evolução.
+
+A decisão é sua. Mas o tempo não para.
+
+Clica agora.
 `;
 
-const CACHE_FILE_NAME = 'vsl-audio-v1.mp3';
+const CACHE_FILE_NAME = 'vsl-audio-v2.mp3';
 const BUCKET_NAME = 'vsl-cache';
 
 serve(async (req) => {
@@ -62,9 +85,9 @@ serve(async (req) => {
       console.log('📦 Cached audio size:', Math.round(arrayBuffer.byteLength / 1024), 'KB');
 
       return new Response(
-        JSON.stringify({ 
+        JSON.stringify({
           audioContent: base64Audio,
-          duration: 165,
+          duration: 110,
           script: VSL_SCRIPT.trim(),
           cached: true
         }),
@@ -151,7 +174,7 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         audioContent: base64Audio,
-        duration: 165,
+        duration: 110, // ~1:50
         script: VSL_SCRIPT.trim(),
         cached: false
       }),
