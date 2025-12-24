@@ -21,8 +21,8 @@ const Bonus = () => {
   }];
 
   const { ref: headlineRef, isVisible: headlineVisible } = useScrollAnimation();
-  const { ref: pillarsRef, isVisible: pillarsVisible, getItemStyle: getPillarStyle } = useStaggeredAnimation(2, 150);
-  const { ref: featuresRef, isVisible: featuresVisible, getItemStyle: getFeatureStyle } = useStaggeredAnimation(appFeatures.length, 80);
+  const { ref: pillarsRef, isVisible: pillarsVisible, getItemStyle: getPillarStyle } = useStaggeredAnimation(2, 150, 'slideLeft');
+  const { ref: featuresRef, isVisible: featuresVisible, getItemStyle: getFeatureStyle } = useStaggeredAnimation(appFeatures.length, 80, 'fadeUp');
   const { ref: priceRef, isVisible: priceVisible } = useScrollAnimation();
 
   return (
@@ -38,8 +38,8 @@ const Bonus = () => {
           ref={headlineRef}
           style={{
             opacity: headlineVisible ? 1 : 0,
-            transform: headlineVisible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+            transform: headlineVisible ? 'translateY(0)' : 'translateY(16px)',
+            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
           }}
         >
           <div className="text-center mb-6">
@@ -103,8 +103,8 @@ const Bonus = () => {
           className="bg-gray-900/50 border border-gray-800 rounded-xl p-5 max-w-2xl mx-auto mb-6"
           style={{
             opacity: featuresVisible ? 1 : 0,
-            transform: featuresVisible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+            transform: featuresVisible ? 'translateY(0)' : 'translateY(16px)',
+            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
           }}
         >
           <p className="text-white text-center text-sm font-semibold mb-4">
@@ -135,8 +135,8 @@ const Bonus = () => {
           className="text-center"
           style={{
             opacity: priceVisible ? 1 : 0,
-            transform: priceVisible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+            transform: priceVisible ? 'translateY(0)' : 'translateY(16px)',
+            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
           }}
         >
           <p className="text-gray-500 text-xs mb-2">

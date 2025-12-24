@@ -49,7 +49,7 @@ const TestimonialCard = ({ testimonial, style }: { testimonial: typeof testimoni
 
 const Testimonials = () => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(testimonialImages.length, 100);
+  const { ref: cardsRef, isVisible: cardsVisible, getItemStyle } = useStaggeredAnimation(testimonialImages.length, 100, 'popIn');
   const { ref: badgeRef, isVisible: badgeVisible } = useScrollAnimation();
 
   return (
@@ -60,8 +60,8 @@ const Testimonials = () => {
           className="text-center mb-12 sm:mb-14"
           style={{
             opacity: titleVisible ? 1 : 0,
-            transform: titleVisible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+            transform: titleVisible ? 'translateY(0)' : 'translateY(16px)',
+            transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
           }}
         >
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
