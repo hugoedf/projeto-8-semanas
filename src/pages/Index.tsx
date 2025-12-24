@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import Problems from "@/components/Problems";
+import WhyExists from "@/components/WhyExists";
 import Benefits from "@/components/Benefits";
 import AppShowcase from "@/components/AppShowcase";
 import Modules from "@/components/Modules";
@@ -7,11 +8,11 @@ import Bonus from "@/components/Bonus";
 import Testimonials from "@/components/Testimonials";
 import ForWho from "@/components/ForWho";
 import Guarantee from "@/components/Guarantee";
+import DecisionBlock from "@/components/DecisionBlock";
 import CTA from "@/components/CTA";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { DiagnosticPanel } from "@/components/DiagnosticPanel";
-import UrgencyBanner from "@/components/UrgencyBanner";
 import IntermediateCTA from "@/components/IntermediateCTA";
 import FloatingCTA from "@/components/FloatingCTA";
 
@@ -22,20 +23,24 @@ const Index = () => {
       <Hero />
       {/* 1. DOR - Identificação emocional */}
       <Problems />
-      {/* 2. SOLUÇÃO - O que o método oferece */}
+      {/* 2. CONEXÃO HUMANA - Por que existe */}
+      <WhyExists />
+      {/* 3. SOLUÇÃO - O que o método oferece */}
       <Benefits />
-      {/* 3. FACILITADOR - App como ferramenta */}
+      {/* 4. FACILITADOR - App como ferramenta */}
       <AppShowcase />
-      {/* 4. CONTEÚDO - O que está incluso */}
+      {/* 5. CONTEÚDO - O que está incluso */}
       <Modules />
       <Bonus />
-      {/* 5. PROVA SOCIAL */}
+      {/* 6. PROVA SOCIAL */}
       <Testimonials />
       <IntermediateCTA />
-      {/* 6. QUALIFICAÇÃO + GARANTIA */}
+      {/* 7. QUALIFICAÇÃO + GARANTIA */}
       <ForWho />
       <Guarantee />
-      {/* 7. CTA FINAL */}
+      {/* 8. BLOCO DE DECISÃO */}
+      <DecisionBlock />
+      {/* 9. CTA FINAL */}
       <CTA />
       <FAQ />
       <Footer />
@@ -48,4 +53,3 @@ const Index = () => {
 };
 
 export default Index;
-

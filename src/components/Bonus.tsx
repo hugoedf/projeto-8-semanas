@@ -37,8 +37,8 @@ const Bonus = () => {
           </div>
 
           <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white text-center leading-tight mb-3">
-            Você não compra um e-book.<br />
-            <span className="text-accent">Você entra em um Sistema.</span>
+            Isso não é só um e-book. E não é só um app.<br />
+            <span className="text-accent">É um Sistema.</span>
           </h2>
 
           <p className="text-gray-400 text-center text-sm sm:text-base mb-8 max-w-xl mx-auto">

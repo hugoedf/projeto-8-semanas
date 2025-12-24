@@ -6,21 +6,18 @@ import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import VSLPlayer from "@/components/VSLPlayer";
 import { useState } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
+
 const Hero = () => {
-  const {
-    trackInitiateCheckout
-  } = useMetaPixel();
-  const {
-    visitorData
-  } = useVisitorTracking();
+  const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
   const [vslEnded, setVslEnded] = useState(false);
-  const {
-    ctaVisible
-  } = useCTAVisibility();
+  const { ctaVisible } = useCTAVisibility();
+
   const handleVSLEnd = () => {
     setVslEnded(true);
     console.log('📊 VSL completed - CTA emphasis activated');
   };
+
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -43,7 +40,9 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-  return <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden gradient-hero pt-10">
+
+  return (
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden gradient-hero pt-10">
       {/* Background overlays for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
@@ -53,55 +52,66 @@ const Hero = () => {
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
             
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-4 sm:mb-6">
+            <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-5 sm:mb-6">
               <Zap className="w-4 h-4" />
               <span>MÉTODO 8X</span>
             </div>
             
-            {/* Título */}
-            <h1 className="font-display sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.1] text-white tracking-tight mb-4 sm:mb-5 px-2 sm:px-0 text-2xl">
-              A CIÊNCIA QUE TRANSFORMA ESTÍMULOS EM{" "}
-              <span className="text-accent">HIPERTROFIA REAL</span>
+            {/* Título Principal - Maior peso visual */}
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-5 sm:mb-6 px-2 sm:px-0">
+              Um sistema de treino baseado em ciência para gerar{" "}
+              <span className="text-accent">hipertrofia real</span>{" "}
+              com progressão clara e execução guiada.
             </h1>
             
-            {/* Subtítulo emocional */}
-            <p className="sm:text-xl leading-relaxed max-w-xl text-white/80 mb-5 sm:mb-6 px-2 sm:px-0 text-base">
-              Chega de treinar no escuro. Em <span className="text-accent font-semibold">8 semanas</span>, você vai executar o que funciona — <span className="text-white font-medium">sem dúvida, sem estagnação.</span>
+            {/* Subtítulo de apoio - Hierarquia clara */}
+            <p className="text-base sm:text-lg leading-relaxed max-w-xl text-white/75 mb-6 sm:mb-8 px-2 sm:px-0">
+              Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
             {/* VSL Player - Mobile only */}
-            <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-6">
+            <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
               <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
             
-            {/* CTA limpa - apenas o botão */}
+            {/* CTA com destaque visual */}
             <div className={`w-full sm:w-auto transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
-              <Button variant="cta" size="lg" onClick={handleCTAClick} className={`text-sm sm:text-lg px-5 sm:px-12 py-5 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase whitespace-nowrap ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}>
-                QUERO EVOLUIR EM 8 SEMANAS
+              <Button 
+                variant="cta" 
+                size="lg" 
+                onClick={handleCTAClick} 
+                className={`text-sm sm:text-lg px-6 sm:px-12 py-5 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase whitespace-nowrap ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
+              >
+                QUERO TREINAR COM MÉTODO
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
             
-            {/* Prova social + preço + âncora - abaixo do CTA */}
-            <p className="sm:text-base text-white/70 mt-4 text-center text-xs">
-              <span className="text-white/90 font-medium">+500 já evoluíram</span>
-              <span className="mx-1 sm:mx-2 text-white/40">•</span>
+            {/* Prova social + preço - Respiro visual */}
+            <p className="text-xs sm:text-sm text-white/65 mt-5 text-center lg:text-left">
+              <span className="text-white/85 font-medium">+500 pessoas já aplicaram</span>
+              <span className="mx-2 text-white/30">•</span>
               <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>
-              <span className="mx-1 sm:mx-2 text-white/40">•</span>
+              <span className="mx-2 text-white/30">•</span>
               <span>Menos que uma refeição</span>
             </p>
           </div>
           
           {/* VSL Player - Desktop only */}
-          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{
-          animationDelay: "0.15s"
-        }}>
+          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{ animationDelay: "0.15s" }}>
             <div className="absolute inset-0 bg-accent/15 rounded-3xl blur-[60px] scale-90" />
             <div className="relative z-10 w-full max-w-lg">
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
           </div>
+        </div>
+        
+        {/* Micro-compromisso - Inserção suave */}
+        <div className="max-w-2xl mx-auto mt-12 sm:mt-16 text-center">
+          <p className="text-white/50 text-sm sm:text-base italic">
+            Se você já treina, mas sente que poderia estar evoluindo mais, continue.
+          </p>
         </div>
       </div>
       
@@ -111,6 +121,8 @@ const Hero = () => {
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Hero;

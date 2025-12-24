@@ -3,42 +3,42 @@ import { Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calendar } fro
 const benefits = [
   {
     icon: Dumbbell,
-    title: "Saber o que fazer",
-    description: "Chega de perder tempo com treinos aleatórios. Cada exercício tem um propósito."
+    title: "Você sabe o que fazer",
+    description: "Cada exercício tem propósito. Zero dúvida, zero improviso."
   },
   {
     icon: Target,
-    title: "Ver progresso real",
-    description: "Semana a semana, você vai sentir a diferença no espelho e na força."
+    title: "Você vê progresso real",
+    description: "Semana a semana, o espelho e a força confirmam."
   },
   {
     icon: TrendingUp,
-    title: "Quebrar estagnação",
+    title: "Você quebra a estagnação",
     description: "Técnicas que forçam seu corpo a continuar evoluindo."
   },
   {
     icon: Apple,
-    title: "Comer sem neura",
-    description: "Nutrição simples que funciona, sem frescura ou complicação."
+    title: "Você come sem neura",
+    description: "Nutrição simples que funciona, sem frescura."
   },
   {
     icon: Shield,
-    title: "Treinar sem lesão",
-    description: "Execução correta para não se machucar e não perder tempo parado."
+    title: "Você treina sem lesão",
+    description: "Execução correta. Sem se machucar, sem parar."
   },
   {
     icon: Zap,
-    title: "Economizar tempo",
+    title: "Você economiza tempo",
     description: "Treinos eficientes. Resultados máximos no menor tempo."
   },
   {
     icon: Brain,
-    title: "Ter clareza mental",
-    description: "Saber exatamente o que fazer elimina a ansiedade do treino."
+    title: "Você tem clareza mental",
+    description: "Saber o que fazer elimina a ansiedade do treino."
   },
   {
     icon: Calendar,
-    title: "Manter consistência",
+    title: "Você mantém consistência",
     description: "Um plano claro de 8 semanas que você consegue seguir."
   },
 ];
@@ -52,9 +52,9 @@ const Benefits = () => {
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas:</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Não é só sobre ganhar músculo.<br />
-            <span className="font-semibold">É sobre treinar com método, sair do escuro e finalmente ver resultados que realmente transformam seu corpo e sua confiança.</span>
+            <span className="font-medium text-foreground">É sobre treinar com método e finalmente ver resultados.</span>
           </p>
         </div>
         

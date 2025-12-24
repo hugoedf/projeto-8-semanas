@@ -10,14 +10,19 @@ const AppShowcase = () => {
   return (
     <section className="py-16 sm:py-20 bg-muted/50">
       <div className="container mx-auto px-5 sm:px-6">
-        {/* Transição persuasiva */}
-        <div className="text-center mb-10 max-w-xl mx-auto">
-          <p className="text-muted-foreground text-base sm:text-lg">
-            Tudo isso é possível com o <span className="text-foreground font-semibold">Método 8X</span>. 
-            Mas saber o que fazer é só metade do caminho...
+        {/* Transição persuasiva - Pausa visual */}
+        <div className="text-center mb-6 max-w-xl mx-auto">
+          <p className="text-accent font-medium text-lg sm:text-xl">
+            E é exatamente aí que a maioria das pessoas trava.
           </p>
-          <p className="text-accent font-medium text-lg sm:text-xl mt-2">
-            Você precisa executar.
+        </div>
+        
+        <div className="text-center mb-10 max-w-xl mx-auto">
+          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+            A maioria das pessoas sabe o que deveria fazer.
+          </p>
+          <p className="text-foreground font-medium text-base sm:text-lg mt-2">
+            O problema é executar certo, toda semana, sem improviso.
           </p>
         </div>
         

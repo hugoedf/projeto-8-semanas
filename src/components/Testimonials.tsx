@@ -50,7 +50,20 @@ const Testimonials = () => {
   return (
     <section className="py-16 sm:py-24 bg-muted">
       <div className="container mx-auto px-5 sm:px-6">
-        <div className="text-center mb-12 sm:mb-14">
+        <div className="text-center mb-10 sm:mb-12">
+          {/* Introdução antes dos depoimentos */}
+          <div className="mb-6">
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+              Pessoas que já treinavam.
+            </p>
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+              Pessoas que estavam estagnadas.
+            </p>
+            <p className="text-foreground font-medium text-base sm:text-lg mt-1">
+              Pessoas que só precisavam de um método claro.
+            </p>
+          </div>
+          
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
             Quem já aplicou o Método 8X está{" "}
             <span className="text-gradient">transformando o físico — e a mente.</span>
