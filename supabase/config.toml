@@ -23,3 +23,6 @@ verify_jwt = false
 
 [functions.vsl-sfx]
 verify_jwt = false
+
+[functions.download-vsl-audio]
+verify_jwt = false
