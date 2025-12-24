@@ -17,7 +17,7 @@ const explanationPoints = [
 
 const Problems = () => {
   const { ref: headlineRef, isVisible: headlineVisible } = useScrollAnimation();
-  const { ref: painRef, isVisible: painVisible, getItemStyle: getPainStyle } = useStaggeredAnimation(painPoints.length, 80);
+  const { ref: painRef, isVisible: painVisible, getItemStyle: getPainStyle } = useStaggeredAnimation(painPoints.length, 100, 'fadeUp');
   const { ref: explanationRef, isVisible: explanationVisible } = useScrollAnimation();
   const { ref: closingRef, isVisible: closingVisible } = useScrollAnimation();
 
@@ -35,8 +35,8 @@ const Problems = () => {
             className="text-center mb-12"
             style={{
               opacity: headlineVisible ? 1 : 0,
-              transform: headlineVisible ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+              transform: headlineVisible ? 'translateY(0)' : 'translateY(16px)',
+              transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
             }}
           >
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-foreground leading-tight">
