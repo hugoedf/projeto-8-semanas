@@ -8,7 +8,7 @@ const painPoints = [
 ];
 
 const explanationPoints = [
-  { text: "O verdadeiro problema é", highlight: "treinar sem método." },
+  { text: "O verdadeiro problema é", highlight: "treinar sem método.", followUp: "Quando você entende isso, a culpa sai de cena — e entra clareza sobre o que realmente precisa ser feito." },
   { text: "Sem progressão clara, o corpo se adapta e", highlight: "para de responder." },
   { text: "Repetir os mesmos estímulos cria", highlight: "estagnação." },
   { text: "Cansa, ocupa tempo… mas", highlight: "não gera evolução real." }
@@ -40,6 +40,9 @@ const Problems = () => {
             </p>
             <p className="text-foreground font-medium text-lg sm:text-xl mt-2">
               É sentir que o esforço não está voltando em forma de resultado.
+            </p>
+            <p className="text-muted-foreground text-base sm:text-lg mt-4 leading-relaxed">
+              Provavelmente você já saiu da academia com a sensação de ter feito tudo certo… mas sem a certeza de que aquilo realmente estava funcionando.
             </p>
           </div>
           
@@ -94,10 +97,17 @@ const Problems = () => {
                     <div className="flex-shrink-0 w-6 h-6 rounded-full bg-muted/50 flex items-center justify-center mt-0.5">
                       <div className="w-2 h-2 rounded-full bg-accent/60" />
                     </div>
-                    <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-                      {point.text}{" "}
-                      <span className="text-foreground font-semibold">{point.highlight}</span>
-                    </p>
+                    <div>
+                      <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+                        {point.text}{" "}
+                        <span className="text-foreground font-semibold">{point.highlight}</span>
+                      </p>
+                      {point.followUp && (
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mt-2">
+                          {point.followUp}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
