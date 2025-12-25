@@ -1,4 +1,4 @@
-import { UserCheck, TrendingUp, Dumbbell, X, Users } from "lucide-react";
+import { UserCheck, TrendingUp, Dumbbell, X } from "lucide-react";
 
 const audience = [{
   icon: UserCheck,
@@ -22,41 +22,35 @@ const notFor = [
 
 const ForWho = () => {
   return (
-    <section className="section-breathing bg-background section-divider">
+    <section className="py-14 sm:py-16 md:py-20 bg-background">
       <div className="container mx-auto px-5 sm:px-6">
-        {/* Header com preparação emocional */}
-        <div className="pre-cards-intro mb-12 sm:mb-16">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-accent/10 rounded-full px-4 py-2 mb-6">
-            <Users className="w-4 h-4 text-accent" />
-            <span className="text-xs font-bold text-accent uppercase tracking-[0.1em]">Para quem é</span>
-          </div>
-          
-          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 tracking-tight text-foreground">
+        {/* Header - próximo dos cards */}
+        <div className="text-center max-w-[550px] mx-auto mb-8 sm:mb-10">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight text-foreground">
             Para quem é o{" "}
             <span className="text-gradient">Método 8X?</span>
           </h2>
-          <p className="lead">
+          <p className="text-slate-500 text-sm sm:text-base">
             Pessoas que buscam hipertrofia baseada em ciência.
           </p>
         </div>
         
         {/* Grid de perfis */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto mb-12 sm:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-5 max-w-3xl mx-auto mb-8 sm:mb-10">
           {audience.map((item, index) => {
             const Icon = item.icon;
             return (
               <div 
                 key={index} 
-                className="bg-card border border-border/80 rounded-2xl p-6 sm:p-8 hover-lift text-center shadow-sm hover:shadow-lg transition-all duration-300"
+                className="bg-card border border-border/60 rounded-xl p-5 sm:p-6 hover-lift text-center shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-2xl bg-accent/10 flex items-center justify-center mb-4 sm:mb-5 mx-auto shadow-inner">
-                  <Icon className="w-7 h-7 sm:w-9 sm:h-9 text-accent" />
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-3 mx-auto">
+                  <Icon className="w-6 h-6 text-accent" />
                 </div>
-                <h3 className="font-display text-lg sm:text-xl mb-2.5 text-foreground tracking-tight">
+                <h3 className="font-display text-base sm:text-lg mb-1.5 text-foreground tracking-tight">
                   {item.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -64,15 +58,11 @@ const ForWho = () => {
           })}
         </div>
         
-        {/* Bloco de identificação - Impacto */}
-        <div className="revelation-block max-w-xl mx-auto mb-12 sm:mb-14">
-          <p className="text-base sm:text-lg font-medium text-foreground mb-2">
-            Se você se identificou com pelo menos um desses perfis…
-          </p>
-          <p className="text-accent text-lg sm:text-xl font-bold">
-            👉 O Método 8X foi feito para você.
-          </p>
-        </div>
+        {/* Texto de identificação - simples, não bloco de impacto */}
+        <p className="text-center text-slate-600 text-sm sm:text-base mb-8 sm:mb-10">
+          Se você se identificou com pelo menos um desses perfis,{" "}
+          <span className="text-accent font-semibold">o Método 8X foi feito para você.</span>
+        </p>
         
         {/* Bloco "Para quem NÃO é" - Filtro de comprador */}
         <div className="max-w-xl mx-auto">
