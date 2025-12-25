@@ -560,3 +560,335 @@ section:has(h2) > .elementor-container {
     letter-spacing: -0.02em !important;
   }
 }
+
+/* ======================================================
+   💎 BLOCOS DE IMPACTO - CAPÍTULOS VISUAIS DA NARRATIVA
+   Textos-chave que devem "parar" o usuário
+====================================================== */
+
+/* Bloco de Impacto - Estilo de "momento" na narrativa */
+.impact-block {
+  background: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 99%) 100%);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  margin: 3rem auto;
+  max-width: 680px;
+  text-align: center;
+  box-shadow: 
+    0 4px 30px hsla(0 0% 0% / 0.04),
+    0 1px 3px hsla(0 0% 0% / 0.02),
+    inset 0 1px 0 hsla(0 0% 100% / 0.8);
+  border: 1px solid hsla(0 0% 0% / 0.04);
+  position: relative;
+}
+
+.impact-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, hsl(var(--accent)), transparent);
+  border-radius: 2px;
+}
+
+.impact-block p {
+  font-size: 1.15rem;
+  color: hsl(0 0% 25%);
+  line-height: 1.85;
+  max-width: none;
+}
+
+.impact-block strong,
+.impact-block .highlight {
+  color: hsl(0 0% 10%);
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .impact-block {
+    padding: 3.5rem 3rem;
+    margin: 4rem auto;
+  }
+  
+  .impact-block p {
+    font-size: 1.25rem;
+  }
+}
+
+/* Bloco de Revelação - Para verdades importantes */
+.revelation-block {
+  background: hsl(0 0% 100%);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  margin: 2rem auto 3rem;
+  max-width: 700px;
+  text-align: center;
+  box-shadow: 
+    0 20px 60px hsla(18 100% 50% / 0.06),
+    0 8px 25px hsla(0 0% 0% / 0.03);
+  border: 1px solid hsla(18 100% 50% / 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.revelation-block::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 10%, hsl(var(--accent)) 50%, transparent 90%);
+}
+
+@media (min-width: 640px) {
+  .revelation-block {
+    padding: 3.5rem 3rem;
+    margin: 3rem auto 4rem;
+  }
+}
+
+/* ======================================================
+   📐 PAUSAS VISUAIS - RESPIRO ENTRE EMOÇÕES
+====================================================== */
+
+/* Espaçamento premium entre seções emocionais */
+.section-breathing {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+  .section-breathing {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-breathing {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* Divisor visual sutil entre seções */
+.section-divider {
+  position: relative;
+}
+
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsla(0 0% 0% / 0.08), transparent);
+}
+
+/* ======================================================
+   📝 HIERARQUIA PRÉ-CARDS - PREPARAÇÃO EMOCIONAL
+====================================================== */
+
+/* Texto introdutório antes de grupos de cards */
+.pre-cards-intro {
+  max-width: 600px;
+  margin: 0 auto 3.5rem;
+  text-align: center;
+}
+
+.pre-cards-intro p {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: hsl(0 0% 35%);
+}
+
+.pre-cards-intro .lead {
+  font-size: 1.2rem;
+  color: hsl(0 0% 18%);
+  font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  .pre-cards-intro {
+    margin-bottom: 4rem;
+  }
+  
+  .pre-cards-intro p {
+    font-size: 1.15rem;
+  }
+  
+  .pre-cards-intro .lead {
+    font-size: 1.3rem;
+  }
+}
+
+/* ======================================================
+   🎯 BLOCO DE DECISÃO - MOMENTO DE ESCOLHA
+====================================================== */
+
+.decision-section {
+  position: relative;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+  .decision-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+.decision-card {
+  background: linear-gradient(160deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+  border-radius: 28px;
+  padding: 3rem 2rem;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 
+    0 30px 80px hsla(0 0% 0% / 0.06),
+    0 15px 35px hsla(0 0% 0% / 0.04),
+    inset 0 1px 0 hsla(0 0% 100% / 0.9);
+  border: 1px solid hsla(0 0% 0% / 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.decision-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, hsl(var(--accent)), hsl(25 100% 55%), hsl(var(--accent)));
+}
+
+@media (min-width: 640px) {
+  .decision-card {
+    padding: 4rem 3.5rem;
+    border-radius: 32px;
+  }
+}
+
+/* ======================================================
+   👥 PROVA SOCIAL - SEPARAÇÃO VISUAL MODERNA
+====================================================== */
+
+.testimonials-header {
+  position: relative;
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+}
+
+.testimonials-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.5), transparent);
+}
+
+@media (min-width: 640px) {
+  .testimonials-header {
+    padding-bottom: 4rem;
+    margin-bottom: 4rem;
+  }
+}
+
+/* ======================================================
+   🛡️ GARANTIA - VISUAL PREMIUM CONFIÁVEL
+====================================================== */
+
+.guarantee-premium {
+  background: linear-gradient(180deg, hsla(0 0% 8% / 0.95) 0%, hsla(0 0% 5% / 0.98) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 28px;
+  padding: 2.5rem 1.5rem;
+  border: 1px solid hsla(0 0% 100% / 0.06);
+  box-shadow: 
+    0 30px 80px hsla(0 0% 0% / 0.4),
+    inset 0 1px 0 hsla(0 0% 100% / 0.05);
+}
+
+@media (min-width: 640px) {
+  .guarantee-premium {
+    padding: 3.5rem 3rem;
+    border-radius: 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .guarantee-premium {
+    padding: 4rem 4rem;
+  }
+}
+
+/* ======================================================
+   ✨ TRANSIÇÕES ENTRE EMOÇÕES - CONECTORES VISUAIS
+====================================================== */
+
+/* Conector visual entre seções */
+.visual-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 0;
+}
+
+.visual-connector .line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, hsla(0 0% 0% / 0.1), hsla(0 0% 0% / 0.02));
+}
+
+.visual-connector .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--accent) / 0.3);
+  box-shadow: 0 0 15px hsl(var(--accent) / 0.2);
+}
+
+/* ======================================================
+   📱 RESPONSIVIDADE PREMIUM
+====================================================== */
+
+@media (max-width: 639px) {
+  .impact-block {
+    padding: 2rem 1.5rem;
+    margin: 2rem auto;
+    border-radius: 16px;
+  }
+  
+  .revelation-block {
+    padding: 2rem 1.5rem;
+    margin: 1.5rem auto 2rem;
+    border-radius: 18px;
+  }
+  
+  .decision-card {
+    padding: 2rem 1.25rem;
+    border-radius: 20px;
+  }
+  
+  .guarantee-premium {
+    padding: 2rem 1.25rem;
+    border-radius: 20px;
+  }
+  
+  .pre-cards-intro {
+    margin-bottom: 2.5rem;
+  }
+}

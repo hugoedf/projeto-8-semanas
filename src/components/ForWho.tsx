@@ -1,4 +1,4 @@
-import { UserCheck, TrendingUp, Dumbbell, X } from "lucide-react";
+import { UserCheck, TrendingUp, Dumbbell, X, Users } from "lucide-react";
 
 const audience = [{
   icon: UserCheck,
@@ -22,19 +22,27 @@ const notFor = [
 
 const ForWho = () => {
   return (
-    <section className="py-14 sm:py-20 bg-background">
+    <section className="section-breathing bg-background section-divider">
       <div className="container mx-auto px-5 sm:px-6">
-        <div className="text-center mb-12 sm:mb-14">
-          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
+        {/* Header com preparação emocional */}
+        <div className="pre-cards-intro mb-12 sm:mb-16">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 bg-accent/10 rounded-full px-4 py-2 mb-6">
+            <Users className="w-4 h-4 text-accent" />
+            <span className="text-xs font-bold text-accent uppercase tracking-[0.1em]">Para quem é</span>
+          </div>
+          
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 tracking-tight text-foreground">
             Para quem é o{" "}
             <span className="text-gradient">Método 8X?</span>
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
+          <p className="lead">
             Pessoas que buscam hipertrofia baseada em ciência.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+        {/* Grid de perfis */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto mb-12 sm:mb-16">
           {audience.map((item, index) => {
             const Icon = item.icon;
             return (
@@ -56,19 +64,18 @@ const ForWho = () => {
           })}
         </div>
         
-        <div className="mt-12 sm:mt-14 text-center max-w-3xl mx-auto px-4">
-          <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 shadow-lg shadow-accent/5">
-            <p className="text-base sm:text-lg font-semibold text-foreground mb-2.5">
-              Se você se identificou com pelo menos um desses perfis…
-            </p>
-            <p className="text-accent text-lg sm:text-xl font-bold">
-              👉 O Método 8X foi feito para você.
-            </p>
-          </div>
+        {/* Bloco de identificação - Impacto */}
+        <div className="revelation-block max-w-xl mx-auto mb-12 sm:mb-14">
+          <p className="text-base sm:text-lg font-medium text-foreground mb-2">
+            Se você se identificou com pelo menos um desses perfis…
+          </p>
+          <p className="text-accent text-lg sm:text-xl font-bold">
+            👉 O Método 8X foi feito para você.
+          </p>
         </div>
         
         {/* Bloco "Para quem NÃO é" - Filtro de comprador */}
-        <div className="mt-12 sm:mt-14 max-w-xl mx-auto">
+        <div className="max-w-xl mx-auto">
           <div className="bg-muted/30 border border-border/40 rounded-xl p-5 sm:p-6">
             <p className="text-muted-foreground text-sm sm:text-base text-center mb-4">
               O Método 8X <span className="font-medium text-foreground">não é para quem:</span>
