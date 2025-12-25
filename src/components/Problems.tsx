@@ -1,4 +1,4 @@
-import { AlertTriangle, Target, RotateCcw, TrendingDown, Clock, ArrowDown, Lightbulb } from "lucide-react";
+import { AlertTriangle, Target, RotateCcw, TrendingDown, Clock, ArrowDown, Lightbulb, Sparkles } from "lucide-react";
 
 const painPoints = [
   {
@@ -45,7 +45,7 @@ const explanationPoints = [
 
 const Problems = () => {
   return (
-    <section className="py-20 md:py-28 bg-slate-50 relative overflow-hidden">
+    <section className="section-breathing bg-slate-50 relative overflow-hidden">
       {/* Subtle texture overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none" />
       
@@ -53,7 +53,7 @@ const Problems = () => {
         <div className="max-w-3xl mx-auto">
           
           {/* 1️⃣ Headline provocativa - Largura controlada */}
-          <div className="text-center mb-12 max-w-[650px] mx-auto">
+          <div className="text-center mb-14 sm:mb-16 max-w-[650px] mx-auto">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[-0.02em] text-foreground leading-tight">
               Você treina, se esforça…
             </h2>
@@ -62,15 +62,15 @@ const Problems = () => {
             </p>
           </div>
           
-          {/* Introdução emocional - max-width + line-height */}
-          <div className="text-center mb-12 max-w-[650px] mx-auto">
-            <p className="text-slate-500 text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
+          {/* Introdução emocional - Bloco de Impacto */}
+          <div className="impact-block mb-16 sm:mb-20">
+            <p className="text-slate-500 mb-3">
               E o pior não é treinar pesado.
             </p>
-            <p className="text-foreground font-semibold text-lg sm:text-xl mt-3" style={{ lineHeight: '1.75' }}>
+            <p className="text-foreground font-semibold text-lg sm:text-xl">
               É sentir que o esforço não está voltando em forma de resultado.
             </p>
-            <p className="text-slate-500 text-base sm:text-lg mt-5" style={{ lineHeight: '1.75' }}>
+            <p className="text-slate-500 mt-5">
               Provavelmente você já saiu da academia com a sensação de ter feito tudo certo… mas sem a certeza de que aquilo realmente estava funcionando.
             </p>
           </div>
@@ -104,20 +104,18 @@ const Problems = () => {
             ))}
           </div>
           
-          {/* Visual connector */}
-          <div className="flex flex-col items-center gap-3 mb-16">
-            <div className="w-px h-12 bg-gradient-to-b from-slate-200 to-accent/30" />
-            <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/25 flex items-center justify-center shadow-lg shadow-accent/10">
-              <ArrowDown className="w-5 h-5 text-accent" />
-            </div>
-            <div className="w-px h-8 bg-gradient-to-b from-accent/30 to-transparent" />
+          {/* Visual connector - Pausa visual */}
+          <div className="visual-connector mb-12 sm:mb-16">
+            <div className="line" />
+            <div className="dot" />
+            <div className="line opacity-50" />
           </div>
           
-          {/* 3️⃣ Truth Revelation Box */}
-          <div className="bg-white rounded-2xl shadow-xl shadow-black/[0.06] border border-slate-100 p-8 sm:p-10 mb-14">
+          {/* 3️⃣ Truth Revelation Box - Bloco de Revelação */}
+          <div className="revelation-block mb-16 sm:mb-20">
             <div className="text-center mb-8">
               {/* Badge Superior - Uppercase, pequeno, tracking wide */}
-              <div className="inline-flex items-center gap-2.5 bg-accent/10 border border-accent/20 rounded-full px-5 py-2 mb-6">
+              <div className="inline-flex items-center gap-2.5 bg-accent/10 border border-accent/20 rounded-full px-5 py-2.5 mb-6">
                 <Lightbulb className="w-4 h-4 text-accent" />
                 <span className="text-xs font-bold text-accent uppercase tracking-[0.15em]">A verdade</span>
               </div>
@@ -127,7 +125,7 @@ const Problems = () => {
             </div>
             
             {/* Explicação com linha conectora */}
-            <div className="relative">
+            <div className="relative text-left">
               {/* Linha vertical conectora */}
               <div className="absolute left-5 top-6 bottom-6 w-px bg-gradient-to-b from-accent/20 via-accent/10 to-transparent hidden sm:block" />
               
@@ -160,31 +158,31 @@ const Problems = () => {
             </div>
           </div>
           
-          {/* Insight Quote */}
-          <div className="text-center mb-16">
-            <div className="inline-block bg-white rounded-2xl px-8 py-6 max-w-[600px] shadow-lg shadow-black/[0.04] border border-slate-100">
-              <p className="text-slate-600 text-base sm:text-lg italic" style={{ lineHeight: '1.75' }}>
-                "Sem um sistema claro, o corpo faz exatamente o que foi programado para fazer:{" "}
-                <span className="text-slate-900 font-medium not-italic">se adaptar… e parar de evoluir.</span>"
-              </p>
-            </div>
+          {/* Insight Quote - Bloco de Impacto */}
+          <div className="impact-block mb-16 sm:mb-20">
+            <p className="text-slate-600 italic">
+              "Sem um sistema claro, o corpo faz exatamente o que foi programado para fazer:{" "}
+              <span className="text-slate-900 font-medium not-italic">se adaptar… e parar de evoluir.</span>"
+            </p>
           </div>
           
-          {/* 5️⃣ Fechamento */}
-          <div className="text-center">
-            <div className="bg-white rounded-2xl p-8 sm:p-10 max-w-[600px] mx-auto shadow-lg shadow-black/[0.04] border border-slate-100">
-              <p className="text-slate-600 text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
-                A maioria das pessoas treina assim por anos.
-                <br />
-                Não porque não querem evoluir —
-              </p>
-              <p className="text-slate-900 font-semibold text-lg sm:text-xl mt-6" style={{ lineHeight: '1.75' }}>
-                mas porque ninguém ensinou um{" "}
-                <span className="text-accent underline decoration-accent/40 underline-offset-4 decoration-2">
-                  sistema estruturado, progressivo e aplicável.
-                </span>
-              </p>
+          {/* 5️⃣ Fechamento - Bloco de Revelação */}
+          <div className="revelation-block">
+            <div className="inline-flex items-center gap-2 bg-accent/10 rounded-full px-4 py-2 mb-6">
+              <Sparkles className="w-4 h-4 text-accent" />
+              <span className="text-xs font-bold text-accent uppercase tracking-[0.1em]">A solução</span>
             </div>
+            <p className="text-slate-600 text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
+              A maioria das pessoas treina assim por anos.
+              <br />
+              Não porque não querem evoluir —
+            </p>
+            <p className="text-slate-900 font-semibold text-lg sm:text-xl mt-6" style={{ lineHeight: '1.75' }}>
+              mas porque ninguém ensinou um{" "}
+              <span className="text-accent underline decoration-accent/40 underline-offset-4 decoration-2">
+                sistema estruturado, progressivo e aplicável.
+              </span>
+            </p>
           </div>
           
         </div>
