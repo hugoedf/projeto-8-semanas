@@ -1,9 +1,7 @@
 import { Shield, CheckCircle } from "lucide-react";
 import guaranteeBadge from "@/assets/guarantee-badge.png";
-
 const Guarantee = () => {
-  return (
-    <section className="py-20 sm:py-28 bg-accent relative overflow-hidden">
+  return <section className="py-20 sm:py-28 bg-accent relative overflow-hidden">
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.12),transparent_40%)]" />
       
@@ -24,21 +22,19 @@ const Guarantee = () => {
             {/* Badge de garantia - Selo dourado centralizado */}
             <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mb-8">
               <div className="absolute inset-0 bg-yellow-400/30 rounded-full blur-[50px] scale-125" />
-              <img
-                src={guaranteeBadge}
-                alt="Selo de Garantia 7 Dias"
-                className="relative z-10 w-full h-full object-contain drop-shadow-2xl"
-              />
+              <img src={guaranteeBadge} alt="Selo de Garantia 7 Dias" className="relative z-10 w-full h-full object-contain drop-shadow-2xl" />
             </div>
             
             {/* Título */}
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-5 text-white tracking-tight">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-5 tracking-tight text-accent">
               Garantia Incondicional de{" "}
               <span className="underline underline-offset-4 decoration-2">7 Dias</span>
             </h2>
             
             {/* Descrição */}
-            <p className="text-white/90 mb-8 text-base sm:text-lg max-w-xl" style={{ lineHeight: '1.8' }}>
+            <p style={{
+            lineHeight: '1.8'
+          }} className="mb-8 text-base sm:text-lg max-w-xl text-primary">
               Teste o método. Aplique. Sinta a diferença. Se não fizer sentido pra você, devolvemos 100% do valor.
             </p>
             
@@ -46,9 +42,9 @@ const Guarantee = () => {
             <div className="flex flex-wrap justify-center gap-6">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                  <CheckCircle className="w-4 h-4 text-white" />
+                  <CheckCircle className="w-4 h-4 text-[#ffcbad]" />
                 </div>
-                <p className="text-white text-base font-medium">
+                <p className="text-base font-medium text-primary">
                   Sem risco
                 </p>
               </div>
@@ -56,7 +52,7 @@ const Guarantee = () => {
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                   <CheckCircle className="w-4 h-4 text-white" />
                 </div>
-                <p className="text-white text-base font-medium">
+                <p className="text-base font-medium text-primary">
                   Sem complicação
                 </p>
               </div>
@@ -64,8 +60,6 @@ const Guarantee = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Guarantee;
