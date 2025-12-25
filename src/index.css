@@ -2,37 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =====================================================
-   🔥 CORES ORIGINAIS FITNESS - DESIGN PREMIUM
-   Preto + Cinza Escuro + Laranja (SEM AZUL)
-===================================================== */
+/* Fonts loaded via HTML with preload and display=swap for performance */
+
+/* VSL Slide Animations */
+@keyframes textReveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes emojiBounce {
+  0%, 100% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.1); 
+  }
+}
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
 
 @layer base {
   :root {
-    /* Off-white base para contraste premium */
+    /* Off-white base for premium feel */
     --background: 0 0% 98%;
-    --foreground: 0 0% 5%;
+    --foreground: 0 0% 15%;
 
-    /* Cards brancos puros para contraste máximo */
+    /* Pure white cards for depth contrast */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 0 0% 15%;
 
-    /* PRETO/CINZA ESCURO - Cor primária fitness */
-    --primary: 0 0% 8%;
+    --primary: 0 0% 12%;
     --primary-foreground: 0 0% 100%;
 
-    /* Tons sutis de cinza */
+    /* Subtle gray tones */
     --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 5%;
+    --secondary-foreground: 0 0% 15%;
 
     --muted: 0 0% 97%;
-    --muted-foreground: 0 0% 40%;
+    --muted-foreground: 0 0% 45%;
 
-    /* LARANJA VIBRANTE - Cor de destaque fitness */
-    --accent: 16 100% 60%;
+    --accent: 18 100% 58%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 65% 55%;
@@ -40,56 +73,43 @@
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 16 100% 60%;
+    --ring: 18 100% 58%;
 
     --radius: 0.875rem;
     
-    /* CORES FITNESS - PADRÃO PREMIUM */
-    --fitness-orange: 16 100% 60%;
-    --fitness-orange-dark: 16 100% 50%;
-    --fitness-dark: 0 0% 8%;
-    --fitness-darker: 0 0% 5%;
-    --fitness-black: 0 0% 0%;
-    --fitness-gray: 0 0% 40%;
+    /* Fitness theme colors - Premium palette */
+    --fitness-orange: 18 100% 58%;
+    --fitness-dark: 0 0% 12%;
+    --fitness-darker: 0 0% 8%;
+    --fitness-gray: 0 0% 45%;
     --fitness-light: 0 0% 97%;
+    --fitness-brown: 20 15% 10%;
     
-    /* GRADIENTES PREMIUM - Preto → Cinza Escuro → Tons Quentes */
-    /* Hero: Gradiente mais intenso */
-    --gradient-hero: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #1a0f0a 100%);
+    /* Gradients - Refined */
+    --gradient-hero: linear-gradient(145deg, hsl(20 15% 8%) 0%, hsl(0 0% 6%) 50%, hsl(20 10% 10%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(18 100% 58%) 0%, hsl(18 100% 48%) 100%);
+    --gradient-card-dark: linear-gradient(180deg, hsla(20 10% 15% / 0.6) 0%, hsla(0 0% 8% / 0.8) 100%);
     
-    /* Seções: Gradiente suave e profundo */
-    --gradient-section-dark: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 50%, #15100a 100%);
-    
-    /* Accent: Laranja puro */
-    --gradient-accent: linear-gradient(135deg, hsl(16 100% 60%) 0%, hsl(16 100% 50%) 100%);
-    
-    /* Cards escuros com toque quente */
-    --gradient-card-dark: linear-gradient(180deg, rgba(26,26,26,0.6) 0%, rgba(15,15,15,0.8) 100%);
-    
-    /* Gradiente intenso para destaques */
-    --gradient-dark-intense: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
-    
-    /* Sombras premium */
-    --shadow-glow: 0 0 50px hsla(16 100% 60% / 0.3);
-    --shadow-glow-strong: 0 0 80px hsla(16 100% 60% / 0.4);
+    /* Premium Shadows - Soft and elegant */
+    --shadow-glow: 0 0 50px hsla(18 100% 58% / 0.25);
+    --shadow-glow-strong: 0 0 80px hsla(18 100% 58% / 0.35);
     --shadow-card: 0 10px 40px -10px hsla(0 0% 0% / 0.08);
     --shadow-card-hover: 0 20px 50px -15px hsla(0 0% 0% / 0.12);
-    --shadow-card-dark: 0 8px 40px hsla(0 0% 0% / 0.5);
-    --shadow-accent: 0 8px 30px -8px hsla(16 100% 60% / 0.5);
+    --shadow-card-dark: 0 8px 40px hsla(0 0% 0% / 0.4);
+    --shadow-accent: 0 8px 30px -8px hsla(18 100% 58% / 0.4);
     
-    /* Transições */
+    /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    /* Sidebar */
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 0% 8%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 15%;
-    --sidebar-accent-foreground: 16 100% 60%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 16 100% 60%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -105,235 +125,831 @@
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 5%;
 
-    --secondary: 0 0% 12%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 16 100% 60%;
+    --accent: 18 100% 58%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 65% 55%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 16 100% 60%;
-
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 0% 8%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 18 100% 58%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 16 100% 60%;
-    --sidebar-border: 0 0% 12%;
-    --sidebar-ring: 16 100% 60%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
-/* =====================================================
-   🎨 SEÇÕES ESCURAS - GRADIENTE PREMIUM
-===================================================== */
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-/* Seções com fundo escuro recebem gradiente */
-section[class*="bg-slate"],
-section[class*="bg-gray"],
-section[class*="bg-zinc"],
-.bg-fitness-dark,
-.bg-fitness-darker {
-  background: var(--gradient-section-dark) !important;
-  background-image: var(--gradient-section-dark) !important;
-}
-
-/* Hero com gradiente mais intenso */
-.gradient-hero,
-section.gradient-hero {
-  background: var(--gradient-hero) !important;
-  background-image: var(--gradient-hero) !important;
-}
-
-/* Garantir que seções escuras tenham texto branco */
-section.bg-black,
-section.bg-slate-900,
-section.bg-gray-900,
-section[class*="bg-slate"],
-section[class*="bg-gray"],
-section[class*="bg-zinc"] {
-  color: hsl(0 0% 100%);
-}
-
-section.bg-black h1,
-section.bg-black h2,
-section.bg-black h3,
-section.bg-slate-900 h1,
-section.bg-slate-900 h2,
-section.bg-slate-900 h3,
-section.bg-gray-900 h1,
-section.bg-gray-900 h2,
-section.bg-gray-900 h3,
-section[class*="bg-slate"] h1,
-section[class*="bg-slate"] h2,
-section[class*="bg-slate"] h3,
-section[class*="bg-gray"] h1,
-section[class*="bg-gray"] h2,
-section[class*="bg-gray"] h3,
-section[class*="bg-zinc"] h1,
-section[class*="bg-zinc"] h2,
-section[class*="bg-zinc"] h3 {
-  color: hsl(0 0% 100%);
-}
-
-/* =====================================================
-   🎯 CARDS ESCUROS - GRADIENTE
-===================================================== */
-
-.card-dark-premium,
-.pain-card-premium {
-  background: var(--gradient-card-dark) !important;
-  border-color: hsl(0 0% 100% / 0.1) !important;
-}
-
-.card-dark-premium h3,
-.card-dark-premium h4,
-.pain-card-premium h3,
-.pain-card-premium h4 {
-  color: hsl(0 0% 100%);
-  font-weight: 800;
-}
-
-.card-dark-premium p,
-.pain-card-premium p {
-  color: hsl(0 0% 100% / 0.85);
-}
-
-/* =====================================================
-   🔤 TIPOGRAFIA - HIERARQUIA CLARA
-===================================================== */
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-h1 {
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-/* =====================================================
-   🎨 DESTAQUE COM LARANJA
-===================================================== */
-
-/* Laranja em Texto */
-.text-accent,
-.highlight,
-.accent-text {
-  color: hsl(var(--accent)) !important;
-  font-weight: 600;
-}
-
-/* Borda Laranja */
-.border-accent-left,
-.border-l-orange-500 {
-  border-left-color: hsl(var(--accent)) !important;
-}
-
-/* Ícone Laranja */
-.icon-accent,
-[class*="text-orange"] {
-  color: hsl(var(--accent)) !important;
-}
-
-/* =====================================================
-   🔘 BOTÕES
-===================================================== */
-
-.btn-cta-primary,
-.bg-orange-500 {
-  background-color: hsl(var(--accent)) !important;
-  color: hsl(0 0% 100%) !important;
-  font-weight: 700;
-  padding: 0.75rem 2rem;
-  border-radius: 0.5rem;
-  transition: var(--transition-smooth);
-}
-
-.btn-cta-primary:hover,
-.bg-orange-500:hover {
-  background-color: hsl(var(--fitness-orange-dark)) !important;
-  box-shadow: var(--shadow-accent);
-}
-
-/* =====================================================
-   ✨ SOMBRAS E EFEITOS
-===================================================== */
-
-.shadow-premium {
-  box-shadow: var(--shadow-card) !important;
-}
-
-.shadow-premium:hover {
-  box-shadow: var(--shadow-card-hover) !important;
-}
-
-/* =====================================================
-   📱 RESPONSIVIDADE
-===================================================== */
-
-@media (max-width: 768px) {
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.65;
+  }
+  
+  p {
+    line-height: 1.7;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  
   h1 {
-    font-size: 1.875rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
   }
   
   h2 {
-    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
   }
   
   h3 {
+    letter-spacing: -0.015em;
+  }
+}
+
+@layer utilities {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .gradient-card-dark {
+    background: var(--gradient-card-dark);
+  }
+  
+  .text-gradient {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card-hover);
+  }
+  
+  .glow-accent {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .glow-accent-strong {
+    box-shadow: var(--shadow-glow-strong);
+  }
+  
+  /* Premium floating card */
+  .card-premium {
+    @apply bg-card rounded-2xl;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+  }
+  
+  .card-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+  }
+  
+  /* Floating card with hover effect */
+  .card-floating {
+    @apply bg-card rounded-xl;
+    box-shadow: var(--shadow-card);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card-floating:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+  }
+  
+  .card-dark-glass {
+    @apply backdrop-blur-md border border-white/10 rounded-2xl;
+    background: var(--gradient-card-dark);
+    box-shadow: var(--shadow-card-dark);
+  }
+  
+  /* Premium section spacing */
+  .section-spacing {
+    @apply py-20 sm:py-28 lg:py-32;
+  }
+  
+  .section-spacing-sm {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Button with accent glow */
+  .btn-glow {
+    box-shadow: var(--shadow-accent);
+    transition: var(--transition-smooth);
+  }
+  
+  .btn-glow:hover {
+    box-shadow: 0 12px 40px -10px hsla(18 100% 58% / 0.5);
+    transform: translateY(-1px);
+  }
+  
+  /* Highlight box with glow */
+  .highlight-box {
+    @apply bg-card border border-accent/30 rounded-2xl;
+    box-shadow: 0 0 60px -20px hsla(18 100% 58% / 0.15);
+  }
+  
+  a[href*="lovable"] {
+    display: none !important;
+  }
+}
+
+/* ======================================================
+   💎 CSS MESTRE - VISUAL PREMIUM / HIGH TICKET
+   Foco: Profundidade, Hierarquia e Leitura Guiada
+====================================================== */
+
+/* 1. TIPOGRAFIA & BASE
+   Deixa o texto mais "rico" e fácil de ler */
+section p {
+  line-height: 1.8 !important;
+  color: hsl(0 0% 29%);
+  font-size: 1.05rem;
+}
+
+section h2, section h3 {
+  letter-spacing: -0.03em !important;
+}
+
+/* 2. FUNDO DAS SEÇÕES CLARAS (O PALCO)
+   Tira o branco chapado e coloca um "Off-White" suave */
+section.bg-background,
+section.bg-white,
+section:not([class*="bg-fitness"]):not([class*="gradient-hero"]):not(.dark) {
+  background-color: hsl(0 0% 98%) !important;
+}
+
+/* ======================================================
+   3. SEÇÃO DE DORES - Cards Flutuantes Premium
+====================================================== */
+.pain-card-premium {
+  background: hsl(0 0% 100%);
+  margin-bottom: 16px;
+  padding: 24px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px hsla(0 0% 0% / 0.04);
+  border: 1px solid hsla(0 0% 0% / 0.02);
+  border-left: 4px solid hsl(0 70% 65%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pain-card-premium:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px hsla(0 70% 65% / 0.15);
+}
+
+/* ======================================================
+   4. SEÇÃO "POR QUE O MÉTODO EXISTE" - Hero Box
+====================================================== */
+.solution-hero-box {
+  background: hsl(0 0% 100%);
+  border-radius: 24px;
+  padding: 3rem !important;
+  box-shadow: 0 20px 60px hsla(18 100% 50% / 0.08);
+  border: 1px solid hsla(18 100% 50% / 0.1);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.solution-hero-box h2 {
+  color: hsl(0 0% 0%);
+  margin-bottom: 20px;
+}
+
+/* ======================================================
+   5. SEÇÃO DE BENEFÍCIOS - Grid Apple Style
+====================================================== */
+.benefit-card-premium {
+  background: hsl(0 0% 100%);
+  border-radius: 16px;
+  padding: 24px;
+  height: 100%;
+  box-shadow: 0 4px 24px hsla(0 0% 0% / 0.03);
+  border: 1px solid hsl(0 0% 94%);
+  transition: all 0.3s ease;
+}
+
+.benefit-card-premium:hover {
+  border-color: hsl(var(--accent));
+  transform: translateY(-5px);
+}
+
+.benefit-card-premium svg,
+.benefit-card-premium img {
+  transform: scale(1.2);
+  margin-bottom: 15px;
+  display: block;
+}
+
+.benefit-card-premium h3,
+.benefit-card-premium h4 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* ======================================================
+   6. AJUSTES FINAIS DE POLIMENTO
+====================================================== */
+.section-clean {
+  background: hsl(0 0% 100%) !important;
+  border-top: 1px solid hsl(0 0% 94%);
+}
+
+/* Largura máxima de leitura para parágrafos */
+section p {
+  max-width: 75ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ======================================================
+   💎 CSS MASTER - VISUAL PREMIUM & CORREÇÕES
+====================================================== */
+
+/* --- 1. CORREÇÃO DAS LETRAS SOLTAS "A B C D" --- */
+/* Remove as bolinhas de avatar padrão quebradas */
+.elementor-icon-list-icon {
+  display: none !important;
+}
+
+/* Centraliza e transforma o texto "+500 transformações" em uma badge elegante */
+.elementor-icon-list-item, 
+ul.elementor-icon-list-items li {
+  justify-content: center !important;
+  text-align: center;
+  width: fit-content;
+  margin: 10px auto !important;
+  padding: 8px 24px;
+  background: hsla(18 100% 50% / 0.08);
+  border-radius: 50px;
+  border: 1px solid hsla(18 100% 50% / 0.15);
+}
+
+.elementor-icon-list-text {
+  font-weight: 600;
+  color: hsl(0 0% 20%);
+  font-size: 0.95rem;
+}
+
+/* --- 2. HIERARQUIA PREMIUM (SEÇÕES CLARAS) --- */
+/* Define fundo Off-White para contraste com os cards brancos */
+section:not(.elementor-section-stretched):not(.bg-dark) {
+  background-color: hsl(0 0% 98%);
+}
+
+/* Tipografia de alta legibilidade */
+section p {
+  line-height: 1.75 !important;
+  color: hsl(0 0% 27%);
+  letter-spacing: -0.01em;
+}
+
+/* --- 3. TRANSFORMAÇÃO: LISTA DE DORES EM CARDS --- */
+/* Transforma listas simples em cartões com sombra e indicador de erro */
+section:has(h2) ul.elementor-icon-list-items li {
+  background: hsl(0 0% 100%);
+  margin-bottom: 16px;
+  padding: 22px 28px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px -10px hsla(0 0% 0% / 0.06);
+  border: 1px solid hsla(0 0% 0% / 0.03);
+  border-left: 4px solid hsl(0 70% 65%);
+  transition: transform 0.2s ease;
+}
+
+/* Efeito Hover nos cards de dores */
+section:has(h2) ul.elementor-icon-list-items li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px -5px hsla(0 70% 65% / 0.15);
+}
+
+/* Força a cor vermelha nos ícones de erro */
+section:has(h2) ul.elementor-icon-list-items i {
+  color: hsl(0 70% 65%) !important;
+  background: transparent !important;
+}
+
+/* --- 4. DESTAQUE: "POR QUE O MÉTODO EXISTE" --- */
+/* Cria container de destaque com hierarquia visual */
+section:has(h2) .elementor-widget-text-editor {
+  position: relative;
+  z-index: 2;
+}
+
+.box-destaque, 
+section:has(h2) > .elementor-container {
+  border-radius: 20px;
+}
+
+/* --- 5. GRID DE BENEFÍCIOS (ESTILO APP) --- */
+/* Estiliza a seção de benefícios como botões grandes de app */
+.elementor-widget-icon-box .elementor-widget-container {
+  background: hsl(0 0% 100%);
+  padding: 30px 24px;
+  border-radius: 18px;
+  height: 100%;
+  box-shadow: 0 4px 20px hsla(0 0% 0% / 0.03);
+  border: 1px solid hsl(0 0% 94%);
+  transition: all 0.3s ease;
+}
+
+/* Hover nos benefícios */
+.elementor-widget-icon-box .elementor-widget-container:hover {
+  border-color: hsl(var(--accent));
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px hsla(18 100% 50% / 0.1);
+}
+
+/* Ícones laranjas destacados */
+.elementor-icon-box-icon i, 
+.elementor-icon-box-icon svg {
+  color: hsl(var(--accent)) !important;
+  transform: scale(1.1);
+  margin-bottom: 10px;
+}
+
+/* Títulos fortes */
+.elementor-icon-box-title {
+  font-weight: 700 !important;
+  margin-bottom: 8px !important;
+}
+
+.elementor-icon-box-description {
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+}
+
+/* --- 6. AJUSTE MOBILE PREMIUM --- */
+@media (max-width: 767px) {
+  /* Desativa hover em mobile */
+  .elementor-widget-icon-box .elementor-widget-container:hover,
+  section:has(h2) ul.elementor-icon-list-items li:hover,
+  .pain-card-premium:hover,
+  .benefit-card-premium:hover {
+    transform: none;
+  }
+  
+  section:has(h2) ul.elementor-icon-list-items li {
+    padding: 18px;
+  }
+  
+  /* Cards de dor otimizados para mobile */
+  .pain-card-premium {
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+  }
+  
+  /* Solution hero box mobile */
+  .solution-hero-box {
+    padding: 1.5rem !important;
+    border-radius: 16px;
+  }
+  
+  /* Cards de benefício mobile */
+  .benefit-card-premium {
+    padding: 18px;
+    border-radius: 12px;
+  }
+  
+  /* Tipografia mobile mais compacta */
+  section p {
+    font-size: 1rem;
+    line-height: 1.7 !important;
+  }
+  
+  section h2, section h3 {
+    letter-spacing: -0.02em !important;
+  }
+}
+
+/* ======================================================
+   💎 BLOCOS DE IMPACTO - CAPÍTULOS VISUAIS DA NARRATIVA
+   Textos-chave que devem "parar" o usuário
+====================================================== */
+
+/* Bloco de Impacto - Estilo de "momento" na narrativa */
+.impact-block {
+  background: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 99%) 100%);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  margin: 3rem auto;
+  max-width: 680px;
+  text-align: center;
+  box-shadow: 
+    0 4px 30px hsla(0 0% 0% / 0.04),
+    0 1px 3px hsla(0 0% 0% / 0.02),
+    inset 0 1px 0 hsla(0 0% 100% / 0.8);
+  border: 1px solid hsla(0 0% 0% / 0.04);
+  position: relative;
+}
+
+.impact-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, hsl(var(--accent)), transparent);
+  border-radius: 2px;
+}
+
+.impact-block p {
+  font-size: 1.15rem;
+  color: hsl(0 0% 25%);
+  line-height: 1.85;
+  max-width: none;
+}
+
+.impact-block strong,
+.impact-block .highlight {
+  color: hsl(0 0% 10%);
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .impact-block {
+    padding: 3.5rem 3rem;
+    margin: 4rem auto;
+  }
+  
+  .impact-block p {
     font-size: 1.25rem;
   }
 }
 
+/* Bloco de Revelação - Para verdades importantes */
+.revelation-block {
+  background: hsl(0 0% 100%);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  margin: 2rem auto 3rem;
+  max-width: 700px;
+  text-align: center;
+  box-shadow: 
+    0 20px 60px hsla(18 100% 50% / 0.06),
+    0 8px 25px hsla(0 0% 0% / 0.03);
+  border: 1px solid hsla(18 100% 50% / 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.revelation-block::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 10%, hsl(var(--accent)) 50%, transparent 90%);
+}
+
+@media (min-width: 640px) {
+  .revelation-block {
+    padding: 3.5rem 3rem;
+    margin: 3rem auto 4rem;
+  }
+}
+
+/* ======================================================
+   📐 REGRA DE OURO DE ESPAÇAMENTO
+   - Pouco espaço: textos da mesma ideia
+   - Médio: transições
+   - Grande: só A VERDADE e DECISÃO
+====================================================== */
+
+/* Seção padrão - espaçamento médio (narrativa fluida) */
+.section-breathing {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  .section-breathing {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-breathing {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+/* Seção de DECISÃO - espaçamento máximo (momento chave) */
+.decision-section {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+@media (min-width: 640px) {
+  .decision-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* Divisor visual sutil - mais discreto */
+.section-divider {
+  position: relative;
+}
+
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsla(0 0% 0% / 0.05), transparent);
+}
+
+/* ======================================================
+   📝 PRÉ-CARDS - Próximo dos cards (continuidade)
+====================================================== */
+
+/* Texto introdutório - margem curta para cards */
+.pre-cards-intro {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.pre-cards-intro p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: hsl(0 0% 40%);
+}
+
+.pre-cards-intro .lead {
+  font-size: 1.1rem;
+  color: hsl(0 0% 25%);
+  font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  .pre-cards-intro {
+    margin-bottom: 2.5rem;
+  }
+  
+  .pre-cards-intro p {
+    font-size: 1.1rem;
+  }
+  
+  .pre-cards-intro .lead {
+    font-size: 1.2rem;
+  }
+}
+
+/* ======================================================
+   🎯 BLOCO DE DECISÃO - MOMENTO DE ESCOLHA (máximo impacto)
+====================================================== */
+
+.decision-card {
+  background: linear-gradient(160deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+  border-radius: 24px;
+  padding: 2.5rem 1.5rem;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 
+    0 25px 60px hsla(0 0% 0% / 0.05),
+    0 10px 25px hsla(0 0% 0% / 0.03);
+  border: 1px solid hsla(0 0% 0% / 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.decision-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, hsl(var(--accent)), hsl(25 100% 55%), hsl(var(--accent)));
+}
+
+@media (min-width: 640px) {
+  .decision-card {
+    padding: 3rem 2.5rem;
+    border-radius: 28px;
+  }
+}
+
+/* ======================================================
+   👥 PROVA SOCIAL - SEPARAÇÃO VISUAL MODERNA
+====================================================== */
+
+.testimonials-header {
+  position: relative;
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+}
+
+.testimonials-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.5), transparent);
+}
+
+@media (min-width: 640px) {
+  .testimonials-header {
+    padding-bottom: 4rem;
+    margin-bottom: 4rem;
+  }
+}
+
+/* ======================================================
+   🛡️ GARANTIA - VISUAL PREMIUM CONFIÁVEL
+====================================================== */
+
+.guarantee-premium {
+  background: linear-gradient(180deg, hsla(0 0% 8% / 0.95) 0%, hsla(0 0% 5% / 0.98) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 28px;
+  padding: 2.5rem 1.5rem;
+  border: 1px solid hsla(0 0% 100% / 0.06);
+  box-shadow: 
+    0 30px 80px hsla(0 0% 0% / 0.4),
+    inset 0 1px 0 hsla(0 0% 100% / 0.05);
+}
+
+@media (min-width: 640px) {
+  .guarantee-premium {
+    padding: 3.5rem 3rem;
+    border-radius: 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .guarantee-premium {
+    padding: 4rem 4rem;
+  }
+}
+
+/* ======================================================
+   ✨ TRANSIÇÕES ENTRE EMOÇÕES - CONECTORES VISUAIS
+====================================================== */
+
+/* Conector visual entre seções */
+.visual-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 0;
+}
+
+.visual-connector .line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, hsla(0 0% 0% / 0.1), hsla(0 0% 0% / 0.02));
+}
+
+.visual-connector .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--accent) / 0.3);
+  box-shadow: 0 0 15px hsl(var(--accent) / 0.2);
+}
+
+/* ======================================================
+   📱 RESPONSIVIDADE PREMIUM
+====================================================== */
+
+@media (max-width: 639px) {
+  .impact-block {
+    padding: 2rem 1.5rem;
+    margin: 2rem auto;
+    border-radius: 16px;
+  }
+  
+  .revelation-block {
+    padding: 2rem 1.5rem;
+    margin: 1.5rem auto 2rem;
+    border-radius: 18px;
+  }
+  
+  .decision-card {
+    padding: 2rem 1.25rem;
+    border-radius: 20px;
+  }
+  
+  .guarantee-premium {
+    padding: 2rem 1.25rem;
+    border-radius: 20px;
+  }
+  
+  .pre-cards-intro {
+    margin-bottom: 2.5rem;
+  }
+}
+
+/* ======================================================
+   🔧 HOTFIX - "Dores" (Problems) intro text must remain
+   (keeps the small paragraph right below the headline)
+====================================================== */
+
+/* Ensure the intro paragraph keeps its intended small size + muted tone.
+   Global `section p` rules were overriding it via `!important`. */
+section.bg-slate-50 p.text-slate-500 {
+  font-size: 0.95rem !important;
+  color: hsl(var(--muted-foreground)) !important;
+  line-height: 1.7 !important;
+}
+
+@media (min-width: 640px) {
+  section.bg-slate-50 p.text-slate-500 {
+    font-size: 1rem !important;
+  }
+}
 /* =====================================================
-   🔥 FORÇA FINAL - REMOVER AZUL
+   🔒 HOTFIX DEFINITIVO — REMOVER AZUL SEM REDESIGN
+   Atua SOMENTE nas variáveis (não quebra estrutura)
 ===================================================== */
 
-/* Remove qualquer classe com azul */
-[class*="from-blue"],
-[class*="to-blue"],
-[class*="via-blue"],
-[class*="bg-blue"],
-[class*="text-blue"],
-[class*="border-blue"] {
-  display: none !important;
+:root {
+  /* Azul -> Preto premium */
+  --sidebar-primary: 0 0% 6%;
+  --sidebar-ring: 18 100% 58%;
+
+  /* Caso algum botão esteja puxando azul */
+  --primary: 0 0% 8%;
+  --primary-foreground: 0 0% 100%;
 }
 
-/* Força gradiente em backgrounds escuros */
-.bg-slate-900,
-.bg-gray-900,
-.bg-slate-800,
-.bg-gray-800,
-.bg-black {
-  background: var(--gradient-section-dark) !important;
+.dark {
+  /* Azul -> Preto premium (dark mode) */
+  --sidebar-primary: 0 0% 6%;
+  --sidebar-ring: 18 100% 58%;
+
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 5%;
 }
 
-/* Garante que seções claras fiquem brancas */
-section.bg-white,
-section.bg-slate-50,
-section.bg-gray-50 {
-  background-color: hsl(0 0% 100%) !important;
-  color: hsl(0 0% 5%);
+/* =====================================================
+   🔧 FORÇA REMOÇÃO DE AZUL INLINE (SEM ALTERAR LAYOUT)
+===================================================== */
+
+/* Qualquer background com HSL azul vira preto */
+[style*="224.3"],
+[style*="217.2"] {
+  background-color: hsl(0 0% 6%) !important;
+  background-image: none !important;
 }
 
-section.bg-white h1,
-section.bg-white h2,
-section.bg-white h3,
-section.bg-slate-50 h1,
-section.bg-slate-50 h2,
-section.bg-slate-50 h3,
-section.bg-gray-50 h1,
-section.bg-gray-50 h2,
-section.bg-gray-50 h3 {
-  color: hsl(0 0% 5%);
+/* Bordas azuladas viram laranja discreto */
+[style*="border-color: hsl(224"],
+[style*="border-color: hsl(217"] {
+  border-color: hsl(18 100% 58%) !important;
 }
