@@ -36,7 +36,11 @@ const Problems = () => {
         <div className="max-w-3xl mx-auto">
           
           {/* Badge de contexto */}
-          
+          <div className="text-center mb-6">
+            <span className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground">
+              A DOR
+            </span>
+          </div>
           
           {/* Headline provocativa - centralizado */}
           <div className="text-center mb-8">
