@@ -54,13 +54,6 @@ const Benefits = () => {
     <section className="py-20 sm:py-28 bg-[#050505] relative overflow-hidden">
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         
-        {/* Badge de contexto */}
-        <div className="text-center mb-6">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent">
-            O SISTEMA
-          </span>
-        </div>
-        
         {/* Título - centralizado */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 tracking-tight text-white">

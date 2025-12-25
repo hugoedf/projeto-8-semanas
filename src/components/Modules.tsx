@@ -45,12 +45,6 @@ const Modules = () => {
   return (
     <section id="modules-section" className="py-20 sm:py-28 bg-white">
       <div className="container mx-auto px-5 sm:px-6">
-        {/* Badge de contexto */}
-        <div className="text-center mb-6">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent">
-            O CONTEÚDO
-          </span>
-        </div>
         
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 text-foreground tracking-tight">

@@ -30,9 +30,6 @@ const ForWho = () => {
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent mb-6">
-            QUALIFICAÇÃO
-          </span>
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 tracking-tight text-white">
             Para quem é o{" "}
             <span className="text-accent">Método 8X?</span>

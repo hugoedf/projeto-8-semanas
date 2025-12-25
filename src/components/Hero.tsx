@@ -51,7 +51,7 @@ const Hero = () => {
           </p>
           
           {/* Watch CTA */}
-          <p className="text-accent font-semibold text-sm uppercase tracking-widest mb-4">
+          <p className="text-accent font-bold text-sm uppercase tracking-widest mb-4">
             ▶ Assista ao vídeo
           </p>
           
