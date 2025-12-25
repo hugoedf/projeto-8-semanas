@@ -61,23 +61,25 @@ const Benefits = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-4xl mx-auto">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <div
                 key={index}
-                className="bg-card border border-border/80 rounded-2xl p-5 sm:p-6 hover-lift group shadow-sm hover:shadow-lg transition-all duration-300"
+                className="bg-card border border-border/80 rounded-xl p-5 sm:p-6 shadow-lg shadow-black/5 hover:shadow-xl transition-all duration-300 flex items-start gap-4"
               >
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-all duration-300">
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
+                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-accent/15 flex items-center justify-center">
+                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-accent" />
                 </div>
-                <h3 className="font-display text-base sm:text-lg mb-2 text-foreground tracking-tight font-medium">
-                  {benefit.title}
-                </h3>
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                  {benefit.description}
-                </p>
+                <div className="flex-1 pt-1">
+                  <h3 className="font-display text-base sm:text-lg mb-1.5 text-foreground tracking-tight font-medium">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
               </div>
             );
           })}
