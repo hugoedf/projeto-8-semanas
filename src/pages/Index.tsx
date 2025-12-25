@@ -36,7 +36,7 @@ const Index = () => {
       <ForWho />
       <Guarantee />
       {/* 8. BLOCO DE DECISÃO */}
-      <DecisionBlock className="bg-secondary" />
+      <DecisionBlock />
       {/* 9. CTA FINAL */}
       <CTA />
       <FAQ />
