@@ -894,3 +894,22 @@ section:has(h2) > .elementor-container {
     margin-bottom: 2.5rem;
   }
 }
+
+/* ======================================================
+   🔧 HOTFIX - "Dores" (Problems) intro text must remain
+   (keeps the small paragraph right below the headline)
+====================================================== */
+
+/* Ensure the intro paragraph keeps its intended small size + muted tone.
+   Global `section p` rules were overriding it via `!important`. */
+section.bg-slate-50 p.text-slate-500 {
+  font-size: 0.95rem !important;
+  color: hsl(var(--muted-foreground)) !important;
+  line-height: 1.7 !important;
+}
+
+@media (min-width: 640px) {
+  section.bg-slate-50 p.text-slate-500 {
+    font-size: 1rem !important;
+  }
+}
