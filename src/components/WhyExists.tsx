@@ -21,7 +21,7 @@ const WhyExists = () => {
             <div className="absolute inset-0 bg-accent/5 rounded-3xl blur-2xl scale-105" />
             
             {/* Main card with accent border glow */}
-            <div className="highlight-box relative p-7 sm:p-9">
+            <div className="solution-hero-box relative">
               {/* Decorative top line */}
               <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
               
