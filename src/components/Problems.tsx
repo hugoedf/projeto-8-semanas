@@ -49,13 +49,6 @@ const Problems = () => {
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="max-w-3xl mx-auto">
           
-          {/* Badge de contexto */}
-          <div className="text-center mb-6">
-            <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent">
-              A DOR
-            </span>
-          </div>
-          
           {/* Headline provocativa - centralizado */}
           <div className="text-center mb-8">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight text-white leading-tight mb-2">
