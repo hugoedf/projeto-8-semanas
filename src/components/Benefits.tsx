@@ -45,18 +45,18 @@ const benefits = [
 
 const Benefits = () => {
   return (
-    <section className="py-16 sm:py-24 bg-background">
+    <section className="section-spacing bg-background">
       <div className="container mx-auto px-5 sm:px-6">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 px-2 tracking-tight text-foreground leading-tight">
+        <div className="text-center mb-14 sm:mb-18 max-w-2xl mx-auto">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5 tracking-tight text-foreground">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas:</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Não é só sobre ganhar músculo.<br />
-            <span className="font-medium text-foreground">É sobre treinar com método e finalmente ver resultados.</span>
+          <p className="text-muted-foreground text-base sm:text-lg mb-4">
+            Não é só sobre ganhar músculo.
+            <span className="font-medium text-foreground"> É sobre treinar com método e finalmente ver resultados.</span>
           </p>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto leading-relaxed mt-4">
+          <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
             Treinar muda completamente quando você entra na academia sabendo exatamente o que fazer — o treino deixa de ser ansiedade e vira execução.
           </p>
         </div>
@@ -67,16 +67,19 @@ const Benefits = () => {
             return (
               <div
                 key={index}
-                className="bg-card border border-border/80 rounded-xl p-5 sm:p-6 shadow-lg shadow-black/5 hover:shadow-xl transition-all duration-300 flex items-start gap-4"
+                className="card-floating group bg-card p-6 sm:p-7 border border-border/40 flex items-start gap-5"
               >
-                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-accent/15 flex items-center justify-center">
-                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-accent" />
+                {/* Icon container - Large and prominent */}
+                <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-accent/10 border border-accent/15 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
+                  <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-accent" />
                 </div>
+                
+                {/* Text content */}
                 <div className="flex-1 pt-1">
-                  <h3 className="font-display text-base sm:text-lg mb-1.5 text-foreground tracking-tight font-medium">
+                  <h3 className="font-display text-base sm:text-lg font-semibold text-foreground tracking-tight mb-1.5">
                     {benefit.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                  <p className="text-muted-foreground text-sm sm:text-base">
                     {benefit.description}
                   </p>
                 </div>
