@@ -1,10 +1,18 @@
-import { Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calendar } from "lucide-react";
+import { Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calendar, type LucideIcon } from "lucide-react";
 
-const benefits = [
+interface Benefit {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  size?: "normal" | "large";
+}
+
+const benefits: Benefit[] = [
   {
     icon: Dumbbell,
     title: "Você sabe o que fazer",
-    description: "Cada exercício tem propósito. Zero dúvida, zero improviso."
+    description: "Cada exercício tem propósito. Zero dúvida, zero improviso.",
+    size: "large"
   },
   {
     icon: Target,
@@ -19,7 +27,8 @@ const benefits = [
   {
     icon: Apple,
     title: "Você come sem neura",
-    description: "Nutrição simples que funciona, sem frescura."
+    description: "Nutrição simples que funciona, sem frescura.",
+    size: "large"
   },
   {
     icon: Shield,
@@ -43,49 +52,79 @@ const benefits = [
   },
 ];
 
+const BenefitCard = ({ benefit, index }: { benefit: Benefit; index: number }) => {
+  const Icon = benefit.icon;
+  const isLarge = benefit.size === "large";
+  
+  return (
+    <div
+      className={`
+        group relative bg-white rounded-2xl shadow-md shadow-black/[0.03] border border-slate-100
+        hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/[0.08] hover:border-accent/20
+        transition-all duration-300 ease-out overflow-hidden
+        ${isLarge ? "sm:col-span-2 sm:row-span-1" : ""}
+      `}
+    >
+      {/* Gradient hover overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      
+      <div className={`relative p-6 sm:p-7 ${isLarge ? "sm:flex sm:items-center sm:gap-6" : ""}`}>
+        {/* Icon container - Large and prominent */}
+        <div className={`
+          flex-shrink-0 rounded-xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/15
+          flex items-center justify-center mb-4
+          group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-accent/10 transition-all duration-300
+          ${isLarge ? "w-14 h-14 sm:w-16 sm:h-16 sm:mb-0" : "w-12 h-12 sm:w-14 sm:h-14"}
+        `}>
+          <Icon className={`text-accent ${isLarge ? "w-7 h-7 sm:w-8 sm:h-8" : "w-6 h-6 sm:w-7 sm:h-7"}`} strokeWidth={1.75} />
+        </div>
+        
+        {/* Text content */}
+        <div className="flex-1">
+          <h3 className={`
+            font-display font-bold text-slate-900 tracking-tight mb-1.5
+            ${isLarge ? "text-lg sm:text-xl" : "text-base sm:text-lg"}
+          `}>
+            {benefit.title}
+          </h3>
+          <p className={`
+            text-slate-600 leading-relaxed
+            ${isLarge ? "text-base" : "text-sm sm:text-base"}
+          `}>
+            {benefit.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Benefits = () => {
   return (
-    <section className="section-spacing bg-background">
-      <div className="container mx-auto px-5 sm:px-6">
+    <section className="section-spacing bg-slate-50 relative overflow-hidden">
+      {/* Subtle dot pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none" />
+      
+      <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="text-center mb-14 sm:mb-18 max-w-2xl mx-auto">
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5 tracking-tight text-foreground">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas:</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg mb-4">
+          <p className="text-slate-600 text-base sm:text-lg mb-4">
             Não é só sobre ganhar músculo.
-            <span className="font-medium text-foreground"> É sobre treinar com método e finalmente ver resultados.</span>
+            <span className="font-semibold text-slate-900"> É sobre treinar com método e finalmente ver resultados.</span>
           </p>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
+          <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto">
             Treinar muda completamente quando você entra na academia sabendo exatamente o que fazer — o treino deixa de ser ansiedade e vira execução.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
-          {benefits.map((benefit, index) => {
-            const Icon = benefit.icon;
-            return (
-              <div
-                key={index}
-                className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl hover:-translate-y-1 hover:border-accent/30 transition-all duration-300 group flex items-start gap-4 sm:gap-5"
-              >
-                {/* Icon container - Large and prominent */}
-                <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center group-hover:bg-accent/15 group-hover:scale-105 transition-all duration-300">
-                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-accent" />
-                </div>
-                
-                {/* Text content */}
-                <div className="flex-1 pt-0.5">
-                  <h3 className="font-display text-base sm:text-lg font-semibold text-gray-900 tracking-tight mb-1">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                    {benefit.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto">
+          {benefits.map((benefit, index) => (
+            <BenefitCard key={index} benefit={benefit} index={index} />
+          ))}
         </div>
       </div>
     </section>
