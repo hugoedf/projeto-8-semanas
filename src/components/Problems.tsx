@@ -45,7 +45,7 @@ const explanationPoints = [
 
 const Problems = () => {
   return (
-    <section className="py-14 sm:py-16 md:py-20 bg-slate-50 relative overflow-hidden">
+    <section className="py-20 sm:py-24 md:py-28 bg-slate-50 relative overflow-hidden">
       {/* Subtle texture overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none" />
       
@@ -53,7 +53,11 @@ const Problems = () => {
         <div className="max-w-3xl mx-auto">
           
           {/* 1️⃣ Headline provocativa */}
-          <div className="text-center mb-6 sm:mb-8 max-w-[600px] mx-auto">
+          <div className="text-center mb-5 sm:mb-6 max-w-[650px] mx-auto">
+            {/* Badge de contexto */}
+            <span className="inline-block text-xs font-bold text-accent uppercase tracking-[0.15em] mb-4">
+              A Dor
+            </span>
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-[-0.02em] text-foreground leading-tight">
               Você treina, se esforça…
             </h2>
@@ -63,9 +67,12 @@ const Problems = () => {
           </div>
           
           {/* Introdução emocional - ponte leve */}
-          <div className="text-center max-w-[540px] mx-auto mb-6 sm:mb-8">
-            <p className="text-slate-500 text-sm sm:text-base" style={{ lineHeight: '1.7' }}>
+          <div className="text-center max-w-[650px] mx-auto mb-8 sm:mb-10">
+            <p className="text-slate-600 text-sm sm:text-base mb-3" style={{ lineHeight: '1.75' }}>
               E o pior não é treinar pesado. É sentir que o esforço não está voltando em forma de resultado.
+            </p>
+            <p className="text-slate-500 text-sm sm:text-base" style={{ lineHeight: '1.75' }}>
+              Provavelmente você já saiu da academia com a sensação de ter feito tudo certo… mas sem a certeza de que aquilo realmente estava funcionando.
             </p>
           </div>
           

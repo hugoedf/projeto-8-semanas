@@ -101,18 +101,22 @@ const BenefitCard = ({ benefit, index }: { benefit: Benefit; index: number }) =>
 
 const Benefits = () => {
   return (
-    <section className="py-14 sm:py-16 md:py-20 bg-slate-50 relative overflow-hidden">
+    <section className="py-20 sm:py-24 md:py-28 bg-slate-50 relative overflow-hidden">
       {/* Subtle dot pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none" />
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         {/* Título - próximo dos cards */}
-        <div className="text-center mb-8 sm:mb-10 max-w-[550px] mx-auto">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-2.5 tracking-[-0.02em] text-foreground">
+        <div className="text-center mb-10 sm:mb-12 max-w-[650px] mx-auto">
+          {/* Badge de contexto */}
+          <span className="inline-block text-xs font-bold text-accent uppercase tracking-[0.15em] mb-4">
+            O Sistema
+          </span>
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-[-0.02em] text-foreground">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas</span>
           </h2>
-          <p className="text-slate-500 text-sm sm:text-base">
+          <p className="text-slate-600 text-sm sm:text-base" style={{ lineHeight: '1.75' }}>
             Não é só sobre ganhar músculo. É sobre treinar com método.
           </p>
         </div>
