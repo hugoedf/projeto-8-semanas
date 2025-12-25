@@ -652,30 +652,46 @@ section:has(h2) > .elementor-container {
 }
 
 /* ======================================================
-   📐 PAUSAS VISUAIS - RESPIRO ENTRE EMOÇÕES
+   📐 REGRA DE OURO DE ESPAÇAMENTO
+   - Pouco espaço: textos da mesma ideia
+   - Médio: transições
+   - Grande: só A VERDADE e DECISÃO
 ====================================================== */
 
-/* Espaçamento premium entre seções emocionais */
+/* Seção padrão - espaçamento médio (narrativa fluida) */
 .section-breathing {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
 }
 
 @media (min-width: 640px) {
   .section-breathing {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .section-breathing {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
 }
 
-/* Divisor visual sutil entre seções */
+/* Seção de DECISÃO - espaçamento máximo (momento chave) */
+.decision-section {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+@media (min-width: 640px) {
+  .decision-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* Divisor visual sutil - mais discreto */
 .section-divider {
   position: relative;
 }
@@ -686,77 +702,63 @@ section:has(h2) > .elementor-container {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
+  width: 60px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, hsla(0 0% 0% / 0.08), transparent);
+  background: linear-gradient(90deg, transparent, hsla(0 0% 0% / 0.05), transparent);
 }
 
 /* ======================================================
-   📝 HIERARQUIA PRÉ-CARDS - PREPARAÇÃO EMOCIONAL
+   📝 PRÉ-CARDS - Próximo dos cards (continuidade)
 ====================================================== */
 
-/* Texto introdutório antes de grupos de cards */
+/* Texto introdutório - margem curta para cards */
 .pre-cards-intro {
   max-width: 600px;
-  margin: 0 auto 3.5rem;
+  margin: 0 auto 2rem;
   text-align: center;
 }
 
 .pre-cards-intro p {
-  font-size: 1.1rem;
-  line-height: 1.85;
-  color: hsl(0 0% 35%);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: hsl(0 0% 40%);
 }
 
 .pre-cards-intro .lead {
-  font-size: 1.2rem;
-  color: hsl(0 0% 18%);
+  font-size: 1.1rem;
+  color: hsl(0 0% 25%);
   font-weight: 500;
 }
 
 @media (min-width: 640px) {
   .pre-cards-intro {
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
   }
   
   .pre-cards-intro p {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
   }
   
   .pre-cards-intro .lead {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 }
 
 /* ======================================================
-   🎯 BLOCO DE DECISÃO - MOMENTO DE ESCOLHA
+   🎯 BLOCO DE DECISÃO - MOMENTO DE ESCOLHA (máximo impacto)
 ====================================================== */
-
-.decision-section {
-  position: relative;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
-@media (min-width: 640px) {
-  .decision-section {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
-}
 
 .decision-card {
   background: linear-gradient(160deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
-  border-radius: 28px;
-  padding: 3rem 2rem;
-  max-width: 720px;
+  border-radius: 24px;
+  padding: 2.5rem 1.5rem;
+  max-width: 680px;
   margin: 0 auto;
   text-align: center;
   box-shadow: 
-    0 30px 80px hsla(0 0% 0% / 0.06),
-    0 15px 35px hsla(0 0% 0% / 0.04),
-    inset 0 1px 0 hsla(0 0% 100% / 0.9);
-  border: 1px solid hsla(0 0% 0% / 0.05);
+    0 25px 60px hsla(0 0% 0% / 0.05),
+    0 10px 25px hsla(0 0% 0% / 0.03);
+  border: 1px solid hsla(0 0% 0% / 0.04);
   position: relative;
   overflow: hidden;
 }
@@ -767,14 +769,14 @@ section:has(h2) > .elementor-container {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 3px;
   background: linear-gradient(90deg, hsl(var(--accent)), hsl(25 100% 55%), hsl(var(--accent)));
 }
 
 @media (min-width: 640px) {
   .decision-card {
-    padding: 4rem 3.5rem;
-    border-radius: 32px;
+    padding: 3rem 2.5rem;
+    border-radius: 28px;
   }
 }
 
