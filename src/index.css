@@ -90,10 +90,18 @@
     --fitness-light: 0 0% 97%;
     
     /* GRADIENTES ORIGINAIS - Preto intenso com laranja */
-    --gradient-hero: linear-gradient(145deg, hsl(0 0% 0%) 0%, hsl(0 0% 2%) 50%, hsl(0 0% 0%) 100%);
+    /* Black Fire: Preto puro descendo para um laranja muito profundo e sutil */
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(16 40% 4%) 100%);
+    
+    /* Variação para seções de conteúdo (8 semanas) */
+    --gradient-section-dark: linear-gradient(160deg, hsl(0 0% 0%) 20%, hsl(16 50% 5%) 100%);
+    
     --gradient-accent: linear-gradient(135deg, hsl(16 100% 60%) 0%, hsl(16 100% 50%) 100%);
-    --gradient-card-dark: linear-gradient(180deg, hsla(0 0% 5% / 0.95) 0%, hsla(0 0% 0% / 0.98) 100%);
-    --gradient-dark-intense: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(0 0% 3%) 100%);
+    
+    /* Cards escuros com toque quente */
+    --gradient-card-dark: linear-gradient(180deg, hsla(16 20% 6% / 0.95) 0%, hsla(0 0% 0% / 0.98) 100%);
+    
+    --gradient-dark-intense: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(16 30% 3%) 100%);
     
     /* Sombras premium com laranja */
     --shadow-glow: 0 0 50px hsla(16 100% 60% / 0.3);
@@ -327,22 +335,36 @@ section:not([class*="bg-fitness"]):not([class*="gradient-hero"]):not(.dark) {
 }
 
 /* ======================================================
-   3. SEÇÃO DE DORES - Cards Flutuantes Premium
+   3. SEÇÃO DE DORES - Cards Flutuantes Premium (IMPACTO)
 ====================================================== */
 .pain-card-premium {
   background: hsl(0 0% 100%);
   margin-bottom: 16px;
-  padding: 24px 30px;
+  padding: 28px 32px; /* Mais respiro */
   border-radius: 12px;
-  box-shadow: 0 4px 20px hsla(0 0% 0% / 0.04);
-  border: 1px solid hsla(0 0% 0% / 0.02);
-  border-left: 4px solid hsl(16 100% 60%);
+  /* Sombra mais marcada para destacar do fundo */
+  box-shadow: 0 10px 30px -5px hsla(0 0% 0% / 0.1), 0 4px 10px -3px hsla(0 0% 0% / 0.05);
+  border: 1px solid hsla(0 0% 90%);
+  border-left: 6px solid hsl(16 100% 60%); /* Borda lateral mais grossa */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.pain-card-premium h3, 
+.pain-card-premium h4 {
+  font-weight: 800 !important; /* Texto mais pesado */
+  letter-spacing: -0.02em;
+  color: hsl(0 0% 5%);
+}
+
+.pain-card-premium p {
+  font-weight: 500; /* Leitura mais sólida */
+  color: hsl(0 0% 30%);
+}
+
 .pain-card-premium:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px hsla(16 100% 60% / 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -5px hsla(16 100% 60% / 0.15);
+  border-color: hsl(16 100% 60% / 0.3);
 }
 
 /* ======================================================
@@ -364,16 +386,31 @@ section:not([class*="bg-fitness"]):not([class*="gradient-hero"]):not(.dark) {
 }
 
 /* ======================================================
-   5. SEÇÃO DE BENEFÍCIOS - Grid Apple Style
+   5. SEÇÃO DE BENEFÍCIOS - Grid Apple Style (IMPACTO)
 ====================================================== */
 .benefit-card-premium {
   background: hsl(0 0% 100%);
   border-radius: 16px;
-  padding: 24px;
+  padding: 28px;
   height: 100%;
-  box-shadow: 0 4px 24px hsla(0 0% 0% / 0.03);
-  border: 1px solid hsl(0 0% 94%);
+  /* Sombra mais profunda */
+  box-shadow: 0 10px 40px -10px hsla(0 0% 0% / 0.08);
+  border: 1px solid hsl(0 0% 92%);
   transition: all 0.3s ease;
+}
+
+.benefit-card-premium h3,
+.benefit-card-premium h4 {
+  font-weight: 800 !important;
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: hsl(0 0% 0%);
+}
+
+.benefit-card-premium p {
+  font-weight: 500;
+  color: hsl(0 0% 35%);
+  line-height: 1.6;
 }
 
 .benefit-card-premium:hover {
@@ -410,23 +447,24 @@ section p {
 }
 
 /* ======================================================
-   🎯 SEÇÕES ESCURAS - PRETO INTENSO FITNESS
+   🎯 SEÇÕES ESCURAS - GRADIENTE BLACK FIRE
 ====================================================== */
 
-/* Todas as seções escuras usam PRETO PURO */
+/* Seções escuras gerais - Gradiente sutil preto->laranja dark */
 section[class*="bg-slate"],
 section[class*="bg-gray"],
 section[class*="bg-zinc"],
 .bg-fitness-dark,
 .bg-fitness-darker {
-  background: hsl(0 0% 0%) !important;
-  background-image: none !important;
+  background-image: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(16 40% 4%) 100%) !important;
+  background-color: hsl(0 0% 0%) !important;
 }
 
-/* Seções com gradiente hero - PRETO INTENSO */
+/* Seção "8 Semanas" e Hero - Gradiente mais rico */
 .gradient-hero,
-section.gradient-hero {
-  background: linear-gradient(145deg, hsl(0 0% 0%) 0%, hsl(0 0% 2%) 50%, hsl(0 0% 0%) 100%) !important;
+section.gradient-hero,
+section:has(.elementor-icon-box-title) { /* Tenta pegar seções de features */
+  background-image: linear-gradient(160deg, hsl(0 0% 0%) 10%, hsl(16 50% 6%) 100%) !important;
 }
 
 /* Cards escuros com vidro - PRETO COM TRANSPARÊNCIA */
