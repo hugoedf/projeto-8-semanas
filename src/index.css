@@ -913,3 +913,116 @@ section.bg-slate-50 p.text-slate-500 {
     font-size: 1rem !important;
   }
 }
+  /* =========================================
+   🔒 FUNDOS ESCUROS — PRETO PREMIUM (SEM AZUL)
+========================================= */
+
+.gradient-hero,
+.bg-gradient-dark,
+section[class*="dark"],
+section[class*="hero"] {
+  background: linear-gradient(
+    180deg,
+    hsl(0 0% 8%) 0%,
+    hsl(0 0% 5%) 100%
+  ) !important;
+}
+
+.dark {
+  --background: 0 0% 5%;
+  --card: 0 0% 8%;
+}
+
+/* Remove qualquer tonalidade azul escondida */
+[class*="blue"],
+[class*="slate"],
+[class*="indigo"] {
+  --tw-bg-opacity: 1;
+  background-color: hsl(0 0% 8%) !important;
+}
+/* =========================================
+   📐 REGRA DE OURO DE ESPAÇAMENTO (CRO)
+========================================= */
+
+/* Reduz espaços exagerados entre seções */
+section {
+  padding-top: clamp(3rem, 6vw, 5rem) !important;
+  padding-bottom: clamp(3rem, 6vw, 5rem) !important;
+}
+
+/* Só decisões importantes respiram mais */
+section.decision,
+section.final,
+section:has(button) {
+  padding-top: clamp(4.5rem, 8vw, 7rem) !important;
+  padding-bottom: clamp(4.5rem, 8vw, 7rem) !important;
+}
+/* =========================================
+   💥 BLOCOS DE IMPACTO (PAUSA EMOCIONAL)
+========================================= */
+
+section p strong:first-child,
+section p em:first-child {
+  display: block;
+  background: hsl(0 0% 100%);
+  padding: 2.5rem 2rem;
+  margin: 3rem auto;
+  max-width: 680px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 50px hsla(0 0% 0% / 0.06);
+  font-size: 1.15rem;
+  line-height: 1.85;
+}
+/* =========================================
+   🧲 TEXTO + CARDS DEVEM FICAR JUNTOS
+========================================= */
+
+section > p + div,
+section > p + ul {
+  margin-top: 1.5rem !important;
+}
+
+section > p {
+  margin-bottom: 1.2rem !important;
+}
+/* =========================================
+   🎯 POR QUE EXISTE = BLOCO ÚNICO
+========================================= */
+
+section:has(h2:contains("Por que")) > div {
+  background: hsl(0 0% 100%);
+  padding: 3rem 2.5rem;
+  border-radius: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 25px 60px hsla(18 100% 50% / 0.08);
+}
+
+section:has(h2:contains("Por que")) h2 {
+  text-align: center;
+}
+/* =========================================
+   🕳️ EVITAR BURACOS VISUAIS
+========================================= */
+
+section p:empty {
+  display: none !important;
+}
+/* =========================================
+   🚀 CTA = DECISÃO FINAL
+========================================= */
+
+button,
+a[href*="checkout"],
+a[href*="comprar"] {
+  box-shadow: 0 12px 40px -10px hsla(18 100% 58% / 0.6);
+  transition: all 0.3s ease;
+}
+
+button:hover,
+a[href*="checkout"]:hover {
+  transform: translateY(-2px);
+}
+
