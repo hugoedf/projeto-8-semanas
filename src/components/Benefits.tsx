@@ -45,38 +45,38 @@ const benefits = [
 
 const Benefits = () => {
   return (
-    <section className="py-12 sm:py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-10 sm:mb-12 md:mb-16">
-          <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-3 sm:mb-4 px-2 tracking-tight text-foreground leading-tight">
+    <section className="py-16 sm:py-24 bg-background">
+      <div className="container mx-auto px-5 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 px-2 tracking-tight text-foreground leading-tight">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas:</span>
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-2">
+          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Não é só sobre ganhar músculo.<br />
             <span className="font-medium text-foreground">É sobre treinar com método e finalmente ver resultados.</span>
           </p>
-          <p className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-xl mx-auto leading-relaxed mt-3 sm:mt-4 px-2">
+          <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto leading-relaxed mt-4">
             Treinar muda completamente quando você entra na academia sabendo exatamente o que fazer — o treino deixa de ser ansiedade e vira execução.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-4xl mx-auto">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <div
                 key={index}
-                className="bg-card border border-border/80 rounded-xl p-4 sm:p-5 md:p-6 shadow-md shadow-black/5 hover:shadow-lg transition-all duration-300 flex items-start gap-3 sm:gap-4"
+                className="bg-card border border-border/80 rounded-xl p-5 sm:p-6 shadow-lg shadow-black/5 hover:shadow-xl transition-all duration-300 flex items-start gap-4"
               >
-                <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-accent/15 flex items-center justify-center">
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-accent" />
+                <div className="flex-shrink-0 w-14 h-14 rounded-full bg-accent/15 flex items-center justify-center">
+                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-accent" />
                 </div>
-                <div className="flex-1 min-w-0 pt-0.5 sm:pt-1">
-                  <h3 className="font-display text-sm sm:text-base md:text-lg mb-1 sm:mb-1.5 text-foreground tracking-tight font-medium">
+                <div className="flex-1 pt-1">
+                  <h3 className="font-display text-base sm:text-lg mb-1.5 text-foreground tracking-tight font-medium">
                     {benefit.title}
                   </h3>
-                  <p className="text-muted-foreground text-xs sm:text-sm md:text-base leading-relaxed">
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
                     {benefit.description}
                   </p>
                 </div>
