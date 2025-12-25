@@ -2,167 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fonts loaded via HTML with preload and display=swap for performance */
-
-/* VSL Slide Animations */
-@keyframes textReveal {
-  from {
-    opacity: 0;
-    filter: blur(8px);
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes emojiBounce {
-  0%, 100% { 
-    transform: scale(1); 
-  }
-  50% { 
-    transform: scale(1.1); 
-  }
-}
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
 
 /* =====================================================
-   🔥 CORES ORIGINAIS FITNESS - PADRÃO FORÇA
-   Preto intenso + Laranja vibrante
+   🎨 PALETA PREMIUM - HIERARQUIA VISUAL PARA CONVERSÃO
 ===================================================== */
 
 @layer base {
   :root {
-    /* Off-white base para contraste premium */
-    --background: 0 0% 98%;
-    --foreground: 0 0% 5%;
-
-    /* Cards brancos puros para contraste máximo */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
-
-    /* PRETO INTENSO - Cor primária fitness */
-    --primary: 0 0% 2%;
-    --primary-foreground: 0 0% 100%;
-
-    /* Tons sutis de cinza */
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 5%;
-
-    --muted: 0 0% 97%;
-    --muted-foreground: 0 0% 40%;
-
-    /* LARANJA VIBRANTE - Cor de destaque fitness */
-    --accent: 16 100% 60%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 65% 55%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 16 100% 60%;
-
-    --radius: 0.875rem;
+    /* BACKGROUNDS */
+    --bg-black: 0 0% 0%;
+    --bg-white: 0 0% 100%;
+    --bg-off-white: 0 0% 97%;
+    --bg-dark-gray: 0 0% 10%;
     
-    /* CORES FITNESS - PADRÃO ORIGINAL FORÇA */
-    --fitness-orange: 16 100% 60%;
-    --fitness-orange-dark: 16 100% 50%;
-    --fitness-dark: 0 0% 2%;
-    --fitness-darker: 0 0% 0%;
-    --fitness-black: 0 0% 0%;
-    --fitness-gray: 0 0% 40%;
-    --fitness-light: 0 0% 97%;
+    /* TEXTOS - Em Fundos Escuros */
+    --text-white-pure: 0 0% 100%;
+    --text-white-90: 0 0% 100%; /* Com opacity 0.9 */
+    --text-white-80: 0 0% 100%; /* Com opacity 0.8 */
     
-    /* GRADIENTES ORIGINAIS - Preto intenso com laranja */
-    /* Black Fire: Preto puro descendo para um laranja muito profundo e sutil */
-    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(16 40% 4%) 100%);
+    /* TEXTOS - Em Fundos Brancos */
+    --text-black-dark: 0 0% 5%;
+    --text-black-70: 0 0% 5%; /* Com opacity 0.7 */
+    --text-gray-dark: 0 0% 20%;
+    --text-gray-medium: 0 0% 40%;
     
-    /* Variação para seções de conteúdo (8 semanas) */
-    --gradient-section-dark: linear-gradient(160deg, hsl(0 0% 0%) 20%, hsl(16 50% 5%) 100%);
+    /* DESTAQUE */
+    --accent-orange: 16 100% 60%;
+    --accent-orange-dark: 16 100% 50%;
+    --accent-orange-light: 16 100% 70%;
     
-    --gradient-accent: linear-gradient(135deg, hsl(16 100% 60%) 0%, hsl(16 100% 50%) 100%);
+    /* RADIUS */
+    --radius: 0.5rem;
     
-    /* Cards escuros com toque quente */
-    --gradient-card-dark: linear-gradient(180deg, hsla(16 20% 6% / 0.95) 0%, hsla(0 0% 0% / 0.98) 100%);
+    /* SOMBRAS */
+    --shadow-sm: 0 2px 8px hsla(0 0% 0% / 0.06);
+    --shadow-md: 0 4px 16px hsla(0 0% 0% / 0.08);
+    --shadow-lg: 0 10px 32px hsla(0 0% 0% / 0.1);
     
-    --gradient-dark-intense: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(16 30% 3%) 100%);
-    
-    /* Sombras premium com laranja */
-    --shadow-glow: 0 0 50px hsla(16 100% 60% / 0.3);
-    --shadow-glow-strong: 0 0 80px hsla(16 100% 60% / 0.4);
-    --shadow-card: 0 10px 40px -10px hsla(0 0% 0% / 0.08);
-    --shadow-card-hover: 0 20px 50px -15px hsla(0 0% 0% / 0.12);
-    --shadow-card-dark: 0 8px 40px hsla(0 0% 0% / 0.5);
-    --shadow-accent: 0 8px 30px -8px hsla(16 100% 60% / 0.5);
-    
-    /* Transições */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-    /* Sidebar com preto intenso */
-    --sidebar-background: 0 0% 0%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 0 0% 0%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 5%;
-    --sidebar-accent-foreground: 16 100% 60%;
-    --sidebar-border: 0 0% 10%;
-    --sidebar-ring: 16 100% 60%;
+    /* TRANSIÇÕES */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* Modo Dark (padrão) */
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 98%;
+    --background: var(--bg-black);
+    --foreground: var(--text-white-pure);
+    --card: var(--bg-dark-gray);
+    --card-foreground: var(--text-white-pure);
+    --primary: var(--accent-orange);
+    --primary-foreground: var(--text-white-pure);
+    --secondary: var(--bg-dark-gray);
+    --secondary-foreground: var(--text-white-90);
+    --muted: var(--bg-dark-gray);
+    --muted-foreground: var(--text-white-80);
+    --accent: var(--accent-orange);
+    --accent-foreground: var(--text-white-pure);
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: var(--accent-orange);
+  }
 
-    --card: 0 0% 3%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 0 0% 0%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 0%;
-
-    --secondary: 0 0% 8%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 0 0% 8%;
-    --muted-foreground: 0 0% 60%;
-
-    --accent: 16 100% 60%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 16 100% 60%;
-    
-    --sidebar-background: 0 0% 0%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 16 100% 60%;
-    --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 8%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 16 100% 60%;
+  /* Modo Light (para seções brancas) */
+  .light {
+    --background: var(--bg-white);
+    --foreground: var(--text-black-dark);
+    --card: var(--bg-off-white);
+    --card-foreground: var(--text-black-dark);
+    --primary: var(--accent-orange);
+    --primary-foreground: var(--text-white-pure);
+    --secondary: var(--bg-off-white);
+    --secondary-foreground: var(--text-black-70);
+    --muted: var(--bg-off-white);
+    --muted-foreground: var(--text-gray-medium);
+    --accent: var(--accent-orange);
+    --accent-foreground: var(--text-white-pure);
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: var(--accent-orange);
   }
 }
 
@@ -176,809 +93,331 @@
     font-family: 'Inter', system-ui, sans-serif;
     font-weight: 400;
     letter-spacing: -0.01em;
-    line-height: 1.65;
+    line-height: 1.6;
   }
-  
-  p {
-    line-height: 1.7;
-  }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', system-ui, sans-serif;
+    font-family: 'Oswald', system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
   }
+
+  h1 { font-weight: 800; letter-spacing: -0.03em; }
+  h2 { font-weight: 700; letter-spacing: -0.025em; }
+  h3 { font-weight: 600; letter-spacing: -0.015em; }
+}
+
+/* =====================================================
+   📐 SEÇÕES - ALTERNÂNCIA BRANCO/PRETO
+===================================================== */
+
+/* SEÇÃO ESCURA (Preto + Branco + Laranja) */
+.section-dark {
+  @apply bg-black text-white;
   
-  h1 {
-    font-weight: 800;
-    letter-spacing: -0.03em;
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-white;
   }
   
-  h2 {
-    font-weight: 700;
-    letter-spacing: -0.025em;
+  p {
+    @apply text-white/85;
   }
   
-  h3 {
-    letter-spacing: -0.015em;
+  .text-muted {
+    @apply text-white/60;
   }
 }
 
-@layer utilities {
-  .gradient-hero {
-    background: var(--gradient-hero);
+/* SEÇÃO CLARA (Branco + Preto + Laranja) */
+.section-light {
+  @apply bg-white text-black;
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-black font-bold;
   }
   
-  .gradient-accent {
-    background: var(--gradient-accent);
+  p {
+    @apply text-gray-700;
   }
   
-  .gradient-card-dark {
-    background: var(--gradient-card-dark);
-  }
-  
-  .gradient-dark-intense {
-    background: var(--gradient-dark-intense);
-  }
-  
-  .text-gradient {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .hover-lift {
-    transition: var(--transition-smooth);
-  }
-  
-  .hover-lift:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-card-hover);
-  }
-  
-  .glow-accent {
-    box-shadow: var(--shadow-glow);
-  }
-  
-  .glow-accent-strong {
-    box-shadow: var(--shadow-glow-strong);
-  }
-  
-  /* Premium floating card */
-  .card-premium {
-    @apply bg-card rounded-2xl;
-    box-shadow: var(--shadow-card);
-    transition: var(--transition-smooth);
-  }
-  
-  .card-premium:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card-hover);
-  }
-  
-  /* Floating card with hover effect */
-  .card-floating {
-    @apply bg-card rounded-xl;
-    box-shadow: var(--shadow-card);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .card-floating:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-card-hover);
-  }
-  
-  .card-dark-glass {
-    @apply backdrop-blur-md border border-white/10 rounded-2xl;
-    background: var(--gradient-card-dark);
-    box-shadow: var(--shadow-card-dark);
-  }
-  
-  /* Premium section spacing */
-  .section-spacing {
-    @apply py-20 sm:py-28 lg:py-32;
-  }
-  
-  .section-spacing-sm {
-    @apply py-16 sm:py-20 lg:py-24;
-  }
-  
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  /* Button with accent glow */
-  .btn-glow {
-    box-shadow: var(--shadow-accent);
-    transition: var(--transition-smooth);
-  }
-  
-  .btn-glow:hover {
-    box-shadow: 0 12px 40px -10px hsla(16 100% 60% / 0.6);
-    transform: translateY(-1px);
-  }
-  
-  /* Highlight box with glow */
-  .highlight-box {
-    @apply bg-card border border-accent/30 rounded-2xl;
-    box-shadow: 0 0 60px -20px hsla(16 100% 60% / 0.2);
-  }
-  
-  a[href*="lovable"] {
-    display: none !important;
+  .text-muted {
+    @apply text-gray-500;
   }
 }
 
-/* ======================================================
-   💎 CSS MESTRE - VISUAL PREMIUM / HIGH TICKET
-   Foco: Profundidade, Hierarquia e Leitura Guiada
-====================================================== */
-
-/* 1. TIPOGRAFIA & BASE */
-section p {
-  line-height: 1.8 !important;
-  color: hsl(0 0% 25%);
-  font-size: 1.05rem;
+/* SEÇÃO OFF-WHITE (Variação clara) */
+.section-off-white {
+  @apply bg-slate-50 text-black;
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-black font-bold;
+  }
+  
+  p {
+    @apply text-gray-700;
+  }
 }
 
-section h2, section h3 {
-  letter-spacing: -0.03em !important;
+/* =====================================================
+   🎯 CARDS E COMPONENTES
+===================================================== */
+
+/* Card Premium em Fundo Escuro */
+.card-dark-premium {
+  @apply bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6;
+  transition: var(--transition);
+  
+  &:hover {
+    @apply border-orange-500/30 bg-black/60;
+  }
+  
+  h3, h4 {
+    @apply text-white font-bold mb-2;
+  }
+  
+  p {
+    @apply text-white/80;
+  }
 }
 
-/* 2. FUNDO DAS SEÇÕES CLARAS */
-section.bg-background,
-section.bg-white,
-section:not([class*="bg-fitness"]):not([class*="gradient-hero"]):not(.dark) {
-  background-color: hsl(0 0% 98%) !important;
+/* Card Premium em Fundo Claro */
+.card-light-premium {
+  @apply bg-white border border-gray-200 rounded-lg p-6 shadow-sm;
+  transition: var(--transition);
+  
+  &:hover {
+    @apply border-orange-500/30 shadow-md;
+  }
+  
+  h3, h4 {
+    @apply text-black font-bold mb-2;
+  }
+  
+  p {
+    @apply text-gray-700;
+  }
 }
 
-/* ======================================================
-   3. SEÇÃO DE DORES - Cards Flutuantes Premium (IMPACTO)
-====================================================== */
-.pain-card-premium {
-  background: hsl(0 0% 100%);
-  margin-bottom: 16px;
-  padding: 28px 32px; /* Mais respiro */
-  border-radius: 12px;
-  /* Sombra mais marcada para destacar do fundo */
-  box-shadow: 0 10px 30px -5px hsla(0 0% 0% / 0.1), 0 4px 10px -3px hsla(0 0% 0% / 0.05);
-  border: 1px solid hsla(0 0% 90%);
-  border-left: 6px solid hsl(16 100% 60%); /* Borda lateral mais grossa */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* =====================================================
+   🔤 TIPOGRAFIA COM HIERARQUIA
+===================================================== */
+
+/* Título Principal (Hero) */
+.title-hero {
+  @apply text-5xl md:text-7xl font-display font-black leading-tight;
+  letter-spacing: -0.03em;
 }
 
-.pain-card-premium h3, 
-.pain-card-premium h4 {
-  font-weight: 800 !important; /* Texto mais pesado */
+/* Título Seção */
+.title-section {
+  @apply text-3xl md:text-4xl font-display font-bold;
   letter-spacing: -0.02em;
-  color: hsl(0 0% 5%);
+  margin-bottom: 1rem;
 }
 
-.pain-card-premium p {
-  font-weight: 500; /* Leitura mais sólida */
-  color: hsl(0 0% 30%);
+/* Subtítulo */
+.subtitle {
+  @apply text-lg md:text-xl font-medium;
+  margin-bottom: 1.5rem;
 }
 
-.pain-card-premium:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -5px hsla(16 100% 60% / 0.15);
-  border-color: hsl(16 100% 60% / 0.3);
+/* Corpo de Texto */
+.body-text {
+  @apply text-base md:text-lg leading-relaxed;
+  line-height: 1.7;
 }
 
-/* ======================================================
-   4. SEÇÃO "POR QUE O MÉTODO EXISTE" - Hero Box
-====================================================== */
-.solution-hero-box {
-  background: hsl(0 0% 100%);
-  border-radius: 24px;
-  padding: 3rem !important;
-  box-shadow: 0 20px 60px hsla(16 100% 60% / 0.1);
-  border: 1px solid hsla(16 100% 60% / 0.15);
-  max-width: 1000px;
-  margin: 0 auto;
+/* Label/Pequeno */
+.label-text {
+  @apply text-xs md:text-sm font-semibold uppercase tracking-wider;
 }
 
-.solution-hero-box h2 {
-  color: hsl(0 0% 0%);
-  margin-bottom: 20px;
+/* =====================================================
+   🎨 DESTAQUE COM LARANJA (Estratégico)
+===================================================== */
+
+/* Laranja em Texto */
+.text-accent {
+  @apply text-orange-500 font-semibold;
 }
 
-/* ======================================================
-   5. SEÇÃO DE BENEFÍCIOS - Grid Apple Style (IMPACTO)
-====================================================== */
-.benefit-card-premium {
-  background: hsl(0 0% 100%);
-  border-radius: 16px;
-  padding: 28px;
-  height: 100%;
-  /* Sombra mais profunda */
-  box-shadow: 0 10px 40px -10px hsla(0 0% 0% / 0.08);
-  border: 1px solid hsl(0 0% 92%);
-  transition: all 0.3s ease;
+/* Borda Laranja (Cards) */
+.border-accent-left {
+  @apply border-l-4 border-orange-500;
 }
 
-.benefit-card-premium h3,
-.benefit-card-premium h4 {
-  font-weight: 800 !important;
-  font-size: 1.25rem;
-  margin-bottom: 12px;
-  color: hsl(0 0% 0%);
+/* Fundo Laranja Suave */
+.bg-accent-subtle {
+  @apply bg-orange-500/10;
 }
 
-.benefit-card-premium p {
-  font-weight: 500;
-  color: hsl(0 0% 35%);
-  line-height: 1.6;
+/* Ícone Laranja */
+.icon-accent {
+  @apply text-orange-500;
 }
 
-.benefit-card-premium:hover {
-  border-color: hsl(var(--accent));
-  transform: translateY(-5px);
+/* =====================================================
+   🔘 BOTÕES
+===================================================== */
+
+/* CTA Principal (Laranja) */
+.btn-cta-primary {
+  @apply bg-orange-500 text-white font-bold px-8 py-3 rounded-lg;
+  @apply hover:bg-orange-600 transition-all duration-300;
+  @apply shadow-lg hover:shadow-xl;
 }
 
-.benefit-card-premium svg,
-.benefit-card-premium img {
-  transform: scale(1.2);
-  margin-bottom: 15px;
-  display: block;
+/* CTA Secundário (Outline) */
+.btn-cta-secondary {
+  @apply border-2 border-orange-500 text-orange-500 font-bold px-8 py-3 rounded-lg;
+  @apply hover:bg-orange-500/10 transition-all duration-300;
 }
 
-.benefit-card-premium h3,
-.benefit-card-premium h4 {
-  font-weight: 700;
-  margin-bottom: 10px;
-}
+/* =====================================================
+   📦 SEÇÕES ESPECÍFICAS
+===================================================== */
 
-/* ======================================================
-   6. AJUSTES FINAIS DE POLIMENTO
-====================================================== */
-.section-clean {
-  background: hsl(0 0% 100%) !important;
-  border-top: 1px solid hsl(0 0% 94%);
-}
-
-/* Largura máxima de leitura para parágrafos */
-section p {
-  max-width: 75ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ======================================================
-   🎯 SEÇÕES ESCURAS - GRADIENTE BLACK FIRE
-====================================================== */
-
-/* Seções escuras gerais - Gradiente sutil preto->laranja dark */
-section[class*="bg-slate"],
-section[class*="bg-gray"],
-section[class*="bg-zinc"],
-.bg-fitness-dark,
-.bg-fitness-darker {
-  background-image: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(16 40% 4%) 100%) !important;
-  background-color: hsl(0 0% 0%) !important;
-}
-
-/* Seção "8 Semanas" e Hero - Gradiente mais rico */
-.gradient-hero,
-section.gradient-hero,
-section:has(.elementor-icon-box-title) { /* Tenta pegar seções de features */
-  background-image: linear-gradient(160deg, hsl(0 0% 0%) 10%, hsl(16 50% 6%) 100%) !important;
-}
-
-/* Cards escuros com vidro - PRETO COM TRANSPARÊNCIA */
-.card-dark-glass {
-  background: linear-gradient(180deg, hsla(0 0% 5% / 0.95) 0%, hsla(0 0% 0% / 0.98) 100%) !important;
-  backdrop-filter: blur(20px);
-  border: 1px solid hsla(0 0% 100% / 0.08);
-}
-
-/* ======================================================
-   🔥 ELEMENTOS LARANJA - DESTAQUE VIBRANTE
-====================================================== */
-
-/* Botões primários - LARANJA VIBRANTE */
-button[class*="bg-primary"],
-.btn-primary,
-a[class*="bg-primary"] {
-  background: hsl(16 100% 60%) !important;
-  color: hsl(0 0% 100%) !important;
-  border: none !important;
-}
-
-button[class*="bg-primary"]:hover,
-.btn-primary:hover,
-a[class*="bg-primary"]:hover {
-  background: hsl(16 100% 55%) !important;
-  box-shadow: 0 12px 40px -10px hsla(16 100% 60% / 0.6) !important;
-}
-
-/* Textos de destaque - LARANJA */
-.text-accent,
-[class*="text-orange"],
-.text-primary {
-  color: hsl(16 100% 60%) !important;
-}
-
-/* Bordas de destaque - LARANJA */
-.border-accent,
-[class*="border-orange"] {
-  border-color: hsl(16 100% 60%) !important;
-}
-
-/* ======================================================
-   📱 ÍCONES E ELEMENTOS DECORATIVOS
-====================================================== */
-
-/* Ícones laranjas destacados */
-.elementor-icon-box-icon i, 
-.elementor-icon-box-icon svg {
-  color: hsl(16 100% 60%) !important;
-  transform: scale(1.1);
-  margin-bottom: 10px;
-}
-
-/* Títulos fortes */
-.elementor-icon-box-title {
-  font-weight: 700 !important;
-  margin-bottom: 8px !important;
-}
-
-.elementor-icon-box-description {
-  font-size: 0.95rem !important;
-  line-height: 1.6 !important;
-}
-
-/* ======================================================
-   💎 BLOCOS DE IMPACTO
-====================================================== */
-
-.impact-block {
-  background: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 99%) 100%);
-  border-radius: 20px;
-  padding: 2.5rem 2rem;
-  margin: 3rem auto;
-  max-width: 680px;
-  text-align: center;
-  box-shadow: 
-    0 4px 30px hsla(0 0% 0% / 0.04),
-    0 1px 3px hsla(0 0% 0% / 0.02),
-    inset 0 1px 0 hsla(0 0% 100% / 0.8);
-  border: 1px solid hsla(0 0% 0% / 0.04);
-  position: relative;
-}
-
-.impact-block::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, hsl(16 100% 60%), transparent);
-  border-radius: 2px;
-}
-
-.impact-block p {
-  font-size: 1.15rem;
-  color: hsl(0 0% 20%);
-  line-height: 1.85;
-  max-width: none;
-}
-
-.impact-block strong,
-.impact-block .highlight {
-  color: hsl(0 0% 0%);
-  font-weight: 600;
-}
-
-@media (min-width: 640px) {
-  .impact-block {
-    padding: 3.5rem 3rem;
-    margin: 4rem auto;
+/* Hero Section */
+.hero-section {
+  @apply bg-black text-white py-20 md:py-32;
+  
+  .hero-title {
+    @apply title-hero mb-6;
   }
   
-  .impact-block p {
-    font-size: 1.25rem;
-  }
-}
-
-/* Bloco de Revelação */
-.revelation-block {
-  background: hsl(0 0% 100%);
-  border-radius: 24px;
-  padding: 2.5rem 2rem;
-  margin: 2rem auto 3rem;
-  max-width: 700px;
-  text-align: center;
-  box-shadow: 
-    0 20px 60px hsla(16 100% 60% / 0.08),
-    0 8px 25px hsla(0 0% 0% / 0.03);
-  border: 1px solid hsla(16 100% 60% / 0.12);
-  position: relative;
-  overflow: hidden;
-}
-
-.revelation-block::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent 10%, hsl(16 100% 60%) 50%, transparent 90%);
-}
-
-@media (min-width: 640px) {
-  .revelation-block {
-    padding: 3.5rem 3rem;
-    margin: 3rem auto 4rem;
-  }
-}
-
-/* ======================================================
-   📐 ESPAÇAMENTO
-====================================================== */
-
-.section-breathing {
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
-}
-
-@media (min-width: 640px) {
-  .section-breathing {
-    padding-top: 4.5rem;
-    padding-bottom: 4.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-breathing {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-}
-
-.decision-section {
-  padding-top: 4.5rem;
-  padding-bottom: 4.5rem;
-}
-
-@media (min-width: 640px) {
-  .decision-section {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
-}
-
-.section-divider {
-  position: relative;
-}
-
-.section-divider::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, hsla(0 0% 0% / 0.05), transparent);
-}
-
-/* ======================================================
-   📝 PRÉ-CARDS
-====================================================== */
-
-.pre-cards-intro {
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  text-align: center;
-}
-
-.pre-cards-intro p {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: hsl(0 0% 35%);
-}
-
-.pre-cards-intro .lead {
-  font-size: 1.1rem;
-  color: hsl(0 0% 20%);
-  font-weight: 500;
-}
-
-@media (min-width: 640px) {
-  .pre-cards-intro {
-    margin-bottom: 2.5rem;
+  .hero-subtitle {
+    @apply subtitle text-white/90;
   }
   
-  .pre-cards-intro p {
-    font-size: 1.1rem;
+  .hero-cta {
+    @apply btn-cta-primary mt-8;
+  }
+}
+
+/* Seção de Problemas (Pain Points) */
+.problems-section {
+  @apply section-light py-20 md:py-32;
+  
+  .problem-card {
+    @apply card-light-premium border-l-4 border-orange-500 mb-6;
+    
+    h3 {
+      @apply text-black font-bold text-lg mb-2;
+    }
+    
+    p {
+      @apply text-gray-700;
+    }
+  }
+}
+
+/* Seção de Benefícios */
+.benefits-section {
+  @apply section-dark py-20 md:py-32;
+  
+  .benefit-card {
+    @apply card-dark-premium;
+    
+    .icon {
+      @apply text-orange-500 text-3xl mb-4;
+    }
+    
+    h3 {
+      @apply text-white font-bold text-lg mb-2;
+    }
+    
+    p {
+      @apply text-white/80;
+    }
+  }
+}
+
+/* Seção de Garantia */
+.guarantee-section {
+  @apply section-dark py-20 md:py-32;
+  
+  .guarantee-card {
+    @apply bg-gradient-to-br from-black to-black/80 border border-orange-500/20 rounded-lg p-8;
+    
+    h3 {
+      @apply text-white font-bold text-xl mb-4;
+      @apply flex items-center gap-3;
+      
+      &::before {
+        content: '✓';
+        @apply text-orange-500 text-2xl;
+      }
+    }
+    
+    p {
+      @apply text-white/85;
+    }
+  }
+}
+
+/* =====================================================
+   🎯 HIERARQUIA DE CORES - REGRAS FINAIS
+===================================================== */
+
+/* Em Fundo Escuro */
+.dark {
+  h1, h2, h3 { @apply text-white; }
+  p { @apply text-white/85; }
+  .subtitle { @apply text-white/80; }
+  .text-muted { @apply text-white/60; }
+  .label-text { @apply text-white/70; }
+}
+
+/* Em Fundo Claro */
+.light {
+  h1, h2, h3 { @apply text-black; }
+  p { @apply text-gray-700; }
+  .subtitle { @apply text-gray-600; }
+  .text-muted { @apply text-gray-500; }
+  .label-text { @apply text-gray-600; }
+}
+
+/* =====================================================
+   ✨ MICRO-INTERAÇÕES
+===================================================== */
+
+/* Hover em Cards */
+.card-interactive {
+  @apply transition-all duration-300;
+  
+  &:hover {
+    @apply transform -translate-y-1 shadow-lg;
+  }
+}
+
+/* Destaque em Hover */
+.highlight-on-hover {
+  @apply transition-colors duration-300;
+  
+  &:hover .text-accent {
+    @apply text-orange-600;
+  }
+}
+
+/* =====================================================
+   📱 RESPONSIVIDADE
+===================================================== */
+
+@media (max-width: 768px) {
+  .title-hero {
+    @apply text-3xl;
   }
   
-  .pre-cards-intro .lead {
-    font-size: 1.2rem;
-  }
-}
-
-/* ======================================================
-   🎯 BLOCO DE DECISÃO
-====================================================== */
-
-.decision-card {
-  background: linear-gradient(160deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
-  border-radius: 24px;
-  padding: 2.5rem 1.5rem;
-  max-width: 680px;
-  margin: 0 auto;
-  text-align: center;
-  box-shadow: 
-    0 25px 60px hsla(0 0% 0% / 0.05),
-    0 10px 25px hsla(0 0% 0% / 0.03);
-  border: 1px solid hsla(0 0% 0% / 0.04);
-  position: relative;
-  overflow: hidden;
-}
-
-.decision-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, hsl(16 100% 60%), hsl(16 100% 55%), hsl(16 100% 60%));
-}
-
-@media (min-width: 640px) {
-  .decision-card {
-    padding: 3rem 2.5rem;
-    border-radius: 28px;
-  }
-}
-
-/* ======================================================
-   👥 PROVA SOCIAL
-====================================================== */
-
-.testimonials-header {
-  position: relative;
-  padding-bottom: 3rem;
-  margin-bottom: 3rem;
-}
-
-.testimonials-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, hsl(16 100% 60% / 0.6), transparent);
-}
-
-@media (min-width: 640px) {
-  .testimonials-header {
-    padding-bottom: 4rem;
-    margin-bottom: 4rem;
-  }
-}
-
-/* ======================================================
-   🛡️ GARANTIA - FUNDO PRETO INTENSO
-====================================================== */
-
-.guarantee-premium {
-  background: linear-gradient(180deg, hsla(0 0% 2% / 0.98) 0%, hsla(0 0% 0% / 1) 100%);
-  backdrop-filter: blur(20px);
-  border-radius: 28px;
-  padding: 2.5rem 1.5rem;
-  border: 1px solid hsla(16 100% 60% / 0.15);
-  box-shadow: 
-    0 30px 80px hsla(0 0% 0% / 0.5),
-    0 0 60px hsla(16 100% 60% / 0.15),
-    inset 0 1px 0 hsla(0 0% 100% / 0.05);
-}
-
-@media (min-width: 640px) {
-  .guarantee-premium {
-    padding: 3.5rem 3rem;
-    border-radius: 32px;
-  }
-}
-
-@media (min-width: 768px) {
-  .guarantee-premium {
-    padding: 4rem 4rem;
-  }
-}
-
-/* ======================================================
-   ✨ CONECTORES VISUAIS
-====================================================== */
-
-.visual-connector {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 2rem 0;
-}
-
-.visual-connector .line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(180deg, hsla(0 0% 0% / 0.1), hsla(0 0% 0% / 0.02));
-}
-
-.visual-connector .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: hsl(16 100% 60% / 0.4);
-  box-shadow: 0 0 20px hsl(16 100% 60% / 0.3);
-}
-
-/* ======================================================
-   📱 RESPONSIVIDADE MOBILE
-====================================================== */
-
-@media (max-width: 767px) {
-  /* Desativa hover em mobile */
-  .elementor-widget-icon-box .elementor-widget-container:hover,
-  section:has(h2) ul.elementor-icon-list-items li:hover,
-  .pain-card-premium:hover,
-  .benefit-card-premium:hover {
-    transform: none;
+  .title-section {
+    @apply text-2xl;
   }
   
-  section:has(h2) ul.elementor-icon-list-items li {
-    padding: 18px;
+  .subtitle {
+    @apply text-base;
   }
   
-  .pain-card-premium {
-    padding: 18px 20px;
-    margin-bottom: 12px;
-    border-radius: 10px;
+  .body-text {
+    @apply text-sm;
   }
-  
-  .solution-hero-box {
-    padding: 1.5rem !important;
-    border-radius: 16px;
-  }
-  
-  .benefit-card-premium {
-    padding: 18px;
-    border-radius: 12px;
-  }
-  
-  section p {
-    font-size: 1rem;
-    line-height: 1.7 !important;
-  }
-  
-  section h2, section h3 {
-    letter-spacing: -0.02em !important;
-  }
-}
-
-@media (max-width: 639px) {
-  .impact-block {
-    padding: 2rem 1.5rem;
-    margin: 2rem auto;
-    border-radius: 16px;
-  }
-  
-  .revelation-block {
-    padding: 2rem 1.5rem;
-    margin: 1.5rem auto 2rem;
-    border-radius: 18px;
-  }
-  
-  .decision-card {
-    padding: 2rem 1.25rem;
-    border-radius: 20px;
-  }
-  
-  .guarantee-premium {
-    padding: 2rem 1.25rem;
-    border-radius: 20px;
-  }
-  
-  .pre-cards-intro {
-    margin-bottom: 2.5rem;
-  }
-}
-
-/* ======================================================
-   🔧 HOTFIX - Intro text das dores
-====================================================== */
-
-section.bg-slate-50 p.text-slate-500 {
-  font-size: 0.95rem !important;
-  color: hsl(var(--muted-foreground)) !important;
-  line-height: 1.7 !important;
-}
-
-@media (min-width: 640px) {
-  section.bg-slate-50 p.text-slate-500 {
-    font-size: 1rem !important;
-  }
-}
-
-/* ======================================================
-   🔥 OVERRIDE FINAL - ELIMINA QUALQUER AZUL
-====================================================== */
-
-html body {
-  --sidebar-primary: 0 0% 0% !important;
-  --sidebar-ring: 16 100% 60% !important;
-  --primary: 0 0% 2% !important;
-  --primary-foreground: 0 0% 100% !important;
-}
-
-/* Remove gradientes azulados */
-[class*="bg-gradient"],
-[class*="from-blue"],
-[class*="to-blue"],
-[class*="via-blue"],
-[class*="from-slate"],
-[class*="to-slate"] {
-  background-image: linear-gradient(180deg, hsl(0 0% 0%), hsl(0 0% 2%)) !important;
-}
-
-/* Remove azul de backgrounds inline */
-[style*="224.3"],
-[style*="217.2"],
-[style*="rgb(30, 41, 59)"],
-[style*="rgb(15, 23, 42)"] {
-  background-color: hsl(0 0% 0%) !important;
-  background-image: none !important;
-}
-
-/* Bordas azuladas viram laranja */
-[style*="border-color: hsl(224"],
-[style*="border-color: hsl(217"],
-[style*="border-color: rgb(30, 41"] {
-  border-color: hsl(16 100% 60%) !important;
-}
-
-/* SVGs com azul viram laranja */
-svg [fill="#4B73FF"],
-svg [fill="#2563EB"],
-svg [fill="#3B82F6"],
-svg [fill*="blue"] {
-  fill: hsl(16 100% 60%) !important;
-  opacity: 0.4;
-}
-
-/* ======================================================
-   🎨 FORÇA MÁXIMA - PRETO E LARANJA ABSOLUTOS
-====================================================== */
-
-/* Qualquer elemento com classe dark/slate/gray vira PRETO */
-[class*="bg-slate-"],
-[class*="bg-gray-"],
-[class*="bg-zinc-"],
-[class*="bg-neutral-"] {
-  background-color: hsl(0 0% 0%) !important;
-}
-
-/* Textos em elementos escuros ficam brancos */
-[class*="bg-slate-"] *,
-[class*="bg-gray-"] *,
-.gradient-hero * {
-  color: hsl(0 0% 98%) !important;
-}
-
-/* Exceção para textos que devem ser laranja */
-[class*="bg-slate-"] .text-accent,
-[class*="bg-slate-"] [class*="text-orange"],
-.gradient-hero .text-accent,
-.gradient-hero [class*="text-orange"] {
-  color: hsl(16 100% 60%) !important;
 }
