@@ -30,26 +30,54 @@ const testimonialImages = [{
 
 const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImages[0] }) => (
   <div className="group">
-    <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/10 bg-[#0b141a] hover:scale-[1.02] transition-transform duration-300">
-      <div className="absolute top-3 left-3 z-10">
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
-          ✨ {testimonial.highlight}
-        </span>
+    {/* Mockup de celular minimalista */}
+    <div className="relative bg-[#1a1a1a] rounded-[2rem] p-2 shadow-2xl shadow-black/40 hover:shadow-accent/20 transition-all duration-500 hover:-translate-y-1">
+      {/* Notch do celular */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#1a1a1a] rounded-b-xl z-20" />
+      
+      {/* Tela do celular */}
+      <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0b141a]">
+        {/* Badge de destaque */}
+        <div className="absolute top-4 left-4 z-10">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg shadow-accent/30">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            {testimonial.highlight}
+          </span>
+        </div>
+        
+        {/* Imagem */}
+        <img 
+          src={testimonial.src} 
+          alt={`Depoimento WhatsApp - ${testimonial.highlight}`} 
+          className="w-full h-auto object-cover" 
+          loading="lazy" 
+          decoding="async" 
+        />
+        
+        {/* Gradient overlay com descrição */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-16">
+          <p className="text-white/95 text-sm font-medium leading-relaxed">
+            {testimonial.description}
+          </p>
+        </div>
       </div>
-      <img src={testimonial.src} alt={`Depoimento WhatsApp - ${testimonial.highlight}`} className="w-full h-auto object-cover" loading="lazy" decoding="async" />
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12">
-        <p className="text-white/90 text-sm font-medium">
-          {testimonial.description}
-        </p>
-      </div>
+      
+      {/* Barra inferior do celular */}
+      <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/20 rounded-full" />
     </div>
   </div>
 );
 
 const Testimonials = () => {
   return (
-    <section className="py-16 sm:py-24 bg-muted">
-      <div className="container mx-auto px-5 sm:px-6">
+    <section className="py-16 sm:py-24 bg-muted relative overflow-hidden">
+      {/* Glow laranja de fundo */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/10 rounded-full blur-[120px] opacity-60" />
+        <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[100px] opacity-40" />
+      </div>
+      
+      <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="text-center mb-10 sm:mb-12">
           {/* Introdução antes dos depoimentos */}
           <div className="mb-6">
@@ -82,29 +110,30 @@ const Testimonials = () => {
             }}
             className="w-full"
           >
-            <CarouselContent className="-ml-2">
+            <CarouselContent className="-ml-3">
               {testimonialImages.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-2 basis-[85%]">
+                <CarouselItem key={index} className="pl-3 basis-[85%]">
                   <TestimonialCard testimonial={testimonial} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="flex justify-center gap-2 mt-4">
-              <CarouselPrevious className="static translate-y-0 h-8 w-8" />
-              <CarouselNext className="static translate-y-0 h-8 w-8" />
+            <div className="flex justify-center gap-2 mt-6">
+              <CarouselPrevious className="static translate-y-0 h-9 w-9 bg-card border-border/60" />
+              <CarouselNext className="static translate-y-0 h-9 w-9 bg-card border-border/60" />
             </div>
           </Carousel>
         </div>
 
-        {/* Desktop: Grid */}
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-7xl mx-auto">
+        {/* Desktop: Grid Simétrico */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 max-w-7xl mx-auto">
           {testimonialImages.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} />
           ))}
         </div>
         
-        <div className="mt-12 sm:mt-14 text-center px-4">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-5 bg-card border border-border/80 rounded-2xl sm:rounded-full px-6 sm:px-8 py-4 sm:py-3 w-full sm:w-auto max-w-sm sm:max-w-none shadow-md">
+        {/* Badge de transformações */}
+        <div className="mt-12 sm:mt-16 text-center px-4">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-5 bg-card/90 backdrop-blur-sm border border-border/60 rounded-2xl sm:rounded-full px-6 sm:px-8 py-4 sm:py-3 w-full sm:w-auto max-w-sm sm:max-w-none shadow-xl shadow-black/10">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4].map(i => (
                 <div key={i} className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-accent to-accent/60 border-2 border-card flex items-center justify-center text-white font-bold text-xs shadow-sm">
