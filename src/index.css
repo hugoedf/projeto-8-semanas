@@ -399,3 +399,131 @@ section p {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* ======================================================
+   💎 CSS MASTER - VISUAL PREMIUM & CORREÇÕES
+====================================================== */
+
+/* --- 1. CORREÇÃO DAS LETRAS SOLTAS "A B C D" --- */
+/* Remove as bolinhas de avatar padrão quebradas */
+.elementor-icon-list-icon {
+  display: none !important;
+}
+
+/* Centraliza e transforma o texto "+500 transformações" em uma badge elegante */
+.elementor-icon-list-item, 
+ul.elementor-icon-list-items li {
+  justify-content: center !important;
+  text-align: center;
+  width: fit-content;
+  margin: 10px auto !important;
+  padding: 8px 24px;
+  background: hsla(18 100% 50% / 0.08);
+  border-radius: 50px;
+  border: 1px solid hsla(18 100% 50% / 0.15);
+}
+
+.elementor-icon-list-text {
+  font-weight: 600;
+  color: hsl(0 0% 20%);
+  font-size: 0.95rem;
+}
+
+/* --- 2. HIERARQUIA PREMIUM (SEÇÕES CLARAS) --- */
+/* Define fundo Off-White para contraste com os cards brancos */
+section:not(.elementor-section-stretched):not(.bg-dark) {
+  background-color: hsl(0 0% 98%);
+}
+
+/* Tipografia de alta legibilidade */
+section p {
+  line-height: 1.75 !important;
+  color: hsl(0 0% 27%);
+  letter-spacing: -0.01em;
+}
+
+/* --- 3. TRANSFORMAÇÃO: LISTA DE DORES EM CARDS --- */
+/* Transforma listas simples em cartões com sombra e indicador de erro */
+section:has(h2) ul.elementor-icon-list-items li {
+  background: hsl(0 0% 100%);
+  margin-bottom: 16px;
+  padding: 22px 28px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px -10px hsla(0 0% 0% / 0.06);
+  border: 1px solid hsla(0 0% 0% / 0.03);
+  border-left: 4px solid hsl(0 70% 65%);
+  transition: transform 0.2s ease;
+}
+
+/* Efeito Hover nos cards de dores */
+section:has(h2) ul.elementor-icon-list-items li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px -5px hsla(0 70% 65% / 0.15);
+}
+
+/* Força a cor vermelha nos ícones de erro */
+section:has(h2) ul.elementor-icon-list-items i {
+  color: hsl(0 70% 65%) !important;
+  background: transparent !important;
+}
+
+/* --- 4. DESTAQUE: "POR QUE O MÉTODO EXISTE" --- */
+/* Cria container de destaque com hierarquia visual */
+section:has(h2) .elementor-widget-text-editor {
+  position: relative;
+  z-index: 2;
+}
+
+.box-destaque, 
+section:has(h2) > .elementor-container {
+  border-radius: 20px;
+}
+
+/* --- 5. GRID DE BENEFÍCIOS (ESTILO APP) --- */
+/* Estiliza a seção de benefícios como botões grandes de app */
+.elementor-widget-icon-box .elementor-widget-container {
+  background: hsl(0 0% 100%);
+  padding: 30px 24px;
+  border-radius: 18px;
+  height: 100%;
+  box-shadow: 0 4px 20px hsla(0 0% 0% / 0.03);
+  border: 1px solid hsl(0 0% 94%);
+  transition: all 0.3s ease;
+}
+
+/* Hover nos benefícios */
+.elementor-widget-icon-box .elementor-widget-container:hover {
+  border-color: hsl(var(--accent));
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px hsla(18 100% 50% / 0.1);
+}
+
+/* Ícones laranjas destacados */
+.elementor-icon-box-icon i, 
+.elementor-icon-box-icon svg {
+  color: hsl(var(--accent)) !important;
+  transform: scale(1.1);
+  margin-bottom: 10px;
+}
+
+/* Títulos fortes */
+.elementor-icon-box-title {
+  font-weight: 700 !important;
+  margin-bottom: 8px !important;
+}
+
+.elementor-icon-box-description {
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+}
+
+/* --- 6. AJUSTE MOBILE --- */
+@media (max-width: 767px) {
+  .elementor-widget-icon-box .elementor-widget-container:hover,
+  section:has(h2) ul.elementor-icon-list-items li:hover {
+    transform: none;
+  }
+  section:has(h2) ul.elementor-icon-list-items li {
+    padding: 18px;
+  }
+}
