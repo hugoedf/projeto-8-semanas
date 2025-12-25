@@ -61,25 +61,25 @@ const Benefits = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <div
                 key={index}
-                className="benefit-card-premium group flex items-start gap-5"
+                className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl hover:-translate-y-1 hover:border-accent/30 transition-all duration-300 group flex items-start gap-4 sm:gap-5"
               >
                 {/* Icon container - Large and prominent */}
-                <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-accent/10 border border-accent/15 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
-                  <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-accent" />
+                <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center group-hover:bg-accent/15 group-hover:scale-105 transition-all duration-300">
+                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-accent" />
                 </div>
                 
                 {/* Text content */}
-                <div className="flex-1 pt-1">
-                  <h3 className="font-display text-base sm:text-lg font-semibold text-foreground tracking-tight mb-1.5">
+                <div className="flex-1 pt-0.5">
+                  <h3 className="font-display text-base sm:text-lg font-semibold text-gray-900 tracking-tight mb-1">
                     {benefit.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm sm:text-base">
+                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                     {benefit.description}
                   </p>
                 </div>

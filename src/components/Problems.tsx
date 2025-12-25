@@ -64,17 +64,17 @@ const Problems = () => {
           </div>
           
           {/* 2️⃣ Grid de Floating Cards - Dores */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-16">
             {painPoints.map((point, index) => (
               <div 
                 key={index} 
-                className="pain-card-premium group"
+                className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg shadow-black/5 border-l-4 border-red-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-9 h-9 rounded-full bg-destructive/8 flex items-center justify-center group-hover:bg-destructive/12 transition-colors">
-                    <X className="w-4 h-4 text-destructive/80" strokeWidth={2} />
+                  <div className="flex-shrink-0 w-9 h-9 rounded-full bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
+                    <X className="w-4 h-4 text-red-500" strokeWidth={2.5} />
                   </div>
-                  <p className="text-foreground text-sm sm:text-base font-medium leading-relaxed pt-1.5">
+                  <p className="text-gray-800 text-sm sm:text-base font-medium leading-relaxed pt-1.5">
                     {point}
                   </p>
                 </div>
