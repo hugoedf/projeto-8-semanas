@@ -7,22 +7,32 @@ const DecisionBlock = () => {
       </div>
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        {/* Card de decisão - impacto máximo */}
-        <div className="max-w-[650px] mx-auto text-center mb-8">
-          <p className="text-slate-600 text-base sm:text-lg mb-2" style={{ lineHeight: '1.75' }}>
-            Não é sobre fazer mais esforço.
-          </p>
-          <p className="text-foreground font-semibold text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
-            É sobre finalmente direcionar o esforço certo.
-          </p>
-        </div>
-        
-        <div className="decision-card">
-          <p className="text-slate-500 text-sm sm:text-base mb-3">A decisão é simples:</p>
-          <p className="font-display text-lg sm:text-xl md:text-2xl text-foreground leading-tight tracking-[-0.02em]">
-            Continuar tentando no escuro ou seguir um{" "}
-            <span className="text-accent">método estruturado que funciona.</span>
-          </p>
+        <div className="max-w-[650px] mx-auto">
+          {/* Badge de contexto */}
+          <div className="text-center mb-4">
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.15em] text-accent bg-accent/10 px-3 py-1.5 rounded-full">
+              Decisão Simples
+            </span>
+          </div>
+          
+          {/* Texto de apoio - alinhado à esquerda para leitura natural */}
+          <div className="mb-6 text-left">
+            <p className="text-slate-600 text-base sm:text-lg mb-2" style={{ lineHeight: '1.75' }}>
+              Não é sobre fazer mais esforço.
+            </p>
+            <p className="text-foreground font-semibold text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
+              É sobre finalmente direcionar o esforço certo.
+            </p>
+          </div>
+          
+          {/* Card de decisão */}
+          <div className="decision-card text-left">
+            <p className="text-slate-500 text-sm sm:text-base mb-3">A decisão é simples:</p>
+            <p className="font-display text-lg sm:text-xl md:text-2xl text-foreground leading-tight tracking-[-0.02em]">
+              Continuar tentando no escuro ou seguir um{" "}
+              <span className="text-accent">método estruturado que funciona.</span>
+            </p>
+          </div>
         </div>
       </div>
     </section>

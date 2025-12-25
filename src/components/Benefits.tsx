@@ -79,8 +79,8 @@ const BenefitCard = ({ benefit, index }: { benefit: Benefit; index: number }) =>
           <Icon className={`text-accent ${isLarge ? "w-7 h-7 sm:w-8 sm:h-8" : "w-6 h-6 sm:w-7 sm:h-7"}`} strokeWidth={1.75} />
         </div>
         
-        {/* Text content */}
-        <div className="flex-1">
+        {/* Text content - alinhado à esquerda */}
+        <div className="flex-1 text-left">
           <h3 className={`
             font-display font-bold text-slate-900 tracking-[-0.02em] mb-1.5
             ${isLarge ? "text-lg sm:text-xl" : "text-base sm:text-lg"}
@@ -88,7 +88,7 @@ const BenefitCard = ({ benefit, index }: { benefit: Benefit; index: number }) =>
             {benefit.title}
           </h3>
           <p className={`
-            text-slate-600
+            text-slate-500
             ${isLarge ? "text-base" : "text-sm sm:text-base"}
           `} style={{ lineHeight: '1.7' }}>
             {benefit.description}
@@ -106,13 +106,20 @@ const Benefits = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none" />
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        {/* Título - próximo dos cards */}
+        {/* Badge de contexto */}
+        <div className="text-center mb-4">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.15em] text-accent bg-accent/10 px-3 py-1.5 rounded-full">
+            O Sistema
+          </span>
+        </div>
+        
+        {/* Título - centralizado */}
         <div className="text-center mb-10 sm:mb-12 max-w-[650px] mx-auto">
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-[-0.02em] text-foreground">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas</span>
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base" style={{ lineHeight: '1.75' }}>
+          <p className="text-slate-600 text-sm sm:text-base text-left sm:text-center" style={{ lineHeight: '1.75' }}>
             Não é só sobre ganhar músculo. É sobre treinar com método.
           </p>
         </div>

@@ -52,7 +52,14 @@ const Problems = () => {
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="max-w-3xl mx-auto">
           
-          {/* 1️⃣ Headline provocativa */}
+          {/* Badge de contexto */}
+          <div className="text-center mb-4">
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.15em] text-accent bg-accent/10 px-3 py-1.5 rounded-full">
+              A Dor
+            </span>
+          </div>
+          
+          {/* 1️⃣ Headline provocativa - centralizado */}
           <div className="text-center mb-5 sm:mb-6 max-w-[650px] mx-auto">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-[-0.02em] text-foreground leading-tight">
               Você treina, se esforça…
@@ -62,12 +69,12 @@ const Problems = () => {
             </p>
           </div>
           
-          {/* Introdução emocional - ponte leve */}
-          <div className="text-center max-w-[650px] mx-auto mb-8 sm:mb-10">
-            <p className="text-slate-600 text-sm sm:text-base mb-3" style={{ lineHeight: '1.75' }}>
+          {/* Introdução emocional - ALINHADO À ESQUERDA para leitura natural */}
+          <div className="max-w-[650px] mx-auto mb-8 sm:mb-10">
+            <p className="text-slate-600 text-sm sm:text-base mb-3 text-left" style={{ lineHeight: '1.75' }}>
               E o pior não é treinar pesado. É sentir que o esforço não está voltando em forma de resultado.
             </p>
-            <p className="text-slate-500 text-sm sm:text-base" style={{ lineHeight: '1.75' }}>
+            <p className="text-slate-500 text-sm sm:text-base text-left" style={{ lineHeight: '1.75' }}>
               Provavelmente você já saiu da academia com a sensação de ter feito tudo certo, mas sem a certeza de que aquilo realmente estava funcionando.
             </p>
           </div>
@@ -79,11 +86,11 @@ const Problems = () => {
                 key={index} 
                 className="group bg-white rounded-xl border-l-4 border-red-500 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
               >
-                <div className="flex items-center gap-3 p-3.5 sm:p-4">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
-                    <AlertTriangle className="w-4 h-4 text-red-500" strokeWidth={2} />
-                  </div>
-                  <p className="text-slate-700 text-sm sm:text-base flex-1" style={{ lineHeight: '1.5' }}>
+                  <div className="flex items-center gap-3 p-3.5 sm:p-4">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
+                      <AlertTriangle className="w-4 h-4 text-red-500" strokeWidth={2} />
+                    </div>
+                    <p className="text-slate-700 text-sm sm:text-base flex-1 text-left" style={{ lineHeight: '1.5' }}>
                     {point.text.split(point.emphasis).map((part, i, arr) => (
                       <span key={i}>
                         {part}
