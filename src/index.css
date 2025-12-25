@@ -913,39 +913,43 @@ section.bg-slate-50 p.text-slate-500 {
     font-size: 1rem !important;
   }
 }
-/* =========================================
-   🔒 HOTFIX ÚNICO — REMOVER AZUL (SEM REDESIGN)
-   Objetivo: manter identidade original
-========================================= */
+/* =====================================================
+   🔒 HOTFIX DEFINITIVO — REMOVER AZUL SEM REDESIGN
+   Atua SOMENTE nas variáveis (não quebra estrutura)
+===================================================== */
 
-/* 1️⃣ Qualquer fundo azul vira preto premium */
-.bg-blue-500,
-.bg-blue-600,
-.bg-blue-700,
-.bg-sky-500,
-.bg-indigo-500,
-.bg-slate-700,
-.bg-slate-800,
-.bg-slate-900,
-.from-blue-500,
-.to-blue-600,
-.from-slate-800,
-.to-slate-900 {
-  background-color: #0b0b0b !important;
+:root {
+  /* Azul -> Preto premium */
+  --sidebar-primary: 0 0% 6%;
+  --sidebar-ring: 18 100% 58%;
+
+  /* Caso algum botão esteja puxando azul */
+  --primary: 0 0% 8%;
+  --primary-foreground: 0 0% 100%;
+}
+
+.dark {
+  /* Azul -> Preto premium (dark mode) */
+  --sidebar-primary: 0 0% 6%;
+  --sidebar-ring: 18 100% 58%;
+
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 5%;
+}
+
+/* =====================================================
+   🔧 FORÇA REMOÇÃO DE AZUL INLINE (SEM ALTERAR LAYOUT)
+===================================================== */
+
+/* Qualquer background com HSL azul vira preto */
+[style*="224.3"],
+[style*="217.2"] {
+  background-color: hsl(0 0% 6%) !important;
   background-image: none !important;
 }
 
-/* 2️⃣ Gradientes azulados viram preto sólido */
-[class*="from-blue"],
-[class*="to-blue"],
-[class*="from-slate"],
-[class*="to-slate"] {
-  background-image: none !important;
-  background-color: #0b0b0b !important;
-}
-
-/* 3️⃣ Mantém contraste com detalhe laranja (sem exagero) */
-.border-blue-500,
-.border-slate-500 {
-  border-color: #ff7a00 !important;
+/* Bordas azuladas viram laranja discreto */
+[style*="border-color: hsl(224"],
+[style*="border-color: hsl(217"] {
+  border-color: hsl(18 100% 58%) !important;
 }
