@@ -8,9 +8,6 @@ const WhyExists = () => {
           
           {/* Header centralizado */}
           <div className="text-center mb-8 sm:mb-10">
-            <span className="inline-block text-xs font-bold text-accent uppercase tracking-[0.15em] mb-4">
-              A Origem
-            </span>
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-[-0.02em] text-foreground">
               Por que o Método 8X existe
             </h2>
