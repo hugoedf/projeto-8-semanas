@@ -48,66 +48,70 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.02%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50" />
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+        {/* Desktop: Two columns | Mobile: Single column centered */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-12 max-w-6xl mx-auto">
           
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] mb-6">
-            <Zap className="w-4 h-4" />
-            <span>MÉTODO 8X</span>
+          {/* Left Column - Text Content */}
+          <div className="lg:flex-1 lg:max-w-xl text-center lg:text-left">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] mb-6">
+              <Zap className="w-4 h-4" />
+              <span>MÉTODO 8X</span>
+            </div>
+            
+            {/* Título Principal */}
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.1] text-white tracking-tight mb-6">
+              Um sistema de treino baseado em ciência para gerar{" "}
+              <span className="text-accent">hipertrofia real</span>{" "}
+              com progressão clara e execução guiada.
+            </h1>
+            
+            {/* Subtítulo de apoio */}
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-gray-300 mb-8">
+              Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
+            </p>
+            
+            {/* VSL Player - Mobile Only */}
+            <div className="relative w-full max-w-[300px] mx-auto lg:hidden mb-8">
+              <div className="absolute inset-0 bg-accent/25 rounded-2xl blur-[50px]" />
+              <VSLPlayer onVideoEnd={handleVSLEnd} />
+            </div>
+            
+            {/* CTA */}
+            <div className={`transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
+              <Button 
+                variant="cta" 
+                size="lg" 
+                onClick={handleCTAClick} 
+                className={`text-sm sm:text-lg px-8 sm:px-12 py-6 sm:py-7 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
+              >
+                QUERO TREINAR COM MÉTODO
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </div>
+            
+            {/* Prova social + preço */}
+            <p className="text-sm text-gray-400 mt-6">
+              <span className="text-gray-300 font-medium">+500 pessoas já aplicaram</span>
+              <span className="mx-3 text-gray-600">•</span>
+              <span className="text-accent font-bold text-lg">R$19,90</span>
+              <span className="mx-3 text-gray-600">•</span>
+              <span>Menos que uma refeição</span>
+            </p>
+            
+            {/* Micro-compromisso */}
+            <p className="text-gray-500 text-sm mt-10 italic">
+              Se você já treina, mas sente que poderia estar evoluindo mais, continue.
+            </p>
           </div>
           
-          {/* Título Principal - Centralizado */}
-          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.1] text-white tracking-tight mb-6">
-            Um sistema de treino baseado em ciência para gerar{" "}
-            <span className="text-accent">hipertrofia real</span>{" "}
-            com progressão clara e execução guiada.
-          </h1>
-          
-          {/* Subtítulo de apoio */}
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto text-gray-300 mb-8">
-            Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
-          </p>
-          
-          {/* VSL Player - Mobile */}
-          <div className="relative w-full max-w-[300px] mx-auto lg:hidden mb-8">
-            <div className="absolute inset-0 bg-accent/25 rounded-2xl blur-[50px]" />
-            <VSLPlayer onVideoEnd={handleVSLEnd} />
-          </div>
-          
-          {/* VSL Player - Desktop */}
-          <div className="hidden lg:block relative w-full max-w-lg mx-auto mb-10">
+          {/* Right Column - VSL Player (Desktop Only) */}
+          <div className="hidden lg:block lg:flex-1 lg:max-w-md relative">
             <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-[60px] scale-90" />
             <div className="relative z-10">
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
           </div>
-          
-          {/* CTA com destaque visual */}
-          <div className={`transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
-            <Button 
-              variant="cta" 
-              size="lg" 
-              onClick={handleCTAClick} 
-              className={`text-sm sm:text-lg px-8 sm:px-12 py-6 sm:py-7 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
-            >
-              QUERO TREINAR COM MÉTODO
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </div>
-          
-          {/* Prova social + preço */}
-          <p className="text-sm text-gray-400 mt-6">
-            <span className="text-gray-300 font-medium">+500 pessoas já aplicaram</span>
-            <span className="mx-3 text-gray-600">•</span>
-            <span className="text-accent font-bold text-lg">R$19,90</span>
-            <span className="mx-3 text-gray-600">•</span>
-            <span>Menos que uma refeição</span>
-          </p>
-          
-          {/* Micro-compromisso */}
-          <p className="text-gray-500 text-sm mt-10 italic">
-            Se você já treina, mas sente que poderia estar evoluindo mais, continue.
-          </p>
         </div>
       </div>
       
