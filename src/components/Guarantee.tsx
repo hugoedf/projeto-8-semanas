@@ -48,7 +48,7 @@ const Guarantee = () => {
                   Sem risco
                 </p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 text-accent">
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                   <CheckCircle className="w-4 h-4 text-white" />
                 </div>
