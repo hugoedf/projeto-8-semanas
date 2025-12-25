@@ -2,6 +2,7 @@ import whatsapp1 from "@/assets/testimonials/whatsapp-1.jpeg";
 import whatsapp2 from "@/assets/testimonials/whatsapp-2.jpeg";
 import whatsapp3 from "@/assets/testimonials/whatsapp-3.jpeg";
 import whatsapp4 from "@/assets/testimonials/whatsapp-4.jpeg";
+import { Users } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -56,7 +57,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
         
         {/* Gradient overlay com descrição */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-16">
-          <p className="text-white/95 text-sm font-medium leading-relaxed">
+          <p className="text-white/95 text-sm font-medium" style={{ lineHeight: '1.6' }}>
             {testimonial.description}
           </p>
         </div>
@@ -70,7 +71,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
 
 const Testimonials = () => {
   return (
-    <section className="py-16 sm:py-24 bg-muted relative overflow-hidden">
+    <section className="py-20 md:py-28 bg-muted relative overflow-hidden">
       {/* Glow laranja de fundo */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/10 rounded-full blur-[120px] opacity-60" />
@@ -78,25 +79,32 @@ const Testimonials = () => {
       </div>
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        <div className="text-center mb-10 sm:mb-12">
+        {/* Pre-header com largura controlada */}
+        <div className="text-center mb-12 max-w-[650px] mx-auto">
+          {/* Badge Superior */}
+          <span className="inline-block uppercase text-xs font-bold tracking-[0.15em] text-accent mb-4">
+            Resultados Reais
+          </span>
+          
           {/* Introdução antes dos depoimentos */}
           <div className="mb-6">
-            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+            <p className="text-muted-foreground text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
               Pessoas que já treinavam.
             </p>
-            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+            <p className="text-muted-foreground text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
               Pessoas que estavam estagnadas.
             </p>
-            <p className="text-foreground font-medium text-base sm:text-lg mt-1">
+            <p className="text-foreground font-medium text-base sm:text-lg mt-1" style={{ lineHeight: '1.75' }}>
               Pessoas que só precisavam de um método claro.
             </p>
           </div>
           
-          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-5 tracking-[-0.02em]">
             Quem já aplicou o Método 8X está{" "}
             <span className="text-gradient">transformando o físico — e a mente.</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
+          
+          <p className="text-muted-foreground text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
             Conversas reais de quem está aplicando o método
           </p>
         </div>
@@ -131,16 +139,19 @@ const Testimonials = () => {
           ))}
         </div>
         
-        {/* Badge de transformações - Clean Premium */}
+        {/* Badge de transformações - Card Premium Centralizado */}
         <div className="mt-12 sm:mt-16 flex justify-center">
-          <div className="inline-flex items-center gap-3 bg-orange-50 border border-orange-200/60 rounded-full px-6 py-3 shadow-sm">
-            <span className="flex items-center justify-center w-8 h-8 bg-accent rounded-full">
-              <span className="text-white font-bold text-sm">+</span>
-            </span>
-            <div className="text-left">
-              <span className="block font-bold text-orange-900 text-base sm:text-lg">500 transformações</span>
-              <span className="block text-orange-700/80 text-xs sm:text-sm">Método comprovado</span>
+          <div className="bg-white rounded-2xl shadow-lg shadow-black/[0.05] border border-slate-100 px-8 py-6 text-center max-w-md">
+            <div className="inline-flex items-center justify-center gap-2 bg-orange-50 text-accent font-bold px-4 py-2 rounded-full mb-4">
+              <Users className="w-4 h-4" />
+              <span>+500 transformações</span>
             </div>
+            <p className="text-slate-600 text-sm" style={{ lineHeight: '1.75' }}>
+              E esse número cresce toda semana.
+            </p>
+            <p className="text-foreground font-medium text-sm mt-1" style={{ lineHeight: '1.75' }}>
+              Pessoas reais. Resultados reais. Método comprovado.
+            </p>
           </div>
         </div>
       </div>

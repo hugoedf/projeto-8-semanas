@@ -59,8 +59,8 @@ const BenefitCard = ({ benefit, index }: { benefit: Benefit; index: number }) =>
   return (
     <div
       className={`
-        group relative bg-white rounded-2xl shadow-md shadow-black/[0.03] border border-slate-100
-        hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/[0.08] hover:border-accent/20
+        group relative bg-white rounded-2xl shadow-md shadow-black/[0.04] border border-slate-100
+        hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/[0.1] hover:border-accent/20
         transition-all duration-300 ease-out overflow-hidden
         ${isLarge ? "sm:col-span-2 sm:row-span-1" : ""}
       `}
@@ -82,15 +82,15 @@ const BenefitCard = ({ benefit, index }: { benefit: Benefit; index: number }) =>
         {/* Text content */}
         <div className="flex-1">
           <h3 className={`
-            font-display font-bold text-slate-900 tracking-tight mb-1.5
+            font-display font-bold text-slate-900 tracking-[-0.02em] mb-1.5
             ${isLarge ? "text-lg sm:text-xl" : "text-base sm:text-lg"}
           `}>
             {benefit.title}
           </h3>
           <p className={`
-            text-slate-600 leading-relaxed
+            text-slate-600
             ${isLarge ? "text-base" : "text-sm sm:text-base"}
-          `}>
+          `} style={{ lineHeight: '1.7' }}>
             {benefit.description}
           </p>
         </div>
@@ -101,21 +101,29 @@ const BenefitCard = ({ benefit, index }: { benefit: Benefit; index: number }) =>
 
 const Benefits = () => {
   return (
-    <section className="section-spacing bg-slate-50 relative overflow-hidden">
+    <section className="py-20 md:py-28 bg-slate-50 relative overflow-hidden">
       {/* Subtle dot pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none" />
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        <div className="text-center mb-14 sm:mb-18 max-w-2xl mx-auto">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5 tracking-tight text-foreground">
+        {/* Pre-header com largura controlada */}
+        <div className="text-center mb-12 max-w-[650px] mx-auto">
+          {/* Badge Superior */}
+          <span className="inline-block uppercase text-xs font-bold tracking-[0.15em] text-accent mb-4">
+            O Sistema
+          </span>
+          
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5 tracking-[-0.02em] text-foreground">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas:</span>
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg mb-4">
+          
+          <p className="text-slate-600 text-base sm:text-lg mb-4" style={{ lineHeight: '1.75' }}>
             Não é só sobre ganhar músculo.
             <span className="font-semibold text-slate-900"> É sobre treinar com método e finalmente ver resultados.</span>
           </p>
-          <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto">
+          
+          <p className="text-slate-500 text-sm sm:text-base" style={{ lineHeight: '1.75' }}>
             Treinar muda completamente quando você entra na academia sabendo exatamente o que fazer — o treino deixa de ser ansiedade e vira execução.
           </p>
         </div>
