@@ -6,9 +6,7 @@ const Guarantee = () => {
     <section className="py-16 sm:py-24 gradient-hero">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          {/* Borda de destaque estilo certificado */}
-          <div className="border-2 border-dashed border-accent/60 rounded-3xl p-3 sm:p-4">
-            <div className="card-dark-glass p-8 sm:p-10 md:p-14 rounded-2xl">
+          <div className="card-dark-glass p-8 sm:p-10 md:p-14 rounded-3xl">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 items-center">
                 <div className="text-center md:text-left order-2 md:order-1">
                   <div className="inline-flex items-center gap-2.5 text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-accent/40 bg-accent/10 mb-5 sm:mb-7 shadow-lg shadow-accent/10">
@@ -52,10 +50,9 @@ const Guarantee = () => {
                   </div>
                 </div>
               </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
     </section>
   );
 };
