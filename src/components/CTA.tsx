@@ -33,21 +33,22 @@ const CTA = () => {
   return (
     <section 
       id="cta-section" 
-      className={`py-20 sm:py-28 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 relative overflow-hidden transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      className={`py-24 sm:py-32 bg-gradient-to-b from-black via-gray-950 to-gray-900 relative overflow-hidden transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
     >
-      {/* Background effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.15),transparent_50%)]" />
+      {/* Background effect - Enhanced */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,hsla(18,100%,58%,0.2),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_50%_0%,hsla(18,100%,58%,0.1),transparent_50%)]" />
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            {/* Image */}
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image - Enhanced Frame */}
             <div className="order-2 lg:order-1">
               <div className="relative">
-                <div className="absolute inset-0 bg-accent/25 rounded-2xl blur-[50px] scale-95" />
+                <div className="absolute -inset-4 bg-accent/30 rounded-3xl blur-[60px]" />
                 <img 
                   alt="Treino de Hipertrofia" 
-                  className="relative z-10 w-full h-auto rounded-2xl shadow-2xl border border-white/10" 
+                  className="relative z-10 w-full h-auto rounded-2xl shadow-[0_30px_80px_-20px_hsla(0,0%,0%,0.7)] border border-accent/20" 
                   src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg" 
                   width={651} 
                   height={977} 
@@ -57,53 +58,53 @@ const CTA = () => {
               </div>
             </div>
             
-            {/* Content */}
+            {/* Content - Enhanced */}
             <div className="order-1 lg:order-2">
-              <div className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 sm:p-8">
-                <div className="mb-6">
-                  <span className="text-accent text-xs uppercase tracking-[0.2em] font-bold">⚡ OFERTA DE LANÇAMENTO</span>
-                  <h2 className="font-display text-xl sm:text-2xl md:text-3xl mt-3 mb-3 tracking-tight text-white leading-tight">
+              <div className="bg-gray-900/80 backdrop-blur-md border border-accent/20 rounded-3xl p-8 sm:p-10 shadow-[0_0_60px_hsla(18,100%,58%,0.1)]">
+                <div className="mb-8">
+                  <span className="inline-flex items-center gap-2 bg-accent/15 border border-accent/30 rounded-full px-4 py-1.5 text-accent text-xs uppercase tracking-[0.2em] font-bold mb-4">⚡ OFERTA DE LANÇAMENTO</span>
+                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mt-4 mb-4 tracking-tight text-white leading-tight font-extrabold">
                     Comece hoje. Veja resultados em 8 semanas.
                   </h2>
-                  <p className="text-gray-400 text-sm sm:text-base">
+                  <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
                     Tudo isso por menos que uma refeição — e transforma como você treina para sempre.
                   </p>
                 </div>
                 
-                <div className="space-y-3 mb-8">
+                <div className="space-y-4 mb-10">
                   {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check className="w-3 h-3 text-accent" />
+                    <div key={index} className="flex items-start gap-4">
+                      <div className="w-6 h-6 rounded-full bg-accent/25 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-[0_0_15px_hsla(18,100%,58%,0.3)]">
+                        <Check className="w-3.5 h-3.5 text-accent" />
                       </div>
-                      <span className="text-gray-300 text-sm sm:text-base">{benefit}</span>
+                      <span className="text-gray-200 text-base sm:text-lg">{benefit}</span>
                     </div>
                   ))}
                 </div>
                 
-                <div className="border-t border-gray-700 pt-6 mb-6">
-                  <div className="flex items-baseline gap-4 mb-3">
-                    <span className="text-gray-500 line-through text-lg">R$ 97</span>
-                    <span className="text-accent font-display text-3xl sm:text-4xl font-bold">R$ 19,90</span>
+                <div className="border-t border-gray-700/50 pt-8 mb-8">
+                  <div className="flex items-baseline gap-5 mb-4">
+                    <span className="text-gray-500 line-through text-xl">R$ 97</span>
+                    <span className="text-accent font-display text-4xl sm:text-5xl font-extrabold drop-shadow-[0_0_30px_hsla(18,100%,58%,0.5)]">R$ 19,90</span>
                   </div>
-                  <p className="text-sm text-gray-500 flex items-center justify-start gap-2">
-                    <Clock className="w-4 h-4" />
+                  <p className="text-base text-gray-400 flex items-center justify-start gap-2">
+                    <Clock className="w-5 h-5 text-accent/70" />
                     <span>Oferta por tempo limitado · Pagamento único · Acesso imediato</span>
                   </p>
                 </div>
                 
                 <Button 
                   variant="cta" 
-                  size="lg" 
-                  className="w-full text-sm sm:text-base py-6 mb-4 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full" 
+                  size="xl" 
+                  className="w-full text-base sm:text-lg py-7 mb-5 tracking-wide rounded-full" 
                   onClick={handleCTAClick}
                 >
                   <span>QUERO TREINAR COM MÉTODO</span>
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <ArrowRight className="ml-3 w-6 h-6" />
                 </Button>
                 
-                <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
-                  <Lock className="w-4 h-4" />
+                <div className="flex items-center justify-center gap-3 text-base text-gray-400">
+                  <Lock className="w-5 h-5 text-accent/60" />
                   <span>Pagamento 100% seguro</span>
                 </div>
               </div>
