@@ -31,17 +31,17 @@ const testimonialImages = [{
 
 const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImages[0] }) => (
   <div className="group">
-    {/* Mockup de celular minimalista */}
-    <div className="relative bg-[#1a1a1a] rounded-[2rem] p-2 shadow-2xl shadow-black/40 hover:shadow-accent/20 transition-all duration-500 hover:-translate-y-1">
+    {/* Mockup de celular premium */}
+    <div className="relative bg-gray-900 rounded-[2.5rem] p-2.5 shadow-[0_30px_80px_-20px_hsla(0,0%,0%,0.5)] hover:shadow-[0_40px_100px_-20px_hsla(18,100%,58%,0.25)] transition-all duration-500 hover:-translate-y-2 border border-accent/10">
       {/* Notch do celular */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#1a1a1a] rounded-b-xl z-20" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-gray-900 rounded-b-2xl z-20" />
       
       {/* Tela do celular */}
-      <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0b141a]">
+      <div className="relative rounded-[2rem] overflow-hidden bg-[#0b141a]">
         {/* Badge de destaque */}
-        <div className="absolute top-4 left-4 z-10">
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg shadow-accent/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+        <div className="absolute top-5 left-4 z-10">
+          <span className="inline-flex items-center gap-2 text-sm font-bold text-white bg-accent backdrop-blur-sm px-4 py-2 rounded-full shadow-[0_8px_20px_hsla(18,100%,58%,0.4)]">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
             {testimonial.highlight}
           </span>
         </div>
@@ -56,58 +56,61 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
         />
         
         {/* Gradient overlay com descrição */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-16">
-          <p className="text-white/95 text-sm font-medium" style={{ lineHeight: '1.6' }}>
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-5 pt-20">
+          <p className="text-white text-base font-semibold" style={{ lineHeight: '1.6' }}>
             {testimonial.description}
           </p>
         </div>
       </div>
       
       {/* Barra inferior do celular */}
-      <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/20 rounded-full" />
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-28 h-1 bg-white/30 rounded-full" />
     </div>
   </div>
 );
 
 const Testimonials = () => {
   return (
-    <section className="section-breathing bg-muted relative overflow-hidden">
-      {/* Glow laranja de fundo */}
+    <section className="py-24 sm:py-32 bg-muted relative overflow-hidden">
+      {/* Glow laranja de fundo - Enhanced */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/10 rounded-full blur-[120px] opacity-60" />
-        <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[100px] opacity-40" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[700px] bg-accent/12 rounded-full blur-[150px] opacity-70" />
+        <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] opacity-50" />
       </div>
+      
+      {/* Divider top */}
+      <div className="absolute top-0 left-0 right-0 section-divider" />
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         {/* Header com separação visual */}
-        <div className="testimonials-header text-center max-w-[650px] mx-auto">
-          {/* Badge Superior */}
-          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-sm border border-white/60 mb-6">
-            <MessageCircle className="w-4 h-4 text-accent" />
-            <span className="uppercase text-xs font-bold tracking-[0.15em] text-accent">
+        <div className="testimonials-header text-center max-w-[700px] mx-auto mb-16">
+          {/* Badge Superior - Enhanced */}
+          <div className="inline-flex items-center gap-2.5 bg-white/90 backdrop-blur-sm rounded-full px-5 py-2.5 shadow-lg border border-accent/20 mb-8">
+            <MessageCircle className="w-5 h-5 text-accent" />
+            <span className="uppercase text-sm font-bold tracking-[0.15em] text-accent">
               Resultados Reais
             </span>
           </div>
           
           {/* Introdução preparatória - Bloco de Impacto */}
-          <div className="impact-block mb-8">
-            <p className="text-slate-500 text-base sm:text-lg mb-1">
+          <div className="impact-block mb-10">
+            <p className="text-slate-500 text-lg sm:text-xl mb-1.5">
               Pessoas que já treinavam.
             </p>
-            <p className="text-slate-500 text-base sm:text-lg mb-1">
+            <p className="text-slate-500 text-lg sm:text-xl mb-1.5">
               Pessoas que estavam estagnadas.
             </p>
-            <p className="text-foreground font-medium text-base sm:text-lg">
+            <p className="text-foreground font-semibold text-lg sm:text-xl">
               Pessoas que só precisavam de um método claro.
             </p>
           </div>
           
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-5 tracking-[-0.02em]">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl mb-6 tracking-[-0.03em] font-extrabold">
             Quem já aplicou o Método 8X está{" "}
-            <span className="text-gradient">transformando o físico — e a mente.</span>
+            <span className="text-gradient drop-shadow-[0_0_30px_hsla(18,100%,58%,0.3)]">transformando o físico — e a mente.</span>
           </h2>
           
-          <p className="text-muted-foreground text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
+          <p className="text-muted-foreground text-lg sm:text-xl" style={{ lineHeight: '1.75' }}>
             Conversas reais de quem está aplicando o método
           </p>
         </div>
@@ -142,17 +145,17 @@ const Testimonials = () => {
           ))}
         </div>
         
-        {/* Badge de transformações - Elevado e centralizado */}
-        <div className="mt-14 sm:mt-20 flex justify-center">
-          <div className="bg-white rounded-2xl shadow-xl shadow-black/[0.06] border border-slate-100/80 px-10 py-8 text-center max-w-md">
-            <div className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-50 to-amber-50 text-accent font-bold px-5 py-2.5 rounded-full mb-5 border border-accent/10">
-              <Users className="w-4.5 h-4.5" />
-              <span className="text-base">+500 transformações</span>
+        {/* Badge de transformações - Enhanced */}
+        <div className="mt-16 sm:mt-24 flex justify-center">
+          <div className="bg-white rounded-3xl shadow-[0_20px_60px_-15px_hsla(0,0%,0%,0.12)] border border-accent/10 px-12 py-10 text-center max-w-md">
+            <div className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-orange-50 to-amber-50 text-accent font-extrabold px-6 py-3 rounded-full mb-6 border border-accent/15 shadow-[0_0_30px_hsla(18,100%,58%,0.15)]">
+              <Users className="w-5 h-5" />
+              <span className="text-lg">+500 transformações</span>
             </div>
-            <p className="text-slate-500 text-sm mb-2" style={{ lineHeight: '1.75' }}>
+            <p className="text-slate-500 text-base mb-3" style={{ lineHeight: '1.75' }}>
               E esse número cresce toda semana.
             </p>
-            <p className="text-foreground font-semibold text-sm" style={{ lineHeight: '1.75' }}>
+            <p className="text-foreground font-bold text-base" style={{ lineHeight: '1.75' }}>
               Pessoas reais. Resultados reais. Método comprovado.
             </p>
           </div>
