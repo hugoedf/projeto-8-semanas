@@ -65,7 +65,7 @@ const Modules = () => {
           {modules.map((module, index) => (
             <div 
               key={index} 
-              className="bg-gray-50 border border-gray-100 rounded-xl p-5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              className="bg-gray-50 border border-gray-200 rounded-xl p-5 hover:border-accent/40 hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-start gap-4">
                 {/* Número do módulo */}
