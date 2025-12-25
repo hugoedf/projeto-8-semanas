@@ -63,21 +63,18 @@ const Problems = () => {
             </p>
           </div>
           
-          {/* 2️⃣ Lista de dores reais - Cards Flutuantes Premium */}
-          <div className="space-y-3 sm:space-y-4 mb-12">
+          {/* 2️⃣ Lista de dores reais - Grid de Cards 2 colunas */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
             {painPoints.map((point, index) => (
               <div 
                 key={index} 
-                className="relative bg-card border border-border/60 rounded-xl px-5 py-4 sm:py-5 shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 transition-all duration-300 hover:-translate-y-0.5 overflow-hidden"
+                className="relative bg-card rounded-xl px-5 py-5 sm:py-6 shadow-lg shadow-black/8 hover:shadow-xl transition-all duration-300 overflow-hidden border-l-4 border-destructive"
               >
-                {/* Borda lateral esquerda vermelha */}
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-destructive/80 rounded-l-xl" />
-                
-                <div className="flex items-center gap-4 pl-3">
-                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-destructive/10 flex items-center justify-center">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-destructive/10 flex items-center justify-center mt-0.5">
                     <X className="w-3.5 h-3.5 text-destructive" strokeWidth={2.5} />
                   </div>
-                  <p className="text-foreground text-base sm:text-lg font-medium">
+                  <p className="text-foreground text-sm sm:text-base font-medium leading-relaxed">
                     {point}
                   </p>
                 </div>
@@ -95,47 +92,44 @@ const Problems = () => {
             </div>
           </div>
           
-          {/* 3️⃣ Subtítulo de ruptura */}
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/25 rounded-full px-6 py-2.5 mb-5 shadow-sm">
-              <AlertCircle className="w-4 h-4 text-accent" />
-              <span className="text-sm font-bold text-accent uppercase tracking-widest">A verdade</span>
-            </div>
-            <p className="text-foreground font-display text-xl sm:text-2xl md:text-3xl leading-relaxed">
-              O problema <span className="text-accent font-semibold">não é falta de esforço.</span>
-            </p>
-          </div>
-          
-          {/* 4️⃣ Explicação lógica da dor - Card premium com ícones */}
-          <div className="relative mb-10">
-            <div className="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent rounded-3xl blur-2xl" />
-            <div className="relative bg-card/80 backdrop-blur-sm border border-border/80 rounded-2xl p-7 sm:p-10 shadow-xl">
-              <div className="space-y-6">
-                {explanationPoints.map((point, index) => {
-                  const IconComponent = point.icon;
-                  return (
-                    <div 
-                      key={index}
-                      className="flex items-start gap-4"
-                    >
-                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mt-0.5">
-                        <IconComponent className="w-5 h-5 text-accent" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-                          {point.text}{" "}
-                          <span className="text-foreground font-semibold">{point.highlight}</span>
-                        </p>
-                        {point.followUp && (
-                          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mt-2 pl-0.5 border-l-2 border-accent/30 ml-0.5 pl-3">
-                            {point.followUp}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
+          {/* 3️⃣ Container de Destaque - A Verdade */}
+          <div className="bg-muted/40 border border-border rounded-2xl p-6 sm:p-8 mb-10 max-w-xl mx-auto">
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/25 rounded-full px-6 py-2.5 mb-5 shadow-sm">
+                <AlertCircle className="w-4 h-4 text-accent" />
+                <span className="text-sm font-bold text-accent uppercase tracking-widest">A verdade</span>
               </div>
+              <p className="text-foreground font-display text-xl sm:text-2xl md:text-3xl leading-relaxed">
+                O problema <span className="text-accent font-semibold">não é falta de esforço.</span>
+              </p>
+            </div>
+            
+            {/* Explicação com ícones */}
+            <div className="space-y-5">
+              {explanationPoints.map((point, index) => {
+                const IconComponent = point.icon;
+                return (
+                  <div 
+                    key={index}
+                    className="flex items-start gap-4"
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mt-0.5">
+                      <IconComponent className="w-5 h-5 text-accent" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+                        {point.text}{" "}
+                        <span className="text-foreground font-semibold bg-accent/10 px-1 rounded">{point.highlight}</span>
+                      </p>
+                      {point.followUp && (
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mt-2 border-l-2 border-accent/30 pl-3">
+                          {point.followUp}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
           
