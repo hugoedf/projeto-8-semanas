@@ -22,15 +22,15 @@ const notFor = [
 
 const ForWho = () => {
   return (
-    <section className="py-14 sm:py-16 md:py-20 bg-background">
+    <section className="py-20 sm:py-24 md:py-28 bg-background">
       <div className="container mx-auto px-5 sm:px-6">
         {/* Header - próximo dos cards */}
-        <div className="text-center max-w-[550px] mx-auto mb-8 sm:mb-10">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight text-foreground">
+        <div className="text-center max-w-[650px] mx-auto mb-10 sm:mb-12">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-[-0.02em] text-foreground">
             Para quem é o{" "}
             <span className="text-gradient">Método 8X?</span>
           </h2>
-          <p className="text-slate-500 text-sm sm:text-base">
+          <p className="text-slate-600 text-sm sm:text-base" style={{ lineHeight: '1.75' }}>
             Pessoas que buscam hipertrofia baseada em ciência.
           </p>
         </div>
