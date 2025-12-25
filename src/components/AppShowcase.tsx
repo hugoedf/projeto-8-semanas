@@ -8,20 +8,17 @@ const appFeatures = [
 
 const AppShowcase = () => {
   return (
-    <section className="py-16 sm:py-20 bg-muted/50">
+    <section className="py-20 sm:py-24 md:py-28 bg-muted/50">
       <div className="container mx-auto px-5 sm:px-6">
         {/* Transição persuasiva - Pausa visual */}
-        <div className="text-center mb-6 max-w-xl mx-auto">
-          <p className="text-accent font-medium text-lg sm:text-xl">
+        <div className="text-center mb-10 sm:mb-12 max-w-[650px] mx-auto">
+          <p className="text-accent font-medium text-lg sm:text-xl mb-4">
             E é exatamente aí que a maioria das pessoas trava.
           </p>
-        </div>
-        
-        <div className="text-center mb-10 max-w-xl mx-auto">
-          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+          <p className="text-muted-foreground text-base sm:text-lg mb-2" style={{ lineHeight: '1.75' }}>
             A maioria das pessoas sabe o que deveria fazer.
           </p>
-          <p className="text-foreground font-medium text-base sm:text-lg mt-2">
+          <p className="text-foreground font-medium text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
             O problema é executar certo, toda semana, sem improviso.
           </p>
         </div>

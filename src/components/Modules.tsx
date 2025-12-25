@@ -43,13 +43,13 @@ const modules = [
 
 const Modules = () => {
   return (
-    <section id="modules-section" className="py-16 sm:py-24 gradient-hero">
+    <section id="modules-section" className="py-20 sm:py-24 md:py-28 gradient-hero">
       <div className="container mx-auto px-5 sm:px-6">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 text-white px-2 tracking-tight leading-tight">
+        <div className="text-center mb-10 sm:mb-12 max-w-[650px] mx-auto">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-3 text-white px-2 tracking-[-0.02em] leading-tight">
             8 semanas. <span className="text-accent">Tudo que você precisa.</span>
           </h2>
-          <p className="text-white/70 text-base sm:text-lg max-w-lg mx-auto">
+          <p className="text-white/70 text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
             Sem enrolação. Só o essencial para você evoluir.
           </p>
         </div>
