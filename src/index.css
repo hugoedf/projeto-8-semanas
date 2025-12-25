@@ -169,3 +169,70 @@ section p:empty {
 a[href*="lovable"] {
   display: none !important;
 }
+/* ======================================================
+   🔧 HOTFIX DE CONVERSÃO — NÃO ALTERA IDENTIDADE
+   Objetivo: corrigir bugs visuais SEM redesenhar
+====================================================== */
+
+/* 1️⃣ REMOVER AZUL INDEVIDO (sem tocar no design base) */
+.bg-blue-500,
+.bg-blue-600,
+.bg-blue-700,
+.bg-slate-700,
+.bg-slate-800,
+.bg-slate-900,
+.from-blue-500,
+.to-blue-600,
+.from-slate-800,
+.to-slate-900 {
+  background-color: #0b0b0b !important;
+  background-image: none !important;
+}
+
+/* 2️⃣ GARANTIR FUNDO ESCURO PREMIUM (preto real) */
+section[class*="dark"],
+section[class*="hero"] {
+  background-color: #0b0b0b !important;
+}
+
+/* 3️⃣ REDUZIR ESPAÇAMENTOS EXAGERADOS ENTRE SEÇÕES */
+section {
+  padding-top: clamp(3rem, 5vw, 4.5rem) !important;
+  padding-bottom: clamp(3rem, 5vw, 4.5rem) !important;
+}
+
+/* 4️⃣ TEXTO INTRODUTÓRIO SEM SEPARAR DOS CARDS */
+section > p {
+  margin-bottom: 1.2rem !important;
+}
+
+section > p + div,
+section > p + ul {
+  margin-top: 0 !important;
+}
+
+/* 5️⃣ EVITAR “BURACOS” VISUAIS */
+section p:empty {
+  display: none !important;
+}
+
+/* 6️⃣ MANTER HIERARQUIA ORIGINAL (sem reinventar tipografia) */
+section h2 {
+  margin-bottom: 1rem;
+}
+
+section h3 {
+  margin-bottom: 0.75rem;
+}
+
+/* 7️⃣ CTA COM DESTAQUE (SEM MEXER NO LAYOUT) */
+a[href*="checkout"],
+button[type="submit"] {
+  box-shadow: 0 10px 30px rgba(255, 122, 0, 0.45);
+}
+
+/* 8️⃣ GARANTIA: NÃO MEXER EM TRACKING / APP */
+iframe,
+script {
+  pointer-events: auto;
+}
