@@ -68,7 +68,7 @@ const Problems = () => {
               E o pior não é treinar pesado. É sentir que o esforço não está voltando em forma de resultado.
             </p>
             <p className="text-slate-500 text-sm sm:text-base" style={{ lineHeight: '1.75' }}>
-              Provavelmente você já saiu da academia com a sensação de ter feito tudo certo… mas sem a certeza de que aquilo realmente estava funcionando.
+              Provavelmente você já saiu da academia com a sensação de ter feito tudo certo, mas sem a certeza de que aquilo realmente estava funcionando.
             </p>
           </div>
           
