@@ -108,10 +108,6 @@ const Benefits = () => {
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         {/* Título - próximo dos cards */}
         <div className="text-center mb-10 sm:mb-12 max-w-[650px] mx-auto">
-          {/* Badge de contexto */}
-          <span className="inline-block text-xs font-bold text-accent uppercase tracking-[0.15em] mb-4">
-            O Sistema
-          </span>
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-[-0.02em] text-foreground">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas</span>

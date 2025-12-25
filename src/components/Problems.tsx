@@ -54,10 +54,6 @@ const Problems = () => {
           
           {/* 1️⃣ Headline provocativa */}
           <div className="text-center mb-5 sm:mb-6 max-w-[650px] mx-auto">
-            {/* Badge de contexto */}
-            <span className="inline-block text-xs font-bold text-accent uppercase tracking-[0.15em] mb-4">
-              A Dor
-            </span>
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-[-0.02em] text-foreground leading-tight">
               Você treina, se esforça…
             </h2>
