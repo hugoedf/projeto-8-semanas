@@ -45,94 +45,89 @@ const explanationPoints = [
 
 const Problems = () => {
   return (
-    <section className="py-20 sm:py-24 md:py-28 bg-slate-50 relative overflow-hidden">
-      {/* Subtle texture overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none" />
-      
+    <section className="py-20 sm:py-28 bg-white relative overflow-hidden">
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="max-w-3xl mx-auto">
           
           {/* Badge de contexto */}
-          <div className="text-center mb-4">
-            <span className="inline-block text-xs font-bold uppercase tracking-[0.15em] text-accent bg-accent/10 px-3 py-1.5 rounded-full">
-              A Dor
+          <div className="text-center mb-6">
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent">
+              A DOR
             </span>
           </div>
           
-          {/* 1️⃣ Headline provocativa - centralizado */}
-          <div className="text-center mb-5 sm:mb-6 max-w-[650px] mx-auto">
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-[-0.02em] text-foreground leading-tight">
+          {/* Headline provocativa - centralizado */}
+          <div className="text-center mb-8">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground leading-tight mb-2">
               Você treina, se esforça…
             </h2>
-            <p className="font-display text-2xl sm:text-3xl md:text-4xl tracking-[-0.02em] text-accent mt-1.5">
+            <p className="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight text-accent">
               e mesmo assim não vê resultado?
             </p>
           </div>
           
-          {/* Introdução emocional - ALINHADO À ESQUERDA para leitura natural */}
-          <div className="max-w-[650px] mx-auto mb-8 sm:mb-10">
-            <p className="text-slate-600 text-sm sm:text-base mb-3 text-left" style={{ lineHeight: '1.75' }}>
+          {/* Introdução emocional - centralizado */}
+          <div className="max-w-2xl mx-auto mb-12 text-center">
+            <p className="text-gray-600 text-base sm:text-lg mb-4" style={{ lineHeight: '1.8' }}>
               E o pior não é treinar pesado. É sentir que o esforço não está voltando em forma de resultado.
             </p>
-            <p className="text-slate-500 text-sm sm:text-base text-left" style={{ lineHeight: '1.75' }}>
+            <p className="text-gray-500 text-base sm:text-lg" style={{ lineHeight: '1.8' }}>
               Provavelmente você já saiu da academia com a sensação de ter feito tudo certo, mas sem a certeza de que aquilo realmente estava funcionando.
             </p>
           </div>
           
-          {/* 2️⃣ Pain Points - Cards compactos */}
-          <div className="space-y-2.5 sm:space-y-3 mb-10 sm:mb-12">
+          {/* Pain Points - Cards com ícone laranja */}
+          <div className="space-y-3 mb-16">
             {painPoints.map((point, index) => (
               <div 
                 key={index} 
-                className="group bg-white rounded-xl border-l-4 border-red-500 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+                className="bg-gray-50 rounded-xl border border-gray-100 p-4 flex items-center gap-4 hover:shadow-md transition-all duration-300"
               >
-                  <div className="flex items-center gap-3 p-3.5 sm:p-4">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors">
-                      <AlertTriangle className="w-4 h-4 text-red-500" strokeWidth={2} />
-                    </div>
-                    <p className="text-slate-700 text-sm sm:text-base flex-1 text-left" style={{ lineHeight: '1.5' }}>
-                    {point.text.split(point.emphasis).map((part, i, arr) => (
-                      <span key={i}>
-                        {part}
-                        {i < arr.length - 1 && (
-                          <span className="font-bold text-slate-900">{point.emphasis}</span>
-                        )}
-                      </span>
-                    ))}
-                  </p>
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <AlertTriangle className="w-5 h-5 text-accent" strokeWidth={2} />
                 </div>
+                <p className="text-gray-700 text-sm sm:text-base flex-1">
+                  {point.text.split(point.emphasis).map((part, i, arr) => (
+                    <span key={i}>
+                      {part}
+                      {i < arr.length - 1 && (
+                        <span className="font-bold text-foreground">{point.emphasis}</span>
+                      )}
+                    </span>
+                  ))}
+                </p>
               </div>
             ))}
           </div>
           
-          {/* 3️⃣ A VERDADE - Bloco Unificado (momento-chave) */}
-          <div className="bg-white rounded-xl shadow-md border border-slate-100 p-5 sm:p-6 md:p-8">
-            {/* Badge + Headline unidos */}
-            <div className="text-center mb-5 sm:mb-6">
-              <span className="inline-block text-xs font-bold text-accent uppercase tracking-[0.12em] mb-3">
-                A verdade
+          {/* A VERDADE - Bloco escuro de destaque */}
+          <div className="bg-gray-950 rounded-2xl p-6 sm:p-8 md:p-10">
+            {/* Badge + Headline */}
+            <div className="text-center mb-8">
+              <span className="inline-block text-xs font-bold text-accent uppercase tracking-[0.2em] mb-4">
+                A VERDADE
               </span>
-              <p className="text-foreground font-display text-lg sm:text-xl md:text-2xl leading-snug tracking-[-0.02em]">
-                O problema <span className="text-accent font-semibold">não é falta de esforço.</span>
+              <p className="text-white font-display text-xl sm:text-2xl md:text-3xl leading-snug tracking-tight">
+                O problema <span className="text-accent font-bold">não é falta de esforço.</span>
               </p>
             </div>
             
-            {/* Explicação fluida - espaçamento menor entre itens */}
-            <div className="space-y-3 sm:space-y-4 mb-5 sm:mb-6">
+            {/* Explicação fluida */}
+            <div className="space-y-4 mb-8">
               {explanationPoints.map((point, index) => {
                 const IconComponent = point.icon;
                 return (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center mt-0.5">
-                      <IconComponent className="w-4 h-4 text-accent" />
+                  <div key={index} className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center mt-0.5">
+                      <IconComponent className="w-5 h-5 text-accent" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-slate-600 text-sm sm:text-base" style={{ lineHeight: '1.65' }}>
+                      <p className="text-gray-300 text-sm sm:text-base" style={{ lineHeight: '1.7' }}>
                         {point.text}{" "}
-                        <span className="text-slate-900 font-semibold">{point.highlight}</span>
+                        <span className="text-white font-semibold">{point.highlight}</span>
                       </p>
                       {point.followUp && (
-                        <p className="text-slate-500 text-xs sm:text-sm mt-1.5 pl-2.5 border-l-2 border-accent/20" style={{ lineHeight: '1.6' }}>
+                        <p className="text-gray-500 text-sm mt-2" style={{ lineHeight: '1.6' }}>
                           {point.followUp}
                         </p>
                       )}
@@ -143,11 +138,11 @@ const Problems = () => {
             </div>
             
             {/* Fechamento */}
-            <div className="bg-slate-50 rounded-lg p-4 sm:p-5">
-              <p className="text-slate-600 text-sm sm:text-base mb-2" style={{ lineHeight: '1.65' }}>
+            <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-5 text-center">
+              <p className="text-gray-400 text-sm sm:text-base mb-2">
                 A maioria das pessoas treina assim por anos. Não porque não querem evoluir —
               </p>
-              <p className="text-slate-900 font-semibold text-sm sm:text-base" style={{ lineHeight: '1.65' }}>
+              <p className="text-white font-semibold text-sm sm:text-base">
                 mas porque ninguém ensinou um{" "}
                 <span className="text-accent">sistema estruturado, progressivo e aplicável.</span>
               </p>

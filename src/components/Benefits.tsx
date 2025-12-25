@@ -4,15 +4,13 @@ interface Benefit {
   icon: LucideIcon;
   title: string;
   description: string;
-  size?: "normal" | "large";
 }
 
 const benefits: Benefit[] = [
   {
     icon: Dumbbell,
     title: "Você sabe o que fazer",
-    description: "Cada exercício tem propósito. Zero dúvida, zero improviso.",
-    size: "large"
+    description: "Cada exercício tem propósito. Zero dúvida, zero improviso."
   },
   {
     icon: Target,
@@ -27,8 +25,7 @@ const benefits: Benefit[] = [
   {
     icon: Apple,
     title: "Você come sem neura",
-    description: "Nutrição simples que funciona, sem frescura.",
-    size: "large"
+    description: "Nutrição simples que funciona, sem frescura."
   },
   {
     icon: Shield,
@@ -52,83 +49,53 @@ const benefits: Benefit[] = [
   },
 ];
 
-const BenefitCard = ({ benefit, index }: { benefit: Benefit; index: number }) => {
-  const Icon = benefit.icon;
-  const isLarge = benefit.size === "large";
-  
-  return (
-    <div
-      className={`
-        group relative bg-white rounded-2xl shadow-md shadow-black/[0.04] border border-slate-100
-        hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/[0.1] hover:border-accent/20
-        transition-all duration-300 ease-out overflow-hidden
-        ${isLarge ? "sm:col-span-2 sm:row-span-1" : ""}
-      `}
-    >
-      {/* Gradient hover overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      
-      <div className={`relative p-6 sm:p-7 ${isLarge ? "sm:flex sm:items-center sm:gap-6" : ""}`}>
-        {/* Icon container - Large and prominent */}
-        <div className={`
-          flex-shrink-0 rounded-xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/15
-          flex items-center justify-center mb-4
-          group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-accent/10 transition-all duration-300
-          ${isLarge ? "w-14 h-14 sm:w-16 sm:h-16 sm:mb-0" : "w-12 h-12 sm:w-14 sm:h-14"}
-        `}>
-          <Icon className={`text-accent ${isLarge ? "w-7 h-7 sm:w-8 sm:h-8" : "w-6 h-6 sm:w-7 sm:h-7"}`} strokeWidth={1.75} />
-        </div>
-        
-        {/* Text content - alinhado à esquerda */}
-        <div className="flex-1 text-left">
-          <h3 className={`
-            font-display font-bold text-slate-900 tracking-[-0.02em] mb-1.5
-            ${isLarge ? "text-lg sm:text-xl" : "text-base sm:text-lg"}
-          `}>
-            {benefit.title}
-          </h3>
-          <p className={`
-            text-slate-500
-            ${isLarge ? "text-base" : "text-sm sm:text-base"}
-          `} style={{ lineHeight: '1.7' }}>
-            {benefit.description}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const Benefits = () => {
   return (
-    <section className="py-20 sm:py-24 md:py-28 bg-slate-50 relative overflow-hidden">
-      {/* Subtle dot pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[length:24px_24px] pointer-events-none" />
-      
+    <section className="py-20 sm:py-28 bg-white relative overflow-hidden">
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
+        
         {/* Badge de contexto */}
-        <div className="text-center mb-4">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.15em] text-accent bg-accent/10 px-3 py-1.5 rounded-full">
-            O Sistema
+        <div className="text-center mb-6">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent">
+            O SISTEMA
           </span>
         </div>
         
         {/* Título - centralizado */}
-        <div className="text-center mb-10 sm:mb-12 max-w-[650px] mx-auto">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-[-0.02em] text-foreground">
+        <div className="text-center mb-12 max-w-2xl mx-auto">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 tracking-tight text-foreground">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas</span>
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base text-left sm:text-center" style={{ lineHeight: '1.75' }}>
+          <p className="text-gray-600 text-base sm:text-lg" style={{ lineHeight: '1.8' }}>
             Não é só sobre ganhar músculo. É sobre treinar com método.
           </p>
         </div>
         
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto">
-          {benefits.map((benefit, index) => (
-            <BenefitCard key={index} benefit={benefit} index={index} />
-          ))}
+        {/* Grid de benefícios */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
+          {benefits.map((benefit, index) => {
+            const Icon = benefit.icon;
+            return (
+              <div
+                key={index}
+                className="bg-gray-50 rounded-xl p-5 sm:p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100"
+              >
+                {/* Icon container */}
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                  <Icon className="w-6 h-6 text-accent" strokeWidth={1.75} />
+                </div>
+                
+                {/* Text content */}
+                <h3 className="font-display font-bold text-foreground text-base sm:text-lg mb-2 tracking-tight">
+                  {benefit.title}
+                </h3>
+                <p className="text-gray-500 text-sm" style={{ lineHeight: '1.7' }}>
+                  {benefit.description}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
