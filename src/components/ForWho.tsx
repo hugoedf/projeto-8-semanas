@@ -26,7 +26,7 @@ const notFor = [
 
 const ForWho = () => {
   return (
-    <section className="py-20 sm:py-28 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 relative overflow-hidden">
+    <section className="py-20 sm:py-28 bg-gray-900 relative overflow-hidden">
       {/* Background effect */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.08),transparent_70%)]" />
       

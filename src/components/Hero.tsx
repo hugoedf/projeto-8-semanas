@@ -42,7 +42,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 pt-16 pb-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900 pt-16 pb-20">
       {/* Background overlays for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.12),transparent_60%)]" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.02%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50" />
@@ -88,7 +88,7 @@ const Hero = () => {
               variant="cta" 
               size="lg" 
               onClick={handleCTAClick} 
-              className={`text-sm sm:text-lg px-8 sm:px-12 py-6 sm:py-7 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
+              className={`text-xs sm:text-base px-6 sm:px-12 py-5 sm:py-7 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
             >
               QUERO TREINAR COM MÉTODO
               <ArrowRight className="ml-2 w-5 h-5" />

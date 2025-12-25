@@ -33,7 +33,7 @@ const CTA = () => {
   return (
     <section 
       id="cta-section" 
-      className={`py-20 sm:py-28 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 relative overflow-hidden transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      className={`py-20 sm:py-28 bg-gray-900 relative overflow-hidden transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
     >
       {/* Background effect */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.15),transparent_50%)]" />
@@ -95,7 +95,7 @@ const CTA = () => {
                 <Button 
                   variant="cta" 
                   size="lg" 
-                  className="w-full text-sm sm:text-base py-6 mb-4 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full" 
+                  className="w-full text-xs sm:text-base py-5 sm:py-6 mb-4 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full" 
                   onClick={handleCTAClick}
                 >
                   <span>QUERO TREINAR COM MÉTODO</span>
