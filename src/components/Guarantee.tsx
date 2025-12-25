@@ -40,7 +40,7 @@ const Guarantee = () => {
             
             {/* Checklist */}
             <div className="flex flex-wrap justify-center gap-6 text-primary">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 text-primary">
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                   <CheckCircle className="w-4 h-4 text-white" />
                 </div>
@@ -48,11 +48,11 @@ const Guarantee = () => {
                   Sem risco
                 </p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 text-primary">
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                   <CheckCircle className="w-4 h-4 text-white" />
                 </div>
-                <p className="text-white text-base font-medium">
+                <p className="text-base font-medium text-primary">
                   Sem complicação
                 </p>
               </div>
