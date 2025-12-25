@@ -70,7 +70,7 @@ const ForWho = () => {
                   <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0">
                     <X className="w-3.5 h-3.5 text-gray-500" />
                   </div>
-                  <p className="text-gray-500 text-sm text-right">{item}</p>
+                  <p className="text-gray-500 text-sm text-left">{item}</p>
                 </div>)}
             </div>
           </div>
