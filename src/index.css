@@ -5,24 +5,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
 
 /* =====================================================
-   🎨 PALETA PREMIUM - HIERARQUIA VISUAL PARA CONVERSÃO
+   🎨 PALETA PREMIUM - CINZA ESCURO + BRANCO + LARANJA
 ===================================================== */
 
 @layer base {
   :root {
-    /* BACKGROUNDS */
-    --bg-black: 0 0% 0%;
+    /* BACKGROUNDS - Cinza Escuro (não preto puro) */
+    --bg-dark: 0 0% 12%;
+    --bg-dark-lighter: 0 0% 15%;
     --bg-white: 0 0% 100%;
     --bg-off-white: 0 0% 97%;
-    --bg-dark-gray: 0 0% 10%;
     
-    /* TEXTOS - Em Fundos Escuros */
-    --text-white-pure: 0 0% 100%;
-    
-    /* TEXTOS - Em Fundos Brancos */
+    /* TEXTOS */
+    --text-white: 0 0% 100%;
+    --text-white-90: 0 0% 100%;
     --text-black-dark: 0 0% 5%;
-    --text-gray-dark: 0 0% 20%;
-    --text-gray-medium: 0 0% 40%;
+    --text-gray-dark: 0 0% 25%;
+    --text-gray-medium: 0 0% 45%;
     
     /* DESTAQUE */
     --accent-orange: 16 100% 60%;
@@ -35,22 +34,22 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Modo Dark (padrão) */
+  /* Modo Dark (padrão) - Cinza Escuro */
   .dark {
-    --background: var(--bg-black);
-    --foreground: var(--text-white-pure);
-    --card: var(--bg-dark-gray);
-    --card-foreground: var(--text-white-pure);
+    --background: var(--bg-dark);
+    --foreground: var(--text-white);
+    --card: var(--bg-dark-lighter);
+    --card-foreground: var(--text-white);
     --primary: var(--accent-orange);
-    --primary-foreground: var(--text-white-pure);
-    --secondary: var(--bg-dark-gray);
-    --secondary-foreground: var(--text-white-pure);
-    --muted: var(--bg-dark-gray);
-    --muted-foreground: var(--text-white-pure);
+    --primary-foreground: var(--text-white);
+    --secondary: var(--bg-dark-lighter);
+    --secondary-foreground: var(--text-white-90);
+    --muted: var(--bg-dark-lighter);
+    --muted-foreground: var(--text-white-90);
     --accent: var(--accent-orange);
-    --accent-foreground: var(--text-white-pure);
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
+    --accent-foreground: var(--text-white);
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
     --ring: var(--accent-orange);
   }
 
@@ -61,13 +60,13 @@
     --card: var(--bg-off-white);
     --card-foreground: var(--text-black-dark);
     --primary: var(--accent-orange);
-    --primary-foreground: var(--text-white-pure);
+    --primary-foreground: var(--text-white);
     --secondary: var(--bg-off-white);
     --secondary-foreground: var(--text-black-dark);
     --muted: var(--bg-off-white);
     --muted-foreground: var(--text-gray-medium);
     --accent: var(--accent-orange);
-    --accent-foreground: var(--text-white-pure);
+    --accent-foreground: var(--text-white);
     --border: 0 0% 90%;
     --input: 0 0% 90%;
     --ring: var(--accent-orange);
@@ -105,12 +104,13 @@
 }
 
 /* =====================================================
-   📐 SEÇÕES - ALTERNÂNCIA BRANCO/PRETO
+   📐 SEÇÕES - ALTERNÂNCIA BRANCO/CINZA ESCURO
 ===================================================== */
 
-/* SEÇÃO ESCURA (Preto + Branco + Laranja) */
+/* SEÇÃO ESCURA (Cinza Escuro + Branco + Laranja) */
 .section-dark {
-  @apply bg-black text-white;
+  background-color: hsl(var(--bg-dark));
+  @apply text-white;
 }
 
 .section-dark h1,
@@ -119,7 +119,7 @@
 .section-dark h4,
 .section-dark h5,
 .section-dark h6 {
-  @apply text-white;
+  @apply text-white font-bold;
 }
 
 .section-dark p {
@@ -176,12 +176,14 @@
 
 /* Card Premium em Fundo Escuro */
 .card-dark-premium {
-  @apply bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6;
+  background-color: hsl(var(--bg-dark-lighter) / 0.5);
+  @apply backdrop-blur-sm border border-white/10 rounded-lg p-6;
   transition: var(--transition);
 }
 
 .card-dark-premium:hover {
-  @apply border-orange-500/30 bg-black/60;
+  @apply border-orange-500/30;
+  background-color: hsl(var(--bg-dark-lighter) / 0.8);
 }
 
 .card-dark-premium h3,
@@ -293,7 +295,8 @@
 
 /* Hero Section */
 .hero-section {
-  @apply bg-black text-white py-20 md:py-32;
+  background-color: hsl(var(--bg-dark));
+  @apply text-white py-20 md:py-32;
 }
 
 .hero-section .hero-title {
@@ -327,7 +330,8 @@
 
 /* Seção de Benefícios */
 .benefits-section {
-  @apply section-dark py-20 md:py-32;
+  background-color: hsl(var(--bg-dark));
+  @apply text-white py-20 md:py-32;
 }
 
 .benefit-card {
@@ -348,11 +352,13 @@
 
 /* Seção de Garantia */
 .guarantee-section {
-  @apply section-dark py-20 md:py-32;
+  background-color: hsl(var(--bg-dark));
+  @apply text-white py-20 md:py-32;
 }
 
 .guarantee-card {
-  @apply bg-gradient-to-br from-black to-black/80 border border-orange-500/20 rounded-lg p-8;
+  background: linear-gradient(135deg, hsl(var(--bg-dark)) 0%, hsl(var(--bg-dark-lighter)) 100%);
+  @apply border border-orange-500/20 rounded-lg p-8;
 }
 
 .guarantee-card h3 {
@@ -410,13 +416,14 @@
 }
 
 /* =====================================================
-   💎 OVERRIDES FINAIS - GARANTIR HIERARQUIA
+   💎 OVERRIDES FINAIS - GARANTIR HIERARQUIA PREMIUM
 ===================================================== */
 
-/* Garantir que seções escuras tenham texto branco */
+/* Garantir que seções escuras tenham fundo cinza escuro */
 section.bg-black,
 section.bg-slate-900,
 section.bg-gray-900 {
+  background-color: hsl(var(--bg-dark)) !important;
   @apply text-white;
 }
 
@@ -429,7 +436,7 @@ section.bg-slate-900 h3,
 section.bg-gray-900 h1,
 section.bg-gray-900 h2,
 section.bg-gray-900 h3 {
-  @apply text-white;
+  @apply text-white font-bold;
 }
 
 /* Garantir que seções claras tenham texto preto */
@@ -448,7 +455,7 @@ section.bg-slate-50 h3,
 section.bg-gray-50 h1,
 section.bg-gray-50 h2,
 section.bg-gray-50 h3 {
-  @apply text-black;
+  @apply text-black font-bold;
 }
 
 /* Laranja estratégico - apenas em destaques */
@@ -466,4 +473,25 @@ section.bg-gray-50 h3 {
 /* Transições suaves */
 * {
   @apply transition-colors duration-300;
+}
+
+/* =====================================================
+   🔥 FORÇA FINAL - Remover qualquer azul restante
+===================================================== */
+
+/* Remove qualquer classe com azul */
+[class*="from-blue"],
+[class*="to-blue"],
+[class*="via-blue"],
+[class*="bg-blue"],
+[class*="text-blue"] {
+  display: none !important;
+}
+
+/* Força cinza escuro em todos os backgrounds escuros */
+.bg-slate-900,
+.bg-gray-900,
+.bg-slate-800,
+.bg-gray-800 {
+  background-color: hsl(var(--bg-dark)) !important;
 }
