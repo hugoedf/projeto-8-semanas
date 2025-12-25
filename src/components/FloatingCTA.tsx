@@ -15,6 +15,8 @@ const FloatingCTA = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
           const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+          
+          // Aparece em 40% e permanece até o final, só some se voltar abaixo de 40%
           if (scrollPercentage >= 40 && !isDismissed) {
             setIsVisible(true);
           } else if (scrollPercentage < 40) {
@@ -25,38 +27,60 @@ const FloatingCTA = () => {
         ticking = true;
       }
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [isDismissed]);
 
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
+
+    console.log('✅ ===== CHECKOUT INICIADO (FLOATING CTA) =====');
+    console.log('🔗 URL final:', checkoutUrl);
+    console.log('==============================================');
+
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
+  };
+
+  const handleDismiss = () => {
+    setIsDismissed(true);
+    setIsVisible(false);
   };
 
   if (!isVisible) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden animate-slide-in-bottom">
-      <div className="bg-background/98 backdrop-blur-md border-t border-accent/30 shadow-lg px-4 py-3 safe-area-inset-bottom">
+      <div className="bg-gray-950/98 backdrop-blur-lg border-t border-accent/40 shadow-[0_-10px_40px_hsla(18,100%,58%,0.15)] px-4 py-4 safe-area-inset-bottom">
         <div className="flex items-center justify-between gap-3">
-          {/* Preço */}
-          <div className="flex items-center gap-2">
-            <span className="text-muted-foreground line-through text-xs">R$97</span>
-            <span className="text-accent font-bold text-lg">R$19,90</span>
+          {/* Preço - Enhanced */}
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-gray-500 line-through text-sm">R$97</span>
+            <span className="text-accent font-extrabold text-xl drop-shadow-[0_0_15px_hsla(18,100%,58%,0.4)]">R$19,90</span>
           </div>
 
-          {/* Botão */}
-          <Button variant="cta" size="default" onClick={handleCTAClick} className="text-xs px-5 rounded-full">
+          {/* Botão emocional - Enhanced */}
+          <Button 
+            variant="cta" 
+            size="default"
+            onClick={handleCTAClick}
+            className="text-sm px-6 py-4 shadow-lg uppercase animate-pulse-glow whitespace-nowrap rounded-full"
+          >
             EVOLUIR AGORA
-            <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+            <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
 
           {/* Fechar */}
-          <button onClick={() => { setIsDismissed(true); setIsVisible(false); }} className="p-1 text-muted-foreground hover:text-foreground transition-colors" aria-label="Fechar">
-            <X className="w-4 h-4" />
+          <button 
+            onClick={handleDismiss}
+            className="p-1.5 text-gray-500 hover:text-white transition-colors flex-shrink-0"
+            aria-label="Fechar"
+          >
+            <X className="w-5 h-5" />
           </button>
         </div>
       </div>
