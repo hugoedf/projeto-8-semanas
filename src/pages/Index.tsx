@@ -17,7 +17,7 @@ import IntermediateCTA from "@/components/IntermediateCTA";
 import FloatingCTA from "@/components/FloatingCTA";
 const Index = () => {
   return <main className="min-h-screen">
-      <Hero />
+      <Hero className="bg-accent" />
       {/* 1. DOR - Identificação emocional */}
       <Problems />
       {/* 2. CONEXÃO HUMANA - Por que existe */}
