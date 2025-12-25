@@ -51,7 +51,10 @@ const benefits: Benefit[] = [
 
 const Benefits = () => {
   return (
-    <section className="py-20 sm:py-28 bg-white relative overflow-hidden">
+    <section className="py-20 sm:py-28 bg-[#050505] relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(16,100%,60%,0.1),transparent_60%)]" />
+      
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         
         {/* Badge de contexto */}
@@ -61,36 +64,36 @@ const Benefits = () => {
           </span>
         </div>
         
-        {/* Título - centralizado */}
+        {/* Título - Laranja */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 tracking-tight text-foreground">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 tracking-tight text-accent">
             O que muda na sua vida em{" "}
-            <span className="text-accent">8 semanas</span>
+            <span className="text-white">8 semanas</span>
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg" style={{ lineHeight: '1.8' }}>
+          <p className="text-white/70 text-base sm:text-lg" style={{ lineHeight: '1.8' }}>
             Não é só sobre ganhar músculo. É sobre treinar com método.
           </p>
         </div>
         
-        {/* Grid de benefícios */}
+        {/* Grid de benefícios - Cards escuros com borda laranja */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <div
                 key={index}
-                className="bg-gray-50 rounded-xl p-5 sm:p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100"
+                className="bg-[#1a1a1a] rounded-xl p-5 sm:p-6 border-2 border-accent/30 hover:border-accent hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-1 transition-all duration-300"
               >
                 {/* Icon container */}
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center mb-4">
                   <Icon className="w-6 h-6 text-accent" strokeWidth={1.75} />
                 </div>
                 
                 {/* Text content */}
-                <h3 className="font-display font-bold text-foreground text-base sm:text-lg mb-2 tracking-tight">
+                <h3 className="font-display font-bold text-accent text-base sm:text-lg mb-2 tracking-tight">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-500 text-sm" style={{ lineHeight: '1.7' }}>
+                <p className="text-white/60 text-sm" style={{ lineHeight: '1.7' }}>
                   {benefit.description}
                 </p>
               </div>
