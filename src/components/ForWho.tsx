@@ -26,10 +26,7 @@ const notFor = [
 
 const ForWho = () => {
   return (
-    <section className="py-20 sm:py-28 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 relative overflow-hidden">
-      {/* Background effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.08),transparent_70%)]" />
-      
+    <section className="py-20 sm:py-28 bg-[#050505] relative overflow-hidden">
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
@@ -52,7 +49,7 @@ const ForWho = () => {
             return (
               <div 
                 key={index} 
-                className="bg-gray-900/60 backdrop-blur-sm border border-gray-800 rounded-xl p-6 text-center hover:border-accent/30 transition-all duration-300"
+                className="bg-[#1A1A1A] border border-gray-800 rounded-xl p-6 text-center hover:border-accent/30 transition-all duration-300"
               >
                 <div className="w-14 h-14 rounded-xl bg-accent/15 flex items-center justify-center mb-4 mx-auto">
                   <Icon className="w-7 h-7 text-accent" />
@@ -76,7 +73,7 @@ const ForWho = () => {
         
         {/* Bloco "Para quem NÃO é" */}
         <div className="max-w-xl mx-auto">
-          <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-6">
+          <div className="bg-[#0A0A0A] border border-gray-800 rounded-xl p-6">
             <p className="text-gray-400 text-sm sm:text-base text-center mb-5">
               O Método 8X <span className="font-medium text-white">não é para quem:</span>
             </p>

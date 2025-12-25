@@ -28,30 +28,26 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[hsl(0_0%_2%)] pt-16 pb-24">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,hsla(18,100%,60%,0.2),transparent_55%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_100%,hsla(18,100%,60%,0.1),transparent_50%)]" />
-      
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-16 pb-24">
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           
           {/* Badge */}
-          <div className="inline-flex items-center gap-2.5 bg-accent/10 border border-accent/30 rounded-full px-5 py-2 text-accent font-bold text-xs uppercase tracking-[0.2em] mb-8 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2.5 bg-accent/10 border border-accent/30 rounded-full px-5 py-2 text-accent font-bold text-xs uppercase tracking-[0.2em] mb-8">
             <Zap className="w-4 h-4" />
             <span>MÉTODO 8X</span>
           </div>
           
           {/* Headline */}
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-white tracking-tight mb-8 font-extrabold">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-foreground tracking-tight mb-8 font-extrabold">
             Um sistema de treino baseado em ciência para gerar{" "}
-            <span className="text-accent drop-shadow-[0_0_30px_hsla(18,100%,60%,0.5)]">hipertrofia real</span>{" "}
+            <span className="text-accent">hipertrofia real</span>{" "}
             com progressão clara e execução guiada.
           </h1>
           
           {/* Subheadline */}
-          <p className="text-lg sm:text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto text-gray-300 mb-10">
-            Em <span className="text-accent font-bold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-semibold">sem estagnação, sem improviso.</span>
+          <p className="text-lg sm:text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto text-gray-600 mb-10">
+            Em <span className="text-accent font-bold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-foreground font-semibold">sem estagnação, sem improviso.</span>
           </p>
           
           {/* Watch CTA */}
@@ -61,16 +57,16 @@ const Hero = () => {
           
           {/* VSL Player - Mobile */}
           <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-10">
-            <div className="absolute -inset-6 bg-accent/25 rounded-3xl blur-[80px]" />
-            <div className="relative z-10 vsl-frame overflow-hidden">
+            <div className="absolute -inset-4 bg-accent/30 rounded-2xl blur-[40px]" />
+            <div className="relative z-10 rounded-2xl overflow-hidden border-4 border-accent shadow-[0_0_60px_hsla(18,100%,60%,0.4)]">
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
           </div>
           
           {/* VSL Player - Desktop */}
           <div className="hidden lg:block relative w-full max-w-xl mx-auto mb-12">
-            <div className="absolute -inset-8 bg-accent/30 rounded-[2rem] blur-[100px]" />
-            <div className="relative z-10 vsl-frame overflow-hidden">
+            <div className="absolute -inset-6 bg-accent/25 rounded-3xl blur-[50px]" />
+            <div className="relative z-10 rounded-2xl overflow-hidden border-4 border-accent shadow-[0_0_80px_hsla(18,100%,60%,0.5)]">
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
           </div>
@@ -81,7 +77,7 @@ const Hero = () => {
               variant="cta" 
               size="lg" 
               onClick={handleCTAClick} 
-              className={`btn-glow ${vslEnded ? 'animate-pulse-glow' : ''}`}
+              className={`${vslEnded ? 'animate-pulse' : ''}`}
             >
               QUERO TREINAR COM MÉTODO
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -90,15 +86,15 @@ const Hero = () => {
           
           {/* Social Proof + Price */}
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
-            <span className="text-gray-300 font-medium text-sm">+500 pessoas já aplicaram</span>
+            <span className="text-gray-600 font-medium text-sm">+500 pessoas já aplicaram</span>
             <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-accent/60" />
             <span className="text-accent font-bold text-xl">R$19,90</span>
             <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-accent/60" />
-            <span className="text-gray-400 text-sm">Menos que uma refeição</span>
+            <span className="text-gray-500 text-sm">Menos que uma refeição</span>
           </div>
           
           {/* Micro-commitment */}
-          <p className="text-gray-500 text-sm mt-10 italic">
+          <p className="text-gray-400 text-sm mt-10 italic">
             Se você já treina, mas sente que poderia estar evoluindo mais, continue.
           </p>
         </div>
@@ -106,8 +102,8 @@ const Hero = () => {
       
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60">
-        <div className="w-6 h-10 border border-white/30 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-2.5 bg-white/50 rounded-full" />
+        <div className="w-6 h-10 border border-gray-300 rounded-full flex items-start justify-center p-2">
+          <div className="w-1 h-2.5 bg-gray-400 rounded-full" />
         </div>
       </div>
     </section>

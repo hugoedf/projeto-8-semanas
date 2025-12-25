@@ -45,7 +45,7 @@ const explanationPoints = [
 
 const Problems = () => {
   return (
-    <section className="py-20 sm:py-28 bg-white relative overflow-hidden">
+    <section className="py-20 sm:py-28 bg-[#050505] relative overflow-hidden">
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="max-w-3xl mx-auto">
           
@@ -58,7 +58,7 @@ const Problems = () => {
           
           {/* Headline provocativa - centralizado */}
           <div className="text-center mb-8">
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight text-foreground leading-tight mb-2">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight text-white leading-tight mb-2">
               Você treina, se esforça…
             </h2>
             <p className="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight text-accent">
@@ -68,10 +68,10 @@ const Problems = () => {
           
           {/* Introdução emocional - centralizado */}
           <div className="max-w-2xl mx-auto mb-12 text-center">
-            <p className="text-gray-600 text-base sm:text-lg mb-4" style={{ lineHeight: '1.8' }}>
+            <p className="text-gray-300 text-base sm:text-lg mb-4" style={{ lineHeight: '1.8' }}>
               E o pior não é treinar pesado. É sentir que o esforço não está voltando em forma de resultado.
             </p>
-            <p className="text-gray-500 text-base sm:text-lg" style={{ lineHeight: '1.8' }}>
+            <p className="text-gray-400 text-base sm:text-lg" style={{ lineHeight: '1.8' }}>
               Provavelmente você já saiu da academia com a sensação de ter feito tudo certo, mas sem a certeza de que aquilo realmente estava funcionando.
             </p>
           </div>
@@ -81,17 +81,17 @@ const Problems = () => {
             {painPoints.map((point, index) => (
               <div 
                 key={index} 
-                className="bg-gray-50 rounded-xl border border-gray-100 p-4 flex items-center gap-4 hover:shadow-md transition-all duration-300"
+                className="bg-[#1A1A1A] rounded-xl border border-gray-800 p-4 flex items-center gap-4 hover:border-accent/30 transition-all duration-300"
               >
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/15 flex items-center justify-center">
                   <AlertTriangle className="w-5 h-5 text-accent" strokeWidth={2} />
                 </div>
-                <p className="text-gray-700 text-sm sm:text-base flex-1">
+                <p className="text-gray-300 text-sm sm:text-base flex-1">
                   {point.text.split(point.emphasis).map((part, i, arr) => (
                     <span key={i}>
                       {part}
                       {i < arr.length - 1 && (
-                        <span className="font-bold text-foreground">{point.emphasis}</span>
+                        <span className="font-bold text-white">{point.emphasis}</span>
                       )}
                     </span>
                   ))}
@@ -100,8 +100,8 @@ const Problems = () => {
             ))}
           </div>
           
-          {/* A VERDADE - Bloco escuro de destaque */}
-          <div className="bg-gray-950 rounded-2xl p-6 sm:p-8 md:p-10">
+          {/* A VERDADE - Bloco de destaque */}
+          <div className="bg-[#1A1A1A] border border-accent/20 rounded-2xl p-6 sm:p-8 md:p-10">
             {/* Badge + Headline */}
             <div className="text-center mb-8">
               <span className="inline-block text-xs font-bold text-accent uppercase tracking-[0.2em] mb-4">
@@ -138,7 +138,7 @@ const Problems = () => {
             </div>
             
             {/* Fechamento */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-5 text-center">
+            <div className="bg-[#0A0A0A] border border-gray-800 rounded-xl p-5 text-center">
               <p className="text-gray-400 text-sm sm:text-base mb-2">
                 A maioria das pessoas treina assim por anos. Não porque não querem evoluir —
               </p>

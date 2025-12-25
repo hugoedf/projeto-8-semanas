@@ -3,7 +3,7 @@ import guaranteeBadge from "@/assets/guarantee-badge.png";
 
 const Guarantee = () => {
   return (
-    <section className="py-20 sm:py-28 bg-white">
+    <section className="py-20 sm:py-28 bg-[#050505]">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-4xl mx-auto">
           
@@ -29,31 +29,31 @@ const Guarantee = () => {
             </div>
             
             {/* Título */}
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-5 text-foreground tracking-tight">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-5 text-white tracking-tight">
               Garantia Incondicional de{" "}
               <span className="text-accent">7 Dias</span>
             </h2>
             
             {/* Descrição */}
-            <p className="text-gray-600 mb-8 text-base sm:text-lg max-w-xl" style={{ lineHeight: '1.8' }}>
+            <p className="text-gray-400 mb-8 text-base sm:text-lg max-w-xl" style={{ lineHeight: '1.8' }}>
               Teste o método. Aplique. Sinta a diferença. Se não fizer sentido pra você, devolvemos 100% do valor.
             </p>
             
             {/* Checklist */}
             <div className="flex flex-wrap justify-center gap-6">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-accent/15 flex items-center justify-center">
                   <CheckCircle className="w-4 h-4 text-accent" />
                 </div>
-                <p className="text-foreground text-base font-medium">
+                <p className="text-white text-base font-medium">
                   Sem risco
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-accent/15 flex items-center justify-center">
                   <CheckCircle className="w-4 h-4 text-accent" />
                 </div>
-                <p className="text-foreground text-base font-medium">
+                <p className="text-white text-base font-medium">
                   Sem complicação
                 </p>
               </div>
