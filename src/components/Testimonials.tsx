@@ -6,6 +6,8 @@ import avatar1 from "@/assets/testimonials/avatar-1.jpg";
 import avatar2 from "@/assets/testimonials/avatar-2.jpg";
 import avatar3 from "@/assets/testimonials/avatar-3.jpg";
 import avatar4 from "@/assets/testimonials/avatar-4.jpg";
+import avatar5 from "@/assets/testimonials/avatar-5.jpg";
+import avatar6 from "@/assets/testimonials/avatar-6.jpg";
 import {
   Carousel,
   CarouselContent,
@@ -14,7 +16,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-const avatars = [avatar1, avatar2, avatar3, avatar4];
+// Mix de homens e mulheres para representar diversidade
+const avatars = [avatar1, avatar5, avatar2, avatar6, avatar3, avatar4];
 
 const testimonialImages = [{
   src: whatsapp1,
