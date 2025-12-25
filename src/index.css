@@ -291,3 +291,111 @@ All colors MUST be HSL.
     display: none !important;
   }
 }
+
+/* ======================================================
+   💎 CSS MESTRE - VISUAL PREMIUM / HIGH TICKET
+   Foco: Profundidade, Hierarquia e Leitura Guiada
+====================================================== */
+
+/* 1. TIPOGRAFIA & BASE
+   Deixa o texto mais "rico" e fácil de ler */
+section p {
+  line-height: 1.8 !important;
+  color: hsl(0 0% 29%);
+  font-size: 1.05rem;
+}
+
+section h2, section h3 {
+  letter-spacing: -0.03em !important;
+}
+
+/* 2. FUNDO DAS SEÇÕES CLARAS (O PALCO)
+   Tira o branco chapado e coloca um "Off-White" suave */
+section.bg-background,
+section.bg-white,
+section:not([class*="bg-fitness"]):not([class*="gradient-hero"]):not(.dark) {
+  background-color: hsl(0 0% 98%) !important;
+}
+
+/* ======================================================
+   3. SEÇÃO DE DORES - Cards Flutuantes Premium
+====================================================== */
+.pain-card-premium {
+  background: hsl(0 0% 100%);
+  margin-bottom: 16px;
+  padding: 24px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px hsla(0 0% 0% / 0.04);
+  border: 1px solid hsla(0 0% 0% / 0.02);
+  border-left: 4px solid hsl(0 70% 65%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pain-card-premium:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px hsla(0 70% 65% / 0.15);
+}
+
+/* ======================================================
+   4. SEÇÃO "POR QUE O MÉTODO EXISTE" - Hero Box
+====================================================== */
+.solution-hero-box {
+  background: hsl(0 0% 100%);
+  border-radius: 24px;
+  padding: 3rem !important;
+  box-shadow: 0 20px 60px hsla(18 100% 50% / 0.08);
+  border: 1px solid hsla(18 100% 50% / 0.1);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.solution-hero-box h2 {
+  color: hsl(0 0% 0%);
+  margin-bottom: 20px;
+}
+
+/* ======================================================
+   5. SEÇÃO DE BENEFÍCIOS - Grid Apple Style
+====================================================== */
+.benefit-card-premium {
+  background: hsl(0 0% 100%);
+  border-radius: 16px;
+  padding: 24px;
+  height: 100%;
+  box-shadow: 0 4px 24px hsla(0 0% 0% / 0.03);
+  border: 1px solid hsl(0 0% 94%);
+  transition: all 0.3s ease;
+}
+
+.benefit-card-premium:hover {
+  border-color: hsl(var(--accent));
+  transform: translateY(-5px);
+}
+
+.benefit-card-premium svg,
+.benefit-card-premium img {
+  transform: scale(1.2);
+  margin-bottom: 15px;
+  display: block;
+}
+
+.benefit-card-premium h3,
+.benefit-card-premium h4 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* ======================================================
+   6. AJUSTES FINAIS DE POLIMENTO
+====================================================== */
+.section-clean {
+  background: hsl(0 0% 100%) !important;
+  border-top: 1px solid hsl(0 0% 94%);
+}
+
+/* Largura máxima de leitura para parágrafos */
+section p {
+  max-width: 75ch;
+  margin-left: auto;
+  margin-right: auto;
+}
