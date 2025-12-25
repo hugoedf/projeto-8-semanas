@@ -68,7 +68,7 @@ const Problems = () => {
             {painPoints.map((point, index) => (
               <div 
                 key={index} 
-                className="card-floating group bg-card p-6 border-l-4 border-destructive/80"
+                className="pain-card-premium group"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-9 h-9 rounded-full bg-destructive/8 flex items-center justify-center group-hover:bg-destructive/12 transition-colors">
@@ -92,7 +92,7 @@ const Problems = () => {
           </div>
           
           {/* 3️⃣ Container Hero - A Verdade */}
-          <div className="highlight-box p-8 sm:p-10 mb-14 max-w-2xl mx-auto">
+          <div className="solution-hero-box mb-14">
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2.5 bg-accent/8 border border-accent/20 rounded-full px-5 py-2 mb-6">
                 <AlertCircle className="w-4 h-4 text-accent" />

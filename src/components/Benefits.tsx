@@ -67,7 +67,7 @@ const Benefits = () => {
             return (
               <div
                 key={index}
-                className="card-floating group bg-card p-6 sm:p-7 border border-border/40 flex items-start gap-5"
+                className="benefit-card-premium group flex items-start gap-5"
               >
                 {/* Icon container - Large and prominent */}
                 <div className="flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-accent/10 border border-accent/15 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
