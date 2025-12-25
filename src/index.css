@@ -2,429 +2,165 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
-
 /* =====================================================
-   🎨 PALETA PREMIUM - CINZA ESCURO + BRANCO + LARANJA
+   🔥 CORES ORIGINAIS FITNESS - DESIGN PREMIUM
+   Preto + Cinza Escuro + Laranja (SEM AZUL)
 ===================================================== */
 
 @layer base {
   :root {
-    /* BACKGROUNDS - Cinza Escuro (não preto puro) */
-    --bg-dark: 0 0% 12%;
-    --bg-dark-lighter: 0 0% 15%;
-    --bg-white: 0 0% 100%;
-    --bg-off-white: 0 0% 97%;
-    
-    /* TEXTOS */
-    --text-white: 0 0% 100%;
-    --text-white-90: 0 0% 100%;
-    --text-black-dark: 0 0% 5%;
-    --text-gray-dark: 0 0% 25%;
-    --text-gray-medium: 0 0% 45%;
-    
-    /* DESTAQUE */
-    --accent-orange: 16 100% 60%;
-    --accent-orange-dark: 16 100% 50%;
-    
-    /* RADIUS */
-    --radius: 0.5rem;
-    
-    /* TRANSIÇÕES */
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+    /* Off-white base para contraste premium */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 5%;
 
-  /* Modo Dark (padrão) - Cinza Escuro */
-  .dark {
-    --background: var(--bg-dark);
-    --foreground: var(--text-white);
-    --card: var(--bg-dark-lighter);
-    --card-foreground: var(--text-white);
-    --primary: var(--accent-orange);
-    --primary-foreground: var(--text-white);
-    --secondary: var(--bg-dark-lighter);
-    --secondary-foreground: var(--text-white-90);
-    --muted: var(--bg-dark-lighter);
-    --muted-foreground: var(--text-white-90);
-    --accent: var(--accent-orange);
-    --accent-foreground: var(--text-white);
-    --border: 0 0% 25%;
-    --input: 0 0% 25%;
-    --ring: var(--accent-orange);
-  }
+    /* Cards brancos puros para contraste máximo */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5%;
 
-  /* Modo Light (para seções brancas) */
-  .light {
-    --background: var(--bg-white);
-    --foreground: var(--text-black-dark);
-    --card: var(--bg-off-white);
-    --card-foreground: var(--text-black-dark);
-    --primary: var(--accent-orange);
-    --primary-foreground: var(--text-white);
-    --secondary: var(--bg-off-white);
-    --secondary-foreground: var(--text-black-dark);
-    --muted: var(--bg-off-white);
-    --muted-foreground: var(--text-gray-medium);
-    --accent: var(--accent-orange);
-    --accent-foreground: var(--text-white);
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
+
+    /* PRETO/CINZA ESCURO - Cor primária fitness */
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Tons sutis de cinza */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 5%;
+
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 40%;
+
+    /* LARANJA VIBRANTE - Cor de destaque fitness */
+    --accent: 16 100% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: var(--accent-orange);
+    --ring: 16 100% 60%;
+
+    --radius: 0.875rem;
+    
+    /* CORES FITNESS - PADRÃO PREMIUM */
+    --fitness-orange: 16 100% 60%;
+    --fitness-orange-dark: 16 100% 50%;
+    --fitness-dark: 0 0% 8%;
+    --fitness-darker: 0 0% 5%;
+    --fitness-black: 0 0% 0%;
+    --fitness-gray: 0 0% 40%;
+    --fitness-light: 0 0% 97%;
+    
+    /* GRADIENTES PREMIUM - Preto → Cinza Escuro → Tons Quentes */
+    /* Hero: Gradiente mais intenso */
+    --gradient-hero: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #1a0f0a 100%);
+    
+    /* Seções: Gradiente suave e profundo */
+    --gradient-section-dark: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 50%, #15100a 100%);
+    
+    /* Accent: Laranja puro */
+    --gradient-accent: linear-gradient(135deg, hsl(16 100% 60%) 0%, hsl(16 100% 50%) 100%);
+    
+    /* Cards escuros com toque quente */
+    --gradient-card-dark: linear-gradient(180deg, rgba(26,26,26,0.6) 0%, rgba(15,15,15,0.8) 100%);
+    
+    /* Gradiente intenso para destaques */
+    --gradient-dark-intense: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+    
+    /* Sombras premium */
+    --shadow-glow: 0 0 50px hsla(16 100% 60% / 0.3);
+    --shadow-glow-strong: 0 0 80px hsla(16 100% 60% / 0.4);
+    --shadow-card: 0 10px 40px -10px hsla(0 0% 0% / 0.08);
+    --shadow-card-hover: 0 20px 50px -15px hsla(0 0% 0% / 0.12);
+    --shadow-card-dark: 0 8px 40px hsla(0 0% 0% / 0.5);
+    --shadow-accent: 0 8px 30px -8px hsla(16 100% 60% / 0.5);
+    
+    /* Transições */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 0% 8%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 16 100% 60%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 16 100% 60%;
   }
 
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.6;
-  }
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 98%;
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Oswald', system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
 
-  h1 { 
-    font-weight: 800; 
-    letter-spacing: -0.03em; 
-  }
-  
-  h2 { 
-    font-weight: 700; 
-    letter-spacing: -0.025em; 
-  }
-  
-  h3 { 
-    font-weight: 600; 
-    letter-spacing: -0.015em; 
-  }
-}
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 98%;
 
-/* =====================================================
-   📐 SEÇÕES - ALTERNÂNCIA BRANCO/CINZA ESCURO
-===================================================== */
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 5%;
 
-/* SEÇÃO ESCURA (Cinza Escuro + Branco + Laranja) */
-.section-dark {
-  background-color: hsl(var(--bg-dark));
-  @apply text-white;
-}
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
 
-.section-dark h1,
-.section-dark h2,
-.section-dark h3,
-.section-dark h4,
-.section-dark h5,
-.section-dark h6 {
-  @apply text-white font-bold;
-}
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
 
-.section-dark p {
-  @apply text-white/85;
-}
+    --accent: 16 100% 60%;
+    --accent-foreground: 0 0% 100%;
 
-.section-dark .text-muted {
-  @apply text-white/60;
-}
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-/* SEÇÃO CLARA (Branco + Preto + Laranja) */
-.section-light {
-  @apply bg-white text-black;
-}
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 16 100% 60%;
 
-.section-light h1,
-.section-light h2,
-.section-light h3,
-.section-light h4,
-.section-light h5,
-.section-light h6 {
-  @apply text-black font-bold;
-}
-
-.section-light p {
-  @apply text-gray-700;
-}
-
-.section-light .text-muted {
-  @apply text-gray-500;
-}
-
-/* SEÇÃO OFF-WHITE (Variação clara) */
-.section-off-white {
-  @apply bg-slate-50 text-black;
-}
-
-.section-off-white h1,
-.section-off-white h2,
-.section-off-white h3,
-.section-off-white h4,
-.section-off-white h5,
-.section-off-white h6 {
-  @apply text-black font-bold;
-}
-
-.section-off-white p {
-  @apply text-gray-700;
-}
-
-/* =====================================================
-   🎯 CARDS E COMPONENTES
-===================================================== */
-
-/* Card Premium em Fundo Escuro */
-.card-dark-premium {
-  background-color: hsl(var(--bg-dark-lighter) / 0.5);
-  @apply backdrop-blur-sm border border-white/10 rounded-lg p-6;
-  transition: var(--transition);
-}
-
-.card-dark-premium:hover {
-  @apply border-orange-500/30;
-  background-color: hsl(var(--bg-dark-lighter) / 0.8);
-}
-
-.card-dark-premium h3,
-.card-dark-premium h4 {
-  @apply text-white font-bold mb-2;
-}
-
-.card-dark-premium p {
-  @apply text-white/80;
-}
-
-/* Card Premium em Fundo Claro */
-.card-light-premium {
-  @apply bg-white border border-gray-200 rounded-lg p-6 shadow-sm;
-  transition: var(--transition);
-}
-
-.card-light-premium:hover {
-  @apply border-orange-500/30 shadow-md;
-}
-
-.card-light-premium h3,
-.card-light-premium h4 {
-  @apply text-black font-bold mb-2;
-}
-
-.card-light-premium p {
-  @apply text-gray-700;
-}
-
-/* =====================================================
-   🔤 TIPOGRAFIA COM HIERARQUIA
-===================================================== */
-
-/* Título Principal (Hero) */
-.title-hero {
-  @apply text-5xl md:text-7xl font-display font-black leading-tight;
-  letter-spacing: -0.03em;
-}
-
-/* Título Seção */
-.title-section {
-  @apply text-3xl md:text-4xl font-display font-bold;
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-}
-
-/* Subtítulo */
-.subtitle {
-  @apply text-lg md:text-xl font-medium;
-  margin-bottom: 1.5rem;
-}
-
-/* Corpo de Texto */
-.body-text {
-  @apply text-base md:text-lg leading-relaxed;
-  line-height: 1.7;
-}
-
-/* Label/Pequeno */
-.label-text {
-  @apply text-xs md:text-sm font-semibold uppercase tracking-wider;
-}
-
-/* =====================================================
-   🎨 DESTAQUE COM LARANJA (Estratégico)
-===================================================== */
-
-/* Laranja em Texto */
-.text-accent {
-  @apply text-orange-500 font-semibold;
-}
-
-/* Borda Laranja (Cards) */
-.border-accent-left {
-  @apply border-l-4 border-orange-500;
-}
-
-/* Fundo Laranja Suave */
-.bg-accent-subtle {
-  @apply bg-orange-500/10;
-}
-
-/* Ícone Laranja */
-.icon-accent {
-  @apply text-orange-500;
-}
-
-/* =====================================================
-   🔘 BOTÕES
-===================================================== */
-
-/* CTA Principal (Laranja) */
-.btn-cta-primary {
-  @apply bg-orange-500 text-white font-bold px-8 py-3 rounded-lg;
-  @apply hover:bg-orange-600 transition-all duration-300;
-  @apply shadow-lg hover:shadow-xl;
-}
-
-/* CTA Secundário (Outline) */
-.btn-cta-secondary {
-  @apply border-2 border-orange-500 text-orange-500 font-bold px-8 py-3 rounded-lg;
-  @apply hover:bg-orange-500/10 transition-all duration-300;
-}
-
-/* =====================================================
-   📦 SEÇÕES ESPECÍFICAS
-===================================================== */
-
-/* Hero Section */
-.hero-section {
-  background-color: hsl(var(--bg-dark));
-  @apply text-white py-20 md:py-32;
-}
-
-.hero-section .hero-title {
-  @apply title-hero mb-6;
-}
-
-.hero-section .hero-subtitle {
-  @apply subtitle text-white/90;
-}
-
-.hero-section .hero-cta {
-  @apply btn-cta-primary mt-8;
-}
-
-/* Seção de Problemas (Pain Points) */
-.problems-section {
-  @apply section-light py-20 md:py-32;
-}
-
-.problem-card {
-  @apply card-light-premium border-l-4 border-orange-500 mb-6;
-}
-
-.problem-card h3 {
-  @apply text-black font-bold text-lg mb-2;
-}
-
-.problem-card p {
-  @apply text-gray-700;
-}
-
-/* Seção de Benefícios */
-.benefits-section {
-  background-color: hsl(var(--bg-dark));
-  @apply text-white py-20 md:py-32;
-}
-
-.benefit-card {
-  @apply card-dark-premium;
-}
-
-.benefit-card .icon {
-  @apply text-orange-500 text-3xl mb-4;
-}
-
-.benefit-card h3 {
-  @apply text-white font-bold text-lg mb-2;
-}
-
-.benefit-card p {
-  @apply text-white/80;
-}
-
-/* Seção de Garantia */
-.guarantee-section {
-  background-color: hsl(var(--bg-dark));
-  @apply text-white py-20 md:py-32;
-}
-
-.guarantee-card {
-  background: linear-gradient(135deg, hsl(var(--bg-dark)) 0%, hsl(var(--bg-dark-lighter)) 100%);
-  @apply border border-orange-500/20 rounded-lg p-8;
-}
-
-.guarantee-card h3 {
-  @apply text-white font-bold text-xl mb-4;
-  @apply flex items-center gap-3;
-}
-
-.guarantee-card h3::before {
-  content: '✓';
-  @apply text-orange-500 text-2xl;
-}
-
-.guarantee-card p {
-  @apply text-white/85;
-}
-
-/* =====================================================
-   ✨ MICRO-INTERAÇÕES
-===================================================== */
-
-/* Hover em Cards */
-.card-interactive {
-  @apply transition-all duration-300;
-}
-
-.card-interactive:hover {
-  @apply transform -translate-y-1 shadow-lg;
-}
-
-/* Destaque em Hover */
-.highlight-on-hover:hover .text-accent {
-  @apply text-orange-600;
-}
-
-/* =====================================================
-   📱 RESPONSIVIDADE
-===================================================== */
-
-@media (max-width: 768px) {
-  .title-hero {
-    @apply text-3xl;
-  }
-  
-  .title-section {
-    @apply text-2xl;
-  }
-  
-  .subtitle {
-    @apply text-base;
-  }
-  
-  .body-text {
-    @apply text-sm;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 0% 8%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 16 100% 60%;
+    --sidebar-border: 0 0% 12%;
+    --sidebar-ring: 16 100% 60%;
   }
 }
 
 /* =====================================================
-   💎 OVERRIDES FINAIS - GARANTIR HIERARQUIA PREMIUM
+   🎨 SEÇÕES ESCURAS - GRADIENTE PREMIUM
 ===================================================== */
 
-/* Garantir que seções escuras tenham fundo cinza escuro */
+/* Seções com fundo escuro recebem gradiente */
+section[class*="bg-slate"],
+section[class*="bg-gray"],
+section[class*="bg-zinc"],
+.bg-fitness-dark,
+.bg-fitness-darker {
+  background: var(--gradient-section-dark) !important;
+  background-image: var(--gradient-section-dark) !important;
+}
+
+/* Hero com gradiente mais intenso */
+.gradient-hero,
+section.gradient-hero {
+  background: var(--gradient-hero) !important;
+  background-image: var(--gradient-hero) !important;
+}
+
+/* Garantir que seções escuras tenham texto branco */
 section.bg-black,
 section.bg-slate-900,
-section.bg-gray-900 {
-  background-color: hsl(var(--bg-dark)) !important;
-  @apply text-white;
+section.bg-gray-900,
+section[class*="bg-slate"],
+section[class*="bg-gray"],
+section[class*="bg-zinc"] {
+  color: hsl(0 0% 100%);
 }
 
 section.bg-black h1,
@@ -435,15 +171,159 @@ section.bg-slate-900 h2,
 section.bg-slate-900 h3,
 section.bg-gray-900 h1,
 section.bg-gray-900 h2,
-section.bg-gray-900 h3 {
-  @apply text-white font-bold;
+section.bg-gray-900 h3,
+section[class*="bg-slate"] h1,
+section[class*="bg-slate"] h2,
+section[class*="bg-slate"] h3,
+section[class*="bg-gray"] h1,
+section[class*="bg-gray"] h2,
+section[class*="bg-gray"] h3,
+section[class*="bg-zinc"] h1,
+section[class*="bg-zinc"] h2,
+section[class*="bg-zinc"] h3 {
+  color: hsl(0 0% 100%);
 }
 
-/* Garantir que seções claras tenham texto preto */
+/* =====================================================
+   🎯 CARDS ESCUROS - GRADIENTE
+===================================================== */
+
+.card-dark-premium,
+.pain-card-premium {
+  background: var(--gradient-card-dark) !important;
+  border-color: hsl(0 0% 100% / 0.1) !important;
+}
+
+.card-dark-premium h3,
+.card-dark-premium h4,
+.pain-card-premium h3,
+.pain-card-premium h4 {
+  color: hsl(0 0% 100%);
+  font-weight: 800;
+}
+
+.card-dark-premium p,
+.pain-card-premium p {
+  color: hsl(0 0% 100% / 0.85);
+}
+
+/* =====================================================
+   🔤 TIPOGRAFIA - HIERARQUIA CLARA
+===================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* =====================================================
+   🎨 DESTAQUE COM LARANJA
+===================================================== */
+
+/* Laranja em Texto */
+.text-accent,
+.highlight,
+.accent-text {
+  color: hsl(var(--accent)) !important;
+  font-weight: 600;
+}
+
+/* Borda Laranja */
+.border-accent-left,
+.border-l-orange-500 {
+  border-left-color: hsl(var(--accent)) !important;
+}
+
+/* Ícone Laranja */
+.icon-accent,
+[class*="text-orange"] {
+  color: hsl(var(--accent)) !important;
+}
+
+/* =====================================================
+   🔘 BOTÕES
+===================================================== */
+
+.btn-cta-primary,
+.bg-orange-500 {
+  background-color: hsl(var(--accent)) !important;
+  color: hsl(0 0% 100%) !important;
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  transition: var(--transition-smooth);
+}
+
+.btn-cta-primary:hover,
+.bg-orange-500:hover {
+  background-color: hsl(var(--fitness-orange-dark)) !important;
+  box-shadow: var(--shadow-accent);
+}
+
+/* =====================================================
+   ✨ SOMBRAS E EFEITOS
+===================================================== */
+
+.shadow-premium {
+  box-shadow: var(--shadow-card) !important;
+}
+
+.shadow-premium:hover {
+  box-shadow: var(--shadow-card-hover) !important;
+}
+
+/* =====================================================
+   📱 RESPONSIVIDADE
+===================================================== */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.875rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* =====================================================
+   🔥 FORÇA FINAL - REMOVER AZUL
+===================================================== */
+
+/* Remove qualquer classe com azul */
+[class*="from-blue"],
+[class*="to-blue"],
+[class*="via-blue"],
+[class*="bg-blue"],
+[class*="text-blue"],
+[class*="border-blue"] {
+  display: none !important;
+}
+
+/* Força gradiente em backgrounds escuros */
+.bg-slate-900,
+.bg-gray-900,
+.bg-slate-800,
+.bg-gray-800,
+.bg-black {
+  background: var(--gradient-section-dark) !important;
+}
+
+/* Garante que seções claras fiquem brancas */
 section.bg-white,
 section.bg-slate-50,
 section.bg-gray-50 {
-  @apply text-black;
+  background-color: hsl(0 0% 100%) !important;
+  color: hsl(0 0% 5%);
 }
 
 section.bg-white h1,
@@ -455,43 +335,5 @@ section.bg-slate-50 h3,
 section.bg-gray-50 h1,
 section.bg-gray-50 h2,
 section.bg-gray-50 h3 {
-  @apply text-black font-bold;
-}
-
-/* Laranja estratégico - apenas em destaques */
-.highlight,
-.accent-text,
-.text-highlight {
-  @apply text-orange-500 font-semibold;
-}
-
-/* Sombras sutis */
-.shadow-premium {
-  @apply shadow-lg;
-}
-
-/* Transições suaves */
-* {
-  @apply transition-colors duration-300;
-}
-
-/* =====================================================
-   🔥 FORÇA FINAL - Remover qualquer azul restante
-===================================================== */
-
-/* Remove qualquer classe com azul */
-[class*="from-blue"],
-[class*="to-blue"],
-[class*="via-blue"],
-[class*="bg-blue"],
-[class*="text-blue"] {
-  display: none !important;
-}
-
-/* Força cinza escuro em todos os backgrounds escuros */
-.bg-slate-900,
-.bg-gray-900,
-.bg-slate-800,
-.bg-gray-800 {
-  background-color: hsl(var(--bg-dark)) !important;
+  color: hsl(0 0% 5%);
 }
