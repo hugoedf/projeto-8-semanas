@@ -42,32 +42,32 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 pt-16 pb-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 pt-20 lg:pt-24 pb-16 lg:pb-20">
       {/* Background overlays for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.12),transparent_60%)]" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.02%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50" />
       
-      <div className="container mx-auto px-5 sm:px-6 relative z-10">
+      <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         {/* Desktop: Two columns | Mobile: Single column centered */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-12 max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-16 xl:gap-20 max-w-7xl mx-auto">
           
           {/* Left Column - Text Content */}
-          <div className="lg:flex-1 lg:max-w-xl text-center lg:text-left">
+          <div className="lg:flex-[1.1] lg:max-w-[580px] text-center lg:text-left">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] mb-6">
+            <div className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] mb-5 lg:mb-6">
               <Zap className="w-4 h-4" />
               <span>MÉTODO 8X</span>
             </div>
             
             {/* Título Principal */}
-            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.1] text-white tracking-tight mb-6">
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.5rem] xl:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-5 lg:mb-6">
               Um sistema de treino baseado em ciência para gerar{" "}
               <span className="text-accent">hipertrofia real</span>{" "}
               com progressão clara e execução guiada.
             </h1>
             
             {/* Subtítulo de apoio */}
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-gray-300 mb-8">
+            <p className="text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-gray-300 mb-6 lg:mb-8">
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
@@ -83,7 +83,7 @@ const Hero = () => {
                 variant="cta" 
                 size="lg" 
                 onClick={handleCTAClick} 
-                className={`text-sm sm:text-lg px-8 sm:px-12 py-6 sm:py-7 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
+                className={`text-sm sm:text-base lg:text-lg px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
               >
                 QUERO TREINAR COM MÉTODO
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -91,23 +91,23 @@ const Hero = () => {
             </div>
             
             {/* Prova social + preço */}
-            <p className="text-sm text-gray-400 mt-6">
+            <p className="text-sm text-gray-400 mt-5 lg:mt-6">
               <span className="text-gray-300 font-medium">+500 pessoas já aplicaram</span>
-              <span className="mx-3 text-gray-600">•</span>
-              <span className="text-accent font-bold text-lg">R$19,90</span>
-              <span className="mx-3 text-gray-600">•</span>
+              <span className="mx-2 lg:mx-3 text-gray-600">•</span>
+              <span className="text-accent font-bold text-base lg:text-lg">R$19,90</span>
+              <span className="mx-2 lg:mx-3 text-gray-600">•</span>
               <span>Menos que uma refeição</span>
             </p>
             
             {/* Micro-compromisso */}
-            <p className="text-gray-500 text-sm mt-10 italic">
+            <p className="text-gray-500 text-sm mt-8 lg:mt-10 italic">
               Se você já treina, mas sente que poderia estar evoluindo mais, continue.
             </p>
           </div>
           
           {/* Right Column - VSL Player (Desktop Only) */}
-          <div className="hidden lg:block lg:flex-1 lg:max-w-md relative">
-            <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-[60px] scale-90" />
+          <div className="hidden lg:block lg:flex-1 lg:max-w-[420px] xl:max-w-[460px] relative">
+            <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-[60px] scale-95" />
             <div className="relative z-10">
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
@@ -116,7 +116,7 @@ const Hero = () => {
       </div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60">
+      <div className="absolute bottom-6 lg:bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60">
         <div className="w-6 h-10 border border-white/30 rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
