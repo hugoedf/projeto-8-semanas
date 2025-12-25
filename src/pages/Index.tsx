@@ -34,7 +34,7 @@ const Index = () => {
       <IntermediateCTA />
       {/* 7. QUALIFICAÇÃO + GARANTIA */}
       <ForWho />
-      <Guarantee />
+      <Guarantee className="text-primary" />
       {/* 8. BLOCO DE DECISÃO */}
       <DecisionBlock />
       {/* 9. CTA FINAL */}
