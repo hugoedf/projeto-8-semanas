@@ -517,13 +517,46 @@ section:has(h2) > .elementor-container {
   line-height: 1.6 !important;
 }
 
-/* --- 6. AJUSTE MOBILE --- */
+/* --- 6. AJUSTE MOBILE PREMIUM --- */
 @media (max-width: 767px) {
+  /* Desativa hover em mobile */
   .elementor-widget-icon-box .elementor-widget-container:hover,
-  section:has(h2) ul.elementor-icon-list-items li:hover {
+  section:has(h2) ul.elementor-icon-list-items li:hover,
+  .pain-card-premium:hover,
+  .benefit-card-premium:hover {
     transform: none;
   }
+  
   section:has(h2) ul.elementor-icon-list-items li {
     padding: 18px;
+  }
+  
+  /* Cards de dor otimizados para mobile */
+  .pain-card-premium {
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+  }
+  
+  /* Solution hero box mobile */
+  .solution-hero-box {
+    padding: 1.5rem !important;
+    border-radius: 16px;
+  }
+  
+  /* Cards de benefício mobile */
+  .benefit-card-premium {
+    padding: 18px;
+    border-radius: 12px;
+  }
+  
+  /* Tipografia mobile mais compacta */
+  section p {
+    font-size: 1rem;
+    line-height: 1.7 !important;
+  }
+  
+  section h2, section h3 {
+    letter-spacing: -0.02em !important;
   }
 }
