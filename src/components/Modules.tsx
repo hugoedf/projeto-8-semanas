@@ -45,6 +45,12 @@ const Modules = () => {
   return (
     <section id="modules-section" className="py-20 sm:py-28 bg-white">
       <div className="container mx-auto px-5 sm:px-6">
+        {/* Badge de contexto */}
+        <div className="text-center mb-6">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent">
+            O CONTEÚDO
+          </span>
+        </div>
         
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 text-foreground tracking-tight">
@@ -59,7 +65,7 @@ const Modules = () => {
           {modules.map((module, index) => (
             <div 
               key={index} 
-              className="bg-gray-50 border border-gray-200 rounded-xl p-5 hover:border-accent/40 hover:-translate-y-1 transition-all duration-300"
+              className="bg-gray-50 border border-gray-100 rounded-xl p-5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-start gap-4">
                 {/* Número do módulo */}

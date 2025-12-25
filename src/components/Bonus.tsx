@@ -48,19 +48,19 @@ const Bonus = () => {
         {/* Two Pillars */}
         <div className="grid sm:grid-cols-2 gap-5 max-w-2xl mx-auto mb-10">
           {/* Pilar 1 - E-book */}
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center hover:border-accent/40 transition-all duration-300">
+          <div className="bg-gray-50 border border-gray-100 rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300">
             <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-accent/10 flex items-center justify-center">
               <BookOpen className="w-7 h-7 text-accent" />
             </div>
             <h3 className="text-foreground font-bold text-lg mb-1">E-book 8X</h3>
             <p className="text-accent text-xs uppercase tracking-[0.15em] font-bold mb-3">O Mapa</p>
-            <p className="text-gray-600 text-sm" style={{ lineHeight: '1.7' }}>
+            <p className="text-gray-500 text-sm" style={{ lineHeight: '1.7' }}>
               Conhecimento, técnicas avançadas e ciência — o "porquê" por trás de cada movimento.
             </p>
           </div>
           
           {/* Pilar 2 - App */}
-          <div className="bg-accent/5 border-2 border-accent/30 rounded-xl p-6 text-center relative overflow-hidden hover:border-accent/50 transition-all duration-300">
+          <div className="bg-accent/5 border-2 border-accent/30 rounded-xl p-6 text-center relative overflow-hidden hover:shadow-lg transition-all duration-300">
             <div className="absolute top-3 right-3">
               <span className="text-[10px] uppercase tracking-wider bg-accent text-white px-2.5 py-1 rounded-full font-bold">
                 Incluso
@@ -78,7 +78,7 @@ const Bonus = () => {
         </div>
 
         {/* App Features */}
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 max-w-2xl mx-auto mb-8">
+        <div className="bg-gray-50 border border-gray-100 rounded-xl p-6 max-w-2xl mx-auto mb-8">
           <p className="text-foreground text-center text-sm font-bold mb-5 uppercase tracking-wider">
             O que você recebe no App 8X:
           </p>
