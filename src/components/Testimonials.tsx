@@ -38,7 +38,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
       
       {/* Tela do celular */}
       <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0b141a]">
-        {/* Badge de destaque - Laranja */}
+        {/* Badge de destaque */}
         <div className="absolute top-4 left-4 z-10">
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg shadow-accent/30">
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
@@ -71,17 +71,18 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
 
 const Testimonials = () => {
   return (
-    <section className="py-20 sm:py-28 bg-white relative overflow-hidden">
-      {/* Glow laranja de fundo sutil */}
+    <section className="section-breathing bg-muted relative overflow-hidden">
+      {/* Glow laranja de fundo */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/5 rounded-full blur-[120px] opacity-60" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/10 rounded-full blur-[120px] opacity-60" />
+        <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[100px] opacity-40" />
       </div>
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         {/* Header com separação visual */}
         <div className="testimonials-header text-center max-w-[650px] mx-auto">
-          {/* Badge Superior - Laranja */}
-          <div className="inline-flex items-center gap-2 bg-accent/10 backdrop-blur-sm rounded-full px-4 py-2 shadow-sm border border-accent/20 mb-6">
+          {/* Badge Superior */}
+          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-sm border border-white/60 mb-6">
             <MessageCircle className="w-4 h-4 text-accent" />
             <span className="uppercase text-xs font-bold tracking-[0.15em] text-accent">
               Resultados Reais
@@ -90,30 +91,29 @@ const Testimonials = () => {
           
           {/* Introdução preparatória - Bloco de Impacto */}
           <div className="impact-block mb-8">
-            <p className="text-[#1a1a1a]/60 text-base sm:text-lg mb-1">
+            <p className="text-slate-500 text-base sm:text-lg mb-1">
               Pessoas que já treinavam.
             </p>
-            <p className="text-[#1a1a1a]/60 text-base sm:text-lg mb-1">
+            <p className="text-slate-500 text-base sm:text-lg mb-1">
               Pessoas que estavam estagnadas.
             </p>
-            <p className="text-[#1a1a1a] font-medium text-base sm:text-lg">
+            <p className="text-foreground font-medium text-base sm:text-lg">
               Pessoas que só precisavam de um método claro.
             </p>
           </div>
           
-          {/* Título - Laranja */}
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-5 tracking-[-0.02em] text-accent">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-5 tracking-[-0.02em]">
             Quem já aplicou o Método 8X está{" "}
-            <span className="text-[#1a1a1a]">transformando o físico — e a mente.</span>
+            <span className="text-gradient">transformando o físico — e a mente.</span>
           </h2>
           
-          <p className="text-[#1a1a1a]/60 text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
+          <p className="text-muted-foreground text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
             Conversas reais de quem está aplicando o método
           </p>
         </div>
         
         {/* Mobile: Carousel */}
-        <div className="sm:hidden mt-10">
+        <div className="sm:hidden">
           <Carousel
             opts={{
               align: "start",
@@ -129,30 +129,30 @@ const Testimonials = () => {
               ))}
             </CarouselContent>
             <div className="flex justify-center gap-2 mt-6">
-              <CarouselPrevious className="static translate-y-0 h-9 w-9 bg-white border-accent/30 hover:border-accent" />
-              <CarouselNext className="static translate-y-0 h-9 w-9 bg-white border-accent/30 hover:border-accent" />
+              <CarouselPrevious className="static translate-y-0 h-9 w-9 bg-card border-border/60" />
+              <CarouselNext className="static translate-y-0 h-9 w-9 bg-card border-border/60" />
             </div>
           </Carousel>
         </div>
 
         {/* Desktop: Grid Simétrico */}
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 max-w-7xl mx-auto mt-10">
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 max-w-7xl mx-auto">
           {testimonialImages.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} />
           ))}
         </div>
         
-        {/* Badge de transformações - Laranja */}
+        {/* Badge de transformações - Elevado e centralizado */}
         <div className="mt-14 sm:mt-20 flex justify-center">
-          <div className="bg-white rounded-2xl shadow-xl shadow-black/[0.06] border-2 border-accent/20 px-10 py-8 text-center max-w-md">
-            <div className="inline-flex items-center justify-center gap-2.5 bg-accent/10 text-accent font-bold px-5 py-2.5 rounded-full mb-5 border border-accent/20">
+          <div className="bg-white rounded-2xl shadow-xl shadow-black/[0.06] border border-slate-100/80 px-10 py-8 text-center max-w-md">
+            <div className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-50 to-amber-50 text-accent font-bold px-5 py-2.5 rounded-full mb-5 border border-accent/10">
               <Users className="w-4.5 h-4.5" />
               <span className="text-base">+500 transformações</span>
             </div>
-            <p className="text-[#1a1a1a]/60 text-sm mb-2" style={{ lineHeight: '1.75' }}>
+            <p className="text-slate-500 text-sm mb-2" style={{ lineHeight: '1.75' }}>
               E esse número cresce toda semana.
             </p>
-            <p className="text-[#1a1a1a] font-semibold text-sm" style={{ lineHeight: '1.75' }}>
+            <p className="text-foreground font-semibold text-sm" style={{ lineHeight: '1.75' }}>
               Pessoas reais. Resultados reais. Método comprovado.
             </p>
           </div>
