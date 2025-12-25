@@ -131,18 +131,16 @@ const Testimonials = () => {
           ))}
         </div>
         
-        {/* Badge de transformações com frase de impacto */}
-        <div className="mt-12 sm:mt-16 text-center px-4">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-lg shadow-black/5 border border-accent/20 max-w-md mx-auto">
-            <div className="inline-flex items-center justify-center gap-2 bg-accent text-white rounded-full px-5 py-2.5 shadow-lg shadow-accent/30 mb-4">
-              <span className="font-bold text-base sm:text-lg">+500 transformações</span>
+        {/* Badge de transformações - Clean Premium */}
+        <div className="mt-12 sm:mt-16 flex justify-center">
+          <div className="inline-flex items-center gap-3 bg-orange-50 border border-orange-200/60 rounded-full px-6 py-3 shadow-sm">
+            <span className="flex items-center justify-center w-8 h-8 bg-accent rounded-full">
+              <span className="text-white font-bold text-sm">+</span>
+            </span>
+            <div className="text-left">
+              <span className="block font-bold text-orange-900 text-base sm:text-lg">500 transformações</span>
+              <span className="block text-orange-700/80 text-xs sm:text-sm">Método comprovado</span>
             </div>
-            <p className="text-foreground font-semibold text-base sm:text-lg mb-1">
-              E esse número cresce toda semana.
-            </p>
-            <p className="text-muted-foreground text-sm sm:text-base">
-              Pessoas reais. Resultados reais. Método comprovado.
-            </p>
           </div>
         </div>
       </div>
