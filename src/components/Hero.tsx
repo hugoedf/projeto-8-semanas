@@ -106,8 +106,8 @@ const Hero = () => {
           </div>
           
           {/* Right Column - VSL Player (Desktop Only) */}
-          <div className="hidden lg:block lg:flex-1 lg:max-w-[420px] xl:max-w-[460px] relative">
-            <div className="absolute inset-0 bg-accent/20 rounded-3xl blur-[60px] scale-95" />
+          <div className="hidden lg:block lg:flex-1 lg:max-w-[500px] xl:max-w-[560px] relative">
+            <div className="absolute inset-0 bg-accent/25 rounded-3xl blur-[80px] scale-100" />
             <div className="relative z-10">
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
