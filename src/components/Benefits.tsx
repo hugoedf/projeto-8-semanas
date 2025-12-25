@@ -67,11 +67,9 @@ const Benefits = () => {
         {/* Título - centralizado */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 tracking-tight text-white">
-            8 semanas. <span className="underline underline-offset-4 decoration-2">Tudo que você precisa.</span>
+            Tudo que realmente importa para{" "}
+            <span className="underline underline-offset-4 decoration-2">evoluir</span> — sem complicação.
           </h2>
-          <p className="text-white/80 text-base sm:text-lg">
-            Sem enrolação. Só o essencial para você evoluir.
-          </p>
         </div>
         
         {/* Grid de benefícios */}

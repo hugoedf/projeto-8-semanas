@@ -53,7 +53,7 @@ const IntermediateCTA = () => {
             variant="cta" 
             size="lg" 
             onClick={handleCTAClick} 
-            className="text-xs sm:text-base px-8 sm:px-10 py-5 sm:py-6 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase mb-8 rounded-full"
+            className="text-sm sm:text-base px-10 py-6 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase mb-8 rounded-full"
           >
             GARANTIR MINHA VAGA AGORA
             <ArrowRight className="ml-2 w-5 h-5" />
