@@ -1,57 +1,43 @@
 import { AlertTriangle, Target, RotateCcw, TrendingDown, Clock } from "lucide-react";
-
-const painPoints = [
-  {
-    text: "Treina pesado, mas o corpo não acompanha",
-    emphasis: "pesado"
-  },
-  {
-    text: "Segue uma rotina, mas o shape parece sempre igual",
-    emphasis: "sempre igual"
-  },
-  {
-    text: "Passam semanas, meses… e nada muda",
-    emphasis: "nada muda"
-  },
-  {
-    text: "Vê outras pessoas evoluindo mais rápido fazendo menos",
-    emphasis: "fazendo menos"
-  }
-];
-
-const explanationPoints = [
-  { 
-    text: "O verdadeiro problema é", 
-    highlight: "treinar sem método.", 
-    followUp: "Quando você entende isso, a culpa sai de cena — e entra clareza sobre o que realmente precisa ser feito.",
-    icon: Target
-  },
-  { 
-    text: "Sem progressão clara, o corpo se adapta e", 
-    highlight: "para de responder.",
-    icon: RotateCcw
-  },
-  { 
-    text: "Repetir os mesmos estímulos cria", 
-    highlight: "estagnação.",
-    icon: TrendingDown
-  },
-  { 
-    text: "Cansa, ocupa tempo… mas", 
-    highlight: "não gera evolução real.",
-    icon: Clock
-  }
-];
-
+const painPoints = [{
+  text: "Treina pesado, mas o corpo não acompanha",
+  emphasis: "pesado"
+}, {
+  text: "Segue uma rotina, mas o shape parece sempre igual",
+  emphasis: "sempre igual"
+}, {
+  text: "Passam semanas, meses… e nada muda",
+  emphasis: "nada muda"
+}, {
+  text: "Vê outras pessoas evoluindo mais rápido fazendo menos",
+  emphasis: "fazendo menos"
+}];
+const explanationPoints = [{
+  text: "O verdadeiro problema é",
+  highlight: "treinar sem método.",
+  followUp: "Quando você entende isso, a culpa sai de cena — e entra clareza sobre o que realmente precisa ser feito.",
+  icon: Target
+}, {
+  text: "Sem progressão clara, o corpo se adapta e",
+  highlight: "para de responder.",
+  icon: RotateCcw
+}, {
+  text: "Repetir os mesmos estímulos cria",
+  highlight: "estagnação.",
+  icon: TrendingDown
+}, {
+  text: "Cansa, ocupa tempo… mas",
+  highlight: "não gera evolução real.",
+  icon: Clock
+}];
 const Problems = () => {
-  return (
-    <section className="py-20 sm:py-28 bg-white relative overflow-hidden">
+  return <section className="py-20 sm:py-28 bg-white relative overflow-hidden">
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="max-w-3xl mx-auto">
           
           {/* Badge de contexto */}
           <div className="text-center mb-6">
-            <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent">
+            <span className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground">
               A DOR
             </span>
           </div>
@@ -68,36 +54,31 @@ const Problems = () => {
           
           {/* Introdução emocional - centralizado */}
           <div className="max-w-2xl mx-auto mb-12 text-center">
-            <p className="text-gray-600 text-base sm:text-lg mb-4" style={{ lineHeight: '1.8' }}>
+            <p className="text-gray-600 text-base sm:text-lg mb-4" style={{
+            lineHeight: '1.8'
+          }}>
               E o pior não é treinar pesado. É sentir que o esforço não está voltando em forma de resultado.
             </p>
-            <p className="text-gray-500 text-base sm:text-lg" style={{ lineHeight: '1.8' }}>
+            <p className="text-gray-500 text-base sm:text-lg" style={{
+            lineHeight: '1.8'
+          }}>
               Provavelmente você já saiu da academia com a sensação de ter feito tudo certo, mas sem a certeza de que aquilo realmente estava funcionando.
             </p>
           </div>
           
           {/* Pain Points - Cards com ícone laranja */}
           <div className="space-y-3 mb-16">
-            {painPoints.map((point, index) => (
-              <div 
-                key={index} 
-                className="bg-gray-50 rounded-xl border border-gray-100 p-4 flex items-center gap-4 hover:shadow-md transition-all duration-300"
-              >
+            {painPoints.map((point, index) => <div key={index} className="bg-gray-50 rounded-xl border border-gray-100 p-4 flex items-center gap-4 hover:shadow-md transition-all duration-300">
                 <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
                   <AlertTriangle className="w-5 h-5 text-accent" strokeWidth={2} />
                 </div>
                 <p className="text-gray-700 text-sm sm:text-base flex-1">
-                  {point.text.split(point.emphasis).map((part, i, arr) => (
-                    <span key={i}>
+                  {point.text.split(point.emphasis).map((part, i, arr) => <span key={i}>
                       {part}
-                      {i < arr.length - 1 && (
-                        <span className="font-bold text-foreground">{point.emphasis}</span>
-                      )}
-                    </span>
-                  ))}
+                      {i < arr.length - 1 && <span className="font-bold text-foreground">{point.emphasis}</span>}
+                    </span>)}
                 </p>
-              </div>
-            ))}
+              </div>)}
           </div>
           
           {/* A VERDADE - Bloco escuro de destaque */}
@@ -115,26 +96,26 @@ const Problems = () => {
             {/* Explicação fluida */}
             <div className="space-y-4 mb-8">
               {explanationPoints.map((point, index) => {
-                const IconComponent = point.icon;
-                return (
-                  <div key={index} className="flex items-start gap-4">
+              const IconComponent = point.icon;
+              return <div key={index} className="flex items-start gap-4">
                     <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center mt-0.5">
                       <IconComponent className="w-5 h-5 text-accent" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-gray-300 text-sm sm:text-base" style={{ lineHeight: '1.7' }}>
+                      <p className="text-gray-300 text-sm sm:text-base" style={{
+                    lineHeight: '1.7'
+                  }}>
                         {point.text}{" "}
                         <span className="text-white font-semibold">{point.highlight}</span>
                       </p>
-                      {point.followUp && (
-                        <p className="text-gray-500 text-sm mt-2" style={{ lineHeight: '1.6' }}>
+                      {point.followUp && <p className="text-gray-500 text-sm mt-2" style={{
+                    lineHeight: '1.6'
+                  }}>
                           {point.followUp}
-                        </p>
-                      )}
+                        </p>}
                     </div>
-                  </div>
-                );
-              })}
+                  </div>;
+            })}
             </div>
             
             {/* Fechamento */}
@@ -151,8 +132,6 @@ const Problems = () => {
           
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Problems;
