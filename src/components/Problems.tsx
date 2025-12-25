@@ -1,4 +1,4 @@
-import { X, AlertCircle, ArrowDown } from "lucide-react";
+import { X, AlertCircle, ArrowDown, Clock, Target, RotateCcw, TrendingDown } from "lucide-react";
 
 const painPoints = [
   "Treina pesado, mas o corpo não acompanha",
@@ -8,10 +8,27 @@ const painPoints = [
 ];
 
 const explanationPoints = [
-  { text: "O verdadeiro problema é", highlight: "treinar sem método.", followUp: "Quando você entende isso, a culpa sai de cena — e entra clareza sobre o que realmente precisa ser feito." },
-  { text: "Sem progressão clara, o corpo se adapta e", highlight: "para de responder." },
-  { text: "Repetir os mesmos estímulos cria", highlight: "estagnação." },
-  { text: "Cansa, ocupa tempo… mas", highlight: "não gera evolução real." }
+  { 
+    text: "O verdadeiro problema é", 
+    highlight: "treinar sem método.", 
+    followUp: "Quando você entende isso, a culpa sai de cena — e entra clareza sobre o que realmente precisa ser feito.",
+    icon: Target
+  },
+  { 
+    text: "Sem progressão clara, o corpo se adapta e", 
+    highlight: "para de responder.",
+    icon: RotateCcw
+  },
+  { 
+    text: "Repetir os mesmos estímulos cria", 
+    highlight: "estagnação.",
+    icon: TrendingDown
+  },
+  { 
+    text: "Cansa, ocupa tempo… mas", 
+    highlight: "não gera evolução real.",
+    icon: Clock
+  }
 ];
 
 const Problems = () => {
@@ -46,19 +63,24 @@ const Problems = () => {
             </p>
           </div>
           
-          {/* 2️⃣ Lista de dores reais - Cards originais */}
+          {/* 2️⃣ Lista de dores reais - Cards Flutuantes Premium */}
           <div className="space-y-3 sm:space-y-4 mb-12">
             {painPoints.map((point, index) => (
               <div 
                 key={index} 
-                className="flex items-center gap-4 bg-destructive/5 border border-destructive/10 rounded-xl px-5 py-4 sm:py-5 transition-all duration-300 hover:bg-destructive/10 hover:border-destructive/20"
+                className="relative bg-card border border-border/60 rounded-xl px-5 py-4 sm:py-5 shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 transition-all duration-300 hover:-translate-y-0.5 overflow-hidden"
               >
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-destructive/10 flex items-center justify-center">
-                  <X className="w-4 h-4 text-destructive" />
+                {/* Borda lateral esquerda vermelha */}
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-destructive/80 rounded-l-xl" />
+                
+                <div className="flex items-center gap-4 pl-3">
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-destructive/10 flex items-center justify-center">
+                    <X className="w-3.5 h-3.5 text-destructive" strokeWidth={2.5} />
+                  </div>
+                  <p className="text-foreground text-base sm:text-lg font-medium">
+                    {point}
+                  </p>
                 </div>
-                <p className="text-foreground/90 text-base sm:text-lg font-medium">
-                  {point}
-                </p>
               </div>
             ))}
           </div>
@@ -84,32 +106,35 @@ const Problems = () => {
             </p>
           </div>
           
-          {/* 4️⃣ Explicação lógica da dor - Card premium */}
+          {/* 4️⃣ Explicação lógica da dor - Card premium com ícones */}
           <div className="relative mb-10">
             <div className="absolute inset-0 bg-gradient-to-b from-accent/5 to-transparent rounded-3xl blur-2xl" />
             <div className="relative bg-card/80 backdrop-blur-sm border border-border/80 rounded-2xl p-7 sm:p-10 shadow-xl">
-              <div className="space-y-5">
-                {explanationPoints.map((point, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-start gap-3 sm:gap-4"
-                  >
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-muted/50 flex items-center justify-center mt-0.5">
-                      <div className="w-2 h-2 rounded-full bg-accent/60" />
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-                        {point.text}{" "}
-                        <span className="text-foreground font-semibold">{point.highlight}</span>
-                      </p>
-                      {point.followUp && (
-                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mt-2">
-                          {point.followUp}
+              <div className="space-y-6">
+                {explanationPoints.map((point, index) => {
+                  const IconComponent = point.icon;
+                  return (
+                    <div 
+                      key={index}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mt-0.5">
+                        <IconComponent className="w-5 h-5 text-accent" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+                          {point.text}{" "}
+                          <span className="text-foreground font-semibold">{point.highlight}</span>
                         </p>
-                      )}
+                        {point.followUp && (
+                          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mt-2 pl-0.5 border-l-2 border-accent/30 ml-0.5 pl-3">
+                            {point.followUp}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
