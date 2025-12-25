@@ -1,36 +1,33 @@
 const DecisionBlock = () => {
   return (
-    <section className="py-20 sm:py-24 md:py-28 bg-slate-50 relative overflow-hidden">
-      {/* Subtle radial glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-accent/5 rounded-full blur-[80px]" />
-      </div>
+    <section className="py-20 sm:py-28 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 relative overflow-hidden">
+      {/* Background effect */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.1),transparent_60%)]" />
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        <div className="max-w-[650px] mx-auto">
-          {/* Badge de contexto */}
-          <div className="text-center mb-4">
-            <span className="inline-block text-xs font-bold uppercase tracking-[0.15em] text-accent bg-accent/10 px-3 py-1.5 rounded-full">
-              Decisão Simples
-            </span>
-          </div>
+        <div className="max-w-3xl mx-auto text-center">
           
-          {/* Texto de apoio - alinhado à esquerda para leitura natural */}
-          <div className="mb-6 text-left">
-            <p className="text-slate-600 text-base sm:text-lg mb-2" style={{ lineHeight: '1.75' }}>
+          {/* Badge de contexto */}
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent mb-6">
+            VOCÊ PODE CONTINUAR TENTANDO SOZINHO
+          </span>
+          
+          {/* Texto de apoio */}
+          <div className="mb-8">
+            <p className="text-gray-400 text-lg sm:text-xl mb-3" style={{ lineHeight: '1.8' }}>
               Não é sobre fazer mais esforço.
             </p>
-            <p className="text-foreground font-semibold text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
+            <p className="text-white font-semibold text-lg sm:text-xl" style={{ lineHeight: '1.8' }}>
               É sobre finalmente direcionar o esforço certo.
             </p>
           </div>
           
           {/* Card de decisão */}
-          <div className="decision-card text-left">
-            <p className="text-slate-500 text-sm sm:text-base mb-3">A decisão é simples:</p>
-            <p className="font-display text-lg sm:text-xl md:text-2xl text-foreground leading-tight tracking-[-0.02em]">
+          <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 sm:p-10">
+            <p className="text-gray-500 text-base mb-4">A decisão é simples:</p>
+            <p className="font-display text-xl sm:text-2xl md:text-3xl text-white leading-tight tracking-tight">
               Continuar tentando no escuro ou seguir um{" "}
-              <span className="text-accent">método estruturado que funciona.</span>
+              <span className="text-accent font-bold">método estruturado que funciona.</span>
             </p>
           </div>
         </div>
