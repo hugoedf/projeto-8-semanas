@@ -1,8 +1,11 @@
-import { User } from "lucide-react";
 import whatsapp1 from "@/assets/testimonials/whatsapp-1.jpeg";
 import whatsapp2 from "@/assets/testimonials/whatsapp-2.jpeg";
 import whatsapp3 from "@/assets/testimonials/whatsapp-3.jpeg";
 import whatsapp4 from "@/assets/testimonials/whatsapp-4.jpeg";
+import avatar1 from "@/assets/testimonials/avatar-1.jpg";
+import avatar2 from "@/assets/testimonials/avatar-2.jpg";
+import avatar3 from "@/assets/testimonials/avatar-3.jpg";
+import avatar4 from "@/assets/testimonials/avatar-4.jpg";
 import {
   Carousel,
   CarouselContent,
@@ -10,6 +13,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+
+const avatars = [avatar1, avatar2, avatar3, avatar4];
 
 const testimonialImages = [{
   src: whatsapp1,
@@ -136,10 +141,15 @@ const Testimonials = () => {
         <div className="mt-12 sm:mt-16 text-center px-4">
           <div className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-5 bg-card/90 backdrop-blur-sm border border-border/60 rounded-2xl sm:rounded-full px-6 sm:px-8 py-4 sm:py-3 w-full sm:w-auto max-w-sm sm:max-w-none shadow-xl shadow-black/10">
             <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map(i => (
-                <div key={i} className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-accent to-accent/60 border-2 border-card flex items-center justify-center shadow-sm">
-                  <User className="w-4 h-4 text-white" />
-                </div>
+              {avatars.map((avatar, i) => (
+                <img 
+                  key={i}
+                  src={avatar} 
+                  alt={`Aluno transformado ${i + 1}`}
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-card object-cover shadow-sm"
+                  loading="lazy"
+                  decoding="async"
+                />
               ))}
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent/20 border-2 border-card flex items-center justify-center shadow-sm">
                 <span className="text-xs font-bold text-accent">+</span>
