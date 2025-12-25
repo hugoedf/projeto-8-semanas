@@ -55,32 +55,32 @@ const FloatingCTA = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden animate-slide-in-bottom">
-      <div className="bg-gray-950/98 backdrop-blur-lg border-t border-accent/40 shadow-[0_-10px_40px_hsla(18,100%,58%,0.15)] px-4 py-4 safe-area-inset-bottom">
-        <div className="flex items-center justify-between gap-3">
-          {/* Preço - Enhanced */}
+      <div className="bg-background/95 backdrop-blur-md border-t border-accent/30 shadow-2xl px-3 py-3 safe-area-inset-bottom">
+        <div className="flex items-center justify-between gap-2">
+          {/* Preço */}
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-gray-500 line-through text-sm">R$97</span>
-            <span className="text-accent font-extrabold text-xl drop-shadow-[0_0_15px_hsla(18,100%,58%,0.4)]">R$19,90</span>
+            <span className="text-muted-foreground line-through text-xs">R$97</span>
+            <span className="text-accent font-bold text-lg">R$19,90</span>
           </div>
 
-          {/* Botão emocional - Enhanced */}
+          {/* Botão emocional */}
           <Button 
             variant="cta" 
-            size="default"
+            size="sm"
             onClick={handleCTAClick}
-            className="text-sm px-6 py-4 shadow-lg uppercase animate-pulse-glow whitespace-nowrap rounded-full"
+            className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow whitespace-nowrap"
           >
             EVOLUIR AGORA
-            <ArrowRight className="ml-2 w-4 h-4" />
+            <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
           </Button>
 
           {/* Fechar */}
           <button 
             onClick={handleDismiss}
-            className="p-1.5 text-gray-500 hover:text-white transition-colors flex-shrink-0"
+            className="p-1 text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
             aria-label="Fechar"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
       </div>
