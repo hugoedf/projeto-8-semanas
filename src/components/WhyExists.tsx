@@ -18,8 +18,10 @@ const WhyExists = () => {
             </h2>
           </div>
           
-          {/* Premium White Card */}
-          <div className="bg-white rounded-2xl p-7 sm:p-9 lg:p-10 shadow-2xl shadow-black/40">
+          {/* Premium White Card with Orange Glow */}
+          <div className="relative">
+            <div className="absolute -inset-4 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.25)_0%,transparent_70%)] blur-[30px] rounded-3xl" />
+            <div className="relative z-10 bg-white rounded-2xl p-7 sm:p-9 lg:p-10 shadow-2xl shadow-accent/20 ring-1 ring-accent/10">
             <div className="space-y-7">
               {/* Primeiro parágrafo */}
               <p className="text-gray-600 text-base sm:text-lg lg:text-xl leading-relaxed">
@@ -41,6 +43,7 @@ const WhyExists = () => {
                 O Método 8X nasceu para resolver exatamente isso: transformar conhecimento em execução, sem improviso, sem achismo e sem depender de motivação.
               </p>
             </div>
+          </div>
           </div>
         </div>
       </div>
