@@ -34,7 +34,7 @@ const Problems = () => {
           
           {/* 1️⃣ Headline provocativa */}
           <div className="text-center mb-14 lg:mb-16">
-            <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-white/40 mb-6">
+            <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-white/50 mb-6">
               ​
             </span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">

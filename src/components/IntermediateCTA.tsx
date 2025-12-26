@@ -47,7 +47,7 @@ const IntermediateCTA = () => {
 
           {/* Preço com ancoragem */}
           <div className="flex items-center justify-center gap-4 mb-8">
-            <span className="text-white/40 line-through text-xl">R$ 97</span>
+            <span className="text-white/50 line-through text-xl">R$ 97</span>
             <span className="text-accent font-display text-4xl sm:text-5xl font-bold drop-shadow-[0_0_20px_hsla(18,100%,58%,0.4)]">R$ 19,90</span>
           </div>
 
@@ -63,7 +63,7 @@ const IntermediateCTA = () => {
           </Button>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/60">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-accent" />
               <span>Garantia 7 dias</span>
