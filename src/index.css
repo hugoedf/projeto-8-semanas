@@ -5,229 +5,131 @@
 
 /* 
    ======================================================
-   💎 CSS PREMIUM FINAL - MÉTODO 8X
-   Design High Ticket + Performance Otimizada
+   RESTAURAÇÃO ORIGINAL - MÉTODO 8X
+   Mantendo seções Brancas e Pretas (Hierarquia Original)
+   Removendo apenas tons azulados
    ====================================================== 
 */
 
 @layer base {
   :root {
-    /* BLACK base for premium fitness feel - NEUTRAL */
-    --background: 0 0% 0%; 
+    /* Cores Base Neutras */
+    --background: 0 0% 100%; /* Fundo padrão Branco */
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 0 0% 10%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 18 100% 58%; /* Laranja */
+    --accent-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 18 100% 58%;
+    --radius: 0.875rem;
+  }
+
+  /* Modo Escuro apenas para seções específicas, não global */
+  .dark {
+    --background: 0 0% 0%; /* Preto Puro */
     --foreground: 0 0% 98%;
     --card: 0 0% 5%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 5%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 64%;
-    --accent: 18 100% 58%; /* Orange */
-    --accent-foreground: 0 0% 100%;
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 18 100% 58%;
-    --radius: 0.875rem;
-
-    /* Fitness theme colors */
-    --fitness-orange: 18 100% 58%;
-    --fitness-dark: 0 0% 8%;
-    --fitness-darker: 0 0% 0%;
-    --fitness-gray: 0 0% 45%;
-    
-    /* Gradients - Mantendo a Profundidade Original */
-    --gradient-hero: linear-gradient(145deg, hsl(0 0% 5%) 0%, hsl(0 0% 0%) 50%, hsl(0 0% 8%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(18 100% 58%) 0%, hsl(18 100% 48%) 100%);
-    --gradient-card-dark: linear-gradient(180deg, hsla(0 0% 10% / 0.6) 0%, hsla(0 0% 0% / 0.8) 100%);
-
-    /* Shadows Premium */
-    --shadow-glow: 0 0 50px hsla(18 100% 58% / 0.25);
-    --shadow-glow-strong: 0 0 80px hsla(18 100% 58% / 0.35);
-    --shadow-card: 0 10px 40px -10px hsla(0 0% 0% / 0.5);
-    --shadow-card-hover: 0 20px 50px -15px hsla(0 0% 0% / 0.6);
-    --shadow-accent: 0 8px 30px -8px hsla(18 100% 58% / 0.4);
-
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 5%;
     --border: 0 0% 15%;
   }
 }
 
 @layer base {
-  * { @apply border-border; }
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
-    background-color: #000000 !important;
   }
   h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.2;
   }
 }
 
-/* --- ANIMAÇÕES VSL --- */
+/* --- CORREÇÃO DOS TONS AZULADOS NAS SEÇÕES ESCURAS --- */
+
+/* Forçar Preto Puro em seções que usavam azul escuro */
+[class*="bg-[#0b141a]"], 
+.bg-gray-900, 
+.dark .bg-background {
+  background-color: #000000 !important;
+}
+
+/* Forçar Cinza Neutro em cards escuros */
+.bg-gray-800, 
+[class*="bg-gray-800/"],
+.dark .bg-card {
+  background-color: #0a0a0a !important;
+  border-color: #1a1a1a !important;
+}
+
+/* --- MANTER SEÇÕES BRANCAS (HIERARQUIA ORIGINAL) --- */
+
+section.bg-white, 
+section.bg-background:not(.dark),
+section:not([class*="bg-gray"]):not([class*="bg-[#"]):not(.dark) {
+  background-color: #ffffff !important;
+  color: #1a1a1a !important;
+}
+
+/* Cards Brancos (Dores, etc) */
+.pain-card-premium, 
+.benefit-card-premium:not(.dark *) {
+  background: #ffffff !important;
+  border: 1px solid #e5e5e5 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Textos em seções brancas */
+section:not(.dark) p {
+  color: #4b5563 !important; /* Cinza escuro neutro para leitura */
+}
+
+/* --- DETALHES VISUAIS E ANIMAÇÕES --- */
+
 @keyframes textReveal {
   from { opacity: 0; filter: blur(8px); transform: translateY(20px); }
   to { opacity: 1; filter: blur(0); transform: translateY(0); }
 }
 
-/* --- UTILITÁRIOS PREMIUM --- */
-@layer utilities {
-  .gradient-hero { background: var(--gradient-hero); }
-  .text-gradient {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .card-premium {
-    @apply bg-card rounded-2xl;
-    background-color: #0a0a0a !important;
-    box-shadow: var(--shadow-card);
-    transition: var(--transition-smooth);
-  }
-  .card-premium:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
-  
-  .btn-glow {
-    box-shadow: var(--shadow-accent);
-    transition: var(--transition-smooth);
-  }
-  .btn-glow:hover {
-    box-shadow: 0 12px 40px -10px hsla(18 100% 58% / 0.5);
-    transform: translateY(-1px);
-  }
+.text-gradient {
+  background: linear-gradient(135deg, #ff6929 0%, #ff4500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* --- DESIGN MESTRE - HIERARQUIA E DETALHES --- */
-
-section p {
-  line-height: 1.8 !important;
-  color: #a3a3a3 !important;
-  font-size: 1.05rem;
+/* Botões */
+.btn-glow {
+  box-shadow: 0 8px 30px -8px rgba(255, 105, 41, 0.4);
+  transition: all 0.3s ease;
+}
+.btn-glow:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 40px -10px rgba(255, 105, 41, 0.5);
 }
 
-section h2, section h3 {
-  letter-spacing: -0.03em !important;
-  color: #ffffff !important;
-}
-
-/* Fundos de Seção */
-section.bg-background, section.bg-white, 
-section:not([class*="bg-fitness"]):not([class*="gradient-hero"]):not(.dark) {
-  background-color: #000000 !important;
-}
-
-/* Cards de Dores */
-.pain-card-premium {
-  background: #0a0a0a !important;
-  margin-bottom: 16px;
-  padding: 24px 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px hsla(0 0% 0% / 0.4);
-  border: 1px solid #1a1a1a !important;
-  border-left: 4px solid #ff6929 !important;
-  transition: var(--transition-smooth);
-}
-.pain-card-premium:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px hsla(18 100% 58% / 0.15);
-}
-
-/* Hero Box Solução */
-.solution-hero-box {
-  background: #0a0a0a !important;
-  border-radius: 24px;
-  padding: 3rem !important;
-  box-shadow: 0 20px 60px hsla(18 100% 50% / 0.2);
-  border: 1px solid #1a1a1a !important;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-/* Cards de Benefícios */
-.benefit-card-premium {
-  background: #0a0a0a !important;
-  border-radius: 16px;
-  padding: 24px;
-  height: 100%;
-  box-shadow: 0 4px 24px hsla(0 0% 0% / 0.4);
-  border: 1px solid #1a1a1a !important;
-  transition: var(--transition-smooth);
-}
-.benefit-card-premium:hover {
-  border-color: #ff6929 !important;
-  transform: translateY(-5px);
-}
-
-/* Blocos de Impacto e Revelação */
-.impact-block, .revelation-block {
-  background: #0a0a0a !important;
-  border-radius: 20px;
-  padding: 2.5rem 2rem;
-  margin: 3rem auto;
-  max-width: 680px;
-  text-align: center;
-  box-shadow: 0 4px 30px hsla(0 0% 0% / 0.4);
-  border: 1px solid #1a1a1a !important;
-  position: relative;
-}
-.impact-block::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%; transform: translateX(-50%);
-  width: 60px; height: 3px;
-  background: linear-gradient(90deg, transparent, #ff6929, transparent);
-}
-
-/* Bloco de Decisão */
-.decision-card {
-  background: #0a0a0a !important;
-  border-radius: 24px;
-  padding: 2.5rem 1.5rem;
-  max-width: 680px;
-  margin: 0 auto;
-  text-align: center;
-  box-shadow: 0 25px 60px hsla(0 0% 0% / 0.5);
-  border: 1px solid #1a1a1a !important;
-}
-
-/* Garantia Premium */
+/* Garantia (Sempre Escura/Premium) */
 .guarantee-premium {
   background: #050505 !important;
-  backdrop-filter: blur(20px);
-  border-radius: 28px;
-  padding: 2.5rem 1.5rem;
   border: 1px solid #1a1a1a !important;
-  box-shadow: 0 30px 80px hsla(0 0% 0% / 0.6);
-}
-
-/* Conectores Visuais */
-.visual-connector {
-  display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 2rem 0;
-}
-.visual-connector .line { width: 1px; height: 40px; background: #1a1a1a; }
-.visual-connector .dot { width: 8px; height: 8px; border-radius: 50%; background: #ff6929; }
-
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 767px) {
-  .impact-block, .revelation-block, .decision-card, .guarantee-premium {
-    padding: 2rem 1.25rem; border-radius: 20px;
-  }
-  .pain-card-premium, .benefit-card-premium { padding: 18px; }
-  section p { font-size: 1rem; }
-  .hover-lift:hover, .benefit-card-premium:hover, .pain-card-premium:hover { transform: none; }
+  color: white !important;
 }
 
 /* Hotfix Lovable Badge */
 a[href*="lovable"] { display: none !important; }
+
+/* Ajuste de textos secundários azulados */
+[class*="text-slate-500"], [class*="text-gray-500"] {
+  color: #6b7280 !important; /* Cinza neutro */
+}
