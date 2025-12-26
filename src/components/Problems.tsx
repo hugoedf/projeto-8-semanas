@@ -1,39 +1,25 @@
 import { X, AlertTriangle, ArrowDown, Target, RotateCcw, TrendingDown, Clock } from "lucide-react";
-
-const painPoints = [
-  "Treina pesado, mas o corpo não acompanha",
-  "Segue uma rotina, mas o shape parece sempre igual",
-  "Passam semanas, meses… e nada muda",
-  "Vê outras pessoas evoluindo mais rápido fazendo menos"
-];
-
-const explanationPoints = [
-  { 
-    text: "O verdadeiro problema é", 
-    highlight: "treinar sem método.", 
-    followUp: "Quando você entende isso, a culpa sai de cena — e entra clareza sobre o que realmente precisa ser feito.",
-    icon: Target
-  },
-  { 
-    text: "Sem progressão clara, o corpo se adapta e", 
-    highlight: "para de responder.",
-    icon: RotateCcw
-  },
-  { 
-    text: "Repetir os mesmos estímulos cria", 
-    highlight: "estagnação.",
-    icon: TrendingDown
-  },
-  { 
-    text: "Cansa, ocupa tempo… mas", 
-    highlight: "não gera evolução real.",
-    icon: Clock
-  }
-];
-
+const painPoints = ["Treina pesado, mas o corpo não acompanha", "Segue uma rotina, mas o shape parece sempre igual", "Passam semanas, meses… e nada muda", "Vê outras pessoas evoluindo mais rápido fazendo menos"];
+const explanationPoints = [{
+  text: "O verdadeiro problema é",
+  highlight: "treinar sem método.",
+  followUp: "Quando você entende isso, a culpa sai de cena — e entra clareza sobre o que realmente precisa ser feito.",
+  icon: Target
+}, {
+  text: "Sem progressão clara, o corpo se adapta e",
+  highlight: "para de responder.",
+  icon: RotateCcw
+}, {
+  text: "Repetir os mesmos estímulos cria",
+  highlight: "estagnação.",
+  icon: TrendingDown
+}, {
+  text: "Cansa, ocupa tempo… mas",
+  highlight: "não gera evolução real.",
+  icon: Clock
+}];
 const Problems = () => {
-  return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-black relative overflow-hidden">
+  return <section className="py-20 sm:py-28 lg:py-32 bg-black relative overflow-hidden">
       {/* Subtle texture overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(0,0%,100%,0.03),transparent_50%)]" />
       
@@ -43,7 +29,7 @@ const Problems = () => {
           {/* 1️⃣ Headline provocativa */}
           <div className="text-center mb-14 lg:mb-16">
             <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-white/40 mb-6">
-              A Dor
+              ​
             </span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">
               Você treina, se esforça…
@@ -68,11 +54,7 @@ const Problems = () => {
           
           {/* 2️⃣ Grid de Cards Premium - Dores (Apple Style) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 mb-20">
-            {painPoints.map((point, index) => (
-              <div 
-                key={index} 
-                className="group relative bg-white/[0.03] backdrop-blur-sm rounded-2xl p-6 lg:p-7 border border-white/[0.06] hover:border-red-500/30 hover:bg-white/[0.05] transition-all duration-300"
-              >
+            {painPoints.map((point, index) => <div key={index} className="group relative bg-white/[0.03] backdrop-blur-sm rounded-2xl p-6 lg:p-7 border border-white/[0.06] hover:border-red-500/30 hover:bg-white/[0.05] transition-all duration-300">
                 {/* Red accent indicator */}
                 <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-red-500 to-red-600/50 rounded-l-2xl" />
                 
@@ -84,8 +66,7 @@ const Problems = () => {
                     {point}
                   </p>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
           
           {/* Visual connector */}
@@ -120,12 +101,8 @@ const Problems = () => {
                 
                 <div className="space-y-6">
                   {explanationPoints.map((point, index) => {
-                    const IconComponent = point.icon;
-                    return (
-                      <div 
-                        key={index}
-                        className="flex items-start gap-5"
-                      >
+                  const IconComponent = point.icon;
+                  return <div key={index} className="flex items-start gap-5">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/8 border border-accent/15 flex items-center justify-center relative z-10">
                           <IconComponent className="w-5 h-5 text-accent" />
                         </div>
@@ -134,15 +111,12 @@ const Problems = () => {
                             {point.text}{" "}
                             <span className="text-gray-900 font-semibold">{point.highlight}</span>
                           </p>
-                          {point.followUp && (
-                            <p className="text-gray-500 text-sm sm:text-base mt-3 pl-4 border-l-2 border-accent/25">
+                          {point.followUp && <p className="text-gray-500 text-sm sm:text-base mt-3 pl-4 border-l-2 border-accent/25">
                               {point.followUp}
-                            </p>
-                          )}
+                            </p>}
                         </div>
-                      </div>
-                    );
-                  })}
+                      </div>;
+                })}
                 </div>
               </div>
             </div>
@@ -177,8 +151,6 @@ const Problems = () => {
           
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Problems;
