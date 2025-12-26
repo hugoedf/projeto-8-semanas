@@ -1,56 +1,45 @@
-const modules = [
-  {
-    number: "01",
-    title: "Como o músculo cresce",
-    description: "A base que faz tudo fazer sentido — sem enrolação."
-  },
-  {
-    number: "02",
-    title: "Seu ponto de partida",
-    description: "Descubra onde você está e para onde vai."
-  },
-  {
-    number: "03",
-    title: "8 semanas de treino",
-    description: "O plano completo. Só seguir."
-  },
-  {
-    number: "04",
-    title: "Alimentação simples",
-    description: "Coma para crescer, sem complicação."
-  },
-  {
-    number: "05",
-    title: "Descanso estratégico",
-    description: "Recuperação que acelera resultados."
-  },
-  {
-    number: "06",
-    title: "Técnicas avançadas",
-    description: "Quebre a estagnação quando precisar."
-  },
-  {
-    number: "07",
-    title: "Mentalidade forte",
-    description: "Nunca mais abandonar no meio."
-  },
-  {
-    number: "08",
-    title: "Ajuste fino",
-    description: "Saiba quando e como corrigir."
-  }
-];
-
+const modules = [{
+  number: "01",
+  title: "Como o músculo cresce",
+  description: "A base que faz tudo fazer sentido — sem enrolação."
+}, {
+  number: "02",
+  title: "Seu ponto de partida",
+  description: "Descubra onde você está e para onde vai."
+}, {
+  number: "03",
+  title: "8 semanas de treino",
+  description: "O plano completo. Só seguir."
+}, {
+  number: "04",
+  title: "Alimentação simples",
+  description: "Coma para crescer, sem complicação."
+}, {
+  number: "05",
+  title: "Descanso estratégico",
+  description: "Recuperação que acelera resultados."
+}, {
+  number: "06",
+  title: "Técnicas avançadas",
+  description: "Quebre a estagnação quando precisar."
+}, {
+  number: "07",
+  title: "Mentalidade forte",
+  description: "Nunca mais abandonar no meio."
+}, {
+  number: "08",
+  title: "Ajuste fino",
+  description: "Saiba quando e como corrigir."
+}];
 const Modules = () => {
-  return (
-    <section id="modules-section" className="py-20 sm:py-28 lg:py-32 gradient-hero relative overflow-hidden">
+  return <section id="modules-section" className="py-20 sm:py-28 lg:py-32 gradient-hero relative overflow-hidden">
       {/* Subtle gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,hsla(18,100%,58%,0.06),transparent_50%)]" />
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-14 lg:mb-16">
           <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-white/50 mb-5">
-            O Sistema
+            ​
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-5 text-white tracking-tight leading-[1.1]">
             8 semanas. <span className="text-accent">Tudo que você precisa.</span>
@@ -61,11 +50,7 @@ const Modules = () => {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 max-w-6xl mx-auto">
-          {modules.map((module, index) => (
-            <div 
-              key={index} 
-              className="group relative bg-white/[0.03] backdrop-blur-sm rounded-2xl p-6 lg:p-7 border border-white/[0.06] hover:border-accent/30 hover:bg-white/[0.05] transition-all duration-300"
-            >
+          {modules.map((module, index) => <div key={index} className="group relative bg-white/[0.03] backdrop-blur-sm rounded-2xl p-6 lg:p-7 border border-white/[0.06] hover:border-accent/30 hover:bg-white/[0.05] transition-all duration-300">
               <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center border border-accent/25 group-hover:bg-accent/15 transition-colors">
                   <span className="font-display text-lg font-bold text-accent">
@@ -82,12 +67,9 @@ const Modules = () => {
               
               {/* Hover accent line */}
               <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-accent/0 via-accent/50 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-          ))}
+            </div>)}
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Modules;
