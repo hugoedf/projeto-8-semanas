@@ -15,8 +15,11 @@ import Footer from "@/components/Footer";
 import { DiagnosticPanel } from "@/components/DiagnosticPanel";
 import IntermediateCTA from "@/components/IntermediateCTA";
 import FloatingCTA from "@/components/FloatingCTA";
+
 const Index = () => {
-  return <main className="min-h-screen">
+  
+  return (
+    <main className="min-h-screen">
       <Hero />
       {/* 1. DOR - Identificação emocional */}
       <Problems />
@@ -25,10 +28,10 @@ const Index = () => {
       {/* 3. SOLUÇÃO - O que o método oferece */}
       <Benefits />
       {/* 4. FACILITADOR - App como ferramenta */}
-      <AppShowcase className="bg-primary" />
+      <AppShowcase />
       {/* 5. CONTEÚDO - O que está incluso */}
       <Modules />
-      <Bonus className="bg-primary" />
+      <Bonus />
       {/* 6. PROVA SOCIAL */}
       <Testimonials />
       <IntermediateCTA />
@@ -45,6 +48,8 @@ const Index = () => {
       
       {/* Painel de diagnóstico - apenas em desenvolvimento */}
       {import.meta.env.DEV && <DiagnosticPanel />}
-    </main>;
+    </main>
+  );
 };
+
 export default Index;

@@ -2,7 +2,6 @@ import whatsapp1 from "@/assets/testimonials/whatsapp-1.jpeg";
 import whatsapp2 from "@/assets/testimonials/whatsapp-2.jpeg";
 import whatsapp3 from "@/assets/testimonials/whatsapp-3.jpeg";
 import whatsapp4 from "@/assets/testimonials/whatsapp-4.jpeg";
-import { Users, MessageCircle } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -57,7 +56,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
         
         {/* Gradient overlay com descrição */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-16">
-          <p className="text-white/95 text-sm font-medium" style={{ lineHeight: '1.6' }}>
+          <p className="text-white/95 text-sm font-medium leading-relaxed">
             {testimonial.description}
           </p>
         </div>
@@ -71,7 +70,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
 
 const Testimonials = () => {
   return (
-    <section className="section-breathing bg-muted relative overflow-hidden">
+    <section className="py-16 sm:py-24 bg-muted relative overflow-hidden">
       {/* Glow laranja de fundo */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/10 rounded-full blur-[120px] opacity-60" />
@@ -79,35 +78,25 @@ const Testimonials = () => {
       </div>
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        {/* Header com separação visual */}
-        <div className="testimonials-header text-center max-w-[650px] mx-auto">
-          {/* Badge Superior */}
-          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-sm border border-white/60 mb-6">
-            <MessageCircle className="w-4 h-4 text-accent" />
-            <span className="uppercase text-xs font-bold tracking-[0.15em] text-accent">
-              Resultados Reais
-            </span>
-          </div>
-          
-          {/* Introdução preparatória - Bloco de Impacto */}
-          <div className="impact-block mb-8">
-            <p className="text-slate-500 text-base sm:text-lg mb-1">
+        <div className="text-center mb-10 sm:mb-12">
+          {/* Introdução antes dos depoimentos */}
+          <div className="mb-6">
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
               Pessoas que já treinavam.
             </p>
-            <p className="text-slate-500 text-base sm:text-lg mb-1">
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
               Pessoas que estavam estagnadas.
             </p>
-            <p className="text-foreground font-medium text-base sm:text-lg">
+            <p className="text-foreground font-medium text-base sm:text-lg mt-1">
               Pessoas que só precisavam de um método claro.
             </p>
           </div>
           
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-5 tracking-[-0.02em]">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
             Quem já aplicou o Método 8X está{" "}
             <span className="text-gradient">transformando o físico — e a mente.</span>
           </h2>
-          
-          <p className="text-muted-foreground text-base sm:text-lg" style={{ lineHeight: '1.75' }}>
+          <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
             Conversas reais de quem está aplicando o método
           </p>
         </div>
@@ -142,17 +131,16 @@ const Testimonials = () => {
           ))}
         </div>
         
-        {/* Badge de transformações - Elevado e centralizado */}
-        <div className="mt-14 sm:mt-20 flex justify-center">
-          <div className="bg-white rounded-2xl shadow-xl shadow-black/[0.06] border border-slate-100/80 px-10 py-8 text-center max-w-md">
-            <div className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-50 to-amber-50 text-accent font-bold px-5 py-2.5 rounded-full mb-5 border border-accent/10">
-              <Users className="w-4.5 h-4.5" />
-              <span className="text-base">+500 transformações</span>
+        {/* Badge de transformações com frase de impacto */}
+        <div className="mt-12 sm:mt-16 text-center px-4">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-lg shadow-black/5 border border-accent/20 max-w-md mx-auto">
+            <div className="inline-flex items-center justify-center gap-2 bg-accent text-white rounded-full px-5 py-2.5 shadow-lg shadow-accent/30 mb-4">
+              <span className="font-bold text-base sm:text-lg">+500 transformações</span>
             </div>
-            <p className="text-slate-500 text-sm mb-2" style={{ lineHeight: '1.75' }}>
+            <p className="text-foreground font-semibold text-base sm:text-lg mb-1">
               E esse número cresce toda semana.
             </p>
-            <p className="text-foreground font-semibold text-sm" style={{ lineHeight: '1.75' }}>
+            <p className="text-muted-foreground text-sm sm:text-base">
               Pessoas reais. Resultados reais. Método comprovado.
             </p>
           </div>

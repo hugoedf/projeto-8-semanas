@@ -42,81 +42,81 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 pt-20 lg:pt-24 pb-16 lg:pb-20">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden gradient-hero pt-10">
       {/* Background overlays for depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.12),transparent_60%)]" />
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.02%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
-      <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
-        {/* Desktop: Two columns | Mobile: Single column centered */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-16 xl:gap-20 max-w-7xl mx-auto">
-          
-          {/* Left Column - Text Content */}
-          <div className="lg:flex-[1.1] lg:max-w-[580px] text-center lg:text-left">
+      <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-12 sm:pb-16 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
+          {/* Content */}
+          <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
+            
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] mb-5 lg:mb-6">
+            <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-5 sm:mb-6">
               <Zap className="w-4 h-4" />
               <span>MÉTODO 8X</span>
             </div>
             
-            {/* Título Principal */}
-            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.5rem] xl:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-5 lg:mb-6">
+            {/* Título Principal - Maior peso visual */}
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-5 sm:mb-6 px-2 sm:px-0">
               Um sistema de treino baseado em ciência para gerar{" "}
               <span className="text-accent">hipertrofia real</span>{" "}
               com progressão clara e execução guiada.
             </h1>
             
-            {/* Subtítulo de apoio */}
-            <p className="text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 text-gray-300 mb-6 lg:mb-8">
+            {/* Subtítulo de apoio - Hierarquia clara */}
+            <p className="text-base sm:text-lg leading-relaxed max-w-xl text-white/75 mb-6 sm:mb-8 px-2 sm:px-0">
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
-            {/* VSL Player - Mobile Only */}
-            <div className="relative w-full max-w-[300px] mx-auto lg:hidden mb-8">
-              <div className="absolute inset-0 bg-accent/25 rounded-2xl blur-[50px]" />
+            {/* VSL Player - Mobile only */}
+            <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
+              <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
             
-            {/* CTA */}
-            <div className={`transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
+            {/* CTA com destaque visual */}
+            <div className={`w-full sm:w-auto transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
               <Button 
                 variant="cta" 
                 size="lg" 
                 onClick={handleCTAClick} 
-                className={`text-sm sm:text-base lg:text-lg px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
+                className={`text-sm sm:text-lg px-6 sm:px-12 py-5 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase whitespace-nowrap ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
               >
                 QUERO TREINAR COM MÉTODO
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
             
-            {/* Prova social + preço */}
-            <p className="text-sm text-gray-400 mt-5 lg:mt-6">
-              <span className="text-gray-300 font-medium">+500 pessoas já aplicaram</span>
-              <span className="mx-2 lg:mx-3 text-gray-600">•</span>
-              <span className="text-accent font-bold text-base lg:text-lg">R$19,90</span>
-              <span className="mx-2 lg:mx-3 text-gray-600">•</span>
+            {/* Prova social + preço - Respiro visual */}
+            <p className="text-xs sm:text-sm text-white/65 mt-5 text-center lg:text-left">
+              <span className="text-white/85 font-medium">+500 pessoas já aplicaram</span>
+              <span className="mx-2 text-white/30">•</span>
+              <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>
+              <span className="mx-2 text-white/30">•</span>
               <span>Menos que uma refeição</span>
-            </p>
-            
-            {/* Micro-compromisso */}
-            <p className="text-gray-500 text-sm mt-8 lg:mt-10 italic">
-              Se você já treina, mas sente que poderia estar evoluindo mais, continue.
             </p>
           </div>
           
-          {/* Right Column - VSL Player (Desktop Only) */}
-          <div className="hidden lg:block lg:flex-1 lg:max-w-[500px] xl:max-w-[560px] relative">
-            <div className="absolute inset-0 bg-accent/25 rounded-3xl blur-[80px] scale-100" />
-            <div className="relative z-10">
+          {/* VSL Player - Desktop only */}
+          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{ animationDelay: "0.15s" }}>
+            <div className="absolute inset-0 bg-accent/15 rounded-3xl blur-[60px] scale-90" />
+            <div className="relative z-10 w-full max-w-lg">
               <VSLPlayer onVideoEnd={handleVSLEnd} />
             </div>
           </div>
         </div>
+        
+        {/* Micro-compromisso - Inserção suave */}
+        <div className="max-w-2xl mx-auto mt-12 sm:mt-16 text-center">
+          <p className="text-white/50 text-sm sm:text-base italic">
+            Se você já treina, mas sente que poderia estar evoluindo mais, continue.
+          </p>
+        </div>
       </div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-6 lg:bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60">
         <div className="w-6 h-10 border border-white/30 rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>

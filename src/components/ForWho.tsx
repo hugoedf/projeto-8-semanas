@@ -1,4 +1,5 @@
 import { UserCheck, TrendingUp, Dumbbell, X } from "lucide-react";
+
 const audience = [{
   icon: UserCheck,
   title: "Iniciantes",
@@ -12,70 +13,81 @@ const audience = [{
   title: "Avançados",
   description: "Querem treinar com método"
 }];
-const notFor = ["Procura milagre", "Não quer seguir um plano", "Não treina com regularidade"];
+
+const notFor = [
+  "Procura milagre",
+  "Não quer seguir um plano",
+  "Não treina com regularidade"
+];
+
 const ForWho = () => {
-  return <section className="py-20 sm:py-28 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 relative overflow-hidden">
-      {/* Background effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.08),transparent_70%)]" />
-      
-      <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-accent mb-6">
-            QUALIFICAÇÃO
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 tracking-tight text-white">
+  return (
+    <section className="py-14 sm:py-20 bg-background">
+      <div className="container mx-auto px-5 sm:px-6">
+        <div className="text-center mb-12 sm:mb-14">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
             Para quem é o{" "}
-            <span className="text-accent">Método 8X?</span>
+            <span className="text-gradient">Método 8X?</span>
           </h2>
-          <p className="text-gray-400 text-base sm:text-lg" style={{
-          lineHeight: '1.8'
-        }}>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
             Pessoas que buscam hipertrofia baseada em ciência.
           </p>
         </div>
         
-        {/* Grid de perfis */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 max-w-3xl mx-auto mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
           {audience.map((item, index) => {
-          const Icon = item.icon;
-          return <div key={index} className="bg-gray-900/60 backdrop-blur-sm border border-gray-800 rounded-xl p-6 text-center hover:border-accent/30 transition-all duration-300">
-                <div className="w-14 h-14 rounded-xl bg-accent/15 flex items-center justify-center mb-4 mx-auto">
-                  <Icon className="w-7 h-7 text-accent" />
+            const Icon = item.icon;
+            return (
+              <div 
+                key={index} 
+                className="bg-card border border-border/80 rounded-2xl p-6 sm:p-8 hover-lift text-center shadow-sm hover:shadow-lg transition-all duration-300"
+              >
+                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-2xl bg-accent/10 flex items-center justify-center mb-4 sm:mb-5 mx-auto shadow-inner">
+                  <Icon className="w-7 h-7 sm:w-9 sm:h-9 text-accent" />
                 </div>
-                <h3 className="font-display text-lg mb-2 text-white tracking-tight">
+                <h3 className="font-display text-lg sm:text-xl mb-2.5 text-foreground tracking-tight">
                   {item.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   {item.description}
                 </p>
-              </div>;
-        })}
+              </div>
+            );
+          })}
         </div>
         
-        {/* Texto de identificação */}
-        <p className="text-center text-gray-400 text-base sm:text-lg mb-10">
-          Se você se identificou com pelo menos um desses perfis,{" "}
-          <span className="text-accent font-semibold">o Método 8X foi feito para você.</span>
-        </p>
-        
-        {/* Bloco "Para quem NÃO é" */}
-        <div className="max-w-xl mx-auto">
-          <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-6">
-            <p className="text-gray-400 text-sm sm:text-base text-center mb-5">
-              O Método 8X <span className="font-medium text-white">não é para quem:</span>
+        <div className="mt-12 sm:mt-14 text-center max-w-3xl mx-auto px-4">
+          <div className="bg-accent/8 border border-accent/25 rounded-2xl p-6 sm:p-8 shadow-lg shadow-accent/5">
+            <p className="text-base sm:text-lg font-semibold text-foreground mb-2.5">
+              Se você se identificou com pelo menos um desses perfis…
             </p>
-            <div className="space-y-3">
-              {notFor.map((item, index) => <div key={index} className="gap-3 items-center justify-start flex flex-row">
-                  <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0">
-                    <X className="w-3.5 h-3.5 text-gray-500" />
+            <p className="text-accent text-lg sm:text-xl font-bold">
+              👉 O Método 8X foi feito para você.
+            </p>
+          </div>
+        </div>
+        
+        {/* Bloco "Para quem NÃO é" - Filtro de comprador */}
+        <div className="mt-12 sm:mt-14 max-w-xl mx-auto">
+          <div className="bg-muted/30 border border-border/40 rounded-xl p-5 sm:p-6">
+            <p className="text-muted-foreground text-sm sm:text-base text-center mb-4">
+              O Método 8X <span className="font-medium text-foreground">não é para quem:</span>
+            </p>
+            <div className="space-y-2">
+              {notFor.map((item, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
+                    <X className="w-3 h-3 text-muted-foreground" />
                   </div>
-                  <p className="text-gray-500 text-sm text-right">{item}</p>
-                </div>)}
+                  <p className="text-muted-foreground text-sm">{item}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default ForWho;
