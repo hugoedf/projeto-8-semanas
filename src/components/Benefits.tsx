@@ -1,5 +1,5 @@
 import { Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calendar } from "lucide-react";
-
+import { useParallax } from "@/hooks/useParallax";
 const benefits = [
   {
     icon: Dumbbell,
@@ -44,10 +44,15 @@ const benefits = [
 ];
 
 const Benefits = () => {
+  const parallaxOffset = useParallax({ speed: 0.05 });
+  
   return (
     <section className="py-20 sm:py-28 lg:py-32 bg-white relative overflow-hidden">
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,hsla(18,100%,58%,0.03),transparent_50%)]" />
+      {/* Subtle gradient overlay with parallax */}
+      <div 
+        className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,hsla(18,100%,58%,0.03),transparent_50%)]"
+        style={{ transform: `translateY(${parallaxOffset * 0.4}px)` }}
+      />
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16 lg:mb-20 max-w-3xl mx-auto">
