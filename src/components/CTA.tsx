@@ -4,21 +4,17 @@ import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
-
-const benefits = [
-  "Sistema completo: E-book + App 8X",
-  "8 semanas de treino — execução guiada",
-  "Nutrição prática — sem complicação",
-  "Técnicas avançadas — no momento certo",
-  "Acesso vitalício — seu para sempre",
-  "Garantia de 7 dias — risco zero"
-];
-
+const benefits = ["Sistema completo: E-book + App 8X", "8 semanas de treino — execução guiada", "Nutrição prática — sem complicação", "Técnicas avançadas — no momento certo", "Acesso vitalício — seu para sempre", "Garantia de 7 dias — risco zero"];
 const CTA = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  const { ctaVisible } = useCTAVisibility();
-
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
+  const {
+    ctaVisible
+  } = useCTAVisibility();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -29,12 +25,7 @@ const CTA = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  return (
-    <section 
-      id="cta-section" 
-      className={`py-16 sm:py-20 bg-white transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-    >
+  return <section id="cta-section" className={`py-16 sm:py-20 bg-white transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className="container mx-auto px-5 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -42,15 +33,7 @@ const CTA = () => {
             <div className="order-2 lg:order-1">
               <div className="relative">
                 <div className="absolute -inset-4 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.2)_0%,transparent_60%)] blur-2xl" />
-                <img 
-                  alt="Treino de Hipertrofia" 
-                  className="relative z-10 w-full h-auto rounded-2xl shadow-2xl shadow-black/20" 
-                  src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg" 
-                  width={651} 
-                  height={977} 
-                  loading="lazy" 
-                  decoding="async" 
-                />
+                <img alt="Treino de Hipertrofia" className="relative z-10 w-full h-auto rounded-2xl shadow-2xl shadow-black/20" src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg" width={651} height={977} loading="lazy" decoding="async" />
               </div>
             </div>
             
@@ -70,14 +53,12 @@ const CTA = () => {
                 </div>
                 
                 <div className="space-y-3 mb-8">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-3">
+                  {benefits.map((benefit, index) => <div key={index} className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center mt-0.5">
                         <Check className="w-3 h-3 text-accent" strokeWidth={3} />
                       </div>
                       <span className="text-gray-700 text-sm sm:text-base">{benefit}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
                 
                 <div className="border-t border-gray-200 pt-6 mb-6">
@@ -91,13 +72,8 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <Button 
-                  variant="cta" 
-                  size="lg" 
-                  className="w-full text-sm sm:text-base py-5 sm:py-6 mb-4 font-bold tracking-wide" 
-                  onClick={handleCTAClick}
-                >
-                  <span>QUERO TREINAR COM MÉTODO</span>
+                <Button variant="cta" size="lg" className="w-full text-sm sm:text-base py-5 sm:py-6 mb-4 font-bold tracking-wide" onClick={handleCTAClick}>
+                  <span>Quero resultados como esses</span>
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 
@@ -110,8 +86,6 @@ const CTA = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default CTA;
