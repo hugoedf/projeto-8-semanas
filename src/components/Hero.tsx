@@ -73,10 +73,9 @@ const Hero = () => {
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
-            {/* VSL Player - Mobile only with orange glow */}
+            {/* VSL Player - Mobile only - clean style to not conflict with CTA */}
             <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
-              <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.4)_0%,hsla(18,100%,50%,0.15)_50%,transparent_70%)] blur-[30px] rounded-3xl" />
-              <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-white/10 shadow-xl shadow-accent/25">
+              <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-white/10 shadow-lg">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
             </div>
