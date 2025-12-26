@@ -22,7 +22,7 @@ const explanationPoints = [{
 const Problems = () => {
   const parallaxOffset = useParallax({ speed: 0.06 });
   
-  return <section className="py-20 sm:py-28 lg:py-32 bg-black relative overflow-hidden">
+  return <section className="py-20 sm:py-28 lg:py-32 gradient-hero relative overflow-hidden">
       {/* Subtle texture overlay with parallax */}
       <div 
         className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(0,0%,100%,0.03),transparent_50%)]"
