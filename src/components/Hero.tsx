@@ -89,7 +89,7 @@ const Hero = () => {
                 onClick={handleCTAClick} 
                 className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
               >
-                QUERO TREINAR COM MÉTODO
+                TREINAR COM MÉTODO AGORA
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
