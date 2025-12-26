@@ -47,25 +47,25 @@ const Benefits = () => {
   const parallaxOffset = useParallax({ speed: 0.05 });
   
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-white relative overflow-hidden">
+    <section className="py-20 sm:py-28 lg:py-32 bg-black relative overflow-hidden">
       {/* Subtle gradient overlay with parallax */}
       <div 
-        className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,hsla(18,100%,58%,0.03),transparent_50%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,hsla(18,100%,58%,0.06),transparent_50%)]"
         style={{ transform: `translateY(${parallaxOffset * 0.4}px)` }}
       />
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16 lg:mb-20 max-w-3xl mx-auto">
-          <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-accent/70 mb-5">
+          <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-white/40 mb-5">
             A Transformação
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] mb-6 tracking-tight text-black leading-[1.1]">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] mb-6 tracking-tight text-white leading-[1.1]">
             O que muda na sua vida em{" "}
             <span className="text-accent">8 semanas:</span>
           </h2>
-          <p className="text-gray-500 text-lg sm:text-xl mb-5 max-w-2xl mx-auto">
+          <p className="text-white/50 text-lg sm:text-xl mb-5 max-w-2xl mx-auto">
             Não é só sobre ganhar músculo.
-            <span className="font-medium text-black"> É sobre treinar com método e finalmente ver resultados.</span>
+            <span className="font-medium text-white"> É sobre treinar com método e finalmente ver resultados.</span>
           </p>
         </div>
         
@@ -79,20 +79,20 @@ const Benefits = () => {
             return (
               <div
                 key={index}
-                className={`group relative bg-[#FAFAFA] rounded-2xl p-6 lg:p-7 border border-gray-100 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-1 transition-all duration-300 ${
+                className={`group relative bg-white/[0.04] rounded-2xl p-6 lg:p-7 border border-white/[0.08] hover:border-accent/30 hover:bg-white/[0.06] hover:-translate-y-1 transition-all duration-300 ${
                   isLarge ? 'lg:col-span-2' : ''
                 }`}
               >
                 {/* Icon container */}
-                <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-accent/8 border border-accent/15 flex items-center justify-center mb-5 group-hover:bg-accent/12 group-hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-5 group-hover:bg-accent/15 group-hover:scale-105 transition-all duration-300">
                   <Icon className="w-6 h-6 lg:w-7 lg:h-7 text-accent" strokeWidth={1.5} />
                 </div>
                 
                 {/* Text content */}
-                <h3 className="font-display text-lg lg:text-xl font-bold text-black tracking-tight mb-2">
+                <h3 className="font-display text-lg lg:text-xl font-bold text-white tracking-tight mb-2">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-500 text-sm lg:text-base leading-relaxed">
+                <p className="text-white/60 text-sm lg:text-base leading-relaxed">
                   {benefit.description}
                 </p>
                 
@@ -105,8 +105,8 @@ const Benefits = () => {
         
         {/* Bottom insight */}
         <div className="text-center mt-14 lg:mt-16 max-w-2xl mx-auto">
-          <p className="text-gray-400 text-sm sm:text-base">
-            Treinar muda completamente quando você entra na academia sabendo exatamente o que fazer — <span className="text-gray-600 font-medium">o treino deixa de ser ansiedade e vira execução.</span>
+          <p className="text-white/40 text-sm sm:text-base">
+            Treinar muda completamente quando você entra na academia sabendo exatamente o que fazer — <span className="text-white/60 font-medium">o treino deixa de ser ansiedade e vira execução.</span>
           </p>
         </div>
       </div>
