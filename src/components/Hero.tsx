@@ -85,9 +85,9 @@ const Hero = () => {
             <div className={`w-full sm:w-auto transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
               <Button 
                 variant="cta" 
-                size="lg" 
+                size="cta" 
                 onClick={handleCTAClick} 
-                className={`text-sm sm:text-lg px-6 sm:px-12 py-5 sm:py-7 w-full sm:w-auto font-bold tracking-wide shadow-xl shadow-accent/25 uppercase whitespace-nowrap ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
+                className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
               >
                 QUERO TREINAR COM MÉTODO
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
