@@ -159,7 +159,7 @@ export default {
   					transform: 'scale(1)'
   				}
   			},
-  			'stamp': {
+  			stamp: {
   				'0%': {
   					opacity: '0',
   					transform: 'scale(1.3)'
@@ -173,7 +173,7 @@ export default {
   					transform: 'scale(1)'
   				}
   			},
-  			'float': {
+  			float: {
   				'0%, 100%': {
   					transform: 'translateY(0)'
   				},
@@ -226,8 +226,8 @@ export default {
   			'slide-in-right': 'slide-in-right 0.35s ease-out forwards',
   			'zoom-in': 'zoom-in 0.5s ease-out forwards',
   			'pop-in': 'pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
-  			'stamp': 'stamp 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards',
-  			'float': 'float 3.5s ease-in-out infinite',
+  			stamp: 'stamp 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards',
+  			float: 'float 3.5s ease-in-out infinite',
   			'pulse-glow': 'pulse-glow 3.5s ease-in-out infinite',
   			'pulse-scale': 'pulse-scale 3.5s ease-in-out infinite',
   			'slide-in-bottom': 'slide-in-bottom 0.4s ease-out',

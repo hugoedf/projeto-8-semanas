@@ -47,7 +47,7 @@ All colors MUST be HSL.
   :root {
     /* Off-white base for premium feel */
     --background: 0 0% 4%;
-    --foreground: 0 0% 15%;
+    --foreground: 0 0% 92%;
 
     /* Pure white cards for depth contrast */
     --card: 0 0% 100%;
