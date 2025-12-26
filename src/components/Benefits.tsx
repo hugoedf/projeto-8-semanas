@@ -56,9 +56,7 @@ const Benefits = () => {
           </h2>
           
           {/* Subtítulo */}
-          <p className="text-lg sm:text-xl text-muted-foreground mb-2">
-            Não é só sobre ganhar músculo.
-          </p>
+          
           
           {/* Frase de impacto */}
           <p className="text-lg sm:text-xl font-semibold text-foreground mb-6">
