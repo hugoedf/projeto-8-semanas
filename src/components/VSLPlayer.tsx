@@ -103,16 +103,34 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const togglePlayPause = async () => {
     if (!videoRef.current) return;
 
-    if (isPlaying) {
-      videoRef.current.pause();
+    const video = videoRef.current;
+
+    if (!video.paused && !video.ended) {
+      // Pause video and GUARANTEE no other media keeps playing in background
+      video.pause();
+      video.muted = true;
+      setIsMuted(true);
       setIsPlaying(false);
+
+      // Safety net: stop/mute any other media elements (prevents “áudio fantasma”)
+      document.querySelectorAll<HTMLMediaElement>('audio, video').forEach((el) => {
+        try {
+          if (el !== video) {
+            el.pause();
+          }
+          el.muted = true;
+        } catch {
+          // ignore
+        }
+      });
+
       return;
     }
 
     try {
       // Mobile-first: always ensure we are not muted when user explicitly hits play.
-      videoRef.current.muted = false;
-      await videoRef.current.play();
+      video.muted = false;
+      await video.play();
       setIsMuted(false);
       setIsPlaying(true);
     } catch (error) {
@@ -129,7 +147,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
   const toggleFullscreen = async () => {
     if (!containerRef.current) return;
-    
+
     try {
       if (document.fullscreenElement) {
         await document.exitFullscreen();
@@ -141,14 +159,11 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     }
   };
 
-  // Autoplay (desktop only). On mobile, we avoid any autoplay to guarantee audio works on user gesture.
+  // Keep React state in sync with the real media element state (prevents UI/audio desync)
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const isMobile = /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent);
-
-    // Handle when video actually starts playing - track VSLStart
     const handlePlay = () => {
       setIsPlaying(true);
       setHasStarted(true);
@@ -159,12 +174,29 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       sendVSLEvent('VSLStart');
     };
 
+    const handlePause = () => {
+      setIsPlaying(false);
+      // If user paused, ensure audio is truly off
+      video.muted = true;
+      setIsMuted(true);
+    };
+
+    const handleVolumeChange = () => {
+      setIsMuted(video.muted);
+    };
+
     video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('volumechange', handleVolumeChange);
+
+    const isMobile = /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent);
 
     // Mobile-first rule: no autoplay attempts on mobile (prevents muted autoplay & audio lock).
     if (isMobile) {
       return () => {
         video.removeEventListener('play', handlePlay);
+        video.removeEventListener('pause', handlePause);
+        video.removeEventListener('volumechange', handleVolumeChange);
       };
     }
 
@@ -187,6 +219,8 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
     return () => {
       video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('volumechange', handleVolumeChange);
       clearTimeout(timer);
     };
   }, [sendVSLEvent, hasStarted, isPlaying]);
