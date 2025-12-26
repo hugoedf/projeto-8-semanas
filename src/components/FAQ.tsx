@@ -2,6 +2,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
+import { buildHotmartCheckoutUrl } from "@/lib/utils";
+
 const faqItems = [{
   question: "Como recebo o acesso ao Método 8X?",
   answer: "Assim que a compra é confirmada, você recebe o acesso imediato ao sistema completo no seu e-mail. Você já pode começar no mesmo dia, sem esperar liberação manual."
@@ -27,21 +29,18 @@ const faqItems = [{
   question: "Por que o valor é tão baixo?",
   answer: "Porque o objetivo do Método 8X é acesso, não exclusividade. Você está investindo menos que uma refeição para aprender um sistema que pode mudar completamente a forma como você treina — agora e no futuro."
 }];
+
 const FAQ = () => {
-  const {
-    trackInitiateCheckout
-  } = useMetaPixel();
-  const {
-    getVisitorData
-  } = useVisitorTracking();
+  const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
+  
   const handleCTAClick = () => {
-    const visitorData = getVisitorData();
-    const baseUrl = 'https://pay.hotmart.com/B98037937L';
-    const params = new URLSearchParams();
-    if (visitorData.visitorId) {
-      params.set('off', visitorData.visitorId);
-    }
-    const checkoutUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
+    console.log('✅ ===== CHECKOUT INICIADO (FAQ) =====');
+    console.log('🔗 URL final:', checkoutUrl);
+    console.log('📊 Dados do visitante:', visitorData);
+    console.log('========================================');
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -73,8 +72,8 @@ const FAQ = () => {
           <p className="text-muted-foreground text-sm mb-4">
             Ainda com dúvida? Por R$19,90 você testa com garantia de 7 dias.
           </p>
-          <Button size="lg" onClick={handleCTAClick} className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-base px-8 py-6 rounded-lg shadow-lg shadow-accent/20">
-            Começar minha evolução hoje
+          <Button variant="cta" size="cta" onClick={handleCTAClick}>
+            COMEÇAR MINHA EVOLUÇÃO HOJE
           </Button>
         </div>
       </div>
