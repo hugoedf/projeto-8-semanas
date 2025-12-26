@@ -18,7 +18,7 @@ const WhyExists = () => {
           </div>
           
           {/* Card Único - História fluida */}
-          <div className="bg-gray-900/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 md:p-10 border border-gray-800">
+          <div className="backdrop-blur-sm rounded-2xl p-6 sm:p-8 md:p-10 border border-gray-800 bg-[#151313]">
             
             {/* Narrativa fluida como história */}
             <p className="text-gray-400 text-base sm:text-lg mb-6 text-center" style={{
@@ -28,7 +28,7 @@ const WhyExists = () => {
             </p>
             
             {/* Destaque da solução - integrado */}
-            <div className="flex items-start gap-4 bg-gray-800/50 border border-accent/20 rounded-xl p-5 mb-6">
+            <div className="flex items-start gap-4 border border-accent/20 rounded-xl p-5 mb-6 bg-primary">
               <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center">
                 <Zap className="w-6 h-6 text-accent" />
               </div>

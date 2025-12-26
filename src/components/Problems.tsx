@@ -80,7 +80,7 @@ const Problems = () => {
           </div>
           
           {/* A VERDADE - Bloco escuro de destaque */}
-          <div className="bg-gray-950 rounded-2xl p-6 sm:p-8 md:p-10">
+          <div className="rounded-2xl p-6 sm:p-8 md:p-10 bg-muted">
             {/* Badge + Headline */}
             <div className="text-center mb-8">
               <span className="inline-block text-xs font-bold text-accent uppercase tracking-[0.2em] mb-4">
@@ -117,7 +117,7 @@ const Problems = () => {
             </div>
             
             {/* Fechamento */}
-            <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-5 text-center">
+            <div className="border border-gray-800 rounded-xl p-5 text-center bg-card-foreground">
               <p className="text-gray-400 text-sm sm:text-base mb-2">
                 A maioria das pessoas treina assim por anos. Não porque não querem evoluir —
               </p>

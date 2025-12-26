@@ -25,10 +25,10 @@ const Index = () => {
       {/* 3. SOLUÇÃO - O que o método oferece */}
       <Benefits />
       {/* 4. FACILITADOR - App como ferramenta */}
-      <AppShowcase />
+      <AppShowcase className="bg-primary" />
       {/* 5. CONTEÚDO - O que está incluso */}
       <Modules />
-      <Bonus />
+      <Bonus className="bg-primary" />
       {/* 6. PROVA SOCIAL */}
       <Testimonials />
       <IntermediateCTA />
