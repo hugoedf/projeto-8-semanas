@@ -1,562 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Fonts loaded via HTML with preload and display=swap for performance */
-
-/* VSL Slide Animations */
-@keyframes textReveal {
-  from {
-    opacity: 0;
-    filter: blur(8px);
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes emojiBounce {
-  0%, 100% { 
-    transform: scale(1); 
-  }
-  50% { 
-    transform: scale(1.1); 
-  }
-}
-
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* 
+   ======================================================
+   💎 CSS ORIGINAL - LAPIDAÇÃO ESTÉTICA FINAL
+   Foco: Alinhamento, Simetria e Pureza de Cores
+   ====================================================== 
 */
 
 @layer base {
   :root {
-    /* Off-white base for premium feel */
-    --background: 0 0% 98%;
-    --foreground: 0 0% 15%;
-
-    /* Pure white cards for depth contrast */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
-
-    --primary: 0 0% 12%;
-    --primary-foreground: 0 0% 100%;
-
-    /* Subtle gray tones */
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 15%;
-
-    --muted: 0 0% 97%;
-    --muted-foreground: 0 0% 45%;
-
+    /* Cores Neutras para eliminar o "visual sujo" */
+    --background: 0 0% 100%; 
+    --foreground: 0 0% 10%;
     --accent: 18 100% 58%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 65% 55%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 18 100% 58%;
-
-    --radius: 0.875rem;
-    
-    /* Fitness theme colors - Premium palette */
-    --fitness-orange: 18 100% 58%;
-    --fitness-dark: 0 0% 12%;
-    --fitness-darker: 0 0% 8%;
-    --fitness-gray: 0 0% 45%;
-    --fitness-light: 0 0% 97%;
-    --fitness-brown: 20 15% 10%;
-    
-    /* Gradients - Refined */
-    --gradient-hero: linear-gradient(145deg, hsl(20 15% 8%) 0%, hsl(0 0% 6%) 50%, hsl(20 10% 10%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(18 100% 58%) 0%, hsl(18 100% 48%) 100%);
-    --gradient-card-dark: linear-gradient(180deg, hsla(20 10% 15% / 0.6) 0%, hsla(0 0% 8% / 0.8) 100%);
-    
-    /* Premium Shadows - Soft and elegant */
-    --shadow-glow: 0 0 50px hsla(18 100% 58% / 0.25);
-    --shadow-glow-strong: 0 0 80px hsla(18 100% 58% / 0.35);
-    --shadow-card: 0 10px 40px -10px hsla(0 0% 0% / 0.08);
-    --shadow-card-hover: 0 20px 50px -15px hsla(0 0% 0% / 0.12);
-    --shadow-card-dark: 0 8px 40px hsla(0 0% 0% / 0.4);
-    --shadow-accent: 0 8px 30px -8px hsla(18 100% 58% / 0.4);
-    
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --fitness-darker: 0 0% 0%; /* Preto Puro */
   }
 
   .dark {
-    --background: 0 0% 5%;
+    --background: 0 0% 0%;
     --foreground: 0 0% 98%;
-
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 5%;
-
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-
-    --accent: 18 100% 58%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 18 100% 58%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+/* --- 1. CORREÇÃO DE CORES (FIM DO VAZAMENTO AZUL) --- */
 
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.65;
-  }
-  
-  p {
-    line-height: 1.7;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
-  
-  h1 {
-    font-weight: 800;
-    letter-spacing: -0.03em;
-  }
-  
-  h2 {
-    font-weight: 700;
-    letter-spacing: -0.025em;
-  }
-  
-  h3 {
-    letter-spacing: -0.015em;
-  }
+/* Forçar Preto Puro em todas as seções escuras e remover gradientes azulados */
+[class*="bg-[#0b141a]"], 
+.bg-gray-900, 
+.dark section,
+section.bg-black,
+[class*="bg-slate-950"],
+[class*="bg-slate-900"] {
+  background-color: #000000 !important;
+  background-image: none !important;
 }
 
-@layer utilities {
-  .gradient-hero {
-    background: var(--gradient-hero);
-  }
-  
-  .gradient-accent {
-    background: var(--gradient-accent);
-  }
-  
-  .gradient-card-dark {
-    background: var(--gradient-card-dark);
-  }
-  
-  .text-gradient {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .hover-lift {
-    transition: var(--transition-smooth);
-  }
-  
-  .hover-lift:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-card-hover);
-  }
-  
-  .glow-accent {
-    box-shadow: var(--shadow-glow);
-  }
-  
-  .glow-accent-strong {
-    box-shadow: var(--shadow-glow-strong);
-  }
-  
-  /* Premium floating card */
-  .card-premium {
-    @apply bg-card rounded-2xl;
-    box-shadow: var(--shadow-card);
-    transition: var(--transition-smooth);
-  }
-  
-  .card-premium:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card-hover);
-  }
-  
-  /* Floating card with hover effect */
-  .card-floating {
-    @apply bg-card rounded-xl;
-    box-shadow: var(--shadow-card);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .card-floating:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-card-hover);
-  }
-  
-  .card-dark-glass {
-    @apply backdrop-blur-md border border-white/10 rounded-2xl;
-    background: var(--gradient-card-dark);
-    box-shadow: var(--shadow-card-dark);
-  }
-  
-  /* Premium section spacing */
-  .section-spacing {
-    @apply py-20 sm:py-28 lg:py-32;
-  }
-  
-  .section-spacing-sm {
-    @apply py-16 sm:py-20 lg:py-24;
-  }
-  
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  /* Button with accent glow */
-  .btn-glow {
-    box-shadow: var(--shadow-accent);
-    transition: var(--transition-smooth);
-  }
-  
-  .btn-glow:hover {
-    box-shadow: 0 12px 40px -10px hsla(18 100% 58% / 0.5);
-    transform: translateY(-1px);
-  }
-  
-  /* Highlight box with glow */
-  .highlight-box {
-    @apply bg-card border border-accent/30 rounded-2xl;
-    box-shadow: 0 0 60px -20px hsla(18 100% 58% / 0.15);
-  }
-  
-  a[href*="lovable"] {
-    display: none !important;
-  }
+/* --- 2. ALINHAMENTO E SIMETRIA (VISUAL PREMIUM) --- */
+
+/* Centralização de Conteúdo para Desktop */
+.container, 
+section > div {
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
 }
 
-/* ======================================================
-   💎 CSS MESTRE - VISUAL PREMIUM / HIGH TICKET
-   Foco: Profundidade, Hierarquia e Leitura Guiada
-====================================================== */
+/* Padronização de Espaçamento entre Seções */
+section {
+  padding-top: 90px !important;
+  padding-bottom: 90px !important;
+}
 
-/* 1. TIPOGRAFIA & BASE
-   Deixa o texto mais "rico" e fácil de ler */
+/* Alinhamento de Títulos e Textos */
+h1, h2, h3 {
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
+  line-height: 1.2 !important;
+}
+
 section p {
-  line-height: 1.8 !important;
-  color: hsl(0 0% 29%);
-  font-size: 1.05rem;
-}
-
-section h2, section h3 {
-  letter-spacing: -0.03em !important;
-}
-
-/* 2. FUNDO DAS SEÇÕES CLARAS (O PALCO)
-   Tira o branco chapado e coloca um "Off-White" suave */
-section.bg-background,
-section.bg-white,
-section:not([class*="bg-fitness"]):not([class*="gradient-hero"]):not(.dark) {
-  background-color: hsl(0 0% 98%) !important;
-}
-
-/* ======================================================
-   3. SEÇÃO DE DORES - Cards Flutuantes Premium
-====================================================== */
-.pain-card-premium {
-  background: hsl(0 0% 100%);
-  margin-bottom: 16px;
-  padding: 24px 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px hsla(0 0% 0% / 0.04);
-  border: 1px solid hsla(0 0% 0% / 0.02);
-  border-left: 4px solid hsl(0 70% 65%);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.pain-card-premium:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px hsla(0 70% 65% / 0.15);
-}
-
-/* ======================================================
-   4. SEÇÃO "POR QUE O MÉTODO EXISTE" - Hero Box
-====================================================== */
-.solution-hero-box {
-  background: hsl(0 0% 100%);
-  border-radius: 24px;
-  padding: 3rem !important;
-  box-shadow: 0 20px 60px hsla(18 100% 50% / 0.08);
-  border: 1px solid hsla(18 100% 50% / 0.1);
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.solution-hero-box h2 {
-  color: hsl(0 0% 0%);
-  margin-bottom: 20px;
-}
-
-/* ======================================================
-   5. SEÇÃO DE BENEFÍCIOS - Grid Apple Style
-====================================================== */
-.benefit-card-premium {
-  background: hsl(0 0% 100%);
-  border-radius: 16px;
-  padding: 24px;
-  height: 100%;
-  box-shadow: 0 4px 24px hsla(0 0% 0% / 0.03);
-  border: 1px solid hsl(0 0% 94%);
-  transition: all 0.3s ease;
-}
-
-.benefit-card-premium:hover {
-  border-color: hsl(var(--accent));
-  transform: translateY(-5px);
-}
-
-.benefit-card-premium svg,
-.benefit-card-premium img {
-  transform: scale(1.2);
-  margin-bottom: 15px;
-  display: block;
-}
-
-.benefit-card-premium h3,
-.benefit-card-premium h4 {
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-/* ======================================================
-   6. AJUSTES FINAIS DE POLIMENTO
-====================================================== */
-.section-clean {
-  background: hsl(0 0% 100%) !important;
-  border-top: 1px solid hsl(0 0% 94%);
-}
-
-/* Largura máxima de leitura para parágrafos */
-section p {
-  max-width: 75ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ======================================================
-   💎 CSS MASTER - VISUAL PREMIUM & CORREÇÕES
-====================================================== */
-
-/* --- 1. CORREÇÃO DAS LETRAS SOLTAS "A B C D" --- */
-/* Remove as bolinhas de avatar padrão quebradas */
-.elementor-icon-list-icon {
-  display: none !important;
-}
-
-/* Centraliza e transforma o texto "+500 transformações" em uma badge elegante */
-.elementor-icon-list-item, 
-ul.elementor-icon-list-items li {
-  justify-content: center !important;
-  text-align: center;
-  width: fit-content;
-  margin: 10px auto !important;
-  padding: 8px 24px;
-  background: hsla(18 100% 50% / 0.08);
-  border-radius: 50px;
-  border: 1px solid hsla(18 100% 50% / 0.15);
-}
-
-.elementor-icon-list-text {
-  font-weight: 600;
-  color: hsl(0 0% 20%);
-  font-size: 0.95rem;
-}
-
-/* --- 2. HIERARQUIA PREMIUM (SEÇÕES CLARAS) --- */
-/* Define fundo Off-White para contraste com os cards brancos */
-section:not(.elementor-section-stretched):not(.bg-dark) {
-  background-color: hsl(0 0% 98%);
-}
-
-/* Tipografia de alta legibilidade */
-section p {
+  text-align: center !important;
+  max-width: 780px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
   line-height: 1.75 !important;
-  color: hsl(0 0% 27%);
-  letter-spacing: -0.01em;
+  color: #4b5563;
 }
 
-/* --- 3. TRANSFORMAÇÃO: LISTA DE DORES EM CARDS --- */
-/* Transforma listas simples em cartões com sombra e indicador de erro */
-section:has(h2) ul.elementor-icon-list-items li {
-  background: hsl(0 0% 100%);
-  margin-bottom: 16px;
-  padding: 22px 28px;
-  border-radius: 16px;
-  box-shadow: 0 10px 40px -10px hsla(0 0% 0% / 0.06);
-  border: 1px solid hsla(0 0% 0% / 0.03);
-  border-left: 4px solid hsl(0 70% 65%);
-  transition: transform 0.2s ease;
+.dark section p, section.bg-black p {
+  color: #a3a3a3 !important;
 }
 
-/* Efeito Hover nos cards de dores */
-section:has(h2) ul.elementor-icon-list-items li:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px -5px hsla(0 70% 65% / 0.15);
-}
+/* --- 3. REFINO DE COMPONENTES (SEM MUDAR O LAYOUT) --- */
 
-/* Força a cor vermelha nos ícones de erro */
-section:has(h2) ul.elementor-icon-list-items i {
-  color: hsl(0 70% 65%) !important;
-  background: transparent !important;
-}
-
-/* --- 4. DESTAQUE: "POR QUE O MÉTODO EXISTE" --- */
-/* Cria container de destaque com hierarquia visual */
-section:has(h2) .elementor-widget-text-editor {
-  position: relative;
-  z-index: 2;
-}
-
-.box-destaque, 
-section:has(h2) > .elementor-container {
-  border-radius: 20px;
-}
-
-/* --- 5. GRID DE BENEFÍCIOS (ESTILO APP) --- */
-/* Estiliza a seção de benefícios como botões grandes de app */
-.elementor-widget-icon-box .elementor-widget-container {
-  background: hsl(0 0% 100%);
-  padding: 30px 24px;
-  border-radius: 18px;
-  height: 100%;
-  box-shadow: 0 4px 20px hsla(0 0% 0% / 0.03);
-  border: 1px solid hsl(0 0% 94%);
+/* Cards de Dores e Benefícios - Ajuste de Margens e Sombras */
+.pain-card-premium, 
+.benefit-card-premium {
+  background: #ffffff !important;
+  border: 1px solid #f0f0f0 !important;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
   transition: all 0.3s ease;
 }
 
-/* Hover nos benefícios */
-.elementor-widget-icon-box .elementor-widget-container:hover {
-  border-color: hsl(var(--accent));
-  transform: translateY(-5px);
-  box-shadow: 0 20px 50px hsla(18 100% 50% / 0.1);
+/* Grid de Benefícios no Desktop */
+@media (min-width: 768px) {
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
 }
 
-/* Ícones laranjas destacados */
-.elementor-icon-box-icon i, 
-.elementor-icon-box-icon svg {
-  color: hsl(var(--accent)) !important;
-  transform: scale(1.1);
-  margin-bottom: 10px;
+@media (min-width: 1024px) {
+  .benefit-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-/* Títulos fortes */
-.elementor-icon-box-title {
-  font-weight: 700 !important;
-  margin-bottom: 8px !important;
+/* Botões de Conversão - Centralizados e com Peso Visual */
+.btn-premium, 
+[class*="bg-[#ff6929]"] {
+  display: inline-block !important;
+  width: auto !important;
+  min-width: 280px;
+  padding: 18px 45px !important;
+  border-radius: 50px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 10px 30px rgba(255, 105, 41, 0.3) !important;
+  transition: all 0.3s ease !important;
+  margin: 0 auto !important;
 }
 
-.elementor-icon-box-description {
-  font-size: 0.95rem !important;
-  line-height: 1.6 !important;
+/* Garantia - Ajuste de Foco */
+.guarantee-premium {
+  background: #050505 !important;
+  border: 1px solid #1a1a1a !important;
+  border-radius: 24px;
+  padding: 60px 40px !important;
+  max-width: 850px !important;
+  margin: 0 auto !important;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
 }
 
-/* --- 6. AJUSTE MOBILE PREMIUM --- */
-@media (max-width: 767px) {
-  /* Desativa hover em mobile */
-  .elementor-widget-icon-box .elementor-widget-container:hover,
-  section:has(h2) ul.elementor-icon-list-items li:hover,
-  .pain-card-premium:hover,
-  .benefit-card-premium:hover {
-    transform: none;
-  }
-  
-  section:has(h2) ul.elementor-icon-list-items li {
-    padding: 18px;
-  }
-  
-  /* Cards de dor otimizados para mobile */
-  .pain-card-premium {
-    padding: 18px 20px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-  }
-  
-  /* Solution hero box mobile */
-  .solution-hero-box {
-    padding: 1.5rem !important;
-    border-radius: 16px;
-  }
-  
-  /* Cards de benefício mobile */
-  .benefit-card-premium {
-    padding: 18px;
-    border-radius: 12px;
-  }
-  
-  /* Tipografia mobile mais compacta */
-  section p {
-    font-size: 1rem;
-    line-height: 1.7 !important;
-  }
-  
-  section h2, section h3 {
-    letter-spacing: -0.02em !important;
-  }
+/* --- 4. LIMPEZA FINAL --- */
+
+/* Remover textos secundários azulados */
+.text-slate-500, .text-gray-500, .text-muted-foreground {
+  color: #6b7280 !important;
+  text-align: center !important;
+}
+
+/* Hotfix Lovable Badge */
+a[href*="lovable"] { display: none !important; }
+
+/* Manter animações originais */
+@keyframes textReveal {
+  from { opacity: 0; filter: blur(8px); transform: translateY(20px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
 }
