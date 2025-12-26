@@ -43,36 +43,45 @@ const modules = [
 
 const Modules = () => {
   return (
-    <section id="modules-section" className="py-16 sm:py-24 gradient-hero">
-      <div className="container mx-auto px-5 sm:px-6">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 text-white px-2 tracking-tight leading-tight">
+    <section id="modules-section" className="py-20 sm:py-28 lg:py-32 bg-black relative overflow-hidden">
+      {/* Subtle gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,hsla(18,100%,58%,0.06),transparent_50%)]" />
+      
+      <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-14 lg:mb-16">
+          <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-white/40 mb-5">
+            O Sistema
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-5 text-white tracking-tight leading-[1.1]">
             8 semanas. <span className="text-accent">Tudo que você precisa.</span>
           </h2>
-          <p className="text-white/70 text-base sm:text-lg max-w-lg mx-auto">
+          <p className="text-white/50 text-lg sm:text-xl max-w-lg mx-auto">
             Sem enrolação. Só o essencial para você evoluir.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 max-w-6xl mx-auto">
           {modules.map((module, index) => (
             <div 
               key={index} 
-              className="card-dark-glass p-5 sm:p-6 hover-lift transition-all duration-300 rounded-2xl border border-transparent hover:border-accent/20"
+              className="group relative bg-white/[0.03] backdrop-blur-sm rounded-2xl p-6 lg:p-7 border border-white/[0.06] hover:border-accent/30 hover:bg-white/[0.05] transition-all duration-300"
             >
-              <div className="flex flex-col gap-3">
-                <div className="w-12 h-12 rounded-xl bg-accent/15 flex items-center justify-center border border-accent/30">
+              <div className="flex flex-col gap-4">
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center border border-accent/25 group-hover:bg-accent/15 transition-colors">
                   <span className="font-display text-lg font-bold text-accent">
                     {module.number}
                   </span>
                 </div>
-                <h3 className="font-display text-base sm:text-lg text-white tracking-tight leading-tight font-medium">
+                <h3 className="font-display text-lg lg:text-xl text-white tracking-tight leading-tight font-semibold">
                   {module.title}
                 </h3>
-                <p className="text-white/70 text-sm sm:text-base leading-relaxed">
+                <p className="text-white/50 text-sm lg:text-base leading-relaxed">
                   {module.description}
                 </p>
               </div>
+              
+              {/* Hover accent line */}
+              <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-accent/0 via-accent/50 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           ))}
         </div>
