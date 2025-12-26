@@ -3,7 +3,7 @@ import guaranteeBadge from "@/assets/guarantee-badge.png";
 
 const Guarantee = () => {
   return (
-    <section className="py-16 sm:py-24 gradient-hero">
+    <section className="py-16 sm:py-24 section-dark-premium relative overflow-hidden">
       <div className="container mx-auto px-5 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <div className="card-dark-glass p-8 sm:p-10 md:p-14 rounded-3xl">

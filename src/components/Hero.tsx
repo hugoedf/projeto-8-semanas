@@ -43,10 +43,10 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden gradient-hero pt-10">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-dark-premium pt-10">
       {/* Background overlays for depth with parallax */}
       <div 
-        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.08),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.1),transparent_60%)]"
         style={{ transform: `translateY(${parallaxOffset * 0.5}px)` }}
       />
       
