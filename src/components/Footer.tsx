@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 const Footer = () => {
-  return <footer className="py-8 sm:py-12 gradient-hero">
+  return <footer className="py-8 sm:py-12 section-dark-premium relative">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-6 sm:mb-8">
