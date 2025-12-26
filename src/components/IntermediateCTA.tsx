@@ -54,8 +54,8 @@ const IntermediateCTA = () => {
           </div>
 
           {/* Botão */}
-          <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base px-8 sm:px-12 py-5 sm:py-6 font-bold tracking-wide mb-8 w-full sm:w-auto">
-            <span>Quero treinar com método</span>
+          <Button variant="cta" size="cta" onClick={handleCTAClick} className="mb-8 w-full sm:w-auto">
+            QUERO TREINAR COM MÉTODO
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
 

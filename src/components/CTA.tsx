@@ -72,8 +72,8 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <Button variant="cta" size="lg" className="w-full text-sm sm:text-base py-5 sm:py-6 mb-4 font-bold tracking-wide" onClick={handleCTAClick}>
-                  <span>Quero resultados como esses</span>
+                <Button variant="cta" size="cta" className="w-full mb-4" onClick={handleCTAClick}>
+                  QUERO RESULTADOS COMO ESSES
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 
