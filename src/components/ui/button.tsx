@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-center",
+  "inline-flex items-center justify-center gap-2 rounded-xl text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-center",
   {
     variants: {
       variant: {
@@ -15,13 +15,13 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        cta: "bg-accent text-accent-foreground hover:bg-accent/90 font-bold uppercase tracking-wider btn-glow hover:scale-[1.02]",
-        ctaOutline: "border-2 border-accent text-accent bg-transparent hover:bg-accent hover:text-accent-foreground font-bold uppercase tracking-wider",
+        cta: "bg-gradient-to-r from-accent to-[hsl(18,100%,52%)] text-white hover:from-[hsl(18,100%,52%)] hover:to-accent font-bold uppercase tracking-wide shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/35 hover:scale-[1.02] active:scale-[0.98]",
+        ctaOutline: "border-2 border-accent text-accent bg-transparent hover:bg-accent hover:text-white font-bold uppercase tracking-wide",
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
+        sm: "h-9 rounded-lg px-3",
+        lg: "h-12 rounded-xl px-8",
         xl: "h-14 rounded-xl px-10 text-base",
         icon: "h-10 w-10",
       },

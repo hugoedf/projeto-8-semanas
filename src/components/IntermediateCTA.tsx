@@ -4,16 +4,12 @@ import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
+
 const IntermediateCTA = () => {
-  const {
-    trackInitiateCheckout
-  } = useMetaPixel();
-  const {
-    visitorData
-  } = useVisitorTracking();
-  const {
-    ctaVisible
-  } = useCTAVisibility();
+  const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
+  const { ctaVisible } = useCTAVisibility();
+
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -24,50 +20,63 @@ const IntermediateCTA = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-  return <section className={`py-12 sm:py-16 bg-gradient-to-b from-muted via-accent/5 to-muted transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-      <div className="container mx-auto px-5 sm:px-6">
+
+  return (
+    <section className={`py-16 sm:py-20 bg-black relative overflow-hidden transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      {/* Subtle glow effect */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,hsla(18,100%,58%,0.08),transparent_60%)]" />
+      
+      <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="max-w-2xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 text-accent font-semibold text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-accent/40 bg-accent/10 mb-6">
+          <div className="inline-flex items-center gap-2 text-accent font-semibold text-xs uppercase tracking-widest px-4 py-2.5 rounded-full border border-accent/30 bg-accent/10 mb-8">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>DECISÃO SIMPLES</span>
+            <span>Decisão Simples</span>
           </div>
 
           {/* Headline emocional */}
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 tracking-tight">
-            Você pode continuar tentando sozinho.<br />
-            <span className="text-gradient">Ou pode seguir um caminho que funciona.</span>
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5 tracking-tight text-white leading-[1.15]">
+            Você pode continuar tentando sozinho.
+            <br className="hidden sm:block" />
+            <span className="text-accent">Ou pode seguir um caminho que funciona.</span>
           </h2>
 
-          <p className="text-muted-foreground text-base sm:text-lg mb-6 max-w-lg mx-auto">
+          <p className="text-white/60 text-base sm:text-lg mb-8 max-w-lg mx-auto">
             +500 pessoas já aplicaram o método. O método está comprovado. A única pergunta é: quando você vai começar? 
           </p>
 
           {/* Preço com ancoragem */}
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="text-muted-foreground line-through text-lg">R$ 97</span>
-            <span className="text-accent font-display text-3xl sm:text-4xl font-bold">R$ 19,90</span>
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <span className="text-white/40 line-through text-xl">R$ 97</span>
+            <span className="text-accent font-display text-4xl sm:text-5xl font-bold drop-shadow-[0_0_20px_hsla(18,100%,58%,0.4)]">R$ 19,90</span>
           </div>
 
-          {/* Botão com prazo específico */}
-          <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-xs sm:text-base px-4 sm:px-10 py-5 sm:py-6 animate-pulse-glow font-bold tracking-wide shadow-lg shadow-accent/30 uppercase mb-6 w-full sm:w-auto max-w-full whitespace-normal leading-tight">
-            <span className="flex-1 text-center">GARANTIR MINHA VAGA AGORA</span>
-            <ArrowRight className="ml-1 sm:ml-2 w-4 h-4 flex-shrink-0" />
+          {/* Botão */}
+          <Button 
+            variant="cta" 
+            size="lg" 
+            onClick={handleCTAClick} 
+            className="text-sm sm:text-base px-8 sm:px-12 py-5 sm:py-6 font-bold tracking-wide mb-8 w-full sm:w-auto"
+          >
+            <span>GARANTIR MINHA VAGA AGORA</span>
+            <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
-            <div className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
+            <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-accent" />
               <span>Garantia 7 dias</span>
             </div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-accent" />
               <span>Acesso imediato</span>
             </div>
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default IntermediateCTA;

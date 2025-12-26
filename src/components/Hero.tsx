@@ -69,10 +69,12 @@ const Hero = () => {
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
-            {/* VSL Player - Mobile only */}
+            {/* VSL Player - Mobile only with orange glow */}
             <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
-              <div className="absolute inset-0 bg-accent/20 rounded-2xl blur-[50px]" />
-              <VSLPlayer onVideoEnd={handleVSLEnd} />
+              <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.4)_0%,hsla(18,100%,50%,0.15)_50%,transparent_70%)] blur-[30px] rounded-3xl" />
+              <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-white/10 shadow-xl shadow-accent/25">
+                <VSLPlayer onVideoEnd={handleVSLEnd} />
+              </div>
             </div>
             
             {/* CTA com destaque visual */}
@@ -98,11 +100,15 @@ const Hero = () => {
             </p>
           </div>
           
-          {/* VSL Player - Desktop only */}
+          {/* VSL Player - Desktop only with orange glow */}
           <div className="hidden lg:flex justify-center relative animate-fade-in" style={{ animationDelay: "0.15s" }}>
-            <div className="absolute inset-0 bg-accent/15 rounded-3xl blur-[60px] scale-90" />
+            {/* Multi-layer orange glow effect */}
+            <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,hsla(18,100%,50%,0.15)_40%,transparent_70%)] blur-[40px] rounded-[40px]" />
+            <div className="absolute -inset-4 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.25)_0%,transparent_60%)] blur-[25px] rounded-3xl" />
             <div className="relative z-10 w-full max-w-lg">
-              <VSLPlayer onVideoEnd={handleVSLEnd} />
+              <div className="relative rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl shadow-accent/20">
+                <VSLPlayer onVideoEnd={handleVSLEnd} />
+              </div>
             </div>
           </div>
         </div>
