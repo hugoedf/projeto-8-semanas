@@ -297,24 +297,20 @@ All colors MUST be HSL.
    Foco: Profundidade, Hierarquia e Leitura Guiada
 ====================================================== */
 
-/* 1. TIPOGRAFIA & BASE
-   Deixa o texto mais "rico" e fácil de ler */
-section p {
-  line-height: 1.8 !important;
-  color: hsl(0 0% 29%);
-  font-size: 1.05rem;
+/* 1. TIPOGRAFIA & BASE - Aplicar APENAS em seções claras */
+section.bg-white p,
+section.bg-background p,
+section[class*="bg-[#FAFAFA]"] p {
+  line-height: 1.8;
 }
 
 section h2, section h3 {
   letter-spacing: -0.03em !important;
 }
 
-/* 2. FUNDO DAS SEÇÕES CLARAS (O PALCO)
-   Tira o branco chapado e coloca um "Off-White" suave */
-section.bg-background,
-section.bg-white,
-section:not([class*="bg-fitness"]):not([class*="gradient-hero"]):not(.dark) {
-  background-color: hsl(0 0% 98%) !important;
+/* 2. FUNDO DAS SEÇÕES CLARAS - SOMENTE bg-background e bg-white */
+section.bg-background {
+  background-color: hsl(0 0% 98%);
 }
 
 /* ======================================================
@@ -393,13 +389,6 @@ section:not([class*="bg-fitness"]):not([class*="gradient-hero"]):not(.dark) {
   border-top: 1px solid hsl(0 0% 94%);
 }
 
-/* Largura máxima de leitura para parágrafos */
-section p {
-  max-width: 75ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /* ======================================================
    💎 CSS MASTER - VISUAL PREMIUM & CORREÇÕES
 ====================================================== */
@@ -427,19 +416,6 @@ ul.elementor-icon-list-items li {
   font-weight: 600;
   color: hsl(0 0% 20%);
   font-size: 0.95rem;
-}
-
-/* --- 2. HIERARQUIA PREMIUM (SEÇÕES CLARAS) --- */
-/* Define fundo Off-White para contraste com os cards brancos */
-section:not(.elementor-section-stretched):not(.bg-dark) {
-  background-color: hsl(0 0% 98%);
-}
-
-/* Tipografia de alta legibilidade */
-section p {
-  line-height: 1.75 !important;
-  color: hsl(0 0% 27%);
-  letter-spacing: -0.01em;
 }
 
 /* --- 3. TRANSFORMAÇÃO: LISTA DE DORES EM CARDS --- */
@@ -548,15 +524,5 @@ section:has(h2) > .elementor-container {
   .benefit-card-premium {
     padding: 18px;
     border-radius: 12px;
-  }
-  
-  /* Tipografia mobile mais compacta */
-  section p {
-    font-size: 1rem;
-    line-height: 1.7 !important;
-  }
-  
-  section h2, section h3 {
-    letter-spacing: -0.02em !important;
   }
 }

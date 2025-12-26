@@ -108,7 +108,7 @@ const Problems = () => {
                   <AlertTriangle className="w-4 h-4 text-accent" />
                   <span className="text-xs font-bold text-accent uppercase tracking-[0.2em]">A verdade</span>
                 </div>
-                <p className="text-foreground font-display text-2xl sm:text-3xl md:text-4xl leading-snug">
+                <p className="text-gray-900 font-display text-2xl sm:text-3xl md:text-4xl leading-snug">
                   O problema <span className="text-accent font-bold">não é falta de esforço.</span>
                 </p>
               </div>
@@ -130,12 +130,12 @@ const Problems = () => {
                           <IconComponent className="w-5 h-5 text-accent" />
                         </div>
                         <div className="flex-1 pt-2">
-                          <p className="text-muted-foreground text-base sm:text-lg">
+                          <p className="text-gray-600 text-base sm:text-lg">
                             {point.text}{" "}
-                            <span className="text-foreground font-semibold">{point.highlight}</span>
+                            <span className="text-gray-900 font-semibold">{point.highlight}</span>
                           </p>
                           {point.followUp && (
-                            <p className="text-muted-foreground text-sm sm:text-base mt-3 pl-4 border-l-2 border-accent/25">
+                            <p className="text-gray-500 text-sm sm:text-base mt-3 pl-4 border-l-2 border-accent/25">
                               {point.followUp}
                             </p>
                           )}
@@ -161,12 +161,12 @@ const Problems = () => {
           {/* 5️⃣ Fechamento */}
           <div className="text-center">
             <div className="bg-white rounded-2xl p-8 sm:p-10 shadow-xl max-w-2xl mx-auto">
-              <p className="text-muted-foreground text-base sm:text-lg">
+              <p className="text-gray-600 text-base sm:text-lg">
                 A maioria das pessoas treina assim por anos.
                 <br />
                 Não porque não querem evoluir —
               </p>
-              <p className="text-foreground font-medium text-lg sm:text-xl mt-6">
+              <p className="text-gray-900 font-medium text-lg sm:text-xl mt-6">
                 mas porque ninguém ensinou um{" "}
                 <span className="text-accent underline decoration-accent/40 underline-offset-4 decoration-2">
                   sistema estruturado, progressivo e aplicável.
