@@ -2,7 +2,7 @@ import { Lightbulb, Zap } from "lucide-react";
 
 const WhyExists = () => {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-black relative overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-24 gradient-hero relative overflow-hidden">
       {/* Subtle glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,hsla(18,100%,58%,0.06),transparent_60%)]" />
       

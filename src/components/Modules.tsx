@@ -43,7 +43,7 @@ const modules = [
 
 const Modules = () => {
   return (
-    <section id="modules-section" className="py-20 sm:py-28 lg:py-32 bg-black relative overflow-hidden">
+    <section id="modules-section" className="py-20 sm:py-28 lg:py-32 gradient-hero relative overflow-hidden">
       {/* Subtle gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,hsla(18,100%,58%,0.06),transparent_50%)]" />
       
