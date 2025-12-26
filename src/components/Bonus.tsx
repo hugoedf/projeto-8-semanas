@@ -17,7 +17,7 @@ const Bonus = () => {
     title: "Acompanhamento",
     description: "Veja sua evolução semana a semana"
   }];
-  return <section className="py-12 sm:py-16 relative overflow-hidden bg-black">
+  return <section className="py-12 sm:py-16 relative overflow-hidden gradient-hero">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(18,100%,58%,0.08),transparent_50%)]" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />

@@ -47,7 +47,7 @@ const Benefits = () => {
   const parallaxOffset = useParallax({ speed: 0.05 });
   
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-black relative overflow-hidden">
+    <section className="py-20 sm:py-28 lg:py-32 gradient-hero relative overflow-hidden">
       {/* Subtle gradient overlay with parallax */}
       <div 
         className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,hsla(18,100%,58%,0.06),transparent_50%)]"
