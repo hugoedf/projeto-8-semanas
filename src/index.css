@@ -5,29 +5,23 @@
 
 /* 
    ======================================================
-   💎 CSS ORIGINAL - LAPIDAÇÃO ESTÉTICA FINAL
-   Foco: Alinhamento, Simetria e Pureza de Cores
+   💎 CSS DE ELITE LAPIDADO - MÉTODO 8X
+   Foco: Elegância, Contraste Absoluto e Alinhamento PC
    ====================================================== 
 */
 
 @layer base {
   :root {
-    /* Cores Neutras para eliminar o "visual sujo" */
-    --background: 0 0% 100%; 
+    --background: 0 0% 100%;
     --foreground: 0 0% 10%;
     --accent: 18 100% 58%;
-    --fitness-darker: 0 0% 0%; /* Preto Puro */
-  }
-
-  .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 98%;
+    --fitness-black: 0 0% 0%;
   }
 }
 
-/* --- 1. CORREÇÃO DE CORES (FIM DO VAZAMENTO AZUL) --- */
+/* --- 1. CONTRASTE ABSOLUTO (FIM DO VISUAL SUJO) --- */
 
-/* Forçar Preto Puro em todas as seções escuras e remover gradientes azulados */
+/* Preto Absoluto em todas as seções escuras */
 [class*="bg-[#0b141a]"], 
 .bg-gray-900, 
 .dark section,
@@ -38,111 +32,130 @@ section.bg-black,
   background-image: none !important;
 }
 
-/* --- 2. ALINHAMENTO E SIMETRIA (VISUAL PREMIUM) --- */
-
-/* Centralização de Conteúdo para Desktop */
-.container, 
-section > div {
-  max-width: 1100px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: 100% !important;
+/* Branco Limpo em seções claras */
+section.bg-white, 
+section.bg-background:not(.dark) {
+  background-color: #ffffff !important;
 }
 
-/* Padronização de Espaçamento entre Seções */
+/* --- 2. HERO DE IMPACTO (ALINHAMENTO DESKTOP) --- */
+
+/* Hero: VSL à Esquerda com Elegância no PC */
+@media (min-width: 1024px) {
+  .hero-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+    text-align: left !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-text {
+    flex: 1 !important;
+    text-align: left !important;
+  }
+
+  .hero-video {
+    flex: 1.2 !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5) !important;
+  }
+
+  .hero-text h1 {
+    text-align: left !important;
+    font-size: 3rem !important;
+  }
+
+  .hero-text p {
+    text-align: left !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* --- 3. REFINAMENTO DO FLUXO EMOCIONAL --- */
+
+/* Espaçamento Elegante (Sem buracos) */
 section {
-  padding-top: 90px !important;
-  padding-bottom: 90px !important;
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
 }
 
-/* Alinhamento de Títulos e Textos */
-h1, h2, h3 {
+/* Títulos que Geram Emoção */
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900 !important;
+  font-size: 2.5rem !important;
   text-align: center !important;
-  margin-bottom: 1.5rem !important;
-  line-height: 1.2 !important;
+  margin-bottom: 2rem !important;
+  letter-spacing: -0.03em !important;
 }
 
-section p {
-  text-align: center !important;
-  max-width: 780px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  line-height: 1.75 !important;
-  color: #4b5563;
-}
-
-.dark section p, section.bg-black p {
-  color: #a3a3a3 !important;
-}
-
-/* --- 3. REFINO DE COMPONENTES (SEM MUDAR O LAYOUT) --- */
-
-/* Cards de Dores e Benefícios - Ajuste de Margens e Sombras */
+/* Cards de Dores e Benefícios (Design de Elite) */
 .pain-card-premium, 
 .benefit-card-premium {
   background: #ffffff !important;
   border: 1px solid #f0f0f0 !important;
-  border-radius: 12px;
-  padding: 28px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  transition: all 0.3s ease;
+  border-radius: 16px !important;
+  padding: 32px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04) !important;
+  transition: all 0.3s ease !important;
 }
 
-/* Grid de Benefícios no Desktop */
-@media (min-width: 768px) {
-  .benefit-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
+.pain-card-premium {
+  border-left: 6px solid #ff6929 !important;
+  text-align: left !important;
 }
+
+.benefit-card-premium:hover {
+  transform: translateY(-5px) !important;
+  border-color: #ff6929 !important;
+  box-shadow: 0 20px 40px rgba(255, 105, 41, 0.1) !important;
+}
+
+/* --- 4. BOTÕES DE ALTA CONVERSÃO --- */
+
+.btn-elite {
+  background: linear-gradient(135deg, #ff6929 0%, #ff4500 100%) !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  padding: 20px 50px !important;
+  border-radius: 100px !important;
+  box-shadow: 0 12px 35px rgba(255, 105, 41, 0.4) !important;
+  transition: all 0.3s ease !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+  font-size: 1.2rem !important;
+}
+
+.btn-elite:hover {
+  transform: scale(1.03) !important;
+  box-shadow: 0 15px 45px rgba(255, 105, 41, 0.5) !important;
+}
+
+/* --- 5. AJUSTES FINAIS DE DESKTOP --- */
 
 @media (min-width: 1024px) {
+  .container-elite {
+    max-width: 1000px !important;
+    margin: 0 auto !important;
+  }
+  
+  /* Grid de Benefícios no PC */
   .benefit-grid {
-    grid-template-columns: repeat(3, 1fr);
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 24px !important;
   }
 }
 
-/* Botões de Conversão - Centralizados e com Peso Visual */
-.btn-premium, 
-[class*="bg-[#ff6929]"] {
-  display: inline-block !important;
-  width: auto !important;
-  min-width: 280px;
-  padding: 18px 45px !important;
-  border-radius: 50px !important;
-  font-weight: 800 !important;
-  text-transform: uppercase !important;
-  box-shadow: 0 10px 30px rgba(255, 105, 41, 0.3) !important;
-  transition: all 0.3s ease !important;
-  margin: 0 auto !important;
-}
-
-/* Garantia - Ajuste de Foco */
-.guarantee-premium {
-  background: #050505 !important;
-  border: 1px solid #1a1a1a !important;
-  border-radius: 24px;
-  padding: 60px 40px !important;
-  max-width: 850px !important;
-  margin: 0 auto !important;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-}
-
-/* --- 4. LIMPEZA FINAL --- */
-
-/* Remover textos secundários azulados */
+/* Hotfix: Remover tons azulados residuais em textos */
 .text-slate-500, .text-gray-500, .text-muted-foreground {
   color: #6b7280 !important;
-  text-align: center !important;
 }
 
 /* Hotfix Lovable Badge */
 a[href*="lovable"] { display: none !important; }
-
-/* Manter animações originais */
-@keyframes textReveal {
-  from { opacity: 0; filter: blur(8px); transform: translateY(20px); }
-  to { opacity: 1; filter: blur(0); transform: translateY(0); }
-}
