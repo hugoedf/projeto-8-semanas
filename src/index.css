@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -45,7 +46,7 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Off-white base for premium feel */
-    --background: 0 0% 98%;
+    --background: 0 0% 4%;
     --foreground: 0 0% 15%;
 
     /* Pure white cards for depth contrast */
@@ -76,7 +77,7 @@ All colors MUST be HSL.
     --ring: 18 100% 58%;
 
     --radius: 0.875rem;
-    
+
     /* Fitness theme colors - Premium palette */
     --fitness-orange: 18 100% 58%;
     --fitness-dark: 0 0% 12%;
@@ -84,12 +85,12 @@ All colors MUST be HSL.
     --fitness-gray: 0 0% 45%;
     --fitness-light: 0 0% 97%;
     --fitness-brown: 20 15% 10%;
-    
+
     /* Gradients - Refined */
     --gradient-hero: linear-gradient(145deg, hsl(20 15% 8%) 0%, hsl(0 0% 6%) 50%, hsl(20 10% 10%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(18 100% 58%) 0%, hsl(18 100% 48%) 100%);
     --gradient-card-dark: linear-gradient(180deg, hsla(20 10% 15% / 0.6) 0%, hsla(0 0% 8% / 0.8) 100%);
-    
+
     /* Premium Shadows - Soft and elegant */
     --shadow-glow: 0 0 50px hsla(18 100% 58% / 0.25);
     --shadow-glow-strong: 0 0 80px hsla(18 100% 58% / 0.35);
@@ -97,7 +98,7 @@ All colors MUST be HSL.
     --shadow-card-hover: 0 20px 50px -15px hsla(0 0% 0% / 0.12);
     --shadow-card-dark: 0 8px 40px hsla(0 0% 0% / 0.4);
     --shadow-accent: 0 8px 30px -8px hsla(18 100% 58% / 0.4);
-    
+
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -163,28 +164,28 @@ All colors MUST be HSL.
     letter-spacing: -0.01em;
     line-height: 1.65;
   }
-  
+
   p {
     line-height: 1.7;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
   }
-  
+
   h1 {
     font-weight: 800;
     letter-spacing: -0.03em;
   }
-  
+
   h2 {
     font-weight: 700;
     letter-spacing: -0.025em;
   }
-  
+
   h3 {
     letter-spacing: -0.015em;
   }
@@ -194,99 +195,99 @@ All colors MUST be HSL.
   .gradient-hero {
     background: var(--gradient-hero);
   }
-  
+
   .gradient-accent {
     background: var(--gradient-accent);
   }
-  
+
   .gradient-card-dark {
     background: var(--gradient-card-dark);
   }
-  
+
   .text-gradient {
     background: var(--gradient-accent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .hover-lift {
     transition: var(--transition-smooth);
   }
-  
+
   .hover-lift:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-card-hover);
   }
-  
+
   .glow-accent {
     box-shadow: var(--shadow-glow);
   }
-  
+
   .glow-accent-strong {
     box-shadow: var(--shadow-glow-strong);
   }
-  
+
   /* Premium floating card */
   .card-premium {
     @apply bg-card rounded-2xl;
     box-shadow: var(--shadow-card);
     transition: var(--transition-smooth);
   }
-  
+
   .card-premium:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-card-hover);
   }
-  
+
   /* Floating card with hover effect */
   .card-floating {
     @apply bg-card rounded-xl;
     box-shadow: var(--shadow-card);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .card-floating:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-card-hover);
   }
-  
+
   .card-dark-glass {
     @apply backdrop-blur-md border border-white/10 rounded-2xl;
     background: var(--gradient-card-dark);
     box-shadow: var(--shadow-card-dark);
   }
-  
+
   /* Premium section spacing */
   .section-spacing {
     @apply py-20 sm:py-28 lg:py-32;
   }
-  
+
   .section-spacing-sm {
     @apply py-16 sm:py-20 lg:py-24;
   }
-  
+
   .text-balance {
     text-wrap: balance;
   }
-  
+
   /* Button with accent glow */
   .btn-glow {
     box-shadow: var(--shadow-accent);
     transition: var(--transition-smooth);
   }
-  
+
   .btn-glow:hover {
     box-shadow: 0 12px 40px -10px hsla(18 100% 58% / 0.5);
     transform: translateY(-1px);
   }
-  
+
   /* Highlight box with glow */
   .highlight-box {
     @apply bg-card border border-accent/30 rounded-2xl;
     box-shadow: 0 0 60px -20px hsla(18 100% 58% / 0.15);
   }
-  
+
   a[href*="lovable"] {
     display: none !important;
   }
@@ -526,36 +527,36 @@ section:has(h2) > .elementor-container {
   .benefit-card-premium:hover {
     transform: none;
   }
-  
+
   section:has(h2) ul.elementor-icon-list-items li {
     padding: 18px;
   }
-  
+
   /* Cards de dor otimizados para mobile */
   .pain-card-premium {
     padding: 18px 20px;
     margin-bottom: 12px;
     border-radius: 10px;
   }
-  
+
   /* Solution hero box mobile */
   .solution-hero-box {
     padding: 1.5rem !important;
     border-radius: 16px;
   }
-  
+
   /* Cards de benefício mobile */
   .benefit-card-premium {
     padding: 18px;
     border-radius: 12px;
   }
-  
+
   /* Tipografia mobile mais compacta */
   section p {
     font-size: 1rem;
     line-height: 1.7 !important;
   }
-  
+
   section h2, section h3 {
     letter-spacing: -0.02em !important;
   }
@@ -612,7 +613,7 @@ section:has(h2) > .elementor-container {
     padding: 3.5rem 3rem;
     margin: 4rem auto;
   }
-  
+
   .impact-block p {
     font-size: 1.25rem;
   }
@@ -734,11 +735,11 @@ section:has(h2) > .elementor-container {
   .pre-cards-intro {
     margin-bottom: 2.5rem;
   }
-  
+
   .pre-cards-intro p {
     font-size: 1.1rem;
   }
-  
+
   .pre-cards-intro .lead {
     font-size: 1.2rem;
   }
@@ -873,23 +874,23 @@ section:has(h2) > .elementor-container {
     margin: 2rem auto;
     border-radius: 16px;
   }
-  
+
   .revelation-block {
     padding: 2rem 1.5rem;
     margin: 1.5rem auto 2rem;
     border-radius: 18px;
   }
-  
+
   .decision-card {
     padding: 2rem 1.25rem;
     border-radius: 20px;
   }
-  
+
   .guarantee-premium {
     padding: 2rem 1.25rem;
     border-radius: 20px;
   }
-  
+
   .pre-cards-intro {
     margin-bottom: 2.5rem;
   }
