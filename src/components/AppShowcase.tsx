@@ -8,7 +8,7 @@ const appFeatures = [
 
 const AppShowcase = () => {
   return (
-    <section className="py-16 sm:py-20 bg-muted/50">
+    <section className="py-16 sm:py-20 bg-[#F5F5F5]">
       <div className="container mx-auto px-5 sm:px-6">
         {/* Transição persuasiva - Pausa visual */}
         <div className="text-center mb-6 max-w-xl mx-auto">

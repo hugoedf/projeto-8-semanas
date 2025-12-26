@@ -70,11 +70,10 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
 
 const Testimonials = () => {
   return (
-    <section className="py-16 sm:py-24 bg-muted relative overflow-hidden">
+    <section className="py-16 sm:py-24 bg-[#F5F5F5] relative overflow-hidden">
       {/* Glow laranja de fundo */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/10 rounded-full blur-[120px] opacity-60" />
-        <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[100px] opacity-40" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/8 rounded-full blur-[120px] opacity-50" />
       </div>
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
