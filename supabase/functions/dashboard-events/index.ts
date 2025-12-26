@@ -5,18 +5,82 @@ const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 const DASHBOARD_PASSWORD = Deno.env.get('DASHBOARD_PASSWORD');
 
-// Session token secret - derived from dashboard password for simplicity
+// Security: Validate password strength on startup
+const MIN_PASSWORD_LENGTH = 8;
+
+// Session token configuration
 const TOKEN_EXPIRY_MS = 3600000; // 1 hour
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOGIN_LOCKOUT_MS = 900000; // 15 minutes
+
+// Allowed origins
+const ALLOWED_ORIGINS = [
+  'https://11d22b42-f1d4-448a-bb0a-b307793705e3.lovableproject.com',
+  'https://guiadotreino.com.br',
+  'https://www.guiadotreino.com.br',
+];
+
+const isAllowedOrigin = (origin: string | null): boolean => {
+  if (!origin) return false;
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  if (origin.includes('.lovable.app')) return true;
+  if (origin.includes('.lovableproject.com')) return true;
+  if (origin.startsWith('http://localhost:')) return true;
+  return false;
+};
+
+// Rate limiting for login attempts
+const loginAttempts = new Map<string, { count: number; lockoutUntil: number }>();
+
+function checkLoginRateLimit(ip: string): { allowed: boolean; remainingTime?: number } {
+  const now = Date.now();
+  const record = loginAttempts.get(ip);
+  
+  if (!record) {
+    loginAttempts.set(ip, { count: 1, lockoutUntil: 0 });
+    return { allowed: true };
+  }
+  
+  // Check if in lockout period
+  if (record.lockoutUntil > now) {
+    return { allowed: false, remainingTime: Math.ceil((record.lockoutUntil - now) / 1000) };
+  }
+  
+  // Reset if lockout expired
+  if (record.lockoutUntil > 0 && record.lockoutUntil <= now) {
+    record.count = 1;
+    record.lockoutUntil = 0;
+    return { allowed: true };
+  }
+  
+  record.count++;
+  
+  // Trigger lockout if too many attempts
+  if (record.count > MAX_LOGIN_ATTEMPTS) {
+    record.lockoutUntil = now + LOGIN_LOCKOUT_MS;
+    console.warn(`Login lockout triggered for IP: ${ip.substring(0, 8)}...`);
+    return { allowed: false, remainingTime: Math.ceil(LOGIN_LOCKOUT_MS / 1000) };
+  }
+  
+  return { allowed: true };
+}
+
+function resetLoginAttempts(ip: string): void {
+  loginAttempts.delete(ip);
+}
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-dashboard-token',
 };
 
-// Generate a session token (HMAC-based)
+// Generate HMAC-based session token
 async function generateSessionToken(): Promise<{ token: string; expires: number }> {
   const expires = Date.now() + TOKEN_EXPIRY_MS;
-  const data = `dashboard_session:${expires}`;
+  const randomBytes = crypto.getRandomValues(new Uint8Array(16));
+  const randomHex = Array.from(randomBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+  const data = `dashboard_session:${expires}:${randomHex}`;
+  
   const encoder = new TextEncoder();
   const key = await crypto.subtle.importKey(
     'raw',
@@ -29,7 +93,8 @@ async function generateSessionToken(): Promise<{ token: string; expires: number 
   const signatureHex = Array.from(new Uint8Array(signature))
     .map(b => b.toString(16).padStart(2, '0'))
     .join('');
-  return { token: `${expires}:${signatureHex}`, expires };
+  
+  return { token: `${expires}:${randomHex}:${signatureHex}`, expires };
 }
 
 // Validate session token
@@ -37,19 +102,23 @@ async function validateSessionToken(token: string): Promise<boolean> {
   if (!token || !DASHBOARD_PASSWORD) return false;
   
   const parts = token.split(':');
-  if (parts.length !== 2) return false;
+  if (parts.length !== 3) return false;
   
-  const [expiresStr, providedSignature] = parts;
+  const [expiresStr, randomHex, providedSignature] = parts;
   const expires = parseInt(expiresStr, 10);
   
   // Check expiry
   if (isNaN(expires) || Date.now() > expires) {
-    console.log('Dashboard: Token expired');
+    return false;
+  }
+  
+  // Validate format
+  if (!/^[0-9a-f]{32}$/.test(randomHex) || !/^[0-9a-f]{64}$/.test(providedSignature)) {
     return false;
   }
   
   // Verify signature
-  const data = `dashboard_session:${expires}`;
+  const data = `dashboard_session:${expires}:${randomHex}`;
   const encoder = new TextEncoder();
   const key = await crypto.subtle.importKey(
     'raw',
@@ -63,7 +132,32 @@ async function validateSessionToken(token: string): Promise<boolean> {
     .map(b => b.toString(16).padStart(2, '0'))
     .join('');
   
-  return providedSignature === expectedSignature;
+  // Constant-time comparison
+  if (providedSignature.length !== expectedSignature.length) return false;
+  let result = 0;
+  for (let i = 0; i < providedSignature.length; i++) {
+    result |= providedSignature.charCodeAt(i) ^ expectedSignature.charCodeAt(i);
+  }
+  
+  return result === 0;
+}
+
+// Constant-time string comparison for password
+function secureCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
+// Get client IP
+function getClientIP(req: Request): string {
+  return req.headers.get('cf-connecting-ip') ||
+    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+    req.headers.get('x-real-ip') ||
+    'unknown';
 }
 
 // Helper functions
@@ -104,10 +198,31 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const clientIP = getClientIP(req);
+  
+  // Validate origin
+  const origin = req.headers.get('origin');
+  if (!isAllowedOrigin(origin)) {
+    console.warn(`Blocked request from origin: ${origin}`);
+    return new Response(
+      JSON.stringify({ error: 'Forbidden' }),
+      { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    );
+  }
+
   try {
-    // ===== SERVER-SIDE AUTHENTICATION =====
+    // Server configuration check
     if (!DASHBOARD_PASSWORD) {
       console.error('DASHBOARD_PASSWORD secret not configured');
+      return new Response(
+        JSON.stringify({ error: 'Server configuration error', code: 'CONFIG_ERROR' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // Validate password strength
+    if (DASHBOARD_PASSWORD.length < MIN_PASSWORD_LENGTH) {
+      console.error('DASHBOARD_PASSWORD is too weak');
       return new Response(
         JSON.stringify({ error: 'Server configuration error', code: 'CONFIG_ERROR' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -128,20 +243,36 @@ serve(async (req) => {
           { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
-      console.log('Dashboard: Session token validated');
+      console.log('Dashboard: Session validated');
     }
     
-    // If no token, check for password login (initial authentication)
+    // If no token, check for password login
     if (!isAuthenticated && req.method === 'POST') {
+      // Check login rate limit
+      const rateLimit = checkLoginRateLimit(clientIP);
+      if (!rateLimit.allowed) {
+        console.warn(`Login blocked for IP: ${clientIP.substring(0, 8)}... (lockout)`);
+        return new Response(
+          JSON.stringify({ 
+            error: `Too many attempts. Try again in ${rateLimit.remainingTime} seconds`,
+            code: 'RATE_LIMITED' 
+          }),
+          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
       try {
         const body = await req.clone().json();
         const providedPassword = body?.password;
         
-        if (providedPassword) {
+        if (providedPassword && typeof providedPassword === 'string') {
           isLoginRequest = true;
-          if (providedPassword === DASHBOARD_PASSWORD) {
+          
+          // Validate password with constant-time comparison
+          if (secureCompare(providedPassword, DASHBOARD_PASSWORD)) {
             isAuthenticated = true;
-            console.log('Dashboard: Password validated, generating session token');
+            resetLoginAttempts(clientIP);
+            console.log('Dashboard: Password validated');
           } else {
             console.log('Dashboard: Invalid password');
             return new Response(
@@ -156,25 +287,22 @@ serve(async (req) => {
     }
     
     if (!isAuthenticated) {
-      console.log('Dashboard: No valid authentication provided');
       return new Response(
         JSON.stringify({ error: 'Unauthorized', code: 'UNAUTHORIZED' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
-    // ===== END AUTHENTICATION =====
 
     const url = new URL(req.url);
-    const days = parseInt(url.searchParams.get('days') || '30');
+    const daysParam = url.searchParams.get('days') || '30';
+    const days = Math.min(Math.max(parseInt(daysParam) || 30, 1), 90); // Limit to 1-90 days
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
 
     console.log(`Dashboard: Fetching events for last ${days} days`);
 
-    // Use service role client to fetch all data
     const supabaseService = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
 
-    // Get events
     const { data: events, error: eventsError } = await supabaseService
       .from('meta_events')
       .select('*')
@@ -333,7 +461,6 @@ serve(async (req) => {
       });
     }
 
-    // Check for underperforming dimensions
     const avgConversionRate = funnelData.pageViews > 0 
       ? (funnelData.purchases / funnelData.pageViews) * 100 
       : 0;
@@ -348,7 +475,6 @@ serve(async (req) => {
       }
     });
 
-    // Check for opportunities
     byRegion.forEach(r => {
       if (r.events > 20 && parseFloat(r.conversionRate) > avgConversionRate * 1.5) {
         alerts.push({
@@ -415,7 +541,6 @@ serve(async (req) => {
     }
 
     const response = {
-      // Include session token only on login
       ...(sessionTokenData && { 
         sessionToken: sessionTokenData.token,
         sessionExpires: sessionTokenData.expires 
@@ -476,12 +601,13 @@ serve(async (req) => {
       lastUpdated: new Date().toISOString()
     };
 
-    console.log('Dashboard response generated successfully');
+    console.log('Dashboard response generated');
 
     return new Response(
       JSON.stringify(response),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
+
   } catch (error) {
     console.error('Dashboard error:', error);
     return new Response(
