@@ -17,9 +17,9 @@ const Bonus = () => {
     title: "Acompanhamento",
     description: "Veja sua evolução semana a semana"
   }];
-  return <section className="py-12 sm:py-16 relative overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+  return <section className="py-12 sm:py-16 relative overflow-hidden bg-black">
       {/* Background effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/8 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(18,100%,58%,0.08),transparent_50%)]" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
       <div className="container mx-auto px-5 sm:px-6 relative z-10 max-w-4xl">
@@ -45,13 +45,13 @@ const Bonus = () => {
         {/* Two Pillars */}
         <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-8">
           {/* Pilar 1 - E-book */}
-          <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 text-center">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-5 text-center">
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-accent/20 flex items-center justify-center">
               <BookOpen className="w-6 h-6 text-accent" />
             </div>
             <h3 className="text-white font-bold text-lg mb-1">E-book 8X</h3>
             <p className="text-accent text-xs uppercase tracking-wider mb-2">O Mapa</p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-white/60 text-sm">
               Conhecimento, técnicas avançadas e ciência — o "porquê" por trás de cada movimento.
             </p>
           </div>
@@ -75,7 +75,7 @@ const Bonus = () => {
         </div>
 
         {/* App Features */}
-        <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-5 max-w-2xl mx-auto mb-6">
+        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 max-w-2xl mx-auto mb-6">
           <p className="text-white text-center text-sm font-semibold mb-4">
             O que você recebe no App 8X:
           </p>
@@ -86,7 +86,7 @@ const Bonus = () => {
                 </div>
                 <div>
                   <p className="text-white text-xs font-semibold leading-tight">{feature.title}</p>
-                  <p className="text-gray-500 text-[11px] leading-tight">{feature.description}</p>
+                  <p className="text-white/50 text-[11px] leading-tight">{feature.description}</p>
                 </div>
               </div>)}
           </div>
@@ -94,7 +94,7 @@ const Bonus = () => {
 
         {/* Price Anchoring */}
         <div className="text-center">
-          <p className="text-gray-500 text-xs mb-2">
+          <p className="text-white/50 text-xs mb-2">
             Apps de treino cobram <span className="line-through">R$39,90/mês</span>
           </p>
           <div className="inline-flex items-center gap-3 bg-accent/10 rounded-full px-5 py-2.5 border border-accent/25">
