@@ -1,252 +1,208 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* 
    ======================================================
-   🚀 CSS DEFINITIVO - MÉTODO 8X
-   Design Premium High Ticket + Performance Extrema
+   🏆 CSS DE ELITE - DESIGN DE CONVERSÃO PREMIUM
+   Foco: Impacto, Autoridade e Desejo de Compra
    ====================================================== 
 */
 
 @layer base {
   :root {
-    /* Hierarquia Original: Branco Base */
-    --background: 0 0% 100%; 
-    --foreground: 0 0% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
-    --primary: 0 0% 12%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 15%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 64%;
-    --accent: 18 100% 58%; /* Laranja */
-    --accent-foreground: 0 0% 100%;
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 18 100% 58%;
-    --radius: 0.875rem;
-
-    /* Fitness Palette - NEUTRAL */
-    --fitness-orange: 18 100% 58%;
-    --fitness-dark: 0 0% 12%;
-    --fitness-darker: 0 0% 0%;
-    --fitness-gray: 0 0% 45%;
+    /* PALETA DE ELITE: CONTRASTE EXTREMO */
+    --background: 0 0% 100%; /* Branco Puro */
+    --foreground: 0 0% 7%;    /* Preto Suave para texto */
     
-    /* Gradients Premium */
-    --gradient-hero: linear-gradient(145deg, hsl(0 0% 5%) 0%, hsl(0 0% 0%) 50%, hsl(0 0% 8%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(18 100% 58%) 0%, hsl(18 100% 48%) 100%);
-    --gradient-card-dark: linear-gradient(180deg, hsla(0 0% 10% / 0.6) 0%, hsla(0 0% 0% / 0.8) 100%);
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+    
+    --primary: 0 0% 0%;      /* Preto Puro */
+    --primary-foreground: 0 0% 100%;
+    
+    --accent: 18 100% 58%;   /* Laranja Vibrante #ff6929 */
+    --accent-foreground: 0 0% 100%;
+    
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+    
+    --border: 0 0% 92%;
+    --radius: 1rem;
 
-    /* Shadows Otimizadas */
-    --shadow-glow: 0 0 50px hsla(18 100% 58% / 0.25);
-    --shadow-card: 0 10px 40px -10px hsla(0 0% 0% / 0.08);
-    --shadow-card-hover: 0 20px 50px -15px hsla(0 0% 0% / 0.12);
-    --shadow-accent: 0 8px 30px -8px hsla(18 100% 58% / 0.4);
-
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* FITNESS PREMIUM COLORS */
+    --fitness-orange: 18 100% 58%;
+    --fitness-black: 0 0% 0%;
+    --fitness-dark-gray: 0 0% 10%;
+    
+    /* SHADOWS DE PROFUNDIDADE (EFEITO APPLE) */
+    --shadow-premium: 0 20px 50px -12px rgba(0, 0, 0, 0.08);
+    --shadow-impact: 0 30px 60px -12px rgba(255, 105, 41, 0.15);
+    --shadow-button: 0 10px 30px -5px rgba(255, 105, 41, 0.5);
   }
 
   .dark {
     --background: 0 0% 0%;
     --foreground: 0 0% 98%;
     --card: 0 0% 5%;
-    --border: 0 0% 15%;
+    --border: 0 0% 12%;
   }
 }
 
 @layer base {
-  * { @apply border-border; }
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
-    /* Performance: Previne layout shift */
-    min-height: 100vh;
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
+  
   h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    text-transform: uppercase;
   }
 }
 
-/* --- PERFORMANCE: RENDERIZAÇÃO INTELIGENTE --- */
-section {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 500px;
-}
+/* --- 1. HIERARQUIA DE SEÇÕES (O SEGREDO DO DESIGN LIMPO) --- */
 
-/* --- ANIMAÇÕES VSL --- */
-@keyframes textReveal {
-  from { opacity: 0; filter: blur(8px); transform: translateY(20px); }
-  to { opacity: 1; filter: blur(0); transform: translateY(0); }
-}
-
-/* --- UTILITÁRIOS PREMIUM --- */
-@layer utilities {
-  .gradient-hero { background: var(--gradient-hero); }
-  .text-gradient {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .card-premium {
-    @apply bg-card rounded-2xl;
-    box-shadow: var(--shadow-card);
-    transition: var(--transition-smooth);
-  }
-  .card-premium:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
-  
-  .btn-glow {
-    box-shadow: var(--shadow-accent);
-    transition: var(--transition-smooth);
-  }
-  .btn-glow:hover {
-    box-shadow: 0 12px 40px -10px hsla(18 100% 58% / 0.5);
-    transform: translateY(-1px);
-  }
-}
-
-/* --- DESIGN MESTRE - HIERARQUIA E DETALHES --- */
-
-/* Textos e Títulos */
-section p {
-  line-height: 1.8 !important;
-  color: hsl(0 0% 29%);
-  font-size: 1.05rem;
-}
-
-section h2, section h3 {
-  letter-spacing: -0.03em !important;
-}
-
-/* MANTER SEÇÕES BRANCAS (HIERARQUIA ORIGINAL) */
+/* Seções Brancas: Clareza e Venda */
+section.light-section, 
 section.bg-white, 
-section.bg-background:not(.dark),
-section:not([class*="bg-gray"]):not([class*="bg-[#"]):not(.dark) {
+section.bg-background:not(.dark) {
   background-color: #ffffff !important;
-  color: #1a1a1a !important;
+  padding: 100px 20px !important;
 }
 
-/* FORÇAR PRETO PURO ONDE ERA AZULADO */
-[class*="bg-[#0b141a]"], .bg-gray-900, .dark .bg-background {
+/* Seções Pretas: Impacto e Autoridade */
+section.dark-section, 
+.dark section, 
+[class*="bg-[#0b141a]"], 
+.bg-gray-900 {
   background-color: #000000 !important;
+  color: #ffffff !important;
+  padding: 100px 20px !important;
 }
 
-/* Cards de Dores (Brancos) */
+/* --- 2. COMPONENTES DE ALTO IMPACTO --- */
+
+/* Títulos de Seção */
+h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Parágrafos de Apoio */
+section p {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #4b5563; /* Cinza escuro para leitura em fundo branco */
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dark-section p {
+  color: #a3a3a3 !important;
+}
+
+/* --- 3. CARDS PREMIUM (O "VISUAL SUJO" ACABA AQUI) --- */
+
+/* Cards de Dores/Problemas */
 .pain-card-premium {
   background: #ffffff !important;
-  margin-bottom: 16px;
-  padding: 24px 30px;
+  border: 1px solid #f3f4f6 !important;
+  border-left: 6px solid #ff6929 !important;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
-  border: 1px solid #f0f0f0 !important;
-  border-left: 4px solid #ff6929 !important;
-  transition: var(--transition-smooth);
+  padding: 24px 32px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-premium);
+  transition: all 0.3s ease;
+  text-align: left;
 }
+
 .pain-card-premium:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(255, 105, 41, 0.1);
+  transform: translateX(10px);
+  border-left-width: 10px;
 }
 
-/* Hero Box Solução */
-.solution-hero-box {
-  background: #ffffff !important;
-  border-radius: 24px;
-  padding: 3rem !important;
-  box-shadow: 0 20px 60px rgba(255, 105, 41, 0.08);
-  border: 1px solid rgba(255, 105, 41, 0.1) !important;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-/* Cards de Benefícios */
+/* Cards de Benefícios (Grid Apple Style) */
 .benefit-card-premium {
   background: #ffffff !important;
-  border-radius: 16px;
-  padding: 24px;
-  height: 100%;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
-  border: 1px solid #f0f0f0 !important;
-  transition: var(--transition-smooth);
-}
-.benefit-card-premium:hover {
-  border-color: #ff6929 !important;
-  transform: translateY(-5px);
-}
-
-/* Blocos de Impacto e Revelação */
-.impact-block, .revelation-block {
-  background: #ffffff !important;
+  border: 1px solid #f3f4f6 !important;
   border-radius: 20px;
-  padding: 2.5rem 2rem;
-  margin: 3rem auto;
-  max-width: 680px;
+  padding: 40px;
+  box-shadow: var(--shadow-premium);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   text-align: center;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
-  border: 1px solid #f0f0f0 !important;
-  position: relative;
-}
-.impact-block::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%; transform: translateX(-50%);
-  width: 60px; height: 3px;
-  background: linear-gradient(90deg, transparent, #ff6929, transparent);
 }
 
-/* Bloco de Decisão */
-.decision-card {
-  background: #ffffff !important;
-  border-radius: 24px;
-  padding: 2.5rem 1.5rem;
-  max-width: 680px;
-  margin: 0 auto;
-  text-align: center;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f0f0f0 !important;
+.benefit-card-premium:hover {
+  transform: translateY(-10px);
+  border-color: #ff6929 !important;
+  box-shadow: var(--shadow-impact);
 }
 
-/* Garantia Premium (Sempre Escura) */
+/* --- 4. BOTÕES DE CONVERSÃO (CTA) --- */
+
+.btn-elite {
+  background: linear-gradient(135deg, #ff6929 0%, #ff4500 100%);
+  color: #ffffff !important;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  padding: 22px 48px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--shadow-button);
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-elite:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 105, 41, 0.6);
+}
+
+/* --- 5. DETALHES DE AUTORIDADE --- */
+
+/* Garantia Premium */
 .guarantee-premium {
-  background: #050505 !important;
-  backdrop-filter: blur(10px); /* Otimizado de 20px para 10px */
-  border-radius: 28px;
-  padding: 2.5rem 1.5rem;
+  background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%) !important;
   border: 1px solid #1a1a1a !important;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  border-radius: 32px;
+  padding: 60px 40px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+  text-align: center;
 }
 
-/* Conectores Visuais */
+/* Conectores Visuais (Linhas de Fluxo) */
 .visual-connector {
-  display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 2rem 0;
-}
-.visual-connector .line { width: 1px; height: 40px; background: #f0f0f0; }
-.visual-connector .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 105, 41, 0.3); }
-
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 767px) {
-  .impact-block, .revelation-block, .decision-card, .guarantee-premium {
-    padding: 2rem 1.25rem; border-radius: 20px;
-  }
-  .pain-card-premium, .benefit-card-premium { padding: 18px; }
-  section p { font-size: 1rem; }
-  /* Performance: Desativa transformações pesadas em mobile */
-  .hover-lift:hover, .benefit-card-premium:hover, .pain-card-premium:hover { transform: none; }
+  height: 60px;
+  width: 2px;
+  background: linear-gradient(180deg, #ff6929, transparent);
+  margin: 20px auto;
 }
 
-/* Hotfix Lovable Badge */
+/* --- 6. RESPONSIVIDADE DE ELITE --- */
+@media (max-width: 768px) {
+  h2 { font-size: 1.8rem; }
+  section { padding: 60px 20px !important; }
+  .btn-elite { width: 100%; padding: 18px 20px; font-size: 1.1rem; }
+  .benefit-card-premium { padding: 30px 20px; }
+}
+
+/* REMOVER BADGE LOVABLE */
 a[href*="lovable"] { display: none !important; }
 
-/* Ajuste de textos secundários azulados */
-[class*="text-slate-500"], [class*="text-gray-500"] {
+/* HOTFIX: TEXTOS AZULADOS */
+[class*="text-slate-500"], [class*="text-gray-500"], .text-muted-foreground {
   color: #6b7280 !important;
 }
