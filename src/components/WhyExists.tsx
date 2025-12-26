@@ -18,26 +18,26 @@ const WhyExists = () => {
             </h2>
           </div>
           
-          {/* Premium White Card */}
-          <div className="bg-white rounded-2xl p-7 sm:p-9 lg:p-10 shadow-2xl shadow-black/40">
+          {/* Premium Glass Card - mesmo estilo da Garantia */}
+          <div className="card-dark-glass p-8 sm:p-10 lg:p-12 rounded-3xl">
             <div className="space-y-7">
               {/* Primeiro parágrafo */}
-              <p className="text-gray-600 text-base sm:text-lg lg:text-xl leading-relaxed">
+              <p className="text-white/80 text-base sm:text-lg lg:text-xl leading-relaxed">
                 Depois de anos vendo pessoas se dedicarem de verdade — treinando pesado, abrindo mão de tempo e mesmo assim ficando estagnadas — ficou claro que o problema não era esforço.
               </p>
               
               {/* Destaque visual para a solução */}
-              <div className="flex items-start gap-4 bg-accent/5 border border-accent/15 rounded-xl p-5 sm:p-6">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-accent/15 flex items-center justify-center">
-                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
+              <div className="flex items-start gap-4 bg-accent/10 border border-accent/30 rounded-xl p-5 sm:p-6">
+                <div className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-accent/20 flex items-center justify-center">
+                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-accent drop-shadow-sm" />
                 </div>
-                <p className="text-black text-base sm:text-lg lg:text-xl font-medium pt-2">
-                  Era falta de um sistema <span className="text-accent font-bold">simples</span>, <span className="text-accent font-bold">progressivo</span> e <span className="text-accent font-bold">aplicável</span> no dia a dia.
+                <p className="text-white text-base sm:text-lg lg:text-xl font-medium pt-2">
+                  Era falta de um sistema <span className="text-accent font-bold drop-shadow-[0_0_10px_hsla(18,100%,58%,0.3)]">simples</span>, <span className="text-accent font-bold drop-shadow-[0_0_10px_hsla(18,100%,58%,0.3)]">progressivo</span> e <span className="text-accent font-bold drop-shadow-[0_0_10px_hsla(18,100%,58%,0.3)]">aplicável</span> no dia a dia.
                 </p>
               </div>
               
               {/* Segundo parágrafo */}
-              <p className="text-black text-base sm:text-lg lg:text-xl font-medium">
+              <p className="text-white text-base sm:text-lg lg:text-xl font-medium">
                 O Método 8X nasceu para resolver exatamente isso: transformar conhecimento em execução, sem improviso, sem achismo e sem depender de motivação.
               </p>
             </div>
