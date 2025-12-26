@@ -22,7 +22,7 @@ const IntermediateCTA = () => {
   };
 
   return (
-    <section className={`py-16 sm:py-20 bg-black relative overflow-hidden transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+    <section className={`py-16 sm:py-20 gradient-hero relative overflow-hidden transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       {/* Subtle glow effect */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
