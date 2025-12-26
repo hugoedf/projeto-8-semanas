@@ -43,9 +43,7 @@ const Benefits = () => {
         
         {/* Badge de contexto */}
         <div className="text-center mb-6">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-            O SISTEMA
-          </span>
+          
         </div>
         
         {/* Título principal */}
