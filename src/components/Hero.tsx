@@ -55,22 +55,22 @@ const Hero = () => {
           {/* Content */}
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
             
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-5 sm:mb-6">
+            {/* Badge com pulse animado */}
+            <div className="badge-laranja mb-5 sm:mb-6">
               <Zap className="w-4 h-4" />
               <span>MÉTODO 8X</span>
             </div>
             
-            {/* Título Principal - Maior peso visual */}
-            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-5 sm:mb-6 px-2 sm:px-0">
+            {/* Título Principal - Premium styling */}
+            <h1 className="hero-title mb-5 sm:mb-6 px-2 sm:px-0">
               Um sistema de treino baseado em ciência para gerar{" "}
-              <span className="text-accent">hipertrofia real</span>{" "}
+              <span className="text-laranja">hipertrofia real</span>{" "}
               com progressão clara e execução guiada.
             </h1>
             
             {/* Subtítulo de apoio - Hierarquia clara */}
-            <p className="text-base sm:text-lg leading-relaxed max-w-xl text-white/75 mb-6 sm:mb-8 px-2 sm:px-0">
-              Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
+            <p className="hero-subtitle max-w-xl mb-6 sm:mb-8 px-2 sm:px-0">
+              Em <span className="text-laranja">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
             {/* VSL Player - Mobile only with orange glow */}
@@ -98,7 +98,7 @@ const Hero = () => {
             <p className="text-xs sm:text-sm text-white/65 mt-5 text-center lg:text-left">
               <span className="text-white/85 font-medium">+500 pessoas já aplicaram</span>
               <span className="mx-2 text-white/30">•</span>
-              <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>
+              <span className="text-laranja font-bold drop-shadow-[0_0_8px_hsl(18_100%_58%/0.5)]">R$19,90</span>
               <span className="mx-2 text-white/30">•</span>
               <span>Menos que uma refeição</span>
             </p>
