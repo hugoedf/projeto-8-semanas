@@ -6,18 +6,21 @@ import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import VSLPlayer from "@/components/VSLPlayer";
 import { useState } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
-
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const [vslEnded, setVslEnded] = useState(false);
-  const { ctaVisible } = useCTAVisibility();
-
+  const {
+    ctaVisible
+  } = useCTAVisibility();
   const handleVSLEnd = () => {
     setVslEnded(true);
     console.log('📊 VSL completed - CTA emphasis activated');
   };
-
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -40,16 +43,14 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 pt-20 lg:pt-24 pb-16 lg:pb-20">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 pt-20 lg:pt-24 pb-16 lg:pb-20">
       {/* Background overlays for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.12),transparent_60%)]" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.02%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50" />
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         {/* Desktop: Two columns | Mobile: Single column centered */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-16 xl:gap-20 max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-16 xl:gap-20 max-w-7xl mx-auto bg-primary">
           
           {/* Left Column - Text Content */}
           <div className="lg:flex-[1.1] lg:max-w-[580px] text-center lg:text-left">
@@ -79,12 +80,7 @@ const Hero = () => {
             
             {/* CTA */}
             <div className={`transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
-              <Button 
-                variant="cta" 
-                size="lg" 
-                onClick={handleCTAClick} 
-                className={`text-sm sm:text-base lg:text-lg px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
-              >
+              <Button variant="cta" size="lg" onClick={handleCTAClick} className={`text-sm sm:text-base lg:text-lg px-8 sm:px-10 lg:px-12 py-5 sm:py-6 lg:py-7 font-bold tracking-wide shadow-xl shadow-accent/30 uppercase rounded-full ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}>
                 QUERO TREINAR COM MÉTODO
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
@@ -121,8 +117,6 @@ const Hero = () => {
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
