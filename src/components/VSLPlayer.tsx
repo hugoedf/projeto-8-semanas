@@ -330,7 +330,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           />
         )}
         
-        {/* Video Element with format fallback */}
+        {/* Video Element with format fallback - preload metadata for faster LCP */}
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
@@ -338,7 +338,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           playsInline
           webkit-playsinline="true"
           x-webkit-airplay="allow"
-          preload="auto"
+          preload="metadata"
           controlsList="nodownload nofullscreen noremoteplayback"
           disablePictureInPicture
           onTimeUpdate={handleTimeUpdate}

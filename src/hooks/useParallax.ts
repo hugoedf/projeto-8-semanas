@@ -5,11 +5,20 @@ interface ParallaxOptions {
   direction?: 'up' | 'down';
 }
 
+// Check if mobile (disable parallax for performance)
+const isMobile = () => {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(max-width: 768px)').matches;
+};
+
 export const useParallax = (options: ParallaxOptions = {}) => {
   const { speed = 0.15, direction = 'up' } = options;
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
+    // Disable parallax on mobile for performance
+    if (isMobile()) return;
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const multiplier = direction === 'up' ? -1 : 1;
@@ -30,6 +39,9 @@ export const useElementParallax = (elementRef: React.RefObject<HTMLElement>, spe
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
+    // Disable parallax on mobile for performance
+    if (isMobile()) return;
+
     const handleScroll = () => {
       if (!elementRef.current) return;
       
