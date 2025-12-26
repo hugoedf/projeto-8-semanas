@@ -49,13 +49,13 @@ const Modules = () => {
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-14 lg:mb-16">
-          <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-white/40 mb-5">
+          <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-white/50 mb-5">
             O Sistema
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-5 text-white tracking-tight leading-[1.1]">
             8 semanas. <span className="text-accent">Tudo que você precisa.</span>
           </h2>
-          <p className="text-white/50 text-lg sm:text-xl max-w-lg mx-auto">
+          <p className="text-white/60 text-lg sm:text-xl max-w-lg mx-auto">
             Sem enrolação. Só o essencial para você evoluir.
           </p>
         </div>
@@ -75,7 +75,7 @@ const Modules = () => {
                 <h3 className="font-display text-lg lg:text-xl text-white tracking-tight leading-tight font-semibold">
                   {module.title}
                 </h3>
-                <p className="text-white/50 text-sm lg:text-base leading-relaxed">
+                <p className="text-white/60 text-sm lg:text-base leading-relaxed">
                   {module.description}
                 </p>
               </div>

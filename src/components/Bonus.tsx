@@ -37,7 +37,7 @@ const Bonus = () => {
             <span className="text-accent">É um Sistema!</span>
           </h2>
 
-          <p className="text-gray-400 text-center text-sm sm:text-base mb-8 max-w-xl mx-auto">
+          <p className="text-white/60 text-center text-sm sm:text-base mb-8 max-w-xl mx-auto">
             Conhecimento sem execução é inútil. Por isso o Método 8X une os dois:
           </p>
         </div>
@@ -94,7 +94,7 @@ const Bonus = () => {
 
         {/* Price Anchoring */}
         <div className="text-center">
-          <p className="text-white/50 text-xs mb-2">
+          <p className="text-white/60 text-xs mb-2">
             Apps de treino cobram <span className="line-through">R$39,90/mês</span>
           </p>
           <div className="inline-flex items-center gap-3 bg-accent/10 rounded-full px-5 py-2.5 border border-accent/25">
