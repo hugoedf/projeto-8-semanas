@@ -1,4 +1,5 @@
 import { X, AlertTriangle, ArrowDown, Target, RotateCcw, TrendingDown, Clock } from "lucide-react";
+import { useParallax } from "@/hooks/useParallax";
 const painPoints = ["Treina pesado, mas o corpo não acompanha", "Segue uma rotina, mas o shape parece sempre igual", "Passam semanas, meses… e nada muda", "Vê outras pessoas evoluindo mais rápido fazendo menos"];
 const explanationPoints = [{
   text: "O verdadeiro problema é",
@@ -19,9 +20,14 @@ const explanationPoints = [{
   icon: Clock
 }];
 const Problems = () => {
+  const parallaxOffset = useParallax({ speed: 0.06 });
+  
   return <section className="py-20 sm:py-28 lg:py-32 bg-black relative overflow-hidden">
-      {/* Subtle texture overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(0,0%,100%,0.03),transparent_50%)]" />
+      {/* Subtle texture overlay with parallax */}
+      <div 
+        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(0,0%,100%,0.03),transparent_50%)]"
+        style={{ transform: `translateY(${parallaxOffset * 0.4}px)` }}
+      />
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto">

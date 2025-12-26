@@ -6,12 +6,13 @@ import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import VSLPlayer from "@/components/VSLPlayer";
 import { useState } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
-
+import { useParallax } from "@/hooks/useParallax";
 const Hero = () => {
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
   const [vslEnded, setVslEnded] = useState(false);
   const { ctaVisible } = useCTAVisibility();
+  const parallaxOffset = useParallax({ speed: 0.08 });
 
   const handleVSLEnd = () => {
     setVslEnded(true);
@@ -43,8 +44,11 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden gradient-hero pt-10">
-      {/* Background overlays for depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.08),transparent_60%)]" />
+      {/* Background overlays for depth with parallax */}
+      <div 
+        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.08),transparent_60%)]"
+        style={{ transform: `translateY(${parallaxOffset * 0.5}px)` }}
+      />
       
       <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-12 sm:pb-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
@@ -100,8 +104,14 @@ const Hero = () => {
             </p>
           </div>
           
-          {/* VSL Player - Desktop only with orange glow */}
-          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{ animationDelay: "0.15s" }}>
+          {/* VSL Player - Desktop only with orange glow and subtle parallax */}
+          <div 
+            className="hidden lg:flex justify-center relative animate-fade-in" 
+            style={{ 
+              animationDelay: "0.15s",
+              transform: `translateY(${parallaxOffset * 0.3}px)`
+            }}
+          >
             {/* Multi-layer orange glow effect */}
             <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,hsla(18,100%,50%,0.15)_40%,transparent_70%)] blur-[40px] rounded-[40px]" />
             <div className="absolute -inset-4 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.25)_0%,transparent_60%)] blur-[25px] rounded-3xl" />
