@@ -4,12 +4,16 @@ import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
-
 const IntermediateCTA = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  const { ctaVisible } = useCTAVisibility();
-
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
+  const {
+    ctaVisible
+  } = useCTAVisibility();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -20,9 +24,7 @@ const IntermediateCTA = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  return (
-    <section className={`py-16 sm:py-20 gradient-hero relative overflow-hidden transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+  return <section className={`py-16 sm:py-20 gradient-hero relative overflow-hidden transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       {/* Subtle glow effect */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
@@ -52,13 +54,8 @@ const IntermediateCTA = () => {
           </div>
 
           {/* Botão */}
-          <Button 
-            variant="cta" 
-            size="lg" 
-            onClick={handleCTAClick} 
-            className="text-sm sm:text-base px-8 sm:px-12 py-5 sm:py-6 font-bold tracking-wide mb-8 w-full sm:w-auto"
-          >
-            <span>GARANTIR MINHA VAGA AGORA</span>
+          <Button variant="cta" size="lg" onClick={handleCTAClick} className="text-sm sm:text-base px-8 sm:px-12 py-5 sm:py-6 font-bold tracking-wide mb-8 w-full sm:w-auto">
+            <span>Quero treinar com método</span>
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
 
@@ -75,8 +72,6 @@ const IntermediateCTA = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default IntermediateCTA;
