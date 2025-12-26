@@ -2,23 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =========================
-   ANIMAÇÕES
-========================= */
-
-@keyframes textReveal {
-  from { opacity: 0; filter: blur(8px); transform: translateY(20px); }
-  to { opacity: 1; filter: blur(0); transform: translateY(0); }
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(30px) scale(0.9); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* =========================
-   VARIÁVEIS DE COR (ORIGINAL)
-========================= */
+/* =====================================================
+   🎨 BASE DE CORES — IDENTIDADE ORIGINAL
+   Preto • Laranja • Branco • Cinza
+===================================================== */
 
 @layer base {
   :root {
@@ -28,8 +15,14 @@
     --card: 0 0% 100%;
     --card-foreground: 0 0% 5%;
 
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
+
     --primary: 0 0% 2%;
     --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 5%;
 
     --muted: 0 0% 97%;
     --muted-foreground: 0 0% 40%;
@@ -37,5 +30,109 @@
     --accent: 16 100% 60%;
     --accent-foreground: 0 0% 100%;
 
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+
     --border: 0 0% 90%;
-    --rin
+    --input: 0 0% 90%;
+    --ring: 16 100% 60%;
+
+    --radius: 0.875rem;
+
+    /* Gradientes oficiais */
+    --gradient-hero: linear-gradient(
+      180deg,
+      hsl(0 0% 0%) 0%,
+      hsl(16 40% 4%) 100%
+    );
+
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(16 100% 60%) 0%,
+      hsl(16 100% 50%) 100%
+    );
+
+    --gradient-card-dark: linear-gradient(
+      180deg,
+      hsla(16 20% 6% / 0.95) 0%,
+      hsla(0 0% 0% / 0.98) 100%
+    );
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* =====================================================
+   ✨ UTILIDADES VISUAIS PREMIUM
+===================================================== */
+
+@layer utilities {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .card-premium {
+    @apply bg-card rounded-2xl;
+    box-shadow: 0 10px 40px -10px hsla(0 0% 0% / 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-premium:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -15px hsla(0 0% 0% / 0.15);
+  }
+
+  .btn-primary {
+    background: hsl(16 100% 60%);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: hsl(16 100% 55%);
+  }
+
+  .text-accent {
+    color: hsl(16 100% 60%);
+  }
+}
+
+/* =====================================================
+   📐 SEÇÕES CLARAS (SEM AZUL)
+===================================================== */
+
+section.bg-background,
+section.bg-white {
+  background-color: hsl(0 0% 98%);
+}
+
+/* =====================================================
+   🌑 SEÇÕES ESCURAS — PRETO COM CALOR
+===================================================== */
+
+.bg-fitness-dark,
+.gradient-hero {
+  background-image: var(--gradient-hero);
+  color: hsl(0 0% 98%);
+}
+
+/* =====================================================
+   🧼 REMOÇÃO DE MARCA LOVABLE
+===================================================== */
+
+a[href*="lovable"] {
+  display: none !important;
+}
