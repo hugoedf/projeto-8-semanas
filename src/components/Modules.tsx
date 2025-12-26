@@ -65,7 +65,7 @@ const Modules = () => {
                   <h3 className="font-display text-base sm:text-lg text-foreground tracking-tight font-semibold mb-1">
                     {module.title}
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed text-gray-500">
                     {module.description}
                   </p>
                 </div>
