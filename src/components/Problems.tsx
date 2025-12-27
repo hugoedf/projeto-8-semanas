@@ -42,29 +42,22 @@ const Problems = () => {
               ​
             </span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground leading-[1.1]">
-              Quanto tempo mais você vai{" "}
-              <span className="text-accent">treinar no escuro?</span>
+              Você treina, se esforça…<br />
+              <span className="text-accent">e mesmo assim não vê resultado?</span>
             </h2>
           </div>
           
           {/* Introdução emocional */}
           <div className="text-center mb-16 max-w-2xl mx-auto">
-            <p className="text-foreground font-medium text-xl sm:text-2xl">
-              Você entra na academia, se esforça, sua a camisa…
-            </p>
-            <p className="text-muted-foreground text-lg sm:text-xl mt-4">
-              mas quando olha no espelho, <span className="text-foreground font-medium">nada muda.</span>
-            </p>
-            <p className="text-foreground font-medium text-lg sm:text-xl mt-6">
+            <p className="text-foreground font-medium text-lg sm:text-xl">
               E o pior não é treinar pesado.
             </p>
             <p className="text-muted-foreground text-base sm:text-lg mt-4 leading-relaxed">
-              É sair com a sensação de ter feito tudo certo —<br />
-              <span className="text-foreground font-medium">sem a certeza de que aquilo realmente estava funcionando.</span>
+              É sentir que o esforço não está voltando em forma de resultado.
             </p>
-            <p className="text-foreground font-display text-xl sm:text-2xl font-bold mt-8 pt-6 border-t border-border">
-              Esse é o treino no escuro.<br />
-              <span className="text-muted-foreground font-normal text-base sm:text-lg">Muito esforço. Pouca resposta.</span>
+            <p className="text-muted-foreground text-base sm:text-lg mt-6 leading-relaxed">
+              Provavelmente você já saiu da academia com a sensação de ter feito tudo certo…{" "}
+              <span className="text-foreground font-medium">mas sem a certeza de que aquilo realmente estava funcionando.</span>
             </p>
           </div>
           
