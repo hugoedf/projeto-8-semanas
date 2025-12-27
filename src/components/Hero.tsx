@@ -73,11 +73,11 @@ const Hero = () => {
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
-            {/* VSL Player - Mobile only - STRONGER glow for visual focus */}
+            {/* VSL Player - Mobile only - subtle border with background glow */}
             <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
               {/* Mobile glow effect */}
-              <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.4)_0%,transparent_60%)] blur-[25px] rounded-3xl" />
-              <div className="relative z-10 rounded-xl overflow-hidden ring-2 ring-accent/30 shadow-xl shadow-accent/25">
+              <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,transparent_65%)] blur-[30px] rounded-3xl" />
+              <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-accent/20 shadow-lg">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
             </div>
@@ -115,7 +115,7 @@ const Hero = () => {
             </p>
           </div>
           
-          {/* VSL Player - Desktop only with STRONGER orange glow for visual impact */}
+          {/* VSL Player - Desktop only - subtle border with strong background glow */}
           <div 
             className="hidden lg:flex justify-center relative animate-fade-in" 
             style={{ 
@@ -123,12 +123,11 @@ const Hero = () => {
               transform: `translateY(${parallaxOffset * 0.3}px)`
             }}
           >
-            {/* Intensified multi-layer orange glow effect - STRONGER VISUAL FOCUS */}
-            <div className="absolute -inset-12 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.5)_0%,hsla(18,100%,50%,0.25)_35%,transparent_65%)] blur-[50px] rounded-[50px]" />
-            <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,transparent_55%)] blur-[30px] rounded-3xl" />
-            <div className="absolute -inset-2 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.2)_0%,transparent_50%)] blur-[15px] rounded-2xl" />
+            {/* Strong background glow for visual focus - no heavy border */}
+            <div className="absolute -inset-16 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.45)_0%,hsla(18,100%,50%,0.2)_40%,transparent_70%)] blur-[60px] rounded-[60px]" />
+            <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.3)_0%,transparent_60%)] blur-[35px] rounded-3xl" />
             <div className="relative z-10 w-full max-w-lg">
-              <div className="relative rounded-2xl overflow-hidden ring-2 ring-accent/30 shadow-2xl shadow-accent/30">
+              <div className="relative rounded-2xl overflow-hidden ring-1 ring-accent/15 shadow-2xl shadow-black/40">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
             </div>
