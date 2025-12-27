@@ -8,7 +8,7 @@ import Bonus from "@/components/Bonus";
 import Testimonials from "@/components/Testimonials";
 import ForWho from "@/components/ForWho";
 import Guarantee from "@/components/Guarantee";
-import DecisionBlock from "@/components/DecisionBlock";
+
 import CTA from "@/components/CTA";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -38,8 +38,6 @@ const Index = () => {
       {/* 7. QUALIFICAÇÃO + GARANTIA */}
       <ForWho />
       <Guarantee />
-      {/* 8. BLOCO DE DECISÃO */}
-      <DecisionBlock />
       {/* 9. CTA FINAL */}
       <CTA />
       <FAQ />
