@@ -73,9 +73,11 @@ const Hero = () => {
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
-            {/* VSL Player - Mobile only - clean style to not conflict with CTA */}
+            {/* VSL Player - Mobile only - STRONGER glow for visual focus */}
             <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
-              <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-white/10 shadow-lg">
+              {/* Mobile glow effect */}
+              <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.4)_0%,transparent_60%)] blur-[25px] rounded-3xl" />
+              <div className="relative z-10 rounded-xl overflow-hidden ring-2 ring-accent/30 shadow-xl shadow-accent/25">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
             </div>
@@ -99,8 +101,12 @@ const Hero = () => {
               </Button>
             </div>
             
-            {/* Prova social + preço - Respiro visual */}
-            <p className="text-xs sm:text-sm text-white/65 mt-5 text-center lg:text-left">
+            {/* Prova social + preço - OCULTO ATÉ 5s DE VÍDEO */}
+            <p className={`text-xs sm:text-sm text-white/65 mt-5 text-center lg:text-left transition-all duration-700 ${
+              ctaVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-4 pointer-events-none'
+            }`}>
               <span className="text-white/85 font-medium">+500 pessoas já aplicaram</span>
               <span className="mx-2 text-white/30">•</span>
               <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>
@@ -109,7 +115,7 @@ const Hero = () => {
             </p>
           </div>
           
-          {/* VSL Player - Desktop only with orange glow and subtle parallax */}
+          {/* VSL Player - Desktop only with STRONGER orange glow for visual impact */}
           <div 
             className="hidden lg:flex justify-center relative animate-fade-in" 
             style={{ 
@@ -117,11 +123,12 @@ const Hero = () => {
               transform: `translateY(${parallaxOffset * 0.3}px)`
             }}
           >
-            {/* Multi-layer orange glow effect */}
-            <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,hsla(18,100%,50%,0.15)_40%,transparent_70%)] blur-[40px] rounded-[40px]" />
-            <div className="absolute -inset-4 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.25)_0%,transparent_60%)] blur-[25px] rounded-3xl" />
+            {/* Intensified multi-layer orange glow effect - STRONGER VISUAL FOCUS */}
+            <div className="absolute -inset-12 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.5)_0%,hsla(18,100%,50%,0.25)_35%,transparent_65%)] blur-[50px] rounded-[50px]" />
+            <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,transparent_55%)] blur-[30px] rounded-3xl" />
+            <div className="absolute -inset-2 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.2)_0%,transparent_50%)] blur-[15px] rounded-2xl" />
             <div className="relative z-10 w-full max-w-lg">
-              <div className="relative rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl shadow-accent/20">
+              <div className="relative rounded-2xl overflow-hidden ring-2 ring-accent/30 shadow-2xl shadow-accent/30">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
             </div>
