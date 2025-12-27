@@ -3,13 +3,14 @@ import { Play, Pause, Maximize, Volume2, VolumeX } from "lucide-react";
 import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
-
 interface VSLPlayerProps {
   onVideoEnd?: () => void;
   onProgress?: (progress: number) => void;
 }
-
-const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
+const VSLPlayer = ({
+  onVideoEnd,
+  onProgress
+}: VSLPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasEnded, setHasEnded] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
@@ -22,8 +23,12 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const milestonesRef = useRef<Set<number>>(new Set());
   const controlsTimeoutRef = useRef<number | null>(null);
-  const { reportVideoTime } = useCTAVisibility();
-  const { visitorData } = useVisitorTracking();
+  const {
+    reportVideoTime
+  } = useCTAVisibility();
+  const {
+    visitorData
+  } = useVisitorTracking();
 
   // VSL Event Tracking - tracks sent to avoid duplicates
   const vslEventsTrackedRef = useRef<{
@@ -33,7 +38,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   }>({
     VSLStart: false,
     VSL15s: false,
-    VSL30s: false,
+    VSL30s: false
   });
 
   // Generate unique event ID
@@ -52,17 +57,17 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
     // Mark as tracked immediately to prevent race conditions
     vslEventsTrackedRef.current[eventName] = true;
-
     const eventId = generateEventId();
     const device = /mobile|android|iphone|ipad/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
-    
-    console.log(`📊 VSL Event: ${eventName}`, { eventId, visitorId: visitorData?.visitorId });
-
+    console.log(`📊 VSL Event: ${eventName}`, {
+      eventId,
+      visitorId: visitorData?.visitorId
+    });
     try {
       const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           eventName,
@@ -71,10 +76,9 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           visitorId: visitorData?.visitorId || null,
           device,
           fbp: localStorage.getItem('_fbp') || undefined,
-          fbc: localStorage.getItem('_fbc') || undefined,
-        }),
+          fbc: localStorage.getItem('_fbc') || undefined
+        })
       });
-
       if (!response.ok) {
         console.error(`VSL Event ${eventName} failed:`, response.status);
       } else {
@@ -84,10 +88,8 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       console.error(`Error sending VSL event ${eventName}:`, error);
     }
   }, [generateEventId, visitorData?.visitorId]);
-
   const startPlayback = async () => {
     if (!videoRef.current || isPlaying) return;
-    
     try {
       videoRef.current.muted = false;
       await videoRef.current.play();
@@ -99,12 +101,9 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       console.error("Error playing video:", error);
     }
   };
-
   const togglePlayPause = async () => {
     if (!videoRef.current) return;
-
     const video = videoRef.current;
-
     if (!video.paused && !video.ended) {
       // Pause video and GUARANTEE no other media keeps playing in background
       video.pause();
@@ -113,7 +112,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       setIsPlaying(false);
 
       // Safety net: stop/mute any other media elements (prevents “áudio fantasma”)
-      document.querySelectorAll<HTMLMediaElement>('audio, video').forEach((el) => {
+      document.querySelectorAll<HTMLMediaElement>('audio, video').forEach(el => {
         try {
           if (el !== video) {
             el.pause();
@@ -123,10 +122,8 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           // ignore
         }
       });
-
       return;
     }
-
     try {
       // Mobile-first: always ensure we are not muted when user explicitly hits play.
       video.muted = false;
@@ -137,17 +134,14 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       console.error("Error playing video:", error);
     }
   };
-
   const toggleMute = () => {
     if (videoRef.current) {
       videoRef.current.muted = !isMuted;
       setIsMuted(!isMuted);
     }
   };
-
   const toggleFullscreen = async () => {
     if (!containerRef.current) return;
-
     try {
       if (document.fullscreenElement) {
         await document.exitFullscreen();
@@ -163,7 +157,6 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
     const handlePlay = () => {
       setIsPlaying(true);
       setHasStarted(true);
@@ -173,22 +166,18 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       // Send VSLStart event
       sendVSLEvent('VSLStart');
     };
-
     const handlePause = () => {
       setIsPlaying(false);
       // If user paused, ensure audio is truly off
       video.muted = true;
       setIsMuted(true);
     };
-
     const handleVolumeChange = () => {
       setIsMuted(video.muted);
     };
-
     video.addEventListener('play', handlePlay);
     video.addEventListener('pause', handlePause);
     video.addEventListener('volumechange', handleVolumeChange);
-
     const isMobile = /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent);
 
     // Mobile-first rule: no autoplay attempts on mobile (prevents muted autoplay & audio lock).
@@ -199,10 +188,8 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         video.removeEventListener('volumechange', handleVolumeChange);
       };
     }
-
     const attemptAutoplay = async () => {
       if (hasStarted || isPlaying) return;
-
       try {
         // Try autoplay with sound (desktop browsers may allow)
         video.muted = false;
@@ -214,9 +201,7 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         console.log('⏸️ Autoplay bloqueado (aguardando clique):', error);
       }
     };
-
     const timer = setTimeout(attemptAutoplay, 2500);
-
     return () => {
       video.removeEventListener('play', handlePlay);
       video.removeEventListener('pause', handlePause);
@@ -232,19 +217,15 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
         e.preventDefault();
       }
     };
-    
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
   const handleTimeUpdate = () => {
     if (!videoRef.current) return;
-    
     const video = videoRef.current;
     const videoDuration = video.duration || 0;
     const videoCurrentTime = video.currentTime || 0;
-    const currentProgress = videoDuration > 0 ? (videoCurrentTime / videoDuration) * 100 : 0;
-    
+    const currentProgress = videoDuration > 0 ? videoCurrentTime / videoDuration * 100 : 0;
     setProgress(currentProgress);
     setCurrentTime(videoCurrentTime);
     setDuration(videoDuration);
@@ -257,48 +238,41 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
     if (videoCurrentTime >= 15 && !vslEventsTrackedRef.current.VSL15s) {
       sendVSLEvent('VSL15s');
     }
-    
     if (videoCurrentTime >= 30 && !vslEventsTrackedRef.current.VSL30s) {
       sendVSLEvent('VSL30s');
     }
 
     // Track percentage milestones (for logging only)
     const percentMilestones = [25, 50, 75, 100];
-    percentMilestones.forEach((milestone) => {
+    percentMilestones.forEach(milestone => {
       if (currentProgress >= milestone && !milestonesRef.current.has(milestone)) {
         milestonesRef.current.add(milestone);
         console.log(`📊 VSL milestone: ${milestone}%`);
       }
     });
   };
-
   const handleEnded = () => {
     setHasEnded(true);
     setIsPlaying(false);
     onVideoEnd?.();
     console.log("🏁 VSL ended");
   };
-
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
-
   const handleMouseMove = () => {
     setShowControls(true);
-    
     if (controlsTimeoutRef.current) {
       clearTimeout(controlsTimeoutRef.current);
     }
-    
     controlsTimeoutRef.current = window.setTimeout(() => {
       if (isPlaying) {
         setShowControls(false);
       }
     }, 3000);
   };
-
   useEffect(() => {
     return () => {
       if (controlsTimeoutRef.current) {
@@ -306,53 +280,21 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
       }
     };
   }, []);
-
-  return (
-    <div 
-      ref={containerRef}
-      className="relative w-full max-w-3xl mx-auto group"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => isPlaying && setShowControls(false)}
-    >
+  return <div ref={containerRef} className="relative w-full max-w-3xl mx-auto group" onMouseMove={handleMouseMove} onMouseLeave={() => isPlaying && setShowControls(false)}>
       {/* Player Container */}
       <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.8)]">
         
         {/* LCP Image - Video thumbnail with high priority */}
-        {!hasStarted && (
-          <img
-            src={vslThumbnail}
-            alt="VSL Thumbnail"
-            className="absolute inset-0 w-full h-full object-cover"
-            width={1920}
-            height={1080}
-            fetchPriority="high"
-            decoding="async"
-          />
-        )}
+        {!hasStarted && <img src={vslThumbnail} alt="VSL Thumbnail" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} fetchPriority="high" decoding="async" />}
         
         {/* Video Element with format fallback - preload metadata for faster LCP */}
-        <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover"
-          poster={vslThumbnail}
-          playsInline
-          webkit-playsinline="true"
-          x-webkit-airplay="allow"
-          preload="metadata"
-          controlsList="nodownload nofullscreen noremoteplayback"
-          disablePictureInPicture
-          onTimeUpdate={handleTimeUpdate}
-          onEnded={handleEnded}
-          onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
-          onCanPlay={() => console.log('📱 Vídeo pronto para reproduzir')}
-        >
+        <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" poster={vslThumbnail} playsInline webkit-playsinline="true" x-webkit-airplay="allow" preload="metadata" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture onTimeUpdate={handleTimeUpdate} onEnded={handleEnded} onLoadedMetadata={e => setDuration(e.currentTarget.duration)} onCanPlay={() => console.log('📱 Vídeo pronto para reproduzir')}>
           <source src="/videos/vsl-main.mp4" type="video/mp4" />
           Seu navegador não suporta vídeos.
         </video>
 
         {/* Pre-start overlay - OPTIMIZED FOR PLAY RATE + RETENTION */}
-        {!hasStarted && (
-          <>
+        {!hasStarted && <>
             {/* Dramatic vignette - premium dark edges */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_55%_at_50%_45%,transparent_0%,rgba(0,0,0,0.45)_45%,rgba(0,0,0,0.88)_100%)]" />
 
@@ -376,15 +318,8 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
               {/* Inner subtle ring */}
               <div className="absolute w-[88px] h-[88px] sm:w-[106px] sm:h-[106px] rounded-full border border-white/20" />
               
-              <button
-                onClick={startPlayback}
-                className="group relative w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-[0_8px_40px_rgba(0,0,0,0.5),0_0_60px_rgba(255,107,53,0.4)]"
-                aria-label="Iniciar vídeo"
-              >
-                <Play
-                  className="w-9 h-9 sm:w-10 sm:h-10 text-white ml-1.5 drop-shadow-lg"
-                  fill="currentColor"
-                />
+              <button onClick={startPlayback} className="group relative w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-[0_8px_40px_rgba(0,0,0,0.5),0_0_60px_rgba(255,107,53,0.4)]" aria-label="Iniciar vídeo">
+                <Play className="w-9 h-9 sm:w-10 sm:h-10 text-white ml-1.5 drop-shadow-lg" fill="currentColor" />
               </button>
             </div>
 
@@ -395,40 +330,25 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
               </p>
               <p className="text-white/70 text-[10px] sm:text-xs mt-2 flex items-center justify-center gap-1.5 font-medium">
                 <Volume2 className="w-3.5 h-3.5" />
-                <span>🔊 Melhor com som</span>
+                <span> Melhor com som</span>
               </p>
             </div>
-          </>
-        )}
+          </>}
 
 
         {/* Invisible click area for play/pause only (when video has started) */}
-        {hasStarted && (
-          <div 
-            className="absolute inset-0 cursor-pointer"
-            onClick={togglePlayPause}
-          >
+        {hasStarted && <div className="absolute inset-0 cursor-pointer" onClick={togglePlayPause}>
             {/* Center play button only when paused */}
-            {!isPlaying && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <button
-                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center border border-white/20 hover:border-accent/50 transition-all hover:scale-110"
-                  aria-label="Reproduzir"
-                >
+            {!isPlaying && <div className="absolute inset-0 flex items-center justify-center">
+                <button className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center border border-white/20 hover:border-accent/50 transition-all hover:scale-110" aria-label="Reproduzir">
                   <Play className="w-8 h-8 text-white ml-1" fill="currentColor" />
                 </button>
-              </div>
-            )}
-          </div>
-        )}
+              </div>}
+          </div>}
       </div>
 
       {/* CTA Pulse after video ends */}
-      {hasEnded && (
-        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-accent animate-bounce" />
-      )}
-    </div>
-  );
+      {hasEnded && <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-accent animate-bounce" />}
+    </div>;
 };
-
 export default VSLPlayer;
