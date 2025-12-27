@@ -82,7 +82,8 @@
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
       fbq('init', '2562850577432651');
-      // PageView é gerenciado pelo React (MetaPixelProvider) - não disparar aqui
+      // PageView disparado IMEDIATAMENTE ao carregar a página
+      fbq('track', 'PageView');
       window._metaPixelManaged = true; // Flag para GTM saber que o Pixel está gerenciado
     </script>
     <!-- End Meta Pixel Code -->

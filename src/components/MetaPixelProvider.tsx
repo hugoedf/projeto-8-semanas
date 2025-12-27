@@ -48,10 +48,20 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
       // Marca como disparado nesta sessão
       sessionStorage.setItem(sessionKey, now.toString());
 
-      console.log('Meta Pixel - Disparando eventos com visitorId:', visitorData.visitorId);
+      console.log('Meta Pixel - Eventos com visitorId:', visitorData.visitorId);
 
-      // Dispara PageView em cada mudança de rota
-      trackPageView();
+      // PageView já é disparado no index.html ao carregar a página
+      // Aqui só disparamos em navegações SPA (não na primeira carga)
+      const isInitialLoad = sessionStorage.getItem('meta-pixel-initial-load') !== 'done';
+      
+      if (isInitialLoad) {
+        // Primeira carga - PageView já foi disparado no HTML
+        sessionStorage.setItem('meta-pixel-initial-load', 'done');
+        console.log('Meta Pixel - PageView inicial já disparado no HTML');
+      } else {
+        // Navegação SPA - dispara PageView
+        trackPageView();
+      }
 
       // Dispara ViewContent para páginas específicas
       if (location.pathname === '/') {
