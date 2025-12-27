@@ -288,11 +288,14 @@ const VSLPlayer = ({
               </button>
             </div>
 
-            {/* Simple audio indicator */}
-            <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 text-center z-20 px-4">
-              <p className="text-white/60 text-[10px] sm:text-xs flex items-center justify-center gap-1.5">
-                <Volume2 className="w-3 h-3" />
-                <span>Ative o som</span>
+            {/* Microcopy - urgência contextual + indicador de som */}
+            <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 text-center z-20 px-4">
+              <p className="text-white text-xs sm:text-sm font-semibold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,1)]">
+                Assista antes do próximo treino.
+              </p>
+              <p className="text-white/70 text-[10px] sm:text-xs mt-2 flex items-center justify-center gap-1.5 font-medium">
+                <Volume2 className="w-3.5 h-3.5" />
+                <span>Melhor com som</span>
               </p>
             </div>
           </>}
