@@ -122,6 +122,10 @@ export default {
           "0%, 100%": { boxShadow: "0 0 20px hsla(var(--accent) / 0.3)" },
           "50%": { boxShadow: "0 0 40px hsla(var(--accent) / 0.6)" },
         },
+        "pulse-glow-subtle": {
+          "0%, 100%": { boxShadow: "0 0 12px hsla(var(--accent) / 0.15)" },
+          "50%": { boxShadow: "0 0 20px hsla(var(--accent) / 0.3)" },
+        },
         "pulse-scale": {
           "0%, 100%": { transform: "scale(1)" },
           "50%": { transform: "scale(1.02)" },
@@ -148,6 +152,7 @@ export default {
         "stamp": "stamp 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards",
         "float": "float 3.5s ease-in-out infinite",
         "pulse-glow": "pulse-glow 3.5s ease-in-out infinite",
+        "pulse-glow-subtle": "pulse-glow-subtle 4s ease-in-out infinite",
         "pulse-scale": "pulse-scale 3.5s ease-in-out infinite",
         "slide-in-bottom": "slide-in-bottom 0.4s ease-out",
         "glow-border": "glow-border 3s ease-in-out infinite",

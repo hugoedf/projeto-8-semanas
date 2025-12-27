@@ -73,40 +73,31 @@ const Hero = () => {
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
-            {/* VSL Player - Mobile only - with intensified background glow */}
+            {/* VSL Player - Mobile only - with strong background glow */}
             <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
-              {/* Mobile glow effect - INTENSIFIED */}
-              <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.45)_0%,transparent_60%)] blur-[35px] rounded-3xl" />
+              {/* Mobile glow effect - STRONG for visual impact */}
+              <div className="absolute -inset-16 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.6)_0%,hsla(18,100%,55%,0.35)_40%,transparent_70%)] blur-[50px] rounded-[60px]" />
+              <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.5)_0%,transparent_60%)] blur-[30px] rounded-3xl" />
               <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-accent/20 shadow-lg">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
             </div>
             
-            {/* CTA - hidden until video interaction, then appears with emphasis */}
-            <div 
-              className={`w-full sm:w-auto transition-all duration-700 ${
-                ctaVisible 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-4 pointer-events-none'
-              } ${vslEnded ? 'scale-105' : ''}`}
-            >
+            {/* CTA - sempre visível */}
+            <div className={`w-full sm:w-auto ${vslEnded ? 'scale-105' : ''}`}>
               <Button 
                 variant="cta" 
                 size="cta" 
                 onClick={handleCTAClick} 
-                className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'}`}
+                className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow-subtle ring-2 ring-accent/50' : 'animate-pulse-glow-subtle'}`}
               >
                 TREINAR COM MÉTODO AGORA
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
             
-            {/* Prova social + preço - OCULTO ATÉ 5s DE VÍDEO */}
-            <p className={`text-xs sm:text-sm text-white/65 mt-5 text-center lg:text-left transition-all duration-700 ${
-              ctaVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-4 pointer-events-none'
-            }`}>
+            {/* Prova social + preço */}
+            <p className="text-xs sm:text-sm text-white/65 mt-5 text-center lg:text-left">
               <span className="text-white/85 font-medium">+500 pessoas já aplicaram</span>
               <span className="mx-2 text-white/30">•</span>
               <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>

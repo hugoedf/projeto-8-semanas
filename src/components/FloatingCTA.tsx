@@ -68,7 +68,7 @@ const FloatingCTA = () => {
             variant="cta" 
             size="sm"
             onClick={handleCTAClick}
-            className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow whitespace-nowrap"
+            className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow-subtle whitespace-nowrap"
           >
             EVOLUIR AGORA
             <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
