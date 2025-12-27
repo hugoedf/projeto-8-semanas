@@ -4,7 +4,14 @@ import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 
-const benefits = ["Sistema completo: E-book + App 8X", "8 semanas de treino — execução guiada", "Nutrição prática — sem complicação", "Técnicas avançadas — no momento certo", "Acesso vitalício — seu para sempre", "Garantia de 7 dias — risco zero"];
+const benefits = [
+  "E-book + App 8X — o sistema completo",
+  "8 semanas estruturadas — só seguir e executar",
+  "Nutrição prática — sem dieta maluca",
+  "Técnicas avançadas — para quebrar estagnação",
+  "Acesso vitalício — seu para sempre",
+  "Garantia de 7 dias — risco zero pra você"
+];
 const CTA = () => {
   const {
     trackInitiateCheckout
@@ -39,13 +46,13 @@ const CTA = () => {
               <div className="bg-[#FAFAFA] border border-gray-100 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xl shadow-black/5">
                 <div className="mb-6">
                   <span className="inline-flex items-center gap-2 text-accent text-xs uppercase tracking-widest font-bold bg-accent/8 px-3 py-1.5 rounded-full mb-4">
-                    ⚡ Oferta de Lançamento
+                    ⚡ Preço de lançamento
                   </span>
                   <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight text-black leading-tight">
-                    Comece hoje. Veja resultados em 8 semanas.
+                    Comece agora. Veja resultados em 8 semanas.
                   </h2>
                   <p className="text-gray-500 text-base">
-                    Tudo isso por menos que uma refeição — e transforma como você treina para sempre.
+                    Menos que uma refeição — e muda a forma como você treina para sempre.
                   </p>
                 </div>
                 

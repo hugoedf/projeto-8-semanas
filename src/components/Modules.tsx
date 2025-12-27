@@ -1,35 +1,35 @@
 const modules = [{
   number: "01",
-  title: "Como o músculo cresce",
-  description: "A base que faz tudo fazer sentido — sem enrolação."
+  title: "Ciência do crescimento",
+  description: "Entenda como o músculo cresce — e por que você estava travado."
 }, {
   number: "02",
-  title: "Seu ponto de partida",
-  description: "Descubra onde você está e para onde vai."
+  title: "Seu diagnóstico",
+  description: "Identifique exatamente onde você está e o que precisa mudar."
 }, {
   number: "03",
-  title: "8 semanas de treino",
-  description: "O plano completo. Só seguir."
+  title: "Plano de 8 semanas",
+  description: "Treino estruturado, dia a dia. Sem achismo, só execução."
 }, {
   number: "04",
-  title: "Alimentação simples",
-  description: "Coma para crescer, sem complicação."
+  title: "Nutrição funcional",
+  description: "O mínimo necessário para crescer — sem neura, sem dieta maluca."
 }, {
   number: "05",
-  title: "Descanso estratégico",
-  description: "Recuperação que acelera resultados."
+  title: "Recuperação inteligente",
+  description: "Descanse certo e acelere os resultados. Menos é mais."
 }, {
   number: "06",
-  title: "Técnicas avançadas",
-  description: "Quebre a estagnação quando precisar."
+  title: "Técnicas de ruptura",
+  description: "Ferramentas avançadas para quando o corpo teimar em estagnar."
 }, {
   number: "07",
-  title: "Mentalidade forte",
-  description: "Nunca mais abandonar no meio."
+  title: "Mentalidade de execução",
+  description: "Construa o hábito que te leva até o fim — sem abandonar no meio."
 }, {
   number: "08",
-  title: "Ajuste fino",
-  description: "Saiba quando e como corrigir."
+  title: "Ajustes e correções",
+  description: "Saiba ler seu corpo e fazer mudanças no momento certo."
 }];
 const Modules = () => {
   return <section id="modules-section" className="py-20 sm:py-28 lg:py-32 gradient-hero relative overflow-hidden">

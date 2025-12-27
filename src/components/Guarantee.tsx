@@ -11,29 +11,29 @@ const Guarantee = () => {
                 <div className="text-center md:text-left order-2 md:order-1">
                   <div className="inline-flex items-center gap-2.5 text-accent font-semibold text-xs sm:text-sm uppercase tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-accent/40 bg-accent/10 mb-5 sm:mb-7 shadow-lg shadow-accent/10">
                     <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    <span>Garantia Total</span>
+                    <span>O risco é todo meu</span>
                   </div>
                   
                   <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-5 text-white tracking-tight leading-tight">
-                    Garantia Incondicional de{" "}
-                    <span className="text-accent drop-shadow-[0_0_15px_hsla(18,100%,58%,0.3)]">7 Dias</span>
+                    7 dias para testar.{" "}
+                    <span className="text-accent drop-shadow-[0_0_15px_hsla(18,100%,58%,0.3)]">Risco zero.</span>
                   </h2>
                   
                   <p className="text-white/80 leading-relaxed mb-5 sm:mb-7 text-sm sm:text-base">
-                    Teste o método. Aplique. Sinta a diferença. Se não fizer sentido pra você, devolvemos 100% do valor. Sem risco. Sem complicação.
+                    Acesse tudo. Aplique o método. Sinta a diferença no seu treino. Se em 7 dias você não sentir que valeu cada centavo, devolvo 100% do valor. Sem perguntas, sem burocracia.
                   </p>
                   
                   <div className="space-y-3 sm:space-y-4">
                     <div className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5 drop-shadow-sm" />
                       <p className="text-white/80 text-sm sm:text-base text-left font-medium">
-                        Sem risco
+                        Você não arrisca nada — eu assumo o risco
                       </p>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5 drop-shadow-sm" />
                       <p className="text-white/80 text-sm sm:text-base text-left font-medium">
-                        Sem complicação
+                        Devolução imediata, sem complicação
                       </p>
                     </div>
                   </div>
