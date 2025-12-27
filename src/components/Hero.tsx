@@ -80,8 +80,14 @@ const Hero = () => {
               </div>
             </div>
             
-            {/* CTA com destaque visual */}
-            <div className={`w-full sm:w-auto transition-all duration-500 ${vslEnded ? 'scale-105' : ''}`}>
+            {/* CTA - hidden until video interaction, then appears with emphasis */}
+            <div 
+              className={`w-full sm:w-auto transition-all duration-700 ${
+                ctaVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-4 pointer-events-none'
+              } ${vslEnded ? 'scale-105' : ''}`}
+            >
               <Button 
                 variant="cta" 
                 size="cta" 
