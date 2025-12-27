@@ -78,18 +78,13 @@ const Testimonials = () => {
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="text-center mb-10 sm:mb-12">
-          {/* Introdução antes dos depoimentos */}
-          <div className="mb-6">
-            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-              Pessoas que já treinavam.
-            </p>
-            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-              Pessoas que estavam estagnadas.
-            </p>
-            <p className="text-foreground font-medium text-base sm:text-lg mt-1">
-              Pessoas que só precisavam de um método claro.
-            </p>
-          </div>
+          {/* Introdução consolidada - hierarquia clara */}
+          <p className="text-muted-foreground text-base sm:text-lg mb-2">
+            Pessoas que já treinavam. Pessoas estagnadas. Todas com algo em comum:
+          </p>
+          <p className="text-foreground font-semibold text-lg sm:text-xl mb-6">
+            Só precisavam de um método claro.
+          </p>
           
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
             Quem já aplicou o Método 8X está{" "}

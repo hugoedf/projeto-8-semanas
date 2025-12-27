@@ -44,9 +44,13 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-dark-premium pt-10">
+      {/* Strong orange radial glow for VSL visual focus */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_65%_40%,hsla(18,100%,58%,0.18),transparent_55%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_45%,hsla(18,100%,50%,0.12),transparent_65%)]" />
+      
       {/* Background overlays for depth with parallax */}
       <div 
-        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.1),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.08),transparent_60%)]"
         style={{ transform: `translateY(${parallaxOffset * 0.5}px)` }}
       />
       
