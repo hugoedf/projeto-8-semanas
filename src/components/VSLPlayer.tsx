@@ -350,48 +350,52 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           Seu navegador não suporta vídeos.
         </video>
 
-        {/* Pre-start overlay */}
+        {/* Pre-start overlay - OPTIMIZED FOR PLAY RATE */}
         {!hasStarted && (
           <>
-            {/* Vignette */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_70%,rgba(0,0,0,0.85)_100%)]" />
+            {/* Cinematic vignette - darker edges for premium feel */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_45%,transparent_0%,rgba(0,0,0,0.3)_50%,rgba(0,0,0,0.75)_100%)]" />
 
-            {/* Texto provocativo no topo */}
-            <div className="absolute top-4 sm:top-6 left-0 right-0 text-center z-0 px-4">
-              <p className="text-white/90 text-xs sm:text-sm tracking-widest uppercase font-medium drop-shadow-lg">
-                O ERRO que 90% das pessoas cometem no treino
+            {/* Hook text - curiosity trigger (not salesy) */}
+            <div className="absolute top-3 sm:top-5 left-0 right-0 text-center z-20 px-3">
+              <p className="text-white/95 text-[11px] sm:text-sm tracking-wide font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                Por que você não evolui?
               </p>
             </div>
 
-            {/* Play button centralizado - ENHANCED */}
+            {/* Play button - premium minimal style */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              {/* Glow rings pulsing */}
-              <div className="absolute w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-accent/20 animate-ping" style={{ animationDuration: '2s' }} />
-              <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-accent/30 animate-ping" style={{ animationDuration: '1.5s', animationDelay: '0.2s' }} />
+              {/* Subtle breathing glow - not aggressive ping */}
+              <div 
+                className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/10 blur-xl"
+                style={{ 
+                  animation: 'pulse 3s ease-in-out infinite',
+                }}
+              />
               
-              {/* Outer glow static */}
-              <div className="absolute w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-accent/40 to-accent/10 blur-md" />
+              {/* Inner glow ring */}
+              <div className="absolute w-[68px] h-[68px] sm:w-[84px] sm:h-[84px] rounded-full border border-white/20" />
               
               <button
                 onClick={startPlayback}
-                className="group relative w-18 h-18 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-accent to-accent/80 shadow-[0_0_40px_rgba(255,107,53,0.6)] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-[0_0_60px_rgba(255,107,53,0.8)]"
+                className="group relative w-14 h-14 sm:w-[72px] sm:h-[72px] rounded-full bg-white/95 hover:bg-white flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-[0_4px_20px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.1)]"
                 aria-label="Iniciar vídeo"
-                style={{ width: '72px', height: '72px' }}
               >
                 <Play
-                  className="w-8 h-8 sm:w-10 sm:h-10 text-white ml-1 drop-shadow-lg"
+                  className="w-6 h-6 sm:w-7 sm:h-7 text-black/90 ml-0.5"
                   fill="currentColor"
                 />
               </button>
             </div>
 
-            {/* CTA text below button */}
-            <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 text-center z-0 px-4">
-              <p className="text-white text-xs sm:text-sm font-semibold tracking-wide animate-pulse">
-                ▶ CLIQUE PARA ASSISTIR
+            {/* Microcopy - contextual, low commitment */}
+            <div className="absolute bottom-3 sm:bottom-5 left-0 right-0 text-center z-20 px-4">
+              <p className="text-white/80 text-[10px] sm:text-xs font-normal tracking-wide">
+                Assista antes do próximo treino
               </p>
-              <p className="text-accent/90 text-[10px] sm:text-xs mt-1">
-                🔊 com som
+              <p className="text-white/50 text-[9px] sm:text-[10px] mt-0.5 flex items-center justify-center gap-1">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                3 min · com som
               </p>
             </div>
           </>
