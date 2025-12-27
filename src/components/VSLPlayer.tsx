@@ -358,30 +358,40 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
 
             {/* Texto provocativo no topo */}
             <div className="absolute top-4 sm:top-6 left-0 right-0 text-center z-0 px-4">
-              <p className="text-white/80 text-xs sm:text-sm tracking-widest uppercase">
+              <p className="text-white/90 text-xs sm:text-sm tracking-widest uppercase font-medium drop-shadow-lg">
                 O ERRO que 90% das pessoas cometem no treino
               </p>
             </div>
 
-            {/* Play button centralizado */}
+            {/* Play button centralizado - ENHANCED */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
+              {/* Glow rings pulsing */}
+              <div className="absolute w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-accent/20 animate-ping" style={{ animationDuration: '2s' }} />
+              <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-accent/30 animate-ping" style={{ animationDuration: '1.5s', animationDelay: '0.2s' }} />
+              
+              {/* Outer glow static */}
+              <div className="absolute w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-accent/40 to-accent/10 blur-md" />
+              
               <button
                 onClick={startPlayback}
-                className="group relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white/40 hover:border-accent bg-black/50 hover:bg-accent/30 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:scale-110"
+                className="group relative w-18 h-18 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-accent to-accent/80 shadow-[0_0_40px_rgba(255,107,53,0.6)] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-[0_0_60px_rgba(255,107,53,0.8)]"
                 aria-label="Iniciar vídeo"
+                style={{ width: '72px', height: '72px' }}
               >
                 <Play
-                  className="w-7 h-7 sm:w-9 sm:h-9 text-white ml-1 group-hover:text-accent transition-colors"
+                  className="w-8 h-8 sm:w-10 sm:h-10 text-white ml-1 drop-shadow-lg"
                   fill="currentColor"
                 />
-                <span className="absolute inset-0 rounded-full border border-white/30 opacity-40 animate-ping" />
               </button>
             </div>
 
-            {/* Micro-copy na base */}
+            {/* CTA text below button */}
             <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 text-center z-0 px-4">
-              <p className="text-accent/80 text-[10px] sm:text-xs">
-                🔊 Ative o som para a experiência completa
+              <p className="text-white text-xs sm:text-sm font-semibold tracking-wide animate-pulse">
+                ▶ CLIQUE PARA ASSISTIR
+              </p>
+              <p className="text-accent/90 text-[10px] sm:text-xs mt-1">
+                🔊 com som
               </p>
             </div>
           </>
