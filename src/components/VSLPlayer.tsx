@@ -350,53 +350,61 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           Seu navegador não suporta vídeos.
         </video>
 
-        {/* Pre-start overlay - OPTIMIZED FOR PLAY RATE */}
+        {/* Pre-start overlay - AGGRESSIVE PLAY RATE OPTIMIZATION */}
         {!hasStarted && (
           <>
-            {/* Cinematic vignette - premium dark edges */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_40%,transparent_0%,rgba(0,0,0,0.4)_50%,rgba(0,0,0,0.85)_100%)]" />
+            {/* Dark dramatic vignette */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_45%,transparent_0%,rgba(0,0,0,0.5)_40%,rgba(0,0,0,0.9)_100%)]" />
 
-            {/* Hook text overlay - high contrast on thumbnail */}
-            <div className="absolute top-4 sm:top-6 left-0 right-0 text-center z-20 px-4">
-              <p className="text-white text-sm sm:text-base font-semibold tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,1)]">
-                O erro invisível do treino
+            {/* Hook text - AGGRESSIVE, DIRECT */}
+            <div className="absolute top-4 sm:top-8 left-0 right-0 text-center z-20 px-4">
+              <p className="text-white text-base sm:text-lg font-bold tracking-tight drop-shadow-[0_2px_16px_rgba(0,0,0,1)] uppercase">
+                Você está treinando errado.
               </p>
             </div>
 
-            {/* Play button - 20% larger, orange accent glow */}
+            {/* Play button - 25% LARGER, MAXIMUM IMPACT */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              {/* Outer orange glow - subtle, not aggressive */}
+              {/* Aggressive pulsing glow - MAXIMUM ATTENTION */}
               <div 
-                className="absolute w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-accent/20 blur-2xl"
-                style={{ animation: 'pulse 2.5s ease-in-out infinite' }}
+                className="absolute w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-accent/40 blur-3xl animate-pulse"
               />
               
-              {/* Secondary glow ring */}
-              <div className="absolute w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-accent/10 blur-xl" />
+              {/* Secondary intense glow */}
+              <div 
+                className="absolute w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-accent/30 blur-2xl"
+                style={{ animation: 'pulse 1.5s ease-in-out infinite alternate' }}
+              />
               
-              {/* Outer ring - subtle border */}
-              <div className="absolute w-[76px] h-[76px] sm:w-[92px] sm:h-[92px] rounded-full border border-white/15 shadow-[0_0_30px_rgba(255,107,53,0.2)]" />
+              {/* Outer pulsing ring - VISIBLE */}
+              <div 
+                className="absolute w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] rounded-full border-2 border-accent/60 shadow-[0_0_40px_rgba(255,107,53,0.5)]"
+                style={{ animation: 'pulse 2s ease-in-out infinite' }}
+              />
+              
+              {/* Inner ring */}
+              <div className="absolute w-[88px] h-[88px] sm:w-[106px] sm:h-[106px] rounded-full border border-white/30" />
               
               <button
                 onClick={startPlayback}
-                className="group relative w-[68px] h-[68px] sm:w-[84px] sm:h-[84px] rounded-full bg-white hover:bg-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_40px_rgba(255,107,53,0.25)]"
+                className="group relative w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] rounded-full bg-gradient-to-br from-accent to-accent/80 hover:from-accent hover:to-accent flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-[0_8px_40px_rgba(0,0,0,0.6),0_0_60px_rgba(255,107,53,0.5)]"
                 aria-label="Iniciar vídeo"
               >
                 <Play
-                  className="w-7 h-7 sm:w-8 sm:h-8 text-black ml-1"
+                  className="w-9 h-9 sm:w-10 sm:h-10 text-white ml-1.5 drop-shadow-lg"
                   fill="currentColor"
                 />
               </button>
             </div>
 
-            {/* Microcopy - low risk, clarity focused */}
-            <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 text-center z-20 px-4">
-              <p className="text-white/90 text-[11px] sm:text-xs font-medium tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-                3 minutos pra entender seu treino
+            {/* Microcopy - URGENT, DIRECT */}
+            <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 text-center z-20 px-4">
+              <p className="text-white text-xs sm:text-sm font-bold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,1)] uppercase animate-pulse">
+                ▶ NÃO TREINE SEM VER ISSO
               </p>
-              <p className="text-white/50 text-[9px] sm:text-[10px] mt-1 flex items-center justify-center gap-1.5">
+              <p className="text-white/70 text-[10px] sm:text-xs mt-1.5 flex items-center justify-center gap-1.5 font-medium">
                 <Volume2 className="w-3 h-3" />
-                <span>ative o som</span>
+                <span>3 min · com som</span>
               </p>
             </div>
           </>
