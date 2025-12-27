@@ -10,19 +10,13 @@ const AppShowcase = () => {
   return (
     <section className="py-16 sm:py-20 bg-[#F5F5F5]">
       <div className="container mx-auto px-5 sm:px-6">
-        {/* Transição persuasiva - Pausa visual */}
-        <div className="text-center mb-6 max-w-xl mx-auto">
-          <p className="text-accent font-medium text-lg sm:text-xl">
-            E é exatamente aí que a maioria das pessoas trava.
+        {/* Transição persuasiva - Frase única com mais impacto */}
+        <div className="text-center mb-10 max-w-2xl mx-auto">
+          <p className="text-accent font-semibold text-lg sm:text-xl mb-3">
+            E é exatamente aí que a maioria trava.
           </p>
-        </div>
-        
-        <div className="text-center mb-10 max-w-xl mx-auto">
-          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-            A maioria das pessoas sabe o que deveria fazer.
-          </p>
-          <p className="text-foreground font-medium text-base sm:text-lg mt-2">
-            O problema é executar certo, toda semana, sem improviso.
+          <p className="text-foreground text-xl sm:text-2xl font-display tracking-tight">
+            Saber o que fazer é fácil. <span className="text-accent">Executar certo, toda semana, é o difícil.</span>
           </p>
         </div>
         

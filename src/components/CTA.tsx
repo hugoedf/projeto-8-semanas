@@ -3,7 +3,7 @@ import { Check, ArrowRight, Lock, Clock } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
+
 const benefits = ["Sistema completo: E-book + App 8X", "8 semanas de treino — execução guiada", "Nutrição prática — sem complicação", "Técnicas avançadas — no momento certo", "Acesso vitalício — seu para sempre", "Garantia de 7 dias — risco zero"];
 const CTA = () => {
   const {
@@ -12,9 +12,6 @@ const CTA = () => {
   const {
     visitorData
   } = useVisitorTracking();
-  const {
-    ctaVisible
-  } = useCTAVisibility();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -25,7 +22,7 @@ const CTA = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-  return <section id="cta-section" className={`py-16 sm:py-20 bg-white transition-all duration-500 ${ctaVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+  return <section id="cta-section" className="py-16 sm:py-20 bg-white">
       <div className="container mx-auto px-5 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
