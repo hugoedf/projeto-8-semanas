@@ -73,10 +73,10 @@ const Hero = () => {
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
-            {/* VSL Player - Mobile only - with STRONGER background glow */}
+            {/* VSL Player - Mobile only - with intensified background glow */}
             <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
-              {/* Mobile glow effect - STRONGER */}
-              <div className="absolute -inset-12 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.55)_0%,transparent_55%)] blur-[40px] rounded-3xl" />
+              {/* Mobile glow effect - INTENSIFIED */}
+              <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.45)_0%,transparent_60%)] blur-[35px] rounded-3xl" />
               <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-accent/20 shadow-lg">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
@@ -123,9 +123,9 @@ const Hero = () => {
               transform: `translateY(${parallaxOffset * 0.3}px)`
             }}
           >
-            {/* INTENSIFIED background glow for visual focus - STRONGER */}
-            <div className="absolute -inset-24 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.65)_0%,hsla(18,100%,50%,0.3)_30%,transparent_60%)] blur-[80px] rounded-[80px]" />
-            <div className="absolute -inset-12 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.5)_0%,transparent_50%)] blur-[45px] rounded-3xl" />
+            {/* INTENSIFIED background glow for visual focus */}
+            <div className="absolute -inset-20 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.55)_0%,hsla(18,100%,50%,0.25)_35%,transparent_65%)] blur-[70px] rounded-[70px]" />
+            <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.4)_0%,transparent_55%)] blur-[40px] rounded-3xl" />
             <div className="relative z-10 w-full max-w-lg">
               <div className="relative rounded-2xl overflow-hidden ring-1 ring-accent/15 shadow-2xl shadow-black/40">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
@@ -134,10 +134,10 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Micro-compromisso - Frase de transição com impacto */}
+        {/* Micro-compromisso - Inserção suave */}
         <div className="max-w-2xl mx-auto mt-12 sm:mt-16 text-center">
-          <p className="text-white/70 text-base sm:text-lg font-medium">
-            Quem treina sem método, <span className="text-white">improvisa.</span> Quem improvisa, <span className="text-accent font-semibold">estagna.</span>
+          <p className="text-white/50 text-sm sm:text-base italic">
+            Se você já treina, mas sente que poderia estar evoluindo mais, continue.
           </p>
         </div>
       </div>
