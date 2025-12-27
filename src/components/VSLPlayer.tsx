@@ -365,49 +365,37 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
               </p>
             </div>
 
-            {/* Play button - 20-25% LARGER, HIGH CONTRAST, CLEAN GLOW */}
+            {/* Play button - 20-25% LARGER, STATIC GLOW, NO ANIMATIONS */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              {/* Primary ambient glow - visible but clean */}
-              <div 
-                className="absolute w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-accent/35 blur-3xl animate-pulse"
-              />
+              {/* Static ambient glow - premium visual without animation */}
+              <div className="absolute w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-accent/30 blur-3xl" />
               
-              {/* Secondary soft glow */}
-              <div 
-                className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-accent/20 blur-2xl"
-                style={{ animation: 'pulse 2s ease-in-out infinite alternate' }}
-              />
-              
-              {/* Outer ring - clean border with glow */}
-              <div 
-                className="absolute w-[96px] h-[96px] sm:w-[116px] sm:h-[116px] rounded-full border-2 border-accent/50 shadow-[0_0_35px_rgba(255,107,53,0.4)]"
-                style={{ animation: 'pulse 2.5s ease-in-out infinite' }}
-              />
+              {/* Static outer ring with permanent glow */}
+              <div className="absolute w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] rounded-full border-2 border-accent/40 shadow-[0_0_40px_rgba(255,107,53,0.35)]" />
               
               {/* Inner subtle ring */}
-              <div className="absolute w-[84px] h-[84px] sm:w-[102px] sm:h-[102px] rounded-full border border-white/25" />
+              <div className="absolute w-[88px] h-[88px] sm:w-[106px] sm:h-[106px] rounded-full border border-white/20" />
               
               <button
                 onClick={startPlayback}
-                className="group relative w-[76px] h-[76px] sm:w-[92px] sm:h-[92px] rounded-full bg-gradient-to-br from-accent via-accent to-accent/85 hover:from-accent hover:to-accent flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-[0_6px_32px_rgba(0,0,0,0.5),0_0_50px_rgba(255,107,53,0.45)]"
+                className="group relative w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-[0_8px_40px_rgba(0,0,0,0.5),0_0_60px_rgba(255,107,53,0.4)]"
                 aria-label="Iniciar vídeo"
               >
                 <Play
-                  className="w-8 h-8 sm:w-9 sm:h-9 text-white ml-1 drop-shadow-lg"
+                  className="w-9 h-9 sm:w-10 sm:h-10 text-white ml-1.5 drop-shadow-lg"
                   fill="currentColor"
                 />
               </button>
             </div>
 
-            {/* Microcopy - URGÊNCIA CONTEXTUAL, SEM TOM DE ORDEM */}
-            {/* "Assista antes do próximo treino" cria urgência natural sem mandar */}
+            {/* Microcopy - URGÊNCIA CONTEXTUAL + INDICADOR DE SOM */}
             <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 text-center z-20 px-4">
               <p className="text-white text-xs sm:text-sm font-semibold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,1)]">
                 Assista antes do próximo treino.
               </p>
-              <p className="text-white/60 text-[10px] sm:text-xs mt-1.5 flex items-center justify-center gap-1.5 font-medium">
-                <Volume2 className="w-3 h-3" />
-                <span>3 min · com som</span>
+              <p className="text-white/70 text-[10px] sm:text-xs mt-2 flex items-center justify-center gap-1.5 font-medium">
+                <Volume2 className="w-3.5 h-3.5" />
+                <span>🔊 Melhor com som</span>
               </p>
             </div>
           </>
