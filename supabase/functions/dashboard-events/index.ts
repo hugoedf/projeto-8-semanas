@@ -343,7 +343,10 @@ serve(async (req) => {
         if (event.event_name === 'VSL30s') visitorsWith30s.add(event.visitor_id);
         if (event.event_name === 'CTAClick') visitorsWithCTA.add(event.visitor_id);
       }
-      if (event.value) totalValue += parseFloat(String(event.value));
+      // Only count revenue from actual Purchase events, not InitiateCheckout
+      if (event.event_name === 'Purchase' && event.value) {
+        totalValue += parseFloat(String(event.value));
+      }
     });
 
     // Full funnel data
