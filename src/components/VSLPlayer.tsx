@@ -1,14 +1,12 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { Play, Volume2 } from "lucide-react";
-import vslThumbnail from "@/assets/vsl-thumbnail-real.jpg";
+import { Play, Pause, Maximize, Volume2, VolumeX } from "lucide-react";
+import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
-
 interface VSLPlayerProps {
   onVideoEnd?: () => void;
   onProgress?: (progress: number) => void;
 }
-
 const VSLPlayer = ({
   onVideoEnd,
   onProgress
@@ -90,8 +88,6 @@ const VSLPlayer = ({
       console.error(`Error sending VSL event ${eventName}:`, error);
     }
   }, [generateEventId, visitorData?.visitorId]);
-
-  // Conscious click to start - NO AUTOPLAY
   const startPlayback = async () => {
     if (!videoRef.current || isPlaying) return;
     try {
@@ -100,22 +96,22 @@ const VSLPlayer = ({
       setIsPlaying(true);
       setHasStarted(true);
       setIsMuted(false);
-      console.log("▶️ Playback iniciado (clique consciente)");
+      console.log("▶️ Playback iniciado");
     } catch (error) {
       console.error("Error playing video:", error);
     }
   };
-
   const togglePlayPause = async () => {
     if (!videoRef.current) return;
     const video = videoRef.current;
     if (!video.paused && !video.ended) {
+      // Pause video and GUARANTEE no other media keeps playing in background
       video.pause();
       video.muted = true;
       setIsMuted(true);
       setIsPlaying(false);
 
-      // Safety net: mute any other media elements
+      // Safety net: stop/mute any other media elements (prevents “áudio fantasma”)
       document.querySelectorAll<HTMLMediaElement>('audio, video').forEach(el => {
         try {
           if (el !== video) {
@@ -129,6 +125,7 @@ const VSLPlayer = ({
       return;
     }
     try {
+      // Mobile-first: always ensure we are not muted when user explicitly hits play.
       video.muted = false;
       await video.play();
       setIsMuted(false);
@@ -137,40 +134,81 @@ const VSLPlayer = ({
       console.error("Error playing video:", error);
     }
   };
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+  const toggleFullscreen = async () => {
+    if (!containerRef.current) return;
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else {
+        await containerRef.current.requestFullscreen();
+      }
+    } catch (error) {
+      console.error("Fullscreen error:", error);
+    }
+  };
 
-  // Sync React state with media element (NO AUTOPLAY logic)
+  // Keep React state in sync with the real media element state (prevents UI/audio desync)
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    
     const handlePlay = () => {
       setIsPlaying(true);
       setHasStarted(true);
       setIsMuted(video.muted);
       console.log('▶️ Vídeo iniciado');
+
+      // Send VSLStart event
       sendVSLEvent('VSLStart');
     };
-    
     const handlePause = () => {
       setIsPlaying(false);
+      // If user paused, ensure audio is truly off
       video.muted = true;
       setIsMuted(true);
     };
-    
     const handleVolumeChange = () => {
       setIsMuted(video.muted);
     };
-    
     video.addEventListener('play', handlePlay);
     video.addEventListener('pause', handlePause);
     video.addEventListener('volumechange', handleVolumeChange);
-    
+    const isMobile = /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent);
+
+    // Mobile-first rule: no autoplay attempts on mobile (prevents muted autoplay & audio lock).
+    if (isMobile) {
+      return () => {
+        video.removeEventListener('play', handlePlay);
+        video.removeEventListener('pause', handlePause);
+        video.removeEventListener('volumechange', handleVolumeChange);
+      };
+    }
+    const attemptAutoplay = async () => {
+      if (hasStarted || isPlaying) return;
+      try {
+        // Try autoplay with sound (desktop browsers may allow)
+        video.muted = false;
+        await video.play();
+        setIsMuted(false);
+        console.log('▶️ Autoplay com som');
+      } catch (error) {
+        // If blocked, do nothing and wait for user click.
+        console.log('⏸️ Autoplay bloqueado (aguardando clique):', error);
+      }
+    };
+    const timer = setTimeout(attemptAutoplay, 2500);
     return () => {
       video.removeEventListener('play', handlePlay);
       video.removeEventListener('pause', handlePause);
       video.removeEventListener('volumechange', handleVolumeChange);
+      clearTimeout(timer);
     };
-  }, [sendVSLEvent]);
+  }, [sendVSLEvent, hasStarted, isPlaying]);
 
   // Block seeking via keyboard
   useEffect(() => {
@@ -182,7 +220,6 @@ const VSLPlayer = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
   const handleTimeUpdate = () => {
     if (!videoRef.current) return;
     const video = videoRef.current;
@@ -194,8 +231,10 @@ const VSLPlayer = ({
     setDuration(videoDuration);
     onProgress?.(currentProgress);
 
+    // Report video time for CTA visibility
     reportVideoTime(videoCurrentTime);
 
+    // Track VSL milestones (15s and 30s)
     if (videoCurrentTime >= 15 && !vslEventsTrackedRef.current.VSL15s) {
       sendVSLEvent('VSL15s');
     }
@@ -203,6 +242,7 @@ const VSLPlayer = ({
       sendVSLEvent('VSL30s');
     }
 
+    // Track percentage milestones (for logging only)
     const percentMilestones = [25, 50, 75, 100];
     percentMilestones.forEach(milestone => {
       if (currentProgress >= milestone && !milestonesRef.current.has(milestone)) {
@@ -211,14 +251,17 @@ const VSLPlayer = ({
       }
     });
   };
-
   const handleEnded = () => {
     setHasEnded(true);
     setIsPlaying(false);
     onVideoEnd?.();
     console.log("🏁 VSL ended");
   };
-
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
   const handleMouseMove = () => {
     setShowControls(true);
     if (controlsTimeoutRef.current) {
@@ -230,7 +273,6 @@ const VSLPlayer = ({
       }
     }, 3000);
   };
-
   useEffect(() => {
     return () => {
       if (controlsTimeoutRef.current) {
@@ -238,107 +280,75 @@ const VSLPlayer = ({
       }
     };
   }, []);
-
-  return (
-    <div 
-      ref={containerRef} 
-      className="relative w-full max-w-3xl mx-auto group" 
-      onMouseMove={handleMouseMove} 
-      onMouseLeave={() => isPlaying && setShowControls(false)}
-    >
+  return <div ref={containerRef} className="relative w-full max-w-3xl mx-auto group" onMouseMove={handleMouseMove} onMouseLeave={() => isPlaying && setShowControls(false)}>
       {/* Player Container */}
-      <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-2xl">
+      <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.8)]">
         
         {/* LCP Image - Video thumbnail with high priority */}
-        {!hasStarted && (
-          <img 
-            src={vslThumbnail} 
-            alt="VSL Thumbnail" 
-            className="absolute inset-0 w-full h-full object-cover" 
-            width={1920} 
-            height={1080} 
-            fetchPriority="high" 
-            decoding="async" 
-          />
-        )}
+        {!hasStarted && <img src={vslThumbnail} alt="VSL Thumbnail" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} fetchPriority="high" decoding="async" />}
         
-        {/* Video Element - NO AUTOPLAY */}
-        <video 
-          ref={videoRef} 
-          className="absolute inset-0 w-full h-full object-cover" 
-          poster={vslThumbnail} 
-          playsInline 
-          webkit-playsinline="true" 
-          x-webkit-airplay="allow" 
-          preload="metadata" 
-          controlsList="nodownload nofullscreen noremoteplayback" 
-          disablePictureInPicture 
-          onTimeUpdate={handleTimeUpdate} 
-          onEnded={handleEnded} 
-          onLoadedMetadata={e => setDuration(e.currentTarget.duration)} 
-          onCanPlay={() => console.log('📱 Vídeo pronto para reproduzir')}
-        >
+        {/* Video Element with format fallback - preload metadata for faster LCP */}
+        <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" poster={vslThumbnail} playsInline webkit-playsinline="true" x-webkit-airplay="allow" preload="metadata" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture onTimeUpdate={handleTimeUpdate} onEnded={handleEnded} onLoadedMetadata={e => setDuration(e.currentTarget.duration)} onCanPlay={() => console.log('📱 Vídeo pronto para reproduzir')}>
           <source src="/videos/vsl-main.mp4" type="video/mp4" />
           Seu navegador não suporta vídeos.
         </video>
 
-        {/* Pre-start overlay - CLEAN, ORIGINAL STYLE */}
-        {!hasStarted && (
-          <>
-            {/* Subtle vignette */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+        {/* Pre-start overlay - OPTIMIZED FOR PLAY RATE + RETENTION */}
+        {!hasStarted && <>
+            {/* Dramatic vignette - premium dark edges */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_55%_at_50%_45%,transparent_0%,rgba(0,0,0,0.45)_45%,rgba(0,0,0,0.88)_100%)]" />
 
-            {/* Hook text - positioned at top */}
+            {/* Hook text - ALERTA SEM ATAQUE PESSOAL */}
+            {/* "Seu treino" externaliza o problema (o treino), não ataca "você" diretamente */}
+            {/* Isso gera curiosidade e identificação sem ativar defesa psicológica */}
             <div className="absolute top-4 sm:top-8 left-0 right-0 text-center z-20 px-4">
-              <p className="text-white text-base sm:text-xl font-bold tracking-tight drop-shadow-lg uppercase">
+              <p className="text-white text-base sm:text-xl font-bold tracking-tight drop-shadow-[0_2px_20px_rgba(0,0,0,1)] uppercase">
                 SEU TREINO NÃO FUNCIONA.
               </p>
             </div>
 
-            {/* Play button - ORIGINAL CLEAN STYLE, NO GLOW, NO ANIMATIONS */}
+            {/* Play button - 20-25% LARGER, STATIC GLOW, NO ANIMATIONS */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <button 
-                onClick={startPlayback} 
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-transform duration-200 hover:scale-105 shadow-lg" 
-                aria-label="Iniciar vídeo"
-              >
-                <Play className="w-7 h-7 sm:w-8 sm:h-8 text-white ml-1" fill="currentColor" />
+              {/* Static ambient glow - premium visual without animation */}
+              <div className="absolute w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-accent/30 blur-3xl" />
+              
+              {/* Static outer ring with permanent glow */}
+              <div className="absolute w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] rounded-full border-2 border-accent/40 shadow-[0_0_40px_rgba(255,107,53,0.35)]" />
+              
+              {/* Inner subtle ring */}
+              <div className="absolute w-[88px] h-[88px] sm:w-[106px] sm:h-[106px] rounded-full border border-white/20" />
+              
+              <button onClick={startPlayback} className="group relative w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-[0_8px_40px_rgba(0,0,0,0.5),0_0_60px_rgba(255,107,53,0.4)]" aria-label="Iniciar vídeo">
+                <Play className="w-9 h-9 sm:w-10 sm:h-10 text-white ml-1.5 drop-shadow-lg" fill="currentColor" />
               </button>
             </div>
-          </>
-        )}
 
-        {/* Microcopy - ONLY VISIBLE AFTER PLAY */}
-        {hasStarted && !isPlaying && (
-          <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 text-center z-20 px-4">
-            <p className="text-white/80 text-xs sm:text-sm font-medium flex items-center justify-center gap-1.5">
-              <Volume2 className="w-3.5 h-3.5" />
-              <span>Melhor com som</span>
-            </p>
-          </div>
-        )}
+            {/* Microcopy - URGÊNCIA CONTEXTUAL + INDICADOR DE SOM */}
+            <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 text-center z-20 px-4">
+              <p className="text-white text-xs sm:text-sm font-semibold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,1)]">
+                Assista antes do próximo treino.
+              </p>
+              <p className="text-white/70 text-[10px] sm:text-xs mt-2 flex items-center justify-center gap-1.5 font-medium">
+                <Volume2 className="w-3.5 h-3.5" />
+                <span> Melhor com som</span>
+              </p>
+            </div>
+          </>}
 
-        {/* Click area for play/pause (after started) */}
-        {hasStarted && (
-          <div className="absolute inset-0 cursor-pointer" onClick={togglePlayPause}>
-            {!isPlaying && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <button 
-                  className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center border border-white/20 hover:border-accent/50 transition-all hover:scale-105" 
-                  aria-label="Reproduzir"
-                >
-                  <Play className="w-6 h-6 sm:w-7 sm:h-7 text-white ml-0.5" fill="currentColor" />
+
+        {/* Invisible click area for play/pause only (when video has started) */}
+        {hasStarted && <div className="absolute inset-0 cursor-pointer" onClick={togglePlayPause}>
+            {/* Center play button only when paused */}
+            {!isPlaying && <div className="absolute inset-0 flex items-center justify-center">
+                <button className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center border border-white/20 hover:border-accent/50 transition-all hover:scale-110" aria-label="Reproduzir">
+                  <Play className="w-8 h-8 text-white ml-1" fill="currentColor" />
                 </button>
-              </div>
-            )}
-          </div>
-        )}
+              </div>}
+          </div>}
       </div>
 
-      {/* CTA indication after video ends */}
-      {hasEnded && <div className="absolute -bottom-4 left-1/2 -translate-x-1/2" />}
-    </div>
-  );
+      {/* CTA Pulse after video ends */}
+      {hasEnded && <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-accent animate-bounce" />}
+    </div>;
 };
-
 export default VSLPlayer;
