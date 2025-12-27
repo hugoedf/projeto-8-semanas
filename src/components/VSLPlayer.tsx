@@ -178,37 +178,13 @@ const VSLPlayer = ({
     video.addEventListener('play', handlePlay);
     video.addEventListener('pause', handlePause);
     video.addEventListener('volumechange', handleVolumeChange);
-    const isMobile = /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent);
-
-    // Mobile-first rule: no autoplay attempts on mobile (prevents muted autoplay & audio lock).
-    if (isMobile) {
-      return () => {
-        video.removeEventListener('play', handlePlay);
-        video.removeEventListener('pause', handlePause);
-        video.removeEventListener('volumechange', handleVolumeChange);
-      };
-    }
-    const attemptAutoplay = async () => {
-      if (hasStarted || isPlaying) return;
-      try {
-        // Try autoplay with sound (desktop browsers may allow)
-        video.muted = false;
-        await video.play();
-        setIsMuted(false);
-        console.log('▶️ Autoplay com som');
-      } catch (error) {
-        // If blocked, do nothing and wait for user click.
-        console.log('⏸️ Autoplay bloqueado (aguardando clique):', error);
-      }
-    };
-    const timer = setTimeout(attemptAutoplay, 2500);
+    // NO AUTOPLAY - user must click consciously to start video
     return () => {
       video.removeEventListener('play', handlePlay);
       video.removeEventListener('pause', handlePause);
       video.removeEventListener('volumechange', handleVolumeChange);
-      clearTimeout(timer);
     };
-  }, [sendVSLEvent, hasStarted, isPlaying]);
+  }, [sendVSLEvent]);
 
   // Block seeking via keyboard
   useEffect(() => {
@@ -293,44 +269,30 @@ const VSLPlayer = ({
           Seu navegador não suporta vídeos.
         </video>
 
-        {/* Pre-start overlay - OPTIMIZED FOR PLAY RATE + RETENTION */}
+        {/* Pre-start overlay - CLEAN, STANDARD PLAY BUTTON */}
         {!hasStarted && <>
-            {/* Dramatic vignette - premium dark edges */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_55%_at_50%_45%,transparent_0%,rgba(0,0,0,0.45)_45%,rgba(0,0,0,0.88)_100%)]" />
+            {/* Subtle vignette for depth */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,transparent_0%,rgba(0,0,0,0.35)_50%,rgba(0,0,0,0.75)_100%)]" />
 
-            {/* Hook text - ALERTA SEM ATAQUE PESSOAL */}
-            {/* "Seu treino" externaliza o problema (o treino), não ataca "você" diretamente */}
-            {/* Isso gera curiosidade e identificação sem ativar defesa psicológica */}
+            {/* Hook text */}
             <div className="absolute top-4 sm:top-8 left-0 right-0 text-center z-20 px-4">
               <p className="text-white text-base sm:text-xl font-bold tracking-tight drop-shadow-[0_2px_20px_rgba(0,0,0,1)] uppercase">
                 SEU TREINO NÃO FUNCIONA.
               </p>
             </div>
 
-            {/* Play button - 20-25% LARGER, STATIC GLOW, NO ANIMATIONS */}
+            {/* Standard play button - clean and simple */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              {/* Static ambient glow - premium visual without animation */}
-              <div className="absolute w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-accent/30 blur-3xl" />
-              
-              {/* Static outer ring with permanent glow */}
-              <div className="absolute w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] rounded-full border-2 border-accent/40 shadow-[0_0_40px_rgba(255,107,53,0.35)]" />
-              
-              {/* Inner subtle ring */}
-              <div className="absolute w-[88px] h-[88px] sm:w-[106px] sm:h-[106px] rounded-full border border-white/20" />
-              
-              <button onClick={startPlayback} className="group relative w-[80px] h-[80px] sm:w-[96px] sm:h-[96px] rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-[0_8px_40px_rgba(0,0,0,0.5),0_0_60px_rgba(255,107,53,0.4)]" aria-label="Iniciar vídeo">
-                <Play className="w-9 h-9 sm:w-10 sm:h-10 text-white ml-1.5 drop-shadow-lg" fill="currentColor" />
+              <button onClick={startPlayback} className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-lg" aria-label="Iniciar vídeo">
+                <Play className="w-7 h-7 sm:w-8 sm:h-8 text-white ml-1" fill="currentColor" />
               </button>
             </div>
 
-            {/* Microcopy - URGÊNCIA CONTEXTUAL + INDICADOR DE SOM */}
-            <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 text-center z-20 px-4">
-              <p className="text-white text-xs sm:text-sm font-semibold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,1)]">
-                Assista antes do próximo treino.
-              </p>
-              <p className="text-white/70 text-[10px] sm:text-xs mt-2 flex items-center justify-center gap-1.5 font-medium">
-                <Volume2 className="w-3.5 h-3.5" />
-                <span> Melhor com som</span>
+            {/* Simple audio indicator */}
+            <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 text-center z-20 px-4">
+              <p className="text-white/60 text-[10px] sm:text-xs flex items-center justify-center gap-1.5">
+                <Volume2 className="w-3 h-3" />
+                <span>Ative o som</span>
               </p>
             </div>
           </>}
