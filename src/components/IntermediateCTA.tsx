@@ -35,13 +35,12 @@ const IntermediateCTA = () => {
 
           {/* Headline emocional */}
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5 tracking-tight text-white leading-[1.15]">
-            Você pode continuar tentando sozinho.
-            <br className="hidden sm:block" />
-            <span className="text-accent">Ou pode seguir um caminho que funciona.</span>
+            O método já está pronto.{" "}
+            <span className="text-accent">Só falta você começar.</span>
           </h2>
 
           <p className="text-white/60 text-base sm:text-lg mb-8 max-w-lg mx-auto">
-            +500 pessoas já aplicaram o método. O método está comprovado. A única pergunta é: quando você vai começar? 
+            +500 pessoas já aplicaram. Os resultados estão comprovados. A pergunta não é se funciona — é quando você vai começar.
           </p>
 
           {/* Preço com ancoragem */}

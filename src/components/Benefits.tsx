@@ -2,36 +2,36 @@ import { Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calendar } fro
 import { useParallax } from "@/hooks/useParallax";
 const benefits = [{
   icon: Dumbbell,
-  title: "Você sabe o que fazer",
-  description: "Cada exercício tem propósito. Zero dúvida, zero improviso."
+  title: "Cada treino com propósito",
+  description: "Chega de improvisar. Você sabe exatamente o que fazer — e por quê."
 }, {
   icon: Target,
-  title: "Você vê progresso real",
-  description: "Semana a semana, o espelho e a força confirmam."
+  title: "Resultados que você vê",
+  description: "Semana a semana, o espelho e a força confirmam que está funcionando."
 }, {
   icon: TrendingUp,
-  title: "Você quebra a estagnação",
-  description: "Técnicas que forçam seu corpo a continuar evoluindo."
+  title: "Estagnação quebrada",
+  description: "Técnicas progressivas que forçam seu corpo a continuar evoluindo."
 }, {
   icon: Apple,
-  title: "Você come sem neura",
-  description: "Nutrição simples que funciona, sem frescura."
+  title: "Nutrição sem complicação",
+  description: "Coma para crescer. Simples, direto, sem frescura."
 }, {
   icon: Shield,
-  title: "Você treina sem lesão",
-  description: "Execução correta. Sem se machucar, sem parar."
+  title: "Treino seguro",
+  description: "Execução correta = menos lesão, mais consistência, mais resultado."
 }, {
   icon: Zap,
-  title: "Você economiza tempo",
-  description: "Treinos eficientes. Resultados máximos no menor tempo."
+  title: "Menos tempo, mais resultado",
+  description: "Treinos de 45-60min que entregam mais do que 2h de improviso."
 }, {
   icon: Brain,
-  title: "Você tem clareza mental",
-  description: "Saber o que fazer elimina a ansiedade do treino."
+  title: "Zero ansiedade",
+  description: "Saber o que fazer elimina a dúvida. Você só executa."
 }, {
   icon: Calendar,
-  title: "Você mantém consistência",
-  description: "Um plano claro de 8 semanas que você consegue seguir."
+  title: "8 semanas estruturadas",
+  description: "Um plano claro do dia 1 ao dia 56. Só seguir."
 }];
 const Benefits = () => {
   const parallaxOffset = useParallax({

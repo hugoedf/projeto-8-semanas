@@ -1,22 +1,29 @@
 import { X, AlertTriangle, ArrowDown, Target, RotateCcw, TrendingDown, Clock } from "lucide-react";
 
-const painPoints = ["Treina pesado, mas o corpo não acompanha", "Segue uma rotina, mas o shape parece sempre igual", "Passam semanas, meses… e nada muda", "Vê outras pessoas evoluindo mais rápido fazendo menos"];
+const painPoints = [
+  "Você treina há meses — e o espelho continua igual",
+  "Faz força, sua, dedica tempo — mas o shape não responde",
+  "Vê outros evoluindo com metade do esforço que você faz",
+  "Já tentou de tudo, mas nada parece funcionar de verdade"
+];
+
 const explanationPoints = [{
-  text: "O verdadeiro problema é",
-  highlight: "treinar sem método.",
-  followUp: "Quando você entende isso, a culpa sai de cena — e entra clareza sobre o que realmente precisa ser feito.",
+  text: "O problema nunca foi",
+  highlight: "falta de esforço.",
+  followUp: "É treinar sem um sistema que força o corpo a responder. Sem isso, ele se adapta — e para de evoluir.",
   icon: Target
 }, {
-  text: "Sem progressão clara, o corpo se adapta e",
-  highlight: "para de responder.",
+  text: "Sem progressão estruturada,",
+  highlight: "o corpo estagna.",
+  followUp: "Não importa quanta força você faça. Estímulo repetido = zero crescimento.",
   icon: RotateCcw
 }, {
-  text: "Repetir os mesmos estímulos cria",
-  highlight: "estagnação.",
+  text: "Você perde tempo, energia e",
+  highlight: "motivação.",
   icon: TrendingDown
 }, {
-  text: "Cansa, ocupa tempo… mas",
-  highlight: "não gera evolução real.",
+  text: "E o pior: a cada semana que passa,",
+  highlight: "a frustração só aumenta.",
   icon: Clock
 }];
 
@@ -35,23 +42,21 @@ const Problems = () => {
               ​
             </span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground leading-[1.1]">
-              Você treina, se esforça…
+              Quanto tempo mais você vai{" "}
+              <span className="text-accent">treinar no escuro?</span>
             </h2>
-            <p className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-accent mt-3">
-              e mesmo assim não vê resultado?
-            </p>
           </div>
           
           {/* Introdução emocional */}
           <div className="text-center mb-16 max-w-2xl mx-auto">
-            <p className="text-muted-foreground text-lg sm:text-xl">
-              E o pior não é treinar pesado.
+            <p className="text-foreground font-medium text-xl sm:text-2xl">
+              Você entra na academia, faz força, sua a camisa.
             </p>
-            <p className="text-foreground font-medium text-xl sm:text-2xl mt-4">
-              É sentir que o esforço não está voltando em forma de resultado.
+            <p className="text-muted-foreground text-lg sm:text-xl mt-4">
+              Mas quando olha no espelho… <span className="text-foreground font-medium">nada muda.</span>
             </p>
             <p className="text-muted-foreground text-base sm:text-lg mt-6 leading-relaxed">
-              Provavelmente você já saiu da academia com a sensação de ter feito tudo certo… mas sem a certeza de que aquilo realmente estava funcionando.
+              E o pior não é o cansaço. É a sensação de que todo esse esforço está sendo desperdiçado.
             </p>
           </div>
           
