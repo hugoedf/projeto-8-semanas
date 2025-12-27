@@ -42,16 +42,16 @@ const Problems = () => {
             </p>
           </div>
           
-          {/* Introdução emocional - hierarquia visual clara */}
-          <div className="text-center mb-16 max-w-2xl mx-auto space-y-5">
-            <p className="text-muted-foreground text-base sm:text-lg">
+          {/* Introdução emocional */}
+          <div className="text-center mb-16 max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg sm:text-xl">
               E o pior não é treinar pesado.
             </p>
-            <p className="text-foreground font-semibold text-xl sm:text-2xl leading-snug">
-              É sentir que o esforço não está<br className="hidden sm:block" /> voltando em forma de <span className="text-accent">resultado.</span>
+            <p className="text-foreground font-medium text-xl sm:text-2xl mt-4">
+              É sentir que o esforço não está voltando em forma de resultado.
             </p>
-            <p className="text-muted-foreground/80 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
-              Você já saiu da academia com a sensação de ter feito tudo certo… <span className="text-foreground/70">mas sem certeza de que aquilo realmente funcionava.</span>
+            <p className="text-muted-foreground text-base sm:text-lg mt-6 leading-relaxed">
+              Provavelmente você já saiu da academia com a sensação de ter feito tudo certo… mas sem a certeza de que aquilo realmente estava funcionando.
             </p>
           </div>
           
@@ -141,18 +141,17 @@ const Problems = () => {
             </div>
           </div>
           
-          {/* 5️⃣ Fechamento - ritmo de leitura melhorado */}
+          {/* 5️⃣ Fechamento */}
           <div className="text-center">
-            <div className="bg-white rounded-2xl p-8 sm:p-10 shadow-lg border border-border max-w-2xl mx-auto space-y-4">
-              <p className="text-muted-foreground text-sm sm:text-base">
+            <div className="bg-white rounded-2xl p-8 sm:p-10 shadow-lg border border-border max-w-2xl mx-auto">
+              <p className="text-gray-600 text-base sm:text-lg">
                 A maioria das pessoas treina assim por anos.
-              </p>
-              <p className="text-foreground/80 text-base sm:text-lg">
+                <br />
                 Não porque não querem evoluir —
               </p>
-              <p className="text-foreground font-semibold text-lg sm:text-xl pt-2">
+              <p className="text-gray-900 font-medium text-lg sm:text-xl mt-6">
                 mas porque ninguém ensinou um{" "}
-                <span className="text-accent underline decoration-accent/30 underline-offset-4 decoration-2">
+                <span className="text-accent underline decoration-accent/40 underline-offset-4 decoration-2">
                   sistema estruturado, progressivo e aplicável.
                 </span>
               </p>

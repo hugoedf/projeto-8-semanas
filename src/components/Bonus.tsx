@@ -33,17 +33,13 @@ const Bonus = () => {
             </span>
           </div>
 
-          <div className="text-center mb-8 space-y-3">
-            <p className="text-white/60 text-sm sm:text-base">
-              Isso não é só um e-book. E não é só um app.
-            </p>
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
-              É um <span className="text-accent">Sistema!</span>
-            </h2>
-            <p className="text-white/50 text-sm sm:text-base max-w-md mx-auto pt-1">
-              Conhecimento sem execução é inútil. Por isso o Método 8X une os dois:
-            </p>
-          </div>
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white text-center leading-tight mb-3">Isso não é só um e-book, e não é só um app.<br />
+            <span className="text-accent">É um Sistema!</span>
+          </h2>
+
+          <p className="text-white/60 text-center text-sm sm:text-base mb-8 max-w-xl mx-auto">
+            Conhecimento sem execução é inútil. Por isso o Método 8X une os dois:
+          </p>
         </div>
 
         {/* Two Pillars */}
