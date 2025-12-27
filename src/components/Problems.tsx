@@ -1,176 +1,89 @@
-import { X, AlertTriangle, ArrowDown, Target, RotateCcw, TrendingDown, Clock } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const painPoints = [
-  "Você treina há meses — e o espelho continua igual",
-  "Faz força, sua, dedica tempo — mas o shape não responde",
-  "Vê outros evoluindo com metade do esforço que você faz",
-  "Já tentou de tudo, mas nada parece funcionar de verdade"
+const problems = [
+  {
+    title: "Você não sabe se está fazendo certo",
+    description: "Entra na academia, faz os exercícios… mas não tem certeza se a execução está certa. E quando você não sabe, o músculo não responde."
+  },
+  {
+    title: "O treino virou rotina sem propósito",
+    description: "Você repete os mesmos exercícios, na mesma ordem, com o mesmo peso. O corpo se adaptou. O resultado parou."
+  },
+  {
+    title: "Falta método, sobra improviso",
+    description: "Cada dia é um treino diferente — sem progressão, sem lógica, sem direção. É como dirigir sem mapa e esperar chegar em algum lugar."
+  },
+  {
+    title: "O espelho não muda",
+    description: "Você treina há meses, mas o reflexo continua o mesmo. E a frustração só cresce."
+  }
 ];
 
-const explanationPoints = [{
-  text: "O problema nunca foi",
-  highlight: "falta de esforço.",
-  followUp: "É treinar sem um sistema que força o corpo a responder. Sem isso, ele se adapta — e para de evoluir.",
-  icon: Target
-}, {
-  text: "Sem progressão estruturada,",
-  highlight: "o corpo estagna.",
-  followUp: "Não importa quanta força você faça. Estímulo repetido = zero crescimento.",
-  icon: RotateCcw
-}, {
-  text: "Você perde tempo, energia e",
-  highlight: "motivação.",
-  icon: TrendingDown
-}, {
-  text: "E o pior: a cada semana que passa,",
-  highlight: "a frustração só aumenta.",
-  icon: Clock
-}];
-
 const Problems = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-white relative overflow-hidden">
-      {/* Subtle texture overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(18,100%,58%,0.03),transparent_50%)]" />
-      
-      <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          
-          {/* 1️⃣ Headline provocativa */}
-          <div className="text-center mb-14 lg:mb-16">
-            <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-muted-foreground mb-6">
-              ​
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground leading-[1.1]">
-              Quanto tempo mais você vai{" "}
-              <span className="text-accent">treinar no escuro?</span>
-            </h2>
-          </div>
-          
-          {/* Introdução emocional */}
-          <div className="text-center mb-16 max-w-2xl mx-auto">
-            <p className="text-foreground font-medium text-xl sm:text-2xl">
-              Você entra na academia, se esforça, sua a camisa…
-            </p>
-            <p className="text-muted-foreground text-lg sm:text-xl mt-4">
-              mas quando olha no espelho, <span className="text-foreground font-medium">nada muda.</span>
-            </p>
-            <p className="text-foreground font-medium text-lg sm:text-xl mt-6">
-              E o pior não é treinar pesado.
-            </p>
-            <p className="text-muted-foreground text-base sm:text-lg mt-4 leading-relaxed">
-              É sair com a sensação de ter feito tudo certo —<br />
-              <span className="text-foreground font-medium">sem a certeza de que aquilo realmente estava funcionando.</span>
-            </p>
-            <p className="text-foreground font-display text-xl sm:text-2xl font-bold mt-8 pt-6 border-t border-border">
-              Esse é o treino no escuro.<br />
-              <span className="text-muted-foreground font-normal text-base sm:text-lg">Muito esforço. Pouca resposta.</span>
-            </p>
-          </div>
-          
-          {/* 2️⃣ Grid de Cards Premium - Dores */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 mb-20">
-            {painPoints.map((point, index) => (
-              <div key={index} className="group relative bg-white rounded-2xl p-6 lg:p-7 border border-border hover:border-red-300 hover:shadow-lg transition-all duration-300 shadow-sm">
-                {/* Red accent indicator */}
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-red-500 to-red-400/50 rounded-l-2xl" />
-                
-                <div className="flex items-start gap-4 pl-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center group-hover:bg-red-100 transition-colors">
-                    <X className="w-5 h-5 text-red-500" strokeWidth={2.5} />
-                  </div>
-                  <p className="text-foreground/90 text-base sm:text-lg font-medium leading-relaxed pt-2">
-                    {point}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Visual connector */}
-          <div className="flex flex-col items-center gap-4 mb-20">
-            <div className="w-px h-16 bg-gradient-to-b from-border to-accent/40" />
-            <div className="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/25 flex items-center justify-center">
-              <ArrowDown className="w-6 h-6 text-accent" />
-            </div>
-            <div className="w-px h-10 bg-gradient-to-b from-accent/40 to-transparent" />
-          </div>
-          
-          {/* 3️⃣ Container Hero - A Verdade */}
-          <div className="relative bg-gradient-to-b from-gray-50 to-white rounded-3xl p-8 sm:p-10 lg:p-12 shadow-xl border border-border mb-16">
-            {/* Subtle orange glow */}
-            <div className="absolute -inset-1 bg-gradient-to-b from-accent/5 to-transparent rounded-3xl blur-xl opacity-60" />
-            
-            <div className="relative z-10">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center gap-2.5 bg-accent/8 border border-accent/20 rounded-full px-5 py-2.5 mb-7">
-                  <AlertTriangle className="w-4 h-4 text-accent" />
-                  <span className="text-xs font-bold text-accent uppercase tracking-[0.2em]">A verdade</span>
-                </div>
-                <p className="text-gray-900 font-display text-2xl sm:text-3xl md:text-4xl leading-snug">
-                  O problema <span className="text-accent font-bold">não é falta de esforço.</span>
-                </p>
-              </div>
-              
-              {/* Explicação com linha conectora */}
-              <div className="relative max-w-2xl mx-auto">
-                {/* Linha vertical conectora */}
-                <div className="absolute left-5 top-6 bottom-6 w-px bg-gradient-to-b from-accent/30 via-accent/15 to-transparent hidden sm:block" />
-                
-                <div className="space-y-6">
-                  {explanationPoints.map((point, index) => {
-                    const IconComponent = point.icon;
-                    return (
-                      <div key={index} className="flex items-start gap-5">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/8 border border-accent/15 flex items-center justify-center relative z-10">
-                          <IconComponent className="w-5 h-5 text-accent" />
-                        </div>
-                        <div className="flex-1 pt-2">
-                          <p className="text-gray-600 text-base sm:text-lg">
-                            {point.text}{" "}
-                            <span className="text-gray-900 font-semibold">{point.highlight}</span>
-                          </p>
-                          {point.followUp && (
-                            <p className="text-gray-500 text-sm sm:text-base mt-3 pl-4 border-l-2 border-accent/25">
-                              {point.followUp}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Insight Quote */}
-          <div className="text-center mb-16">
-            <div className="inline-block bg-gray-50 border border-border rounded-2xl px-8 sm:px-10 py-7 max-w-2xl">
-              <p className="text-muted-foreground text-base sm:text-lg italic leading-relaxed">
-                "Sem um sistema claro, o corpo faz exatamente o que foi programado para fazer:{" "}
-                <span className="text-foreground font-medium not-italic">se adaptar… e parar de evoluir.</span>"
+    <section 
+      id="problems" 
+      className="py-20 md:py-28 bg-background relative overflow-hidden"
+    >
+      {/* Background decoration */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      </div>
+
+      <div 
+        ref={ref}
+        className={`container mx-auto px-4 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground text-center mb-6">
+          Você treina, se esforça…<br />
+          e mesmo assim não vê resultado?
+        </h2>
+        
+        {/* Introdução emocional */}
+        <div className="text-center mb-16 max-w-2xl mx-auto">
+          <p className="text-foreground font-medium text-lg sm:text-xl">
+            E o pior não é treinar pesado.
+          </p>
+          <p className="text-muted-foreground text-base sm:text-lg mt-4 leading-relaxed">
+            É sentir que o esforço não está voltando em forma de resultado.
+          </p>
+          <p className="text-muted-foreground text-base sm:text-lg mt-6 leading-relaxed">
+            Provavelmente você já saiu da academia com a sensação de ter feito tudo certo…<br />
+            <span className="text-foreground font-medium">mas sem a certeza de que aquilo realmente estava funcionando.</span>
+          </p>
+        </div>
+
+        {/* Lista de problemas */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {problems.map((problem, index) => (
+            <div 
+              key={index}
+              className={`bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 transition-all duration-500 hover:border-primary/30 hover:bg-card/70`}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
+              <h3 className="text-lg font-semibold text-foreground mb-3">
+                {problem.title}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {problem.description}
               </p>
             </div>
-          </div>
-          
-          {/* 5️⃣ Fechamento */}
-          <div className="text-center">
-            <div className="bg-white rounded-2xl p-8 sm:p-10 shadow-lg border border-border max-w-2xl mx-auto">
-              <p className="text-gray-600 text-base sm:text-lg">
-                A maioria das pessoas treina assim por anos.
-                <br />
-                Não porque não querem evoluir —
-              </p>
-              <p className="text-gray-900 font-medium text-lg sm:text-xl mt-6">
-                mas porque ninguém ensinou um{" "}
-                <span className="text-accent underline decoration-accent/40 underline-offset-4 decoration-2">
-                  sistema estruturado, progressivo e aplicável.
-                </span>
-              </p>
-            </div>
-          </div>
-          
+          ))}
+        </div>
+
+        {/* Fechamento emocional */}
+        <div className="text-center mt-16 max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg">
+            Se você se identificou com pelo menos um desses pontos,
+          </p>
+          <p className="text-foreground font-medium text-xl mt-2">
+            o problema não é falta de esforço. É falta de método.
+          </p>
         </div>
       </div>
     </section>
