@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Play, Pause, Maximize, Volume2, VolumeX } from "lucide-react";
-import vslThumbnail from "@/assets/vsl-thumbnail-scientific.jpg";
+import vslThumbnail from "@/assets/vsl-thumbnail.jpg";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 
