@@ -350,38 +350,59 @@ const VSLPlayer = ({ onVideoEnd, onProgress }: VSLPlayerProps) => {
           Seu navegador não suporta vídeos.
         </video>
 
-        {/* Pre-start overlay */}
+        {/* Pre-start overlay - Optimized for maximum play rate */}
         {!hasStarted && (
           <>
-            {/* Vignette */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_70%,rgba(0,0,0,0.85)_100%)]" />
-
-            {/* Texto provocativo no topo */}
-            <div className="absolute top-4 sm:top-6 left-0 right-0 text-center z-0 px-4">
-              <p className="text-white/80 text-xs sm:text-sm tracking-widest uppercase">
-                O ERRO que 90% das pessoas cometem no treino
-              </p>
+            {/* Dark overlay for text contrast */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/70" />
+            
+            {/* Animated border glow effect */}
+            <div className="absolute inset-0 rounded-lg overflow-hidden">
+              <div className="absolute inset-[-2px] bg-gradient-to-r from-accent via-orange-400 to-accent animate-pulse opacity-60 blur-sm" />
+              <div className="absolute inset-0 bg-black" />
             </div>
 
-            {/* Play button centralizado */}
-            <div className="absolute inset-0 flex items-center justify-center z-10">
+            {/* Top curiosity hook - Pattern interrupt */}
+            <div className="absolute top-3 sm:top-5 left-0 right-0 text-center z-20 px-3">
+              <div className="inline-flex items-center gap-1.5 bg-accent/20 backdrop-blur-sm rounded-full px-3 py-1.5 border border-accent/40">
+                <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                <p className="text-white text-[10px] sm:text-xs font-semibold tracking-wide uppercase">
+                  ASSISTA ANTES DE TREINAR HOJE
+                </p>
+              </div>
+            </div>
+
+            {/* Center - Large animated play button with text */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-20 gap-3">
+              {/* Main play button - much larger and more prominent */}
               <button
                 onClick={startPlayback}
-                className="group relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white/40 hover:border-accent bg-black/50 hover:bg-accent/30 backdrop-blur-sm flex items-center justify-center transition-all duration-300 hover:scale-110"
+                className="group relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-[0_0_40px_rgba(255,107,53,0.5)]"
                 aria-label="Iniciar vídeo"
               >
                 <Play
-                  className="w-7 h-7 sm:w-9 sm:h-9 text-white ml-1 group-hover:text-accent transition-colors"
+                  className="w-9 h-9 sm:w-11 sm:h-11 text-white ml-1.5 drop-shadow-lg"
                   fill="currentColor"
                 />
-                <span className="absolute inset-0 rounded-full border border-white/30 opacity-40 animate-ping" />
+                {/* Multiple ring animations for attention */}
+                <span className="absolute inset-0 rounded-full border-2 border-accent opacity-60 animate-ping" />
+                <span className="absolute -inset-2 rounded-full border border-white/20 opacity-40 animate-pulse" />
               </button>
+              
+              {/* Click instruction */}
+              <p className="text-white font-bold text-sm sm:text-base drop-shadow-lg animate-pulse">
+                ▶ CLIQUE PARA ASSISTIR
+              </p>
             </div>
 
-            {/* Micro-copy na base */}
-            <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 text-center z-0 px-4">
-              <p className="text-accent/80 text-[10px] sm:text-xs">
-                🔊 Ative o som para a experiência completa
+            {/* Bottom - Value proposition + sound reminder */}
+            <div className="absolute bottom-3 sm:bottom-5 left-0 right-0 text-center z-20 px-3">
+              <p className="text-white/90 text-xs sm:text-sm font-medium mb-1.5">
+                Descubra o método que <span className="text-accent font-bold">transforma seu treino</span>
+              </p>
+              <p className="text-white/60 text-[10px] sm:text-xs flex items-center justify-center gap-1">
+                <Volume2 className="w-3 h-3" />
+                Ative o som
               </p>
             </div>
           </>

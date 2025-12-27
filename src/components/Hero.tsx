@@ -61,21 +61,26 @@ const Hero = () => {
               <span>MÉTODO 8X</span>
             </div>
             
-            {/* Título Principal - Maior peso visual */}
-            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-5 sm:mb-6 px-2 sm:px-0">
-              Um sistema de treino baseado em ciência para gerar{" "}
-              <span className="text-accent">hipertrofia real</span>{" "}
-              com progressão clara e execução guiada.
+            {/* Título Principal - Curiosidade + Problema */}
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-4 sm:mb-5 px-2 sm:px-0">
+              Por que você treina há meses e{" "}
+              <span className="text-accent">não vê resultado?</span>
             </h1>
             
-            {/* Subtítulo de apoio - Hierarquia clara */}
-            <p className="text-base sm:text-lg leading-relaxed max-w-xl text-white/75 mb-6 sm:mb-8 px-2 sm:px-0">
-              Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
+            {/* Hook direto para o vídeo */}
+            <p className="text-base sm:text-lg leading-relaxed max-w-xl text-white/80 mb-6 sm:mb-8 px-2 sm:px-0">
+              <span className="text-white font-semibold">Assista o vídeo ao lado</span> e descubra o erro invisível que trava sua evolução — e como corrigir em <span className="text-accent font-bold">8 semanas</span>.
             </p>
             
-            {/* VSL Player - Mobile only - clean style to not conflict with CTA */}
-            <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
-              <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-white/10 shadow-lg">
+            {/* Arrow pointing to video - Mobile only */}
+            <div className="lg:hidden flex items-center justify-center gap-2 mb-4 animate-bounce">
+              <span className="text-accent text-2xl">👇</span>
+              <span className="text-white/80 text-sm font-medium">Assista agora</span>
+            </div>
+            
+            {/* VSL Player - Mobile only - prominent placement */}
+            <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-8">
+              <div className="relative z-10 rounded-xl overflow-hidden ring-2 ring-accent/30 shadow-[0_0_30px_rgba(255,107,53,0.25)]">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
             </div>
@@ -122,10 +127,10 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Micro-compromisso - Inserção suave */}
+        {/* Micro-compromisso - Reforço do vídeo */}
         <div className="max-w-2xl mx-auto mt-12 sm:mt-16 text-center">
-          <p className="text-white/50 text-sm sm:text-base italic">
-            Se você já treina, mas sente que poderia estar evoluindo mais, continue.
+          <p className="text-white/60 text-sm sm:text-base">
+            <span className="text-white/80 font-medium">⏱️ Só 3 minutos</span> para entender o que está travando seu progresso
           </p>
         </div>
       </div>
