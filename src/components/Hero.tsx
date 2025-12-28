@@ -56,10 +56,9 @@ const Hero = () => {
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
             
             {/* Frase de impacto */}
-            <div className="inline-flex items-center gap-2 text-accent font-bold text-xs sm:text-sm uppercase tracking-wider mb-5 sm:mb-6">
-              <Zap className="w-4 h-4" />
-              <span>QUEM TREINA DURO NÃO PODE TREINAR NO ESCURO</span>
-            </div>
+            <p className="text-accent font-bold text-xs sm:text-sm uppercase tracking-wider mb-5 sm:mb-6 whitespace-nowrap">
+              QUEM TREINA DURO NÃO PODE TREINAR NO ESCURO
+            </p>
             
             {/* Título Principal - Maior peso visual */}
             <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-5 sm:mb-6 px-2 sm:px-0">
