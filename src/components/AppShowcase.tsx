@@ -8,11 +8,11 @@ const appFeatures = [
 
 const AppShowcase = () => {
   return (
-    <section className="py-16 sm:py-20 bg-[#F5F5F5]">
+    <section className="py-12 sm:py-16 bg-[#F5F5F5]">
       <div className="container mx-auto px-5 sm:px-6">
         {/* Transição persuasiva - Frase única com mais impacto */}
-        <div className="text-center mb-10 max-w-2xl mx-auto">
-          <p className="text-accent font-semibold text-lg sm:text-xl mb-3">
+        <div className="text-center mb-8 max-w-2xl mx-auto">
+          <p className="text-accent font-semibold text-lg sm:text-xl mb-2">
             E é exatamente aí que a maioria trava.
           </p>
           <p className="text-foreground text-xl sm:text-2xl font-display tracking-tight">
@@ -21,8 +21,8 @@ const AppShowcase = () => {
         </div>
         
         <div className="max-w-4xl mx-auto">
-          <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-10 shadow-lg">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="bg-card border border-border/80 rounded-2xl p-5 sm:p-8 shadow-lg">
+            <div className="grid md:grid-cols-2 gap-6 items-center">
               {/* Video do App */}
               <div className="flex justify-center order-2 md:order-1">
                 <div className="relative animate-float">
@@ -45,18 +45,18 @@ const AppShowcase = () => {
               
               {/* Texto - App como facilitador */}
               <div className="order-1 md:order-2 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
+                <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
                   <Smartphone className="w-5 h-5 text-accent" />
                   <span className="text-accent font-bold text-sm uppercase tracking-wider">INCLUSO GRÁTIS</span>
                 </div>
                 
                 {/* Frase-chave */}
-                <h3 className="font-display text-xl sm:text-2xl md:text-3xl mb-4 tracking-tight">
+                <h3 className="font-display text-xl sm:text-2xl md:text-3xl mb-3 tracking-tight">
                   O método ensina <span className="text-accent">o que fazer.</span><br />
                   O App garante que você <span className="text-accent">faça certo.</span>
                 </h3>
                 
-                <p className="text-muted-foreground text-base leading-relaxed mb-5">
+                <p className="text-muted-foreground text-base leading-relaxed mb-4">
                   Chega de decorar planilha ou ficar perdido na academia. Você abre o app, vê o treino do dia e executa — <span className="text-foreground font-medium">cada repetição no seu ritmo.</span>
                 </p>
                 

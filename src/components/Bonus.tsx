@@ -17,7 +17,7 @@ const Bonus = () => {
     title: "Acompanhamento",
     description: "Veja sua evolução semana a semana"
   }];
-  return <section className="py-12 sm:py-16 relative overflow-hidden gradient-hero">
+  return <section className="py-10 sm:py-14 relative overflow-hidden gradient-hero">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(18,100%,58%,0.08),transparent_50%)]" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
@@ -26,48 +26,48 @@ const Bonus = () => {
         
         {/* Badge & Headline */}
         <div>
-          <div className="text-center mb-6">
+          <div className="text-center mb-4">
             <span className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] px-4 py-2 rounded-full bg-accent/15 border border-accent/30">
               <Smartphone className="w-4 h-4" />
               O Sistema Completo
             </span>
           </div>
 
-          <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white text-center leading-tight mb-3">Isso não é só um e-book, e não é só um app.<br />
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white text-center leading-tight mb-2">Isso não é só um e-book, e não é só um app.<br />
             <span className="text-accent">É um Sistema!</span>
           </h2>
 
-          <p className="text-white/60 text-center text-sm sm:text-base mb-8 max-w-xl mx-auto">
+          <p className="text-white/60 text-center text-sm sm:text-base mb-6 max-w-xl mx-auto">
             Conhecimento sem execução é inútil. Por isso o Método 8X une os dois:
           </p>
         </div>
 
         {/* Two Pillars */}
-        <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-8">
+        <div className="grid sm:grid-cols-2 gap-3 max-w-2xl mx-auto mb-6">
           {/* Pilar 1 - E-book */}
-          <div className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-5 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-accent/20 flex items-center justify-center">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-4 text-center">
+            <div className="w-10 h-10 mx-auto mb-2.5 rounded-full bg-accent/20 flex items-center justify-center">
               <BookOpen className="w-6 h-6 text-accent" />
             </div>
-            <h3 className="text-white font-bold text-lg mb-1">E-book 8X</h3>
-            <p className="text-accent text-xs uppercase tracking-wider mb-2">O Mapa</p>
+            <h3 className="text-white font-bold text-lg mb-0.5">E-book 8X</h3>
+            <p className="text-accent text-xs uppercase tracking-wider mb-1.5">O Mapa</p>
             <p className="text-white/60 text-sm">
               Conhecimento, técnicas avançadas e ciência — o "porquê" por trás de cada movimento.
             </p>
           </div>
           
           {/* Pilar 2 - App */}
-          <div className="bg-accent/10 border border-accent/30 rounded-xl p-5 text-center relative overflow-hidden">
+          <div className="bg-accent/10 border border-accent/30 rounded-xl p-4 text-center relative overflow-hidden">
             <div className="absolute top-2 right-2">
               <span className="text-[10px] uppercase tracking-wider bg-accent/20 text-accent px-2 py-0.5 rounded-full font-bold">
                 Incluso
               </span>
             </div>
-            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-accent/30 flex items-center justify-center">
-              <Smartphone className="w-6 h-6 text-accent" />
+            <div className="w-10 h-10 mx-auto mb-2.5 rounded-full bg-accent/30 flex items-center justify-center">
+              <Smartphone className="w-5 h-5 text-accent" />
             </div>
-            <h3 className="text-white font-bold text-lg mb-1">App 8X</h3>
-            <p className="text-accent text-xs uppercase tracking-wider mb-2">O GPS</p>
+            <h3 className="text-white font-bold text-lg mb-0.5">App 8X</h3>
+            <p className="text-accent text-xs uppercase tracking-wider mb-1.5">O GPS</p>
             <p className="text-gray-300 text-sm">
               Execução guiada no celular — sem pensar, só seguir e progredir.
             </p>
@@ -75,8 +75,8 @@ const Bonus = () => {
         </div>
 
         {/* App Features */}
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 max-w-2xl mx-auto mb-6">
-          <p className="text-white text-center text-sm font-semibold mb-4">
+        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 max-w-2xl mx-auto mb-5">
+          <p className="text-white text-center text-sm font-semibold mb-3">
             O que você recebe no App 8X:
           </p>
           <div className="grid grid-cols-2 gap-3">

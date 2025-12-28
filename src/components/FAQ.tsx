@@ -44,23 +44,23 @@ const FAQ = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-  return <section className="py-16 md:py-20 px-4 bg-white">
+  return <section className="py-12 md:py-16 px-4 bg-white">
       <div className="max-w-3xl mx-auto">
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-center text-foreground mb-4">
+        <h2 className="font-display text-2xl md:text-3xl font-bold text-center text-foreground mb-3">
           Perguntas Frequentes
         </h2>
         
-        <p className="text-muted-foreground text-center text-sm md:text-base mb-10 max-w-xl mx-auto">
+        <p className="text-muted-foreground text-center text-sm md:text-base mb-8 max-w-xl mx-auto">
           Tudo que você precisa saber antes de começar.
         </p>
         
-        <div className="mb-10">
-          <Accordion type="single" collapsible className="w-full space-y-3">
-            {faqItems.map((item, index) => <AccordionItem key={index} value={`item-${index}`} className="border border-border/50 rounded-lg px-5 bg-card/30 hover:bg-card/50 transition-colors">
-                <AccordionTrigger className="text-left text-foreground hover:no-underline py-5 text-base md:text-lg font-medium [&[data-state=open]]:text-accent">
+        <div className="mb-8">
+          <Accordion type="single" collapsible className="w-full space-y-2">
+            {faqItems.map((item, index) => <AccordionItem key={index} value={`item-${index}`} className="border border-border/50 rounded-lg px-4 bg-card/30 hover:bg-card/50 transition-colors">
+                <AccordionTrigger className="text-left text-foreground hover:no-underline py-4 text-base md:text-lg font-medium [&[data-state=open]]:text-accent">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-sm md:text-base pb-5 leading-relaxed">
+                <AccordionContent className="text-muted-foreground text-sm md:text-base pb-4 leading-relaxed">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>)}
@@ -68,14 +68,14 @@ const FAQ = () => {
         </div>
 
         {/* CTA após FAQ */}
-        <div className="text-center pt-6 border-t border-border/30">
-          <p className="text-muted-foreground text-sm mb-2">
+        <div className="text-center pt-5 border-t border-border/30">
+          <p className="text-muted-foreground text-sm mb-1.5">
             Ainda com dúvida?
           </p>
-          <p className="text-foreground font-medium text-base mb-1">
+          <p className="text-foreground font-medium text-base mb-0.5">
             Por menos que uma refeição, você testa o método por 7 dias.
           </p>
-          <p className="text-muted-foreground text-sm mb-4">
+          <p className="text-muted-foreground text-sm mb-3">
             Se não sentir diferença no seu treino, você não paga nada.
           </p>
           <Button variant="cta" size="cta" onClick={handleCTAClick}>
