@@ -8,17 +8,23 @@ import { useState } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { useParallax } from "@/hooks/useParallax";
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const [vslEnded, setVslEnded] = useState(false);
-  const { ctaVisible } = useCTAVisibility();
-  const parallaxOffset = useParallax({ speed: 0.08 });
-
+  const {
+    ctaVisible
+  } = useCTAVisibility();
+  const parallaxOffset = useParallax({
+    speed: 0.08
+  });
   const handleVSLEnd = () => {
     setVslEnded(true);
     console.log('📊 VSL completed - CTA emphasis activated');
   };
-
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -41,14 +47,11 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-dark-premium pt-10">
+  return <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-dark-premium pt-10">
       {/* Background overlays for depth with parallax */}
-      <div 
-        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.1),transparent_60%)]"
-        style={{ transform: `translateY(${parallaxOffset * 0.5}px)` }}
-      />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.1),transparent_60%)]" style={{
+      transform: `translateY(${parallaxOffset * 0.5}px)`
+    }} />
       
       <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-12 sm:pb-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
@@ -56,7 +59,7 @@ const Hero = () => {
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
             
             {/* Frase de impacto */}
-            <p className="text-accent font-bold text-xs sm:text-sm uppercase tracking-wider mb-5 sm:mb-6 whitespace-nowrap">
+            <p className="text-accent font-bold sm:text-sm uppercase tracking-wider mb-5 sm:mb-6 whitespace-nowrap text-xs">
               QUEM TREINA DURO NÃO PODE TREINAR NO ESCURO
             </p>
             
@@ -83,12 +86,7 @@ const Hero = () => {
             
             {/* CTA - sempre visível */}
             <div className={`w-full sm:w-auto ${vslEnded ? 'scale-105' : ''}`}>
-              <Button 
-                variant="cta" 
-                size="cta" 
-                onClick={handleCTAClick} 
-                className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow-subtle ring-2 ring-accent/50' : 'animate-pulse-glow-subtle'}`}
-              >
+              <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow-subtle ring-2 ring-accent/50' : 'animate-pulse-glow-subtle'}`}>
                 TREINAR COM MÉTODO AGORA
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
@@ -105,13 +103,10 @@ const Hero = () => {
           </div>
           
           {/* VSL Player - Desktop only - subtle border with strong background glow */}
-          <div 
-            className="hidden lg:flex justify-center relative animate-fade-in" 
-            style={{ 
-              animationDelay: "0.15s",
-              transform: `translateY(${parallaxOffset * 0.3}px)`
-            }}
-          >
+          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{
+          animationDelay: "0.15s",
+          transform: `translateY(${parallaxOffset * 0.3}px)`
+        }}>
             {/* INTENSIFIED background glow for visual focus */}
             <div className="absolute -inset-20 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.55)_0%,hsla(18,100%,50%,0.25)_35%,transparent_65%)] blur-[70px] rounded-[70px]" />
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.4)_0%,transparent_55%)] blur-[40px] rounded-3xl" />
@@ -137,8 +132,6 @@ const Hero = () => {
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
