@@ -100,7 +100,7 @@ const Hero = () => {
               <span className="mx-2 text-white/30">•</span>
               <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>
               <span className="mx-2 text-white/30">•</span>
-              <span>Menos que uma refeição</span>
+              <span>Teste por 7 dias sem risco</span>
             </p>
           </div>
           
