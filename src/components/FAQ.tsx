@@ -69,8 +69,14 @@ const FAQ = () => {
 
         {/* CTA após FAQ */}
         <div className="text-center pt-6 border-t border-border/30">
+          <p className="text-muted-foreground text-sm mb-2">
+            Ainda com dúvida?
+          </p>
+          <p className="text-foreground font-medium text-base mb-1">
+            Por menos que uma refeição, você testa o método por 7 dias.
+          </p>
           <p className="text-muted-foreground text-sm mb-4">
-            Ainda com dúvida? Por R$19,90 você testa com garantia de 7 dias.
+            Se não sentir diferença no seu treino, você não paga nada.
           </p>
           <Button variant="cta" size="cta" onClick={handleCTAClick}>
             COMEÇAR MINHA EVOLUÇÃO HOJE

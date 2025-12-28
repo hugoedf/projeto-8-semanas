@@ -55,10 +55,10 @@ const Hero = () => {
           {/* Content */}
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
             
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 text-accent font-medium text-xs uppercase tracking-wider mb-5 sm:mb-6">
+            {/* Frase de impacto */}
+            <div className="inline-flex items-center gap-2 text-accent font-bold text-xs sm:text-sm uppercase tracking-wider mb-5 sm:mb-6">
               <Zap className="w-4 h-4" />
-              <span>MÉTODO 8X</span>
+              <span>QUEM TREINA DURO NÃO PODE TREINAR NO ESCURO</span>
             </div>
             
             {/* Título Principal - Maior peso visual */}
