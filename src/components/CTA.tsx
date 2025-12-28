@@ -29,10 +29,10 @@ const CTA = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-  return <section id="cta-section" className="py-16 sm:py-20 bg-white">
+  return <section id="cta-section" className="py-12 sm:py-16 bg-white">
       <div className="container mx-auto px-5 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Image */}
             <div className="order-2 lg:order-1">
               <div className="relative">
@@ -43,12 +43,12 @@ const CTA = () => {
             
             {/* Content */}
             <div className="order-1 lg:order-2">
-              <div className="bg-[#FAFAFA] border border-gray-100 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-xl shadow-black/5">
-                <div className="mb-6">
-                  <span className="inline-flex items-center gap-2 text-accent text-xs uppercase tracking-widest font-bold bg-accent/8 px-3 py-1.5 rounded-full mb-4">
+              <div className="bg-[#FAFAFA] border border-gray-100 rounded-2xl p-5 sm:p-7 lg:p-8 shadow-xl shadow-black/5">
+                <div className="mb-5">
+                  <span className="inline-flex items-center gap-2 text-accent text-xs uppercase tracking-widest font-bold bg-accent/8 px-3 py-1.5 rounded-full mb-3">
                     ⚡ Preço de lançamento
                   </span>
-                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight text-black leading-tight">
+                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-2 tracking-tight text-black leading-tight">
                     Comece agora. Veja resultados em 8 semanas.
                   </h2>
                   <p className="text-gray-500 text-base">
@@ -56,7 +56,7 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <div className="space-y-3 mb-8">
+                <div className="space-y-2.5 mb-6">
                   {benefits.map((benefit, index) => <div key={index} className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center mt-0.5">
                         <Check className="w-3 h-3 text-accent" strokeWidth={3} />
@@ -65,8 +65,8 @@ const CTA = () => {
                     </div>)}
                 </div>
                 
-                <div className="border-t border-gray-200 pt-6 mb-6">
-                  <div className="flex items-baseline gap-4 mb-3">
+                <div className="border-t border-gray-200 pt-5 mb-5">
+                  <div className="flex items-baseline gap-4 mb-2">
                     <span className="text-gray-400 line-through text-xl">R$ 97</span>
                     <span className="text-accent font-display text-3xl sm:text-4xl font-bold">R$ 19,90</span>
                   </div>
@@ -76,7 +76,7 @@ const CTA = () => {
                   </p>
                 </div>
                 
-                <Button variant="cta" size="cta" className="w-full mb-4" onClick={handleCTAClick}>
+                <Button variant="cta" size="cta" className="w-full mb-3" onClick={handleCTAClick}>
                   QUERO RESULTADOS COMO ESSES
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>

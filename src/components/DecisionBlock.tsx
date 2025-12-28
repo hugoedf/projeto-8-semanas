@@ -20,7 +20,7 @@ const DecisionBlock = () => {
   };
 
   return (
-    <section className="py-16 sm:py-24 section-dark-premium relative overflow-hidden">
+    <section className="py-12 sm:py-18 section-dark-premium relative overflow-hidden">
       {/* Dramatic gradient background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
@@ -28,13 +28,13 @@ const DecisionBlock = () => {
         <div className="max-w-3xl mx-auto">
           
           {/* Tension Builder */}
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 text-accent font-semibold text-xs uppercase tracking-widest px-4 py-2.5 rounded-full border border-accent/30 bg-accent/10 mb-8">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 text-accent font-semibold text-xs uppercase tracking-widest px-3 py-2 rounded-full border border-accent/30 bg-accent/10 mb-6">
               <AlertTriangle className="w-3.5 h-3.5" />
               <span>Momento de Decisão</span>
             </div>
             
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15] mb-6">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15] mb-4">
               Daqui a 8 semanas, você pode estar{" "}
               <span className="text-accent">no mesmo lugar.</span>
             </h2>
@@ -45,14 +45,14 @@ const DecisionBlock = () => {
           </div>
 
           {/* The Choice - Visual Contrast */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
             {/* Option 1 - Without Method */}
-            <div className="bg-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+            <div className="bg-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-5 sm:p-6 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500/60 to-red-500/20" />
-              <div className="text-red-400/80 text-sm font-semibold uppercase tracking-wider mb-4">
+              <div className="text-red-400/80 text-sm font-semibold uppercase tracking-wider mb-3">
                 Continuar sozinho
               </div>
-              <ul className="space-y-3 text-white/50 text-sm sm:text-base">
+              <ul className="space-y-2.5 text-white/50 text-sm sm:text-base">
                 <li className="flex items-start gap-3">
                   <span className="text-red-400/70 mt-0.5">✗</span>
                   <span>Mais meses de esforço sem retorno</span>
@@ -73,12 +73,12 @@ const DecisionBlock = () => {
             </div>
 
             {/* Option 2 - With Method */}
-            <div className="bg-accent/[0.08] backdrop-blur-sm border border-accent/25 rounded-2xl p-6 sm:p-8 relative overflow-hidden shadow-lg shadow-accent/5">
+            <div className="bg-accent/[0.08] backdrop-blur-sm border border-accent/25 rounded-2xl p-5 sm:p-6 relative overflow-hidden shadow-lg shadow-accent/5">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-accent/50" />
-              <div className="text-accent text-sm font-semibold uppercase tracking-wider mb-4">
+              <div className="text-accent text-sm font-semibold uppercase tracking-wider mb-3">
                 Seguir o Método 8X
               </div>
-              <ul className="space-y-3 text-white/80 text-sm sm:text-base">
+              <ul className="space-y-2.5 text-white/80 text-sm sm:text-base">
                 <li className="flex items-start gap-3">
                   <span className="text-accent mt-0.5">✓</span>
                   <span>Resultados visíveis em 8 semanas</span>
@@ -100,8 +100,8 @@ const DecisionBlock = () => {
           </div>
 
           {/* Emotional Close */}
-          <div className="text-center mb-10">
-            <p className="text-white/70 text-base sm:text-lg mb-2">
+          <div className="text-center mb-8">
+            <p className="text-white/70 text-base sm:text-lg mb-1.5">
               Você já provou que tem disciplina. Já mostrou que quer evoluir.
             </p>
             <p className="text-white font-medium text-lg sm:text-xl">
@@ -110,8 +110,8 @@ const DecisionBlock = () => {
           </div>
 
           {/* CTA Block */}
-          <div className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 sm:p-8 text-center">
-            <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-5 sm:p-6 text-center">
+            <div className="flex items-center justify-center gap-4 mb-5">
               <span className="text-white/40 line-through text-xl">R$ 97</span>
               <span className="text-accent font-display text-4xl sm:text-5xl font-bold drop-shadow-[0_0_25px_hsla(18,100%,58%,0.4)]">R$ 19,90</span>
             </div>
@@ -120,7 +120,7 @@ const DecisionBlock = () => {
               variant="cta" 
               size="cta" 
               onClick={handleCTAClick} 
-              className="w-full sm:w-auto mb-6"
+              className="w-full sm:w-auto mb-4"
             >
               QUERO COMEÇAR AGORA
               <ArrowRight className="ml-2 w-5 h-5" />

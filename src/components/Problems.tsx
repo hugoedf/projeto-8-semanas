@@ -29,7 +29,7 @@ const explanationPoints = [{
 
 const Problems = () => {
   return (
-    <section className="py-20 sm:py-28 lg:py-32 bg-white relative overflow-hidden">
+    <section className="py-14 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
       {/* Subtle texture overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(18,100%,58%,0.03),transparent_50%)]" />
       
@@ -37,8 +37,8 @@ const Problems = () => {
         <div className="max-w-4xl mx-auto">
           
           {/* 1️⃣ Headline provocativa */}
-          <div className="text-center mb-14 lg:mb-16">
-            <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-muted-foreground mb-6">
+          <div className="text-center mb-10 lg:mb-12">
+            <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-muted-foreground mb-4">
               ​
             </span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground leading-[1.1]">
@@ -48,21 +48,21 @@ const Problems = () => {
           </div>
           
           {/* Introdução emocional */}
-          <div className="text-center mb-16 max-w-2xl mx-auto">
+          <div className="text-center mb-10 max-w-2xl mx-auto">
             <p className="text-foreground font-medium text-lg sm:text-xl">
               E o pior não é treinar pesado.
             </p>
-            <p className="text-muted-foreground text-base sm:text-lg mt-4 leading-relaxed">
+            <p className="text-muted-foreground text-base sm:text-lg mt-3 leading-relaxed">
               É sentir que o esforço não está voltando em forma de resultado.
             </p>
-            <p className="text-muted-foreground text-base sm:text-lg mt-6 leading-relaxed">
+            <p className="text-muted-foreground text-base sm:text-lg mt-4 leading-relaxed">
               Provavelmente você já saiu da academia com a sensação de ter feito tudo certo…{" "}
               <span className="text-foreground font-medium">mas sem a certeza de que aquilo realmente estava funcionando.</span>
             </p>
           </div>
           
           {/* 2️⃣ Grid de Cards Premium - Dores */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 mb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4 mb-14">
             {painPoints.map((point, index) => (
               <div key={index} className="group relative bg-white rounded-2xl p-6 lg:p-7 border border-border hover:border-red-300 hover:shadow-lg transition-all duration-300 shadow-sm">
                 {/* Red accent indicator */}
@@ -81,22 +81,22 @@ const Problems = () => {
           </div>
           
           {/* Visual connector */}
-          <div className="flex flex-col items-center gap-4 mb-20">
-            <div className="w-px h-16 bg-gradient-to-b from-border to-accent/40" />
-            <div className="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/25 flex items-center justify-center">
-              <ArrowDown className="w-6 h-6 text-accent" />
+          <div className="flex flex-col items-center gap-3 mb-12">
+            <div className="w-px h-10 bg-gradient-to-b from-border to-accent/40" />
+            <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/25 flex items-center justify-center">
+              <ArrowDown className="w-5 h-5 text-accent" />
             </div>
-            <div className="w-px h-10 bg-gradient-to-b from-accent/40 to-transparent" />
+            <div className="w-px h-8 bg-gradient-to-b from-accent/40 to-transparent" />
           </div>
           
           {/* 3️⃣ Container Hero - A Verdade */}
-          <div className="relative bg-gradient-to-b from-gray-50 to-white rounded-3xl p-8 sm:p-10 lg:p-12 shadow-xl border border-border mb-16">
+          <div className="relative bg-gradient-to-b from-gray-50 to-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-border mb-12">
             {/* Subtle orange glow */}
             <div className="absolute -inset-1 bg-gradient-to-b from-accent/5 to-transparent rounded-3xl blur-xl opacity-60" />
             
             <div className="relative z-10">
-              <div className="text-center mb-10">
-                <div className="inline-flex items-center gap-2.5 bg-accent/8 border border-accent/20 rounded-full px-5 py-2.5 mb-7">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2.5 bg-accent/8 border border-accent/20 rounded-full px-4 py-2 mb-5">
                   <AlertTriangle className="w-4 h-4 text-accent" />
                   <span className="text-xs font-bold text-accent uppercase tracking-[0.2em]">A verdade</span>
                 </div>
@@ -110,7 +110,7 @@ const Problems = () => {
                 {/* Linha vertical conectora */}
                 <div className="absolute left-5 top-6 bottom-6 w-px bg-gradient-to-b from-accent/30 via-accent/15 to-transparent hidden sm:block" />
                 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {explanationPoints.map((point, index) => {
                     const IconComponent = point.icon;
                     return (
@@ -124,7 +124,7 @@ const Problems = () => {
                             <span className="text-gray-900 font-semibold">{point.highlight}</span>
                           </p>
                           {point.followUp && (
-                            <p className="text-gray-500 text-sm sm:text-base mt-3 pl-4 border-l-2 border-accent/25">
+                            <p className="text-gray-500 text-sm sm:text-base mt-2 pl-4 border-l-2 border-accent/25">
                               {point.followUp}
                             </p>
                           )}
@@ -138,8 +138,8 @@ const Problems = () => {
           </div>
           
           {/* Insight Quote */}
-          <div className="text-center mb-16">
-            <div className="inline-block bg-gray-50 border border-border rounded-2xl px-8 sm:px-10 py-7 max-w-2xl">
+          <div className="text-center mb-10">
+            <div className="inline-block bg-gray-50 border border-border rounded-2xl px-6 sm:px-8 py-5 max-w-2xl">
               <p className="text-muted-foreground text-base sm:text-lg italic leading-relaxed">
                 "Sem um sistema claro, o corpo faz exatamente o que foi programado para fazer:{" "}
                 <span className="text-foreground font-medium not-italic">se adaptar… e parar de evoluir.</span>"
@@ -149,13 +149,13 @@ const Problems = () => {
           
           {/* 5️⃣ Fechamento */}
           <div className="text-center">
-            <div className="bg-white rounded-2xl p-8 sm:p-10 shadow-lg border border-border max-w-2xl mx-auto">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-border max-w-2xl mx-auto">
               <p className="text-gray-600 text-base sm:text-lg">
                 A maioria das pessoas treina assim por anos.
                 <br />
                 Não porque não querem evoluir —
               </p>
-              <p className="text-gray-900 font-medium text-lg sm:text-xl mt-6">
+              <p className="text-gray-900 font-medium text-lg sm:text-xl mt-4">
                 mas porque ninguém ensinou um{" "}
                 <span className="text-accent underline decoration-accent/40 underline-offset-4 decoration-2">
                   sistema estruturado, progressivo e aplicável.

@@ -70,23 +70,23 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
 
 const Testimonials = () => {
   return (
-    <section className="py-16 sm:py-24 bg-[#F5F5F5] relative overflow-hidden">
+    <section className="py-12 sm:py-18 bg-[#F5F5F5] relative overflow-hidden">
       {/* Glow laranja de fundo */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/8 rounded-full blur-[120px] opacity-50" />
       </div>
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        <div className="text-center mb-10 sm:mb-12">
+        <div className="text-center mb-8 sm:mb-10">
           {/* Introdução consolidada - hierarquia clara */}
-          <p className="text-muted-foreground text-base sm:text-lg mb-2">
+          <p className="text-muted-foreground text-base sm:text-lg mb-1.5">
             Pessoas que já treinavam. Pessoas estagnadas. Todas com algo em comum:
           </p>
-          <p className="text-foreground font-semibold text-lg sm:text-xl mb-6">
+          <p className="text-foreground font-semibold text-lg sm:text-xl mb-4">
             Só precisavam de um método claro.
           </p>
           
-          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 sm:mb-5 px-2 tracking-tight">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-3 sm:mb-4 px-2 tracking-tight">
             Quem já aplicou o Método 8X está{" "}
             <span className="text-gradient">transformando o físico — e a mente.</span>
           </h2>
@@ -126,9 +126,9 @@ const Testimonials = () => {
         </div>
         
         {/* Badge de transformações com frase de impacto */}
-        <div className="mt-12 sm:mt-16 text-center px-4">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-lg shadow-black/5 border border-accent/20 max-w-md mx-auto">
-            <div className="inline-flex items-center justify-center gap-2 bg-accent text-white rounded-full px-5 py-2.5 shadow-lg shadow-accent/30 mb-4">
+        <div className="mt-10 sm:mt-12 text-center px-4">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-lg shadow-black/5 border border-accent/20 max-w-md mx-auto">
+            <div className="inline-flex items-center justify-center gap-2 bg-accent text-white rounded-full px-4 py-2 shadow-lg shadow-accent/30 mb-3">
               <span className="font-bold text-base sm:text-lg">+500 transformações</span>
             </div>
             <p className="text-foreground font-semibold text-base sm:text-lg mb-1">

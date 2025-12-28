@@ -53,29 +53,29 @@ const Hero = () => {
       transform: `translateY(${parallaxOffset * 0.5}px)`
     }} />
       
-      <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-12 sm:pb-16 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto">
+      <div className="container mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-10 sm:pb-14 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center max-w-7xl mx-auto">
           {/* Content */}
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
             
             {/* Frase de impacto */}
-            <p className="text-accent font-bold sm:text-sm uppercase tracking-wider mb-5 sm:mb-6 whitespace-nowrap text-xs">
+            <p className="text-accent font-bold sm:text-sm uppercase tracking-wider mb-3 sm:mb-4 whitespace-nowrap text-xs">
               QUEM TREINA DURO NÃO PODE TREINAR NO ESCURO
             </p>
             
             {/* Título Principal - Maior peso visual */}
-            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-5 sm:mb-6 px-2 sm:px-0">
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-4 sm:mb-5 px-2 sm:px-0">
               Um sistema de treino baseado em ciência para gerar{" "}
               <span className="text-accent">hipertrofia real</span>, com progressão clara e execução guiada.
             </h1>
             
             {/* Subtítulo de apoio - Hierarquia clara */}
-            <p className="text-base sm:text-lg leading-relaxed max-w-xl text-white/75 mb-6 sm:mb-8 px-2 sm:px-0">
+            <p className="text-base sm:text-lg leading-relaxed max-w-xl text-white/75 mb-5 sm:mb-6 px-2 sm:px-0">
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
             {/* VSL Player - Mobile only - with subtle background glow */}
-            <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-8">
+            <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-6">
               {/* Mobile glow effect - subtle but present */}
               <div className="absolute -inset-12 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,hsla(18,100%,55%,0.18)_45%,transparent_70%)] blur-[40px] rounded-[50px]" />
               <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.5)_0%,transparent_60%)] blur-[30px] rounded-3xl" />
@@ -119,7 +119,7 @@ const Hero = () => {
         </div>
         
         {/* Micro-compromisso - Inserção suave */}
-        <div className="max-w-2xl mx-auto mt-12 sm:mt-16 text-center">
+        <div className="max-w-2xl mx-auto mt-10 sm:mt-12 text-center">
           <p className="text-white/50 text-sm sm:text-base italic">
             Se você já treina, mas sente que poderia estar evoluindo mais, continue.
           </p>
