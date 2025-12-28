@@ -277,7 +277,7 @@ const VSLPlayer = ({
             {/* Hook text */}
             <div className="absolute top-4 sm:top-8 left-0 right-0 text-center z-20 px-4">
               <p className="text-white text-base sm:text-xl font-bold tracking-tight drop-shadow-[0_2px_20px_rgba(0,0,0,1)] uppercase">
-                SEU TREINO NÃO FUNCIONA.
+                SEU TREINO NÃO FUNCIONA
               </p>
             </div>
 
