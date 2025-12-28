@@ -63,8 +63,7 @@ const Hero = () => {
             {/* Título Principal - Maior peso visual */}
             <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-5 sm:mb-6 px-2 sm:px-0">
               Um sistema de treino baseado em ciência para gerar{" "}
-              <span className="text-accent">hipertrofia real</span>{" "}
-              com progressão clara e execução guiada.
+              <span className="text-accent">hipertrofia real</span>, com progressão clara e execução guiada.
             </h1>
             
             {/* Subtítulo de apoio - Hierarquia clara */}
