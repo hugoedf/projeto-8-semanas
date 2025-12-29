@@ -218,12 +218,19 @@ const VSLPlayer = ({
       sendVSLEvent('VSL30s');
     }
 
-    // Track percentage milestones (for logging only)
+    // Track percentage milestones and emit event for ViewContent qualification
     const percentMilestones = [25, 50, 75, 100];
     percentMilestones.forEach(milestone => {
       if (currentProgress >= milestone && !milestonesRef.current.has(milestone)) {
         milestonesRef.current.add(milestone);
         console.log(`📊 VSL milestone: ${milestone}%`);
+        
+        // Emit custom event at 25% for ViewContent qualification
+        if (milestone === 25) {
+          window.dispatchEvent(new CustomEvent('vsl-progress-25', {
+            detail: { progress: currentProgress, visitorId: visitorData?.visitorId }
+          }));
+        }
       }
     });
   };
