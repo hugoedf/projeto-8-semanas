@@ -47,53 +47,52 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-  return <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-dark-premium pt-10">
+  return <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-dark-premium pt-8 lg:pt-12">
       {/* Background overlays for depth with parallax */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.1),transparent_60%)]" style={{
       transform: `translateY(${parallaxOffset * 0.5}px)`
     }} />
       
-      <div className="container mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-10 sm:pb-14 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center max-w-7xl mx-auto">
-          {/* Content */}
-          <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
+      <div className="container mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-8 sm:pb-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center max-w-7xl mx-auto">
+          {/* Content Column - Left on desktop, full width on mobile */}
+          <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start order-1">
             
-            {/* Frase de impacto */}
-            <p className="text-accent font-bold sm:text-sm uppercase tracking-wider mb-3 sm:mb-4 whitespace-nowrap text-xs">
+            {/* Teaser */}
+            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4">
               QUEM TREINA DURO NÃO PODE TREINAR NO ESCURO
             </p>
             
-            {/* Título Principal - Maior peso visual */}
-            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.15] text-white tracking-tight mb-4 sm:mb-5 px-2 sm:px-0">
+            {/* Título Principal */}
+            <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
               Um sistema de treino baseado em ciência para gerar{" "}
               <span className="text-accent">hipertrofia real</span>, com progressão clara e execução guiada.
             </h1>
             
-            {/* Subtítulo de apoio - Hierarquia clara */}
-            <p className="text-base sm:text-lg leading-relaxed max-w-xl text-white/75 mb-5 sm:mb-6 px-2 sm:px-0">
+            {/* Subheadline */}
+            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
               Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
             </p>
             
-            {/* VSL Player - Mobile only - with subtle background glow */}
-            <div className="relative w-full max-w-[320px] mx-auto lg:hidden mb-6">
-              {/* Mobile glow effect - subtle but present */}
-              <div className="absolute -inset-12 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,hsla(18,100%,55%,0.18)_45%,transparent_70%)] blur-[40px] rounded-[50px]" />
-              <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.5)_0%,transparent_60%)] blur-[30px] rounded-3xl" />
+            {/* VSL Player - Mobile only */}
+            <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-5 order-2">
+              <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.3)_0%,hsla(18,100%,55%,0.15)_45%,transparent_70%)] blur-[35px] rounded-[40px]" />
+              <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.4)_0%,transparent_60%)] blur-[25px] rounded-2xl" />
               <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-accent/20 shadow-lg">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
             </div>
             
-            {/* CTA - sempre visível */}
-            <div className={`w-full sm:w-auto ${vslEnded ? 'scale-105' : ''}`}>
+            {/* CTA Button */}
+            <div className={`w-full sm:w-auto order-3 ${vslEnded ? 'scale-105' : ''}`}>
               <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow-subtle ring-2 ring-accent/50' : 'animate-pulse-glow-subtle'}`}>
                 TREINAR COM MÉTODO AGORA
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
             
-            {/* Prova social + preço */}
-            <p className="text-xs sm:text-sm text-white/65 mt-5 text-center lg:text-left">
+            {/* Social Proof */}
+            <p className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4">
               <span className="text-white/85 font-medium">+500 pessoas já aplicaram</span>
               <span className="mx-2 text-white/30">•</span>
               <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>
@@ -102,14 +101,14 @@ const Hero = () => {
             </p>
           </div>
           
-          {/* VSL Player - Desktop only - subtle border with strong background glow */}
-          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{
+          {/* VSL Player Column - Right on desktop only */}
+          <div className="hidden lg:flex justify-center relative animate-fade-in order-2" style={{
           animationDelay: "0.15s",
           transform: `translateY(${parallaxOffset * 0.3}px)`
         }}>
-            {/* INTENSIFIED background glow for visual focus */}
-            <div className="absolute -inset-20 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.55)_0%,hsla(18,100%,50%,0.25)_35%,transparent_65%)] blur-[70px] rounded-[70px]" />
-            <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.4)_0%,transparent_55%)] blur-[40px] rounded-3xl" />
+            {/* Background glow for visual focus */}
+            <div className="absolute -inset-16 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.5)_0%,hsla(18,100%,50%,0.22)_35%,transparent_65%)] blur-[60px] rounded-[60px]" />
+            <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,transparent_55%)] blur-[35px] rounded-2xl" />
             <div className="relative z-10 w-full max-w-lg">
               <div className="relative rounded-2xl overflow-hidden ring-1 ring-accent/15 shadow-2xl shadow-black/40">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
@@ -118,8 +117,8 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Micro-compromisso - Inserção suave */}
-        <div className="max-w-2xl mx-auto mt-10 sm:mt-12 text-center">
+        {/* Micro-compromisso */}
+        <div className="max-w-2xl mx-auto mt-8 sm:mt-10 text-center">
           <p className="text-white/50 text-sm sm:text-base italic">
             Se você já treina, mas sente que poderia estar evoluindo mais, continue.
           </p>
@@ -127,7 +126,7 @@ const Hero = () => {
       </div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60">
         <div className="w-6 h-10 border border-white/30 rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
