@@ -311,13 +311,18 @@ const VSLPlayer = ({
               </div>}
           </div>}
 
-        {/* Progress bar - visible when video has started */}
+        {/* Progress bar with time remaining - visible when video has started */}
         {hasStarted && (
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
-            <div 
-              className="h-full bg-accent transition-all duration-150 ease-linear"
-              style={{ width: `${progress}%` }}
-            />
+          <div className="absolute bottom-0 left-0 right-0 flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-sm">
+            <div className="flex-1 h-1 bg-white/20 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-accent transition-all duration-150 ease-linear rounded-full"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <span className="text-xs text-white/80 font-mono min-w-[40px] text-right">
+              {Math.floor((duration - currentTime) / 60)}:{String(Math.floor((duration - currentTime) % 60)).padStart(2, '0')}
+            </span>
           </div>
         )}
       </div>
