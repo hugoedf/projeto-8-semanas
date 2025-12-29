@@ -22,6 +22,18 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
   useScrollTracking();
 
   useEffect(() => {
+    // Não dispara pixel no ambiente de desenvolvimento/editor do Lovable
+    const isDevEnvironment = 
+      window.location.hostname.includes('lovableproject.com') ||
+      window.location.hostname.includes('localhost') ||
+      window.location.hostname.includes('127.0.0.1') ||
+      window.self !== window.top; // Está dentro de iframe (editor)
+    
+    if (isDevEnvironment) {
+      console.log('Meta Pixel - Desativado no ambiente de desenvolvimento');
+      return;
+    }
+
     // Aguarda o visitorId estar disponível antes de disparar eventos
     if (isLoading || !visitorData?.visitorId) {
       return;

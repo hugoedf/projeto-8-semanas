@@ -3,123 +3,108 @@ import { Button } from "@/components/ui/button";
 import { Download, Loader2, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 
-const VSL_SCRIPT = `Para.
-Antes de fechar esse vídeo, me responde uma coisa.
+const VSL_SCRIPT = `PARA.
+Não fecha esse vídeo ainda.
 
-Quantos meses você já treina…
+Quanto tempo você já treina…
+indo pra academia certinho…
+fazendo tudo "do jeito certo"…
 sem ver diferença real no espelho?
 
-Se você chegou até aqui, é porque alguma coisa não está funcionando.
-E não é falta de esforço.
+E o pior nem é o esforço.
 
-Você acorda cedo, vai pra academia, faz os exercícios, completa as séries, sai suado…
-Repete tudo de novo na semana seguinte.
+É olhar pro lado…
+ver outros caras evoluindo com menos tempo…
+e aquela pergunta começar a martelar na cabeça:
 
-Mas o corpo continua o mesmo.
+"O que eu tô fazendo de errado?"
+Ou pior…
+"Será que o problema sou eu?"
 
-E a pior parte não é nem isso.
-
-É olhar para o lado e ver outros caras evoluindo,
-com menos tempo de treino do que você.
-
-E aí vem a pergunta que fica martelando na cabeça:
-"O que eu estou fazendo de errado?"
-
-Agora presta atenção nisso.
+Presta atenção nisso.
 
 O problema não é esforço.
 Não é genética.
 Não é suplemento.
 
-O problema é que você está treinando no escuro.
-Sem estratégia.
-Sem entender o que realmente faz o músculo crescer.
+O problema é que você está
+treinando no escuro.
 
-E aqui está a verdade que quase ninguém te explica:
+E daqui a pouco eu vou te mostrar
+o erro mais comum,
+que parece inofensivo…
+mas trava o seu crescimento por meses.
 
 Treinar mais não resolve.
 
-Você pode passar horas dentro da academia
+Você pode passar horas na academia
 e ainda assim não construir um grama de músculo.
 
-Porque hipertrofia não é sobre quantidade.
-É sobre precisão.
+Porque hipertrofia não é quantidade.
+É precisão.
 
-Cada repetição precisa ter intenção.
-Cada série precisa ter um propósito.
+Não importa o quanto você se cansa.
+Importa o que você estimula.
+
+Cada repetição precisa de intenção.
+Cada série tem um propósito.
 Cada descanso tem um tempo certo.
 
 Isso não é achismo.
-Isso é ciência.
-
-Daqui a pouco, eu vou te mostrar como aplicar isso no seu treino.
-Mas antes, você precisa entender uma coisa importante:
+É ciência aplicada do jeito certo.
 
 A maioria das pessoas até sabe o que fazer.
-O problema é executar certo, toda semana, sem improviso.
 
-E é exatamente aí que quase todo mundo trava.
+O problema é executar certo,
+toda semana,
+sem improvisar.
 
-Foi por isso que esse sistema foi criado.
+E deixa eu ser claro com você:
 
-Um método simples, estruturado e aplicável,
-que transforma conhecimento em execução real.
+não é falta de disciplina.
+É falta de direção.
 
-Um sistema que te guia treino após treino,
-sem precisar adivinhar, sem depender de motivação.
+É exatamente aí que quase todo mundo trava.
 
-É isso que o Método 8X entrega.
+Foi por isso que o Método 8X foi criado.
 
-Mas deixa eu ser claro:
+Um sistema simples e estruturado
+que te guia treino após treino,
+sem depender de motivação
+e sem adivinhar o que fazer.
 
-Você não está comprando um milagre.
-Você está entrando em um sistema.
+Você abre o treino…
+e já sabe exatamente o que fazer.
 
-Um e-book com 8 semanas de treino estruturado,
-explicando o porquê de cada estímulo.
+Você recebe um e-book
+com 8 semanas de treino estruturado
+e um aplicativo que guia sua execução
+exercício por exercício,
+série por série.
 
-E um aplicativo que guia sua execução,
-exercício por exercício, série por série,
-sem improviso, sem dúvida.
+Sem improviso.
+Sem dúvida.
 
-Você aprende os pilares da hipertrofia que a maioria ignora
-e corrige os erros que sabotam seu progresso há meses.
-
-E agora vem a parte importante.
-
-Você não precisa decidir tudo agora.
 Você não precisa acreditar.
 
-Você só precisa testar.
+Só testar.
 
-O acesso é imediato.
-Você aplica no seu treino
-e sente a diferença na prática.
+O investimento é R$19,90,
+com 7 dias de garantia.
 
-E o investimento?
-
-Menos do que você gasta em um pote de suplemento
-que, sozinho, não resolve nada.
-
-R$ 19,90.
-
-Com 7 dias de garantia.
 Se não fizer sentido pra você,
 eu devolvo cada centavo.
-Sem perguntas. Sem burocracia.
+Sem perguntas.
 
-Então agora é simples.
+Agora é simples.
 
-Ou você continua treinando do mesmo jeito,
-esperando que algo mude…
+Ou você continua treinando no escuro…
 
-Ou você dá o próximo passo
-e para de treinar no escuro.
+ou começa a fazer diferente
+já no próximo treino.
 
-Se isso fez sentido pra você,
-o acesso está logo abaixo.
-
-Clica e começa a aplicar no seu próximo treino.`;
+Clica no botão abaixo
+e entra no Método 8X agora.`;
 
 export default function GenerateAudio() {
   const [isGenerating, setIsGenerating] = useState(false);
