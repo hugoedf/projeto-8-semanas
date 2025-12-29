@@ -14,7 +14,6 @@ const VSLPlayer = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasEnded, setHasEnded] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -92,40 +91,15 @@ const VSLPlayer = ({
   const startPlayback = async () => {
     if (!videoRef.current || isPlaying) return;
     
-    setIsLoading(true);
-    
     try {
-      const video = videoRef.current;
-      video.muted = false;
-      
-      // Pre-load video if not ready
-      if (video.readyState < 3) {
-        video.load();
-        await new Promise<void>((resolve, reject) => {
-          const onCanPlay = () => {
-            video.removeEventListener('canplay', onCanPlay);
-            video.removeEventListener('error', onError);
-            resolve();
-          };
-          const onError = () => {
-            video.removeEventListener('canplay', onCanPlay);
-            video.removeEventListener('error', onError);
-            reject(new Error('Video load failed'));
-          };
-          video.addEventListener('canplay', onCanPlay);
-          video.addEventListener('error', onError);
-        });
-      }
-      
-      await video.play();
+      videoRef.current.muted = false;
+      await videoRef.current.play();
       setIsPlaying(true);
       setHasStarted(true);
       setIsMuted(false);
-      setIsLoading(false);
       console.log("▶️ Playback iniciado");
     } catch (error) {
       console.error("Error playing video:", error);
-      setIsLoading(false);
     }
   };
   const togglePlayPause = async () => {
@@ -297,8 +271,8 @@ const VSLPlayer = ({
         {/* LCP Image - Video thumbnail with high priority */}
         {!hasStarted && <img src={vslThumbnail} alt="VSL Thumbnail" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} fetchPriority="high" decoding="async" />}
         
-        {/* Video Element with format fallback - preload metadata for faster LCP */}
-        <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" poster={vslThumbnail} playsInline webkit-playsinline="true" x-webkit-airplay="allow" preload="metadata" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture onTimeUpdate={handleTimeUpdate} onEnded={handleEnded} onLoadedMetadata={e => setDuration(e.currentTarget.duration)} onCanPlay={() => console.log('📱 Vídeo pronto para reproduzir')}>
+        {/* Video Element - preload auto for faster playback */}
+        <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" poster={vslThumbnail} playsInline webkit-playsinline="true" x-webkit-airplay="allow" preload="auto" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture onTimeUpdate={handleTimeUpdate} onEnded={handleEnded} onLoadedMetadata={e => setDuration(e.currentTarget.duration)} onCanPlay={() => console.log('📱 Vídeo pronto para reproduzir')}>
           <source src="/videos/vsl-main.mp4" type="video/mp4" />
           Seu navegador não suporta vídeos.
         </video>
@@ -319,22 +293,17 @@ const VSLPlayer = ({
             <div className="absolute inset-0 flex items-center justify-center z-10">
               <button 
                 onClick={startPlayback} 
-                disabled={isLoading}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-lg disabled:opacity-70 disabled:cursor-wait" 
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-lg" 
                 aria-label="Iniciar vídeo"
               >
-                {isLoading ? (
-                  <div className="w-6 h-6 sm:w-7 sm:h-7 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                ) : (
-                  <Play className="w-7 h-7 sm:w-8 sm:h-8 text-white ml-1" fill="currentColor" />
-                )}
+                <Play className="w-7 h-7 sm:w-8 sm:h-8 text-white ml-1" fill="currentColor" />
               </button>
             </div>
 
             {/* Microcopy - urgência contextual + indicador de som */}
             <div className="absolute bottom-4 sm:bottom-8 left-0 right-0 text-center z-20 px-4">
               <p className="text-white text-xs sm:text-sm font-semibold tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,1)]">
-                {isLoading ? 'Carregando...' : 'Assista antes do próximo treino.'}
+                Assista antes do próximo treino.
               </p>
               <p className="text-white/70 text-[10px] sm:text-xs mt-2 flex items-center justify-center gap-1.5 font-medium">
                 <Volume2 className="w-3.5 h-3.5" />
