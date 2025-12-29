@@ -86,7 +86,7 @@ const Hero = () => {
             {/* CTA Button */}
             <div className={`w-full sm:w-auto order-3 ${vslEnded ? 'scale-105' : ''}`}>
               <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow-subtle ring-2 ring-accent/50' : 'animate-pulse-glow-subtle'}`}>
-                TREINAR COM MÉTODO AGORA
+                Começar Agora
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
