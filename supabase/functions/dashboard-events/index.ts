@@ -296,17 +296,23 @@ serve(async (req) => {
     const url = new URL(req.url);
     const daysParam = url.searchParams.get('days') || '30';
     const days = Math.min(Math.max(parseInt(daysParam) || 30, 1), 90); // Limit to 1-90 days
+    
+    // REGRA: Dados somente a partir de 20/12/2025
+    const MINIMUM_DATE = new Date('2025-12-20T00:00:00Z');
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
+    
+    // Usa a data mais recente entre startDate e MINIMUM_DATE
+    const effectiveStartDate = startDate > MINIMUM_DATE ? startDate : MINIMUM_DATE;
 
-    console.log(`Dashboard: Fetching events for last ${days} days`);
+    console.log(`Dashboard: Fetching events from ${effectiveStartDate.toISOString()} (last ${days} days, min: 20/12/2025)`);
 
     const supabaseService = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
 
     const { data: events, error: eventsError } = await supabaseService
       .from('meta_events')
       .select('*')
-      .gte('event_time', startDate.toISOString())
+      .gte('event_time', effectiveStartDate.toISOString())
       .order('event_time', { ascending: false });
 
     if (eventsError) {
@@ -461,6 +467,31 @@ serve(async (req) => {
         type: 'spike',
         message: `Pico anormal: +${weekOverWeekChange}% nos eventos`,
         severity: 'warning'
+      });
+    }
+
+    // ALERTA: Verificar duplicação de eventos (mesmo event_id aparecendo múltiplas vezes)
+    const eventIdCounts = new Map<string, number>();
+    events?.forEach(e => {
+      const count = eventIdCounts.get(e.event_id) || 0;
+      eventIdCounts.set(e.event_id, count + 1);
+    });
+    const duplicatedEventIds = Array.from(eventIdCounts.entries()).filter(([_, count]) => count > 1);
+    if (duplicatedEventIds.length > 0) {
+      alerts.push({
+        type: 'duplicate_events',
+        message: `⚠️ ${duplicatedEventIds.length} event_ids duplicados detectados - possível problema de deduplicação`,
+        severity: 'error'
+      });
+      console.warn('Duplicated event_ids found:', duplicatedEventIds.slice(0, 5));
+    }
+    
+    // ALERTA: Verificar inconsistência PageView vs IC (mais IC que PageView é anômalo)
+    if (funnelData.initiateCheckout > funnelData.pageViews && funnelData.pageViews > 0) {
+      alerts.push({
+        type: 'data_inconsistency',
+        message: `⚠️ InitiateCheckout (${funnelData.initiateCheckout}) > PageView (${funnelData.pageViews}) - dados inconsistentes`,
+        severity: 'error'
       });
     }
 
