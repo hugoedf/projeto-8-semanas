@@ -220,13 +220,14 @@ async function processPurchaseEvent(
   supabase: any,
   validatedBody: z.infer<typeof hotmartWebhookSchema>,
   visitorData: any | null
-): Promise<{ success: boolean; metaSent: boolean; dbSaved: boolean }> {
+): Promise<{ success: boolean; metaSent: boolean; dbSaved: boolean; skipped?: boolean }> {
   const purchase = validatedBody.data?.purchase;
   const buyer = validatedBody.data?.buyer;
   
   const trackingId = purchase?.tracking_id || null;
   const transactionId = purchase?.transaction || `hotmart-${Date.now()}`;
-  const eventId = `${trackingId || 'no-tracking'}-purchase-${transactionId}`;
+  // DEDUPLICAÇÃO: event_id baseado APENAS no transaction_id (ignora tracking_id para evitar duplicação)
+  const eventId = `purchase-${transactionId}`;
   const eventTime = Math.floor(Date.now() / 1000);
 
   // Valor da compra
@@ -235,11 +236,27 @@ async function processPurchaseEvent(
 
   console.log('💰 Processando Purchase:', {
     transaction_id: transactionId,
+    event_id: eventId,
+    hotmart_event: validatedBody.event,
     value: purchaseValue,
     currency: currency,
     buyer_email: maskEmail(buyer?.email),
     product: purchase?.product?.name,
   });
+
+  // DEDUPLICAÇÃO: Verificar se já existe um Purchase com este transaction_id
+  const { data: existingPurchase, error: checkError } = await supabase
+    .from('meta_events')
+    .select('event_id')
+    .eq('event_name', 'Purchase')
+    .like('event_id', `%${transactionId}%`)
+    .limit(1);
+
+  if (!checkError && existingPurchase && existingPurchase.length > 0) {
+    console.log('⚠️ DUPLICAÇÃO EVITADA: Compra já registrada para transaction_id:', transactionId);
+    console.log('⚠️ Evento Hotmart ignorado:', validatedBody.event);
+    return { success: true, metaSent: false, dbSaved: false, skipped: true };
+  }
 
   // 1. Salvar no banco meta_events
   const dbSaved = await saveEventToDatabase(supabase, {
@@ -306,6 +323,8 @@ async function processPurchaseEvent(
   console.log('🎉 COMPRA REGISTRADA COM SUCESSO!');
   console.log('🎉 ----------------------------------------');
   console.log('🎉 Transaction ID:', transactionId);
+  console.log('🎉 Event ID (dedup):', eventId);
+  console.log('🎉 Hotmart Event:', validatedBody.event);
   console.log('🎉 Valor:', `${currency} ${purchaseValue}`);
   console.log('🎉 Produto:', purchase?.product?.name || 'Método 8X');
   console.log('🎉 Comprador:', maskEmail(buyer?.email));
