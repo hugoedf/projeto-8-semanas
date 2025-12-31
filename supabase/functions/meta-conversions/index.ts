@@ -202,35 +202,36 @@ const corsHeaders = {
 };
 
 // Input validation schema for Meta CAPI events
+// Usando .nullable().optional() e transform para converter null em undefined
 const metaEventSchema = z.object({
   eventName: z.string().min(1).max(100),
-  eventParams: z.record(z.any()).optional().default({}),
+  eventParams: z.record(z.any()).nullable().optional().transform(v => v ?? {}),
   eventId: z.string().min(1).max(200),
-  visitorId: z.string().max(200).optional(),
-  fbp: z.string().max(200).optional(),
-  fbc: z.string().max(200).optional(),
-  client_user_agent: z.string().max(1000).optional(), // User agent do cliente
+  visitorId: z.string().max(200).nullable().optional().transform(v => v ?? undefined),
+  fbp: z.string().max(200).nullable().optional().transform(v => v ?? undefined),
+  fbc: z.string().max(200).nullable().optional().transform(v => v ?? undefined),
+  client_user_agent: z.string().max(1000).nullable().optional().transform(v => v ?? undefined),
   eventSourceUrl: z.string().url().max(2000),
   utmData: z.object({
-    utm_source: z.string().max(100).optional(),
-    utm_medium: z.string().max(100).optional(),
-    utm_campaign: z.string().max(200).optional(),
-    utm_id: z.string().max(100).optional(),
-    utm_content: z.string().max(200).optional(),
-    utm_term: z.string().max(200).optional(),
-    placement: z.string().max(200).optional(),
-  }).optional().default({}),
+    utm_source: z.string().max(100).nullable().optional().transform(v => v ?? undefined),
+    utm_medium: z.string().max(100).nullable().optional().transform(v => v ?? undefined),
+    utm_campaign: z.string().max(200).nullable().optional().transform(v => v ?? undefined),
+    utm_id: z.string().max(100).nullable().optional().transform(v => v ?? undefined),
+    utm_content: z.string().max(200).nullable().optional().transform(v => v ?? undefined),
+    utm_term: z.string().max(200).nullable().optional().transform(v => v ?? undefined),
+    placement: z.string().max(200).nullable().optional().transform(v => v ?? undefined),
+  }).nullable().optional().transform(v => v ?? {}),
   userData: z.object({
-    email: z.string().email().max(255).optional(),
-    phone: z.string().max(50).optional(),
-    firstName: z.string().max(100).optional(),
-    lastName: z.string().max(100).optional(),
-    city: z.string().max(100).optional(),
-    state: z.string().max(100).optional(),
-    country: z.string().max(100).optional(),
-    zipCode: z.string().max(20).optional(),
-    age: z.union([z.string(), z.number()]).optional(),
-  }).optional().default({}),
+    email: z.string().email().max(255).nullable().optional().transform(v => v ?? undefined),
+    phone: z.string().max(50).nullable().optional().transform(v => v ?? undefined),
+    firstName: z.string().max(100).nullable().optional().transform(v => v ?? undefined),
+    lastName: z.string().max(100).nullable().optional().transform(v => v ?? undefined),
+    city: z.string().max(100).nullable().optional().transform(v => v ?? undefined),
+    state: z.string().max(100).nullable().optional().transform(v => v ?? undefined),
+    country: z.string().max(100).nullable().optional().transform(v => v ?? undefined),
+    zipCode: z.string().max(20).nullable().optional().transform(v => v ?? undefined),
+    age: z.union([z.string(), z.number()]).nullable().optional().transform(v => v ?? undefined),
+  }).nullable().optional().transform(v => v ?? {}),
 });
 
 /**
