@@ -59,9 +59,9 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
           decoding="async" 
         />
         
-        {/* Gradient overlay com descrição */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-16">
-          <p className="text-white/95 text-sm font-medium leading-relaxed">
+        {/* Gradient overlay com descrição - mais compacto */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-3 pt-8">
+          <p className="text-white/95 text-xs font-medium leading-snug">
             {testimonial.description}
           </p>
         </div>
