@@ -2,6 +2,7 @@ import whatsapp1 from "@/assets/testimonials/whatsapp-1.jpeg";
 import whatsapp2 from "@/assets/testimonials/whatsapp-2.jpeg";
 import whatsapp3 from "@/assets/testimonials/whatsapp-3.jpeg";
 import whatsapp4 from "@/assets/testimonials/whatsapp-4.jpeg";
+import whatsapp5 from "@/assets/testimonials/whatsapp-5.jpeg";
 import {
   Carousel,
   CarouselContent,
@@ -26,6 +27,10 @@ const testimonialImages = [{
   src: whatsapp4,
   highlight: "Clareza total",
   description: "De 1h30 enrolando para 45min de treino focado"
+}, {
+  src: whatsapp5,
+  highlight: "Método real",
+  description: "Na segunda semana já sentiu diferença na força"
 }];
 
 const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImages[0] }) => (
@@ -37,25 +42,21 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
       
       {/* Tela do celular */}
       <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0b141a]">
-        {/* Badge de destaque */}
-        <div className="absolute top-4 left-4 z-10">
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg shadow-accent/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-            {testimonial.highlight}
-          </span>
-        </div>
-        
-        {/* Imagem */}
+        {/* Imagem - sem cortes */}
         <img 
           src={testimonial.src} 
           alt={`Depoimento WhatsApp - ${testimonial.highlight}`} 
-          className="w-full h-auto object-cover" 
+          className="w-full h-auto object-contain" 
           loading="lazy" 
           decoding="async" 
         />
         
-        {/* Gradient overlay com descrição */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-16">
+        {/* Badge de destaque - posicionado sobre o gradient inferior */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-4 pt-12">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg shadow-accent/30 mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            {testimonial.highlight}
+          </span>
           <p className="text-white/95 text-sm font-medium leading-relaxed">
             {testimonial.description}
           </p>
@@ -118,8 +119,8 @@ const Testimonials = () => {
           </Carousel>
         </div>
 
-        {/* Desktop: Grid Simétrico */}
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 max-w-7xl mx-auto">
+        {/* Desktop: Grid - 5 colunas para 5 depoimentos */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-5 max-w-7xl mx-auto">
           {testimonialImages.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} />
           ))}
