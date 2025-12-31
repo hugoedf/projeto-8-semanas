@@ -1,5 +1,12 @@
 import { X, AlertTriangle, ArrowDown, Target, RotateCcw, TrendingDown, Clock } from "lucide-react";
-const painPoints = ["Você treina há meses — e o espelho continua igual", "Faz força, sua, dedica tempo — mas o shape não responde", "Vê outros evoluindo com metade do esforço que você faz", "Já tentou de tudo, mas nada parece funcionar de verdade"];
+
+const painPoints = [
+  "Você treina há meses — e o espelho continua igual",
+  "Faz força, sua, dedica tempo — mas o shape não responde",
+  "Vê outros evoluindo com metade do esforço que você faz",
+  "Já tentou de tudo, mas nada parece funcionar de verdade"
+];
+
 const explanationPoints = [{
   text: "O problema nunca foi",
   highlight: "falta de esforço.",
@@ -19,8 +26,10 @@ const explanationPoints = [{
   highlight: "a frustração só aumenta.",
   icon: Clock
 }];
+
 const Problems = () => {
-  return <section className="py-14 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
+  return (
+    <section className="py-14 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
       {/* Subtle texture overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(18,100%,58%,0.03),transparent_50%)]" />
       
@@ -34,7 +43,7 @@ const Problems = () => {
             </span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground leading-[1.1]">
               Você treina, se esforça…<br />
-              <span className="text-accent">e não vê resultado?</span>
+              <span className="text-accent">e mesmo assim não vê resultado?</span>
             </h2>
           </div>
           
@@ -54,7 +63,8 @@ const Problems = () => {
           
           {/* 2️⃣ Grid de Cards Premium - Dores */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4 mb-14">
-            {painPoints.map((point, index) => <div key={index} className="group relative bg-white rounded-2xl p-6 lg:p-7 border border-border hover:border-red-300 hover:shadow-lg transition-all duration-300 shadow-sm">
+            {painPoints.map((point, index) => (
+              <div key={index} className="group relative bg-white rounded-2xl p-6 lg:p-7 border border-border hover:border-red-300 hover:shadow-lg transition-all duration-300 shadow-sm">
                 {/* Red accent indicator */}
                 <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-red-500 to-red-400/50 rounded-l-2xl" />
                 
@@ -66,7 +76,8 @@ const Problems = () => {
                     {point}
                   </p>
                 </div>
-              </div>)}
+              </div>
+            ))}
           </div>
           
           {/* Visual connector */}
@@ -101,8 +112,9 @@ const Problems = () => {
                 
                 <div className="space-y-4">
                   {explanationPoints.map((point, index) => {
-                  const IconComponent = point.icon;
-                  return <div key={index} className="flex items-start gap-5">
+                    const IconComponent = point.icon;
+                    return (
+                      <div key={index} className="flex items-start gap-5">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/8 border border-accent/15 flex items-center justify-center relative z-10">
                           <IconComponent className="w-5 h-5 text-accent" />
                         </div>
@@ -111,12 +123,15 @@ const Problems = () => {
                             {point.text}{" "}
                             <span className="text-gray-900 font-semibold">{point.highlight}</span>
                           </p>
-                          {point.followUp && <p className="text-gray-500 text-sm sm:text-base mt-2 pl-4 border-l-2 border-accent/25">
+                          {point.followUp && (
+                            <p className="text-gray-500 text-sm sm:text-base mt-2 pl-4 border-l-2 border-accent/25">
                               {point.followUp}
-                            </p>}
+                            </p>
+                          )}
                         </div>
-                      </div>;
-                })}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -151,6 +166,8 @@ const Problems = () => {
           
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Problems;
