@@ -8,7 +8,7 @@ type ScrollThreshold = typeof SCROLL_THRESHOLDS[number];
  * Dispara eventos personalizados do Meta Pixel ao atingir 25%, 50%, 75% e 100% de scroll
  * Cada evento dispara apenas uma vez por sessão
  */
-export const useScrollTracking = () => {
+export const useScrollTracking = (enabled: boolean = true) => {
   const getScrollPercentage = useCallback((): number => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -51,6 +51,9 @@ export const useScrollTracking = () => {
   }, []);
 
   useEffect(() => {
+    // Não ativa scroll tracking se desabilitado
+    if (!enabled) return;
+
     const firedThresholds = new Set<ScrollThreshold>();
 
     // Carrega thresholds já disparados da sessão
@@ -80,5 +83,5 @@ export const useScrollTracking = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [getScrollPercentage, trackScrollEvent]);
+  }, [enabled, getScrollPercentage, trackScrollEvent]);
 };

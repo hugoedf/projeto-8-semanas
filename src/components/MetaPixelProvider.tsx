@@ -6,6 +6,14 @@ import { useScrollTracking } from '@/hooks/useScrollTracking';
 // Threshold for qualified ViewContent (in seconds)
 const VIEW_CONTENT_TIME_THRESHOLD = 30;
 
+// Rotas internas/administrativas que NÃO devem disparar pixel
+const EXCLUDED_ROUTES = [
+  '/generate-audio',
+  '/dashboard',
+  '/vsl-assets',
+  '/auth',
+];
+
 /**
  * Provider do Meta Pixel - Fluxo Otimizado
  * 
@@ -22,13 +30,22 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
   const viewContentFiredRef = useRef(false);
   const pageLoadTimeRef = useRef(Date.now());
   
-  // Ativa rastreamento de scroll na página principal
-  useScrollTracking();
+  // Verifica se é rota interna (sem tracking)
+  const isExcludedRoute = EXCLUDED_ROUTES.some(route => location.pathname.startsWith(route));
+  
+  // Ativa rastreamento de scroll apenas em páginas públicas
+  useScrollTracking(!isExcludedRoute);
 
   // ============================================
   // 1. PAGEVIEW - DISPARO IMEDIATO (sem dependências)
   // ============================================
   useEffect(() => {
+    // Não dispara pixel em rotas internas/administrativas
+    if (isExcludedRoute) {
+      console.log('Meta Pixel - Desativado em rota interna:', location.pathname);
+      return;
+    }
+
     // Não dispara pixel no ambiente de desenvolvimento/editor do Lovable
     const isDevEnvironment = 
       window.location.hostname.includes('lovableproject.com') ||
