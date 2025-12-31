@@ -42,21 +42,25 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
       
       {/* Tela do celular */}
       <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0b141a]">
-        {/* Imagem - sem cortes */}
+        {/* Badge de destaque */}
+        <div className="absolute top-4 left-4 z-10">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg shadow-accent/30">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            {testimonial.highlight}
+          </span>
+        </div>
+        
+        {/* Imagem */}
         <img 
           src={testimonial.src} 
           alt={`Depoimento WhatsApp - ${testimonial.highlight}`} 
-          className="w-full h-auto object-contain" 
+          className="w-full h-auto object-cover" 
           loading="lazy" 
           decoding="async" 
         />
         
-        {/* Badge de destaque - posicionado sobre o gradient inferior */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-4 pt-12">
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg shadow-accent/30 mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-            {testimonial.highlight}
-          </span>
+        {/* Gradient overlay com descrição */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 pt-16">
           <p className="text-white/95 text-sm font-medium leading-relaxed">
             {testimonial.description}
           </p>
