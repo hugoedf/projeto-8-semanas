@@ -1,10 +1,11 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-dashboard-token",
 };
+
+const DASHBOARD_PASSWORD = Deno.env.get("DASHBOARD_PASSWORD");
 
 // Simple in-memory rate limiting (resets on function cold start)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -12,12 +13,12 @@ const RATE_LIMIT_MAX = 5; // 5 generations per hour
 const RATE_LIMIT_WINDOW = 3600000; // 1 hour in ms
 const MAX_TEXT_LENGTH = 50000; // 50k characters max
 
-function checkRateLimit(userId: string): boolean {
+function checkRateLimit(tokenId: string): boolean {
   const now = Date.now();
-  const record = rateLimitMap.get(userId);
+  const record = rateLimitMap.get(tokenId);
   
   if (!record || now > record.resetTime) {
-    rateLimitMap.set(userId, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    rateLimitMap.set(tokenId, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
     return true;
   }
   
@@ -26,76 +27,90 @@ function checkRateLimit(userId: string): boolean {
   return true;
 }
 
+// Validate session token (same as dashboard-events)
+async function validateSessionToken(token: string): Promise<boolean> {
+  if (!token || !DASHBOARD_PASSWORD) return false;
+  
+  const parts = token.split(':');
+  if (parts.length !== 3) return false;
+  
+  const [expiresStr, randomHex, providedSignature] = parts;
+  const expires = parseInt(expiresStr, 10);
+  
+  // Check expiry
+  if (isNaN(expires) || Date.now() > expires) {
+    return false;
+  }
+  
+  // Validate format
+  if (!/^[0-9a-f]{32}$/.test(randomHex) || !/^[0-9a-f]{64}$/.test(providedSignature)) {
+    return false;
+  }
+  
+  // Verify signature
+  const data = `dashboard_session:${expires}:${randomHex}`;
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(DASHBOARD_PASSWORD),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
+  const expectedSignature = Array.from(new Uint8Array(signature))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  
+  // Constant-time comparison
+  if (providedSignature.length !== expectedSignature.length) return false;
+  let result = 0;
+  for (let i = 0; i < providedSignature.length; i++) {
+    result |= providedSignature.charCodeAt(i) ^ expectedSignature.charCodeAt(i);
+  }
+  
+  return result === 0;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    // 1. Validate Authorization header
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      console.error("Missing or invalid Authorization header");
+    // 1. Validate session token
+    const sessionToken = req.headers.get("x-dashboard-token");
+    
+    if (!sessionToken) {
+      console.error("Missing session token");
       return new Response(
         JSON.stringify({ error: "Não autorizado - faça login" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    // 2. Verify user authentication
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-    const token = authHeader.replace("Bearer ", "");
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
-
-    if (userError || !user) {
-      console.error("User authentication failed:", userError?.message);
+    const isValid = await validateSessionToken(sessionToken);
+    if (!isValid) {
+      console.error("Invalid or expired session token");
       return new Response(
-        JSON.stringify({ error: "Não autorizado - sessão inválida" }),
+        JSON.stringify({ error: "Sessão inválida ou expirada" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    console.log("User authenticated:", user.id);
+    console.log("Session token validated successfully");
 
-    // 3. Check if user has admin role
-    const { data: adminRole, error: roleError } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "admin")
-      .maybeSingle();
-
-    if (roleError) {
-      console.error("Role check error:", roleError.message);
-      return new Response(
-        JSON.stringify({ error: "Erro ao verificar permissões" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    if (!adminRole) {
-      console.error("User is not admin:", user.id);
-      return new Response(
-        JSON.stringify({ error: "Acesso negado - apenas administradores" }),
-        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    console.log("Admin role verified for user:", user.id);
-
-    // 4. Check rate limit
-    if (!checkRateLimit(user.id)) {
-      console.error("Rate limit exceeded for user:", user.id);
+    // 2. Check rate limit (using token expiry as identifier)
+    const tokenId = sessionToken.split(':')[0];
+    if (!checkRateLimit(tokenId)) {
+      console.error("Rate limit exceeded");
       return new Response(
         JSON.stringify({ error: "Limite excedido - máx 5 gerações por hora" }),
         { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    // 5. Validate input
+    // 3. Validate input
     const body = await req.json();
     const { text } = body;
 
@@ -113,7 +128,7 @@ serve(async (req) => {
       );
     }
 
-    // 6. Call ElevenLabs API
+    // 4. Call ElevenLabs API
     const ELEVENLABS_API_KEY = Deno.env.get("ELEVENLABS_API_KEY");
 
     if (!ELEVENLABS_API_KEY) {
