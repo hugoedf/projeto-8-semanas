@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Loader2, Volume2, LogIn } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Download, Loader2, Volume2, Lock, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
 
 const VSL_SCRIPT = `PARA.
 Não fecha esse vídeo ainda.
@@ -112,69 +113,99 @@ export default function GenerateAudio() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [sessionToken, setSessionToken] = useState<string | null>(null);
 
+  // Check if already authenticated
   useEffect(() => {
-    const checkAuth = async () => {
+    const storedSession = sessionStorage.getItem('audio_gen_session');
+    if (storedSession) {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (!session) {
-          setIsAuthenticated(false);
-          setIsAdmin(false);
-          setIsLoading(false);
-          return;
+        const session = JSON.parse(storedSession);
+        if (session.expires && Date.now() < session.expires) {
+          setSessionToken(session.token);
+          setIsAuthenticated(true);
+        } else {
+          sessionStorage.removeItem('audio_gen_session');
         }
-
-        setIsAuthenticated(true);
-
-        // Check admin role
-        const { data: adminRole } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", session.user.id)
-          .eq("role", "admin")
-          .maybeSingle();
-
-        setIsAdmin(!!adminRole);
-      } catch (error) {
-        console.error("Auth check error:", error);
-      } finally {
-        setIsLoading(false);
+      } catch {
+        sessionStorage.removeItem('audio_gen_session');
       }
-    };
-
-    checkAuth();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      checkAuth();
-    });
-
-    return () => subscription.unsubscribe();
+    }
   }, []);
 
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoggingIn(true);
+    setAuthError('');
+    
+    try {
+      // Use dashboard-events for password validation (same password)
+      const { data: response, error: fetchError } = await supabase.functions.invoke('dashboard-events', {
+        body: { password },
+        method: 'POST',
+      });
+
+      if (fetchError) {
+        if (fetchError.message?.includes('401') || fetchError.message?.includes('Unauthorized')) {
+          setAuthError('Senha incorreta');
+        } else {
+          setAuthError('Erro ao validar senha. Tente novamente.');
+        }
+        return;
+      }
+
+      if (response?.sessionToken && response?.sessionExpires) {
+        const sessionData = {
+          token: response.sessionToken,
+          expires: response.sessionExpires
+        };
+        sessionStorage.setItem('audio_gen_session', JSON.stringify(sessionData));
+        setSessionToken(response.sessionToken);
+      }
+      
+      setIsAuthenticated(true);
+      setPassword('');
+    } catch (err: any) {
+      console.error('Login error:', err);
+      if (err?.code === 'UNAUTHORIZED' || err?.message?.includes('Unauthorized')) {
+        setAuthError('Senha incorreta');
+      } else {
+        setAuthError('Erro ao conectar. Tente novamente.');
+      }
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('audio_gen_session');
+    setSessionToken(null);
+    setIsAuthenticated(false);
+    setPassword('');
+    setAudioUrl(null);
+  };
+
   const generateAudio = async () => {
+    if (!sessionToken) {
+      toast.error("Sessão inválida. Faça login novamente.");
+      handleLogout();
+      return;
+    }
+
     setIsGenerating(true);
     toast.info("Gerando áudio... Isso pode levar alguns minutos.");
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        toast.error("Você precisa estar logado");
-        navigate("/auth");
-        return;
-      }
-
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-vsl-audio`,
+        `https://kfddlytvdzqwopongnew.supabase.co/functions/v1/generate-vsl-audio`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${session.access_token}`,
+            "x-dashboard-token": sessionToken,
           },
           body: JSON.stringify({ text: VSL_SCRIPT }),
         }
@@ -208,43 +239,43 @@ export default function GenerateAudio() {
     document.body.removeChild(a);
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
-      </div>
-    );
-  }
-
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <div className="max-w-md w-full text-center space-y-6">
-          <h1 className="text-2xl font-bold text-foreground">Acesso Restrito</h1>
-          <p className="text-muted-foreground">
-            Você precisa estar logado para acessar o gerador de áudio.
-          </p>
-          <Button onClick={() => navigate("/auth")} className="gap-2">
-            <LogIn className="w-5 h-5" />
-            Fazer Login
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-        <div className="max-w-md w-full text-center space-y-6">
-          <h1 className="text-2xl font-bold text-foreground">Acesso Negado</h1>
-          <p className="text-muted-foreground">
-            Apenas administradores podem acessar o gerador de áudio.
-          </p>
-          <Button onClick={() => navigate("/")} variant="outline">
-            Voltar ao Início
-          </Button>
-        </div>
+        <Card className="w-full max-w-md bg-card border-border">
+          <CardHeader className="text-center">
+            <div className="mx-auto w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mb-4">
+              <Lock className="w-6 h-6 text-accent" />
+            </div>
+            <CardTitle className="text-2xl">Gerador de Áudio</CardTitle>
+            <p className="text-muted-foreground text-sm">Digite a senha para acessar</p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <Input
+                type="password"
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-background border-border"
+                disabled={isLoggingIn}
+              />
+              {authError && (
+                <p className="text-destructive text-sm text-center">{authError}</p>
+              )}
+              <Button type="submit" className="w-full" disabled={isLoggingIn}>
+                {isLoggingIn ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Validando...
+                  </>
+                ) : (
+                  'Acessar'
+                )}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
       </div>
     );
   }
@@ -252,13 +283,19 @@ export default function GenerateAudio() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="max-w-2xl w-full space-y-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-foreground mb-2">
-            Gerador de Áudio VSL
-          </h1>
-          <p className="text-muted-foreground">
-            Clique no botão abaixo para gerar o áudio da VSL
-          </p>
+        <div className="flex justify-between items-center">
+          <div className="text-center flex-1">
+            <h1 className="text-3xl font-bold text-foreground mb-2">
+              Gerador de Áudio VSL
+            </h1>
+            <p className="text-muted-foreground">
+              Clique no botão abaixo para gerar o áudio da VSL
+            </p>
+          </div>
+          <Button variant="outline" size="sm" onClick={handleLogout}>
+            <LogOut className="w-4 h-4 mr-2" />
+            Sair
+          </Button>
         </div>
 
         <div className="bg-card border border-border rounded-xl p-6 space-y-6">
