@@ -3,14 +3,7 @@ import whatsapp2 from "@/assets/testimonials/whatsapp-2.jpeg";
 import whatsapp3 from "@/assets/testimonials/whatsapp-3.jpeg";
 import whatsapp4 from "@/assets/testimonials/whatsapp-4.jpeg";
 import whatsapp5 from "@/assets/testimonials/whatsapp-5.jpeg";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 const testimonialImages = [{
   src: whatsapp1,
   highlight: "Treino em 50min",
@@ -32,9 +25,11 @@ const testimonialImages = [{
   highlight: "Método real",
   description: "Na segunda semana já sentiu diferença na força"
 }];
-
-const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImages[0] }) => (
-  <div className="group">
+const TestimonialCard = ({
+  testimonial
+}: {
+  testimonial: typeof testimonialImages[0];
+}) => <div className="group">
     {/* Mockup de celular minimalista */}
     <div className="relative bg-[#1a1a1a] rounded-[2rem] p-2 shadow-2xl shadow-black/40 hover:shadow-accent/20 transition-all duration-500 hover:-translate-y-1">
       {/* Notch do celular */}
@@ -44,20 +39,11 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
       <div className="relative rounded-[1.5rem] overflow-hidden bg-[#0b141a]">
         {/* Badge de destaque */}
         <div className="absolute top-4 left-4 z-10">
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-accent/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg shadow-accent/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-            {testimonial.highlight}
-          </span>
+          
         </div>
         
         {/* Imagem */}
-        <img 
-          src={testimonial.src} 
-          alt={`Depoimento WhatsApp - ${testimonial.highlight}`} 
-          className="w-full h-auto object-cover" 
-          loading="lazy" 
-          decoding="async" 
-        />
+        <img src={testimonial.src} alt={`Depoimento WhatsApp - ${testimonial.highlight}`} className="w-full h-auto object-cover" loading="lazy" decoding="async" />
         
         {/* Gradient overlay com descrição - mais compacto */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-3 pt-8">
@@ -70,12 +56,9 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonialImage
       {/* Barra inferior do celular */}
       <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/20 rounded-full" />
     </div>
-  </div>
-);
-
+  </div>;
 const Testimonials = () => {
-  return (
-    <section className="py-12 sm:py-18 bg-[#F5F5F5] relative overflow-hidden">
+  return <section className="py-12 sm:py-18 bg-[#F5F5F5] relative overflow-hidden">
       {/* Glow laranja de fundo */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/8 rounded-full blur-[120px] opacity-50" />
@@ -102,19 +85,14 @@ const Testimonials = () => {
         
         {/* Mobile: Carousel */}
         <div className="sm:hidden">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
+          <Carousel opts={{
+          align: "start",
+          loop: true
+        }} className="w-full">
             <CarouselContent className="-ml-3">
-              {testimonialImages.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-3 basis-[85%]">
+              {testimonialImages.map((testimonial, index) => <CarouselItem key={index} className="pl-3 basis-[85%]">
                   <TestimonialCard testimonial={testimonial} />
-                </CarouselItem>
-              ))}
+                </CarouselItem>)}
             </CarouselContent>
             <div className="flex justify-center gap-2 mt-6">
               <CarouselPrevious className="static translate-y-0 h-9 w-9 bg-card border-border/60" />
@@ -125,9 +103,7 @@ const Testimonials = () => {
 
         {/* Desktop: Grid - 5 colunas para 5 depoimentos */}
         <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-5 max-w-7xl mx-auto">
-          {testimonialImages.map((testimonial, index) => (
-            <TestimonialCard key={index} testimonial={testimonial} />
-          ))}
+          {testimonialImages.map((testimonial, index) => <TestimonialCard key={index} testimonial={testimonial} />)}
         </div>
         
         {/* Badge de transformações com frase de impacto */}
@@ -145,8 +121,6 @@ const Testimonials = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Testimonials;
