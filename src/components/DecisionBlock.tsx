@@ -111,10 +111,14 @@ const DecisionBlock = () => {
 
           {/* CTA Block */}
           <div className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-5 sm:p-6 text-center">
-            <div className="flex items-center justify-center gap-4 mb-5">
+            <div className="flex items-center justify-center gap-4 mb-3">
               <span className="text-white/40 line-through text-xl">R$ 97</span>
               <span className="text-accent font-display text-4xl sm:text-5xl font-bold drop-shadow-[0_0_25px_hsla(18,100%,58%,0.4)]">R$ 19,90</span>
             </div>
+            
+            <p className="text-white/50 text-sm mb-5">
+              Preço baixo porque o foco é execução, não volume de conteúdo.
+            </p>
             
             <Button 
               variant="cta" 
@@ -122,7 +126,7 @@ const DecisionBlock = () => {
               onClick={handleCTAClick} 
               className="w-full sm:w-auto mb-4"
             >
-              QUERO COMEÇAR AGORA
+              ASSUMIR O CONTROLE DO MEU TREINO
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             

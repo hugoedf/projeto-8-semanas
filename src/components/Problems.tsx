@@ -141,8 +141,8 @@ const Problems = () => {
           <div className="text-center mb-10">
             <div className="inline-block bg-gray-50 border border-border rounded-2xl px-6 sm:px-8 py-5 max-w-2xl">
               <p className="text-muted-foreground text-base sm:text-lg italic leading-relaxed">
-                "Sem um sistema claro, o corpo faz exatamente o que foi programado para fazer:{" "}
-                <span className="text-foreground font-medium not-italic">se adaptar… e parar de evoluir.</span>"
+                "Quanto mais tempo você treina errado, mais difícil fica sair da estagnação.{" "}
+                <span className="text-foreground font-medium not-italic">O corpo se adapta ao erro — e para de responder.</span>"
               </p>
             </div>
           </div>

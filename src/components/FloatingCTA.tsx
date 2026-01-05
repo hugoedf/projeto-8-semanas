@@ -70,7 +70,7 @@ const FloatingCTA = () => {
             onClick={handleCTAClick}
             className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow-subtle whitespace-nowrap"
           >
-            EVOLUIR AGORA
+            TREINAR CERTO
             <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
           </Button>
 

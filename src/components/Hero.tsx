@@ -71,7 +71,7 @@ const Hero = () => {
             
             {/* Subheadline */}
             <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
-              Em <span className="text-accent font-semibold">8 semanas</span> você entra na academia sabendo exatamente o que fazer — <span className="text-white font-medium">e começa a ver resultado.</span>
+              Em <span className="text-accent font-semibold">8 semanas</span>, você para de improvisar e passa a treinar com clareza — <span className="text-white font-medium">sabendo exatamente o que fazer e por que está funcionando.</span>
             </p>
             
             {/* VSL Player - Mobile only */}
@@ -86,7 +86,7 @@ const Hero = () => {
             {/* CTA Button */}
             <div className={`w-full sm:w-auto order-3 ${vslEnded ? 'scale-105' : ''}`}>
               <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow-subtle ring-2 ring-accent/50' : 'animate-pulse-glow-subtle'}`}>
-                Começar Agora por R$19,90
+                Parar de Treinar no Escuro
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
