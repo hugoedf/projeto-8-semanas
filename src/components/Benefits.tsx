@@ -3,35 +3,35 @@ import { useParallax } from "@/hooks/useParallax";
 const benefits = [{
   icon: Dumbbell,
   title: "Cada treino com propósito",
-  description: "Chega de improvisar. Você sabe exatamente o que fazer — e por quê."
+  description: "Você entra na academia sabendo o que fazer — e sai sabendo que funcionou."
 }, {
   icon: Target,
   title: "Resultados que você vê",
-  description: "Semana a semana, o espelho e a força confirmam que está funcionando."
+  description: "Quando você segue progressão, o espelho e a força respondem."
 }, {
   icon: TrendingUp,
   title: "Estagnação quebrada",
-  description: "Técnicas progressivas que forçam seu corpo a continuar evoluindo."
+  description: "O método força o corpo a continuar evoluindo — sem platô."
 }, {
   icon: Apple,
   title: "Nutrição sem complicação",
-  description: "Coma para crescer. Simples, direto, sem frescura."
+  description: "Coma para crescer. Sem dieta maluca, sem frescura."
 }, {
   icon: Shield,
   title: "Treino seguro",
-  description: "Execução correta = menos lesão, mais consistência, mais resultado."
+  description: "Execução correta significa menos lesão e mais consistência."
 }, {
   icon: Zap,
   title: "Menos tempo, mais resultado",
-  description: "Treinos de 45-60min que entregam mais do que 2h de improviso."
+  description: "45-60min de treino focado entrega mais que 2h de improviso."
 }, {
   icon: Brain,
   title: "Zero ansiedade",
-  description: "Saber o que fazer elimina a dúvida. Você só executa."
+  description: "Quando você sabe o que fazer, a dúvida desaparece."
 }, {
   icon: Calendar,
   title: "8 semanas estruturadas",
-  description: "Um plano claro do dia 1 ao dia 56. Só seguir."
+  description: "Do dia 1 ao dia 56, tudo planejado. Só seguir."
 }];
 const Benefits = () => {
   const parallaxOffset = useParallax({
@@ -49,12 +49,12 @@ const Benefits = () => {
             ​
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] mb-4 tracking-tight text-black leading-[1.1]">
-            O que muda na sua vida em{" "}
-            <span className="text-accent">8 semanas:</span>
+            O que muda quando você segue{" "}
+            <span className="text-accent">um método por 8 semanas:</span>
           </h2>
           <p className="text-black/60 text-lg sm:text-xl mb-3 max-w-2xl mx-auto">
             Não é só sobre ganhar músculo.
-            <span className="font-medium text-black"> É sobre saber exatamente o que fazer em cada treino, e ver o resultado disso semana após semana.</span>
+            <span className="font-medium text-black"> É sobre executar com progressão real — e ver o resultado aparecer semana após semana.</span>
           </p>
         </div>
         

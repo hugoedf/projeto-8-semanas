@@ -51,7 +51,7 @@ const IntermediateCTA = () => {
 
           {/* Botão */}
           <Button variant="cta" size="cta" onClick={handleCTAClick} className="mb-6 w-full sm:w-auto">
-            QUERO TREINAR COM MÉTODO
+            SAIR DA ESTAGNAÇÃO AGORA
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
 

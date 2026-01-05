@@ -64,12 +64,12 @@ const CTA = () => {
                   </div>
                   <p className="text-sm text-gray-400 flex items-center gap-2">
                     <Clock className="w-4 h-4" />
-                    <span>Oferta por tempo limitado · Pagamento único · Acesso imediato</span>
+                    <span>Pagamento único · Acesso imediato · Sem mensalidade</span>
                   </p>
                 </div>
                 
                 <Button variant="cta" size="cta" className="w-full mb-3" onClick={handleCTAClick}>
-                  QUERO RESULTADOS COMO ESSES
+                  PARAR DE TREINAR ERRADO
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 
