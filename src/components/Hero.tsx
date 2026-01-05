@@ -71,7 +71,7 @@ const Hero = () => {
             
             {/* Subheadline */}
             <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
-              Em <span className="text-accent font-semibold">8 semanas</span>, você deixa de treinar no escuro e passa a aplicar estímulos que realmente funcionam — <span className="text-white font-medium">sem estagnação, sem improviso.</span>
+              Em <span className="text-accent font-semibold">8 semanas</span> você entra na academia sabendo exatamente o que fazer — <span className="text-white font-medium">e começa a ver resultado.</span>
             </p>
             
             {/* VSL Player - Mobile only */}
