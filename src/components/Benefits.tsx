@@ -54,7 +54,7 @@ const Benefits = () => {
           </h2>
           <p className="text-black/60 text-lg sm:text-xl mb-3 max-w-2xl mx-auto">
             Não é só sobre ganhar músculo.
-            <span className="font-medium text-black"> É sobre treinar com método e finalmente ver resultados.</span>
+            <span className="font-medium text-black"> É sobre saber exatamente o que fazer em cada treino — e ver o resultado disso semana após semana.</span>
           </p>
         </div>
         
