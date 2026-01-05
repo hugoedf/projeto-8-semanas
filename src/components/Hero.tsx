@@ -92,16 +92,13 @@ const Hero = () => {
             </div>
             
             {/* Social Proof */}
-            <div className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4 space-y-1">
-              <p>
-                <span className="text-white/85 font-medium">+500 transformações</span>
-                <span className="mx-2 text-white/30">•</span>
-                <span>Teste por 7 dias sem risco</span>
-              </p>
-              <p className="text-white/50">
-                🔒 Compra 100% segura
-              </p>
-            </div>
+            <p className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4">
+              <span className="text-white/85 font-medium">+500 pessoas já aplicaram</span>
+              <span className="mx-2 text-white/30">•</span>
+              <span>Teste por 7 dias sem risco</span>
+              <span className="mx-2 text-white/30">•</span>
+              <span>Compra 100% segura</span>
+            </p>
           </div>
           
           {/* VSL Player Column - Right on desktop only */}
