@@ -86,19 +86,22 @@ const Hero = () => {
             {/* CTA Button */}
             <div className={`w-full sm:w-auto order-3 ${vslEnded ? 'scale-105' : ''}`}>
               <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow-subtle ring-2 ring-accent/50' : 'animate-pulse-glow-subtle'}`}>
-                Começar Agora
+                Começar Agora por R$19,90
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
             
             {/* Social Proof */}
-            <p className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4">
-              <span className="text-white/85 font-medium">+500 pessoas já aplicaram</span>
-              <span className="mx-2 text-white/30">•</span>
-              <span className="text-accent font-bold drop-shadow-[0_0_8px_hsl(var(--accent)/0.5)]">R$19,90</span>
-              <span className="mx-2 text-white/30">•</span>
-              <span>Teste por 7 dias sem risco</span>
-            </p>
+            <div className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4 space-y-1">
+              <p>
+                <span className="text-white/85 font-medium">+500 transformações</span>
+                <span className="mx-2 text-white/30">•</span>
+                <span>Teste por 7 dias sem risco</span>
+              </p>
+              <p className="text-white/50">
+                🔒 Compra 100% segura
+              </p>
+            </div>
           </div>
           
           {/* VSL Player Column - Right on desktop only */}
