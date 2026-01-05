@@ -115,7 +115,7 @@ const Testimonials = () => {
             <p className="text-foreground font-semibold text-base sm:text-lg mb-1">
 Pessoas reais. Resultados reais. Método comprovado.</p>
             <p className="text-muted-foreground text-sm sm:text-base">
-              Pessoas reais. Resultados reais. Método comprovado.
+              Gente que já treinava, mas estava travada — como você.
             </p>
           </div>
         </div>
