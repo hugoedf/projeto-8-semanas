@@ -3,15 +3,7 @@ import { Check, ArrowRight, Lock, Clock } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
-const benefits = [
-  "E-book + App 8X — o sistema completo",
-  "8 semanas estruturadas — só seguir e executar",
-  "Nutrição prática — sem dieta maluca",
-  "Técnicas avançadas — para quebrar estagnação",
-  "Acesso vitalício — seu para sempre",
-  "Garantia de 7 dias — risco zero pra você"
-];
+const benefits = ["E-book + App 8X — o sistema completo", "8 semanas estruturadas — só seguir e executar", "Nutrição prática — sem dieta maluca", "Técnicas avançadas — para quebrar estagnação", "Acesso vitalício — seu para sempre", "Garantia de 7 dias — risco zero pra você"];
 const CTA = () => {
   const {
     trackInitiateCheckout
@@ -52,7 +44,7 @@ const CTA = () => {
                     Comece agora. Veja resultados em 8 semanas.
                   </h2>
                   <p className="text-gray-500 text-base">
-                    Menos que uma refeição — e muda a forma como você treina para sempre.
+                    Menos que uma refeição — e evita semanas de treino jogadas fora.
                   </p>
                 </div>
                 
