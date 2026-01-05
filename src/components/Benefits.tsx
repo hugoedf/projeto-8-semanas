@@ -49,7 +49,7 @@ const Benefits = () => {
             ​
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] mb-4 tracking-tight text-black leading-[1.1]">
-            O que muda na sua vida em{" "}
+            O que muda na sua vida quando você segue um método por{" "}
             <span className="text-accent">8 semanas:</span>
           </h2>
           <p className="text-black/60 text-lg sm:text-xl mb-3 max-w-2xl mx-auto">
