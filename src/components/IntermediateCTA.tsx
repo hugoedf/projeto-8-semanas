@@ -3,7 +3,6 @@ import { ArrowRight, Shield, Clock, Sparkles } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
 const IntermediateCTA = () => {
   const {
     trackInitiateCheckout
@@ -51,7 +50,7 @@ const IntermediateCTA = () => {
 
           {/* Botão */}
           <Button variant="cta" size="cta" onClick={handleCTAClick} className="mb-6 w-full sm:w-auto">
-            SAIR DA ESTAGNAÇÃO AGORA
+            Quero treinar com clareza
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
 
