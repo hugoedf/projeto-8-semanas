@@ -15,6 +15,7 @@ import Footer from "@/components/Footer";
 import { DiagnosticPanel } from "@/components/DiagnosticPanel";
 import IntermediateCTA from "@/components/IntermediateCTA";
 import FloatingCTA from "@/components/FloatingCTA";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   
@@ -43,6 +44,7 @@ const Index = () => {
       <FAQ />
       <Footer />
       <FloatingCTA />
+      <WhatsAppButton />
       
       {/* Painel de diagnóstico - apenas em desenvolvimento */}
       {import.meta.env.DEV && <DiagnosticPanel />}
