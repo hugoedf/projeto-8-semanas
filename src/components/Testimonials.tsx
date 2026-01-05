@@ -113,8 +113,7 @@ const Testimonials = () => {
               <span className="font-bold text-base sm:text-lg">+500 transformações</span>
             </div>
             <p className="text-foreground font-semibold text-base sm:text-lg mb-1">
-              E esse número cresce toda semana.
-            </p>
+Pessoas reais. Resultados reais. Método comprovado.</p>
             <p className="text-muted-foreground text-sm sm:text-base">
               Pessoas reais. Resultados reais. Método comprovado.
             </p>
