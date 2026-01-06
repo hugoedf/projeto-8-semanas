@@ -38,7 +38,7 @@ const CTA = () => {
               <div className="bg-[#FAFAFA] border border-gray-100 rounded-2xl p-5 sm:p-7 lg:p-8 shadow-xl shadow-black/5">
                 <div className="mb-5">
                   <span className="inline-flex items-center gap-2 text-accent text-xs uppercase tracking-widest font-bold bg-accent/8 px-3 py-1.5 rounded-full mb-3">
-                    ⚡ Preço de lançamento
+                    ⚡ oferta limitada - 80% off   
                   </span>
                   <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-2 tracking-tight text-black leading-tight">
                     Comece agora. Veja resultados em 8 semanas.
