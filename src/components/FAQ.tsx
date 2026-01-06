@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
 const faqItems = [{
   question: "Isso funciona pra quem já treina há anos e está travado?",
   answer: "Sim. O Método 8X foi feito exatamente pra quem treina sério mas não vê evolução. O problema geralmente não é falta de esforço — é falta de progressão estruturada. O método organiza sua execução semana a semana pra você sair da estagnação."
@@ -29,11 +28,13 @@ const faqItems = [{
   question: "Preciso de equipamento especial ou academia específica?",
   answer: "Não. O método funciona em qualquer academia convencional. Você usa os equipamentos que já tem disponíveis — o diferencial está na execução, não no equipamento."
 }];
-
 const FAQ = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -72,11 +73,14 @@ const FAQ = () => {
           <p className="text-muted-foreground text-sm mb-1.5">
             Ainda com dúvida?
           </p>
-          <p className="text-foreground font-medium text-base mb-3">
-            Teste por 7 dias. Se não gostar, <span className="text-accent font-semibold">devolvo seu dinheiro.</span>
+          <p className="text-foreground font-medium text-base mb-0.5">
+            Por menos que uma refeição, você testa o método por 7 dias.
+          </p>
+          <p className="text-muted-foreground text-sm mb-3">
+            TESTAR POR 7 DIAS R$19,90
           </p>
           <Button variant="cta" size="cta" onClick={handleCTAClick}>
-            COMEÇAR POR APENAS R$19,90
+            COMEÇAR MINHA EVOLUÇÃO HOJE
           </Button>
         </div>
       </div>
