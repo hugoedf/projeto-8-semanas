@@ -8,7 +8,6 @@ import Bonus from "@/components/Bonus";
 import Testimonials from "@/components/Testimonials";
 import ForWho from "@/components/ForWho";
 import Guarantee from "@/components/Guarantee";
-
 import CTA from "@/components/CTA";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -16,11 +15,8 @@ import { DiagnosticPanel } from "@/components/DiagnosticPanel";
 import IntermediateCTA from "@/components/IntermediateCTA";
 import FloatingCTA from "@/components/FloatingCTA";
 import WhatsAppButton from "@/components/WhatsAppButton";
-
 const Index = () => {
-  
-  return (
-    <main className="min-h-screen">
+  return <main className="min-h-screen">
       <Hero />
       {/* 1. DOR - Identificação emocional */}
       <Problems />
@@ -47,9 +43,7 @@ const Index = () => {
       <WhatsAppButton />
       
       {/* Painel de diagnóstico - apenas em desenvolvimento */}
-      {import.meta.env.DEV && <DiagnosticPanel />}
-    </main>
-  );
+      {import.meta.env.DEV}
+    </main>;
 };
-
 export default Index;
