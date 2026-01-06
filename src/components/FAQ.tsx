@@ -5,29 +5,29 @@ import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 
 const faqItems = [{
-  question: "Como recebo o acesso ao Método 8X?",
-  answer: "Assim que a compra é confirmada, você recebe o acesso imediato ao sistema completo no seu e-mail. Você já pode começar no mesmo dia, sem esperar liberação manual."
+  question: "Isso funciona pra quem já treina há anos e está travado?",
+  answer: "Sim. O Método 8X foi feito exatamente pra quem treina sério mas não vê evolução. O problema geralmente não é falta de esforço — é falta de progressão estruturada. O método organiza sua execução semana a semana pra você sair da estagnação."
 }, {
-  question: "O acesso é realmente imediato?",
-  answer: "Sim. Pagamento aprovado → acesso liberado. Você já entra no e-book e no App 8X com o plano organizado para seguir desde o primeiro treino."
+  question: "E se eu for iniciante, consigo acompanhar?",
+  answer: "Consegue. O sistema é simples de seguir. Você não precisa entender tudo — só executar. O app guia cada treino. Iniciantes têm a vantagem de começar certo, sem vícios de execução."
 }, {
-  question: "O Método 8X é um treino pronto ou preciso adaptar?",
-  answer: "O Método 8X é um sistema estruturado, não um treino genérico. Você recebe: plano de 8 semanas organizado, progressão definida e execução guiada pelo app. Ou seja: você não improvisa — apenas segue e ajusta quando o próprio método indica."
+  question: "Quanto tempo por dia preciso dedicar?",
+  answer: "Os treinos são objetivos e duram entre 45-60 minutos. O Método 8X não é sobre treinar mais — é sobre treinar certo. Você ganha tempo eliminando o improviso."
 }, {
-  question: "Funciona para iniciantes ou só para quem já treina?",
-  answer: "Funciona para os dois. Iniciantes aprendem a treinar certo desde o começo, sem criar vícios. Intermediários e avançados rompem a estagnação com progressão clara e método. O sistema se adapta ao seu ponto de partida."
+  question: "Qual a diferença disso pra um treino de YouTube ou app grátis?",
+  answer: "Treinos soltos não têm progressão. Você faz, repete, mas não evolui. O Método 8X é um sistema de 8 semanas com lógica de progressão. Cada semana prepara a próxima. Isso é o que gera resultado."
 }, {
-  question: "Preciso treinar muitas horas por dia?",
-  answer: "Não. O foco do Método 8X não é fazer mais — é fazer melhor. Os treinos são eficientes, objetivos e pensados para quem quer resultado sem perder tempo na academia."
+  question: "E se eu não gostar ou não funcionar pra mim?",
+  answer: "Você tem 7 dias pra testar. Se não fizer sentido, pede o reembolso. Sem questionário, sem burocracia. O risco é zero — você só paga se decidir ficar."
 }, {
-  question: "Isso substitui acompanhamento médico ou nutricional?",
-  answer: "Não. O Método 8X é um sistema de treino e organização de execução. Sempre recomendamos acompanhamento profissional em casos específicos de saúde."
+  question: "Por que custa tão pouco?",
+  answer: "Porque é simples e direto. Sem enrolação, sem módulos infinitos. O valor é baixo pra não ser desculpa. Você investe menos que uma refeição pra testar um sistema que pode mudar sua forma de treinar."
 }, {
-  question: "E se eu não gostar do conteúdo?",
-  answer: "Você tem 7 dias de garantia incondicional. Teste o método, aplique na prática. Se não fizer sentido pra você, é só pedir o reembolso. Sem questionário. Sem burocracia. Você compra, testa e decide com calma."
+  question: "Como recebo o acesso?",
+  answer: "Imediato. Assim que o pagamento é confirmado, você recebe tudo no e-mail: o e-book completo e o acesso ao App 8X. Pode começar no mesmo dia."
 }, {
-  question: "Por que o valor é tão baixo?",
-  answer: "Porque o objetivo do Método 8X é acesso, não exclusividade. Você está investindo menos que uma refeição para aprender um sistema que pode mudar completamente a forma como você treina — agora e no futuro."
+  question: "Preciso de equipamento especial ou academia específica?",
+  answer: "Não. O método funciona em qualquer academia convencional. Você usa os equipamentos que já tem disponíveis — o diferencial está na execução, não no equipamento."
 }];
 
 const FAQ = () => {
