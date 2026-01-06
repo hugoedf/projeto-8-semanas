@@ -70,7 +70,8 @@ const Hero = () => {
             </h1>
             
             {/* Subheadline */}
-            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">Você entra na academia sabendo exatamente o que fazer. E em 8 semanas, vê o resultado no espelho.<span className="text-white font-medium">sabendo exatamente o que fazer</span>. E em 8 semanas, <span className="text-accent font-semibold">vê o resultado no espelho.</span>
+            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
+              Você entra na academia <span className="text-white font-medium">sabendo exatamente o que fazer</span>. E em 8 semanas, <span className="text-accent font-semibold">vê o resultado no espelho.</span>
             </p>
             
             {/* VSL Player - Mobile only */}
