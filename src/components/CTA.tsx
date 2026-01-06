@@ -69,7 +69,7 @@ const CTA = () => {
                 </div>
                 
                 <Button variant="cta" size="cta" className="w-full mb-3" onClick={handleCTAClick}>
-                  PARAR DE TREINAR ERRADO
+                  QUERO COMEÇAR POR R$19,90
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 

@@ -35,11 +35,15 @@ const IntermediateCTA = () => {
           {/* Headline emocional */}
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 tracking-tight text-white leading-[1.15]">
             O método já está pronto.{" "}
-            <span className="text-accent">Só falta você começar.</span>
+            <span className="text-accent">Só falta você.</span>
           </h2>
 
-          <p className="text-white/60 text-base sm:text-lg mb-6 max-w-lg mx-auto">
-            +500 pessoas já aplicaram. Os resultados estão comprovados. A pergunta não é se funciona — é quando você vai começar.
+          <p className="text-white/60 text-base sm:text-lg mb-2 max-w-lg mx-auto">
+            +500 pessoas já saíram da estagnação. Os resultados estão comprovados.
+          </p>
+          
+          <p className="text-accent font-semibold text-sm mb-6">
+            Preço de lançamento — pode aumentar a qualquer momento.
           </p>
 
           {/* Preço com ancoragem */}
@@ -50,7 +54,7 @@ const IntermediateCTA = () => {
 
           {/* Botão */}
           <Button variant="cta" size="cta" onClick={handleCTAClick} className="mb-6 w-full sm:w-auto">
-            Quero treinar com clareza
+            QUERO COMEÇAR POR R$19,90
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
 

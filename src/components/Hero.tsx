@@ -65,13 +65,13 @@ const Hero = () => {
             
             {/* Título Principal */}
             <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
-              Um sistema de treino baseado em ciência para gerar{" "}
-              <span className="text-accent">hipertrofia real</span>, com progressão clara e execução guiada.
+              O sistema de <span className="text-accent">8 semanas</span> que transforma seu treino em{" "}
+              <span className="text-accent">hipertrofia real</span> — com ciência, progressão e execução guiada.
             </h1>
             
             {/* Subheadline */}
             <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
-              Em <span className="text-accent font-semibold">8 semanas</span>, você para de improvisar e passa a treinar com clareza — <span className="text-white font-medium">sabendo exatamente o que fazer e por que está funcionando.</span>
+              Você entra na academia <span className="text-white font-medium">sabendo exatamente o que fazer</span>. E em 8 semanas, <span className="text-accent font-semibold">vê o resultado no espelho.</span>
             </p>
             
             {/* VSL Player - Mobile only */}
@@ -86,18 +86,17 @@ const Hero = () => {
             {/* CTA Button */}
             <div className={`w-full sm:w-auto order-3 ${vslEnded ? 'scale-105' : ''}`}>
               <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow-subtle ring-2 ring-accent/50' : 'animate-pulse-glow-subtle'}`}>
-                Parar de Treinar no Escuro
+                COMEÇAR AGORA POR R$19,90
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
             
             {/* Social Proof */}
             <p className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4">
-              <span className="text-white/85 font-medium">+500 pessoas já aplicaram</span>
+              <span className="text-accent font-semibold">+500 pessoas</span>
+              <span className="text-white/85"> já saíram da estagnação</span>
               <span className="mx-2 text-white/30">•</span>
-              <span>Teste por 7 dias sem risco</span>
-              <span className="mx-2 text-white/30">•</span>
-              <span>Compra 100% segura</span>
+              <span className="text-white/85 font-medium">7 dias de garantia</span>
             </p>
           </div>
           

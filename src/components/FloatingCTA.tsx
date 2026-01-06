@@ -63,14 +63,14 @@ const FloatingCTA = () => {
             <span className="text-accent font-bold text-lg">R$19,90</span>
           </div>
 
-          {/* Botão emocional */}
+          {/* Botão com preço */}
           <Button 
             variant="cta" 
             size="sm"
             onClick={handleCTAClick}
             className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow-subtle whitespace-nowrap"
           >
-            TREINAR CERTO
+            COMEÇAR POR R$19,90
             <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
           </Button>
 

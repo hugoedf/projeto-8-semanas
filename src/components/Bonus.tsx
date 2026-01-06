@@ -92,15 +92,31 @@ const Bonus = () => {
           </div>
         </div>
 
-        {/* Price Anchoring */}
+        {/* Price Anchoring com comparativo */}
         <div className="text-center">
-          <p className="text-white/60 text-xs mb-2">
-            Apps de treino cobram <span className="line-through">R$39,90/mês</span>
-          </p>
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-4 max-w-md mx-auto mb-4">
+            <p className="text-white/50 text-xs uppercase tracking-wider mb-3">Quanto custa treinar certo?</p>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between items-center text-white/60">
+                <span>Consultoria online</span>
+                <span className="line-through">R$200-500/mês</span>
+              </div>
+              <div className="flex justify-between items-center text-white/60">
+                <span>Personal trainer</span>
+                <span className="line-through">R$300+/mês</span>
+              </div>
+              <div className="h-px bg-accent/30 my-2" />
+              <div className="flex justify-between items-center text-white font-semibold">
+                <span>Método 8X</span>
+                <span className="text-accent text-lg">R$19,90 <span className="text-white/50 text-xs font-normal">uma vez</span></span>
+              </div>
+            </div>
+          </div>
+          
           <div className="inline-flex items-center gap-3 bg-accent/10 rounded-full px-5 py-2.5 border border-accent/25">
             <Zap className="w-5 h-5 text-accent" />
             <p className="text-sm font-semibold text-white">
-              Aqui é <span className="text-accent">acesso vitalício</span>, incluso no sistema
+              <span className="text-accent">Acesso vitalício</span> — pague uma vez, use pra sempre
             </p>
           </div>
         </div>
