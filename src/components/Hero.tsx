@@ -119,7 +119,7 @@ const Hero = () => {
         {/* Micro-compromisso */}
         <div className="max-w-2xl mx-auto mt-8 sm:mt-10 text-center">
           <p className="text-white/50 text-sm sm:text-base italic">
-            Se você já treina e sente que está travado, isso é pra você.
+            ⚠️ Cada semana treinando sem método é mais uma semana jogada fora.
           </p>
         </div>
       </div>
