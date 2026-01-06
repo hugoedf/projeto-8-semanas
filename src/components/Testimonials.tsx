@@ -79,7 +79,7 @@ const Testimonials = () => {
             <span className="text-gradient">transformando o físico — e a mente.</span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-            Conversas reais de quem está aplicando o método
+            Essas pessoas decidiram parar de treinar no escuro. Você ainda vai adiar?
           </p>
         </div>
         
