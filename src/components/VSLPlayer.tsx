@@ -90,7 +90,6 @@ const VSLPlayer = ({
   }, [generateEventId, visitorData?.visitorId]);
   const startPlayback = async () => {
     if (!videoRef.current || isPlaying) return;
-    
     try {
       videoRef.current.muted = false;
       await videoRef.current.play();
@@ -225,11 +224,14 @@ const VSLPlayer = ({
       if (currentProgress >= milestone && !milestonesRef.current.has(milestone)) {
         milestonesRef.current.add(milestone);
         console.log(`📊 VSL milestone: ${milestone}%`);
-        
+
         // Emit custom event at 25% for ViewContent qualification
         if (milestone === 25) {
           window.dispatchEvent(new CustomEvent('vsl-progress-25', {
-            detail: { progress: currentProgress, visitorId: visitorData?.visitorId }
+            detail: {
+              progress: currentProgress,
+              visitorId: visitorData?.visitorId
+            }
           }));
         }
       }
@@ -285,17 +287,13 @@ const VSLPlayer = ({
             {/* Hook text */}
             <div className="absolute top-4 sm:top-8 left-0 right-0 text-center z-20 px-4">
               <p className="text-white text-base sm:text-xl font-bold tracking-tight drop-shadow-[0_2px_20px_rgba(0,0,0,1)] uppercase">
-                O PROBLEMA NÃO É SEU ESFORÇO
+                Se você continuar treinando do mesmo jeito, o resultado vai continuar o mesmo.
               </p>
             </div>
 
             {/* Standard play button - clean and simple */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <button 
-                onClick={startPlayback} 
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-lg" 
-                aria-label="Iniciar vídeo"
-              >
+              <button onClick={startPlayback} className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent hover:bg-accent/90 flex items-center justify-center transition-all duration-200 hover:scale-105 shadow-lg" aria-label="Iniciar vídeo">
                 <Play className="w-7 h-7 sm:w-8 sm:h-8 text-white ml-1" fill="currentColor" />
               </button>
             </div>
@@ -324,19 +322,16 @@ const VSLPlayer = ({
           </div>}
 
         {/* Progress bar with time remaining - visible when video has started */}
-        {hasStarted && (
-          <div className="absolute bottom-0 left-0 right-0 flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-sm">
+        {hasStarted && <div className="absolute bottom-0 left-0 right-0 flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-sm">
             <div className="flex-1 h-1 bg-white/20 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-accent transition-all duration-150 ease-linear rounded-full"
-                style={{ width: `${progress}%` }}
-              />
+              <div className="h-full bg-accent transition-all duration-150 ease-linear rounded-full" style={{
+            width: `${progress}%`
+          }} />
             </div>
             <span className="text-xs text-white/80 font-mono min-w-[40px] text-right">
               {Math.floor((duration - currentTime) / 60)}:{String(Math.floor((duration - currentTime) % 60)).padStart(2, '0')}
             </span>
-          </div>
-        )}
+          </div>}
       </div>
 
       {/* CTA Pulse after video ends */}
