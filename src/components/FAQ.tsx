@@ -72,14 +72,11 @@ const FAQ = () => {
           <p className="text-muted-foreground text-sm mb-1.5">
             Ainda com dúvida?
           </p>
-          <p className="text-foreground font-medium text-base mb-0.5">
-            Por menos que uma refeição, você testa o método por 7 dias.
-          </p>
-          <p className="text-muted-foreground text-sm mb-3">
-            Se não sentir diferença no seu treino, você não paga nada.
+          <p className="text-foreground font-medium text-base mb-3">
+            Teste por 7 dias. Se não gostar, <span className="text-accent font-semibold">devolvo seu dinheiro.</span>
           </p>
           <Button variant="cta" size="cta" onClick={handleCTAClick}>
-            COMEÇAR MINHA EVOLUÇÃO HOJE
+            COMEÇAR POR APENAS R$19,90
           </Button>
         </div>
       </div>
