@@ -60,7 +60,7 @@ const Hero = () => {
             
             {/* Teaser */}
             <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-mono">
-              Quem treina duro não pode treinar no escuro
+              Pare de treinar sem saber se está funcionando
             </p>
             
             {/* Título Principal */}
