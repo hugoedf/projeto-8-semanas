@@ -170,7 +170,7 @@ const Hero = () => {
                 onClick={handleCTAClick} 
                 className={`w-full sm:w-auto shadow-2xl shadow-accent/40 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'} hover:scale-105 transition-transform text-base sm:text-lg py-6 sm:py-7`}
               >
-                🚀 GARANTIR ACESSO AGORA - R$19,90
+                GARANTIR ACESSO AGORA - R$19,90
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
