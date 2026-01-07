@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight, Zap, Clock } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import VSLPlayer from "@/components/VSLPlayer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { useParallax } from "@/hooks/useParallax";
+
 const Hero = () => {
   const {
     trackInitiateCheckout
@@ -21,10 +22,45 @@ const Hero = () => {
   const parallaxOffset = useParallax({
     speed: 0.08
   });
+
+  // URGÊNCIA: Contador regressivo (24h)
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 23,
+    minutes: 59,
+    seconds: 59
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        let { hours, minutes, seconds } = prev;
+        
+        if (seconds > 0) {
+          seconds--;
+        } else if (minutes > 0) {
+          minutes--;
+          seconds = 59;
+        } else if (hours > 0) {
+          hours--;
+          minutes = 59;
+          seconds = 59;
+        } else {
+          // Reset ao chegar em 0
+          return { hours: 23, minutes: 59, seconds: 59 };
+        }
+        
+        return { hours, minutes, seconds };
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const handleVSLEnd = () => {
     setVslEnded(true);
     console.log('📊 VSL completed - CTA emphasis activated');
   };
+
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -47,6 +83,7 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
+
   return <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-dark-premium pt-8 lg:pt-12">
       {/* Background overlays for depth with parallax */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.1),transparent_60%)]" style={{
@@ -58,20 +95,39 @@ const Hero = () => {
           {/* Content Column - Left on desktop, full width on mobile */}
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start order-1">
             
+            {/* URGÊNCIA: Banner com contador */}
+            <div className="mb-4 lg:mb-6 w-full max-w-md lg:max-w-none">
+              <div className="bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3 flex items-center gap-2 justify-center lg:justify-start">
+                <Clock className="w-4 h-4 text-red-500 animate-pulse" />
+                <span className="text-red-500 font-semibold text-sm">
+                  Oferta expira em: <span className="font-mono">{String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}</span>
+                </span>
+              </div>
+            </div>
+
             {/* Teaser */}
-            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-mono text-center">
-              Pare de treinar sem saber se está funcionando
+            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-mono text-center lg:text-left">
+              ⚡ Método Comprovado de Transformação Física
             </p>
             
-          {/* Título Principal */}
-<h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
-  O sistema de <span className="text-accent">8 semanas</span> que faz seu corpo crescer e ganhar força com precisão, <span className="text-accent">eliminando o improviso</span> para você conquistar um físico atlético.
-</h1>
+            {/* TÍTULO FINAL OTIMIZADO */}
+            <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
+              O Sistema de <span className="text-accent">8 Semanas</span> que Faz Seu Corpo <span className="text-accent">Crescer</span>, Ganhar <span className="text-accent">Força Real</span> e Eliminar o <span className="text-accent">Improviso</span>.
+            </h1>
 
-{/* Subheadline */}
-<p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
-  Descubra o método que já ajudou <span className="text-white font-medium">centenas de homens a sair da estagnação </span> treinando com clareza, progressão real e sem depender de  <span className="text-accent font-semibold">dietas malucas.</span>.
-</p>
+            {/* SUBTÍTULO FINAL OTIMIZADO */}
+            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
+              Descubra o método que já transformou <span className="text-white font-medium">500+ homens</span>: estruturado, progressivo e com <span className="text-accent font-semibold">resultados reais em 8 semanas</span>. Sem dietas extremas. Sem achismo. Apenas transformação.
+            </p>
+
+            {/* URGÊNCIA: Vagas limitadas */}
+            <div className="mb-5 w-full max-w-md lg:max-w-none">
+              <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg px-4 py-2 text-center lg:text-left">
+                <p className="text-yellow-400 font-semibold text-sm">
+                  ⚠️ Restam apenas <span className="text-yellow-300 font-black">47 vagas</span> nesta turma
+                </p>
+              </div>
+            </div>
             
             {/* VSL Player - Mobile only */}
             <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-5 order-2">
@@ -82,21 +138,26 @@ const Hero = () => {
               </div>
             </div>
             
-            {/* CTA Button */}
+            {/* CTA Button - DESTAQUE MÁXIMO */}
             <div className={`w-full sm:w-auto order-3 ${vslEnded ? 'scale-105' : ''}`}>
-              <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-xl shadow-accent/25 ${vslEnded ? 'animate-pulse-glow-subtle ring-2 ring-accent/50' : 'animate-pulse-glow-subtle'}`}>
-                COMEÇAR AGORA POR R$19,90
+              <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-2xl shadow-accent/40 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'} hover:scale-105 transition-transform`}>
+                🚀 GARANTIR ACESSO AGORA - R$19,90
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
-            
-            {/* Social Proof */}
-            <p className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4">
-              
-              <span className="text-white/85 font-medium"> Oferta por tempo limitado — garanta seu acesso agora e não desperdice mais semanas de treino.</span>
-              <span className="mx-2 text-white/30">•</span>
-              <span className="text-white/85 font-medium">7 dias de garantia</span>
-            </p>
+
+            {/* PROVA SOCIAL + GARANTIA */}
+            <div className="mt-6 w-full max-w-md lg:max-w-none space-y-2">
+              <p className="text-xs sm:text-sm text-white/70 text-center lg:text-left">
+                ✅ <span className="text-white/90 font-medium">7 dias de garantia 100% - Seu dinheiro de volta</span>
+              </p>
+              <p className="text-xs sm:text-sm text-white/70 text-center lg:text-left">
+                ✅ <span className="text-white/90 font-medium">Acesso imediato ao app + primeiros treinos</span>
+              </p>
+              <p className="text-xs sm:text-sm text-white/70 text-center lg:text-left">
+                ✅ <span className="text-white/90 font-medium">500+ homens já transformados com sucesso</span>
+              </p>
+            </div>
           </div>
           
           {/* VSL Player Column - Right on desktop only */}
@@ -118,7 +179,7 @@ const Hero = () => {
         {/* Micro-gatilho VSL */}
         <div className="max-w-2xl mx-auto mt-8 sm:mt-10 text-center">
           <p className="text-white/50 text-sm sm:text-base italic">
-            Comece hoje e veja a evolução da execução dos treinos na primeira semana
+            Comece hoje e veja a evolução na primeira semana
           </p>
         </div>
       </div>
@@ -131,4 +192,5 @@ const Hero = () => {
       </div>
     </section>;
 };
+
 export default Hero;
