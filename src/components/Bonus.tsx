@@ -171,7 +171,7 @@ const Bonus = () => {
               <span>R$47</span>
             </div>
             <div className="flex justify-between text-white">
-              <span>BÔNUS: Combustível 8X (15 Receitas)</span>
+              <span>BÔNUS: Combustível 8X: 15 Receitas Anabólicas</span>
               <span className="text-accent font-semibold">R$37</span>
             </div>
 
