@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight, Lock, Clock } from "lucide-react";
+import { Check, ArrowRight, Lock, Clock, AlertCircle } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
+
 const benefits = ["E-book + App 8X — o sistema completo", "8 semanas estruturadas — só seguir e executar", "Nutrição prática — sem dieta maluca", "Técnicas avançadas — para quebrar estagnação", "Acesso vitalício — seu para sempre", "Garantia de 7 dias — risco zero pra você"];
+
 const CTA = () => {
   const {
     trackInitiateCheckout
@@ -11,6 +13,7 @@ const CTA = () => {
   const {
     visitorData
   } = useVisitorTracking();
+
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -21,10 +24,11 @@ const CTA = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
+
   return <section id="cta-section" className="py-12 sm:py-16 bg-white">
       <div className="container mx-auto px-5 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
-          {/* Micro-gatilho decisão final */}
+          {/* Micro-gatilho decisão final - URGÊNCIA */}
           <p className="text-muted-foreground text-sm italic text-center mb-6">
             O método já está pronto. A decisão ainda não.
           </p>
@@ -72,6 +76,19 @@ const CTA = () => {
                     <span>Pagamento único · Acesso imediato · Sem mensalidade</span>
                   </p>
                 </div>
+
+                {/* URGÊNCIA: Aviso de oportunidade única */}
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-5 flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-red-900 font-semibold text-sm">
+                      ⏰ Oferta por tempo limitado
+                    </p>
+                    <p className="text-red-700 text-xs mt-1">
+                      Se sair desta página, você perde acesso a este preço. Essa oportunidade não volta.
+                    </p>
+                  </div>
+                </div>
                 
                 <Button variant="cta" size="cta" className="w-full mb-3" onClick={handleCTAClick}>
                   QUERO COMEÇAR POR R$19,90
@@ -89,4 +106,5 @@ const CTA = () => {
       </div>
     </section>;
 };
+
 export default CTA;
