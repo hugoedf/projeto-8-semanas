@@ -7,7 +7,6 @@ import VSLPlayer from "@/components/VSLPlayer";
 import { useState, useEffect } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { useParallax } from "@/hooks/useParallax";
-
 const Hero = () => {
   const {
     trackInitiateCheckout
@@ -25,10 +24,13 @@ const Hero = () => {
 
   // URGÊNCIA REAL: Rastreia tempo decorrido desde primeira visita
   const [urgencyData, setUrgencyData] = useState({
-    timeLeft: { hours: 24, minutes: 0, seconds: 0 },
+    timeLeft: {
+      hours: 24,
+      minutes: 0,
+      seconds: 0
+    },
     vagasRestantes: 47
   });
-
   useEffect(() => {
     const TEMPO_INICIAL_MS = 24 * 60 * 60 * 1000; // 24 horas em ms
     const VAGAS_INICIAIS = 47;
@@ -46,20 +48,23 @@ const Hero = () => {
       const agora = Date.now();
       const primeiraVisita = parseInt(primeiraVisitaTimestamp!);
       const tempoDecorrido = agora - primeiraVisita;
-      
+
       // Calcula tempo restante
       const tempoRestante = Math.max(0, TEMPO_INICIAL_MS - tempoDecorrido);
       const horas = Math.floor(tempoRestante / (1000 * 60 * 60));
-      const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
-      const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
+      const minutos = Math.floor(tempoRestante % (1000 * 60 * 60) / (1000 * 60));
+      const segundos = Math.floor(tempoRestante % (1000 * 60) / 1000);
 
       // Calcula vagas restantes baseado em tempo
       // A cada 30 minutos que passa, diminui 1 vaga
       const vagasUsadas = Math.floor(tempoDecorrido / (30 * 60 * 1000));
       const vagasRestantes = Math.max(1, VAGAS_INICIAIS - vagasUsadas);
-
       setUrgencyData({
-        timeLeft: { hours: horas, minutes: minutos, seconds: segundos },
+        timeLeft: {
+          hours: horas,
+          minutes: minutos,
+          seconds: segundos
+        },
         vagasRestantes
       });
     };
@@ -69,15 +74,12 @@ const Hero = () => {
 
     // Atualiza a cada segundo
     const interval = setInterval(atualizarUrgencia, 1000);
-
     return () => clearInterval(interval);
   }, []);
-
   const handleVSLEnd = () => {
     setVslEnded(true);
     console.log('📊 VSL completed - CTA emphasis activated');
   };
-
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -100,7 +102,6 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
   return <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden section-dark-premium">
       {/* Background overlays for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.1),transparent_60%)]" style={{
@@ -113,7 +114,7 @@ const Hero = () => {
           <div className="flex items-center gap-2 whitespace-nowrap">
             <Clock className="w-4 h-4 text-red-500 animate-pulse flex-shrink-0" />
             <span className="text-red-500 font-semibold text-sm sm:text-base">
-              Oferta expira em: <span className="font-mono text-red-400">{String(urgencyData.timeLeft.hours).padStart(2, '0')}:{String(urgencyData.timeLeft.minutes).padStart(2, '0')}:{String(urgencyData.timeLeft.seconds).padStart(2, '0')}</span>
+              Seu acesso promocional expira em: <span className="font-mono text-red-400">{String(urgencyData.timeLeft.hours).padStart(2, '0')}:{String(urgencyData.timeLeft.minutes).padStart(2, '0')}:{String(urgencyData.timeLeft.seconds).padStart(2, '0')}</span>
             </span>
           </div>
           
@@ -144,13 +145,13 @@ const Hero = () => {
             </h1>
 
             {/* SUBTÍTULO - OTIMIZADO */}
-<p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
+          <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
   Mais de <span className="text-white font-semibold">500 pessoas</span> já 
   <span className="text-white font-medium"> ganharam músculo e força</span> em 
   <span className="text-accent font-semibold"> 8 semanas</span> com um método 
   <span className="text-white font-medium"> estruturado e progressivo</span> — 
   <span className="text-white/80"> sem dietas extremas e sem achismo</span>.
-</p>
+          </p>
 
             
             {/* VSL Player - Mobile only */}
@@ -164,12 +165,7 @@ const Hero = () => {
             
             {/* CTA Button */}
             <div className={`w-full sm:w-auto mb-4 sm:mb-6 ${vslEnded ? 'scale-105' : ''}`}>
-              <Button 
-                variant="cta" 
-                size="cta" 
-                onClick={handleCTAClick} 
-                className={`w-full sm:w-auto shadow-2xl shadow-accent/40 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'} hover:scale-105 transition-transform text-base sm:text-lg py-6 sm:py-7`}
-              >
+              <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-2xl shadow-accent/40 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'} hover:scale-105 transition-transform text-base sm:text-lg py-6 sm:py-7`}>
                 GARANTIR ACESSO AGORA - R$19,90
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
@@ -222,5 +218,4 @@ const Hero = () => {
       </div>
     </section>;
 };
-
 export default Hero;
