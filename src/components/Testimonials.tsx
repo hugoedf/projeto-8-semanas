@@ -67,9 +67,7 @@ const Testimonials = () => {
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
         <div className="text-center mb-8 sm:mb-10">
           {/* Micro-gatilho prova social */}
-          <p className="text-muted-foreground text-sm italic mb-4">
-            Eles decidiram mudar. Você vai esperar o quê?
-          </p>
+          
           
           {/* Introdução consolidada - hierarquia clara */}
           <p className="text-muted-foreground text-base sm:text-lg mb-1.5">
