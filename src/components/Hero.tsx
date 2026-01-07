@@ -23,36 +23,54 @@ const Hero = () => {
     speed: 0.08
   });
 
-  // URGÊNCIA: Contador regressivo (24h)
-  const [timeLeft, setTimeLeft] = useState({
-    hours: 23,
-    minutes: 59,
-    seconds: 59
+  // URGÊNCIA REAL: Rastreia tempo decorrido desde primeira visita
+  const [urgencyData, setUrgencyData] = useState({
+    timeLeft: { hours: 24, minutes: 0, seconds: 0 },
+    vagasRestantes: 47
   });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        let { hours, minutes, seconds } = prev;
-        
-        if (seconds > 0) {
-          seconds--;
-        } else if (minutes > 0) {
-          minutes--;
-          seconds = 59;
-        } else if (hours > 0) {
-          hours--;
-          minutes = 59;
-          seconds = 59;
-        } else {
-          return { hours: 23, minutes: 59, seconds: 59 };
-        }
-        
-        return { hours, minutes, seconds };
-      });
-    }, 1000);
+    const TEMPO_INICIAL_MS = 24 * 60 * 60 * 1000; // 24 horas em ms
+    const VAGAS_INICIAIS = 47;
+    const STORAGE_KEY = 'metodo8x_urgency_timestamp';
 
-    return () => clearInterval(timer);
+    // Primeira visita: salva o timestamp
+    let primeiraVisitaTimestamp = localStorage.getItem(STORAGE_KEY);
+    if (!primeiraVisitaTimestamp) {
+      primeiraVisitaTimestamp = Date.now().toString();
+      localStorage.setItem(STORAGE_KEY, primeiraVisitaTimestamp);
+    }
+
+    // Função para atualizar urgência
+    const atualizarUrgencia = () => {
+      const agora = Date.now();
+      const primeiraVisita = parseInt(primeiraVisitaTimestamp!);
+      const tempoDecorrido = agora - primeiraVisita;
+      
+      // Calcula tempo restante
+      const tempoRestante = Math.max(0, TEMPO_INICIAL_MS - tempoDecorrido);
+      const horas = Math.floor(tempoRestante / (1000 * 60 * 60));
+      const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
+
+      // Calcula vagas restantes baseado em tempo
+      // A cada 30 minutos que passa, diminui 1 vaga
+      const vagasUsadas = Math.floor(tempoDecorrido / (30 * 60 * 1000));
+      const vagasRestantes = Math.max(1, VAGAS_INICIAIS - vagasUsadas);
+
+      setUrgencyData({
+        timeLeft: { hours: horas, minutes: minutos, seconds: segundos },
+        vagasRestantes
+      });
+    };
+
+    // Atualiza imediatamente
+    atualizarUrgencia();
+
+    // Atualiza a cada segundo
+    const interval = setInterval(atualizarUrgencia, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleVSLEnd = () => {
@@ -89,13 +107,13 @@ const Hero = () => {
       transform: `translateY(${parallaxOffset * 0.5}px)`
     }} />
       
-      {/* BANNER TOPO: Contador + Vagas (Esticado) */}
+      {/* BANNER TOPO: Contador REAL + Vagas REAIS (Esticado) */}
       <div className="w-full bg-red-500/10 border-b border-red-500/30 px-4 sm:px-6 py-3 sm:py-4 relative z-20">
         <div className="container mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
           <div className="flex items-center gap-2 whitespace-nowrap">
             <Clock className="w-4 h-4 text-red-500 animate-pulse flex-shrink-0" />
             <span className="text-red-500 font-semibold text-sm sm:text-base">
-              Oferta expira em: <span className="font-mono text-red-400">{String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}</span>
+              Oferta expira em: <span className="font-mono text-red-400">{String(urgencyData.timeLeft.hours).padStart(2, '0')}:{String(urgencyData.timeLeft.minutes).padStart(2, '0')}:{String(urgencyData.timeLeft.seconds).padStart(2, '0')}</span>
             </span>
           </div>
           
@@ -103,7 +121,7 @@ const Hero = () => {
           
           <div className="flex items-center gap-2 whitespace-nowrap">
             <span className="text-yellow-300 font-bold text-sm sm:text-base">
-              ⚠️ Restam <span className="text-yellow-200 font-black">47 vagas</span>
+              ⚠️ Restam <span className="text-yellow-200 font-black">{urgencyData.vagasRestantes} vagas</span>
             </span>
           </div>
         </div>
@@ -125,9 +143,9 @@ const Hero = () => {
               O Sistema de <span className="text-accent">8 Semanas</span> que Faz Seu Corpo <span className="text-accent">Crescer</span>, Ganhar <span className="text-accent">Força Real</span> e Eliminar o <span className="text-accent">Improviso</span>.
             </h1>
 
-            {/* SUBTÍTULO */}
+            {/* SUBTÍTULO - OTIMIZADO */}
             <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
-              Descubra o método que já transformou <span className="text-white font-medium">500+ homens</span>: estruturado, progressivo e com <span className="text-accent font-semibold">resultados reais em 8 semanas</span>. Sem dietas extremas. Sem achismo. Apenas transformação.
+              Mais de <span className="text-white font-medium">500 pessoas</span> já transformaram o físico em <span className="text-accent font-semibold">8 semanas</span> seguindo esse método. Estruturado, progressivo e com resultados reais. Sem dietas extremas. Sem achismo. Apenas transformação.
             </p>
             
             {/* VSL Player - Mobile only */}
@@ -164,7 +182,7 @@ const Hero = () => {
               </div>
               <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
                 <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
-                <span><span className="font-semibold">500+ homens</span> já transformados com sucesso</span>
+                <span><span className="font-semibold">500+ pessoas</span> já transformadas com sucesso</span>
               </div>
             </div>
 
