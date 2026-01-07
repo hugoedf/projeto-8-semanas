@@ -91,7 +91,7 @@ const Hero = () => {
             </div>
             
             {/* Social Proof */}
-            <p className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4">
+            <p className="sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4 text-sm">
               
               <span className="text-white/85 font-medium"> Oferta por tempo limitado — garanta seu acesso agora e não desperdice mais semanas de treino.</span>
               <span className="mx-2 text-white/30">•</span>
