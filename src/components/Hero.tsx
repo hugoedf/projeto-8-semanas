@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, Clock } from "lucide-react";
+import { ArrowRight, Clock, Check } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
@@ -45,7 +45,6 @@ const Hero = () => {
           minutes = 59;
           seconds = 59;
         } else {
-          // Reset ao chegar em 0
           return { hours: 23, minutes: 59, seconds: 59 };
         }
         
@@ -84,53 +83,55 @@ const Hero = () => {
     window.location.href = checkoutUrl;
   };
 
-  return <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-dark-premium pt-8 lg:pt-12">
-      {/* Background overlays for depth with parallax */}
+  return <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden section-dark-premium">
+      {/* Background overlays for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.1),transparent_60%)]" style={{
       transform: `translateY(${parallaxOffset * 0.5}px)`
     }} />
       
-      <div className="container mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-8 sm:pb-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center max-w-7xl mx-auto">
-          {/* Content Column - Left on desktop, full width on mobile */}
-          <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start order-1">
-            
-            {/* URGÊNCIA: Banner com contador */}
-            <div className="mb-4 lg:mb-6 w-full max-w-md lg:max-w-none">
-              <div className="bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3 flex items-center gap-2 justify-center lg:justify-start">
-                <Clock className="w-4 h-4 text-red-500 animate-pulse" />
-                <span className="text-red-500 font-semibold text-sm">
-                  Oferta expira em: <span className="font-mono">{String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}</span>
-                </span>
-              </div>
-            </div>
+      {/* BANNER TOPO: Contador + Vagas (Esticado) */}
+      <div className="w-full bg-red-500/10 border-b border-red-500/30 px-4 sm:px-6 py-3 sm:py-4 relative z-20">
+        <div className="container mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <Clock className="w-4 h-4 text-red-500 animate-pulse flex-shrink-0" />
+            <span className="text-red-500 font-semibold text-sm sm:text-base">
+              Oferta expira em: <span className="font-mono text-red-400">{String(timeLeft.hours).padStart(2, '0')}:{String(timeLeft.minutes).padStart(2, '0')}:{String(timeLeft.seconds).padStart(2, '0')}</span>
+            </span>
+          </div>
+          
+          <div className="hidden sm:block w-px h-6 bg-red-500/20" />
+          
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <span className="text-yellow-300 font-bold text-sm sm:text-base">
+              ⚠️ Restam <span className="text-yellow-200 font-black">47 vagas</span>
+            </span>
+          </div>
+        </div>
+      </div>
 
+      {/* CONTEÚDO PRINCIPAL */}
+      <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-8 sm:pb-12 relative z-10 flex-1 flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center max-w-7xl mx-auto w-full">
+          {/* Content Column */}
+          <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
+            
             {/* Teaser */}
-            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-mono text-center lg:text-left">
+            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-4 lg:mb-6 font-mono text-center lg:text-left">
               ⚡ Método Comprovado de Transformação Física
             </p>
             
-            {/* TÍTULO FINAL OTIMIZADO */}
-            <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
+            {/* TÍTULO PRINCIPAL */}
+            <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-4 sm:mb-6 px-1 sm:px-0">
               O Sistema de <span className="text-accent">8 Semanas</span> que Faz Seu Corpo <span className="text-accent">Crescer</span>, Ganhar <span className="text-accent">Força Real</span> e Eliminar o <span className="text-accent">Improviso</span>.
             </h1>
 
-            {/* SUBTÍTULO FINAL OTIMIZADO */}
-            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
+            {/* SUBTÍTULO */}
+            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
               Descubra o método que já transformou <span className="text-white font-medium">500+ homens</span>: estruturado, progressivo e com <span className="text-accent font-semibold">resultados reais em 8 semanas</span>. Sem dietas extremas. Sem achismo. Apenas transformação.
             </p>
-
-            {/* URGÊNCIA: Vagas limitadas */}
-            <div className="mb-5 w-full max-w-md lg:max-w-none">
-              <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg px-4 py-2 text-center lg:text-left">
-                <p className="text-yellow-400 font-semibold text-sm">
-                  ⚠️ Restam apenas <span className="text-yellow-300 font-black">47 vagas</span> nesta turma
-                </p>
-              </div>
-            </div>
             
             {/* VSL Player - Mobile only */}
-            <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-5 order-2">
+            <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-6">
               <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.3)_0%,hsla(18,100%,55%,0.15)_45%,transparent_70%)] blur-[35px] rounded-[40px]" />
               <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.4)_0%,transparent_60%)] blur-[25px] rounded-2xl" />
               <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-accent/20 shadow-lg">
@@ -138,30 +139,43 @@ const Hero = () => {
               </div>
             </div>
             
-            {/* CTA Button - DESTAQUE MÁXIMO */}
-            <div className={`w-full sm:w-auto order-3 ${vslEnded ? 'scale-105' : ''}`}>
-              <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-2xl shadow-accent/40 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'} hover:scale-105 transition-transform`}>
+            {/* CTA Button */}
+            <div className={`w-full sm:w-auto mb-4 sm:mb-6 ${vslEnded ? 'scale-105' : ''}`}>
+              <Button 
+                variant="cta" 
+                size="cta" 
+                onClick={handleCTAClick} 
+                className={`w-full sm:w-auto shadow-2xl shadow-accent/40 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'} hover:scale-105 transition-transform text-base sm:text-lg py-6 sm:py-7`}
+              >
                 🚀 GARANTIR ACESSO AGORA - R$19,90
                 <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
               </Button>
             </div>
 
-            {/* PROVA SOCIAL + GARANTIA */}
-            <div className="mt-6 w-full max-w-md lg:max-w-none space-y-2">
-              <p className="text-xs sm:text-sm text-white/70 text-center lg:text-left">
-                ✅ <span className="text-white/90 font-medium">7 dias de garantia 100% - Seu dinheiro de volta</span>
-              </p>
-              <p className="text-xs sm:text-sm text-white/70 text-center lg:text-left">
-                ✅ <span className="text-white/90 font-medium">Acesso imediato ao app + primeiros treinos</span>
-              </p>
-              <p className="text-xs sm:text-sm text-white/70 text-center lg:text-left">
-                ✅ <span className="text-white/90 font-medium">500+ homens já transformados com sucesso</span>
-              </p>
+            {/* ABAIXO DO CTA: Garantia + Benefícios */}
+            <div className="w-full max-w-md lg:max-w-none space-y-2.5">
+              <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
+                <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
+                <span><span className="font-semibold">7 dias de garantia 100%</span> - Seu dinheiro de volta</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
+                <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
+                <span><span className="font-semibold">Acesso imediato ao app</span> + primeiros treinos</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
+                <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
+                <span><span className="font-semibold">500+ homens</span> já transformados com sucesso</span>
+              </div>
             </div>
+
+            {/* Micro-gatilho */}
+            <p className="text-white/50 text-sm sm:text-base italic mt-6 lg:mt-8">
+              Comece hoje e veja a evolução na primeira semana
+            </p>
           </div>
           
           {/* VSL Player Column - Right on desktop only */}
-          <div className="hidden lg:flex justify-center relative animate-fade-in order-2" style={{
+          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{
           animationDelay: "0.15s",
           transform: `translateY(${parallaxOffset * 0.3}px)`
         }}>
@@ -175,17 +189,10 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        
-        {/* Micro-gatilho VSL */}
-        <div className="max-w-2xl mx-auto mt-8 sm:mt-10 text-center">
-          <p className="text-white/50 text-sm sm:text-base italic">
-            Comece hoje e veja a evolução na primeira semana
-          </p>
-        </div>
       </div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60 z-10">
         <div className="w-6 h-10 border border-white/30 rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
