@@ -64,7 +64,7 @@ const Hero = () => {
             </p>
             
            {/* Título Principal */}
-          <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
+          <h1 className="font-display leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0 text-xl">
   Ganhe <span className="text-accent">Massa Muscular e Definição</span> em <span className="text-accent">8 Semanas</span> com o Método que Elimina o Improviso e Maximiza cada Minuto do seu Treino.
           </h1>
 
