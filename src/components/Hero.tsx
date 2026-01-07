@@ -65,7 +65,7 @@ const Hero = () => {
             
           {/* Título Principal */}
 <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
-  O sistema de <span className="text-accent">8 semanas</span> que faz seu corpo crescer e ganhar força com precisão, <span className="text-accent">eliminando o improviso</span> para você conquistar um físico atlético.
+  O sistema de <span className="text-accent">8 semanas</span> que faz seu corpo crescer e ganhar força com precisão — <span className="text-accent">eliminando o improviso</span> para você conquistar um físico atlético.
 </h1>
 
 {/* Subheadline */}
