@@ -59,7 +59,7 @@ const Hero = () => {
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start order-1">
             
             {/* Teaser */}
-            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-mono">
+            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-sans">
               Pare de treinar sem saber se está funcionando
             </p>
             
