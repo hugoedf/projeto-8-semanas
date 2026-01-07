@@ -1,13 +1,17 @@
 import { Lightbulb, Zap, Target, TrendingUp } from "lucide-react";
+
 const WhyExists = () => {
-  return <section className="py-12 sm:py-16 lg:py-20 section-dark-premium relative overflow-hidden">
+  return (
+    <section className="py-12 sm:py-16 lg:py-20 section-dark-premium relative overflow-hidden">
       {/* Enhanced orange glow for visual warmth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto">
           {/* Micro-gatilho antes do bloco */}
-          <p className="text-white/50 text-sm text-center italic mb-6">Enquanto muitos continuam ajustando treino, quem segue um método 8x só executa.</p>
+          <p className="text-white/50 text-sm text-center italic mb-6">
+            Enquanto muitos continuam ajustando treino, quem segue um método só executa.
+          </p>
           
           {/* Título */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
@@ -84,6 +88,8 @@ const WhyExists = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default WhyExists;
