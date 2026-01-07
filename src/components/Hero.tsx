@@ -118,7 +118,7 @@ const Hero = () => {
         {/* Micro-gatilho VSL */}
         <div className="max-w-2xl mx-auto mt-8 sm:mt-10 text-center">
           <p className="text-white/50 text-sm sm:text-base italic">
-            Fechar esse vídeo mantém você repetindo o mesmo treino achando que está evoluindo.
+            Comece hoje e veja a evolução da execução dos treinos na primeira semana
           </p>
         </div>
       </div>
