@@ -15,8 +15,13 @@ import { DiagnosticPanel } from "@/components/DiagnosticPanel";
 import IntermediateCTA from "@/components/IntermediateCTA";
 import FloatingCTA from "@/components/FloatingCTA";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import DecisionBlock from "@/components/DecisionBlock";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
+import SocialProofNotifications from "@/components/SocialProofNotifications";
+
 const Index = () => {
-  return <main className="min-h-screen">
+  return (
+    <main className="min-h-screen">
       <Hero />
       {/* 1. DOR - Identificação emocional */}
       <Problems />
@@ -35,15 +40,23 @@ const Index = () => {
       {/* 7. QUALIFICAÇÃO + GARANTIA */}
       <ForWho />
       <Guarantee />
+      {/* 8. DECISÃO FINAL - Confronto antes do CTA */}
+      <DecisionBlock />
       {/* 9. CTA FINAL */}
       <CTA />
       <FAQ />
       <Footer />
+      
+      {/* Elementos de urgência e prova social */}
       <FloatingCTA />
       <WhatsAppButton />
+      <ExitIntentPopup />
+      <SocialProofNotifications />
       
       {/* Painel de diagnóstico - apenas em desenvolvimento */}
       {import.meta.env.DEV}
-    </main>;
+    </main>
+  );
 };
+
 export default Index;

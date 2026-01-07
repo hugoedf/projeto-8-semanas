@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, Clock } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 
@@ -54,37 +54,82 @@ const FloatingCTA = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden animate-slide-in-bottom">
-      <div className="bg-background/95 backdrop-blur-md border-t border-accent/30 shadow-2xl px-3 py-3 safe-area-inset-bottom">
-        <div className="flex items-center justify-between gap-2">
-          {/* Preço */}
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="text-muted-foreground line-through text-xs">R$97</span>
-            <span className="text-accent font-bold text-lg">R$19,90</span>
+    <>
+      {/* Mobile - Bottom bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden animate-slide-in-bottom">
+        <div className="bg-background/95 backdrop-blur-md border-t border-accent/30 shadow-2xl px-3 py-3 safe-area-inset-bottom">
+          <div className="flex items-center justify-between gap-2">
+            {/* Preço */}
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-muted-foreground line-through text-xs">R$97</span>
+              <span className="text-accent font-bold text-lg">R$19,90</span>
+            </div>
+
+            {/* Botão com preço */}
+            <Button 
+              variant="cta" 
+              size="sm"
+              onClick={handleCTAClick}
+              className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow-subtle whitespace-nowrap"
+            >
+              COMEÇAR POR R$19,90
+              <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+            </Button>
+
+            {/* Fechar */}
+            <button 
+              onClick={handleDismiss}
+              className="p-1 text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
+              aria-label="Fechar"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop - Side floating bar */}
+      <div className="fixed bottom-6 right-6 z-50 hidden lg:block animate-slide-in-right">
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] backdrop-blur-md rounded-2xl shadow-2xl shadow-black/40 border border-accent/30 p-4 max-w-xs">
+          {/* Urgency */}
+          <div className="flex items-center gap-2 text-red-400 text-xs font-semibold mb-3">
+            <Clock className="w-3.5 h-3.5" />
+            <span>Oferta por tempo limitado</span>
           </div>
 
-          {/* Botão com preço */}
+          {/* Price */}
+          <div className="flex items-center gap-3 mb-3">
+            <span className="text-white/40 line-through text-sm">R$97</span>
+            <span className="text-accent font-display text-2xl font-bold">R$19,90</span>
+          </div>
+
+          {/* CTA */}
           <Button 
             variant="cta" 
             size="sm"
             onClick={handleCTAClick}
-            className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow-subtle whitespace-nowrap"
+            className="w-full text-sm font-bold shadow-lg shadow-accent/30 uppercase"
           >
-            COMEÇAR POR R$19,90
-            <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+            GARANTIR ACESSO
+            <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
 
-          {/* Fechar */}
+          {/* Trust */}
+          <p className="text-white/40 text-xs text-center mt-2">
+            7 dias de garantia · Risco zero
+          </p>
+
+          {/* Close */}
           <button 
             onClick={handleDismiss}
-            className="p-1 text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
+            className="absolute -top-2 -right-2 w-6 h-6 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
             aria-label="Fechar"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3 h-3 text-white/60" />
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -7,6 +7,8 @@ import VSLPlayer from "@/components/VSLPlayer";
 import { useState, useEffect } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { useParallax } from "@/hooks/useParallax";
+import LiveViewers from "@/components/LiveViewers";
+
 const Hero = () => {
   const {
     trackInitiateCheckout
@@ -187,10 +189,13 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Micro-gatilho */}
-            <p className="text-white/50 text-sm sm:text-base italic mt-6 lg:mt-8">
-              Comece hoje e veja a evolução na primeira semana
-            </p>
+            {/* Live viewers + Micro-gatilho */}
+            <div className="mt-6 lg:mt-8 space-y-3">
+              <LiveViewers />
+              <p className="text-white/50 text-sm sm:text-base italic">
+                Fechar essa página mantém você treinando no escuro
+              </p>
+            </div>
           </div>
           
           {/* VSL Player Column - Right on desktop only */}
