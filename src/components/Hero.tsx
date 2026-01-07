@@ -59,19 +59,19 @@ const Hero = () => {
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start order-1">
             
             {/* Teaser */}
-            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-mono text-left">
+            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-mono text-center">
               Pare de treinar sem saber se está funcionando
             </p>
             
            {/* Título Principal */}
-<h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
+          <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
   Ganhe <span className="text-accent">Massa Muscular e Definição</span> em <span className="text-accent">8 Semanas</span> com o Método que Elimina o Improviso e Maximiza cada Minuto do seu Treino.
-</h1>
+          </h1>
 
-{/* Subheadline */}
-<p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
+          {/* Subheadline */}
+          <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
   O sistema <span className="text-accent font-semibold">100% guiado</span> que já ajudou centenas de homens comuns a conquistarem um físico atlético treinando de forma inteligente e sem dietas impossíveis.
-</p>
+          </p>
 
             
             {/* VSL Player - Mobile only */}
