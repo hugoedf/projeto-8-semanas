@@ -69,8 +69,7 @@ const Hero = () => {
             </h1>
             
             {/* Subheadline */}
-            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">Entre na academia sabendo exatamente o que fazer. Mais de 500 pessoas já transformaram seu corpo em 8 semanas seguindo este método.<span className="text-white font-medium">sabendo exatamente o que fazer</span>​ <span className="text-accent font-semibold">progresso real</span> ​
-            </p>
+            
             
             {/* VSL Player - Mobile only */}
             <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-5 order-2">
