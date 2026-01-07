@@ -59,17 +59,19 @@ const Hero = () => {
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start order-1">
             
             {/* Teaser */}
-            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-mono text-center">
+            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3 lg:mb-4 font-mono text-left">
               Pare de treinar sem saber se está funcionando
             </p>
             
             {/* Título Principal */}
-            <h1 className="font-display leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0 text-2xl">
+            <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
               O sistema de <span className="text-accent">8 semanas</span> que faz seu corpo crescer, ganhar força e treinar com precisão — <span className="text-accent">sem improviso</span> e sem perder tempo.
             </h1>
             
             {/* Subheadline */}
-            
+            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
+              Entre na academia <span className="text-white font-medium">sabendo exatamente o que fazer</span>. Siga o método por 8 semanas e transforme cada treino em <span className="text-accent font-semibold">progresso real</span> — não continue desperdiçando esforço.
+            </p>
             
             {/* VSL Player - Mobile only */}
             <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-5 order-2">
@@ -89,7 +91,7 @@ const Hero = () => {
             </div>
             
             {/* Social Proof */}
-            <p className="sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4 text-xs">
+            <p className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4">
               
               <span className="text-white/85 font-medium"> Oferta por tempo limitado — garanta seu acesso agora e não desperdice mais semanas de treino.</span>
               <span className="mx-2 text-white/30">•</span>
