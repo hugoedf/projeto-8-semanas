@@ -69,7 +69,7 @@ const Hero = () => {
             </h1>
             
             {/* Subheadline */}
-            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">Entre na academia sabendo exatamente o que fazer. Mais de 500 pessoas já transformaram seu corpo em 8 semanas seguindo este método.em 8 semanas. Mais de 500 pessoas já transformaram seu corpo progresso real — <span className="text-white font-medium">em 8 semanas</span>​ <span className="text-accent font-semibold">progresso real</span> ​
+            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">Entre na academia sabendo exatamente o que fazer. Mais de 500 pessoas já transformaram seu corpo em 8 semanas seguindo este método. <span className="text-white font-medium">em 8 semanas</span>​ <span className="text-accent font-semibold">progresso real</span> ​
             </p>
             
             {/* VSL Player - Mobile only */}
