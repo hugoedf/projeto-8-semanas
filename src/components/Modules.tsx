@@ -38,6 +38,11 @@ const Modules = () => {
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-10 lg:mb-12">
+          {/* Micro-gatilho Sistema Completo */}
+          <p className="text-white/50 text-sm italic mb-4">
+            Conhecimento sem execução vira mais uma tentativa frustrada.
+          </p>
+          
           <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-white/50 mb-3">
             ​
           </span>

@@ -8,6 +8,11 @@ const WhyExists = () => {
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto">
+          {/* Micro-gatilho antes do bloco */}
+          <p className="text-white/50 text-sm text-center italic mb-6">
+            Enquanto muitos continuam ajustando treino, quem segue um método só executa.
+          </p>
+          
           {/* Título */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
             <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/25 flex items-center justify-center">

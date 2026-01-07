@@ -161,6 +161,10 @@ const Problems = () => {
                   sistema estruturado, progressivo e aplicável.
                 </span>
               </p>
+              {/* Micro-gatilho de identificação */}
+              <p className="text-muted-foreground text-sm mt-4 italic">
+                Continuar assim também é uma escolha.
+              </p>
             </div>
           </div>
           

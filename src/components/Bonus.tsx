@@ -42,6 +42,11 @@ const Bonus = () => {
           </p>
         </div>
 
+        {/* Micro-gatilho App */}
+        <p className="text-white/50 text-sm text-center italic mb-4">
+          Você não precisa decidir todo dia. Só executar.
+        </p>
+
         {/* Two Pillars */}
         <div className="grid sm:grid-cols-2 gap-3 max-w-2xl mx-auto mb-6">
           {/* Pilar 1 - E-book */}
@@ -94,6 +99,11 @@ const Bonus = () => {
 
         {/* Price Anchoring com comparativo */}
         <div className="text-center">
+          {/* Micro-gatilho comparação de preço */}
+          <p className="text-white/50 text-sm italic mb-3">
+            R$19,90 é pouco. Continuar errando é caro.
+          </p>
+          
           <div className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-4 max-w-md mx-auto mb-4">
             <p className="text-white/50 text-xs uppercase tracking-wider mb-3">Quanto custa treinar certo?</p>
             <div className="space-y-2 text-sm">
