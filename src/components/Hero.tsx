@@ -92,8 +92,8 @@ const Hero = () => {
             
             {/* Social Proof */}
             <p className="text-xs sm:text-sm text-white/65 mt-4 lg:mt-5 text-center lg:text-left order-4">
-              <span className="text-accent font-semibold">+500 pessoas</span>
-              <span className="text-white/85"> já saíram da estagnação</span>
+              
+              <span className="text-white/85"> Oferta por tempo limitado — garanta seu acesso agora e não desperdice mais semanas de treino.</span>
               <span className="mx-2 text-white/30">•</span>
               <span className="text-white/85 font-medium">7 dias de garantia</span>
             </p>
