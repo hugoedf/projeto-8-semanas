@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 import { useCTAVisibility } from "@/contexts/CTAVisibilityContext";
 import { useParallax } from "@/hooks/useParallax";
 import LiveViewers from "@/components/LiveViewers";
-
 const Hero = () => {
   const {
     trackInitiateCheckout
@@ -123,9 +122,7 @@ const Hero = () => {
           <div className="hidden sm:block w-px h-6 bg-red-500/20" />
           
           <div className="flex items-center gap-2 whitespace-nowrap">
-            <span className="text-yellow-300 font-bold text-sm sm:text-base">
-              ⚠️ Restam <span className="text-yellow-200 font-black">{urgencyData.vagasRestantes} vagas</span>
-            </span>
+            
           </div>
         </div>
       </div>
