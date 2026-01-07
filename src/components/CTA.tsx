@@ -24,6 +24,11 @@ const CTA = () => {
   return <section id="cta-section" className="py-12 sm:py-16 bg-white">
       <div className="container mx-auto px-5 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
+          {/* Micro-gatilho decisão final */}
+          <p className="text-muted-foreground text-sm italic text-center mb-6">
+            O método já está pronto. A decisão ainda não.
+          </p>
+          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Image */}
             <div className="order-2 lg:order-1">

@@ -65,13 +65,12 @@ const Hero = () => {
             
             {/* Título Principal */}
             <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-3 sm:mb-4 px-1 sm:px-0">
-              O sistema de <span className="text-accent">8 semanas</span> que transforma seu treino em{" "}
-              <span className="text-accent">hipertrofia real</span> — com ciência, progressão e execução guiada.
+              O sistema de <span className="text-accent">8 semanas</span> que faz seu corpo crescer, ganhar força e treinar com precisão — <span className="text-accent">sem improviso</span> e sem perder tempo.
             </h1>
             
             {/* Subheadline */}
             <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
-              Você entra na academia <span className="text-white font-medium">sabendo exatamente o que fazer</span>. E em 8 semanas, <span className="text-accent font-semibold">vê o resultado no espelho.</span>
+              Entre na academia <span className="text-white font-medium">sabendo exatamente o que fazer</span>. Siga o método por 8 semanas e transforme cada treino em <span className="text-accent font-semibold">progresso real</span> — não continue desperdiçando esforço.
             </p>
             
             {/* VSL Player - Mobile only */}
@@ -116,10 +115,10 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Micro-compromisso */}
+        {/* Micro-gatilho VSL */}
         <div className="max-w-2xl mx-auto mt-8 sm:mt-10 text-center">
           <p className="text-white/50 text-sm sm:text-base italic">
-            Cada semana treinando sem método é mais uma semana jogada fora.
+            Fechar esse vídeo mantém você repetindo o mesmo treino achando que está evoluindo.
           </p>
         </div>
       </div>
