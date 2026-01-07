@@ -69,8 +69,7 @@ const Hero = () => {
             </h1>
             
             {/* Subheadline */}
-            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
-              Entre na academia <span className="text-white font-medium">sabendo exatamente o que fazer</span>. Siga o método por 8 semanas e transforme cada treino em <span className="text-accent font-semibold">progresso real</span> — não continue desperdiçando esforço.
+            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">Entre na academia sabendo exatamente o que fazer. Siga o método por 8 semanas e transforme cada treino em<span className="text-white font-medium">sabendo exatamente o que fazer</span>. Siga o método por 8 semanas e transforme cada treino em <span className="text-accent font-semibold">progresso real</span> — não continue desperdiçando esforço.
             </p>
             
             {/* VSL Player - Mobile only */}
