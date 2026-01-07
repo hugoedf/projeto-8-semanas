@@ -70,7 +70,7 @@ const Hero = () => {
 
 {/* Subheadline */}
 <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-5 lg:mb-6 px-1 sm:px-0">
-  Descubra o método que já ajudou <span className="text-white font-medium">centenas de homens comuns</span> a transformarem seus resultados treinando de forma inteligente e <span className="text-accent font-semibold">sem dietas impossíveis</span>.
+  Descubra o método que já ajudou <span className="text-white font-medium">centenas de homens a sair da estagnação </span> treinando com clareza, progressão real e sem depender de  <span className="text-accent font-semibold">dietas malucas.</span>.
 </p>
             
             {/* VSL Player - Mobile only */}
