@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Clock, Check } from "lucide-react";
+import { Clock } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
@@ -162,7 +162,7 @@ const Hero = () => {
                 <span><span className="font-semibold">✅7 dias de garantia 100%</span> - Seu dinheiro de volta</span>
               </div>
               <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
-                <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
+                
                 <span><span className="font-semibold">✅Acesso imediato ao app</span> + primeiros treinos</span>
               </div>
               <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
