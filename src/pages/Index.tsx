@@ -1,14 +1,15 @@
 import Hero from "@/components/Hero";
 import WhyExists from "@/components/WhyExists";
+import IntermediateCTA from "@/components/IntermediateCTA";
 import Problems from "@/components/Problems";
 import ForWho from "@/components/ForWho";
 import Benefits from "@/components/Benefits";
 import AppShowcase from "@/components/AppShowcase";
 import Testimonials from "@/components/Testimonials";
 import Bonus from "@/components/Bonus";
+import DecisionBlock from "@/components/DecisionBlock";
 import Guarantee from "@/components/Guarantee";
 import CTA from "@/components/CTA";
-import DecisionBlock from "@/components/DecisionBlock";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -21,40 +22,43 @@ const Index = () => {
     <main className="min-h-screen">
       {/* FLUXO DE PERSUASÃO OTIMIZADO */}
       
-      {/* 1. HEADLINE - Promessa Impactante */}
+      {/* 1. HEADLINE - Promessa Impactante (SEM CTA) */}
       <Hero />
       
       {/* 2. SUSTENTAÇÃO - Autoridade + Ciência (Fisiologia Progressiva) */}
       <WhyExists />
       
-      {/* 3. DORES - Conexão Emocional */}
+      {/* 3. PRIMEIRO CTA - Após sustentação */}
+      <IntermediateCTA />
+      
+      {/* 4. DORES - Conexão Emocional */}
       <Problems />
       
-      {/* 4. IDENTIFICAÇÃO - "Isso é pra mim" */}
+      {/* 5. IDENTIFICAÇÃO - "Isso é pra mim" */}
       <ForWho />
       
-      {/* 5. BENEFÍCIOS - O que você conquista em 8 semanas */}
+      {/* 6. BENEFÍCIOS - O que você conquista em 8 semanas */}
       <Benefits />
       
-      {/* 6. APP - Diferencial Tecnológico */}
+      {/* 7. APP - Diferencial Tecnológico */}
       <AppShowcase />
       
-      {/* 7. PROVA SOCIAL - Depoimentos */}
+      {/* 8. PROVA SOCIAL - Depoimentos */}
       <Testimonials />
       
-      {/* 8. BÔNUS EXCLUSIVOS */}
+      {/* 9. BÔNUS EXCLUSIVOS */}
       <Bonus />
       
-      {/* 9. GARANTIA */}
-      <Guarantee />
-      
-      {/* 10. ANCORAGEM E PREÇO */}
-      <CTA />
-      
-      {/* 11. URGÊNCIA / DECISÃO FINAL */}
+      {/* 10. DECISÃO - Contraste emocional */}
       <DecisionBlock />
       
-      {/* 12. FAQ - Últimas objeções */}
+      {/* 11. GARANTIA */}
+      <Guarantee />
+      
+      {/* 12. CTA FINAL - Ancoragem e Preço */}
+      <CTA />
+      
+      {/* 13. FAQ - Últimas objeções */}
       <FAQ />
       
       <Footer />
