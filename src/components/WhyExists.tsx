@@ -28,7 +28,7 @@ const WhyMethodExists = () => {
           
           {/* Título Principal */}
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-12 sm:mb-14 lg:mb-16 tracking-tight leading-[1.1]">
-            Por que o Método <span className="text-accent">8X</span> existe
+            Ciência que garante <span className="text-accent">resultados reais</span>
           </h2>
 
           {/* Grid Layout - 2 colunas em desktop, 1 em mobile */}
@@ -38,19 +38,19 @@ const WhyMethodExists = () => {
             <div className="space-y-5 sm:space-y-6">
               
               <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                Durante anos, vi pessoas treinando com <span className="text-white font-semibold">dedicação real</span>. Acordando cedo, abrindo mão de compromissos, entrando pesado toda semana.
+                O <span className="text-white font-semibold">Método 8X</span> não é apenas um treino aleatório. Ele é baseado em Fisiologia Progressiva, a ciência que mostra como o corpo realmente cresce.
               </p>
 
               <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                E mesmo assim, ficavam travadas. Meses passavam e o corpo não respondia.
+                <span className="text-accent font-semibold">1️⃣ Estímulo Otimizado</span> – Treinos que desafiam o corpo de forma inteligente.
               </p>
 
               <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                O problema não era a pessoa.
+                <span className="text-accent font-semibold">2️⃣ Adaptação e Recuperação</span> – Descanso estratégico para crescimento muscular.
               </p>
 
               <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                Era o que o mercado oferecia: <span className="text-white font-semibold">treinos genéricos, planos que funcionam na teoria mas travam na prática</span>, informação demais e execução de menos.
+                <span className="text-accent font-semibold">3️⃣ Supercompensação</span> – O estágio em que seu corpo se torna mais forte e definido do que nunca.
               </p>
 
             </div>
@@ -58,17 +58,17 @@ const WhyMethodExists = () => {
             {/* Coluna Direita - Boxes Destacados */}
             <div className="space-y-5 sm:space-y-6">
               
-              {/* Box 1 - Faltava um sistema */}
+              {/* Box 1 - Aplicativo + Ebook */}
               <div className="card-dark-glass p-6 sm:p-7 rounded-2xl border border-accent/20">
                 <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                  Faltava um sistema <span className="text-white font-semibold">simples, progressivo e aplicável</span>.
+                  Tudo entregue em um <span className="text-white font-semibold">aplicativo + ebook</span>, para que você saiba exatamente o que fazer, quando e como.
                 </p>
               </div>
 
-              {/* Box 2 - Algo que transformasse */}
+              {/* Box 2 - Sem depender de motivação */}
               <div className="card-dark-glass p-6 sm:p-7 rounded-2xl border border-accent/20">
                 <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                  Algo que transformasse <span className="text-white font-semibold">conhecimento em ação diária</span> — sem precisar decorar nada, sem depender de motivação, sem improvisar.
+                  <span className="text-white font-semibold">Sem depender da motivação do dia</span>. Você só precisa seguir o passo a passo e ver seu corpo responder.
                 </p>
               </div>
 
@@ -83,12 +83,12 @@ const WhyMethodExists = () => {
           <div className="space-y-6 sm:space-y-8">
             
             <p className="text-white text-base sm:text-lg lg:text-xl leading-relaxed font-semibold">
-              O Método 8X nasceu para resolver exatamente isso:
+              Treino estruturado. Progressão real. Resultados visíveis.
             </p>
 
             <div className="card-dark-glass p-8 sm:p-10 lg:p-12 rounded-2xl border border-accent/30 bg-accent/[0.03]">
               <p className="text-white/80 text-base sm:text-lg lg:text-xl leading-relaxed">
-                <span className="text-accent font-semibold">Transformar treino em execução guiada</span>, com progressão clara semana a semana — sem achismo, sem tentativa e erro, sem depender de força de vontade.
+                <span className="text-accent font-semibold">Fisiologia Progressiva</span> é a ciência que força seu corpo a evoluir toda semana — sem achismo, sem tentativa e erro, sem improvisar.
               </p>
             </div>
 

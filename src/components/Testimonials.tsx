@@ -2,31 +2,31 @@ import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Marcos Vinícius",
-    age: 31,
+    name: "Lucas M.",
+    age: 28,
     location: "São Paulo, SP",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    highlight: "3 anos travado. 4 semanas pra destravar.",
-    text: "Eu treinava há 3 anos e estava travado no mesmo peso. Sempre achei que era genética. Em 4 semanas de Método 8X, minhas camisas começaram a apertar no braço. A clareza de saber exatamente o que fazer em cada treino mudou tudo. Pela primeira vez, eu sinto que o esforço tá valendo.",
-    result: "Braço cresceu 2cm"
+    highlight: "Resultados rápidos e consistentes",
+    text: "Nunca imaginei que conseguiria ver resultados tão rápidos. O app me guia e me motiva, sem depender da minha vontade. Em 6 semanas já senti meu corpo mudando de verdade.",
+    result: "Transformação visível"
   },
   {
-    name: "Felipe Augusto",
-    age: 27,
+    name: "Camila S.",
+    age: 25,
     location: "Rio de Janeiro, RJ",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-    highlight: "Minha namorada notou primeiro",
-    text: "Eu olhava no espelho e não via diferença nenhuma. Tava quase desistindo da academia. Na terceira semana do método, minha namorada perguntou se eu tava fazendo algo diferente. Ela notou antes de mim. Isso me deu um gás absurdo pra continuar.",
-    result: "Definição visível em 3 semanas"
+    highlight: "Método completo e científico",
+    text: "O método é completo, científico e fácil de seguir. Em 6 semanas já senti meu corpo mudando! A clareza de saber exatamente o que fazer fez toda a diferença.",
+    result: "Corpo respondendo em 6 semanas"
   },
   {
-    name: "Gustavo Henrique",
-    age: 34,
+    name: "Pedro T.",
+    age: 32,
     location: "Belo Horizonte, MG",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    highlight: "Perdi tempo e dinheiro com personal",
-    text: "Já paguei R$350 por mês em personal. Fiz consultoria online de R$400. Nenhum me explicou a lógica da progressão como esse método de R$19,90 explica. Parece piada, mas é a verdade. Finalmente entendi por que eu não crescia.",
-    result: "+6kg em 8 semanas"
+    highlight: "Finalmente evolução real",
+    text: "Eu já tinha tentado vários métodos, mas só com o 8X senti meu corpo evoluindo de verdade. A progressão estruturada é o diferencial que faltava nos meus treinos.",
+    result: "Evolução contínua"
   },
   {
     name: "André Luiz",
@@ -34,16 +34,16 @@ const testimonials = [
     location: "Curitiba, PR",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
     highlight: "Do improviso pro controle total",
-    text: "Eu entrava na academia sem saber o que ia fazer. Improvisava todo dia. Agora abro o app, sei exatamente o exercício, a carga, as séries. Acabou a sensação de estar perdido. Meu corpo respondeu em 2 semanas porque finalmente tem estímulo certo.",
-    result: "Supino subiu 15kg"
+    text: "Eu entrava na academia sem saber o que ia fazer. Improvisava todo dia. Agora abro o app, sei exatamente o exercício, a carga, as séries. Acabou a sensação de estar perdido.",
+    result: "Força aumentando toda semana"
   },
   {
     name: "Ricardo Santos",
     age: 26,
     location: "Brasília, DF",
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
-    highlight: "Saí da estagnação de 8 meses",
-    text: "8 meses sem evoluir nada. Mesma carga, mesmo shape, mesma frustração. Eu já tava conformado que era meu limite genético. Na quinta semana do método, quebrei meu recorde no leg press. Não era genética. Era falta de método.",
+    highlight: "Saí da estagnação",
+    text: "8 meses sem evoluir nada. Mesma carga, mesmo shape, mesma frustração. Na quinta semana do método, quebrei meu recorde. Não era genética. Era falta de método.",
     result: "Recordes pessoais batidos"
   }
 ];
@@ -106,27 +106,13 @@ const Testimonials = () => {
       </div>
       
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        {/* Micro-gatilho */}
-        <div className="text-center mb-3">
-          <span className="inline-block text-accent/80 text-sm font-medium italic">
-            "Eles decidiram mudar. Você vai esperar o quê?"
-          </span>
-        </div>
-
         <div className="text-center mb-8 sm:mb-10">
-          <p className="text-muted-foreground text-base sm:text-lg mb-1.5">
-            Pessoas que já treinavam. Pessoas estagnadas. Todas com algo em comum:
-          </p>
-          <p className="text-foreground font-semibold text-lg sm:text-xl mb-4">
-            Só precisavam de um método claro.
-          </p>
-          
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-3 sm:mb-4 px-2 tracking-tight">
-            Quem já aplicou o Método 8X está{" "}
-            <span className="text-gradient">transformando o físico — e a mente.</span>
+            Mais de <span className="text-accent">500 pessoas</span> já transformaram{" "}
+            <span className="text-gradient">seus treinos e corpos</span> com o Método 8X
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
-            Homens reais. Resultados reais. Sem filtro, sem edição.
+            Resultados reais de pessoas reais.
           </p>
         </div>
         

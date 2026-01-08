@@ -4,23 +4,23 @@ import { useParallax } from "@/hooks/useParallax";
 const benefits = [
   {
     icon: Dumbbell,
-    title: "Cada treino com propósito",
-    description: "Você entra na academia sabendo exatamente o que fazer — e sai sabendo que funcionou."
+    title: "Ganho de massa equilibrado",
+    description: "Força + volume em harmonia. Resultados reais que aparecem no espelho e na balança."
   },
   {
     icon: Target,
-    title: "Resultados visíveis",
-    description: "Quando você segue progressão real, o espelho e a força respondem semana após semana."
+    title: "Quebra de platôs",
+    description: "Elimine a estagnação de uma vez. Seu corpo vai ser forçado a evoluir toda semana."
   },
   {
     icon: TrendingUp,
-    title: "Estagnação quebrada",
-    description: "O método força o corpo a continuar evoluindo — sem platô, sem travamento."
+    title: "Força, densidade e resistência",
+    description: "Mais do que estética — você vai sentir a diferença em cada repetição."
   },
   {
     icon: Zap,
-    title: "Menos tempo, mais resultado",
-    description: "45-60min de treino focado entrega mais que 2h de improviso na academia."
+    title: "Clareza total na academia",
+    description: "Treino guiado, sem improviso. Economia de tempo com progressão inteligente."
   }
 ];
 
@@ -37,10 +37,10 @@ const Benefits = () => {
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-8 lg:mb-10 max-w-2xl mx-auto">
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight text-black leading-tight">
-            Os <span className="text-accent">4 pilares</span> que mudam seu treino
+            O que você conquista em <span className="text-accent">8 semanas</span>
           </h2>
           <p className="text-black/60 text-base sm:text-lg">
-            Resultados reais em 8 semanas de execução estruturada.
+            Não é sobre treinar duro, é sobre treinar certo.
           </p>
         </div>
         
