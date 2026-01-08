@@ -1,4 +1,11 @@
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const testimonials = [
   {
@@ -49,7 +56,7 @@ const testimonials = [
 ];
 
 const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] }) => (
-  <div className="group bg-white rounded-2xl p-5 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1 transition-all duration-300">
+  <div className="group bg-white rounded-2xl p-5 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 h-full">
     {/* Header com foto e info */}
     <div className="flex items-center gap-3 mb-4">
       <div className="relative">
@@ -116,18 +123,45 @@ const Testimonials = () => {
           </p>
         </div>
         
-        {/* Grid de depoimentos - 2 colunas mobile, 3 desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 max-w-5xl mx-auto">
-          {testimonials.slice(0, 3).map((testimonial, index) => (
-            <TestimonialCard key={index} testimonial={testimonial} />
-          ))}
+        {/* Carrossel Mobile */}
+        <div className="block lg:hidden">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2">
+                  <div className="p-1">
+                    <TestimonialCard testimonial={testimonial} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-4 mt-6">
+              <CarouselPrevious className="relative inset-auto translate-y-0 bg-white border-accent/20 hover:bg-accent hover:text-white" />
+              <CarouselNext className="relative inset-auto translate-y-0 bg-white border-accent/20 hover:bg-accent hover:text-white" />
+            </div>
+          </Carousel>
         </div>
         
-        {/* Segunda linha - 2 cards centralizados */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 max-w-3xl mx-auto mt-4 lg:mt-5">
-          {testimonials.slice(3, 5).map((testimonial, index) => (
-            <TestimonialCard key={index + 3} testimonial={testimonial} />
-          ))}
+        {/* Grid Desktop - mantém layout original */}
+        <div className="hidden lg:block">
+          <div className="grid grid-cols-3 gap-5 max-w-5xl mx-auto">
+            {testimonials.slice(0, 3).map((testimonial, index) => (
+              <TestimonialCard key={index} testimonial={testimonial} />
+            ))}
+          </div>
+          
+          {/* Segunda linha - 2 cards centralizados */}
+          <div className="grid grid-cols-2 gap-5 max-w-3xl mx-auto mt-5">
+            {testimonials.slice(3, 5).map((testimonial, index) => (
+              <TestimonialCard key={index + 3} testimonial={testimonial} />
+            ))}
+          </div>
         </div>
         
         {/* Badge de transformações */}
