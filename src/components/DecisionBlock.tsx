@@ -50,24 +50,24 @@ const DecisionBlock = () => {
             <div className="bg-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-5 sm:p-6 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500/60 to-red-500/20" />
               <div className="text-red-400/80 text-sm font-semibold uppercase tracking-wider mb-3">
-                Continuar sozinho
+                Continuar no mesmo caminho
               </div>
-              <ul className="space-y-2.5 text-white/50 text-sm sm:text-base">
+              <ul className="space-y-3 text-white/50 text-sm sm:text-base">
                 <li className="flex items-start gap-3">
                   <span className="text-red-400/70 mt-0.5">✗</span>
-                  <span>Mais meses de esforço sem retorno</span>
+                  <span>Continuar escondendo o corpo na praia e em fotos</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-400/70 mt-0.5">✗</span>
-                  <span>Mesma frustração ao olhar no espelho</span>
+                  <span>Sentir que cada ida à academia é esforço jogado fora</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-400/70 mt-0.5">✗</span>
-                  <span>Improviso eterno, sem progressão real</span>
+                  <span>Ver os meses passarem sem nenhuma mudança no espelho</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-400/70 mt-0.5">✗</span>
-                  <span>Tempo e energia desperdiçados</span>
+                  <span>Continuar sendo o cara que "treina mas não parece"</span>
                 </li>
               </ul>
             </div>
@@ -78,22 +78,22 @@ const DecisionBlock = () => {
               <div className="text-accent text-sm font-semibold uppercase tracking-wider mb-3">
                 Seguir o Método 8X
               </div>
-              <ul className="space-y-2.5 text-white/80 text-sm sm:text-base">
+              <ul className="space-y-3 text-white/80 text-sm sm:text-base">
                 <li className="flex items-start gap-3">
                   <span className="text-accent mt-0.5">✓</span>
-                  <span>Resultados visíveis em 8 semanas</span>
+                  <span>Ter a confiança de quem domina o próprio shape</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-accent mt-0.5">✓</span>
-                  <span>Clareza total sobre o que fazer</span>
+                  <span>Ver resultados aparecendo no espelho toda segunda-feira</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-accent mt-0.5">✓</span>
-                  <span>Progressão científica e comprovada</span>
+                  <span>Ouvir pessoas perguntando o que você está fazendo</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-accent mt-0.5">✓</span>
-                  <span>Cada treino com propósito real</span>
+                  <span>Finalmente ser o cara que evolui de verdade</span>
                 </li>
               </ul>
             </div>
@@ -126,7 +126,7 @@ const DecisionBlock = () => {
               onClick={handleCTAClick} 
               className="w-full sm:w-auto mb-4"
             >
-              ASSUMIR O CONTROLE DO MEU TREINO
+              SIM, QUERO O MÉTODO 8X
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             

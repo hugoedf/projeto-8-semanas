@@ -2,49 +2,49 @@ import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Lucas Ferreira",
-    age: 28,
+    name: "Marcos Vinícius",
+    age: 31,
     location: "São Paulo, SP",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    highlight: "Saí do platô em 3 semanas",
-    text: "Treinava há 2 anos e achava que sabia o que estava fazendo. Depois do Método 8X, percebi que estava desperdiçando 70% do meu esforço. Em 3 semanas já senti diferença real na força.",
-    result: "+4kg de massa magra"
+    highlight: "3 anos travado. 4 semanas pra destravar.",
+    text: "Eu treinava há 3 anos e estava travado no mesmo peso. Sempre achei que era genética. Em 4 semanas de Método 8X, minhas camisas começaram a apertar no braço. A clareza de saber exatamente o que fazer em cada treino mudou tudo. Pela primeira vez, eu sinto que o esforço tá valendo.",
+    result: "Braço cresceu 2cm"
   },
   {
-    name: "Rafael Costa",
-    age: 32,
-    location: "Belo Horizonte, MG",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-    highlight: "De 1h30 pra 45min de treino",
-    text: "Ficava mais de uma hora na academia sem saber se estava progredindo. Agora entro, executo o que o app manda e saio. Meus amigos perguntam o que eu tô tomando.",
-    result: "Treino 50% mais eficiente"
-  },
-  {
-    name: "Thiago Oliveira",
-    age: 25,
+    name: "Felipe Augusto",
+    age: 27,
     location: "Rio de Janeiro, RJ",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    highlight: "Pump que eu nunca tinha sentido",
-    text: "Achei que era genética ruim. Na real era execução errada. O método me ensinou a sentir o músculo de verdade. Na segunda semana já vi diferença no espelho.",
-    result: "Hipertrofia visível"
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+    highlight: "Minha namorada notou primeiro",
+    text: "Eu olhava no espelho e não via diferença nenhuma. Tava quase desistindo da academia. Na terceira semana do método, minha namorada perguntou se eu tava fazendo algo diferente. Ela notou antes de mim. Isso me deu um gás absurdo pra continuar.",
+    result: "Definição visível em 3 semanas"
   },
   {
-    name: "Bruno Mendes",
-    age: 30,
+    name: "Gustavo Henrique",
+    age: 34,
+    location: "Belo Horizonte, MG",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+    highlight: "Perdi tempo e dinheiro com personal",
+    text: "Já paguei R$350 por mês em personal. Fiz consultoria online de R$400. Nenhum me explicou a lógica da progressão como esse método de R$19,90 explica. Parece piada, mas é a verdade. Finalmente entendi por que eu não crescia.",
+    result: "+6kg em 8 semanas"
+  },
+  {
+    name: "André Luiz",
+    age: 29,
     location: "Curitiba, PR",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
-    highlight: "Melhor que personal de R$300",
-    text: "Já paguei consultoria online de R$200. Paguei personal de R$300/mês. Nenhum me deu a clareza que esse método de R$19,90 me deu. Parece piada, mas é real.",
-    result: "Economia + Resultado"
+    highlight: "Do improviso pro controle total",
+    text: "Eu entrava na academia sem saber o que ia fazer. Improvisava todo dia. Agora abro o app, sei exatamente o exercício, a carga, as séries. Acabou a sensação de estar perdido. Meu corpo respondeu em 2 semanas porque finalmente tem estímulo certo.",
+    result: "Supino subiu 15kg"
   },
   {
-    name: "Pedro Almeida",
-    age: 27,
+    name: "Ricardo Santos",
+    age: 26,
     location: "Brasília, DF",
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
-    highlight: "Finalmente entendi progressão",
-    text: "Ficava mudando treino toda semana achando que era o certo. O método me mostrou que consistência com progressão é o segredo. Simples assim. Resultados em 2 semanas.",
-    result: "Força dobrada no supino"
+    highlight: "Saí da estagnação de 8 meses",
+    text: "8 meses sem evoluir nada. Mesma carga, mesmo shape, mesma frustração. Eu já tava conformado que era meu limite genético. Na quinta semana do método, quebrei meu recorde no leg press. Não era genética. Era falta de método.",
+    result: "Recordes pessoais batidos"
   }
 ];
 
