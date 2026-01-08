@@ -110,22 +110,7 @@ const Hero = () => {
     }} />
       
       {/* BANNER TOPO: Contador REAL + Vagas REAIS (Esticado) */}
-      <div className="w-full bg-red-500/10 border-b border-red-500/30 px-4 sm:px-6 py-3 sm:py-4 relative z-20">
-        <div className="container mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
-          <div className="flex items-center gap-2 whitespace-nowrap">
-            <Clock className="w-4 h-4 text-red-500 animate-pulse flex-shrink-0" />
-            <span className="text-red-500 font-semibold text-sm sm:text-base">
-              Seu acesso promocional expira em: <span className="font-mono text-red-400">{String(urgencyData.timeLeft.hours).padStart(2, '0')}:{String(urgencyData.timeLeft.minutes).padStart(2, '0')}:{String(urgencyData.timeLeft.seconds).padStart(2, '0')}</span>
-            </span>
-          </div>
-          
-          <div className="hidden sm:block w-px h-6 bg-red-500/20" />
-          
-          <div className="flex items-center gap-2 whitespace-nowrap">
-            
-          </div>
-        </div>
-      </div>
+      
 
       {/* CONTEÚDO PRINCIPAL */}
       <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-8 sm:pb-12 relative z-10 flex-1 flex items-center">
