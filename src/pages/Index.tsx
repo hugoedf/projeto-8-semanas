@@ -1,9 +1,10 @@
 import Hero from "@/components/Hero";
 import Problems from "@/components/Problems";
+import ForWho from "@/components/ForWho";
 import WhyExists from "@/components/WhyExists";
-import Testimonials from "@/components/Testimonials";
 import Benefits from "@/components/Benefits";
 import AppShowcase from "@/components/AppShowcase";
+import Testimonials from "@/components/Testimonials";
 import Bonus from "@/components/Bonus";
 import Guarantee from "@/components/Guarantee";
 import DecisionBlock from "@/components/DecisionBlock";
@@ -18,39 +19,40 @@ import SocialProofNotifications from "@/components/SocialProofNotifications";
 const Index = () => {
   return (
     <main className="min-h-screen">
-      {/* FLUXO EMOCIONAL DE ALTA CONVERSÃO LOW TICKET */}
+      {/* FLUXO EMOCIONAL DE ALTA CONVERSÃO */}
       
-      {/* 1. HERO - Identificação imediata + Escassez real */}
+      {/* 1. HERO - Promessa + Escassez */}
       <Hero />
       
-      {/* 2. DOR - Identificação emocional profunda */}
+      {/* 2. DOR - Conexão emocional */}
       <Problems />
       
-      {/* 3. A CAUSA RAIZ - WhyExists condensado */}
+      {/* 3. IDENTIFICAÇÃO - "Isso é pra mim" */}
+      <ForWho />
+      
+      {/* 4. A CAUSA RAIZ - Por que você não tem resultados */}
       <WhyExists />
       
-      {/* 4. PROVA SOCIAL - Depoimentos antes dos benefícios */}
-      <Testimonials />
-      
-      {/* 5. BENEFÍCIOS - Apenas 4 pilares principais */}
+      {/* 5. BENEFÍCIOS - Os 4 pilares de resultado */}
       <Benefits />
       
-      {/* 6. APP - Facilitador visual */}
+      {/* 6. APP - O diferencial tecnológico */}
       <AppShowcase />
       
-      {/* 7. BÔNUS - Valor percebido */}
-      <Bonus />
+      {/* 7. PROVA SOCIAL - Resultados reais */}
+      <Testimonials />
       
-      {/* 8. GARANTIA - Remoção de risco */}
+      {/* 8. BÔNUS + GARANTIA - Valor + Segurança */}
+      <Bonus />
       <Guarantee />
       
-      {/* 9. DECISÃO FINAL - Contraste máximo */}
+      {/* 9. DECISÃO FINAL - Contraste emocional */}
       <DecisionBlock />
       
-      {/* 10. CTA FINAL */}
+      {/* 10. OFERTA FINAL - CTA de impacto */}
       <CTA />
       
-      {/* 11. FAQ - Apenas 5 objeções de compra */}
+      {/* 11. FAQ - Últimas objeções */}
       <FAQ />
       
       <Footer />

@@ -1,79 +1,68 @@
-import { UserCheck, TrendingUp, Dumbbell, X } from "lucide-react";
-const audience = [{
-  icon: UserCheck,
-  title: "Iniciantes",
-  description: "Querem fazer certo desde o primeiro dia"
-}, {
-  icon: TrendingUp,
-  title: "Intermediários",
-  description: "Estagnaram e querem romper o platô"
-}, {
-  icon: Dumbbell,
-  title: "Avançados",
-  description: "Querem treinar com método"
-}];
-const notFor = ["Procura milagre", "Não quer seguir um plano", "Não treina com regularidade"];
+import { Target, Clock, Brain, Check } from "lucide-react";
+
+const profiles = [
+  {
+    icon: Target,
+    title: "Está estagnado",
+    description: "Treina há meses (ou anos) e o espelho não muda"
+  },
+  {
+    icon: Clock,
+    title: "Tem pouco tempo",
+    description: "Precisa de um treino que funciona sem enrolação"
+  },
+  {
+    icon: Brain,
+    title: "Quer método científico",
+    description: "Cansou de achismo e quer progressão real"
+  }
+];
+
 const ForWho = () => {
-  return <section className="py-14 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
+  return (
+    <section className="py-10 sm:py-14 bg-white relative overflow-hidden">
       <div className="container mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 lg:mb-12">
-          <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-accent/70 mb-3">
-            ​
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] mb-4 tracking-tight text-black leading-[1.1]">
-            Para quem é o{" "}
-            <span className="text-accent">Método 8X?</span>
+        <div className="text-center mb-8">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight text-black leading-tight">
+            Isso é pra você se...
           </h2>
-          <p className="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto">
-            Pessoas que buscam hipertrofia baseada em ciência.
-          </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4 max-w-4xl mx-auto">
-          {audience.map((item, index) => {
-          const Icon = item.icon;
-          return <div key={index} className="group bg-[#FAFAFA] border border-gray-100 rounded-2xl p-5 sm:p-6 text-center hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-1 hover:border-accent/20 transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-accent/8 border border-accent/15 flex items-center justify-center mb-4 mx-auto group-hover:bg-accent/12 group-hover:scale-105 transition-all duration-300">
-                  <Icon className="w-8 h-8 text-accent" strokeWidth={1.5} />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
+          {profiles.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div 
+                key={index} 
+                className="flex items-start gap-4 bg-accent/5 border border-accent/10 rounded-xl p-4 sm:p-5"
+              >
+                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-5 h-5 text-accent" strokeWidth={2} />
                 </div>
-                <h3 className="font-display text-xl font-bold mb-2 text-black tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="text-gray-500 text-sm sm:text-base leading-relaxed">
-                  {item.description}
-                </p>
-              </div>;
-        })}
+                <div>
+                  <h3 className="font-bold text-base text-black mb-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
         
-        <div className="mt-10 lg:mt-12 text-center max-w-2xl mx-auto">
-          <div className="bg-accent/8 border border-accent/20 rounded-2xl p-5 sm:p-6">
-            <p className="text-lg sm:text-xl font-semibold text-black mb-2">
-              Se você se identificou com pelo menos um desses perfis…
+        <div className="text-center max-w-xl mx-auto">
+          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-5 py-2.5">
+            <Check className="w-5 h-5 text-accent" />
+            <p className="text-sm sm:text-base font-semibold text-black">
+              Se você se identificou, o Método 8X foi feito pra você.
             </p>
-            <p className="text-accent text-xl sm:text-2xl font-bold">
-              O Método 8X foi feito para você.
-            </p>
-          </div>
-        </div>
-        
-        {/* Bloco "Para quem NÃO é" */}
-        <div className="mt-8 max-w-lg mx-auto">
-          <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 sm:p-5">
-            <p className="text-gray-500 text-sm sm:text-base text-center mb-3">
-              O Método 8X <span className="font-medium text-black">não é para quem:</span>
-            </p>
-            <div className="space-y-2">
-              {notFor.map((item, index) => <div key={index} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                    <X className="w-3 h-3 text-gray-400" />
-                  </div>
-                  <p className="text-gray-500 text-sm">{item}</p>
-                </div>)}
-            </div>
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default ForWho;
