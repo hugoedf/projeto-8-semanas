@@ -3,11 +3,13 @@ import { ArrowRight, Clock, AlertTriangle } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
 const DecisionBlock = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -18,9 +20,7 @@ const DecisionBlock = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  return (
-    <section className="py-12 sm:py-18 section-dark-premium relative overflow-hidden">
+  return <section className="py-12 sm:py-18 section-dark-premium relative overflow-hidden">
       {/* Dramatic gradient background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,hsla(18,100%,58%,0.08),transparent_60%)]" />
       
@@ -102,7 +102,7 @@ const DecisionBlock = () => {
           {/* Emotional Close */}
           <div className="text-center mb-8">
             <p className="text-white/70 text-base sm:text-lg mb-1.5">
-              Você já provou que tem disciplina. Já mostrou que quer evoluir.
+              Você já provou que tem disciplina. Agora, prove o que seu corpo é capaz de fazer com ciência.
             </p>
             <p className="text-white font-medium text-lg sm:text-xl">
               Só falta o <span className="text-accent">método certo</span> para transformar esforço em resultado.
@@ -120,12 +120,7 @@ const DecisionBlock = () => {
               Preço baixo porque o foco é execução, não volume de conteúdo.
             </p>
             
-            <Button 
-              variant="cta" 
-              size="cta" 
-              onClick={handleCTAClick} 
-              className="w-full sm:w-auto mb-4"
-            >
+            <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full sm:w-auto mb-4">
               SIM, QUERO O MÉTODO 8X
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
@@ -138,8 +133,6 @@ const DecisionBlock = () => {
           
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default DecisionBlock;
