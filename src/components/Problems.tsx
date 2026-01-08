@@ -1,10 +1,11 @@
 import { X, AlertTriangle, ArrowDown, Target, RotateCcw, TrendingDown, Clock } from "lucide-react";
 
 const painPoints = [
-  "Você treina há meses — e o espelho continua igual",
-  "Faz força, sua, dedica tempo — mas o shape não responde",
-  "Vê outros evoluindo com metade do esforço que você faz",
-  "Já tentou de tudo, mas nada parece funcionar de verdade"
+  "Treina duro, mas nada muda no espelho",
+  "Se sente perdido entre exercícios e séries",
+  "Já tentou vários métodos e continua estagnado",
+  "Perde motivação e acaba pulando treinos",
+  "Já gastou dinheiro em treinos e suplementos que não funcionaram"
 ];
 
 const explanationPoints = [{
@@ -42,23 +43,9 @@ const Problems = () => {
               ​
             </span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground leading-[1.1]">
-              Você treina, se esforça…<br />
-              <span className="text-accent">e mesmo assim não vê resultado?</span>
+              Você se identifica com<br />
+              <span className="text-accent">algum desses problemas?</span>
             </h2>
-          </div>
-          
-          {/* Introdução emocional */}
-          <div className="text-center mb-10 max-w-2xl mx-auto">
-            <p className="text-foreground font-medium text-lg sm:text-xl">
-              E o pior não é treinar pesado.
-            </p>
-            <p className="text-muted-foreground text-base sm:text-lg mt-3 leading-relaxed">
-              É sentir que o esforço não está voltando em forma de resultado.
-            </p>
-            <p className="text-muted-foreground text-base sm:text-lg mt-4 leading-relaxed">
-              Provavelmente você já saiu da academia com a sensação de ter feito tudo certo…{" "}
-              <span className="text-foreground font-medium">mas sem a certeza de que aquilo realmente estava funcionando.</span>
-            </p>
           </div>
           
           {/* 2️⃣ Grid de Cards Premium - Dores */}
@@ -141,8 +128,8 @@ const Problems = () => {
           <div className="text-center mb-10">
             <div className="inline-block bg-gray-50 border border-border rounded-2xl px-6 sm:px-8 py-5 max-w-2xl">
               <p className="text-muted-foreground text-base sm:text-lg italic leading-relaxed">
-                "Quanto mais tempo você treina errado, mais difícil fica sair da estagnação.{" "}
-                <span className="text-foreground font-medium not-italic">O corpo se adapta ao erro — e para de responder.</span>"
+                "Se você respondeu sim a qualquer um desses pontos,{" "}
+                <span className="text-foreground font-medium not-italic">você não está sozinho — e existe uma solução comprovada.</span>"
               </p>
             </div>
           </div>
@@ -160,10 +147,6 @@ const Problems = () => {
                 <span className="text-accent underline decoration-accent/40 underline-offset-4 decoration-2">
                   sistema estruturado, progressivo e aplicável.
                 </span>
-              </p>
-              {/* Micro-gatilho de identificação */}
-              <p className="text-muted-foreground text-sm mt-4 italic">
-                Continuar assim também é uma escolha.
               </p>
             </div>
           </div>

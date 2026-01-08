@@ -120,21 +120,20 @@ const Hero = () => {
             
             {/* Teaser */}
             <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-4 lg:mb-6 font-mono text-center lg:text-left">
-              Quem treina duro não pode treinar no escuro.
+              Transformação em 8 Semanas
             </p>
             
             {/* TÍTULO PRINCIPAL */}
             <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-4 sm:mb-6 px-1 sm:px-0">
-              O Sistema de <span className="text-accent">8 Semanas</span> que Faz Seu Corpo <span className="text-accent">Crescer</span>, Ganhar <span className="text-accent">Força Real</span> e Eliminar o <span className="text-accent">Improviso</span>.
+              Em <span className="text-accent">8 semanas</span>, conquiste <span className="text-accent">músculos reais</span>, força de verdade e <span className="text-accent">definição</span> que aparece no espelho — sem depender de motivação.
             </h1>
 
             {/* SUBTÍTULO - OTIMIZADO */}
             <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
-              Mais de <span className="text-white font-semibold">500 pessoas</span> já 
-              <span className="text-white font-medium"> ganharam músculo e força</span> em 
-              <span className="text-accent font-semibold"> 8 semanas</span> com um método 
-              <span className="text-white font-medium"> estruturado e progressivo</span> — 
-              <span className="text-white/80"> sem dietas extremas e sem achismo</span>.
+              O <span className="text-white font-semibold">Método 8X</span> é um protocolo científico de treino que 
+              <span className="text-white font-medium"> transforma seu corpo de forma consistente</span>, 
+              quebrando platôs, aumentando força e hipertrofia, com 
+              <span className="text-accent font-semibold"> treinos guiados</span>, nutrição estratégica e recuperação inteligente.
             </p>
 
             
@@ -150,8 +149,7 @@ const Hero = () => {
             {/* CTA Button */}
             <div className={`w-full sm:w-auto mb-4 sm:mb-6 ${vslEnded ? 'scale-105' : ''}`}>
               <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-2xl shadow-accent/40 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'} hover:scale-105 transition-transform text-base sm:text-lg py-6 sm:py-7`}>
-                GARANTIR ACESSO AGORA - R$19,90
-                
+                COMEÇAR AGORA – TRANSFORMAR EM 8 SEMANAS
               </Button>
             </div>
 
@@ -175,7 +173,7 @@ const Hero = () => {
             <div className="mt-6 lg:mt-8 space-y-3">
               <LiveViewers />
               <p className="text-white/50 text-sm sm:text-base italic">
-                Fechar essa página mantém você treinando no escuro
+                Comece imediatamente e veja resultados em apenas 8 semanas.
               </p>
             </div>
           </div>

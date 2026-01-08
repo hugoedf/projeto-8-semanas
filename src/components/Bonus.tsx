@@ -44,61 +44,62 @@ const Bonus = () => {
         <div className="text-center mb-4">
           <span className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] px-4 py-2 rounded-full bg-accent/15 border border-accent/30">
             <Smartphone className="w-4 h-4" />
-            O Sistema Completo
+            Bônus Exclusivos
           </span>
         </div>
 
         {/* Headline */}
         <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white text-center leading-tight mb-2">
-          Isso não é só um e-book.  
+          Bônus Exclusivos ao  
           <br />
-          <span className="text-accent">É um método com execução guiada.</span>
+          <span className="text-accent">Garantir Hoje</span>
         </h2>
 
         <p className="text-white/60 text-center text-sm sm:text-base mb-6 max-w-xl mx-auto">
-          Conhecimento sem execução não gera resultado.  
-          O Método 8X entrega os dois.
+          Tudo integrado no app + ebook para praticidade total.
         </p>
 
-        {/* Micro-gatilho */}
-        <p className="text-white/50 text-sm text-center italic mb-4">
-          Você não decide todo dia. Só executa.
-        </p>
-
-        {/* Dois Pilares */}
-        <div className="grid sm:grid-cols-2 gap-3 max-w-2xl mx-auto mb-6">
-          {/* Ebook */}
+        {/* Três Bônus */}
+        <div className="grid sm:grid-cols-3 gap-3 max-w-3xl mx-auto mb-6">
+          {/* Bônus 1 */}
           <div className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-4 text-center">
             <div className="w-10 h-10 mx-auto mb-2.5 rounded-full bg-accent/20 flex items-center justify-center">
               <BookOpen className="w-6 h-6 text-accent" />
             </div>
-            <h3 className="text-white font-bold text-lg mb-0.5">
-              Método 8X
+            <h3 className="text-white font-bold text-base mb-0.5">
+              1️⃣ Guia de Nutrição
             </h3>
-            <p className="text-accent text-xs uppercase tracking-wider mb-1.5">
-              O Mapa
-            </p>
             <p className="text-white/60 text-sm">
-              Sistema completo de treino, ciência aplicada e progressão clara.
+              Maximize resultados com alimentação inteligente para hipertrofia.
             </p>
           </div>
 
-          {/* App */}
+          {/* Bônus 2 */}
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-4 text-center">
+            <div className="w-10 h-10 mx-auto mb-2.5 rounded-full bg-accent/20 flex items-center justify-center">
+              <Timer className="w-6 h-6 text-accent" />
+            </div>
+            <h3 className="text-white font-bold text-base mb-0.5">
+              2️⃣ Checklist de Recuperação
+            </h3>
+            <p className="text-white/60 text-sm">
+              Evite overtraining e acelere evolução com sono estratégico.
+            </p>
+          </div>
+
+          {/* Bônus 3 */}
           <div className="bg-accent/10 border border-accent/30 rounded-xl p-4 text-center relative overflow-hidden">
             <span className="absolute top-2 right-2 text-[10px] uppercase tracking-wider bg-accent/20 text-accent px-2 py-0.5 rounded-full font-bold">
-              Incluso
+              Novo
             </span>
             <div className="w-10 h-10 mx-auto mb-2.5 rounded-full bg-accent/30 flex items-center justify-center">
-              <Smartphone className="w-5 h-5 text-accent" />
+              <BarChart3 className="w-5 h-5 text-accent" />
             </div>
-            <h3 className="text-white font-bold text-lg mb-0.5">
-              App 8X
+            <h3 className="text-white font-bold text-base mb-0.5">
+              3️⃣ Cronograma Semanal
             </h3>
-            <p className="text-accent text-xs uppercase tracking-wider mb-1.5">
-              O GPS
-            </p>
             <p className="text-gray-300 text-sm">
-              Execução guiada direto no celular.
+              Passo a passo, do início ao final das 8 semanas.
             </p>
           </div>
         </div>

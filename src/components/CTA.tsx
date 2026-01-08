@@ -28,9 +28,13 @@ const CTA = () => {
   return <section id="cta-section" className="py-12 sm:py-16 bg-white">
       <div className="container mx-auto px-5 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
-          {/* Micro-gatilho decisão final - URGÊNCIA */}
-          <p className="text-muted-foreground text-sm italic text-center mb-6">
-            O método já está pronto. A decisão ainda não.
+          {/* Título da seção */}
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl text-center mb-6 tracking-tight text-black leading-tight">
+            Transforme seu corpo em <span className="text-accent">8 semanas</span>
+          </h2>
+          
+          <p className="text-muted-foreground text-base text-center mb-8 max-w-xl mx-auto">
+            Você poderia gastar centenas de reais em personal trainer ou academias caras, mas hoje o Método 8X completo custa apenas:
           </p>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -77,21 +81,19 @@ const CTA = () => {
                   </p>
                 </div>
 
-                {/* URGÊNCIA: Aviso de oportunidade única */}
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-5 flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-red-900 font-semibold text-sm">
-                      ⏰ Oferta por tempo limitado
-                    </p>
-                    <p className="text-red-700 text-xs mt-1">
-                      Se sair desta página, você perde acesso a este preço. Essa oportunidade não volta.
-                    </p>
-                  </div>
+                {/* URGÊNCIA: Gatilhos de escassez */}
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-5">
+                  <p className="text-red-900 font-semibold text-sm mb-2">
+                    ⏰ Promoção válida apenas hoje!
+                  </p>
+                  <ul className="text-red-700 text-xs space-y-1">
+                    <li>• Vagas limitadas para manter a qualidade do acompanhamento digital</li>
+                    <li>• Comece imediatamente e veja resultados em apenas 8 semanas</li>
+                  </ul>
                 </div>
                 
                 <Button variant="cta" size="cta" className="w-full mb-3" onClick={handleCTAClick}>
-                  QUERO DESTRAVAR MEU RESULTADO AGORA
+                  COMEÇAR AGORA – TRANSFORMAR EM 8 SEMANAS
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 
