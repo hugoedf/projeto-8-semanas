@@ -5,7 +5,7 @@ import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { useParallax } from "@/hooks/useParallax";
 
-// Componente Hero atualizado para mostrar a imagem do Ebook
+// Componente Hero com imagem do Ebook otimizada
 const Hero = () => {
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
@@ -80,12 +80,12 @@ const Hero = () => {
             <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-5">
               <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.3)_0%,hsla(18,100%,55%,0.15)_45%,transparent_70%)] blur-[35px] rounded-[40px]" />
               <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.4)_0%,transparent_60%)] blur-[25px] rounded-2xl" />
-              <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-accent/20 shadow-lg">
-                {/* IMAGEM DO EBOOK AQUI */}
+              <div className="relative z-10">
+                {/* IMAGEM DO EBOOK AQUI (SEM MOLDURA E MAIOR) */}
                 <img 
                   src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
                   alt="Mocap do Ebook Método 8X" 
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto object-contain transform scale-110"
                 />
               </div>
             </div>
@@ -111,12 +111,13 @@ const Hero = () => {
             <div className="absolute -inset-16 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.5)_0%,hsla(18,100%,50%,0.22)_35%,transparent_65%)] blur-[60px] rounded-[60px]" />
             <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,transparent_55%)] blur-[35px] rounded-2xl" />
             <div className="relative z-10 w-full max-w-lg">
-              <div className="relative rounded-2xl overflow-hidden ring-1 ring-accent/15 shadow-2xl shadow-black/40">
-                {/* IMAGEM DO EBOOK AQUI */}
+              {/* Note que o <div> pai não tem mais as classes de borda/sombra */}
+              <div className="relative">
+                {/* IMAGEM DO EBOOK AQUI (SEM MOLDURA E MAIOR) */}
                 <img 
                   src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
                   alt="Mocap do Ebook Método 8X" 
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto object-contain transform scale-110"
                 />
               </div>
             </div>
