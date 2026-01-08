@@ -7,7 +7,8 @@ import AppShowcase from "@/components/AppShowcase";
 import Testimonials from "@/components/Testimonials";
 import Bonus from "@/components/Bonus";
 import Guarantee from "@/components/Guarantee";
-import UrgencyInternal from "@/components/UrgencyInternal";  {/* ← NOVO */}
+import UrgencyInternal from "@/components/UrgencyInternal";
+{/* ← NOVO */}
 import DecisionBlock from "@/components/DecisionBlock";
 import CTA from "@/components/CTA";
 import FAQ from "@/components/FAQ";
@@ -16,10 +17,8 @@ import FloatingCTA from "@/components/FloatingCTA";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import SocialProofNotifications from "@/components/SocialProofNotifications";
-
 const Index = () => {
-  return (
-    <main className="min-h-screen">
+  return <main className="min-h-screen">
       {/* FLUXO EMOCIONAL DE ALTA CONVERSÃO */}
       
       {/* 1. HERO - Promessa + Escassez */}
@@ -35,7 +34,7 @@ const Index = () => {
       <WhyExists />
       
       {/* 5. BENEFÍCIOS - Os 4 pilares de resultado */}
-      <Benefits />
+      
       
       {/* 6. APP - O diferencial tecnológico */}
       <AppShowcase />
@@ -66,8 +65,6 @@ const Index = () => {
       <WhatsAppButton />
       <ExitIntentPopup />
       <SocialProofNotifications />
-    </main>
-  );
+    </main>;
 };
-
 export default Index;
