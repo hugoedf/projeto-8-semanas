@@ -146,36 +146,6 @@ const Hero = () => {
               </div>
             </div>
             
-            {/* CTA Button */}
-            <div className={`w-full sm:w-auto mb-4 sm:mb-6 ${vslEnded ? 'scale-105' : ''}`}>
-              <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-2xl shadow-accent/40 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'} hover:scale-105 transition-transform text-base sm:text-lg py-6 sm:py-7`}>
-                GARANTIR ACESSO AGORA - R$19,90
-              </Button>
-            </div>
-
-            {/* ABAIXO DO CTA: Garantia + Benefícios */}
-            <div className="w-full max-w-md lg:max-w-none space-y-2.5">
-              <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
-                
-                <span><span className="font-semibold">✅7 dias de garantia 100%</span> - Seu dinheiro de volta</span>
-              </div>
-              <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
-                
-                <span><span className="font-semibold">✅Acesso imediato ao app</span> + primeiros treinos</span>
-              </div>
-              <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
-                
-                <span><span className="font-semibold">✅500+ pessoas</span> já transformadas com sucesso</span>
-              </div>
-            </div>
-
-            {/* Live viewers + Micro-gatilho */}
-            <div className="mt-6 lg:mt-8 space-y-3">
-              <LiveViewers />
-              <p className="text-white/50 text-sm sm:text-base italic">
-                Comece imediatamente e veja resultados em apenas 8 semanas.
-              </p>
-            </div>
           </div>
           
           {/* VSL Player Column - Right on desktop only */}
