@@ -149,7 +149,7 @@ const Hero = () => {
             {/* CTA Button */}
             <div className={`w-full sm:w-auto mb-4 sm:mb-6 ${vslEnded ? 'scale-105' : ''}`}>
               <Button variant="cta" size="cta" onClick={handleCTAClick} className={`w-full sm:w-auto shadow-2xl shadow-accent/40 ${vslEnded ? 'animate-pulse-glow ring-2 ring-accent/50' : 'animate-pulse-glow'} hover:scale-105 transition-transform text-base sm:text-lg py-6 sm:py-7`}>
-                COMEÇAR AGORA – TRANSFORMAR EM 8 SEMANAS
+                GARANTIR ACESSO AGORA - R$19,90
               </Button>
             </div>
 
