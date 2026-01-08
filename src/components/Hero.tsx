@@ -120,7 +120,7 @@ const Hero = () => {
             
             {/* Teaser */}
             <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-4 lg:mb-6 font-mono text-center lg:text-left">
-              ⚡ Método Comprovado de Transformação Física
+              Quem treina duro não pode treinar no escuro.
             </p>
             
             {/* TÍTULO PRINCIPAL */}
