@@ -173,7 +173,7 @@ const Hero = () => {
 
             {/* Live viewers + Micro-gatilho */}
             <div className="mt-6 lg:mt-8 space-y-3">
-              
+              <LiveViewers />
               <p className="text-white/50 text-sm sm:text-base italic">
                 Fechar essa página mantém você treinando no escuro
               </p>
