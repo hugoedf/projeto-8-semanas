@@ -127,14 +127,21 @@ const Hero = () => {
             <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-4 sm:mb-6 px-1 sm:px-0">
               Em <span className="text-accent">8 semanas</span>, conquiste <span className="text-accent">músculos reais</span>, força de verdade e <span className="text-accent">definição</span> que aparece no espelho — sem depender de motivação.
             </h1>
-
-           {/* SUBTÍTULO - OTIMIZADO */}
+{/* SUBTÍTULO - OTIMIZADO */}
 <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
-  <span className="text-white font-semibold">Pare de contar com motivação.</span>{" "}
-  Use um <span className="text-accent font-semibold">protocolo baseado em Fisiologia Progressiva</span>{" "}
-  e veja <span className="text-white font-medium">resultados previsíveis toda semana</span>.
+  <span className="text-white font-semibold">
+    Pare de contar com motivação.
+  </span>{" "}
+  — Use um{" "}
+  <span className="text-accent font-semibold">
+    protocolo baseado em Fisiologia Progressiva
+  </span>{" "}
+  e veja{" "}
+  <span className="text-white font-medium">
+    resultados previsíveis toda semana
+  </span>.
 </p>
->
+
 
             
             {/* VSL Player - Mobile only */}
