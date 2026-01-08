@@ -1,76 +1,62 @@
-import { Dumbbell, Target, TrendingUp, Apple, Shield, Zap, Brain, Calendar } from "lucide-react";
+import { Dumbbell, Target, TrendingUp, Zap } from "lucide-react";
 import { useParallax } from "@/hooks/useParallax";
-const benefits = [{
-  icon: Dumbbell,
-  title: "Cada treino com propósito",
-  description: "Você entra na academia sabendo o que fazer — e sai sabendo que funcionou."
-}, {
-  icon: Target,
-  title: "Resultados que você vê",
-  description: "Quando você segue progressão, o espelho e a força respondem."
-}, {
-  icon: TrendingUp,
-  title: "Estagnação quebrada",
-  description: "O método força o corpo a continuar evoluindo — sem platô."
-}, {
-  icon: Apple,
-  title: "Nutrição sem complicação",
-  description: "Coma para crescer. Sem dieta maluca, sem frescura."
-}, {
-  icon: Shield,
-  title: "Treino seguro",
-  description: "Execução correta significa menos lesão e mais consistência."
-}, {
-  icon: Zap,
-  title: "Menos tempo, mais resultado",
-  description: "45-60min de treino focado entrega mais que 2h de improviso."
-}, {
-  icon: Brain,
-  title: "Zero ansiedade",
-  description: "Quando você sabe o que fazer, a dúvida desaparece."
-}, {
-  icon: Calendar,
-  title: "8 semanas estruturadas",
-  description: "Do dia 1 ao dia 56, tudo planejado. Só seguir."
-}];
+
+const benefits = [
+  {
+    icon: Dumbbell,
+    title: "Cada treino com propósito",
+    description: "Você entra na academia sabendo exatamente o que fazer — e sai sabendo que funcionou."
+  },
+  {
+    icon: Target,
+    title: "Resultados visíveis",
+    description: "Quando você segue progressão real, o espelho e a força respondem semana após semana."
+  },
+  {
+    icon: TrendingUp,
+    title: "Estagnação quebrada",
+    description: "O método força o corpo a continuar evoluindo — sem platô, sem travamento."
+  },
+  {
+    icon: Zap,
+    title: "Menos tempo, mais resultado",
+    description: "45-60min de treino focado entrega mais que 2h de improviso na academia."
+  }
+];
+
 const Benefits = () => {
-  const parallaxOffset = useParallax({
-    speed: 0.05
-  });
-  return <section className="py-14 sm:py-20 lg:py-24 bg-[#FAFAFA] relative overflow-hidden">
-      {/* Subtle gradient overlay with parallax */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,hsla(18,100%,58%,0.04),transparent_50%)]" style={{
-      transform: `translateY(${parallaxOffset * 0.4}px)`
-    }} />
+  const parallaxOffset = useParallax({ speed: 0.05 });
+  
+  return (
+    <section className="py-12 sm:py-16 bg-[#FAFAFA] relative overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,hsla(18,100%,58%,0.04),transparent_50%)]" 
+        style={{ transform: `translateY(${parallaxOffset * 0.4}px)` }} 
+      />
       
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-10 lg:mb-14 max-w-3xl mx-auto">
-          <span className="inline-block text-xs font-bold tracking-[0.25em] uppercase text-black/40 mb-3">
-            ​
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] mb-4 tracking-tight text-black leading-[1.1]">
-            O que muda quando você segue{" "}
-            <span className="text-accent">um método por 8 semanas:</span>
+        <div className="text-center mb-8 lg:mb-10 max-w-2xl mx-auto">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 tracking-tight text-black leading-tight">
+            Os <span className="text-accent">4 pilares</span> que mudam seu treino
           </h2>
-          <p className="text-black/60 text-lg sm:text-xl mb-3 max-w-2xl mx-auto">
-            Não é só sobre ganhar músculo.
-            <span className="font-medium text-black"> É sobre executar com progressão real — e ver o resultado aparecer semana após semana.</span>
+          <p className="text-black/60 text-base sm:text-lg">
+            Resultados reais em 8 semanas de execução estruturada.
           </p>
         </div>
         
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 max-w-6xl mx-auto">
+        {/* Grid 2x2 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {benefits.map((benefit, index) => {
-          const Icon = benefit.icon;
-          // Make first two cards span 2 columns on large screens
-          const isLarge = index < 2;
-          return <div key={index} className={`group relative bg-white rounded-2xl p-5 lg:p-6 border border-black/[0.06] shadow-sm hover:border-accent/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300 ${isLarge ? 'lg:col-span-2' : ''}`}>
-                {/* Icon container */}
-                <div className="w-11 h-11 lg:w-12 lg:h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/15 group-hover:scale-105 transition-all duration-300">
-                  <Icon className="w-6 h-6 lg:w-7 lg:h-7 text-accent" strokeWidth={1.5} />
+            const Icon = benefit.icon;
+            return (
+              <div 
+                key={index} 
+                className="group relative bg-white rounded-2xl p-5 lg:p-6 border border-black/[0.06] shadow-sm hover:border-accent/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="w-11 h-11 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/15 group-hover:scale-105 transition-all duration-300">
+                  <Icon className="w-6 h-6 text-accent" strokeWidth={1.5} />
                 </div>
                 
-                {/* Text content */}
                 <h3 className="font-display text-lg lg:text-xl font-bold text-black tracking-tight mb-1.5">
                   {benefit.title}
                 </h3>
@@ -78,19 +64,14 @@ const Benefits = () => {
                   {benefit.description}
                 </p>
                 
-                {/* Hover accent line */}
                 <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-gradient-to-r from-accent/0 via-accent/50 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>;
-        })}
-        </div>
-        
-        {/* Bottom insight */}
-        <div className="text-center mt-10 lg:mt-12 max-w-2xl mx-auto">
-          <p className="text-black/40 text-sm sm:text-base">
-            Treinar muda completamente quando você entra na academia sabendo exatamente o que fazer — <span className="text-black/60 font-medium">o treino deixa de ser ansiedade e vira execução.</span>
-          </p>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Benefits;

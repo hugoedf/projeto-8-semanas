@@ -144,13 +144,13 @@ const Hero = () => {
             </h1>
 
             {/* SUBTÍTULO - OTIMIZADO */}
-          <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
-  Mais de <span className="text-white font-semibold">500 pessoas</span> já 
-  <span className="text-white font-medium"> ganharam músculo e força</span> em 
-  <span className="text-accent font-semibold"> 8 semanas</span> com um método 
-  <span className="text-white font-medium"> estruturado e progressivo</span> — 
-  <span className="text-white/80"> sem dietas extremas e sem achismo</span>.
-          </p>
+            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
+              Mais de <span className="text-white font-semibold">500 pessoas</span> já 
+              <span className="text-white font-medium"> ganharam músculo e força</span> em 
+              <span className="text-accent font-semibold"> 8 semanas</span> com um método 
+              <span className="text-white font-medium"> estruturado e progressivo</span> — 
+              <span className="text-white/80"> sem dietas extremas e sem achismo</span>.
+            </p>
 
             
             {/* VSL Player - Mobile only */}
