@@ -1,6 +1,5 @@
 import Hero from "@/components/Hero";
 import WhyExists from "@/components/WhyExists";
-import IntermediateCTA from "@/components/IntermediateCTA";
 import Problems from "@/components/Problems";
 import ForWho from "@/components/ForWho";
 import Benefits from "@/components/Benefits";
@@ -28,10 +27,7 @@ const Index = () => {
       {/* 2. SUSTENTAÇÃO - Autoridade + Ciência (Fisiologia Progressiva) */}
       <WhyExists />
       
-      {/* 3. PRIMEIRO CTA - Após sustentação */}
-      <IntermediateCTA />
-      
-      {/* 4. DORES - Conexão Emocional */}
+      {/* 3. DORES - Conexão Emocional */}
       <Problems />
       
       {/* 5. IDENTIFICAÇÃO - "Isso é pra mim" */}

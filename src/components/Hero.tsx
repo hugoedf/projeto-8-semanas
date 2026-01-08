@@ -138,18 +138,43 @@ const Hero = () => {
 
             
             {/* VSL Player - Mobile only */}
-            <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-6">
+            <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-5">
               <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.3)_0%,hsla(18,100%,55%,0.15)_45%,transparent_70%)] blur-[35px] rounded-[40px]" />
               <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.4)_0%,transparent_60%)] blur-[25px] rounded-2xl" />
               <div className="relative z-10 rounded-xl overflow-hidden ring-1 ring-accent/20 shadow-lg">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
               </div>
             </div>
+
+            {/* CTA LEVE - Abaixo da VSL (Mobile) */}
+            <div className="w-full max-w-[340px] mx-auto lg:hidden text-center space-y-4">
+              {/* Frase de dor */}
+              <p className="text-white/70 text-sm italic">
+                Se esforço sozinho funcionasse, seu corpo já teria mudado.
+              </p>
+              
+              {/* Botão principal */}
+              <Button 
+                variant="cta" 
+                size="cta" 
+                onClick={handleCTAClick} 
+                className="w-full shadow-xl shadow-accent/30 hover:scale-[1.02] transition-transform text-base py-5"
+              >
+                Acessar o Método 8X agora
+              </Button>
+              
+              {/* Microcopy de segurança */}
+              <div className="space-y-1.5 text-white/60 text-xs">
+                <p>✔ App + método completo</p>
+                <p>✔ 8 semanas estruturadas, passo a passo</p>
+                <p>✔ Garantia de 7 dias — risco zero</p>
+              </div>
+            </div>
             
           </div>
           
           {/* VSL Player Column - Right on desktop only */}
-          <div className="hidden lg:flex justify-center relative animate-fade-in" style={{
+          <div className="hidden lg:flex flex-col justify-center items-center relative animate-fade-in" style={{
           animationDelay: "0.15s",
           transform: `translateY(${parallaxOffset * 0.3}px)`
         }}>
@@ -159,6 +184,31 @@ const Hero = () => {
             <div className="relative z-10 w-full max-w-lg">
               <div className="relative rounded-2xl overflow-hidden ring-1 ring-accent/15 shadow-2xl shadow-black/40">
                 <VSLPlayer onVideoEnd={handleVSLEnd} />
+              </div>
+            </div>
+            
+            {/* CTA LEVE - Abaixo da VSL (Desktop) */}
+            <div className="relative z-10 w-full max-w-lg mt-6 text-center space-y-4">
+              {/* Frase de dor */}
+              <p className="text-white/70 text-sm italic">
+                Se esforço sozinho funcionasse, seu corpo já teria mudado.
+              </p>
+              
+              {/* Botão principal */}
+              <Button 
+                variant="cta" 
+                size="cta" 
+                onClick={handleCTAClick} 
+                className="w-full shadow-xl shadow-accent/30 hover:scale-[1.02] transition-transform text-base py-5"
+              >
+                Acessar o Método 8X agora
+              </Button>
+              
+              {/* Microcopy de segurança */}
+              <div className="flex justify-center gap-6 text-white/60 text-xs">
+                <p>✔ App + método completo</p>
+                <p>✔ 8 semanas estruturadas</p>
+                <p>✔ Garantia de 7 dias</p>
               </div>
             </div>
           </div>
