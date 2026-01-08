@@ -3,9 +3,7 @@ import { Check, ArrowRight, Lock, Clock, AlertCircle } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
 const benefits = ["E-book + App 8X — o sistema completo", "8 semanas estruturadas — só seguir e executar", "Nutrição prática — sem dieta maluca", "Técnicas avançadas — para quebrar estagnação", "Acesso vitalício — seu para sempre", "Garantia de 7 dias — risco zero pra você"];
-
 const CTA = () => {
   const {
     trackInitiateCheckout
@@ -13,7 +11,6 @@ const CTA = () => {
   const {
     visitorData
   } = useVisitorTracking();
-
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -24,7 +21,6 @@ const CTA = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
   return <section id="cta-section" className="py-12 sm:py-16 bg-white">
       <div className="container mx-auto px-5 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
@@ -93,7 +89,7 @@ const CTA = () => {
                 </div>
                 
                 <Button variant="cta" size="cta" className="w-full mb-3" onClick={handleCTAClick}>
-                  COMEÇAR AGORA – TRANSFORMAR EM 8 SEMANAS
+                  COMEÇAR AGORA por R$19,90 
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 
@@ -108,5 +104,4 @@ const CTA = () => {
       </div>
     </section>;
 };
-
 export default CTA;
