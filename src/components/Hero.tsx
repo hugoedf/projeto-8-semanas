@@ -128,12 +128,13 @@ const Hero = () => {
               Em <span className="text-accent">8 semanas</span>, conquiste <span className="text-accent">músculos reais</span>, força de verdade e <span className="text-accent">definição</span> que aparece no espelho — sem depender de motivação.
             </h1>
 
-            {/* SUBTÍTULO - OTIMIZADO */}
-            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">Pare de contar com motivação. — Use um protocolo baseado em Fisiologia Progressiva e veja resultados previsíveis toda semana.<span className="text-white font-semibold">Método 8X</span> é um protocolo científico de treino que 
-              <span className="text-white font-medium"> transforma seu corpo de forma consistente</span>, 
-              quebrando platôs, aumentando força e hipertrofia, com 
-              <span className="text-accent font-semibold"> treinos guiados</span>, nutrição estratégica e recuperação inteligente.
-            </p>
+       {/* SUBTÍTULO - OTIMIZADO */}
+<p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
+  <span className="text-white font-semibold">Pare de contar com motivação.</span>{" "}
+  Use um <span className="text-accent font-semibold">protocolo baseado em Fisiologia Progressiva</span>{" "}
+  e veja <span className="text-white font-medium">resultados previsíveis toda semana</span>.
+</p>
+
 
             
             {/* VSL Player - Mobile only */}
