@@ -159,15 +159,15 @@ const Hero = () => {
             <div className="w-full max-w-md lg:max-w-none space-y-2.5">
               <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
                 
-                <span><span className="font-semibold">7 dias de garantia 100%</span> - Seu dinheiro de volta</span>
+                <span><span className="font-semibold">✅7 dias de garantia 100%</span> - Seu dinheiro de volta</span>
               </div>
               <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
                 <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
-                <span><span className="font-semibold">Acesso imediato ao app</span> + primeiros treinos</span>
+                <span><span className="font-semibold">✅Acesso imediato ao app</span> + primeiros treinos</span>
               </div>
               <div className="flex items-center gap-2 text-white/85 text-xs sm:text-sm">
                 <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
-                <span><span className="font-semibold">500+ pessoas</span> já transformadas com sucesso</span>
+                <span><span className="font-semibold">✅500+ pessoas</span> já transformadas com sucesso</span>
               </div>
             </div>
 
