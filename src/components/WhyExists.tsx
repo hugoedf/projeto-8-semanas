@@ -20,18 +20,24 @@ const WhyExists = () => {
           
           {/* Bloco único de impacto */}
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8">
+            <p className="text-white font-semibold text-lg sm:text-xl mb-4">
+              Por que você estagnou?
+            </p>
             <p className="text-white/80 text-base sm:text-lg leading-relaxed mb-4">
-              Sem <span className="text-white font-semibold">progressão científica</span>, o corpo estagna. 
-              Você treina, sua, se dedica — mas os resultados param.
+              Porque seu corpo é uma <span className="text-white font-semibold">máquina de adaptação</span>. 
+              Se você dá o mesmo estímulo sempre — mesma carga, mesmos exercícios, mesma intensidade — 
+              ele para de crescer. Simples assim.
             </p>
             <p className="text-white/80 text-base sm:text-lg leading-relaxed mb-6">
-              Não é falta de vontade. É falta de <span className="text-accent font-semibold">método</span>.
+              O <span className="text-accent font-semibold">Método 8X</span> usa <span className="text-white font-semibold">Fisiologia Progressiva</span> para 
+              forçar seu corpo a evoluir toda semana. Carga, volume e intensidade aumentam de forma calculada — 
+              não no achismo.
             </p>
             
             <div className="bg-accent/10 border border-accent/30 rounded-xl p-4">
-              <p className="text-white text-base sm:text-lg font-medium">
-                O <span className="text-accent font-bold">Método 8X</span> existe para quebrar esse ciclo — 
-                e fazer seu corpo voltar a responder.
+              <p className="text-white text-base sm:text-lg font-medium leading-relaxed">
+                <span className="text-accent font-bold">O erro não é seu.</span> É do treino genérico que te passaram. 
+                Aqui você recebe um sistema que funciona — e prova isso em 8 semanas.
               </p>
             </div>
           </div>
