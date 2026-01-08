@@ -7,6 +7,7 @@ import AppShowcase from "@/components/AppShowcase";
 import Testimonials from "@/components/Testimonials";
 import Bonus from "@/components/Bonus";
 import Guarantee from "@/components/Guarantee";
+import UrgencyInternal from "@/components/UrgencyInternal";  {/* ← NOVO */}
 import DecisionBlock from "@/components/DecisionBlock";
 import CTA from "@/components/CTA";
 import FAQ from "@/components/FAQ";
@@ -45,6 +46,9 @@ const Index = () => {
       {/* 8. BÔNUS + GARANTIA - Valor + Segurança */}
       <Bonus />
       <Guarantee />
+      
+      {/* 8.5 URGÊNCIA INTERNA - Força a ação AGORA */}
+      <UrgencyInternal />  {/* ← NOVO */}
       
       {/* 9. DECISÃO FINAL - Contraste emocional */}
       <DecisionBlock />
