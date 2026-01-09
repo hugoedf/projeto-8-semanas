@@ -44,10 +44,10 @@ const WhyMethodExists = () => {
                 <div className="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-5">
                   <pillar.icon className="w-7 h-7 text-accent" strokeWidth={1.5} />
                 </div>
-                <h3 className="font-display text-xl lg:text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="font-display lg:text-2xl font-bold text-gray-900 mb-2 text-lg">
                   {pillar.title}
                 </h3>
-                <p className="text-gray-600 text-base">
+                <p className="text-gray-600 text-sm">
                   {pillar.description}
                 </p>
               </div>)}
