@@ -29,7 +29,7 @@ const WhyMethodExists = () => {
             
             
             <h2 className="font-display sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-gray-900 leading-[1.1] mb-6 text-2xl">
-              O Método 8X não é apenas mais um treino —<br />
+              O Método 8X não é apenas mais um treino, <br />
               <span className="text-accent">é um sistema científico</span> que força<br />
               seu corpo a evoluir de forma previsível.
             </h2>
