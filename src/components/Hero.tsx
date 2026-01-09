@@ -13,8 +13,6 @@ const Hero = () => {
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    console.log('✅ ===== CHECKOUT INICIADO (HERO) =====');
-    console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -28,7 +26,7 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
-      {/* Gradient overlays */}
+      {/* Gradients */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,hsla(18,100%,50%,0.15),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsla(18,100%,50%,0.08),transparent_50%)]" />
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#111] to-transparent" />
@@ -54,20 +52,17 @@ const Hero = () => {
             </h1>
 
             {/* Subheadline */}
-            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-white/80 mb-6 px-1 sm:px-0 font-medium">
+            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-white/90 font-medium mb-6 px-1 sm:px-0">
               Descubra o método científico que transforma esforço em resultado visível no espelho
             </p>
 
             {/* Mockup */}
             <div className="relative z-10 w-full max-w-md lg:max-w-lg mx-auto mb-6">
-              {/* Glow / Background */}
               <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.3)_0%,transparent_55%)] blur-[40px] rounded-2xl" />
-
-              {/* Mockup Image */}
               <img src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" alt="Método 8X - Transformação Garantida" className="relative z-20 w-full h-auto object-contain transform scale-110 drop-shadow-2xl" />
             </div>
 
-            {/* Definição / reforço de autoridade abaixo do mockup */}
+            {/* Definição / autoridade abaixo do mockup */}
             <p className="text-white/70 text-center lg:text-left mb-6 max-w-lg px-1 sm:px-0">
               Um sistema comprovado que combina fisiologia, progressão estruturada e acompanhamento inteligente para <span className="text-accent font-bold">garantir evolução</span>.
             </p>
@@ -83,33 +78,41 @@ const Hero = () => {
             </div>
 
             {/* CTA Desktop */}
-            <div className="hidden lg:flex flex-col items-start gap-4 w-full max-w-lg">
-              <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-lg py-6">
+            <div className="hidden lg:flex flex-col items-start gap-4 w-full max-w-lg relative">
+              <Button
+                variant="cta"
+                size="cta"
+                onClick={handleCTAClick}
+                className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-lg py-6 z-10 relative"
+              >
                 Acessar o Método 8X agora
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
 
-              {/* Frase psicológica abaixo do botão */}
-              <p className="text-red-300 text-sm sm:text-base font-medium mt-2">
-                ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
-              </p>
+              {/* Frase psicológica com borda e destaque */}
+              <div className="mt-4 border border-red-500 rounded-xl px-5 py-3 bg-red-950/40 max-w-lg shadow-lg relative z-20">
+                <p className="text-red-300 text-sm sm:text-base font-medium text-center">
+                  ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
+                </p>
+              </div>
             </div>
 
           </div>
-
         </div>
       </div>
 
-      {/* CTA Mobile - Fixed Bottom */}
+      {/* CTA Mobile */}
       <div className="lg:hidden w-full px-4 pb-8 relative z-20">
         <div className="max-w-md mx-auto space-y-4">
-          <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-base py-5">
+          <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-base py-5 relative z-10">
             Acessar o Método 8X agora
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
-          <p className="text-red-300 text-sm sm:text-base font-medium text-center">
-            ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
-          </p>
+          <div className="mt-2 border border-red-500 rounded-xl px-4 py-3 bg-red-950/40 shadow-lg">
+            <p className="text-red-300 text-sm sm:text-base font-medium text-center">
+              ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
+            </p>
+          </div>
         </div>
       </div>
 
