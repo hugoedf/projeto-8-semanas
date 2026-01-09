@@ -26,10 +26,7 @@ const WhyMethodExists = () => {
           
           {/* Header */}
           <div className="text-center mb-12 lg:mb-16">
-            <span className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
-              <Zap className="w-4 h-4" />
-              A Solução Científica
-            </span>
+            
             
             <h2 className="font-display sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-gray-900 leading-[1.1] mb-6 text-2xl">
               O Método 8X não é apenas mais um treino —<br />
