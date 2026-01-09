@@ -118,7 +118,7 @@ const CTA = () => {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <CreditCard className="w-4 h-4" />
-                    <span>Pix, Cartão, Boleto</span>
+                    <span>Pix, Cartão </span>
                   </div>
                 </div>
               </div>
