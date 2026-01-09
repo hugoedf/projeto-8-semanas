@@ -15,6 +15,14 @@ const Hero = () => {
     console.log('🔗 URL final:', checkoutUrl);
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
+  };
+
+  const miniBullets = [
+    { icon: Smartphone, text: "Treino guiado passo a passo no app" },
+    { icon: Zap, text: "Nutrição estratégica e recuperação inteligente" },
+    { icon: Check, text: "Resultados previsíveis semana a semana" },
+    { icon: Shield, text: "Risco zero: teste por 7 dias" },
+  ];
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
