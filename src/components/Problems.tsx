@@ -88,47 +88,7 @@ const Problems = () => {
           </div>
           
           {/* A Verdade Container */}
-          <div className="relative bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl shadow-black/30">
-            {/* Orange glow */}
-            <div className="absolute -inset-2 bg-gradient-to-b from-accent/10 to-transparent rounded-3xl blur-2xl opacity-60" />
-            
-            <div className="relative z-10">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2.5 bg-accent/10 border border-accent/25 rounded-full px-5 py-2.5 mb-5 shadow-sm">
-                  <AlertTriangle className="w-5 h-5 text-accent" />
-                  <span className="text-sm font-bold text-accent uppercase tracking-widest">A verdade</span>
-                </div>
-                <p className="text-gray-900 font-display text-2xl sm:text-3xl md:text-4xl leading-snug">
-                  O problema <span className="text-accent font-bold">não é falta de esforço.</span>
-                </p>
-              </div>
-              
-              {/* Explanation with connector line */}
-              <div className="relative max-w-2xl mx-auto">
-                <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gradient-to-b from-accent/30 via-accent/15 to-transparent hidden sm:block" />
-                
-                <div className="space-y-5">
-                  {explanationPoints.map((point, index) => {
-                  const IconComponent = point.icon;
-                  return <div key={index} className="flex items-start gap-5">
-                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center relative z-10 shadow-sm">
-                          <IconComponent className="w-6 h-6 text-accent" />
-                        </div>
-                        <div className="flex-1 pt-2">
-                          <p className="text-gray-600 text-base sm:text-lg">
-                            {point.text}{" "}
-                            <span className="text-gray-900 font-bold">{point.highlight}</span>
-                          </p>
-                          {point.followUp && <p className="text-gray-500 text-sm sm:text-base mt-2 pl-4 border-l-2 border-accent/30">
-                              {point.followUp}
-                            </p>}
-                        </div>
-                      </div>;
-                })}
-                </div>
-              </div>
-            </div>
-          </div>
+          
           
         </div>
       </div>
