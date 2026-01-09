@@ -82,7 +82,7 @@ const DecisionBlock = () => {
 
           {/* Emotional Close */}
           <div className="text-center mb-10">
-            <p className="text-white/70 text-lg sm:text-xl mb-2">
+            <p className="text-white/70 sm:text-xl mb-2 text-base">
               Você já provou que tem disciplina. Agora, prove o que seu corpo é capaz de fazer com ciência.
             </p>
             <p className="text-white font-bold text-xl sm:text-2xl">
