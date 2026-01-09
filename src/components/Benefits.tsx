@@ -51,9 +51,7 @@ const Benefits = () => {
           <h2 className="font-display sm:text-4xl md:text-5xl mb-4 tracking-tight text-black leading-tight text-2xl">
             O que você conquista em <span className="text-accent">8 semanas</span>
           </h2>
-          <p className="text-gray-600 text-lg sm:text-xl">
-            Benefícios tangíveis e emocionais que transformam sua relação com o treino.
-          </p>
+          <p className="text-gray-600 sm:text-xl text-base">O que o espelho vai te mostrar em 8 semanas:</p>
         </div>
         
         {/* 4 Cards Horizontais - Benefícios Tangíveis */}
