@@ -109,9 +109,7 @@ const Hero = () => {
       {/* CTA Mobile - Fixed Bottom Area */}
       <div className="lg:hidden w-full px-4 pb-8 relative z-20">
         <div className="max-w-md mx-auto space-y-4">
-          <p className="text-white/60 text-sm italic text-center">
-            Se esforço sozinho funcionasse, seu corpo já teria mudado.
-          </p>
+          
           <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-base py-5">
             Acessar o Método 8X agora
             <ArrowRight className="ml-2 w-5 h-5" />
