@@ -1,12 +1,17 @@
 import { X, AlertTriangle, ArrowDown, Target, RotateCcw, TrendingDown, Clock, Flame } from "lucide-react";
-
-const painPoints = [
-  { text: "Treina duro há meses e nada muda no espelho?", icon: X },
-  { text: "Cada treino é improviso e perda de tempo?", icon: Clock },
-  { text: "Já gastou dinheiro em treinos, ebooks ou suplementos que não funcionaram?", icon: TrendingDown },
-  { text: "Perde motivação e autoestima porque os resultados não aparecem?", icon: RotateCcw },
-];
-
+const painPoints = [{
+  text: "Treina duro há meses e nada muda no espelho?",
+  icon: X
+}, {
+  text: "Cada treino é improviso e perda de tempo?",
+  icon: Clock
+}, {
+  text: "Já gastou dinheiro em treinos, ebooks ou suplementos que não funcionaram?",
+  icon: TrendingDown
+}, {
+  text: "Perde motivação e autoestima porque os resultados não aparecem?",
+  icon: RotateCcw
+}];
 const explanationPoints = [{
   text: "O problema nunca foi",
   highlight: "falta de esforço.",
@@ -26,10 +31,8 @@ const explanationPoints = [{
   highlight: "a frustração só aumenta.",
   icon: Clock
 }];
-
 const Problems = () => {
-  return (
-    <section className="py-16 sm:py-24 bg-black relative overflow-hidden">
+  return <section className="py-16 sm:py-24 bg-black relative overflow-hidden">
       {/* Dramatic background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(0,70%,50%,0.08),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_20%_80%,hsla(0,70%,50%,0.05),transparent_50%)]" />
@@ -48,11 +51,7 @@ const Problems = () => {
           
           {/* Pain Points Cards - Premium White Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 mb-12">
-            {painPoints.map((point, index) => (
-              <div 
-                key={index} 
-                className="group relative bg-white rounded-2xl p-6 lg:p-7 shadow-2xl shadow-black/20 hover:shadow-red-500/20 hover:-translate-y-1 transition-all duration-300"
-              >
+            {painPoints.map((point, index) => <div key={index} className="group relative bg-white p-6 lg:p-7 shadow-2xl shadow-black/20 hover:shadow-red-500/20 hover:-translate-y-1 transition-all duration-300 rounded-sm">
                 {/* Red accent bar */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-red-400 rounded-t-2xl" />
                 
@@ -64,8 +63,7 @@ const Problems = () => {
                     {point.text}
                   </p>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* Agitação da dor */}
@@ -111,9 +109,8 @@ const Problems = () => {
                 
                 <div className="space-y-5">
                   {explanationPoints.map((point, index) => {
-                    const IconComponent = point.icon;
-                    return (
-                      <div key={index} className="flex items-start gap-5">
+                  const IconComponent = point.icon;
+                  return <div key={index} className="flex items-start gap-5">
                         <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center relative z-10 shadow-sm">
                           <IconComponent className="w-6 h-6 text-accent" />
                         </div>
@@ -122,15 +119,12 @@ const Problems = () => {
                             {point.text}{" "}
                             <span className="text-gray-900 font-bold">{point.highlight}</span>
                           </p>
-                          {point.followUp && (
-                            <p className="text-gray-500 text-sm sm:text-base mt-2 pl-4 border-l-2 border-accent/30">
+                          {point.followUp && <p className="text-gray-500 text-sm sm:text-base mt-2 pl-4 border-l-2 border-accent/30">
                               {point.followUp}
-                            </p>
-                          )}
+                            </p>}
                         </div>
-                      </div>
-                    );
-                  })}
+                      </div>;
+                })}
                 </div>
               </div>
             </div>
@@ -138,8 +132,6 @@ const Problems = () => {
           
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Problems;
