@@ -36,7 +36,7 @@ const DecisionBlock = () => {
               <span>Momento de Decisão</span>
             </div>
             
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] mb-6">
+            <h2 className="font-display sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] mb-6 text-2xl">
               Daqui a 8 semanas, você pode estar{" "}
               <span className="text-accent">no mesmo lugar…</span>
             </h2>
