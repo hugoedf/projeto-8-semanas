@@ -77,12 +77,7 @@ const Hero = () => {
             </div>
 
             {/* Mini Bullets */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 w-full max-w-lg">
-              {miniBullets.map((bullet, index) => <div key={index} className="flex items-center gap-2">
-                  <bullet.icon className="w-5 h-5 text-accent flex-shrink-0" />
-                  
-                </div>)}
-            </div>
+            
 
             {/* Elemento psicológico */}
             <div className="bg-red-950/40 border border-red-500/30 rounded-xl px-5 py-4 mb-6 max-w-lg">
