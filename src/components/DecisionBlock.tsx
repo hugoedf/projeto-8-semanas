@@ -41,7 +41,7 @@ const DecisionBlock = () => {
               <span className="text-accent">no mesmo lugar…</span>
             </h2>
             
-            <p className="text-white/70 text-xl sm:text-2xl max-w-2xl mx-auto">
+            <p className="text-white/70 sm:text-2xl max-w-2xl mx-auto text-base">
               Ou ser o cara que finalmente <span className="text-white font-bold">domina seu corpo</span> e impressiona todo mundo.
             </p>
           </div>
