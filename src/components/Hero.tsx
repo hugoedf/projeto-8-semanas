@@ -69,10 +69,7 @@ const Hero = () => {
 
             {/* Mini Bullets */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 w-full max-w-lg">
-              {miniBullets.map((bullet, index) => <div key={index} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                  <bullet.icon className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-white/80 text-sm font-medium">{bullet.text}</span>
-                </div>)}
+              {miniBullets.map((bullet, index) => {})}
             </div>
 
             {/* Elemento psicológico */}
