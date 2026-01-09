@@ -33,7 +33,7 @@ const CTA = () => {
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tight text-gray-900 leading-tight mb-4">
               Transforme seu corpo em <span className="text-accent">8 semanas</span>
             </h2>
-            <p className="text-gray-600 text-lg sm:text-xl max-w-2xl mx-auto">
+            <p className="text-gray-600 sm:text-xl max-w-2xl mx-auto text-base">
               Você poderia gastar centenas de reais em personal trainer ou academias caras, mas hoje o Método 8X completo custa apenas:
             </p>
           </div>
