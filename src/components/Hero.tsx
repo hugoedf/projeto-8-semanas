@@ -5,12 +5,16 @@ import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { useParallax } from "@/hooks/useParallax";
 import { ArrowRight, Check, Shield, Smartphone, Zap } from "lucide-react";
-
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  const parallaxOffset = useParallax({ speed: 0.08 });
-
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
+  const parallaxOffset = useParallax({
+    speed: 0.08
+  });
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -19,16 +23,20 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  const miniBullets = [
-    { icon: Smartphone, text: "Treino guiado passo a passo no app" },
-    { icon: Zap, text: "Nutrição estratégica e recuperação inteligente" },
-    { icon: Check, text: "Resultados previsíveis semana a semana" },
-    { icon: Shield, text: "Risco zero: teste por 7 dias" },
-  ];
-
-  return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
+  const miniBullets = [{
+    icon: Smartphone,
+    text: "Treino guiado passo a passo no app"
+  }, {
+    icon: Zap,
+    text: "Nutrição estratégica e recuperação inteligente"
+  }, {
+    icon: Check,
+    text: "Resultados previsíveis semana a semana"
+  }, {
+    icon: Shield,
+    text: "Risco zero: teste por 7 dias"
+  }];
+  return <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
       {/* Dramatic gradient overlays */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,hsla(18,100%,50%,0.15),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsla(18,100%,50%,0.08),transparent_50%)]" />
@@ -61,12 +69,10 @@ const Hero = () => {
 
             {/* Mini Bullets */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 w-full max-w-lg">
-              {miniBullets.map((bullet, index) => (
-                <div key={index} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+              {miniBullets.map((bullet, index) => <div key={index} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
                   <bullet.icon className="w-5 h-5 text-accent flex-shrink-0" />
                   <span className="text-white/80 text-sm font-medium">{bullet.text}</span>
-                </div>
-              ))}
+                </div>)}
             </div>
 
             {/* Elemento psicológico */}
@@ -94,25 +100,18 @@ const Hero = () => {
           </div>
           
           {/* Image Column */}
-          <div className="flex flex-col justify-center items-center relative animate-fade-in order-1 lg:order-2" style={{ animationDelay: "0.15s" }}>
+          <div className="flex flex-col justify-center items-center relative animate-fade-in order-1 lg:order-2" style={{
+          animationDelay: "0.15s"
+        }}>
             <div className="absolute -inset-20 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,50%,0.4)_0%,hsla(18,100%,45%,0.15)_40%,transparent_70%)] blur-[80px] rounded-full" />
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.3)_0%,transparent_55%)] blur-[40px] rounded-2xl" />
             
             <div className="relative z-10 w-full max-w-md lg:max-w-lg">
-              <img 
-                src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
-                alt="Método 8X - Transformação Garantida" 
-                className="w-full h-auto object-contain transform scale-110 drop-shadow-2xl"
-              />
+              <img src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" alt="Método 8X - Transformação Garantida" className="w-full h-auto object-contain transform scale-110 drop-shadow-2xl" />
             </div>
             
             {/* VSL Badge */}
-            <div className="mt-4 bg-black/60 backdrop-blur-sm border border-accent/30 rounded-full px-5 py-2.5 shadow-lg">
-              <p className="text-white text-sm font-semibold flex items-center gap-2">
-                <span className="text-accent">▶</span>
-                +500 transformações reais com o Método 8X
-              </p>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -141,8 +140,6 @@ const Hero = () => {
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
