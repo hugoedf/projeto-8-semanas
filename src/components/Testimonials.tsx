@@ -1,6 +1,5 @@
 import { Star, Quote, MapPin } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-
 const testimonials = [{
   name: "Lucas M.",
   age: 28,
@@ -42,18 +41,15 @@ const testimonials = [{
   text: "8 meses sem evoluir nada. Mesma carga, mesmo shape, mesma frustração. Na quinta semana do método, quebrei todos os meus recordes.",
   result: "Recordes pessoais batidos"
 }];
-
-const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] }) => (
-  <div className="group bg-white rounded-2xl p-6 shadow-xl shadow-black/10 border border-gray-100 hover:shadow-2xl hover:shadow-accent/10 transition-all duration-300 h-full">
+const TestimonialCard = ({
+  testimonial
+}: {
+  testimonial: typeof testimonials[0];
+}) => <div className="group bg-white rounded-2xl p-6 shadow-xl shadow-black/10 border border-gray-100 hover:shadow-2xl hover:shadow-accent/10 transition-all duration-300 h-full">
     {/* Header com foto e info */}
     <div className="flex items-center gap-4 mb-5">
       <div className="relative">
-        <img 
-          src={testimonial.image} 
-          alt={testimonial.name} 
-          className="w-16 h-16 rounded-full object-cover border-3 border-accent/30 shadow-lg" 
-          loading="lazy" 
-        />
+        <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full object-cover border-3 border-accent/30 shadow-lg" loading="lazy" />
         <div className="absolute -bottom-1 -right-1 bg-accent text-white rounded-full p-1.5 shadow-lg">
           <Star className="w-3.5 h-3.5 fill-current" />
         </div>
@@ -65,9 +61,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] 
           {testimonial.location}
         </p>
         <div className="flex gap-0.5 mt-1.5">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="w-4 h-4 text-amber-400 fill-current" />
-          ))}
+          {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 text-amber-400 fill-current" />)}
         </div>
       </div>
     </div>
@@ -92,12 +86,9 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] 
         <span className="text-sm font-bold text-green-600">{testimonial.result}</span>
       </div>
     </div>
-  </div>
-);
-
+  </div>;
 const Testimonials = () => {
-  return (
-    <section className="py-16 sm:py-24 bg-black relative overflow-hidden">
+  return <section className="py-16 sm:py-24 bg-black relative overflow-hidden">
       {/* Gradient backgrounds */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[800px] bg-accent/10 rounded-full blur-[150px] opacity-40" />
@@ -107,7 +98,7 @@ const Testimonials = () => {
         
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 sm:mb-6 px-2 tracking-tight text-white">
+          <h2 className="font-display sm:text-4xl md:text-5xl lg:text-6xl mb-4 sm:mb-6 px-2 tracking-tight text-white text-2xl">
             Mais de <span className="text-accent">500 pessoas</span> já transformaram{" "}
             <span className="text-gradient">seus treinos e corpos</span>
           </h2>
@@ -118,15 +109,16 @@ const Testimonials = () => {
         
         {/* Carrossel Mobile */}
         <div className="block lg:hidden">
-          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+          <Carousel opts={{
+          align: "start",
+          loop: true
+        }} className="w-full">
             <CarouselContent className="-ml-3">
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-3 basis-full sm:basis-1/2">
+              {testimonials.map((testimonial, index) => <CarouselItem key={index} className="pl-3 basis-full sm:basis-1/2">
                   <div className="p-1">
                     <TestimonialCard testimonial={testimonial} />
                   </div>
-                </CarouselItem>
-              ))}
+                </CarouselItem>)}
             </CarouselContent>
             <div className="flex justify-center gap-4 mt-8">
               <CarouselPrevious className="relative inset-auto translate-y-0 bg-white/10 border-white/20 text-white hover:bg-accent hover:text-white hover:border-accent" />
@@ -138,15 +130,11 @@ const Testimonials = () => {
         {/* Grid Desktop */}
         <div className="hidden lg:block">
           <div className="grid grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {testimonials.slice(0, 3).map((testimonial, index) => (
-              <TestimonialCard key={index} testimonial={testimonial} />
-            ))}
+            {testimonials.slice(0, 3).map((testimonial, index) => <TestimonialCard key={index} testimonial={testimonial} />)}
           </div>
           
           <div className="grid grid-cols-2 gap-6 max-w-4xl mx-auto mt-6">
-            {testimonials.slice(3, 5).map((testimonial, index) => (
-              <TestimonialCard key={index + 3} testimonial={testimonial} />
-            ))}
+            {testimonials.slice(3, 5).map((testimonial, index) => <TestimonialCard key={index + 3} testimonial={testimonial} />)}
           </div>
         </div>
         
@@ -157,8 +145,6 @@ const Testimonials = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Testimonials;
