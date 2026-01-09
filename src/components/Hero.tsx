@@ -2,42 +2,31 @@ import { Button } from "@/components/ui/button";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-import { useParallax } from "@/hooks/useParallax";
 import { ArrowRight, Check, Shield, Smartphone, Zap } from "lucide-react";
+
 const Hero = () => {
-  const {
-    trackInitiateCheckout
-  } = useMetaPixel();
-  const {
-    visitorData
-  } = useVisitorTracking();
-  const parallaxOffset = useParallax({
-    speed: 0.08
-  });
+  const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
+
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    console.log('✅ ===== CHECKOUT INICIADO (HERO) =====');
-    console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
+    console.log('✅ CHECKOUT INICIADO (HERO)');
+    console.log('🔗 URL final:', checkoutUrl);
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-  const miniBullets = [{
-    icon: Smartphone,
-    text: "Treino guiado passo a passo no app"
-  }, {
-    icon: Zap,
-    text: "Nutrição estratégica e recuperação inteligente"
-  }, {
-    icon: Check,
-    text: "Resultados previsíveis semana a semana"
-  }, {
-    icon: Shield,
-    text: "Risco zero: teste por 7 dias"
-  }];
-  return <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
 
-      {/* Dramatic gradient overlays */}
+  const miniBullets = [
+    { icon: Smartphone, text: "Treino guiado passo a passo no app" },
+    { icon: Zap, text: "Nutrição estratégica e recuperação inteligente" },
+    { icon: Check, text: "Resultados previsíveis semana a semana" },
+    { icon: Shield, text: "Risco zero: teste por 7 dias" },
+  ];
+
+  return (
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
+      {/* Gradient overlays */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,hsla(18,100%,50%,0.15),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsla(18,100%,50%,0.08),transparent_50%)]" />
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#111] to-transparent" />
@@ -47,7 +36,7 @@ const Hero = () => {
 
           {/* Content Column */}
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start order-2 lg:order-1">
-
+            
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-2 mb-6 shadow-lg shadow-accent/10">
               <span className="relative flex h-2 w-2">
@@ -67,16 +56,25 @@ const Hero = () => {
               Em 8 semanas, <span className="text-white font-bold">músculos reais</span>, força de verdade e <span className="text-accent font-bold">definição que aparece no espelho</span> — sem depender de motivação.
             </p>
 
-            {/* Mockup / App Image */}
-            <div className="relative z-10 w-full max-w-md lg:max-w-lg mx-auto mb-6">
-              {/* Glow background */}
-              
-              {/* Mockup image */}
-              <img src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" alt="Método 8X - Transformação Garantida" className="relative z-20 w-full h-auto object-contain transform scale-110 drop-shadow-2xl" />
+            {/* Mockup / App Image with Glow */}
+            <div className="relative w-full max-w-md lg:max-w-lg mx-auto mb-6">
+              {/* Glow radial background */}
+              <div className="absolute -inset-20 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,50%,0.4)_0%,hsla(18,100%,45%,0.15)_40%,transparent_70%)] blur-[80px] rounded-full" />
+              <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.3)_0%,transparent_55%)] blur-[40px] rounded-2xl" />
+
+              {/* Mockup */}
+              <img src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" alt="Método 8X - Transformação Garantida" className="relative z-10 w-full h-auto object-contain transform scale-110 drop-shadow-2xl" />
             </div>
 
             {/* Mini Bullets */}
-            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 w-full max-w-lg">
+              {miniBullets.map((bullet, idx) => (
+                <div key={idx} className="flex items-center gap-2">
+                  <bullet.icon className="text-accent w-5 h-5 flex-shrink-0" />
+                  <span className="text-white/80 font-medium text-sm sm:text-base">{bullet.text}</span>
+                </div>
+              ))}
+            </div>
 
             {/* CTA Desktop */}
             <div className="hidden lg:flex flex-col items-start gap-4 w-full max-w-lg">
@@ -88,8 +86,8 @@ const Hero = () => {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
 
-              {/* Elemento psicológico abaixo do botão */}
-              <div className="bg-red-950/40 border border-red-500/30 rounded-xl px-5 py-4 mt-4 max-w-lg">
+              {/* Elemento psicológico após o botão */}
+              <div className="bg-red-950/40 border border-red-500/30 rounded-xl px-5 py-4 mt-4">
                 <p className="text-red-300 text-sm sm:text-base font-medium">
                   ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
                 </p>
@@ -103,7 +101,6 @@ const Hero = () => {
             </div>
 
           </div>
-
         </div>
       </div>
 
@@ -115,7 +112,7 @@ const Hero = () => {
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
 
-          {/* Elemento psicológico mobile */}
+          {/* Elemento psicológico Mobile abaixo do botão */}
           <div className="bg-red-950/40 border border-red-500/30 rounded-xl px-5 py-4 mt-2">
             <p className="text-red-300 text-sm sm:text-base font-medium text-center">
               ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
@@ -130,6 +127,8 @@ const Hero = () => {
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Hero;
