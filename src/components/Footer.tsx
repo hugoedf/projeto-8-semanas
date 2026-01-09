@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return <footer className="py-8 sm:py-12 section-dark-premium relative">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center text-primary-foreground">
+        <div className="max-w-4xl mx-auto text-center text-primary-foreground border-primary">
           <div className="mb-6 sm:mb-8">
-            <h3 className="font-display text-xl sm:text-2xl text-primary-foreground mb-2">
+            <h3 className="font-display text-xl sm:text-2xl mb-2 text-primary-foreground bg-primary">
               Método 8x 
             </h3>
-            <p className="text-white/70 text-sm sm:text-base px-4">
+            <p className="text-white/70 text-sm sm:text-base px-4 bg-primary">
               Transforme seu corpo com treino inteligente de hipertrofia
             </p>
           </div>
