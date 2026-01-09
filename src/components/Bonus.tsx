@@ -1,30 +1,37 @@
-import {
-  Smartphone,
-  BookOpen,
-  Zap,
-  TrendingUp,
-  Timer,
-  BarChart3,
-  Dumbbell,
-  Gift
-} from "lucide-react";
-
+import { Smartphone, BookOpen, Zap, TrendingUp, Timer, BarChart3, Dumbbell, Gift } from "lucide-react";
 const Bonus = () => {
-  const appFeatures = [
-    { icon: Dumbbell, title: "8 Semanas Programadas", description: "Treino pronto, dia a dia" },
-    { icon: Timer, title: "Timer Inteligente", description: "Descanso otimizado" },
-    { icon: TrendingUp, title: "Progressão de Cargas", description: "Evolução sem achismo" },
-    { icon: BarChart3, title: "Acompanhamento", description: "Evolução semanal" },
-  ];
-
-  const bonuses = [
-    { icon: BookOpen, title: "Guia de Nutrição", description: "Alimentação inteligente para hipertrofia" },
-    { icon: Timer, title: "Checklist de Recuperação", description: "Evite overtraining e acelere evolução" },
-    { icon: BarChart3, title: "Cronograma Semanal", description: "Passo a passo das 8 semanas", isNew: true },
-  ];
-
-  return (
-    <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
+  const appFeatures = [{
+    icon: Dumbbell,
+    title: "8 Semanas Programadas",
+    description: "Treino pronto, dia a dia"
+  }, {
+    icon: Timer,
+    title: "Timer Inteligente",
+    description: "Descanso otimizado"
+  }, {
+    icon: TrendingUp,
+    title: "Progressão de Cargas",
+    description: "Evolução sem achismo"
+  }, {
+    icon: BarChart3,
+    title: "Acompanhamento",
+    description: "Evolução semanal"
+  }];
+  const bonuses = [{
+    icon: BookOpen,
+    title: "Guia de Nutrição",
+    description: "Alimentação inteligente para hipertrofia"
+  }, {
+    icon: Timer,
+    title: "Checklist de Recuperação",
+    description: "Evite overtraining e acelere evolução"
+  }, {
+    icon: BarChart3,
+    title: "Cronograma Semanal",
+    description: "Passo a passo das 8 semanas",
+    isNew: true
+  }];
+  return <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
       {/* Subtle background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,hsla(18,100%,58%,0.05),transparent_50%)]" />
 
@@ -45,13 +52,10 @@ const Bonus = () => {
 
         {/* Bônus Cards */}
         <div className="grid sm:grid-cols-3 gap-4 lg:gap-6 mb-10">
-          {bonuses.map((bonus, index) => (
-            <div key={index} className={`relative bg-gray-50 border ${bonus.isNew ? 'border-accent/40 bg-accent/5' : 'border-gray-200'} rounded-2xl p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300`}>
-              {bonus.isNew && (
-                <span className="absolute top-3 right-3 text-[10px] uppercase tracking-wider bg-accent text-white px-2.5 py-1 rounded-full font-bold shadow-lg">
+          {bonuses.map((bonus, index) => <div key={index} className={`relative bg-gray-50 border ${bonus.isNew ? 'border-accent/40 bg-accent/5' : 'border-gray-200'} rounded-2xl p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300`}>
+              {bonus.isNew && <span className="absolute top-3 right-3 text-[10px] uppercase tracking-wider bg-accent text-white px-2.5 py-1 rounded-full font-bold shadow-lg">
                   Novo
-                </span>
-              )}
+                </span>}
               <div className={`w-14 h-14 mx-auto mb-4 rounded-2xl ${bonus.isNew ? 'bg-accent/20' : 'bg-accent/10'} flex items-center justify-center`}>
                 <bonus.icon className="w-7 h-7 text-accent" />
               </div>
@@ -61,8 +65,7 @@ const Bonus = () => {
               <p className="text-gray-600 text-sm">
                 {bonus.description}
               </p>
-            </div>
-          ))}
+            </div>)}
         </div>
 
         {/* App Features */}
@@ -74,8 +77,7 @@ const Bonus = () => {
             </p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {appFeatures.map((feature, index) => (
-              <div key={index} className="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:bg-white/10 transition-colors">
+            {appFeatures.map((feature, index) => <div key={index} className="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:bg-white/10 transition-colors">
                 <div className="w-10 h-10 mx-auto mb-3 rounded-xl bg-accent/20 flex items-center justify-center">
                   <feature.icon className="w-5 h-5 text-accent" />
                 </div>
@@ -85,8 +87,7 @@ const Bonus = () => {
                 <p className="text-white/50 text-xs">
                   {feature.description}
                 </p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -114,7 +115,7 @@ const Bonus = () => {
               <span className="font-semibold">R$47</span>
             </div>
             <div className="flex justify-between text-gray-900 font-bold">
-              <span>BÔNUS: Combustível 8X: 15 Receitas</span>
+              <span className="text-sm">BÔNUS: Combustível 8X: 15 Receitas</span>
               <span className="text-accent">R$37</span>
             </div>
 
@@ -140,8 +141,6 @@ const Bonus = () => {
         </div>
 
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Bonus;
