@@ -3,20 +3,14 @@ import { Check, ArrowRight, Lock, Clock, Shield, CreditCard, Zap } from "lucide-
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
-const benefits = [
-  "E-book + App 8X — o sistema completo",
-  "8 semanas estruturadas — só seguir e executar",
-  "Nutrição prática — sem dieta maluca",
-  "Técnicas avançadas — para quebrar estagnação",
-  "Acesso vitalício — seu para sempre",
-  "Garantia de 7 dias — risco zero pra você"
-];
-
+const benefits = ["E-book + App 8X — o sistema completo", "8 semanas estruturadas — só seguir e executar", "Nutrição prática — sem dieta maluca", "Técnicas avançadas — para quebrar estagnação", "Acesso vitalício — seu para sempre", "Garantia de 7 dias — risco zero pra você"];
 const CTA = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -27,9 +21,7 @@ const CTA = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  return (
-    <section id="cta-section" className="py-16 sm:py-24 bg-[#F9F9F9] relative overflow-hidden">
+  return <section id="cta-section" className="py-16 sm:py-24 bg-[#F9F9F9] relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,hsla(18,100%,58%,0.08),transparent_50%)]" />
       
@@ -52,15 +44,7 @@ const CTA = () => {
             <div className="order-2 lg:order-1">
               <div className="relative">
                 <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.25)_0%,transparent_60%)] blur-3xl" />
-                <img 
-                  alt="Treino de Hipertrofia" 
-                  className="relative z-10 w-full h-auto rounded-3xl shadow-2xl shadow-black/20" 
-                  src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg" 
-                  width={651} 
-                  height={977} 
-                  loading="lazy" 
-                  decoding="async" 
-                />
+                <img alt="Treino de Hipertrofia" className="relative z-10 w-full h-auto rounded-3xl shadow-2xl shadow-black/20" src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg" width={651} height={977} loading="lazy" decoding="async" />
               </div>
             </div>
             
@@ -85,14 +69,12 @@ const CTA = () => {
                 
                 {/* Benefits */}
                 <div className="space-y-3 mb-8">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-3">
+                  {benefits.map((benefit, index) => <div key={index} className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/15 flex items-center justify-center mt-0.5">
                         <Check className="w-3.5 h-3.5 text-accent" strokeWidth={3} />
                       </div>
                       <span className="text-gray-700 text-base sm:text-lg">{benefit}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
                 
                 {/* Pricing */}
@@ -120,7 +102,7 @@ const CTA = () => {
                 </div>
                 
                 <Button variant="cta" size="cta" className="w-full mb-4 shadow-xl shadow-accent/30 text-lg py-6" onClick={handleCTAClick}>
-                  Quero começar agora e transformar meu corpo
+                  Garantir meu acesso 
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 
@@ -144,8 +126,6 @@ const CTA = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default CTA;
