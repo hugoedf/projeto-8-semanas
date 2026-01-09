@@ -79,13 +79,7 @@ const Problems = () => {
           </div>
           
           {/* Visual connector */}
-          <div className="flex flex-col items-center gap-3 mb-12">
-            <div className="w-px h-10 bg-gradient-to-b from-red-500/40 to-accent/40" />
-            <div className="w-14 h-14 rounded-2xl bg-accent/15 border border-accent/30 flex items-center justify-center shadow-lg shadow-accent/20">
-              <ArrowDown className="w-6 h-6 text-accent" />
-            </div>
-            <div className="w-px h-8 bg-gradient-to-b from-accent/40 to-transparent" />
-          </div>
+          
           
           {/* A Verdade Container */}
           
