@@ -114,11 +114,7 @@ const Hero = () => {
             Acessar o Método 8X agora
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
-          <div className="flex justify-center gap-4 text-white/50 text-xs">
-            
-            <p>✔ 8 semanas</p>
-            <p>✔ Garantia 7 dias</p>
-          </div>
+          
         </div>
       </div>
       
