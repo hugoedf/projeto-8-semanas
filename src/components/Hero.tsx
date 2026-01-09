@@ -111,7 +111,7 @@ const Hero = () => {
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
           <p className="text-red-300 text-sm sm:text-base font-medium text-center">
-            ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
+            ⚠️ Enquanto você hesita, outros estão evoluindo. 
           </p>
         </div>
       </div>
