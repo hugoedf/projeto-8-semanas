@@ -35,7 +35,7 @@ const Index = () => {
       <Benefits />
       
       {/* 7. APP - Diferencial Tecnológico */}
-      <AppShowcase />
+      
       
       {/* 8. PROVA SOCIAL - Depoimentos */}
       <Testimonials />
