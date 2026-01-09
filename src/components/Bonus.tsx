@@ -69,7 +69,7 @@ const Bonus = () => {
         </div>
 
         {/* App Features */}
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-6 sm:p-8 lg:p-10 mb-10 bg-primary">
+        <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-6 sm:p-8 lg:p-10 mb-10 bg-[#561a00]">
           <div className="flex items-center justify-center gap-3 mb-6">
             <Smartphone className="w-6 h-6 text-accent" />
             <p className="text-white text-xl font-bold">
