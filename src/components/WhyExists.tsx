@@ -86,7 +86,7 @@ const WhyMethodExists = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/25 rounded-2xl p-6 lg:p-8">
+            <div className="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/25 p-6 lg:p-8 rounded-lg">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
                   <BookOpen className="w-6 h-6 text-accent" />
