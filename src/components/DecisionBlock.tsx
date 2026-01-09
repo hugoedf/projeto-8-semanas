@@ -94,7 +94,7 @@ const DecisionBlock = () => {
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6 sm:p-8 lg:p-10 text-center max-w-xl mx-auto">
             <div className="flex items-center justify-center gap-5 mb-4">
               <span className="text-white/40 line-through text-2xl">R$ 97</span>
-              <span className="text-accent font-display text-5xl sm:text-6xl font-bold drop-shadow-[0_0_30px_hsla(18,100%,55%,0.5)]">R$ 19,90</span>
+              <span className="text-accent font-display sm:text-6xl font-bold drop-shadow-[0_0_30px_hsla(18,100%,55%,0.5)] text-3xl">R$ 19,90</span>
             </div>
             
             <p className="text-white/50 text-base mb-6">
