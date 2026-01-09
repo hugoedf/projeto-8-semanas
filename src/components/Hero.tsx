@@ -4,143 +4,139 @@ import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { useParallax } from "@/hooks/useParallax";
+import { ArrowRight, Check, Shield, Smartphone, Zap } from "lucide-react";
 
-// Componente Hero com imagem do Ebook otimizada
 const Hero = () => {
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
   const parallaxOffset = useParallax({ speed: 0.08 });
 
-  // URGÊNCIA REAL: Rastreia tempo decorrido desde primeira visita
-  const [urgencyData, setUrgencyData] = useState({
-    timeLeft: { hours: 24, minutes: 0, seconds: 0 },
-    vagasRestantes: 47,
-  });
-
-  useEffect(() => {
-    const TEMPO_INICIAL_MS = 24 * 60 * 60 * 1000; // 24 horas em ms
-    const VAGAS_INICIAIS = 47;
-    const STORAGE_KEY = 'metodo8x_urgency_timestamp';
-
-    let primeiraVisitaTimestamp = localStorage.getItem(STORAGE_KEY);
-    if (!primeiraVisitaTimestamp) {
-      primeiraVisitaTimestamp = Date.now().toString();
-      localStorage.setItem(STORAGE_KEY, primeiraVisitaTimestamp);
-    }
-
-    const atualizarUrgencia = () => {
-      const agora = Date.now();
-      const primeiraVisita = parseInt(primeiraVisitaTimestamp!);
-      const tempoDecorrido = agora - primeiraVisita;
-      const tempoRestante = Math.max(0, TEMPO_INICIAL_MS - tempoDecorrido);
-      const horas = Math.floor(tempoRestante / (1000 * 60 * 60));
-      const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
-      const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
-      const vagasUsadas = Math.floor(tempoDecorrido / (30 * 60 * 1000));
-      const vagasRestantes = Math.max(1, VAGAS_INICIAIS - vagasUsadas);
-      setUrgencyData({
-        timeLeft: { hours: horas, minutes: minutos, seconds: segundos },
-        vagasRestantes,
-      });
-    };
-
-    atualizarUrgencia();
-    const interval = setInterval(atualizarUrgencia, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl );
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
     console.log('✅ ===== CHECKOUT INICIADO (HERO) =====');
     console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
 
+  const miniBullets = [
+    { icon: Smartphone, text: "Treino guiado passo a passo no app" },
+    { icon: Zap, text: "Nutrição estratégica e recuperação inteligente" },
+    { icon: Check, text: "Resultados previsíveis semana a semana" },
+    { icon: Shield, text: "Risco zero: teste por 7 dias" },
+  ];
+
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden section-dark-premium">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,hsla(18,100%,58%,0.1),transparent_60%)]" style={{ transform: `translateY(${parallaxOffset * 0.5}px)` }} />
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
+      {/* Dramatic gradient overlays */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,hsla(18,100%,50%,0.15),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsla(18,100%,50%,0.08),transparent_50%)]" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#111] to-transparent" />
       
-      <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-8 sm:pb-12 relative z-10 flex-1 flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center max-w-7xl mx-auto w-full">
-          {/* Content Column */}
-          <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start">
-            <p className="text-accent font-semibold text-xs sm:text-sm uppercase tracking-wider mb-4 lg:mb-6 font-mono text-center lg:text-left">
-              Transformação em 8 Semanas
-            </p>
-            <h1 className="font-display text-[1.65rem] leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.6rem] lg:leading-[1.15] text-white tracking-tight mb-4 sm:mb-6 px-1 sm:px-0">
-              Em <span className="text-accent">8 semanas</span>, conquiste <span className="text-accent">músculos reais</span>, força de verdade e <span className="text-accent">definição</span> que aparece no espelho — sem depender de motivação.
-            </h1>
-            <p className="text-base sm:text-lg lg:text-[1.125rem] leading-relaxed max-w-xl text-white/75 mb-6 lg:mb-8 px-1 sm:px-0">
-              <span className="text-white font-semibold">Pare de contar com motivação.</span> — Use um <span className="text-accent font-semibold">protocolo baseado em Fisiologia Progressiva</span> e veja <span className="text-white font-medium">resultados previsíveis toda semana</span>.
-            </p>
-
-            {/* IMAGEM DO EBOOK - Mobile only */}
-            <div className="relative w-full max-w-[340px] mx-auto lg:hidden mb-5">
-              <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.3)_0%,hsla(18,100%,55%,0.15)_45%,transparent_70%)] blur-[35px] rounded-[40px]" />
-              <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,60%,0.4)_0%,transparent_60%)] blur-[25px] rounded-2xl" />
-              <div className="relative z-10">
-                {/* IMAGEM DO EBOOK AQUI (SEM MOLDURA E MAIOR) */}
-                <img 
-                  src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
-                  alt="Mocap do Ebook Método 8X" 
-                  className="w-full h-auto object-contain transform scale-110"
-                />
-              </div>
-            </div>
-
-            {/* CTA LEVE - Abaixo da Imagem (Mobile) */}
-            <div className="w-full max-w-[340px] mx-auto lg:hidden text-center space-y-4">
-              <p className="text-white/70 text-sm italic">
-                Se esforço sozinho funcionasse, seu corpo já teria mudado.
-              </p>
-              <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full shadow-xl shadow-accent/30 hover:scale-[1.02] transition-transform text-base py-5">
-                Acessar o Método 8X agora
-              </Button>
-              <div className="space-y-1.5 text-white/60 text-xs">
-                <p>✔ App + método completo</p>
-                <p>✔ 8 semanas estruturadas, passo a passo</p>
-                <p>✔ Garantia de 7 dias — risco zero</p>
-              </div>
-            </div>
-          </div>
+      <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-16 pb-8 sm:pb-16 relative z-10 flex-1 flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto w-full">
           
-          {/* IMAGEM DO EBOOK - Right on desktop only */}
-          <div className="hidden lg:flex flex-col justify-center items-center relative animate-fade-in" style={{ animationDelay: "0.15s", transform: `translateY(${parallaxOffset * 0.3}px)` }}>
-            <div className="absolute -inset-16 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.5)_0%,hsla(18,100%,50%,0.22)_35%,transparent_65%)] blur-[60px] rounded-[60px]" />
-            <div className="absolute -inset-8 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.35)_0%,transparent_55%)] blur-[35px] rounded-2xl" />
-            <div className="relative z-10 w-full max-w-lg">
-              {/* Note que o <div> pai não tem mais as classes de borda/sombra */}
-              <div className="relative">
-                {/* IMAGEM DO EBOOK AQUI (SEM MOLDURA E MAIOR) */}
-                <img 
-                  src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
-                  alt="Mocap do Ebook Método 8X" 
-                  className="w-full h-auto object-contain transform scale-110"
-                />
-              </div>
+          {/* Content Column */}
+          <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start order-2 lg:order-1">
+            
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-2 mb-6 shadow-lg shadow-accent/10">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+              </span>
+              <span className="text-accent font-bold text-xs uppercase tracking-widest">+500 Transformações Reais</span>
             </div>
             
-            {/* CTA LEVE - Abaixo da Imagem (Desktop) */}
-            <div className="relative z-10 w-full max-w-lg mt-6 text-center space-y-4">
-              <p className="text-white/70 text-sm italic">
+            {/* Headline Agressiva */}
+            <h1 className="font-display text-[1.75rem] leading-[1.15] sm:text-4xl md:text-5xl lg:text-[3.2rem] lg:leading-[1.1] text-white tracking-tight mb-5 px-1 sm:px-0">
+              Daqui a <span className="text-accent">8 semanas</span>, seu corpo vai mostrar resultados que <span className="text-accent">todo mundo percebe</span> — ou você continuará desperdiçando horas na academia, <span className="text-white/60">sem evolução.</span>
+            </h1>
+            
+            {/* Subheadline */}
+            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-white/80 mb-6 px-1 sm:px-0 font-medium">
+              Em 8 semanas, <span className="text-white font-bold">músculos reais</span>, força de verdade e <span className="text-accent font-bold">definição que aparece no espelho</span> — sem depender de motivação.
+            </p>
+
+            {/* Mini Bullets */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 w-full max-w-lg">
+              {miniBullets.map((bullet, index) => (
+                <div key={index} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+                  <bullet.icon className="w-5 h-5 text-accent flex-shrink-0" />
+                  <span className="text-white/80 text-sm font-medium">{bullet.text}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Elemento psicológico */}
+            <div className="bg-red-950/40 border border-red-500/30 rounded-xl px-5 py-4 mb-6 max-w-lg">
+              <p className="text-red-300 text-sm sm:text-base font-medium">
+                ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
+              </p>
+            </div>
+
+            {/* CTA Desktop */}
+            <div className="hidden lg:flex flex-col items-start gap-4 w-full max-w-lg">
+              <p className="text-white/60 text-sm italic">
                 Se esforço sozinho funcionasse, seu corpo já teria mudado.
               </p>
-              <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full shadow-xl shadow-accent/30 hover:scale-[1.02] transition-transform text-base py-5">
+              <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-lg py-6">
                 Acessar o Método 8X agora
+                <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              <div className="flex justify-center gap-6 text-white/60 text-xs">
+              <div className="flex justify-center gap-6 text-white/50 text-xs w-full">
                 <p>✔ App + método completo</p>
                 <p>✔ 8 semanas estruturadas</p>
                 <p>✔ Garantia de 7 dias</p>
               </div>
             </div>
           </div>
+          
+          {/* Image Column */}
+          <div className="flex flex-col justify-center items-center relative animate-fade-in order-1 lg:order-2" style={{ animationDelay: "0.15s" }}>
+            <div className="absolute -inset-20 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,50%,0.4)_0%,hsla(18,100%,45%,0.15)_40%,transparent_70%)] blur-[80px] rounded-full" />
+            <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.3)_0%,transparent_55%)] blur-[40px] rounded-2xl" />
+            
+            <div className="relative z-10 w-full max-w-md lg:max-w-lg">
+              <img 
+                src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
+                alt="Método 8X - Transformação Garantida" 
+                className="w-full h-auto object-contain transform scale-110 drop-shadow-2xl"
+              />
+            </div>
+            
+            {/* VSL Badge */}
+            <div className="mt-4 bg-black/60 backdrop-blur-sm border border-accent/30 rounded-full px-5 py-2.5 shadow-lg">
+              <p className="text-white text-sm font-semibold flex items-center gap-2">
+                <span className="text-accent">▶</span>
+                +500 transformações reais com o Método 8X
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Mobile - Fixed Bottom Area */}
+      <div className="lg:hidden w-full px-4 pb-8 relative z-20">
+        <div className="max-w-md mx-auto space-y-4">
+          <p className="text-white/60 text-sm italic text-center">
+            Se esforço sozinho funcionasse, seu corpo já teria mudado.
+          </p>
+          <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-base py-5">
+            Acessar o Método 8X agora
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+          <div className="flex justify-center gap-4 text-white/50 text-xs">
+            <p>✔ App + método</p>
+            <p>✔ 8 semanas</p>
+            <p>✔ Garantia 7 dias</p>
+          </div>
         </div>
       </div>
       
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce hidden md:flex opacity-60 z-10">
+      {/* Scroll indicator */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce hidden lg:flex opacity-60 z-10">
         <div className="w-6 h-10 border border-white/30 rounded-full flex items-start justify-center p-2">
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>

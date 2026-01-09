@@ -1,97 +1,122 @@
-/**
- * Componente: WhyMethodExists (Com Design Visual Exato)
- * 
- * ⚠️ INSTRUÇÕES DE INSTALAÇÃO:
- * 
- * 1. Copie este arquivo para: src/components/WhyMethodExists.tsx
- * 
- * 2. Abra src/pages/Index.tsx e SUBSTITUA:
- * 
- *    ANTES:
- *    import WhyExists from "@/components/WhyExists";
- *    ...
- *    <WhyExists />
- * 
- *    DEPOIS:
- *    import WhyMethodExists from "@/components/WhyMethodExists";
- *    ...
- *    <WhyMethodExists />
- * 
- * 3. Salve e teste
- */
+import { Zap, RefreshCw, TrendingUp, Check, Smartphone, BookOpen } from "lucide-react";
+
+const pillars = [
+  {
+    icon: Zap,
+    title: "Estímulo Otimizado",
+    description: "Treinos que forçam adaptação toda semana",
+    color: "accent"
+  },
+  {
+    icon: RefreshCw,
+    title: "Adaptação e Recuperação",
+    description: "Descanso estratégico que maximiza crescimento",
+    color: "accent"
+  },
+  {
+    icon: TrendingUp,
+    title: "Supercompensação",
+    description: "Corpo mais forte, definido e resistente",
+    color: "accent"
+  }
+];
+
+const resultBullets = [
+  "Corpo que evolui toda semana",
+  "Treino guiado, sem improviso",
+  "Crescimento muscular previsível e consistente"
+];
 
 const WhyMethodExists = () => {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 section-dark-premium relative overflow-hidden">
-      <div className="container mx-auto px-5 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-24 bg-[#F9F9F9] relative overflow-hidden">
+      {/* Subtle accent glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(18,100%,58%,0.05),transparent_50%)]" />
+      
+      <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto">
           
-          {/* Título Principal */}
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-12 sm:mb-14 lg:mb-16 tracking-tight leading-[1.1]">
-            Ciência que garante <span className="text-accent">resultados reais</span>
-          </h2>
-
-          {/* Grid Layout - 2 colunas em desktop, 1 em mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
+          {/* Header */}
+          <div className="text-center mb-12 lg:mb-16">
+            <span className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-[0.2em] px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
+              <Zap className="w-4 h-4" />
+              A Solução Científica
+            </span>
             
-            {/* Coluna Esquerda - Narrativa Principal */}
-            <div className="space-y-5 sm:space-y-6">
-              
-              <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                O <span className="text-white font-semibold">Método 8X</span> não é apenas um treino aleatório. Ele é baseado em Fisiologia Progressiva, a ciência que mostra como o corpo realmente cresce.
-              </p>
-
-              <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                <span className="text-accent font-semibold">1️⃣ Estímulo Otimizado</span> – Treinos que desafiam o corpo de forma inteligente.
-              </p>
-
-              <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                <span className="text-accent font-semibold">2️⃣ Adaptação e Recuperação</span> – Descanso estratégico para crescimento muscular.
-              </p>
-
-              <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                <span className="text-accent font-semibold">3️⃣ Supercompensação</span> – O estágio em que seu corpo se torna mais forte e definido do que nunca.
-              </p>
-
-            </div>
-
-            {/* Coluna Direita - Boxes Destacados */}
-            <div className="space-y-5 sm:space-y-6">
-              
-              {/* Box 1 - Aplicativo + Ebook */}
-              <div className="card-dark-glass p-6 sm:p-7 rounded-2xl border border-accent/20">
-                <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                  Tudo entregue em um <span className="text-white font-semibold">aplicativo + ebook</span>, para que você saiba exatamente o que fazer, quando e como.
-                </p>
-              </div>
-
-              {/* Box 2 - Sem depender de motivação */}
-              <div className="card-dark-glass p-6 sm:p-7 rounded-2xl border border-accent/20">
-                <p className="text-white/80 text-base sm:text-lg leading-relaxed">
-                  <span className="text-white font-semibold">Sem depender da motivação do dia</span>. Você só precisa seguir o passo a passo e ver seu corpo responder.
-                </p>
-              </div>
-
-            </div>
-
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-gray-900 leading-[1.1] mb-6">
+              O Método 8X não é apenas mais um treino —<br />
+              <span className="text-accent">é um sistema científico</span> que força<br />
+              seu corpo a evoluir de forma previsível.
+            </h2>
           </div>
 
-          {/* Divisor Visual */}
-          <div className="my-10 sm:my-12 lg:my-14 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+          {/* 3 Pilares - Cards horizontais com ícones laranja */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-12">
+            {pillars.map((pillar, index) => (
+              <div key={index} className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg shadow-black/5 border border-gray-100 hover:shadow-xl hover:border-accent/20 hover:-translate-y-1 transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-5">
+                  <pillar.icon className="w-7 h-7 text-accent" strokeWidth={1.5} />
+                </div>
+                <h3 className="font-display text-xl lg:text-2xl font-bold text-gray-900 mb-2">
+                  {pillar.title}
+                </h3>
+                <p className="text-gray-600 text-base">
+                  {pillar.description}
+                </p>
+              </div>
+            ))}
+          </div>
 
-          {/* Seção Final - Full Width */}
-          <div className="space-y-6 sm:space-y-8">
-            
-            <p className="text-white text-base sm:text-lg lg:text-xl leading-relaxed font-semibold">
-              Treino estruturado. Progressão real. Resultados visíveis.
+          {/* Mini bullets de resultado */}
+          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg shadow-black/5 border border-gray-100 mb-12">
+            <p className="text-gray-900 font-display text-xl sm:text-2xl font-bold mb-6 text-center">
+              Com o Método 8X, você conquista:
             </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+              {resultBullets.map((bullet, index) => (
+                <div key={index} className="flex items-center gap-3 bg-accent/5 border border-accent/15 rounded-xl px-4 py-3">
+                  <div className="w-8 h-8 rounded-lg bg-accent/15 flex items-center justify-center flex-shrink-0">
+                    <Check className="w-4 h-4 text-accent" strokeWidth={3} />
+                  </div>
+                  <span className="text-gray-800 text-sm font-semibold">{bullet}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-            <div className="card-dark-glass p-8 sm:p-10 lg:p-12 rounded-2xl border border-accent/30 bg-accent/[0.03]">
-              <p className="text-white/80 text-base sm:text-lg lg:text-xl leading-relaxed">
-                <span className="text-accent font-semibold">Fisiologia Progressiva</span> é a ciência que força seu corpo a evoluir toda semana — sem achismo, sem tentativa e erro, sem improvisar.
-              </p>
+          {/* Boxes de entrega */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+            <div className="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/25 rounded-2xl p-6 lg:p-8">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
+                  <Smartphone className="w-6 h-6 text-accent" />
+                </div>
+                <div>
+                  <h4 className="font-display text-lg font-bold text-gray-900 mb-2">
+                    Aplicativo + Ebook
+                  </h4>
+                  <p className="text-gray-600 text-base">
+                    Tudo entregue em um aplicativo + ebook, para que você saiba exatamente o que fazer, quando e como.
+                  </p>
+                </div>
+              </div>
             </div>
 
+            <div className="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/25 rounded-2xl p-6 lg:p-8">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
+                  <BookOpen className="w-6 h-6 text-accent" />
+                </div>
+                <div>
+                  <h4 className="font-display text-lg font-bold text-gray-900 mb-2">
+                    Sem depender da motivação
+                  </h4>
+                  <p className="text-gray-600 text-base">
+                    Você só precisa seguir o passo a passo e ver seu corpo responder. A estrutura faz o trabalho por você.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
