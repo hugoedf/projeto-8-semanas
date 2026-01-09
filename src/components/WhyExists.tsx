@@ -79,7 +79,7 @@ const WhyMethodExists = () => {
                   <h4 className="font-display text-lg font-bold text-gray-900 mb-2">
                     Aplicativo + Ebook
                   </h4>
-                  <p className="text-gray-600 text-base">
+                  <p className="text-gray-600 text-sm">
                     Tudo entregue em um aplicativo + ebook, para que você saiba exatamente o que fazer, quando e como.
                   </p>
                 </div>
@@ -95,7 +95,7 @@ const WhyMethodExists = () => {
                   <h4 className="font-display text-lg font-bold text-gray-900 mb-2">
                     Sem depender da motivação
                   </h4>
-                  <p className="text-gray-600 text-base">
+                  <p className="text-gray-600 text-sm">
                     Você só precisa seguir o passo a passo e ver seu corpo responder. A estrutura faz o trabalho por você.
                   </p>
                 </div>
