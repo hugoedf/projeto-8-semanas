@@ -44,7 +44,7 @@ const CTA = () => {
             <div className="order-2 lg:order-1">
               <div className="relative">
                 <div className="absolute -inset-6 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,58%,0.25)_0%,transparent_60%)] blur-3xl" />
-                <img alt="Treino de Hipertrofia" className="relative z-10 w-full h-auto rounded-3xl shadow-2xl shadow-black/20" src="/lovable-uploads/22c8ae88-1ad8-436a-a6f8-af3a7af011a3.jpg" width={651} height={977} loading="lazy" decoding="async" />
+                
               </div>
             </div>
             
