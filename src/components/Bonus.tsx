@@ -110,7 +110,7 @@ const Bonus = () => {
               <span>Método 8X Completo (Sistema + App)</span>
               <span className="font-semibold">R$97</span>
             </div>
-            <div className="flex justify-between text-gray-700">
+            <div className="flex justify-between text-gray-700 text-sm">
               <span>Guia de Nutrição para Hipertrofia</span>
               <span className="font-semibold">R$47</span>
             </div>
