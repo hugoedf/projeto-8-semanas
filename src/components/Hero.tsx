@@ -13,20 +13,15 @@ const Hero = () => {
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
+    console.log('✅ ===== CHECKOUT INICIADO (HERO) =====');
+    console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
 
-  const miniBullets = [
-    { icon: Smartphone, text: "Treino guiado passo a passo no app" },
-    { icon: Zap, text: "Nutrição estratégica e recuperação inteligente" },
-    { icon: Check, text: "Resultados previsíveis semana a semana" },
-    { icon: Shield, text: "Risco zero: teste por 7 dias" },
-  ];
-
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
-      {/* Gradients */}
+      {/* Gradientes dramáticos de fundo */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,hsla(18,100%,50%,0.15),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsla(18,100%,50%,0.08),transparent_50%)]" />
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#111] to-transparent" />
@@ -34,7 +29,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-16 pb-8 sm:pb-16 relative z-10 flex-1 flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-7xl mx-auto w-full">
 
-          {/* Content Column */}
+          {/* Coluna de conteúdo */}
           <div className="text-center lg:text-left animate-fade-in flex flex-col items-center lg:items-start order-2 lg:order-1">
 
             {/* Badge */}
@@ -48,71 +43,69 @@ const Hero = () => {
 
             {/* Headline */}
             <h1 className="font-display text-[1.75rem] leading-[1.15] sm:text-4xl md:text-5xl lg:text-[3.2rem] lg:leading-[1.1] text-white tracking-tight mb-5 px-1 sm:px-0">
-              8 semanas para <span className="text-accent">músculos que todo mundo nota</span> — sem improviso, sem perda de tempo
+              8 semanas para músculos que <span className="text-accent">todo mundo nota</span> — sem improviso, sem perda de tempo
             </h1>
 
             {/* Subheadline */}
-            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-white/90 font-medium mb-6 px-1 sm:px-0">
+            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-white/80 mb-6 px-1 sm:px-0 font-medium">
               Descubra o método científico que transforma esforço em resultado visível no espelho
             </p>
 
-            {/* Mockup */}
+            {/* Mockup / App Image com glow */}
             <div className="relative z-10 w-full max-w-md lg:max-w-lg mx-auto mb-6">
               <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.3)_0%,transparent_55%)] blur-[40px] rounded-2xl" />
               <img src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" alt="Método 8X - Transformação Garantida" className="relative z-20 w-full h-auto object-contain transform scale-110 drop-shadow-2xl" />
             </div>
 
-            {/* Definição / autoridade abaixo do mockup */}
-            <p className="text-white/70 text-center lg:text-left mb-6 max-w-lg px-1 sm:px-0">
+            {/* Definição / reforço de autoridade abaixo do mockup */}
+            <p className="text-white/70 text-center mb-6 px-2 sm:px-0">
               Um sistema comprovado que combina fisiologia, progressão estruturada e acompanhamento inteligente para <span className="text-accent font-bold">garantir evolução</span>.
             </p>
 
-            {/* Mini Bullets */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 w-full max-w-lg">
-              {miniBullets.map((bullet, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <bullet.icon className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-white/80 text-sm sm:text-base">{bullet.text}</span>
-                </div>
-              ))}
-            </div>
+            {/* CTA + Frase psicológica + mini-bullets */}
+            <div className="flex flex-col items-center gap-4 w-full max-w-lg">
 
-            {/* CTA Desktop */}
-            <div className="hidden lg:flex flex-col items-start gap-4 w-full max-w-lg relative">
+              {/* Botão */}
               <Button
                 variant="cta"
                 size="cta"
                 onClick={handleCTAClick}
-                className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-lg py-6 z-10 relative"
+                className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-lg py-6"
               >
                 Acessar o Método 8X agora
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
 
-              {/* Frase psicológica com borda e destaque */}
-              <div className="mt-4 border border-red-500 rounded-xl px-5 py-3 bg-red-950/40 max-w-lg shadow-lg relative z-20">
-                <p className="text-red-300 text-sm sm:text-base font-medium text-center">
+              {/* Frase psicológica */}
+              <div className="bg-red-950/40 border border-red-500/30 rounded-xl px-5 py-4 w-full max-w-md text-center">
+                <p className="text-red-300 text-sm sm:text-base font-medium">
                   ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
                 </p>
               </div>
+
+              {/* Mini-bullets */}
+              <div className="flex flex-col items-start gap-3 text-white/80 mt-4 w-full max-w-md">
+                <div className="flex items-center gap-2">
+                  <Smartphone className="w-5 h-5 text-accent" />
+                  <span>Treino guiado passo a passo no app</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-accent" />
+                  <span>Nutrição estratégica e recuperação inteligente</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Check className="w-5 h-5 text-accent" />
+                  <span>Resultados previsíveis semana a semana</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-accent" />
+                  <span>Risco zero: teste por 7 dias</span>
+                </div>
+              </div>
+
             </div>
-
           </div>
-        </div>
-      </div>
 
-      {/* CTA Mobile */}
-      <div className="lg:hidden w-full px-4 pb-8 relative z-20">
-        <div className="max-w-md mx-auto space-y-4">
-          <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full shadow-2xl shadow-accent/40 hover:scale-[1.02] transition-transform text-base py-5 relative z-10">
-            Acessar o Método 8X agora
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
-          <div className="mt-2 border border-red-500 rounded-xl px-4 py-3 bg-red-950/40 shadow-lg">
-            <p className="text-red-300 text-sm sm:text-base font-medium text-center">
-              ⚠️ Enquanto você hesita, outros estão evoluindo. <span className="text-red-200 font-bold">Cada dia sem método é tempo perdido e frustração acumulada.</span>
-            </p>
-          </div>
         </div>
       </div>
 
