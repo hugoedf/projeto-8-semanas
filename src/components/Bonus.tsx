@@ -93,7 +93,7 @@ const Bonus = () => {
 
         {/* Micro reforço */}
         <div className="bg-accent/10 border border-accent/30 rounded-2xl p-6 sm:p-8 text-center mb-10">
-          <p className="text-gray-800 text-lg sm:text-xl font-semibold">
+          <p className="text-gray-800 sm:text-xl font-semibold text-base">
             Sozinhos, esses bônus já valem mais que o preço do método — <br className="hidden sm:block" />
             mas você leva <span className="text-accent font-bold">tudo por R$19,90.</span>
           </p>
