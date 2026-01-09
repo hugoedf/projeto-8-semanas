@@ -42,7 +42,7 @@ const Problems = () => {
           
           {/* Headline */}
           <div className="text-center mb-12 lg:mb-16">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1] mb-4">
+            <h2 className="font-display sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1] mb-4 text-2xl">
               Se você se identifica com<br />
               <span className="text-red-500">algum desses problemas</span>,<br />
               você não está sozinho:
