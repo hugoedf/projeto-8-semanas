@@ -4,12 +4,16 @@ import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { useParallax } from "@/hooks/useParallax";
 import { ArrowRight, Check, Shield, Smartphone, Zap } from "lucide-react";
-
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  const parallaxOffset = useParallax({ speed: 0.08 });
-
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
+  const parallaxOffset = useParallax({
+    speed: 0.08
+  });
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -18,16 +22,20 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  const miniBullets = [
-    { icon: Smartphone, text: "Treino guiado passo a passo no app" },
-    { icon: Zap, text: "Nutrição estratégica e recuperação inteligente" },
-    { icon: Check, text: "Resultados previsíveis semana a semana" },
-    { icon: Shield, text: "Risco zero: teste por 7 dias" },
-  ];
-
-  return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
+  const miniBullets = [{
+    icon: Smartphone,
+    text: "Treino guiado passo a passo no app"
+  }, {
+    icon: Zap,
+    text: "Nutrição estratégica e recuperação inteligente"
+  }, {
+    icon: Check,
+    text: "Resultados previsíveis semana a semana"
+  }, {
+    icon: Shield,
+    text: "Risco zero: teste por 7 dias"
+  }];
+  return <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,hsla(18,100%,50%,0.15),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsla(18,100%,50%,0.08),transparent_50%)]" />
@@ -74,12 +82,7 @@ const Hero = () => {
 
             {/* Mini Bullets */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 w-full max-w-lg">
-              {miniBullets.map((bullet, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <bullet.icon className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-white/80 text-sm sm:text-base">{bullet.text}</span>
-                </div>
-              ))}
+              {miniBullets.map((bullet, index) => {})}
             </div>
 
             {/* CTA Desktop */}
@@ -119,8 +122,6 @@ const Hero = () => {
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
