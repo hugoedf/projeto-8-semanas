@@ -15,10 +15,8 @@ import FloatingCTA from "@/components/FloatingCTA";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import SocialProofNotifications from "@/components/SocialProofNotifications";
-
 const Index = () => {
-  return (
-    <main className="min-h-screen">
+  return <main className="min-h-screen">
       {/* FLUXO DE PERSUASÃO OTIMIZADO */}
       
       {/* 1. HEADLINE - Promessa Impactante (SEM CTA) */}
@@ -57,15 +55,13 @@ const Index = () => {
       {/* 13. FAQ - Últimas objeções */}
       <FAQ />
       
-      <Footer />
+      <Footer className="bg-primary" />
       
       {/* Elementos de urgência e prova social */}
       <FloatingCTA />
       <WhatsAppButton />
       <ExitIntentPopup />
       <SocialProofNotifications />
-    </main>
-  );
+    </main>;
 };
-
 export default Index;
