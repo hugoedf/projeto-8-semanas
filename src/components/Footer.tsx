@@ -4,10 +4,10 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center text-primary-foreground border-primary">
           <div className="mb-6 sm:mb-8">
-            <h3 className="font-display text-xl sm:text-2xl mb-2 text-primary-foreground bg-primary">
+            <h3 className="font-display text-xl sm:text-2xl mb-2 text-primary-foreground bg-primary-foreground">
               Método 8x 
             </h3>
-            <p className="text-white/70 text-sm sm:text-base px-4 bg-primary">
+            <p className="text-white/70 text-sm sm:text-base px-4 bg-primary-foreground">
               Transforme seu corpo com treino inteligente de hipertrofia
             </p>
           </div>
