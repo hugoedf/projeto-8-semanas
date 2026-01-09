@@ -3,11 +3,13 @@ import { ArrowRight, Clock, AlertTriangle, X, Check } from "lucide-react";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
 const DecisionBlock = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-  
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -18,23 +20,9 @@ const DecisionBlock = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  const negativePoints = [
-    "Continuar estagnado, frustrado e invisível",
-    "Escondendo o corpo na praia e em fotos",
-    "Sentir que cada ida à academia é esforço jogado fora",
-    "Ser o cara que 'treina mas não parece'"
-  ];
-
-  const positivePoints = [
-    "Corpo que responde, confiança e evolução visível",
-    "Resultados aparecendo no espelho toda segunda-feira",
-    "Ouvir pessoas perguntando o que você está fazendo",
-    "Finalmente ser o cara que evolui de verdade"
-  ];
-
-  return (
-    <section className="py-16 sm:py-24 bg-black relative overflow-hidden">
+  const negativePoints = ["Continuar estagnado, frustrado e invisível", "Escondendo o corpo na praia e em fotos", "Sentir que cada ida à academia é esforço jogado fora", "Ser o cara que 'treina mas não parece'"];
+  const positivePoints = ["Corpo que responde, confiança e evolução visível", "Resultados aparecendo no espelho toda segunda-feira", "Ouvir pessoas perguntando o que você está fazendo", "Finalmente ser o cara que evolui de verdade"];
+  return <section className="py-16 sm:py-24 bg-black relative overflow-hidden">
       {/* Dramatic gradient background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,hsla(18,100%,50%,0.12),transparent_60%)]" />
       
@@ -69,12 +57,10 @@ const DecisionBlock = () => {
                 Continuar no mesmo caminho
               </div>
               <ul className="space-y-4">
-                {negativePoints.map((point, index) => (
-                  <li key={index} className="flex items-start gap-3 text-white/60 text-base sm:text-lg">
+                {negativePoints.map((point, index) => <li key={index} className="flex items-start gap-3 text-white/60 text-base sm:text-lg">
                     <span className="text-red-400 mt-1 flex-shrink-0">✗</span>
                     <span>{point}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </div>
 
@@ -86,12 +72,10 @@ const DecisionBlock = () => {
                 Seguir o Método 8X
               </div>
               <ul className="space-y-4">
-                {positivePoints.map((point, index) => (
-                  <li key={index} className="flex items-start gap-3 text-white text-base sm:text-lg">
+                {positivePoints.map((point, index) => <li key={index} className="flex items-start gap-3 text-white text-base sm:text-lg">
                     <span className="text-accent mt-1 flex-shrink-0">✓</span>
                     <span>{point}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </div>
           </div>
@@ -118,7 +102,7 @@ const DecisionBlock = () => {
             </p>
             
             <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full mb-5 shadow-2xl shadow-accent/40 text-lg py-6">
-              Estou pronto para seguir o Método 8X
+              Comprar agora  
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             
@@ -130,8 +114,6 @@ const DecisionBlock = () => {
           
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default DecisionBlock;
