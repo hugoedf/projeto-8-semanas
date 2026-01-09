@@ -44,7 +44,7 @@ const Bonus = () => {
             <span className="text-accent font-bold text-sm uppercase tracking-widest">Bônus Exclusivos</span>
           </div>
           
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
+          <h2 className="font-display sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4 text-2xl">
             Tudo que você precisa para<br />
             <span className="text-accent">resultados máximos</span> — incluso hoje
           </h2>
