@@ -29,7 +29,7 @@ const Index = () => {
       <Problems />
       
       {/* 5. IDENTIFICAÇÃO - "Isso é pra mim" */}
-      <ForWho />
+      
       
       {/* 6. BENEFÍCIOS - O que você conquista em 8 semanas */}
       <Benefits />
