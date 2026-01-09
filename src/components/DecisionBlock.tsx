@@ -31,10 +31,7 @@ const DecisionBlock = () => {
           
           {/* Tension Builder */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-widest px-4 py-2.5 rounded-full border border-accent/40 bg-accent/15 mb-8 shadow-lg shadow-accent/20">
-              <AlertTriangle className="w-4 h-4" />
-              <span>Momento de Decisão</span>
-            </div>
+            
             
             <h2 className="font-display sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] mb-6 text-2xl">
               Daqui a 8 semanas, você pode estar{" "}
