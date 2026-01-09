@@ -81,7 +81,7 @@ const Bonus = () => {
                 <div className="w-10 h-10 mx-auto mb-3 rounded-xl bg-accent/20 flex items-center justify-center">
                   <feature.icon className="w-5 h-5 text-accent" />
                 </div>
-                <p className="text-white text-sm font-semibold mb-1">
+                <p className="text-white text-sm font-semibold mb-1 text-center">
                   {feature.title}
                 </p>
                 <p className="text-white/50 text-xs">
