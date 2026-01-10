@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { MiniPreCheckoutModal } from './MiniPreCheckoutModal';
+import MiniPreCheckout from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
@@ -16,18 +16,25 @@ const Hero = () => {
   };
 
   const handleConfirmPurchase = () => {
-    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
+    const baseUrl =
+      'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
+
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    trackInitiateCheckout(19.90, 'BRL');
+
+    trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
   return (
     <>
-      <section className="relative min-h-screen flex flex-col items-center justify-center py-12 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden gradient-hero">
-        
-        <div className="relative z-10 w-full max-w-4xl text-center">
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden gradient-hero">
+        {/* Background glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-10" />
+        </div>
 
+        <div className="relative z-10 w-full max-w-4xl text-center">
           {/* Badge */}
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5">
@@ -42,34 +49,49 @@ const Hero = () => {
           </div>
 
           {/* Headline */}
-          <h1 className="font-display text-[1.75rem] leading-[1.1] sm:text-4xl md:text-5xl lg:text-[3.2rem] lg:leading-[1.05] text-white tracking-tight mb-3">
-            8 semanas para <span className="text-accent">músculos que todo mundo nota</span> — sem improviso, sem perda de tempo
+          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
+            8 semanas para{' '}
+            <span className="text-accent">músculos que todo mundo nota</span> — sem
+            improviso, sem perda de tempo
           </h1>
 
-          {/* Subheadline OTIMIZADA */}
-          <p className="text-lg sm:text-xl lg:text-2xl leading-snug text-white/80 mb-4 font-medium">
-            Treino pronto, passo a passo, para você só executar e ver resultado no espelho
+          {/* Subheadline */}
+          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium">
+            Descubra o método científico que transforma esforço em resultado
+            visível no espelho
           </p>
 
-          {/* Fechamento de promessa */}
-          <p className="text-white/70 mb-8 max-w-xl mx-auto">
-            Um sistema comprovado que combina fisiologia, progressão estruturada e acompanhamento inteligente para{' '}
+          {/* Mockup */}
+          <div className="relative w-full max-w-md mx-auto mb-8">
+            <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
+            <img
+              src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png"
+              alt="Método 8X"
+              className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
+            />
+          </div>
+
+          {/* Texto de reforço */}
+          <p className="text-white/70 max-w-lg mx-auto mb-10">
+            Um sistema comprovado que combina fisiologia, progressão estruturada
+            e acompanhamento inteligente para{' '}
             <span className="text-accent font-bold">garantir evolução</span>.
           </p>
 
-          {/* CTA PRINCIPAL */}
-          <div className="hidden lg:flex flex-col items-center gap-3 w-full max-w-lg mx-auto mb-10">
+          {/* CTA Desktop */}
+          <div className="hidden lg:flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
-              className="w-full bg-green-500 hover:bg-green-600 text-white shadow-2xl shadow-green-500/40 hover:scale-[1.02] transition-all text-lg py-6 font-bold"
-              size="cta"
+              className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all"
             >
-              Quero parar de improvisar no treino
+              Acessar o Método 8X agora
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
 
-            <div className="flex items-center justify-center gap-3 text-white/60 text-xs">
-              <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Pagamento Seguro</span>
+            <div className="flex items-center gap-3 text-white/60 text-xs">
+              <span className="flex items-center gap-1">
+                <Lock className="w-3 h-3" /> Pagamento Seguro
+              </span>
               <span>|</span>
               <span>✅ Acesso Imediato</span>
               <span>|</span>
@@ -80,31 +102,34 @@ const Hero = () => {
               ⚠️ Enquanto você hesita, outros estão evoluindo.
             </p>
           </div>
-
-          {/* Mockup (AGORA APÓS CTA) */}
-          <div className="relative w-full max-w-md lg:max-w-lg mx-auto">
-            <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.2)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
-            <img
-              src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png"
-              alt="Método 8X"
-              className="relative z-20 w-full h-auto object-contain scale-105 drop-shadow-2xl"
-            />
-          </div>
         </div>
       </section>
 
-      {/* CTA MOBILE FIXO */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 px-4 pb-6 z-20">
-        <Button
-          onClick={handleCTAClick}
-          className="w-full bg-green-500 hover:bg-green-600 text-white shadow-2xl shadow-green-500/40 text-base py-5 font-bold"
-        >
-          Quero parar de improvisar no treino
-          <ArrowRight className="ml-2 w-5 h-5" />
-        </Button>
+      {/* CTA Mobile fixo */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 px-4 pb-5">
+        <div className="max-w-md mx-auto space-y-3">
+          <Button
+            onClick={handleCTAClick}
+            className="w-full bg-green-500 hover:bg-green-600 text-white py-5 font-bold shadow-2xl shadow-green-500/40"
+          >
+            Acessar o Método 8X agora
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+
+          <div className="flex justify-center gap-2 text-white/60 text-[10px] flex-wrap">
+            <span className="flex items-center gap-1">
+              <Lock className="w-3 h-3" /> Pagamento Seguro
+            </span>
+            <span>|</span>
+            <span>✅ Acesso Imediato</span>
+            <span>|</span>
+            <span>🛡️ 7 Dias de Garantia</span>
+          </div>
+        </div>
       </div>
 
-      <MiniPreCheckoutModal
+      {/* Modal */}
+      <MiniPreCheckout
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleConfirmPurchase}
