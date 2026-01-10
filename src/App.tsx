@@ -13,6 +13,7 @@ import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import VSLAssets from "./pages/VSLAssets";
 import GenerateAudio from "./pages/GenerateAudio";
+import PreCheckout from "./pages/PreCheckout";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/vsl-assets" element={<VSLAssets />} />
               <Route path="/generate-audio" element={<GenerateAudio />} />
+              <Route path="/pre-checkout" element={<PreCheckout />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
