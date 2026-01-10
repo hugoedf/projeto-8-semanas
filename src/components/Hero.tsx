@@ -78,8 +78,8 @@ const Hero = () => {
             <span className="text-accent font-bold">garantir evolução</span>.
           </p>
 
-          {/* CTA Desktop */}
-          <div className="hidden lg:flex flex-col items-center gap-3 max-w-lg mx-auto">
+          {/* CTA Section - Corrigido para aparecer em todos os dispositivos na posição correta */}
+          <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
               className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all"
@@ -88,13 +88,13 @@ const Hero = () => {
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
 
-            <div className="flex items-center gap-3 text-white/60 text-xs">
+            <div className="flex items-center justify-center gap-3 text-white/60 text-xs flex-wrap">
               <span className="flex items-center gap-1">
                 <Lock className="w-3 h-3" /> Pagamento Seguro
               </span>
-              <span>|</span>
+              <span className="hidden sm:inline">|</span>
               <span>✅ Acesso Imediato</span>
-              <span>|</span>
+              <span className="hidden sm:inline">|</span>
               <span>🛡️ 7 Dias de Garantia</span>
             </div>
 
@@ -104,29 +104,6 @@ const Hero = () => {
           </div>
         </div>
       </section>
-
-      {/* CTA Mobile fixo */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 px-4 pb-5">
-        <div className="max-w-md mx-auto space-y-3">
-          <Button
-            onClick={handleCTAClick}
-            className="w-full bg-green-500 hover:bg-green-600 text-white py-5 font-bold shadow-2xl shadow-green-500/40"
-          >
-            Acessar o Método 8X agora
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
-
-          <div className="flex justify-center gap-2 text-white/60 text-[10px] flex-wrap">
-            <span className="flex items-center gap-1">
-              <Lock className="w-3 h-3" /> Pagamento Seguro
-            </span>
-            <span>|</span>
-            <span>✅ Acesso Imediato</span>
-            <span>|</span>
-            <span>🛡️ 7 Dias de Garantia</span>
-          </div>
-        </div>
-      </div>
 
       {/* Modal */}
       <MiniPreCheckout
