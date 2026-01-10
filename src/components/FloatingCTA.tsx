@@ -16,7 +16,6 @@ const FloatingCTA = () => {
         requestAnimationFrame(() => {
           const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
           
-          // Aparece em 40% e permanece até o final, só some se voltar abaixo de 40%
           if (scrollPercentage >= 40 && !isDismissed) {
             setIsVisible(true);
           } else if (scrollPercentage < 40) {
@@ -37,11 +36,8 @@ const FloatingCTA = () => {
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-
     console.log('✅ ===== CHECKOUT INICIADO (FLOATING CTA) =====');
     console.log('🔗 URL final:', checkoutUrl);
-    console.log('==============================================');
-
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -55,31 +51,31 @@ const FloatingCTA = () => {
 
   return (
     <>
-      {/* Mobile - Bottom bar */}
+      {/* Mobile - Bottom bar - ORANGE (intermediate) */}
       <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden animate-slide-in-bottom">
-        <div className="bg-background/95 backdrop-blur-md border-t border-accent/30 shadow-2xl px-3 py-3 safe-area-inset-bottom">
+        <div className="bg-black/95 backdrop-blur-md border-t border-accent/30 shadow-2xl px-3 py-3 safe-area-inset-bottom">
           <div className="flex items-center justify-between gap-2">
-            {/* Preço */}
+            {/* Price */}
             <div className="flex items-center gap-2 min-w-0">
-              <span className="text-muted-foreground line-through text-xs">R$97</span>
+              <span className="text-white/40 line-through text-xs">R$97</span>
               <span className="text-accent font-bold text-lg">R$19,90</span>
             </div>
 
-            {/* Botão com preço */}
+            {/* ORANGE Button (intermediate) */}
             <Button 
               variant="cta" 
               size="sm"
               onClick={handleCTAClick}
-              className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase animate-pulse-glow-subtle whitespace-nowrap"
+              className="text-xs px-4 py-3 font-bold shadow-lg shadow-accent/30 uppercase whitespace-nowrap"
             >
               COMEÇAR POR R$19,90
               <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
             </Button>
 
-            {/* Fechar */}
+            {/* Close */}
             <button 
               onClick={handleDismiss}
-              className="p-1 text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
+              className="p-1 text-white/40 hover:text-white transition-colors flex-shrink-0"
               aria-label="Fechar"
             >
               <X className="w-4 h-4" />
@@ -88,9 +84,9 @@ const FloatingCTA = () => {
         </div>
       </div>
 
-      {/* Desktop - Side floating bar */}
+      {/* Desktop - Side floating bar - ORANGE (intermediate) */}
       <div className="fixed bottom-6 right-6 z-50 hidden lg:block animate-slide-in-right">
-        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] backdrop-blur-md rounded-2xl shadow-2xl shadow-black/40 border border-accent/30 p-4 max-w-xs">
+        <div className="bg-black backdrop-blur-md rounded-2xl shadow-2xl shadow-black/40 border border-accent/30 p-4 max-w-xs">
           {/* Urgency */}
           <div className="flex items-center gap-2 text-red-400 text-xs font-semibold mb-3">
             <Clock className="w-3.5 h-3.5" />
@@ -103,7 +99,7 @@ const FloatingCTA = () => {
             <span className="text-accent font-display text-2xl font-bold">R$19,90</span>
           </div>
 
-          {/* CTA */}
+          {/* ORANGE CTA (intermediate) */}
           <Button 
             variant="cta" 
             size="sm"

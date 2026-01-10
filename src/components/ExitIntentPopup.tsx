@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, AlertTriangle, Clock, ArrowRight } from "lucide-react";
+import { X, AlertTriangle, Clock, ArrowRight, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
@@ -10,15 +10,15 @@ const ExitIntentPopup = () => {
   const { trackInitiateCheckout } = useMetaPixel();
 
   useEffect(() => {
-    // Verifica se já mostrou nessa sessão
+    // Check if already shown in this session
     const alreadyShown = sessionStorage.getItem('exit_popup_shown');
     if (alreadyShown) {
       setHasTriggered(true);
       return;
     }
 
+    // Desktop: Mouse leave detection
     const handleMouseLeave = (e: MouseEvent) => {
-      // Detecta quando o mouse vai para o topo da tela (intenção de sair)
       if (e.clientY <= 5 && !hasTriggered) {
         setIsVisible(true);
         setHasTriggered(true);
@@ -26,18 +26,45 @@ const ExitIntentPopup = () => {
       }
     };
 
-    // Também trigger após 60 segundos se não interagiu
-    const timeout = setTimeout(() => {
-      if (!hasTriggered && !sessionStorage.getItem('exit_popup_shown')) {
-        // Não mostrar automaticamente, só no exit intent
+    // Mobile: Visibility change detection (when user switches tab/app)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden' && !hasTriggered) {
+        // Don't show immediately, wait for return
       }
-    }, 60000);
+      if (document.visibilityState === 'visible' && !hasTriggered && !sessionStorage.getItem('exit_popup_shown')) {
+        // Check if user was away for a bit
+        const wasAway = sessionStorage.getItem('exit_popup_pending');
+        if (wasAway) {
+          setIsVisible(true);
+          setHasTriggered(true);
+          sessionStorage.setItem('exit_popup_shown', 'true');
+          sessionStorage.removeItem('exit_popup_pending');
+        }
+      }
+    };
+
+    // Mobile: Back button / history state
+    const handlePopState = () => {
+      if (!hasTriggered && !sessionStorage.getItem('exit_popup_shown')) {
+        setIsVisible(true);
+        setHasTriggered(true);
+        sessionStorage.setItem('exit_popup_shown', 'true');
+        // Push state back to prevent actual navigation
+        window.history.pushState(null, '', window.location.href);
+      }
+    };
+
+    // Push initial state for mobile back button detection
+    window.history.pushState(null, '', window.location.href);
 
     document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('popstate', handlePopState);
     
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
-      clearTimeout(timeout);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, [hasTriggered]);
 
@@ -58,12 +85,12 @@ const ExitIntentPopup = () => {
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
+        className="absolute inset-0 bg-black/90 backdrop-blur-sm animate-fade-in"
         onClick={handleClose}
       />
       
-      {/* Modal */}
-      <div className="relative bg-gradient-to-b from-[#1a1a1a] to-[#0f0f0f] rounded-2xl max-w-md w-full p-6 sm:p-8 border border-accent/30 shadow-2xl shadow-accent/20 animate-scale-in">
+      {/* Modal - Same structure for desktop and mobile */}
+      <div className="relative bg-black rounded-2xl max-w-md w-full p-5 sm:p-8 border border-accent/30 shadow-2xl shadow-accent/20 animate-scale-in">
         {/* Close button */}
         <button 
           onClick={handleClose}
@@ -74,13 +101,13 @@ const ExitIntentPopup = () => {
 
         {/* Warning icon */}
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center">
-            <AlertTriangle className="w-8 h-8 text-red-400" />
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center">
+            <AlertTriangle className="w-7 h-7 sm:w-8 sm:h-8 text-red-400" />
           </div>
         </div>
 
         {/* Content */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-5">
           <h3 className="font-display text-xl sm:text-2xl text-white mb-2">
             Espera! Você ia sair sem o método?
           </h3>
@@ -106,16 +133,24 @@ const ExitIntentPopup = () => {
           </p>
         </div>
 
-        {/* CTA */}
+        {/* GREEN CTA */}
         <Button 
-          variant="cta" 
-          size="cta" 
           onClick={handleCTAClick}
-          className="w-full mb-3"
+          className="w-full bg-green-500 hover:bg-green-600 text-white shadow-xl shadow-green-500/30 font-bold mb-2"
+          size="cta"
         >
           ÚLTIMA CHANCE - GARANTIR ACESSO
           <ArrowRight className="ml-2 w-5 h-5" />
         </Button>
+
+        {/* Microcopy under green button */}
+        <div className="flex items-center justify-center gap-2 text-white/50 text-[10px] mb-3 flex-wrap">
+          <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Pagamento Seguro</span>
+          <span>|</span>
+          <span>✅ Acesso Imediato</span>
+          <span>|</span>
+          <span>🛡️ 7 Dias de Garantia</span>
+        </div>
 
         {/* Dismiss */}
         <button 
