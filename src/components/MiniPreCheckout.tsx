@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle2, Lock, Clock, X, AlertCircle, Zap, Users } from 'lucide-react';
-import { Button } from './ui/button';
 
 interface MiniPreCheckoutModalProps {
   isOpen: boolean;
@@ -173,12 +172,12 @@ export const MiniPreCheckoutModal: React.FC<MiniPreCheckoutModalProps> = ({ isOp
 
             {/* CTA para Confirmação */}
             <div className="space-y-3 pt-4">
-              <Button
+              <button
                 onClick={handleQualificacaoSubmit}
                 className="w-full bg-green-500 hover:bg-green-600 text-black font-black text-lg py-7 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-green-500/20"
               >
                 CONTINUAR
-              </Button>
+              </button>
 
               <div className="flex items-center justify-center gap-2 text-gray-500 text-[10px] sm:text-xs">
                 <Clock className="w-3 h-3" />
@@ -251,12 +250,12 @@ export const MiniPreCheckoutModal: React.FC<MiniPreCheckoutModalProps> = ({ isOp
 
             {/* CTA Button */}
             <div className="space-y-3">
-              <Button
+              <button
                 onClick={handleConfirm}
                 className="w-full bg-green-500 hover:bg-green-600 text-black font-black text-lg py-7 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-green-500/20"
               >
                 IR PARA PAGAMENTO SEGURO
-              </Button>
+              </button>
 
               {/* Microcopy com Urgência */}
               <div className="space-y-2">
