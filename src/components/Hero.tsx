@@ -3,11 +3,13 @@ import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 import { ArrowRight, Check, Shield, Smartphone, Zap, Lock } from "lucide-react";
-
 const Hero = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -16,16 +18,20 @@ const Hero = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  const miniBullets = [
-    { icon: Smartphone, text: "Treino guiado passo a passo no app" },
-    { icon: Zap, text: "Nutrição estratégica e recuperação inteligente" },
-    { icon: Check, text: "Resultados previsíveis semana a semana" },
-    { icon: Shield, text: "Risco zero: teste por 7 dias" }
-  ];
-
-  return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
+  const miniBullets = [{
+    icon: Smartphone,
+    text: "Treino guiado passo a passo no app"
+  }, {
+    icon: Zap,
+    text: "Nutrição estratégica e recuperação inteligente"
+  }, {
+    icon: Check,
+    text: "Resultados previsíveis semana a semana"
+  }, {
+    icon: Shield,
+    text: "Risco zero: teste por 7 dias"
+  }];
+  return <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
       {/* Gradient overlays - pure black base */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,hsla(18,100%,50%,0.12),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,hsla(18,100%,50%,0.06),transparent_50%)]" />
@@ -61,11 +67,7 @@ const Hero = () => {
               <div className="absolute -inset-12 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[50px] rounded-2xl" />
 
               {/* Mockup Image */}
-              <img 
-                src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
-                alt="Método 8X - Transformação Garantida" 
-                className="relative z-20 w-full h-auto object-contain transform scale-110 drop-shadow-2xl" 
-              />
+              <img src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" alt="Método 8X - Transformação Garantida" className="relative z-20 w-full h-auto object-contain transform scale-110 drop-shadow-2xl" />
             </div>
 
             {/* Definição / reforço de autoridade abaixo do mockup */}
@@ -76,23 +78,14 @@ const Hero = () => {
             {/* Mini Bullets */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-5 w-full max-w-lg">
               {miniBullets.map((bullet, index) => {
-                const Icon = bullet.icon;
-                return (
-                  <div key={index} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                    <Icon className="w-5 h-5 text-accent flex-shrink-0" />
-                    <span className="text-white/80 text-sm">{bullet.text}</span>
-                  </div>
-                );
-              })}
+              const Icon = bullet.icon;
+              return;
+            })}
             </div>
 
             {/* CTA Desktop - GREEN (Decision Button #1) */}
             <div className="hidden lg:flex flex-col items-start gap-3 w-full max-w-lg">
-              <Button 
-                onClick={handleCTAClick} 
-                className="w-full bg-green-500 hover:bg-green-600 text-white shadow-2xl shadow-green-500/40 hover:scale-[1.02] transition-all text-lg py-6 font-bold"
-                size="cta"
-              >
+              <Button onClick={handleCTAClick} className="w-full bg-green-500 hover:bg-green-600 text-white shadow-2xl shadow-green-500/40 hover:scale-[1.02] transition-all text-lg py-6 font-bold" size="cta">
                 Acessar o Método 8X agora
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
@@ -120,11 +113,7 @@ const Hero = () => {
       {/* CTA Mobile - Fixed Bottom - GREEN (Decision Button #1) */}
       <div className="lg:hidden w-full px-4 pb-6 relative z-20">
         <div className="max-w-md mx-auto space-y-3">
-          <Button 
-            onClick={handleCTAClick} 
-            className="w-full bg-green-500 hover:bg-green-600 text-white shadow-2xl shadow-green-500/40 hover:scale-[1.02] transition-all text-base py-5 font-bold"
-            size="cta"
-          >
+          <Button onClick={handleCTAClick} className="w-full bg-green-500 hover:bg-green-600 text-white shadow-2xl shadow-green-500/40 hover:scale-[1.02] transition-all text-base py-5 font-bold" size="cta">
             Acessar o Método 8X agora
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
@@ -150,8 +139,6 @@ const Hero = () => {
           <div className="w-1 h-2.5 bg-white/50 rounded-full" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
