@@ -3,20 +3,14 @@ import { Check, ArrowRight, Lock, Clock, Shield, CreditCard, Zap } from "lucide-
 import { useMetaPixel } from "@/hooks/useMetaPixel";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
-
-const benefits = [
-  "E-book + App 8X — o sistema completo",
-  "8 semanas estruturadas — só seguir e executar",
-  "Nutrição prática — sem dieta maluca",
-  "Técnicas avançadas — para quebrar estagnação",
-  "Acesso vitalício — seu para sempre",
-  "Garantia de 7 dias — risco zero pra você"
-];
-
+const benefits = ["E-book + App 8X — o sistema completo", "8 semanas estruturadas — só seguir e executar", "Nutrição prática — sem dieta maluca", "Técnicas avançadas — para quebrar estagnação", "Acesso vitalício — seu para sempre", "Garantia de 7 dias — risco zero pra você"];
 const CTA = () => {
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
-
+  const {
+    trackInitiateCheckout
+  } = useMetaPixel();
+  const {
+    visitorData
+  } = useVisitorTracking();
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
@@ -27,9 +21,7 @@ const CTA = () => {
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
-
-  return (
-    <section id="cta-section" className="py-12 sm:py-16 bg-white relative overflow-hidden">
+  return <section id="cta-section" className="py-12 sm:py-16 bg-white relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,hsla(18,100%,58%,0.06),transparent_50%)]" />
       
@@ -56,14 +48,12 @@ const CTA = () => {
             
             {/* Benefits */}
             <div className="space-y-2.5 mb-6">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-start gap-3">
+              {benefits.map((benefit, index) => <div key={index} className="flex items-start gap-3">
                   <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 flex items-center justify-center mt-0.5">
                     <Check className="w-3 h-3 text-accent" strokeWidth={3} />
                   </div>
                   <span className="text-black/80 text-sm sm:text-base">{benefit}</span>
-                </div>
-              ))}
+                </div>)}
             </div>
             
             {/* Pricing */}
@@ -91,11 +81,7 @@ const CTA = () => {
             </div>
             
             {/* GREEN CTA - Decision Button #2 (FINAL) */}
-            <Button 
-              onClick={handleCTAClick}
-              className="w-full bg-green-500 hover:bg-green-600 text-white mb-3 shadow-xl shadow-green-500/30 text-lg py-6 font-bold"
-              size="cta"
-            >
+            <Button onClick={handleCTAClick} className="w-full bg-green-500 hover:bg-green-600 text-white mb-3 shadow-xl shadow-green-500/30 text-lg py-6 font-bold" size="cta">
               Garantir meu acesso 
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
@@ -113,7 +99,7 @@ const CTA = () => {
             <div className="flex items-center justify-center gap-5 text-sm text-black/50">
               <div className="flex items-center gap-1.5">
                 <Shield className="w-4 h-4" />
-                <span>Garantia 7 dias</span>
+                
               </div>
               <div className="flex items-center gap-1.5">
                 <CreditCard className="w-4 h-4" />
@@ -123,8 +109,6 @@ const CTA = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default CTA;
