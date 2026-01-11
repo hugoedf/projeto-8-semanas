@@ -50,7 +50,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-base sm:text-xl text-white/80 mb-6 sm:mb-10 font-medium">
-            Descubra o método científico que transforma esforço em resultado
+            Treino pronto, passo a passo, para você só executar e ver resultado no espelho
             visível no espelho
           </p>
 
