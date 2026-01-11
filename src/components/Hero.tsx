@@ -50,8 +50,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-base sm:text-xl text-white/80 mb-6 sm:mb-10 font-medium">
-            Treino pronto, passo a passo, para você só executar e ver resultado no espelho
-            visível no espelho
+           Treino pronto, passo a passo, para você só executar e ver resultado no espelho
           </p>
 
           <div className="relative w-full max-w-[280px] sm:max-w-md mx-auto mb-6 sm:mb-8">
