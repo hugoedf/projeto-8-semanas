@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Check, Lock, Shield, CreditCard, Zap, Users, Clock } from 'lucide-react';
+import { ArrowRight, Check, Lock, Shield, CreditCard, Zap, Users, Clock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MiniPreCheckoutModal } from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
