@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Check, Lock, Shield, Zap, Users, Clock, TrendingUp } from 'lucide-react';
+import { ArrowRight, Check, Lock, Shield, CreditCard, Zap, Users, Clock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MiniPreCheckoutModal } from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
@@ -30,7 +30,7 @@ const CTA = () => {
     return `${hours}h ${minutes}m`;
   };
 
-  // Benefícios COMPLETOS com melhor copy
+  // Benefícios COMPLETOS da versão antiga + melhorados
   const benefits = [
     "E-book + App 8X — o sistema completo",
     "8 semanas estruturadas — só seguir e executar",
@@ -47,6 +47,7 @@ const CTA = () => {
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
+    console.log('✅ CHECKOUT INICIADO (APÓS CONFIRMAÇÃO DO MINI-CHECKOUT)');
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -59,18 +60,13 @@ const CTA = () => {
 
         <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
           
-          {/* TÍTULO NO TOPO - MAIS PERSUASIVO */}
+          {/* TÍTULO NO TOPO */}
           <div className="text-center mb-12">
-            <div className="inline-block mb-4">
-              <span className="text-accent text-xs uppercase tracking-widest font-black bg-accent/10 px-4 py-2 rounded-full">
-                ⏱️ Oferta por tempo limitado
-              </span>
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-black tracking-tight leading-tight mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-black tracking-tight leading-tight">
               Transforme seu corpo em <span className="text-accent font-black">8 semanas</span>
             </h2>
-            <p className="text-black/60 mt-4 text-lg max-w-2xl mx-auto font-medium">
-              O método científico que já funcionou para +500 pessoas. Sem treino chato, sem dieta maluca, sem falsas promessas.
+            <p className="text-black/50 mt-4 text-lg max-w-2xl mx-auto">
+              O método científico para quem não tem tempo a perder com treinos que não funcionam.
             </p>
           </div>
 
@@ -93,28 +89,25 @@ const CTA = () => {
             <div className="w-full lg:w-1/2 max-w-md">
               <div className="bg-white border border-black/5 rounded-[2rem] p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative">
                 
-                {/* Badge com urgência */}
-                <div className="mb-6 flex items-center gap-2">
-                  <span className="text-red-600 text-xs uppercase tracking-widest font-black bg-red-50 px-3 py-1 rounded-full flex items-center gap-1">
-                    🔥 Restam {vagas} vagas
+                {/* Badge Interno */}
+                <div className="mb-6">
+                  <span className="text-accent text-xs uppercase tracking-widest font-black bg-accent/5 px-3 py-1 rounded-full">
+                    Acesso Imediato
                   </span>
                 </div>
 
-                {/* Headline Principal - MAIS PERSUASIVO */}
-                <h3 className="font-display text-2xl sm:text-3xl mb-3 tracking-tight text-black leading-tight font-black">
-                  Comece hoje. Veja resultados em 8 semanas.
+                {/* Headline Principal */}
+                <h3 className="font-display text-2xl sm:text-3xl mb-4 tracking-tight text-black leading-tight font-bold">
+                  Comece agora. Veja resultados em 8 semanas.
                 </h3>
                 
-                {/* Subheadline com mais impacto */}
-                <p className="text-black/70 text-sm mb-2 leading-relaxed font-medium">
-                  Menos que uma refeição por dia — e você evita semanas de treino jogadas fora.
-                </p>
-                <p className="text-accent text-sm mb-6 leading-relaxed font-bold">
-                  ✅ Risco zero com garantia de 7 dias
+                {/* Subheadline */}
+                <p className="text-black/60 text-sm mb-6 leading-relaxed">
+                  Menos que uma refeição — e evita semanas de treino jogadas fora. Risco zero pra você.
                 </p>
                 
                 {/* Checklist de Benefícios COMPLETO */}
-                <div className="space-y-2.5 mb-8 bg-black/2 p-4 rounded-lg">
+                <div className="space-y-2.5 mb-8">
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 flex items-center justify-center mt-0.5">
@@ -125,57 +118,54 @@ const CTA = () => {
                   ))}
                 </div>
 
-                {/* Prova Social - MAIS DESTAQUE */}
-                <div className="bg-green-50 border-2 border-green-300 rounded-xl p-5 mb-8 space-y-3">
+                {/* Prova Social - NOVO */}
+                <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-8 space-y-2">
                   <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-green-600" />
-                    <span className="text-green-900 text-sm sm:text-base font-bold">
+                    <Users className="w-4 h-4 text-green-600" />
+                    <span className="text-green-900 text-xs sm:text-sm font-bold">
                       +500 pessoas já transformaram seus treinos
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-yellow-500 text-lg">⭐⭐⭐⭐⭐</span>
-                    <span className="text-green-700 text-sm font-bold">Avaliação média 4.9/5</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-green-700 text-xs font-semibold">
-                    <TrendingUp className="w-4 h-4" />
-                    Média de +15kg ganho em 8 semanas
+                    <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>
+                    <span className="text-green-700 text-xs font-semibold">Avaliação média 4.9/5</span>
                   </div>
                 </div>
 
-                {/* Preço com Ancoragem - MAIS DESTAQUE */}
-                <div className="bg-black/5 border border-black/10 rounded-lg p-4 mb-8">
-                  <p className="text-black/50 text-xs uppercase tracking-widest font-bold mb-2">Investimento único</p>
-                  <div className="flex items-baseline gap-3 mb-2">
-                    <span className="text-black/30 line-through text-2xl font-bold">R$ 97</span>
-                    <span className="text-accent font-display text-5xl sm:text-6xl font-black">R$ 19,90</span>
+                {/* Preço com Ancoragem */}
+                <div className="border-t border-black/5 pt-6 mb-8">
+                  <div className="flex items-baseline gap-3 mb-1">
+                    <span className="text-black/30 line-through text-xl font-bold">R$ 97</span>
+                    <span className="text-accent font-display text-4xl sm:text-5xl font-black">R$ 19,90</span>
                   </div>
                   <p className="text-[10px] text-black/40 font-bold uppercase tracking-widest">
-                    Pagamento único · Sem mensalidades · Acesso vitalício
+                    Pagamento único · Sem mensalidades
                   </p>
                 </div>
 
-                {/* BOTÃO VERDE PRINCIPAL - MAIS CHAMATIVO */}
+                {/* BOTÃO VERDE PRINCIPAL */}
                 <Button 
                   onClick={handleCTAClick} 
-                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-4 shadow-xl shadow-green-500/30 text-lg py-7 font-black rounded-xl transition-all transform hover:scale-[1.03] active:scale-[0.98] relative overflow-hidden" 
+                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-4 shadow-xl shadow-green-500/20 text-lg py-7 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98]" 
                 >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    GARANTIR MEU ACESSO AGORA
-                    <ArrowRight className="w-5 h-5" />
-                  </span>
+                  GARANTIR MEU ACESSO
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
 
-                {/* Timer com mais destaque */}
-                <div className="space-y-2 mb-6 bg-red-50 p-3 rounded-lg border border-red-200">
-                  <div className="flex items-center justify-center gap-2 text-red-700 text-sm font-bold">
-                    <Clock className="w-4 h-4" />
-                    <span>⏰ Oferta por mais {formatTime(timeLeft)}</span>
+                {/* Urgência e Escassez - NOVO */}
+                <div className="space-y-2 mb-6">
+                  <div className="flex items-center justify-center gap-2 text-red-600 text-xs font-bold">
+                    <AlertCircle className="w-3 h-3" />
+                    <span>Restam {vagas} vagas hoje</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2 text-gray-500 text-xs">
+                    <Clock className="w-3 h-3" />
+                    <span>Oferta por mais {formatTime(timeLeft)}</span>
                   </div>
                 </div>
 
                 {/* Segurança e Garantia */}
-                <div className="flex items-center justify-center gap-4 text-black/40 text-[10px] font-bold uppercase tracking-widest">
+                <div className="flex items-center justify-center gap-4 text-black/30 text-[10px] font-bold uppercase tracking-widest">
                   <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Seguro</span>
                   <span>|</span>
                   <span className="flex items-center gap-1"><Shield className="w-3 h-3" /> 7 Dias</span>
