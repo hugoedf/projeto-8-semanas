@@ -27,6 +27,9 @@ const Benefits = () => {
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-3 tracking-tight text-black leading-tight">
             O que você conquista em <span className="text-accent">8 semanas</span>
           </h2>
+          <p className="text-black/60 mt-4 text-lg">
+            Em 8 semanas, seu corpo começa a responder de forma previsível — resultado visível, força crescente e confiança de volta.
+          </p>
         </div>
         
         {/* 4 Cards Horizontais - Benefícios Tangíveis */}
