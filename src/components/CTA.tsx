@@ -47,7 +47,10 @@ const CTA = () => {
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    console.log('✅ CHECKOUT INICIADO (APÓS CONFIRMAÇÃO DO MINI-CHECKOUT)');
+    console.log('✅ ===== CHECKOUT INICIADO (CTA FINAL - APÓS CONFIRMAÇÃO NO MODAL) =====');
+    console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
+    console.log('📊 Dados do visitante:', visitorData);
+    console.log('========================================');
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -90,8 +93,9 @@ const CTA = () => {
               <div className="bg-white border border-black/5 rounded-[2rem] p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative">
                 
                 {/* Badge Interno */}
-                <div className="mb-6">
-                  <span className="text-accent text-xs uppercase tracking-widest font-black bg-accent/5 px-3 py-1 rounded-full">
+                <div className="mb-6 text-center">
+                  <span className="inline-flex items-center gap-2 text-accent text-xs uppercase tracking-widest font-black bg-accent/5 px-4 py-2 rounded-full border border-accent/20">
+                    <Zap className="w-4 h-4" />
                     Acesso Imediato
                   </span>
                 </div>
@@ -118,7 +122,7 @@ const CTA = () => {
                   ))}
                 </div>
 
-                {/* Prova Social - NOVO */}
+                {/* Prova Social */}
                 <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-8 space-y-2">
                   <div className="flex items-center gap-2">
                     <Users className="w-4 h-4 text-green-600" />
@@ -134,13 +138,29 @@ const CTA = () => {
 
                 {/* Preço com Ancoragem */}
                 <div className="border-t border-black/5 pt-6 mb-8">
-                  <div className="flex items-baseline gap-3 mb-1">
+                  <div className="flex items-baseline justify-center gap-3 mb-1">
                     <span className="text-black/30 line-through text-xl font-bold">R$ 97</span>
                     <span className="text-accent font-display text-4xl sm:text-5xl font-black">R$ 19,90</span>
                   </div>
-                  <p className="text-[10px] text-black/40 font-bold uppercase tracking-widest">
+                  <p className="text-[10px] text-black/40 font-bold uppercase tracking-widest text-center">
                     Pagamento único · Sem mensalidades
                   </p>
+                </div>
+
+                {/* BLOCO DE URGÊNCIA DA VERSÃO ANTIGA */}
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-5">
+                  <p className="text-red-800 font-bold text-sm mb-2 flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    Cada dia sem método é mais uma semana perdida
+                  </p>
+                  <ul className="text-red-700 text-xs space-y-1">
+                    <li>• Vagas limitadas para manter qualidade</li>
+                    <li>• Comece imediatamente e veja resultados</li>
+                    <li className="font-bold mt-1 flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3" />
+                      Restam apenas {vagas} vagas hoje
+                    </li>
+                  </ul>
                 </div>
 
                 {/* BOTÃO VERDE PRINCIPAL */}
@@ -152,23 +172,25 @@ const CTA = () => {
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
 
-                {/* Urgência e Escassez - NOVO */}
-                <div className="space-y-2 mb-6">
-                  <div className="flex items-center justify-center gap-2 text-red-600 text-xs font-bold">
-                    <AlertCircle className="w-3 h-3" />
-                    <span>Restam {vagas} vagas hoje</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-gray-500 text-xs">
-                    <Clock className="w-3 h-3" />
-                    <span>Oferta por mais {formatTime(timeLeft)}</span>
-                  </div>
+                {/* Microcopy under green button */}
+                <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] mb-4 flex-wrap">
+                  <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Pagamento Seguro</span>
+                  <span>|</span>
+                  <span>✅ Acesso Imediato</span>
+                  <span>|</span>
+                  <span>🛡️ 7 Dias de Garantia</span>
                 </div>
 
-                {/* Segurança e Garantia */}
-                <div className="flex items-center justify-center gap-4 text-black/30 text-[10px] font-bold uppercase tracking-widest">
-                  <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Seguro</span>
-                  <span>|</span>
-                  <span className="flex items-center gap-1"><Shield className="w-3 h-3" /> 7 Dias</span>
+                {/* Trust badges */}
+                <div className="flex items-center justify-center gap-5 text-sm text-black/50">
+                  <div className="flex items-center gap-1.5">
+                    <Shield className="w-4 h-4" />
+                    <span>Seguro</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <CreditCard className="w-4 h-4" />
+                    <span>Pix, Cartão</span>
+                  </div>
                 </div>
               </div>
             </div>
