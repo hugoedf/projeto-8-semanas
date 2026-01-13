@@ -24,9 +24,8 @@ const WhyMethodExists = () => {
           {/* Header */}
           <div className="text-center mb-10 lg:mb-12">
             <h2 className="font-display text-2xl sm:text-4xl md:text-5xl tracking-tight text-black leading-[1.1] mb-5">
-              O Método 8X não é apenas mais um treino, <br />
-              <span className="text-accent">é um sistema científico</span> que força<br />
-              seu corpo a evoluir de forma previsível.
+              O Método 8X não é mais um treino genérico. <br />
+              <span className="text-accent">É um sistema científico</span> que combina estímulo, descanso e progressão pra forçar seu corpo a evoluir toda semana.
             </h2>
           </div>
 
@@ -92,7 +91,7 @@ const WhyMethodExists = () => {
                     Sem depender da motivação
                   </h4>
                   <p className="text-black/60 text-sm">
-                    Você só precisa seguir o passo a passo e ver seu corpo responder. A estrutura faz o trabalho por você.
+                    Você não precisa de mais motivação — precisa de um plano que funcione mesmo nos dias em que ela falha. O Método 8X guia cada treino pra que você veja resultado mesmo quando a vontade não vem.
                   </p>
                 </div>
               </div>
