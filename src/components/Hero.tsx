@@ -6,7 +6,7 @@ import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
 
-const CTA = () => {
+const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [vagas, setVagas] = useState(12);
   const [timeLeft, setTimeLeft] = useState(24 * 60 * 60);
@@ -54,7 +54,7 @@ const CTA = () => {
 
   return (
     <>
-      <section id="cta-section" className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      <section id="hero-section" className="py-16 sm:py-24 bg-white relative overflow-hidden">
         {/* Background glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,hsla(18,100%,58%,0.06),transparent_50%)]" />
 
@@ -65,9 +65,11 @@ const CTA = () => {
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-black tracking-tight leading-tight">
               Transforme seu corpo em <span className="text-accent font-black">8 semanas</span>
             </h2>
-            <p className="text-black/50 mt-4 text-lg max-w-2xl mx-auto">
-              O método científico para quem não tem tempo a perder com treinos que não funcionam.
-            </p>
+            <div className="text-black/50 mt-4 text-lg max-w-2xl mx-auto space-y-4">
+              <p className="font-bold text-black/80">Você não está travado por falta de esforço.</p>
+              <p>Está travado porque ninguém te mostrou um sistema que realmente força o corpo a evoluir.</p>
+              <p>Baseado em princípios de fisiologia e progressão estruturada, o Método 8X elimina o improviso e garante evolução toda semana.</p>
+            </div>
           </div>
 
           {/* LAYOUT DE DUAS COLUNAS (DESKTOP) / UMA COLUNA (MOBILE) */}
@@ -187,4 +189,4 @@ const CTA = () => {
   );
 };
 
-export default CTA;
+export default Hero;
