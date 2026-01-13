@@ -113,6 +113,9 @@ const Testimonials = () => {
         
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12">
+          <p className="text-accent font-bold text-sm uppercase tracking-widest mb-2">
+            Isso não é teoria. É o que realmente acontece quando você aplica método, não motivação.
+          </p>
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 px-2 tracking-tight text-white">
             Mais de <span className="text-accent">500 pessoas</span> já transformaram{" "}
             seus treinos e corpos
