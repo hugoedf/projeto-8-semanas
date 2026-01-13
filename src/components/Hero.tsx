@@ -16,26 +16,21 @@ const Hero = () => {
   };
 
   const handleConfirmPurchase = () => {
-    const baseUrl =
-      'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-
-    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-
+    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl );
     trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
   return (
     <>
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden gradient-hero">
-        {/* Background glow */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden gradient-hero">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-10" />
         </div>
 
         <div className="relative z-10 w-full max-w-4xl text-center">
-          {/* Badge */}
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5">
               <span className="relative flex h-2 w-2">
@@ -48,21 +43,19 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Headline */}
-          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
+          <h1 className="font-display text-[1.6rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
             8 semanas para{' '}
             <span className="text-accent">músculos que todo mundo nota</span> — sem
             improviso, sem perda de tempo
           </h1>
 
-          {/* Subheadline */}
-          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium">
-            Descubra o método científico que transforma esforço em resultado
+          <p className="text-base sm:text-xl text-white/80 mb-6 sm:mb-10 font-medium">
+            Treino pronto, passo a passo, para você só executar e ver resultado no espelho
             visível no espelho
+           Treino pronto, passo a passo, para você só executar e ver resultado no espelho
           </p>
 
-          {/* Mockup */}
-          <div className="relative w-full max-w-md mx-auto mb-8">
+          <div className="relative w-full max-w-[280px] sm:max-w-md mx-auto mb-6 sm:mb-8">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
               src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png"
@@ -71,14 +64,12 @@ const Hero = () => {
             />
           </div>
 
-          {/* Texto de reforço */}
-          <p className="text-white/70 max-w-lg mx-auto mb-10">
+          <p className="text-white/70 text-sm sm:text-base max-w-lg mx-auto mb-8 sm:mb-10">
             Um sistema comprovado que combina fisiologia, progressão estruturada
             e acompanhamento inteligente para{' '}
             <span className="text-accent font-bold">garantir evolução</span>.
           </p>
 
-          {/* CTA Section - Corrigido para aparecer em todos os dispositivos na posição correta */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
@@ -97,15 +88,10 @@ const Hero = () => {
               <span className="hidden sm:inline">|</span>
               <span>🛡️ 7 Dias de Garantia</span>
             </div>
-
-            <p className="text-red-400 text-sm font-medium">
-              ⚠️ Enquanto você hesita, outros estão evoluindo.
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Modal */}
       <MiniPreCheckout
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -115,4 +101,3 @@ const Hero = () => {
   );
 };
 
-export default Hero;
