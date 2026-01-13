@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, Check, ArrowRight, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import MiniPreCheckout from './MiniPreCheckout';
+import { MiniPreCheckoutModal } from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
@@ -144,7 +144,7 @@ const DecisionBlock = () => {
       </section>
 
       {/* Modal de confirmação */}
-      <MiniPreCheckout 
+      <MiniPreCheckoutModal 
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleConfirmPurchase}
