@@ -16,7 +16,7 @@ const Guarantee = () => {
               <div className="text-center md:text-left order-2 md:order-1">
                 <div className="inline-flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-widest px-3 py-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 mb-5 shadow-lg shadow-amber-400/10">
                   <Shield className="w-4 h-4" />
-                  <span>O risco é todo meu</span>
+                  <span>🛡️ 7 Dias de Garantia Total — o risco é todo meu.</span>
                 </div>
                 
                 <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-4 text-white tracking-tight leading-tight">
