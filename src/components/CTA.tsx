@@ -109,6 +109,13 @@ const CTA = () => {
                 <p className="text-black/60 text-sm mb-6 leading-relaxed">
                   Menos que uma refeição — e evita semanas de treino jogadas fora. Risco zero pra você.
                 </p>
+
+                {/* Ancoragem de Preço - BLOCO 7 */}
+                <div className="bg-accent/5 border border-accent/10 rounded-xl p-4 mb-6 text-xs text-black/70 space-y-2">
+                  <p>Personal trainers cobram R$300 a R$500/mês por algo parecido.</p>
+                  <p>E-books genéricos custam R$97 ou mais.</p>
+                  <p className="font-bold text-black">O foco do 8X não é volume de conteúdo, é execução garantida. Você paga pouco porque o que importa é aplicar, não assistir.</p>
+                </div>
                 
                 {/* Checklist de Benefícios COMPLETO */}
                 <div className="space-y-2.5 mb-8">
@@ -145,6 +152,12 @@ const CTA = () => {
                   <p className="text-[10px] text-black/40 font-bold uppercase tracking-widest text-center">
                     Pagamento único · Sem mensalidades
                   </p>
+                </div>
+
+                {/* Bloco Motivacional Final - BLOCO 8 */}
+                <div className="text-center mb-6 space-y-2">
+                  <p className="text-sm text-black/80 italic">"Daqui a 8 semanas, você pode estar no mesmo lugar… Ou pode ser o cara que todo mundo nota quando entra na academia."</p>
+                  <p className="text-xs font-bold text-accent">Você já provou que tem disciplina. Agora é hora de provar o que seu corpo é capaz de fazer — com ciência.</p>
                 </div>
 
                 {/* BLOCO DE URGÊNCIA DA VERSÃO ANTIGA */}
