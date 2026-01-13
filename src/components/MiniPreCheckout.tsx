@@ -7,7 +7,7 @@ interface MiniPreCheckoutModalProps {
   onConfirm: () => void;
 }
 
-const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalProps) => {
+export const MiniPreCheckoutModal = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalProps) => {
   const [step, setStep] = useState<'qualificacao' | 'confirmacao'>('qualificacao');
   const [qualificacao, setQualificacao] = useState<{
     objetivo?: string;
@@ -283,5 +283,3 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
     </div>
   );
 };
-
-export default MiniPreCheckout;
