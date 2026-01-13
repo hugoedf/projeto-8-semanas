@@ -19,10 +19,11 @@ const Problems = () => {
           {/* Headline */}
           <div className="text-center mb-10 lg:mb-12">
             <h2 className="font-display text-2xl sm:text-4xl md:text-5xl tracking-tight text-white leading-[1.1] mb-3">
-              Se você se identifica com<br />
-              <span className="text-red-500">algum desses problemas</span>,<br />
-              você não está sozinho:
+              Se nada parece funcionar, não é porque você está fazendo errado — <span className="text-red-500">é porque te ensinaram o jeito errado.</span>
             </h2>
+            <p className="text-white/60 mt-4 text-lg">
+              Se você se identifica com algum desses problemas, você não está sozinho:
+            </p>
           </div>
           
           {/* Pain Points Cards - Premium White Cards */}
