@@ -98,11 +98,6 @@ const Hero = () => {
               <span>🛡️ 7 Dias de Garantia</span>
             </div>
 
-            {/* Frase de identificação */}
-            <p className="text-white/70 text-sm mt-3 max-w-md text-center">
-              Se você treina, se esforça, mas não tem evolução constante, essa página é para você.
-            </p>
-
             {/* Urgência leve */}
             <p className="text-red-400 text-sm font-medium mt-2">
               ⚠️ Enquanto você hesita, outros estão evoluindo.
