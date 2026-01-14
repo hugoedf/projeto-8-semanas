@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Check, Lock, Shield, CreditCard, Zap, Users, Clock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { MiniPreCheckoutModal } from './MiniPreCheckout';
+import MiniPreCheckoutModal from './MiniPreCheckout'; // Correção: Import default sem chaves
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
 
 const CTA = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [vagas, setVagas] = useState(12);
-  const [timeLeft, setTimeLeft] = useState(15 * 60); // Ajustado para 15 minutos conforme sua sugestão
+  const [vagas] = useState(12);
+  const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutos
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
 
@@ -42,6 +42,9 @@ const CTA = () => {
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl );
+    
+    console.log('🚀 Redirecionando para checkout:', checkoutUrl);
+    
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -108,12 +111,12 @@ const CTA = () => {
                   </p>
                 </div>
 
-                {/* NOVO BLOCO DE URGÊNCIA AGRESSIVA */}
+                {/* BLOCO DE URGÊNCIA AGRESSIVA */}
                 <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-red-900 font-bold text-sm">
-                      ⏰ Oferta por tempo limitado
+                      ⏰ Oferta por tempo limitado ({formatTime(timeLeft)})
                     </p>
                     <p className="text-red-700 text-xs mt-1 leading-relaxed">
                       Se sair desta página, você perde acesso a este preço de R$ 19,90. Essa oportunidade não volta.
