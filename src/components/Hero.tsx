@@ -43,7 +43,7 @@ const Hero = () => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
               <span className="text-accent font-bold text-xs uppercase tracking-widest">
-                +500 Transformações Reais
+               Você treina, se esforça, mas seu corpo não responde?
               </span>
             </div>
           </div>
@@ -57,7 +57,8 @@ const Hero = () => {
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium">
-            Treino pronto, passo a passo, para você só executar e ver resultado no espelho
+            Treino pronto, passo a passo, para você executar sem improviso
+e finalmente ver resultado no espelho
           </p>
 
           {/* Mockup */}
@@ -70,12 +71,11 @@ const Hero = () => {
             />
           </div>
 
-          {/* Texto de reforço */}
-          <p className="text-white/70 max-w-lg mx-auto mb-10">
-            Um sistema comprovado que combina fisiologia, progressão estruturada
-            e acompanhamento inteligente para{' '}
-            <span className="text-accent font-bold">garantir evolução</span>.
-          </p>
+        <p className="text-white/70 max-w-lg mx-auto mb-10">
+  Sistema com progressão estruturada para{' '}
+  <span className="text-accent font-bold">ganhar músculo</span> de forma previsível.
+</p>
+
 
           {/* CTA */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
@@ -100,7 +100,7 @@ const Hero = () => {
 
             {/* Urgência leve */}
             <p className="text-red-400 text-sm font-medium mt-2">
-              ⚠️ Enquanto você hesita, outros estão evoluindo.
+              ⚠️ Enquanto você hesita, outras pessoas já estão vendo resultado no espelho.
             </p>
           </div>
         </div>
