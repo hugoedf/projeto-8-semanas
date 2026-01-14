@@ -27,7 +27,7 @@ const Hero = () => {
 
   return (
     <>
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden gradient-hero">
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 overflow-hidden gradient-hero">
         {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
