@@ -94,7 +94,7 @@ e finalmente ver resultado no espelho
 
             {/* Urgência leve */}
             <p className="text-red-400 text-sm font-medium mt-2">
-              ⚠️ Enquanto você hesita, outras pessoas já estão vendo resultado no espelho.
+             ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
             </p>
           </div>
         </div>
