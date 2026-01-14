@@ -71,12 +71,6 @@ e finalmente ver resultado no espelho
             />
           </div>
 
-        <p className="text-white/70 max-w-lg mx-auto mb-10">
-  Sistema com progressão estruturada para{' '}
-  <span className="text-accent font-bold">ganhar músculo</span> de forma previsível.
-</p>
-
-
           {/* CTA */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
