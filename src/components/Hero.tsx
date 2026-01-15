@@ -40,7 +40,7 @@ const Hero = () => {
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5">
               <Zap className="w-4 h-4 text-accent animate-pulse" />
               <span className="text-accent font-bold text-xs uppercase tracking-widest">
-                ⚡️ATIVE O SISTEMA DE FISIOLOGIA PROGRESSIVA
+                ATIVE O SISTEMA DE FISIOLOGIA PROGRESSIVA
               </span>
             </div>
           </div>
