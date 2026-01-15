@@ -79,7 +79,8 @@ const sendToMetaCAPI = async (purchaseData: any, visitorData: any) => {
     return { success: false, error: 'Credenciais não configuradas' };
   }
 
-  const eventId = `hotmart_${purchaseData.transactionId}_${Date.now()}`;
+  // Usar apenas o ID da transação como eventId para garantir a deduplicação perfeita na Meta
+  const eventId = purchaseData.transactionId;
   const eventTime = Math.floor(new Date(purchaseData.timestamp).getTime() / 1000);
 
   try {
