@@ -52,10 +52,10 @@ const Hero = () => {
             improviso e sem perda de tempo.
           </h1>
 
-          {/* Subheadline de Alto Impacto (Mecanismo Único + Emoção) */}
-          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto">
-            Um método <strong>estruturado</strong>, com <strong>treino pronto</strong>, passo a passo, para você eliminar o <strong>improviso</strong> e finalmente ver o <strong>resultado que você quer no espelho</strong>.
-          </p>
+        {/* Subheadline de Alto Impacto (Mecanismo Único + Emoção) */}
+<p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto">
+  Um método <strong>estruturado</strong>, com <strong>treino pronto</strong> e passo a passo, para você <strong>executar</strong> sem <strong>improviso</strong> e finalmente ver <strong>resultado no espelho</strong>.
+</p>
 
           {/* Mockup */}
           <div className="relative w-full max-w-md mx-auto mb-8">
