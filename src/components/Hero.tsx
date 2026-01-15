@@ -52,9 +52,9 @@ const Hero = () => {
             improviso e sem perda de tempo.
           </h1>
 
-        {/* Subheadline de Alto Impacto (Mecanismo Único + Emoção) */}
+     {/* Subheadline de Alto Impacto (Performance + Ação Imediata) */}
 <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto">
-  Um método <strong>estruturado</strong>, com <strong>treino pronto</strong>,passo a passo, para você <strong>executar</strong> sem <strong>improviso</strong> e finalmente ver <strong>resultado no espelho</strong>.
+  <strong>Treino pronto</strong>, passo a passo, para você <strong>executar</strong> sem <strong>improviso</strong> e finalmente ver <strong>resultado no espelho</strong>.
 </p>
 
           {/* Mockup */}
