@@ -35,26 +35,26 @@ const Hero = () => {
         </div>
 
         <div className="relative z-10 w-full max-w-4xl text-center">
-          {/* Badge */}
+          {/* Badge Original de Identificação - Ajustado para uma linha */}
           <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5">
-              <Zap className="w-4 h-4 text-accent animate-pulse" />
-              <span className="text-accent font-bold text-xs uppercase tracking-widest">
-                ATIVE O SISTEMA DE FISIOLOGIA PROGRESSIVA
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 whitespace-nowrap">
+              <div className="w-1.5 h-1.5 sm:w-2 h-2 bg-accent rounded-full animate-pulse flex-shrink-0" />
+              <span className="text-accent font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest">
+                VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
               </span>
             </div>
           </div>
 
-          {/* Headline */}
+          {/* Headline Original que Validou */}
           <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
             8 semanas para{' '}
             <span className="text-accent">músculos que todo mundo nota</span> — sem
             improviso e sem perda de tempo.
           </h1>
 
-          {/* Subheadline */}
+          {/* Subheadline de Alto Impacto (Mecanismo Único + Emoção) */}
           <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto">
-            Um método estruturado, com treinos passo a passo, para você eliminar o improviso e finalmente ver o resultado que você quer no espelho.
+            Um método <strong>estruturado</strong>, com <strong>treino pronto</strong>, passo a passo, para você eliminar o <strong>improviso</strong> e finalmente ver o <strong>resultado que você quer no espelho</strong>.
           </p>
 
           {/* Mockup */}
@@ -67,7 +67,7 @@ const Hero = () => {
             />
           </div>
 
-          {/* CTA */}
+          {/* CTA Original Validada */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
