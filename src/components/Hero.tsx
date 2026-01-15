@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Lock } from 'lucide-react';
+import { ArrowRight, Lock, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MiniPreCheckout from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
@@ -38,12 +38,9 @@ const Hero = () => {
           {/* Badge */}
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
-              </span>
+              <Zap className="w-4 h-4 text-accent animate-pulse" />
               <span className="text-accent font-bold text-xs uppercase tracking-widest">
-               Você treina, se esforça, mas seu corpo não responde?
+                ⚡️ATIVE O SISTEMA DE FISIOLOGIA PROGRESSIVA
               </span>
             </div>
           </div>
@@ -52,13 +49,12 @@ const Hero = () => {
           <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
             8 semanas para{' '}
             <span className="text-accent">músculos que todo mundo nota</span> — sem
-            improviso, sem perda de tempo
+            improviso e sem perda de tempo.
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium">
-            Treino pronto, passo a passo, para você executar sem improviso
-e finalmente ver resultado no espelho
+          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto">
+            Um método estruturado, com treinos passo a passo, para você eliminar o improviso e finalmente forçar seu corpo a responder no espelho através de estímulos científicos.
           </p>
 
           {/* Mockup */}
