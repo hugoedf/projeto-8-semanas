@@ -54,7 +54,7 @@ const Hero = () => {
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto">
-            Um método estruturado, com treinos passo a passo, para você eliminar o improviso e finalmente forçar seu corpo a responder no espelho através de estímulos científicos.
+            Um método estruturado, com treinos passo a passo, para você eliminar o improviso e finalmente ver o resultado que você quer no espelho.
           </p>
 
           {/* Mockup */}
