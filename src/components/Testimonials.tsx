@@ -12,13 +12,12 @@ const testimonials = [
     result: "Transformação visível"
   },
   {
-    name: "Camila S.",
+    name: "Camilo S.",
     age: 25,
     location: "Rio de Janeiro, RJ",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
     highlight: "Método completo e científico",
-    text: "O método é completo, científico e fácil de seguir. A clareza de saber exatamente o que fazer fez toda a diferença.",
-    result: "Corpo respondendo em 6 semanas"
+    text: "Comprei achando que seria mais um treino. Em 3 dias já senti diferença no pump e na progressão. Se soubesse, tinha começado antes."
   },
   {
     name: "Pedro T.",
