@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Lock, Zap } from 'lucide-react';
+import { ArrowRight, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MiniPreCheckout from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
@@ -16,11 +16,8 @@ const Hero = () => {
   };
 
   const handleConfirmPurchase = () => {
-    const baseUrl =
-      'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-
+    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-
     trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -35,29 +32,29 @@ const Hero = () => {
         </div>
 
         <div className="relative z-10 w-full max-w-4xl text-center">
-          {/* Badge Original de Identificação - Ajustado para uma linha */}
+          {/* HOOK AJUSTADO - LEITURA CLARA SEM OCUPAR ESPAÇO DEMAIS */}
           <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 whitespace-nowrap">
-              <div className="w-1.5 h-1.5 sm:w-2 h-2 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              <span className="text-accent font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5 sm:px-6 sm:py-2">
+              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
+              <span className="text-accent font-black text-[11px] sm:text-xs md:text-sm uppercase tracking-wider">
                 VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
               </span>
             </div>
           </div>
 
-          {/* Headline Original que Validou */}
+          {/* HEADLINE ORIGINAL (MANTIDA) */}
           <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
             8 semanas para{' '}
             <span className="text-accent">músculos que todo mundo nota</span> — sem
             improviso e sem perda de tempo.
           </h1>
 
-     {/* Subheadline de Alto Impacto (Performance + Ação Imediata) */}
-<p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto">
-  <strong>Treino pronto</strong>, passo a passo, para você <strong>executar</strong> sem <strong>improviso</strong> e finalmente ver <strong>resultado no espelho</strong>.
-</p>
+          {/* SUB-HEADLINE HÍBRIDA (MECANISMO ÚNICO + SUA ESTRUTURA) */}
+          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
+            <strong>Treino pronto</strong> e passo a passo baseado em <strong>Fisiologia Progressiva</strong>, para você <strong>executar</strong> sem <strong>improviso</strong> e finalmente ver <strong>resultado no espelho</strong>.
+          </p>
 
-          {/* Mockup */}
+          {/* MOCKUP ORIGINAL (MANTIDO) */}
           <div className="relative w-full max-w-md mx-auto mb-8">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
@@ -67,7 +64,7 @@ const Hero = () => {
             />
           </div>
 
-          {/* CTA Original Validada */}
+          {/* CTA ORIGINAL (MANTIDA) */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
@@ -77,7 +74,7 @@ const Hero = () => {
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
 
-            {/* Microcopy */}
+            {/* MICROCOPY ORIGINAL */}
             <div className="flex items-center justify-center gap-3 text-white/60 text-xs flex-wrap">
               <span className="flex items-center gap-1">
                 <Lock className="w-3 h-3" /> Pagamento Seguro
@@ -88,7 +85,7 @@ const Hero = () => {
               <span>🛡️ 7 Dias de Garantia</span>
             </div>
 
-            {/* Urgência leve */}
+            {/* URGÊNCIA ORIGINAL */}
             <p className="text-red-400 text-sm font-medium mt-2">
              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
             </p>
@@ -96,7 +93,6 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Modal */}
       <MiniPreCheckout
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
