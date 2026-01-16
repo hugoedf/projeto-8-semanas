@@ -40,7 +40,7 @@ const CTA = () => {
 
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl );
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl  );
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -60,19 +60,10 @@ const CTA = () => {
             </p>
           </div>
 
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 max-w-6xl mx-auto">
-            <div className="w-full lg:w-1/2 flex justify-center">
-              <div className="relative w-full max-w-md">
-                <div className="absolute -inset-4 bg-accent/10 blur-3xl rounded-full" />
-                <img 
-                  src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png" 
-                  alt="Método 8X Mockup" 
-                  className="relative z-10 w-full h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            </div>
-
-            <div className="w-full lg:w-1/2 max-w-md">
+          {/* ========== LAYOUT ATUALIZADO SEM IMAGEM ========== */}
+          <div className="flex items-center justify-center max-w-6xl mx-auto">
+            {/* A caixa de benefícios agora ocupa o espaço central */}
+            <div className="w-full max-w-md">
               <div className="bg-white border border-black/5 rounded-[2rem] p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative">
                 
                 <div className="mb-6 text-center">
@@ -136,6 +127,7 @@ const CTA = () => {
               </div>
             </div>
           </div>
+          {/* ==================================================== */}
         </div>
       </section>
 
