@@ -49,10 +49,10 @@ const Hero = () => {
             improviso e sem perda de tempo.
           </h1>
 
-          {/* SUB-HEADLINE HÍBRIDA (MECANISMO ÚNICO + SUA ESTRUTURA) */}
-<p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
-  <strong>Treino pronto</strong>, passo a passo, guiado pela <strong>Fisiologia Progressiva</strong> para <strong>eliminar o improviso</strong> e finalmente ver <strong>resultados no espelho</strong>.
-</p>
+          {/* SUB-HEADLINE ATUALIZADA (FOCO EM RESULTADO E ESTAGNAÇÃO) */}
+          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
+            <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
+          </p>
 
           {/* MOCKUP ORIGINAL (MANTIDO) */}
           <div className="relative w-full max-w-md mx-auto mb-8">
