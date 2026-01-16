@@ -32,7 +32,7 @@ const Hero = () => {
         </div>
 
         <div className="relative z-10 w-full max-w-4xl text-center">
-          {/* HOOK AJUSTADO - LEITURA CLARA SEM OCUPAR ESPAÇO DEMAIS */}
+          {/* HOOK AJUSTADO */}
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5 sm:px-6 sm:py-2">
               <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
@@ -42,30 +42,30 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* HEADLINE ORIGINAL (MANTIDA) */}
+          {/* HEADLINE */}
           <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
             8 semanas para{' '}
             <span className="text-accent">músculos que todo mundo nota</span> — sem
             improviso e sem perda de tempo.
           </h1>
 
-          {/* SUB-HEADLINE ATUALIZADA (FOCO EM RESULTADO E ESTAGNAÇÃO) */}
+          {/* SUB-HEADLINE */}
           <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
             <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
           </p>
 
-          {/* ========== BLOCO DA IMAGEM ATUALIZADO ========== */}
+          {/* ========== BLOCO DA IMAGEM ATUALIZADO PARA PNG ========== */}
           <div className="relative w-full max-w-md mx-auto mb-8">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
-              src="/CAPANOVA.webp"
+              src="/lovable-uploads/Mockup.png" // <-- CAMINHO CORRIGIDO
               alt="Capa do e-book e aplicativo Método 8X: Fisiologia Progressiva"
               className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
             />
           </div>
-          {/* ================================================ */}
+          {/* ======================================================= */}
 
-          {/* CTA ORIGINAL (MANTIDA) */}
+          {/* CTA */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
@@ -75,7 +75,7 @@ const Hero = () => {
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
 
-            {/* MICROCOPY ORIGINAL */}
+            {/* MICROCOPY */}
             <div className="flex items-center justify-center gap-3 text-white/60 text-xs flex-wrap">
               <span className="flex items-center gap-1">
                 <Lock className="w-3 h-3" /> Pagamento Seguro
@@ -86,7 +86,7 @@ const Hero = () => {
               <span>🛡️ 7 Dias de Garantia</span>
             </div>
 
-            {/* URGÊNCIA ORIGINAL */}
+            {/* URGÊNCIA */}
             <p className="text-red-400 text-sm font-medium mt-2">
              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
             </p>
