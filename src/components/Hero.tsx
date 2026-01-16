@@ -50,9 +50,9 @@ const Hero = () => {
           </h1>
 
           {/* SUB-HEADLINE HÍBRIDA (MECANISMO ÚNICO + SUA ESTRUTURA) */}
-          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
-            <strong>Treino pronto</strong>,passo a passo baseado em <strong>Fisiologia Progressiva</strong>, para você <strong>executar</strong> sem <strong>improviso</strong> e finalmente ver <strong>resultado no espelho</strong>.
-          </p>
+<p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
+  <strong>Treino pronto</strong>, passo a passo, guiado pela <strong>Fisiologia Progressiva</strong> para <strong>eliminar o improviso</strong> e finalmente ver <strong>resultados no espelho</strong>.
+</p>
 
           {/* MOCKUP ORIGINAL (MANTIDO) */}
           <div className="relative w-full max-w-md mx-auto mb-8">
