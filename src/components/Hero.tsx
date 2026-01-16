@@ -17,7 +17,7 @@ const Hero = () => {
 
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl );
     trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -54,15 +54,16 @@ const Hero = () => {
             <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
           </p>
 
-          {/* MOCKUP ORIGINAL (MANTIDO) */}
+          {/* ========== BLOCO DA IMAGEM ATUALIZADO ========== */}
           <div className="relative w-full max-w-md mx-auto mb-8">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
-              src="/lovable-uploads/4e8b313a-0782-4511-b347-23fcf4854df7.png"
-              alt="Método 8X"
+              src="/CAPANOVA.webp"
+              alt="Capa do e-book e aplicativo Método 8X: Fisiologia Progressiva"
               className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
             />
           </div>
+          {/* ================================================ */}
 
           {/* CTA ORIGINAL (MANTIDA) */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
