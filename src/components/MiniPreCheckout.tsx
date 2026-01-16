@@ -254,7 +254,7 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
                 onClick={handleConfirm}
                 className="w-full bg-green-500 hover:bg-green-600 text-black font-black text-lg py-7 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-green-500/20"
               >
-                IR PARA PAGAMENTO SEGURO
+LIBERAR MEU ACESSO AO APP
               </button>
 
               {/* Microcopy com Urgência */}
