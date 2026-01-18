@@ -65,34 +65,32 @@ const Hero = () => {
           </div>
 
           {/* CTA - BOTÃO EM CAIXA ALTA E LINHA ÚNICA NO MOBILE */}
-          <div className="flex flex-col items-center gap-6 max-w-lg mx-auto">
-            <Button
-              onClick={handleCTAClick}
-              className="w-full bg-green-500 hover:bg-green-600 text-white text-sm sm:text-lg py-7 font-black shadow-2xl shadow-green-500/40 transition-all whitespace-nowrap overflow-hidden"
-            >
-              ACESSAR O MÉTODO 8X AGORA
-              <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
-            </Button>
+       <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
+  <Button
+    onClick={handleCTAClick}
+    className="w-full bg-green-500 hover:bg-green-600 text-white text-sm sm:text-lg py-7 font-black shadow-2xl shadow-green-500/40 transition-all whitespace-nowrap overflow-hidden"
+  >
+    ACESSAR O MÉTODO 8X AGORA
+    <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
+  </Button>
 
-            {/* MICROCOPY - DESIGN ELEGANTE */}
-            <div className="flex items-center justify-center gap-4 sm:gap-8 text-white/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em]">
-              <div className="flex items-center gap-1.5">
-                <Lock className="w-3 h-3" />
-                <span>Pagamento Seguro</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span>✅ Acesso Imediato</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span>🛡️ 7 Dias de Garantia</span>
-              </div>
-            </div>
+  <div className="flex items-center justify-center gap-4 sm:gap-8 text-white/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+    <div className="flex items-center gap-1.5">
+      <Lock className="w-3 h-3" />
+      <span>Pagamento Seguro</span>
+    </div>
+    <div className="flex items-center gap-1.5">
+      <span>✅ Acesso Imediato</span>
+    </div>
+    <div className="flex items-center gap-1.5">
+      <span>🛡️ 7 Dias de Garantia</span>
+    </div>
+  </div>
 
-        {/* URGÊNCIA SUTIL */}
-            <p className="text-red-400 text-sm font-medium mt-2">
-              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
-            </p>
-          </div>
+  <p className="text-red-400 text-sm font-medium mt-1">
+    ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
+  </p>
+</div>
         </div>
       </section>
 
