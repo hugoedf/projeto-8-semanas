@@ -81,7 +81,7 @@ const Hero = () => {
                 <span>Pagamento Seguro</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span>⚡ Acesso Imediato</span>
+                <span>✅ Acesso Imediato</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span>🛡️ 7 Dias de Garantia</span>
