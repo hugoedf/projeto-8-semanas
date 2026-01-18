@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Lock } from 'lucide-react';
+import { ArrowRight, Lock, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MiniPreCheckout from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
@@ -11,14 +11,12 @@ const Hero = () => {
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
 
-  const handleCTAClick = () => {
-    setIsModalOpen(true);
-  };
+  const handleCTAClick = () => setIsModalOpen(true);
 
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    trackInitiateCheckout(19.9, 'BRL');
+    trackInitiateCheckout(19.9, 'BRL'); // Payload intacto
     window.location.href = checkoutUrl;
   };
 
@@ -44,8 +42,7 @@ const Hero = () => {
 
           {/* HEADLINE */}
           <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-3 sm:mb-4">
-            8 semanas para{' '}
-            <span className="text-accent">músculos que todo mundo nota</span> — sem
+            8 semanas para <span className="text-accent">músculos que todo mundo nota</span> — sem
             improviso e sem perda de tempo.
           </h1>
 
@@ -64,7 +61,7 @@ const Hero = () => {
             />
           </div>
 
-          {/* CTA - BOTÃO EM CAIXA ALTA E LINHA ÚNICA NO MOBILE */}
+          {/* CTA */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
@@ -74,6 +71,7 @@ const Hero = () => {
               <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
             </Button>
 
+            {/* MICROCOPY */}
             <div className="flex items-center justify-center gap-3 sm:gap-6 text-white/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em]">
               <div className="flex items-center gap-1.5">
                 <Lock className="w-3 h-3" />
@@ -87,13 +85,18 @@ const Hero = () => {
               </div>
             </div>
 
-            <p className="text-red-400 text-sm font-medium mt-1">
-              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
-            </p>
+            {/* FRASE DE IMPACTO - LINHA ÚNICA, estilo antigo */}
+            <div className="mt-6 w-full bg-[#2a1a1a] border border-white/5 rounded-2xl py-4 px-6 flex items-center justify-center shadow-lg">
+              <span className="text-[#f87171] text-xs sm:text-sm font-black uppercase tracking-wider whitespace-nowrap flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-[#f87171] flex-shrink-0" />
+                ENQUANTO VOCÊ HESITA, OUTRAS PESSOAS JÁ ESTÃO EVOLUINDO.
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* MiniPreCheckout funcional */}
       <MiniPreCheckout
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
