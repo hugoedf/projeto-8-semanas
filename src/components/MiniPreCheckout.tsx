@@ -1,6 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle2, Lock, Clock, X, AlertCircle, Zap, Users } from 'lucide-react';
 import { useCountdownTimer } from '../hooks/useCountdownTimer';
+import { useState, useEffect } from 'react';
+
+const TIMER_STORAGE_KEY = 'metodo8x_countdown_deadline';
+const DURATION_24H = 24 * 60 * 60 * 1000;
+
+export const useCountdownTimer = () => {
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [isExpired, setIsExpired] = useState(false);
+
+  useEffect(() => {
+    // Verifica se já existe um prazo salvo
+    let deadline = localStorage.getItem(TIMER_STORAGE_KEY);
+    
+    if (!deadline) {
+      // Se não existe, cria um novo prazo de 24h a partir de AGORA
+      const targetTime = new Date().getTime() + DURATION_24H;
+      localStorage.setItem(TIMER_STORAGE_KEY, targetTime.toString());
+      deadline = targetTime.toString();
+    }
+
+    const targetTime = parseInt(deadline, 10);
+
+    // Função para atualizar o cronômetro a cada segundo
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const distance = targetTime - now;
+
+      if (distance <= 0) {
+        setTimeLeft(0);
+        setIsExpired(true);
+        return;
+      }
+      setTimeLeft(distance);
+    };
+
+    updateTimer(); // Executa imediatamente
+    const interval = setInterval(updateTimer, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (ms: number | null) => {
+    if (ms === null) return "00:00:00";
+    const totalSeconds = Math.floor(ms / 1000);
+    const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+    const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+    const s = String(Math.floor(totalSeconds % 60)).padStart(2, '0');
+    return `${h}:${m}:${s}`;
+  };
+
+  return {
+    timeLeft,
+    formattedTime: formatTime(timeLeft),
+    isExpired,
+  };
+};
 
 interface MiniPreCheckoutModalProps {
   isOpen: boolean;
