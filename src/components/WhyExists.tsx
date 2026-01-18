@@ -106,5 +106,3 @@ const WhyMethodExists = () => {
 };
 
 export default WhyMethodExists;
-
-observe o codigo
