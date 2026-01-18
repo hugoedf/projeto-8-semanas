@@ -88,12 +88,10 @@ const Hero = () => {
               </div>
             </div>
 
-        {/* FRASE VALIDADA (A SUA "FERIDA") - Design de Alerta */}
-            <div className="flex items-center gap-2 mt-4 px-4 py-2 bg-red-500/5 border border-red-500/10 rounded-lg">
-              <span className="text-red-500 text-xs sm:text-sm font-bold">
-                ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
-              </span>
-            </div>
+        {/* URGÊNCIA SUTIL */}
+            <p className="text-red-400 text-sm font-medium mt-2">
+              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
+            </p>
           </div>
         </div>
       </section>
