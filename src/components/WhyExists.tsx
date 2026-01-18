@@ -21,11 +21,11 @@ const WhyMethodExists = () => {
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto">
           
-{/* Header - Estrategista + Design */}
-<div className="text-center mb-10 lg:mb-14 px-4"> 
-  <h2 className="font-display text-[24px] sm:text-4xl md:text-5xl tracking-tight text-black leading-[1.2] sm:leading-[1.1] mb-5 max-w-[20ch] sm:max-w-none mx-auto">
-    O Método 8X não é apenas mais um treino, 
-    <span className="text-accent"> é um sistema científico</span> que força 
+{/* Header - Impacto Original com Calibragem de Fonte */}
+<div className="text-center mb-10 lg:mb-16"> 
+  <h2 className="font-display text-[22px] sm:text-4xl md:text-5xl tracking-tight text-black leading-[1.2] mb-6 px-4">
+    O Método 8X não é apenas mais um treino, <br className="hidden sm:block" />
+    <span className="text-accent">é um sistema científico</span> que força <br className="hidden sm:block" />
     seu corpo a evoluir de forma previsível.
   </h2>
 </div>
