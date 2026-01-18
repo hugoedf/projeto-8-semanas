@@ -9,20 +9,8 @@ import { useMetaPixel } from '@/hooks/useMetaPixel';
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState('23:45:32');
-  const [isMobile, setIsMobile] = useState(false);
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
-
-  // Detectar mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   // Hook para calcular tempo decorrido
   useEffect(() => {
@@ -66,20 +54,29 @@ const Hero = () => {
 
   return (
     <>
-      {/* BANNER DE URGÊNCIA - PREMIUM RESPONSIVO */}
+      {/* BANNER DE URGÊNCIA - DESIGN RESPONSIVO PROFISSIONAL */}
       <div className="w-full bg-orange-500 text-white py-2.5 sm:py-3 px-3 sm:px-4 text-center sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
-          <Clock className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 animate-pulse" />
-          
-          {/* Desktop: Texto completo */}
-          <span className="hidden sm:inline font-bold text-xs sm:text-base leading-tight">
-            Promoção válida por: <span className="font-mono font-black">{timeRemaining}</span> | De R$97 → R$19,90 (79% OFF)
-          </span>
+        <div className="max-w-7xl mx-auto">
+          {/* Desktop: Uma linha (não quebra) - fonte ajustada */}
+          <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap whitespace-nowrap overflow-hidden">
+            <Clock className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 animate-pulse" />
+            <span className="font-bold text-xs sm:text-sm md:text-base leading-tight">
+              Promoção válida por: <span className="font-mono font-black text-xs sm:text-sm md:text-base">{timeRemaining}</span> | De R$97 → R$19,90 (79% OFF)
+            </span>
+          </div>
 
-          {/* Mobile: Texto otimizado - UMA LINHA */}
-          <span className="sm:hidden font-bold text-xs leading-tight whitespace-nowrap">
-            <span className="font-mono font-black">{timeRemaining}</span> | R$19,90 (79%)
-          </span>
+          {/* Mobile: Duas linhas (premium, tamanho considerável) */}
+          <div className="sm:hidden flex flex-col items-center justify-center gap-1.5">
+            <div className="flex items-center justify-center gap-2">
+              <Clock className="w-5 h-5 flex-shrink-0 animate-pulse" />
+              <span className="font-bold text-sm leading-tight">
+                Promoção válida por: <span className="font-mono font-black text-sm">{timeRemaining}</span>
+              </span>
+            </div>
+            <div className="font-bold text-sm leading-tight">
+              De R$97 → R$19,90 (79% OFF)
+            </div>
+          </div>
         </div>
       </div>
 
