@@ -1,167 +1,165 @@
-import { useState, useEffect } from "react";
-import { X, AlertTriangle, Clock, ArrowRight, Lock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useMetaPixel } from "@/hooks/useMetaPixel";
-import { buildHotmartCheckoutUrl } from "@/lib/utils";
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Lock, Clock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import MiniPreCheckout from './MiniPreCheckout';
+import { useVisitorTracking } from '@/hooks/useVisitorTracking';
+import { buildHotmartCheckoutUrl } from '@/lib/utils';
+import { useMetaPixel } from '@/hooks/useMetaPixel';
 
-const ExitIntentPopup = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasTriggered, setHasTriggered] = useState(false);
+const Hero = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState('23:45:32');
+  const [isMobile, setIsMobile] = useState(false);
   const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
 
+  // Detectar mobile
   useEffect(() => {
-    // Check if already shown in this session
-    const alreadyShown = sessionStorage.getItem('exit_popup_shown');
-    if (alreadyShown) {
-      setHasTriggered(true);
-      return;
-    }
-
-    // Desktop: Mouse leave detection
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 5 && !hasTriggered) {
-        setIsVisible(true);
-        setHasTriggered(true);
-        sessionStorage.setItem('exit_popup_shown', 'true');
-      }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
-
-    // Mobile: Visibility change detection (when user switches tab/app)
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden' && !hasTriggered) {
-        // Don't show immediately, wait for return
-      }
-      if (document.visibilityState === 'visible' && !hasTriggered && !sessionStorage.getItem('exit_popup_shown')) {
-        // Check if user was away for a bit
-        const wasAway = sessionStorage.getItem('exit_popup_pending');
-        if (wasAway) {
-          setIsVisible(true);
-          setHasTriggered(true);
-          sessionStorage.setItem('exit_popup_shown', 'true');
-          sessionStorage.removeItem('exit_popup_pending');
-        }
-      }
-    };
-
-    // Mobile: Back button / history state
-    const handlePopState = () => {
-      if (!hasTriggered && !sessionStorage.getItem('exit_popup_shown')) {
-        setIsVisible(true);
-        setHasTriggered(true);
-        sessionStorage.setItem('exit_popup_shown', 'true');
-        // Push state back to prevent actual navigation
-        window.history.pushState(null, '', window.location.href);
-      }
-    };
-
-    // Push initial state for mobile back button detection
-    window.history.pushState(null, '', window.location.href);
-
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('popstate', handlePopState);
     
-    return () => {
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('popstate', handlePopState);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Hook para calcular tempo decorrido
+  useEffect(() => {
+    const calculateTimeRemaining = () => {
+      const startTime = localStorage.getItem('promoStartTime');
+      const now = Date.now();
+      
+      if (!startTime) {
+        localStorage.setItem('promoStartTime', now.toString());
+        setTimeRemaining('23:59:59');
+        return;
+      }
+
+      const elapsedMs = now - parseInt(startTime);
+      const totalMs = 24 * 60 * 60 * 1000; // 24 horas
+      const remainingMs = Math.max(0, totalMs - elapsedMs);
+
+      const hours = Math.floor(remainingMs / (60 * 60 * 1000));
+      const minutes = Math.floor((remainingMs % (60 * 60 * 1000)) / (60 * 1000));
+      const seconds = Math.floor((remainingMs % (60 * 1000)) / 1000);
+
+      const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      setTimeRemaining(formattedTime);
     };
-  }, [hasTriggered]);
+
+    calculateTimeRemaining();
+    const interval = setInterval(calculateTimeRemaining, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleCTAClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    trackInitiateCheckout(19.90, 'BRL');
+    trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
-  const handleClose = () => {
-    setIsVisible(false);
-  };
-
-  if (!isVisible) return null;
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div 
-        className="absolute inset-0 bg-black/90 backdrop-blur-sm animate-fade-in"
-        onClick={handleClose}
-      />
-      
-      {/* Modal - Same structure for desktop and mobile */}
-      <div className="relative bg-black rounded-2xl max-w-md w-full p-5 sm:p-8 border border-accent/30 shadow-2xl shadow-accent/20 animate-scale-in">
-        {/* Close button */}
-        <button 
-          onClick={handleClose}
-          className="absolute top-3 right-3 p-2 text-white/40 hover:text-white transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
+    <>
+      {/* BANNER DE URGÊNCIA - PREMIUM RESPONSIVO */}
+      <div className="w-full bg-orange-500 text-white py-2.5 sm:py-3 px-3 sm:px-4 text-center sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+          <Clock className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 animate-pulse" />
+          
+          {/* Desktop: Texto completo */}
+          <span className="hidden sm:inline font-bold text-xs sm:text-base leading-tight">
+            Promoção válida por: <span className="font-mono font-black">{timeRemaining}</span> | De R$97 → R$19,90 (79% OFF)
+          </span>
 
-        {/* Warning icon */}
-        <div className="flex justify-center mb-4">
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center">
-            <AlertTriangle className="w-7 h-7 sm:w-8 sm:h-8 text-red-400" />
-          </div>
+          {/* Mobile: Texto otimizado - UMA LINHA */}
+          <span className="sm:hidden font-bold text-xs leading-tight whitespace-nowrap">
+            <span className="font-mono font-black">{timeRemaining}</span> | R$19,90 (79%)
+          </span>
+        </div>
+      </div>
+
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 overflow-hidden gradient-hero">
+        {/* Background glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-10" />
         </div>
 
-        {/* Content */}
-        <div className="text-center mb-5">
-          <h3 className="font-display text-xl sm:text-2xl text-white mb-2">
-            Espera! Você ia sair sem o método?
-          </h3>
-          <p className="text-white/60 text-sm sm:text-base mb-4">
-            Se você fechar agora, volta a treinar no escuro. Mais um mês de esforço sem resultado.
-          </p>
-          
-          {/* Urgency */}
-          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-4">
-            <div className="flex items-center justify-center gap-2 text-red-400 text-sm font-semibold">
-              <Clock className="w-4 h-4" />
-              <span>Este preço não vai durar</span>
+        <div className="relative z-10 w-full max-w-4xl text-center">
+          {/* HOOK AJUSTADO */}
+          <div className="flex justify-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5 sm:px-6 sm:py-2">
+              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
+              <span className="text-accent font-black text-[11px] sm:text-xs md:text-sm uppercase tracking-wider">
+                VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
+              </span>
             </div>
           </div>
 
-          {/* Price */}
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <span className="text-white/40 line-through text-lg">R$ 97</span>
-            <span className="text-accent font-display text-3xl font-bold">R$ 19,90</span>
-          </div>
-          <p className="text-white/50 text-xs">
-            Menos que um lanche. Garantia de 7 dias.
+          {/* HEADLINE */}
+          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
+            8 semanas para{' '}
+            <span className="text-accent">músculos que todo mundo nota</span> — sem
+            improviso e sem perda de tempo.
+          </h1>
+
+          {/* SUB-HEADLINE */}
+          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
+            <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
           </p>
+
+          {/* ========== BLOCO DA IMAGEM ATUALIZADO PARA PNG ========== */}
+          <div className="relative w-full max-w-md mx-auto mb-8">
+            <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
+            <img
+              src="/lovable-uploads/Mockup.png"
+              alt="Capa do e-book e aplicativo Método 8X: Fisiologia Progressiva"
+              className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
+            />
+          </div>
+          {/* ======================================================= */}
+
+          {/* CTA */}
+          <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
+            <Button
+              onClick={handleCTAClick}
+              className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all"
+            >
+              Acessar o Método 8X agora
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+
+            {/* MICROCOPY */}
+            <div className="flex items-center justify-center gap-3 text-white/60 text-xs flex-wrap">
+              <span className="flex items-center gap-1">
+                <Lock className="w-3 h-3" /> Pagamento Seguro
+              </span>
+              <span className="hidden sm:inline">|</span>
+              <span>✅ Acesso Imediato</span>
+              <span className="hidden sm:inline">|</span>
+              <span>🛡️ 7 Dias de Garantia</span>
+            </div>
+
+            {/* URGÊNCIA */}
+            <p className="text-red-400 text-sm font-medium mt-2">
+             ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
+            </p>
+          </div>
         </div>
+      </section>
 
-        {/* GREEN CTA */}
-        <Button 
-          onClick={handleCTAClick}
-          className="w-full bg-green-500 hover:bg-green-600 text-white shadow-xl shadow-green-500/30 font-bold mb-2"
-          size="cta"
-        >
-          ÚLTIMA CHANCE - GARANTIR ACESSO
-          <ArrowRight className="ml-2 w-5 h-5" />
-        </Button>
-
-        {/* Microcopy under green button */}
-        <div className="flex items-center justify-center gap-2 text-white/50 text-[10px] mb-3 flex-wrap">
-          <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Pagamento Seguro</span>
-          <span>|</span>
-          <span>✅ Acesso Imediato</span>
-          <span>|</span>
-          <span>🛡️ 7 Dias de Garantia</span>
-        </div>
-
-        {/* Dismiss */}
-        <button 
-          onClick={handleClose}
-          className="w-full text-white/40 hover:text-white/60 text-xs transition-colors py-2"
-        >
-          Não, prefiro continuar estagnado
-        </button>
-      </div>
-    </div>
+      <MiniPreCheckout
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmPurchase}
+      />
+    </>
   );
 };
 
-export default ExitIntentPopup;
+export default Hero;
