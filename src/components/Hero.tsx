@@ -9,6 +9,7 @@ import { useMetaPixel } from '@/hooks/useMetaPixel';
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState('23:45:32');
+  const [bannerOpacity, setBannerOpacity] = useState(1);
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
 
@@ -41,6 +42,28 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Hook para controlar fade out do banner ao scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const fadeOutStart = 150; // Começa a desaparecer após 150px
+      const fadeOutEnd = 300; // Desaparece completamente após 300px
+
+      if (scrollPosition < fadeOutStart) {
+        setBannerOpacity(1);
+      } else if (scrollPosition > fadeOutEnd) {
+        setBannerOpacity(0);
+      } else {
+        // Transição suave entre fadeOutStart e fadeOutEnd
+        const progress = (scrollPosition - fadeOutStart) / (fadeOutEnd - fadeOutStart);
+        setBannerOpacity(1 - progress);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleCTAClick = () => {
     setIsModalOpen(true);
   };
@@ -54,10 +77,13 @@ const Hero = () => {
 
   return (
     <>
-      {/* BANNER DE URGÊNCIA - DESIGN RESPONSIVO PROFISSIONAL */}
-      <div className="w-full bg-orange-500 text-white py-2.5 sm:py-3 px-3 sm:px-4 text-center sticky top-0 z-40">
+      {/* BANNER DE URGÊNCIA - FADE OUT AO SCROLL */}
+      <div 
+        className="w-full bg-orange-500 text-white py-3 px-4 text-center sticky top-0 z-40 transition-opacity duration-300"
+        style={{ opacity: bannerOpacity, pointerEvents: bannerOpacity === 0 ? 'none' : 'auto' }}
+      >
         <div className="max-w-7xl mx-auto">
-          {/* Desktop: Uma linha (não quebra) - fonte ajustada */}
+          {/* Desktop: Uma linha (não quebra) */}
           <div className="hidden sm:flex items-center justify-center gap-2 flex-wrap whitespace-nowrap overflow-hidden">
             <Clock className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 animate-pulse" />
             <span className="font-bold text-xs sm:text-sm md:text-base leading-tight">
@@ -65,15 +91,15 @@ const Hero = () => {
             </span>
           </div>
 
-          {/* Mobile: Duas linhas (premium, tamanho considerável) */}
-          <div className="sm:hidden flex flex-col items-center justify-center gap-1.5">
+          {/* Mobile: Duas linhas (compacto, não bloqueia) */}
+          <div className="sm:hidden flex flex-col items-center justify-center gap-1">
             <div className="flex items-center justify-center gap-2">
-              <Clock className="w-5 h-5 flex-shrink-0 animate-pulse" />
-              <span className="font-bold text-sm leading-tight">
-                Promoção válida por: <span className="font-mono font-black text-sm">{timeRemaining}</span>
+              <Clock className="w-4 h-4 flex-shrink-0 animate-pulse" />
+              <span className="font-bold text-xs leading-tight">
+                Promoção válida por: <span className="font-mono font-black text-xs">{timeRemaining}</span>
               </span>
             </div>
-            <div className="font-bold text-sm leading-tight">
+            <div className="font-bold text-xs leading-tight">
               De R$97 → R$19,90 (79% OFF)
             </div>
           </div>
@@ -110,7 +136,7 @@ const Hero = () => {
             <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
           </p>
 
-          {/* ========== BLOCO DA IMAGEM ATUALIZADO PARA PNG ========== */}
+          {/* ========== BLOCO DA IMAGEM ========== */}
           <div className="relative w-full max-w-md mx-auto mb-8">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
