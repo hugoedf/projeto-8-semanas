@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, Check, Lock, Zap, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MiniPreCheckoutModal from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
+import { useCountdownTimer } from '@/hooks/useCountdownTimer';
 
 const CTA = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutos
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft(prev => (prev <= 0 ? 15 * 60 : prev - 1));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
+  
+  // Usando o hook de cronômetro persistente e sincronizado
+  const { formattedTime, isExpired } = useCountdownTimer();
 
   const benefits = [
     "E-book + App 8X — o sistema completo",
@@ -40,7 +30,7 @@ const CTA = () => {
 
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl  );
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
     trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
@@ -60,9 +50,7 @@ const CTA = () => {
             </p>
           </div>
 
-          {/* ========== LAYOUT ATUALIZADO SEM IMAGEM ========== */}
           <div className="flex items-center justify-center max-w-6xl mx-auto">
-            {/* A caixa de benefícios agora ocupa o espaço central */}
             <div className="w-full max-w-md">
               <div className="bg-white border border-black/5 rounded-[2rem] p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative">
                 
@@ -98,25 +86,28 @@ const CTA = () => {
                   </p>
                 </div>
 
-                {/* BLOCO DE URGÊNCIA LIMPO */}
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-red-900 font-bold text-sm">
-                      ⏰ Preço promocional por tempo limitado ({formatTime(timeLeft)})
-                    </p>
-                    <p className="text-red-700 text-xs mt-1 leading-relaxed">
-                      Se sair desta página, você perde acesso a este preço de R$ 19,90.
-                    </p>
+                {/* BLOCO DE URGÊNCIA SINCRONIZADO */}
+                {!isExpired && (
+                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-red-900 font-bold text-sm">
+                        ⏰ Preço promocional por tempo limitado ({formattedTime})
+                      </p>
+                      <p className="text-red-700 text-xs mt-1 leading-relaxed">
+                        Se sair desta página, você perde acesso a este preço de R$ 19,90.
+                      </p>
+                    </div>
                   </div>
-                </div>
+                )}
 
+                {/* BOTÃO EM CAIXA ALTA E LINHA ÚNICA NO MOBILE */}
                 <Button 
                   onClick={handleCTAClick} 
-                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-4 shadow-xl shadow-green-500/20 text-lg py-7 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98]" 
+                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-4 shadow-xl shadow-green-500/20 text-sm sm:text-lg py-7 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap overflow-hidden" 
                 >
                   QUERO COMEÇAR POR R$ 19,90
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
                 </Button>
 
                 <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] mb-4 flex-wrap">
@@ -127,7 +118,6 @@ const CTA = () => {
               </div>
             </div>
           </div>
-          {/* ==================================================== */}
         </div>
       </section>
 
