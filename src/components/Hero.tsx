@@ -89,15 +89,12 @@ const Hero = () => {
             </div>
 
             {/* FRASE DE IMPACTO (A FERIDA) - DESIGN DE ELITE EM LINHA ÚNICA */}
-            <div className="mt-8 w-full bg-[#2a1a1a] border border-white/5 rounded-2xl py-4 px-6 flex items-center justify-center gap-2 shadow-lg overflow-x-auto">
-              <span className="text-[#f87171] text-xs sm:text-sm font-black uppercase tracking-wider whitespace-nowrap flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-[#f87171] flex-shrink-0" />
-                ENQUANTO VOCÊ HESITA, OUTRAS PESSOAS JÁ ESTÃO EVOLUINDO.
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
+            <div className="mt-8 w-full max-w-full bg-[#2a1a1a] border border-white/5 rounded-2xl py-4 px-6 flex items-center justify-center gap-2 shadow-lg">
+  <span className="text-[#f87171] text-[12px] sm:text-xs md:text-sm font-black uppercase tracking-wider flex items-center gap-2">
+    <AlertTriangle className="w-4 h-4 text-[#f87171] flex-shrink-0" />
+    ENQUANTO VOCÊ HESITA, OUTRAS PESSOAS JÁ ESTÃO EVOLUINDO.
+  </span>
+</div>
 
       <MiniPreCheckout
         isOpen={isModalOpen}
