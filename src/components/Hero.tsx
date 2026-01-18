@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowRight, Lock } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Lock, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MiniPreCheckout from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
@@ -8,8 +8,39 @@ import { useMetaPixel } from '@/hooks/useMetaPixel';
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState('23:45:32');
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
+
+  // Hook para calcular tempo decorrido
+  useEffect(() => {
+    const calculateTimeRemaining = () => {
+      const startTime = localStorage.getItem('promoStartTime');
+      const now = Date.now();
+      
+      if (!startTime) {
+        localStorage.setItem('promoStartTime', now.toString());
+        setTimeRemaining('23:59:59');
+        return;
+      }
+
+      const elapsedMs = now - parseInt(startTime);
+      const totalMs = 24 * 60 * 60 * 1000; // 24 horas
+      const remainingMs = Math.max(0, totalMs - elapsedMs);
+
+      const hours = Math.floor(remainingMs / (60 * 60 * 1000));
+      const minutes = Math.floor((remainingMs % (60 * 60 * 1000)) / (60 * 1000));
+      const seconds = Math.floor((remainingMs % (60 * 1000)) / 1000);
+
+      setTimeRemaining(
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+      );
+    };
+
+    calculateTimeRemaining();
+    const interval = setInterval(calculateTimeRemaining, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleCTAClick = () => {
     setIsModalOpen(true);
@@ -24,6 +55,16 @@ const Hero = () => {
 
   return (
     <>
+      {/* BANNER DE URGÊNCIA - UMA ÚNICA LINHA */}
+      <div className="w-full bg-orange-500 text-white py-3 px-4 text-center">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 flex-wrap">
+          <Clock className="w-5 h-5 flex-shrink-0" />
+          <span className="font-bold text-sm sm:text-base">
+            Promoção válida por: <span className="font-mono font-black">{timeRemaining}</span> | De R$97 → R$19,90 (79% OFF)
+          </span>
+        </div>
+      </div>
+
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 overflow-hidden gradient-hero">
         {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">
