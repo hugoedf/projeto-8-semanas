@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Lock, Clock } from 'lucide-react';
+import { X, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import MiniPreCheckout from './MiniPreCheckout';
-import { useVisitorTracking } from '@/hooks/useVisitorTracking';
-import { buildHotmartCheckoutUrl } from '@/lib/utils';
-import { useMetaPixel } from '@/hooks/useMetaPixel';
 
-const Hero = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState('23:45:32');
+const ExitPopup = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasShown, setHasShown] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { trackInitiateCheckout } = useMetaPixel();
-  const { visitorData } = useVisitorTracking();
 
-  // Detectar mobile
   useEffect(() => {
+    // Detectar mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -24,142 +18,147 @@ const Hero = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Hook para calcular tempo decorrido
   useEffect(() => {
-    const calculateTimeRemaining = () => {
-      const startTime = localStorage.getItem('promoStartTime');
-      const now = Date.now();
-      
-      if (!startTime) {
-        localStorage.setItem('promoStartTime', now.toString());
-        setTimeRemaining('23:59:59');
-        return;
+    // Detectar intenção de sair (movimento do mouse para fora)
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !hasShown) {
+        setIsVisible(true);
+        setHasShown(true);
+        sessionStorage.setItem('exitPopupShown', 'true');
       }
-
-      const elapsedMs = now - parseInt(startTime);
-      const totalMs = 24 * 60 * 60 * 1000; // 24 horas
-      const remainingMs = Math.max(0, totalMs - elapsedMs);
-
-      const hours = Math.floor(remainingMs / (60 * 60 * 1000));
-      const minutes = Math.floor((remainingMs % (60 * 60 * 1000)) / (60 * 1000));
-      const seconds = Math.floor((remainingMs % (60 * 1000)) / 1000);
-
-      const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-      setTimeRemaining(formattedTime);
     };
 
-    calculateTimeRemaining();
-    const interval = setInterval(calculateTimeRemaining, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    // Detectar tecla ESC (mobile/desktop)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !hasShown) {
+        setIsVisible(true);
+        setHasShown(true);
+        sessionStorage.setItem('exitPopupShown', 'true');
+      }
+    };
 
-  const handleCTAClick = () => {
-    setIsModalOpen(true);
+    // Verificar se já foi mostrado nesta sessão
+    const alreadyShown = sessionStorage.getItem('exitPopupShown');
+    if (alreadyShown) {
+      setHasShown(true);
+    }
+
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [hasShown]);
+
+  const handleClose = () => {
+    setIsVisible(false);
   };
 
-  const handleConfirmPurchase = () => {
-    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    trackInitiateCheckout(19.9, 'BRL');
-    window.location.href = checkoutUrl;
+  const handleConfirm = () => {
+    window.location.href = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
   };
+
+  if (!isVisible) return null;
 
   return (
     <>
-      {/* BANNER DE URGÊNCIA - PREMIUM RESPONSIVO */}
-      <div className="w-full bg-orange-500 text-white py-2.5 sm:py-3 px-3 sm:px-4 text-center sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
-          <Clock className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 animate-pulse" />
+      {/* Overlay escuro com blur */}
+      <div
+        className="fixed inset-0 bg-black/70 z-40 backdrop-blur-sm"
+        onClick={handleClose}
+      />
+
+      {/* Modal - Premium Design */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 sm:px-6 sm:py-12">
+        <div className="relative w-full max-w-md bg-black border border-orange-500/40 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-orange-500/30 animate-in fade-in zoom-in-95 duration-300">
           
-          {/* Desktop: Texto completo */}
-          <span className="hidden sm:inline font-bold text-xs sm:text-base leading-tight">
-            Promoção válida por: <span className="font-mono font-black">{timeRemaining}</span> | De R$97 → R$19,90 (79% OFF)
-          </span>
+          {/* Botão fechar - Premium */}
+          <button
+            onClick={handleClose}
+            className="absolute top-5 right-5 p-1.5 text-gray-500 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200"
+            aria-label="Fechar"
+          >
+            <X className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
 
-          {/* Mobile: Texto otimizado - UMA LINHA */}
-          <span className="sm:hidden font-bold text-xs leading-tight whitespace-nowrap">
-            <span className="font-mono font-black">{timeRemaining}</span> | R$19,90 (79%)
-          </span>
-        </div>
-      </div>
-
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 overflow-hidden gradient-hero">
-        {/* Background glow */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-10" />
-        </div>
-
-        <div className="relative z-10 w-full max-w-4xl text-center">
-          {/* HOOK AJUSTADO */}
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5 sm:px-6 sm:py-2">
-              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              <span className="text-accent font-black text-[11px] sm:text-xs md:text-sm uppercase tracking-wider">
-                VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
-              </span>
+          {/* Ícone de relógio - Premium com animação */}
+          <div className="flex justify-center mb-6 sm:mb-8">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20">
+              {/* Círculo de fundo com gradiente */}
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-orange-500/10 rounded-full border border-orange-500/40" />
+              
+              {/* Ícone com animação */}
+              <div className="absolute inset-0 flex items-center justify-center animate-pulse">
+                <Clock className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500" />
+              </div>
             </div>
           </div>
 
-          {/* HEADLINE */}
-          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
-            8 semanas para{' '}
-            <span className="text-accent">músculos que todo mundo nota</span> — sem
-            improviso e sem perda de tempo.
-          </h1>
+          {/* Headline - Premium */}
+          <h2 className="text-center text-2xl sm:text-3xl font-black text-white mb-3 sm:mb-4 leading-tight">
+            <span className="text-orange-500">Espera!</span> Você ia sair sem o método?
+          </h2>
 
-          {/* SUB-HEADLINE */}
-          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
-            <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
+          {/* Descrição - Concisa e impactante */}
+          <p className="text-center text-gray-300 text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed font-medium">
+            Se você fechar agora, volta a treinar no escuro. Mais um mês de esforço sem resultado.
           </p>
 
-          {/* ========== BLOCO DA IMAGEM ATUALIZADO PARA PNG ========== */}
-          <div className="relative w-full max-w-md mx-auto mb-8">
-            <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
-            <img
-              src="/lovable-uploads/Mockup.png"
-              alt="Capa do e-book e aplicativo Método 8X: Fisiologia Progressiva"
-              className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
-            />
-          </div>
-          {/* ======================================================= */}
-
-          {/* CTA */}
-          <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
-            <Button
-              onClick={handleCTAClick}
-              className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all"
-            >
-              Acessar o Método 8X agora
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-
-            {/* MICROCOPY */}
-            <div className="flex items-center justify-center gap-3 text-white/60 text-xs flex-wrap">
-              <span className="flex items-center gap-1">
-                <Lock className="w-3 h-3" /> Pagamento Seguro
-              </span>
-              <span className="hidden sm:inline">|</span>
-              <span>✅ Acesso Imediato</span>
-              <span className="hidden sm:inline">|</span>
-              <span>🛡️ 7 Dias de Garantia</span>
-            </div>
-
-            {/* URGÊNCIA */}
-            <p className="text-red-400 text-sm font-medium mt-2">
-             ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
+          {/* Aviso de urgência - Premium */}
+          <div className="bg-gradient-to-r from-orange-500/15 to-orange-500/5 border border-orange-500/30 rounded-lg p-4 mb-6 sm:mb-8">
+            <p className="text-center text-orange-400 text-xs sm:text-sm font-bold flex items-center justify-center gap-2">
+              <Clock className="w-4 h-4 flex-shrink-0" />
+              Este preço não vai durar
             </p>
           </div>
-        </div>
-      </section>
 
-      <MiniPreCheckout
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleConfirmPurchase}
-      />
+          {/* Preço em destaque - Premium */}
+          <div className="text-center mb-6 sm:mb-8">
+            <p className="text-gray-500 text-xs sm:text-sm line-through mb-2 font-medium">De R$97</p>
+            <div className="flex items-baseline justify-center gap-2 mb-2">
+              <p className="text-4xl sm:text-5xl font-black text-orange-500">
+                R$19,90
+              </p>
+            </div>
+            <p className="text-orange-400 font-bold text-base sm:text-lg">79% OFF</p>
+          </div>
+
+          {/* CTA principal - Premium */}
+          <Button
+            onClick={handleConfirm}
+            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-base sm:text-lg font-bold py-4 sm:py-5 rounded-xl transition-all shadow-lg shadow-green-500/40 hover:shadow-green-500/60 mb-4 sm:mb-5"
+          >
+            ÚLTIMA CHANCE - GARANTIR ACESSO →
+          </Button>
+
+          {/* Microcopy com ícones - Premium */}
+          <div className="flex items-center justify-center gap-2 sm:gap-3 text-white/60 text-xs sm:text-sm flex-wrap mb-5 pb-5 border-b border-gray-800">
+            <span className="flex items-center gap-1 hover:text-white/80 transition-colors">
+              🔒 Pagamento Seguro
+            </span>
+            <span className="hidden sm:inline text-gray-700">|</span>
+            <span className="flex items-center gap-1 hover:text-white/80 transition-colors">
+              ✅ Acesso Imediato
+            </span>
+            <span className="hidden sm:inline text-gray-700">|</span>
+            <span className="flex items-center gap-1 hover:text-white/80 transition-colors">
+              🛡️ 7 Dias de Garantia
+            </span>
+          </div>
+
+          {/* Opção de fechar - Premium */}
+          <button
+            onClick={handleClose}
+            className="w-full text-center text-gray-500 hover:text-gray-300 text-xs sm:text-sm transition-colors font-medium py-2"
+          >
+            Não, prefiro continuar estagnado
+          </button>
+        </div>
+      </div>
     </>
   );
 };
 
-export default Hero;
+export default ExitPopup;
