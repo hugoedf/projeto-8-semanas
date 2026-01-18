@@ -9,8 +9,20 @@ import { useMetaPixel } from '@/hooks/useMetaPixel';
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState('23:45:32');
+  const [isMobile, setIsMobile] = useState(false);
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
+
+  // Detectar mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Hook para calcular tempo decorrido
   useEffect(() => {
@@ -32,9 +44,8 @@ const Hero = () => {
       const minutes = Math.floor((remainingMs % (60 * 60 * 1000)) / (60 * 1000));
       const seconds = Math.floor((remainingMs % (60 * 1000)) / 1000);
 
-      setTimeRemaining(
-        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
-      );
+      const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      setTimeRemaining(formattedTime);
     };
 
     calculateTimeRemaining();
@@ -48,19 +59,26 @@ const Hero = () => {
 
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl );
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
     trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
   return (
     <>
-      {/* BANNER DE URGÊNCIA - UMA ÚNICA LINHA */}
-      <div className="w-full bg-orange-500 text-white py-3 px-4 text-center">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 flex-wrap">
-          <Clock className="w-5 h-5 flex-shrink-0" />
-          <span className="font-bold text-sm sm:text-base">
+      {/* BANNER DE URGÊNCIA - PREMIUM RESPONSIVO */}
+      <div className="w-full bg-orange-500 text-white py-2.5 sm:py-3 px-3 sm:px-4 text-center sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+          <Clock className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 animate-pulse" />
+          
+          {/* Desktop: Texto completo */}
+          <span className="hidden sm:inline font-bold text-xs sm:text-base leading-tight">
             Promoção válida por: <span className="font-mono font-black">{timeRemaining}</span> | De R$97 → R$19,90 (79% OFF)
+          </span>
+
+          {/* Mobile: Texto otimizado - UMA LINHA */}
+          <span className="sm:hidden font-bold text-xs leading-tight whitespace-nowrap">
+            <span className="font-mono font-black">{timeRemaining}</span> | R$19,90 (79%)
           </span>
         </div>
       </div>
@@ -99,7 +117,7 @@ const Hero = () => {
           <div className="relative w-full max-w-md mx-auto mb-8">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
-              src="/lovable-uploads/Mockup.png" // <-- CAMINHO CORRIGIDO
+              src="/lovable-uploads/Mockup.png"
               alt="Capa do e-book e aplicativo Método 8X: Fisiologia Progressiva"
               className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
             />
