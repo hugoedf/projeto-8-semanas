@@ -88,13 +88,15 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* FRASE DE IMPACTO (A FERIDA) - DESIGN DE ELITE EM LINHA ÚNICA */}
-            <div className="mt-8 w-full max-w-full bg-[#2a1a1a] border border-white/5 rounded-2xl py-4 px-6 flex items-center justify-center gap-2 shadow-lg">
-  <span className="text-[#f87171] text-[12px] sm:text-xs md:text-sm font-black uppercase tracking-wider flex items-center gap-2">
-    <AlertTriangle className="w-4 h-4 text-[#f87171] flex-shrink-0" />
-    ENQUANTO VOCÊ HESITA, OUTRAS PESSOAS JÁ ESTÃO EVOLUINDO.
-  </span>
-</div>
+        {/* FRASE VALIDADA (A SUA "FERIDA") - Design de Alerta */}
+            <div className="flex items-center gap-2 mt-4 px-4 py-2 bg-red-500/5 border border-red-500/10 rounded-lg">
+              <span className="text-red-500 text-xs sm:text-sm font-bold">
+                ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <MiniPreCheckout
         isOpen={isModalOpen}
