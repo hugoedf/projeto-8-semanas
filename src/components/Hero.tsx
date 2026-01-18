@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Lock } from 'lucide-react';
+import { ArrowRight, Lock, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MiniPreCheckout from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
@@ -55,7 +55,7 @@ const Hero = () => {
           </p>
 
           {/* BLOCO DA IMAGEM */}
-          <div className="relative w-full max-w-md mx-auto mb-8">
+          <div className="relative w-full max-w-md mx-auto mb-12">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
               src="/lovable-uploads/Mockup.png"
@@ -64,31 +64,37 @@ const Hero = () => {
             />
           </div>
 
-          {/* CTA */}
-          <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
+          {/* CTA - BOTÃO EM CAIXA ALTA E LINHA ÚNICA NO MOBILE */}
+          <div className="flex flex-col items-center gap-6 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
-              className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all"
+              className="w-full bg-green-500 hover:bg-green-600 text-white text-sm sm:text-lg py-7 font-black shadow-2xl shadow-green-500/40 transition-all whitespace-nowrap overflow-hidden"
             >
-              Acessar o Método 8X agora
-              <ArrowRight className="ml-2 w-5 h-5" />
+              ACESSAR O MÉTODO 8X AGORA
+              <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
             </Button>
 
-            {/* MICROCOPY */}
-            <div className="flex items-center justify-center gap-3 text-white/60 text-xs flex-wrap">
-              <span className="flex items-center gap-1">
-                <Lock className="w-3 h-3" /> Pagamento Seguro
-              </span>
-              <span className="hidden sm:inline">|</span>
-              <span>✅ Acesso Imediato</span>
-              <span className="hidden sm:inline">|</span>
-              <span>🛡️ 7 Dias de Garantia</span>
+            {/* MICROCOPY - DESIGN ELEGANTE */}
+            <div className="flex items-center justify-center gap-4 sm:gap-8 text-white/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+              <div className="flex items-center gap-1.5">
+                <Lock className="w-3 h-3" />
+                <span>Pagamento Seguro</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span>⚡ Acesso Imediato</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span>🛡️ 7 Dias de Garantia</span>
+              </div>
             </div>
 
-            {/* URGÊNCIA SUTIL */}
-            <p className="text-red-400 text-sm font-medium mt-2">
-              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
-            </p>
+            {/* FRASE DE IMPACTO (A FERIDA) - DESIGN DE ELITE EM LINHA ÚNICA */}
+            <div className="mt-8 w-full bg-[#2a1a1a] border border-white/5 rounded-2xl py-4 px-6 flex items-center justify-center gap-2 shadow-lg overflow-x-auto">
+              <span className="text-[#f87171] text-xs sm:text-sm font-black uppercase tracking-wider whitespace-nowrap flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-[#f87171] flex-shrink-0" />
+                ENQUANTO VOCÊ HESITA, OUTRAS PESSOAS JÁ ESTÃO EVOLUINDO.
+              </span>
+            </div>
           </div>
         </div>
       </section>
