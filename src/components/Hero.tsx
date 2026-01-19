@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { ArrowRight, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -76,18 +74,15 @@ const Hero = () => {
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
 
-            {/* MICROCOPY - DESIGN ELEGANTE */}
-            <div className="flex items-center justify-center gap-4 sm:gap-8 text-white/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em]">
-              <div className="flex items-center gap-1.5">
-                <Lock className="w-3 h-3" />
-                <span>Pagamento Seguro</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span>⚡ Acesso Imediato</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span>🛡️ 7 Dias de Garantia</span>
-              </div>
+            {/* MICROCOPY */}
+            <div className="flex items-center justify-center gap-3 text-white/60 text-xs flex-wrap">
+              <span className="flex items-center gap-1">
+                <Lock className="w-3 h-3" /> Pagamento Seguro
+              </span>
+              <span className="hidden sm:inline">|</span>
+              <span>✅ Acesso Imediato</span>
+              <span className="hidden sm:inline">|</span>
+              <span>🛡️ 7 Dias de Garantia</span>
             </div>
 
             {/* URGÊNCIA SUTIL */}
