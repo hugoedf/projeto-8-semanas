@@ -71,11 +71,11 @@ const Hero = () => {
         </div>
 
         <div className="relative z-10 w-full max-w-4xl text-center">
-          {/* HOOK DE IDENTIFICAÇÃO COM INTERROGAÇÃO */}
+          {/* HOOK DE IDENTIFICAÇÃO - versão antiga que já converteu */}
           <div className="flex justify-center mb-3 sm:mb-4">
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-3 sm:px-4 py-1 sm:py-2">
               <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              <span className="text-accent font-black text-[10px] sm:text-[11px] md:text-sm uppercase tracking-wider pr-1">
+              <span className="text-accent font-black text-[10px] sm:text-[11px] md:text-sm uppercase tracking-wider">
                 VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
               </span>
             </div>
