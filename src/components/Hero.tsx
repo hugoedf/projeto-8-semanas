@@ -16,13 +16,13 @@ const Hero = () => {
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    trackInitiateCheckout(19.9, 'BRL'); // Payload intacto
+    trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
   return (
     <>
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 overflow-hidden gradient-hero">
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16 overflow-hidden gradient-hero">
         {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
@@ -31,7 +31,7 @@ const Hero = () => {
 
         <div className="relative z-10 w-full max-w-4xl text-center">
           {/* HOOK DE IDENTIFICAÇÃO */}
-          <div className="flex justify-center mb-4 sm:mb-6">
+          <div className="flex justify-center mb-3 sm:mb-4">
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1 sm:px-6 sm:py-2">
               <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
               <span className="text-accent font-black text-[11px] sm:text-xs md:text-sm uppercase tracking-wider">
@@ -41,18 +41,18 @@ const Hero = () => {
           </div>
 
           {/* HEADLINE */}
-          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-3 sm:mb-4">
+          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4 sm:mb-5">
             8 semanas para <span className="text-accent">músculos que todo mundo nota</span> — sem
             improviso e sem perda de tempo.
           </h1>
 
           {/* SUB-HEADLINE */}
-          <p className="text-lg sm:text-xl text-white/80 mb-8 sm:mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-white/80 mb-6 sm:mb-8 font-medium max-w-3xl mx-auto leading-relaxed">
             <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
           </p>
 
           {/* BLOCO DA IMAGEM */}
-          <div className="relative w-full max-w-md mx-auto mb-10 sm:mb-12">
+          <div className="relative w-full max-w-md mx-auto mb-8 sm:mb-10">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
               src="/lovable-uploads/Mockup.png"
@@ -65,31 +65,35 @@ const Hero = () => {
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
-              className="w-full bg-green-500 hover:bg-green-600 text-white text-sm sm:text-lg py-6 sm:py-7 font-black shadow-2xl shadow-green-500/40 transition-all whitespace-nowrap overflow-hidden"
+              className="w-full bg-green-500 hover:bg-green-600 text-white text-sm sm:text-lg py-5 sm:py-6 font-black shadow-2xl shadow-green-500/40 transition-all flex items-center justify-center gap-2 whitespace-nowrap"
             >
               ACESSAR O MÉTODO 8X AGORA
-              <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
+              <ArrowRight className="w-5 h-5 flex-shrink-0" />
             </Button>
 
-            {/* MICROCOPY */}
-            <div className="flex items-center justify-center gap-3 sm:gap-6 text-white/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] flex-wrap">
-              <div className="flex items-center gap-1.5">
+            {/* MICROCOPY COM MAIS IMPACTO */}
+            <div className="flex items-center justify-center gap-3 sm:gap-5 text-white text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em] flex-wrap">
+              <div className="flex items-center gap-1.5 text-white font-extrabold">
                 <Lock className="w-3 h-3" />
                 <span>Pagamento Seguro</span>
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 text-white font-extrabold">
                 <span>✅ Acesso Imediato</span>
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 text-white font-extrabold">
                 <span>🛡️ 7 Dias de Garantia</span>
               </div>
             </div>
 
-           
-            {/* URGÊNCIA SUTIL */}
-            <p className="text-red-400 text-sm font-medium mt-2">
-              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
-            </p>
+            {/* FRASE DE IMPACTO */}
+            <div className="mt-5 w-full bg-[#2a1a1a] border border-white/5 rounded-2xl py-4 px-5 flex items-center justify-center shadow-lg">
+              <div className="flex items-center gap-2 flex-wrap justify-center">
+                <AlertTriangle className="w-4 h-4 text-[#f87171] flex-shrink-0" />
+                <span className="text-[#f87171] text-xs sm:text-sm font-black uppercase tracking-wider text-center">
+                  ENQUANTO VOCÊ HESITA, OUTRAS PESSOAS JÁ ESTÃO EVOLUINDO.
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
