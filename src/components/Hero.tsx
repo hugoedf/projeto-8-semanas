@@ -1,28 +1,15 @@
 import React, { useState } from 'react';
-import { ArrowRight, Check, Lock, Zap, AlertCircle } from 'lucide-react';
+import { ArrowRight, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import MiniPreCheckoutModal from './MiniPreCheckout';
+import MiniPreCheckout from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
 
-const CTA = () => {
+const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
-  
-  // Valores fixos para o cronômetro (substitui o hook inexistente)
-  const formattedTime = "08:00"; 
-  const isExpired = false;
-
-  const benefits = [
-    "E-book + App 8X — o sistema completo",
-    "8 semanas estruturadas — só seguir e executar",
-    "Nutrição prática — sem dieta maluca",
-    "Técnicas avançadas — para quebrar estagnação",
-    "Acesso vitalício — seu para sempre",
-    "Garantia de 7 dias — risco zero pra você"
-  ];
 
   const handleCTAClick = () => {
     setIsModalOpen(true);
@@ -31,97 +18,81 @@ const CTA = () => {
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    trackInitiateCheckout(19.90, 'BRL');
+    trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
   return (
     <>
-      <section id="cta-section" className="py-16 sm:py-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,hsla(18,100%,58%,0.06),transparent_50%)]" />
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 overflow-hidden gradient-hero">
+        {/* Background glow */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-10" />
+        </div>
 
-        <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-black tracking-tight leading-tight">
-              Transforme seu corpo em <span className="text-accent font-black">8 semanas</span>
-            </h2>
-            <p className="text-black/50 mt-4 text-lg max-w-2xl mx-auto italic">
-              "O método já está pronto. A decisão ainda não."
-            </p>
+        <div className="relative z-10 w-full max-w-4xl text-center">
+          {/* HOOK DE IDENTIFICAÇÃO */}
+          <div className="flex justify-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1.5 sm:px-6 sm:py-2">
+              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
+              <span className="text-accent font-black text-[11px] sm:text-xs md:text-sm uppercase tracking-wider">
+                VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center justify-center max-w-6xl mx-auto">
-            <div className="w-full max-w-md">
-              <div className="bg-white border border-black/5 rounded-[2rem] p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative">
-                
-                <div className="mb-6 text-center">
-                  <span className="inline-flex items-center gap-2 text-accent text-xs uppercase tracking-widest font-black bg-accent/5 px-4 py-2 rounded-full border border-accent/20">
-                    <Zap className="w-4 h-4" />
-                    Acesso Imediato ao App
-                  </span>
-                </div>
+          {/* HEADLINE */}
+          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
+            8 semanas para{' '}
+            <span className="text-accent">músculos que todo mundo nota</span> — sem
+            improviso e sem perda de tempo.
+          </h1>
 
-                <h3 className="font-display text-2xl sm:text-3xl mb-4 tracking-tight text-black leading-tight font-bold">
-                  Comece agora. Veja resultados em 8 semanas.
-                </h3>
-                
-                <div className="space-y-2.5 mb-8">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 flex items-center justify-center mt-0.5">
-                        <Check className="w-3 h-3 text-accent" strokeWidth={3} />
-                      </div>
-                      <span className="text-black/80 text-sm sm:text-base font-medium">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
+          {/* SUB-HEADLINE */}
+          <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
+            <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
+          </p>
 
-                <div className="border-t border-black/5 pt-6 mb-6">
-                  <div className="flex items-baseline justify-center gap-3 mb-1">
-                    <span className="text-black/30 line-through text-xl font-bold">R$ 97</span>
-                    <span className="text-accent font-display text-4xl sm:text-5xl font-black">R$ 19,90</span>
-                  </div>
-                  <p className="text-[10px] text-black/40 font-bold uppercase tracking-widest text-center">
-                    Pagamento único · Sem mensalidades
-                  </p>
-                </div>
+          {/* BLOCO DA IMAGEM */}
+          <div className="relative w-full max-w-md mx-auto mb-8">
+            <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
+            <img
+              src="/lovable-uploads/Mockup.png"
+              alt="Capa do e-book e aplicativo Método 8X"
+              className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
+            />
+          </div>
 
-                {/* BLOCO DE URGÊNCIA FIXO */}
-                {!isExpired && (
-                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-red-900 font-bold text-sm">
-                        ⏰ Preço promocional por tempo limitado ({formattedTime})
-                      </p>
-                      <p className="text-red-700 text-xs mt-1 leading-relaxed">
-                        Se sair desta página, você perde acesso a este preço de R$ 19,90.
-                      </p>
-                    </div>
-                  </div>
-                )}
+          {/* CTA */}
+          <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
+            <Button
+              onClick={handleCTAClick}
+              className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all"
+            >
+ACESSAR O MÉTODO 8X AGORA              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
 
-                {/* BOTÃO CORRIGIDO - MESMA LINHA NO MOBILE */}
-                <Button
-                  onClick={handleCTAClick}
-                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-4 shadow-xl shadow-green-500/20 text-sm sm:text-lg py-5 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 whitespace-nowrap"
-                >
-                  QUERO COMEÇAR POR R$ 19,90
-                  <ArrowRight className="w-5 h-5 flex-shrink-0" />
-                </Button>
-
-                <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] mb-4 flex-wrap">
-                  <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Pagamento Seguro</span>
-                  <span>|</span>
-                  <span>🛡️ 7 Dias de Garantia</span>
-                </div>
-              </div>
+            {/* MICROCOPY */}
+            <div className="flex items-center justify-center gap-3 text-white/60 text-xs flex-wrap">
+              <span className="flex items-center gap-1">
+                <Lock className="w-3 h-3" /> Pagamento Seguro
+              </span>
+              <span className="hidden sm:inline">|</span>
+              <span>✅ Acesso Imediato</span>
+              <span className="hidden sm:inline">|</span>
+              <span>🛡️ 7 Dias de Garantia</span>
             </div>
+
+            {/* URGÊNCIA SUTIL */}
+            <p className="text-red-400 text-sm font-medium mt-2">
+              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
+            </p>
           </div>
         </div>
       </section>
 
-      <MiniPreCheckoutModal
+      <MiniPreCheckout
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleConfirmPurchase}
@@ -130,4 +101,4 @@ const CTA = () => {
   );
 };
 
-export default CTA;
+export default Hero;
