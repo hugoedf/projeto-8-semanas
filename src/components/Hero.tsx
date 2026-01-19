@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowRight, Lock } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Lock, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MiniPreCheckout from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
@@ -8,12 +8,15 @@ import { useMetaPixel } from '@/hooks/useMetaPixel';
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [timer, setTimer] = useState("24:00:00");
+  const [isHalfTime, setIsHalfTime] = useState(false);
+
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
 
-  const handleCTAClick = () => {
-    setIsModalOpen(true);
-  };
+  const TOTAL_DURATION = 24 * 60 * 60 * 1000; // 24 horas em ms
+
+  const handleCTAClick = () => setIsModalOpen(true);
 
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
@@ -21,6 +24,42 @@ const Hero = () => {
     trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
+
+  // Timer persistente
+  useEffect(() => {
+    let firstVisit = localStorage.getItem('firstVisitTimestamp');
+    if (!firstVisit) {
+      firstVisit = Date.now().toString();
+      localStorage.setItem('firstVisitTimestamp', firstVisit);
+    }
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - Number(firstVisit);
+      const remainingMs = TOTAL_DURATION - elapsed;
+      if (remainingMs <= 0) {
+        setTimer("00:00:00");
+        clearInterval(interval);
+        return;
+      }
+
+      // Checa se passou da metade do tempo
+      setIsHalfTime(remainingMs < TOTAL_DURATION / 2);
+
+      const remainingSec = Math.floor(remainingMs / 1000);
+      const h = Math.floor(remainingSec / 3600)
+        .toString()
+        .padStart(2, "0");
+      const m = Math.floor((remainingSec % 3600) / 60)
+        .toString()
+        .padStart(2, "0");
+      const s = Math.floor(remainingSec % 60)
+        .toString()
+        .padStart(2, "0");
+      setTimer(`${h}:${m}:${s}`);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -32,11 +71,11 @@ const Hero = () => {
         </div>
 
         <div className="relative z-10 w-full max-w-4xl text-center">
-          {/* HOOK DE IDENTIFICAÇÃO - AJUSTADO PARA CABER EM UMA LINHA */}
+          {/* HOOK DE IDENTIFICAÇÃO COM INTERROGAÇÃO */}
           <div className="flex justify-center mb-3 sm:mb-4">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-3 sm:px-4 py-1 sm:py-2 whitespace-nowrap overflow-hidden">
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-3 sm:px-4 py-1 sm:py-2">
               <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              <span className="text-accent font-black text-[10px] sm:text-[11px] md:text-sm uppercase tracking-wider">
+              <span className="text-accent font-black text-[10px] sm:text-[11px] md:text-sm uppercase tracking-wider pr-1">
                 VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
               </span>
             </div>
@@ -55,7 +94,7 @@ const Hero = () => {
           </p>
 
           {/* BLOCO DA IMAGEM */}
-          <div className="relative w-full max-w-md mx-auto mb-8">
+          <div className="relative w-full max-w-md mx-auto mb-6">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
               src="/lovable-uploads/Mockup.png"
@@ -64,17 +103,46 @@ const Hero = () => {
             />
           </div>
 
+          {/* BLOCO DE ESCASSEZ REAL */}
+          <div
+            className={`w-full max-w-sm mx-auto mb-6 rounded-2xl px-4 py-3 flex flex-col items-center shadow-lg transition-colors
+              ${isHalfTime ? 'bg-red-600 shadow-red-500/40' : 'bg-red-50 shadow-red-300/30'}`}
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <Clock className={`w-5 h-5 ${isHalfTime ? 'text-white' : 'text-red-600'}`} />
+              <span
+                className={`font-bold text-sm sm:text-base uppercase tracking-wide ${
+                  isHalfTime ? 'text-white' : 'text-red-700'
+                }`}
+              >
+                {isHalfTime ? 'Última chance, só hoje:' : 'Promoção válida só hoje:'} {timer}
+              </span>
+            </div>
+            <div className="flex items-baseline gap-3">
+              <span className={`line-through font-bold ${isHalfTime ? 'text-white/60' : 'text-black/40'} text-sm sm:text-base`}>
+                R$97
+              </span>
+              <span className={`font-black text-xl sm:text-2xl ${isHalfTime ? 'text-white' : 'text-red-600'}`}>
+                R$19,90
+              </span>
+              <span className={`font-bold text-sm sm:text-base uppercase tracking-wide ${isHalfTime ? 'text-white/80' : 'text-red-500'}`}>
+                79% OFF
+              </span>
+            </div>
+          </div>
+
           {/* CTA */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
-              className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all"
+              className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all flex items-center justify-center gap-2"
             >
-ACESSAR O MÉTODO 8X AGORA              <ArrowRight className="ml-2 w-5 h-5" />
+              ACESSAR O MÉTODO 8X AGORA
+              <ArrowRight className="w-5 h-5" />
             </Button>
 
             {/* MICROCOPY */}
-            <div className="flex items-center justify-center gap-3 text-white/60 text-xs flex-wrap">
+            <div className="flex items-center justify-center gap-3 text-white/70 text-xs flex-wrap">
               <span className="flex items-center gap-1">
                 <Lock className="w-3 h-3" /> Pagamento Seguro
               </span>
