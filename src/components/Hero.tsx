@@ -70,7 +70,7 @@ const Hero = () => {
               onClick={handleCTAClick}
               className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all"
             >
-              Acessar o Método 8X agora
+            ACESSAR O MÉTODO 8X AGORA
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
 
