@@ -85,15 +85,11 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* FRASE DE IMPACTO - LINHA ÚNICA, visual impactante */}
-            <div className="mt-6 w-full bg-[#2a1a1a] border border-white/5 rounded-2xl py-4 px-6 flex items-center justify-center shadow-lg">
-              <div className="flex items-center gap-2 flex-wrap justify-center">
-                <AlertTriangle className="w-4 h-4 text-[#f87171] flex-shrink-0" />
-                <span className="text-[#f87171] text-xs sm:text-sm font-black uppercase tracking-wider text-center">
-                  ENQUANTO VOCÊ HESITA, OUTRAS PESSOAS JÁ ESTÃO EVOLUINDO.
-                </span>
-              </div>
-            </div>
+           
+            {/* URGÊNCIA SUTIL */}
+            <p className="text-red-400 text-sm font-medium mt-2">
+              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
+            </p>
           </div>
         </div>
       </section>
