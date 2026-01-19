@@ -85,15 +85,16 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* FRASE DE IMPACTO - corrigida para deploy */}
-            <div className="mt-6 w-full bg-[#2a1a1a] border border-white/5 rounded-2xl py-4 px-6 flex items-center justify-center shadow-lg">
-              <div className="flex items-center gap-2 text-center">
-                <AlertTriangle className="w-4 h-4 text-[#f87171] flex-shrink-0" />
-                <span className="text-[#f87171] text-xs sm:text-sm font-black uppercase tracking-wider">
-                  ENQUANTO VOCÊ HESITA, OUTRAS PESSOAS JÁ ESTÃO EVOLUINDO.
-                </span>
-              </div>
-            </div>
+            {/* FRASE DE IMPACTO - corrigida para deploy, sem rolagem e com espaçamento ajustado */}
+<div className="mt-4 w-full bg-[#2a1a1a] border border-white/5 rounded-2xl py-3 px-4 flex items-center justify-center shadow-lg">
+  <div className="flex flex-wrap items-center justify-center gap-2 text-center">
+    <AlertTriangle className="w-4 h-4 text-[#f87171] flex-shrink-0" />
+    <span className="text-[#f87171] text-sm font-black uppercase tracking-wider">
+      ENQUANTO VOCÊ HESITA, OUTRAS PESSOAS JÁ ESTÃO EVOLUINDO.
+    </span>
+  </div>
+</div>
+
           </div>
         </div>
       </section>
