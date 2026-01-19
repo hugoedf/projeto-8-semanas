@@ -5,15 +5,15 @@ import MiniPreCheckoutModal from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
 import { useMetaPixel } from '@/hooks/useMetaPixel';
-import { useCountdownTimer } from '@/hooks/useCountdownTimer';
 
 const CTA = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
   
-  // Usando o hook de cronômetro persistente e sincronizado
-  const { formattedTime, isExpired } = useCountdownTimer();
+  // Valores fixos para o cronômetro (substitui o hook inexistente)
+  const formattedTime = "08:00"; 
+  const isExpired = false;
 
   const benefits = [
     "E-book + App 8X — o sistema completo",
@@ -86,7 +86,7 @@ const CTA = () => {
                   </p>
                 </div>
 
-                {/* BLOCO DE URGÊNCIA SINCRONIZADO */}
+                {/* BLOCO DE URGÊNCIA FIXO */}
                 {!isExpired && (
                   <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
