@@ -101,13 +101,13 @@ const CTA = () => {
                   </div>
                 )}
 
-                {/* BOTÃO EM CAIXA ALTA E LINHA ÚNICA NO MOBILE */}
-                <Button 
-                  onClick={handleCTAClick} 
-                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-4 shadow-xl shadow-green-500/20 text-sm sm:text-lg py-7 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap overflow-hidden" 
+                {/* BOTÃO CORRIGIDO - MESMA LINHA NO MOBILE */}
+                <Button
+                  onClick={handleCTAClick}
+                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-4 shadow-xl shadow-green-500/20 text-sm sm:text-lg py-5 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 whitespace-nowrap"
                 >
                   QUERO COMEÇAR POR R$ 19,90
-                  <ArrowRight className="ml-2 w-5 h-5 flex-shrink-0" />
+                  <ArrowRight className="w-5 h-5 flex-shrink-0" />
                 </Button>
 
                 <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] mb-4 flex-wrap">
