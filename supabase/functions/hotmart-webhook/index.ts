@@ -164,54 +164,7 @@ async function saveEventToDatabase(
   }
 }
 
-/**
- * Envia evento para Meta CAPI
- */
-async function sendToMetaCAPI(eventData: any): Promise<boolean> {
-  if (!META_ACCESS_TOKEN || !META_PIXEL_ID) {
-    console.error('❌ Meta CAPI não configurado (falta META_ACCESS_TOKEN ou META_PIXEL_ID)');
-    return false;
-  }
-
-  try {
-    const payload: any = {
-      data: [eventData],
-      access_token: META_ACCESS_TOKEN,
-    };
-
-    // Adicionar test_event_code se configurado
-    if (META_TEST_EVENT_CODE) {
-      payload.test_event_code = META_TEST_EVENT_CODE;
-      console.log('📧 Meta CAPI - Modo de teste ativo:', META_TEST_EVENT_CODE);
-    }
-
-    const response = await fetch(
-      `https://graph.facebook.com/v18.0/${META_PIXEL_ID}/events`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      }
-    );
-
-    const result = await response.json();
-    
-    if (response.ok) {
-      console.log('✅ Evento enviado para Meta CAPI:', {
-        event_name: eventData.event_name,
-        events_received: result.events_received,
-        fbtrace_id: result.fbtrace_id,
-      });
-      return true;
-    } else {
-      console.error('❌ Erro Meta CAPI - status:', response.status, 'response:', JSON.stringify(result));
-      return false;
-    }
-  } catch (error) {
-    console.error('❌ Exceção ao enviar para Meta CAPI:', error instanceof Error ? error.message : 'unknown');
-    return false;
-  }
-}
+// Função sendToMetaCAPI removida para centralizar o rastreamento de Purchase na Utmify.
 
 /**
  * Processa evento de compra (Purchase)
@@ -315,8 +268,9 @@ async function processPurchaseEvent(
     },
   };
 
-  // 4. Enviar para Meta CAPI
-  const metaSent = await sendToMetaCAPI(metaEventData);
+  // 4. Envio para Meta CAPI DESATIVADO. O rastreamento de Purchase
+  // será feito exclusivamente pela Utmify para evitar duplicação.
+  const metaSent = false;
 
   // 5. Log de confirmação da compra
   console.log('🎉 ========================================');
