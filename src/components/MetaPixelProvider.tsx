@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
+import { useScrollTracking } from '@/hooks/useScrollTracking';
 import { getMetaParamBuilder, refreshMetaParams } from '@/utils/metaParameterBuilder';
 
 // ===============================
@@ -32,9 +33,26 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
   );
 
   // ===============================
+  // ATIVAR SCROLL TRACKING
+  // ===============================
+  useScrollTracking(!isExcludedRoute);
+
+  // ===============================
   // LOAD PIXEL (ONCE)
   // ===============================
   useEffect(() => {
+    // Verificar ambiente de desenvolvimento
+    const isDevEnvironment = 
+      window.location.hostname.includes('lovableproject.com') ||
+      window.location.hostname.includes('localhost') ||
+      window.location.hostname.includes('127.0.0.1') ||
+      window.self !== window.top;
+    
+    if (isDevEnvironment) {
+      console.log('⚠️ Meta Pixel - Desativado no ambiente de desenvolvimento');
+      return;
+    }
+
     if (window.fbq) {
       console.log('⚠️ Meta Pixel já estava carregado');
       return;
@@ -60,6 +78,12 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
     }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
     const pixelId = import.meta.env.VITE_META_PIXEL_ID;
+    
+    if (!pixelId) {
+      console.error('❌ VITE_META_PIXEL_ID não configurado no arquivo .env');
+      return;
+    }
+
     window.fbq('init', pixelId);
     console.log('✅ Meta Pixel carregado e inicializado', { pixelId });
   }, []);
@@ -132,6 +156,18 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
       alreadyFired: pageViewFiredRef.current,
     });
 
+    // Verificar ambiente de desenvolvimento
+    const isDevEnvironment = 
+      window.location.hostname.includes('lovableproject.com') ||
+      window.location.hostname.includes('localhost') ||
+      window.location.hostname.includes('127.0.0.1') ||
+      window.self !== window.top;
+    
+    if (isDevEnvironment) {
+      console.log('⏭️ Ambiente de desenvolvimento, pulando PageView');
+      return;
+    }
+
     if (isExcludedRoute) {
       console.log('⏭️ Rota excluída, pulando PageView');
       return;
@@ -142,8 +178,9 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
       return;
     }
 
-    // IMPORTANTE: Resetar ref quando muda de rota
-    if (pageViewFiredRef.current) {
+    // Anti-duplicação por sessão/rota
+    const sessionKey = `meta-pv-${location.pathname}`;
+    if (sessionStorage.getItem(sessionKey) || pageViewFiredRef.current) {
       console.log('⚠️ PageView já foi disparado nesta sessão');
       return;
     }
@@ -151,6 +188,7 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
     const eventId = `pv-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
     pageViewFiredRef.current = true;
+    sessionStorage.setItem(sessionKey, eventId);
     pageLoadTimeRef.current = Date.now();
 
     // Disparar via Pixel
@@ -175,6 +213,18 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
       hasVisitorId: !!visitorData?.visitorId,
       alreadyFired: viewContentFiredRef.current,
     });
+
+    // Verificar ambiente de desenvolvimento
+    const isDevEnvironment = 
+      window.location.hostname.includes('lovableproject.com') ||
+      window.location.hostname.includes('localhost') ||
+      window.location.hostname.includes('127.0.0.1') ||
+      window.self !== window.top;
+    
+    if (isDevEnvironment) {
+      console.log('⏭️ Ambiente de desenvolvimento, pulando ViewContent');
+      return;
+    }
 
     if (location.pathname !== '/') {
       console.log('⏭️ Não é home, pulando ViewContent');
@@ -201,7 +251,9 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
       return;
     }
 
-    if (viewContentFiredRef.current) {
+    // Anti-duplicação por sessão/rota
+    const sessionKey = `meta-vc-${location.pathname}`;
+    if (sessionStorage.getItem(sessionKey) || viewContentFiredRef.current) {
       console.log('⚠️ ViewContent já foi disparado nesta sessão');
       return;
     }
@@ -217,6 +269,7 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
       const eventId = `vc-${visitorData.visitorId}-${Date.now()}`;
 
       viewContentFiredRef.current = true;
+      sessionStorage.setItem(sessionKey, eventId);
 
       const params = { content_name: 'VSL - Qualificado 30s' };
 
@@ -236,6 +289,15 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
   // 3. VIEWCONTENT VIA VÍDEO (25%)
   // ===============================
   useEffect(() => {
+    // Verificar ambiente de desenvolvimento
+    const isDevEnvironment = 
+      window.location.hostname.includes('lovableproject.com') ||
+      window.location.hostname.includes('localhost') ||
+      window.location.hostname.includes('127.0.0.1') ||
+      window.self !== window.top;
+    
+    if (isDevEnvironment) return;
+    
     if (location.pathname !== '/') return;
     if (!window.fbq) return;
 
@@ -252,8 +314,15 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
         return;
       }
 
+      const sessionKey = `meta-vc-${location.pathname}`;
+      if (sessionStorage.getItem(sessionKey)) {
+        console.log('⚠️ ViewContent já foi disparado (sessionStorage), ignorando evento de vídeo');
+        return;
+      }
+
       const eventId = `vc-video-${Date.now()}`;
       viewContentFiredRef.current = true;
+      sessionStorage.setItem(sessionKey, eventId);
 
       const params = { content_name: 'VSL - Qualificado 25%' };
 
