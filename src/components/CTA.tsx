@@ -37,17 +37,13 @@ const CTA = () => {
 
   return (
     <>
-      <section
-        id="cta-section"
-        className="py-16 sm:py-24 bg-white relative overflow-hidden"
-      >
+      <section id="cta-section" className="py-16 sm:py-24 bg-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,hsla(18,100%,58%,0.06),transparent_50%)]" />
 
         <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-black tracking-tight leading-tight">
-              Transforme seu corpo em{' '}
-              <span className="text-accent font-black">8 semanas</span>
+              Transforme seu corpo em <span className="text-accent font-black">8 semanas</span>
             </h2>
             <p className="text-black/50 mt-4 text-lg max-w-2xl mx-auto italic">
               "O método já está pronto. A decisão ainda não."
@@ -84,9 +80,7 @@ const CTA = () => {
 
                 <div className="border-t border-black/5 pt-6 mb-6">
                   <div className="flex items-baseline justify-center gap-3 mb-1">
-                    <span className="text-black/30 line-through text-xl font-bold">
-                      R$ 97
-                    </span>
+                    <span className="text-black/30 line-through text-xl font-bold">R$ 97</span>
                     <span className="text-accent font-display text-4xl sm:text-5xl font-black">
                       R$ 19,90
                     </span>
@@ -118,12 +112,14 @@ const CTA = () => {
                   <ArrowRight className="w-5 h-5 flex-shrink-0" />
                 </Button>
 
-                {/* FRASE FINAL — CONSEQUÊNCIA */}
-                <p className="text-center text-black/60 text-xs italic mb-4 leading-snug">
-                  Enquanto você hesita, o treino continua o mesmo — e o corpo também.
-                </p>
+                {/* FRASE DE FIXAÇÃO VISUAL */}
+                <div className="mt-2 mb-4 px-4 py-3 rounded-xl border border-black/10 bg-black/[0.04] text-center">
+                  <span className="text-black/80 text-sm font-semibold leading-snug">
+                    Enquanto você hesita, o treino continua o mesmo — e o corpo também.
+                  </span>
+                </div>
 
-                <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] mb-4 flex-wrap">
+                <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] flex-wrap">
                   <span className="flex items-center gap-1">
                     <Lock className="w-3 h-3" /> Pagamento Seguro
                   </span>
