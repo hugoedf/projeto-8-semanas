@@ -1,28 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CheckCircle2, Lock, X, AlertCircle, Zap } from "lucide-react";
 
-const TIMER_KEY = "metodo8x_deadline";
+const TIMER_STORAGE_KEY = "metodo8x_countdown_deadline";
 const DURATION_24H = 24 * 60 * 60 * 1000;
 
-interface MiniPreCheckoutProps {
+interface MiniPreCheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void; // redireciona para checkout
+  onConfirm: () => void;
 }
 
 const MiniPreCheckout = ({
   isOpen,
   onClose,
   onConfirm,
-}: MiniPreCheckoutProps) => {
+}: MiniPreCheckoutModalProps) => {
   const [step, setStep] = useState<"qualificacao" | "confirmacao">(
     "qualificacao"
   );
+
   const [timeLeft, setTimeLeft] = useState(0);
-  const [expired, setExpired] = useState(false);
+  const [isExpired, setIsExpired] = useState(false);
 
   /* =============================
-     TIMER — PC + MOBILE SAFE
+     TIMER — MOBILE SAFE
   ============================== */
   useEffect(() => {
     if (!isOpen) return;
@@ -30,23 +31,27 @@ const MiniPreCheckout = ({
     let deadline: number;
 
     try {
-      const stored = localStorage.getItem(TIMER_KEY);
+      const stored = localStorage.getItem(TIMER_STORAGE_KEY);
       if (stored) {
         deadline = Number(stored);
       } else {
         deadline = Date.now() + DURATION_24H;
-        localStorage.setItem(TIMER_KEY, deadline.toString());
+        localStorage.setItem(
+          TIMER_STORAGE_KEY,
+          deadline.toString()
+        );
       }
     } catch {
-      // fallback WebView (Instagram / FB)
+      // fallback WebView
       deadline = Date.now() + DURATION_24H;
     }
 
     const interval = setInterval(() => {
       const diff = deadline - Date.now();
+
       if (diff <= 0) {
-        setExpired(true);
         setTimeLeft(0);
+        setIsExpired(true);
         clearInterval(interval);
       } else {
         setTimeLeft(diff);
@@ -57,16 +62,13 @@ const MiniPreCheckout = ({
   }, [isOpen]);
 
   const formatTime = (ms: number) => {
-    const total = Math.floor(ms / 1000);
-    const h = String(Math.floor(total / 3600)).padStart(2, "0");
-    const m = String(Math.floor((total % 3600) / 60)).padStart(2, "0");
-    const s = String(total % 60).padStart(2, "0");
+    const totalSeconds = Math.floor(ms / 1000);
+    const h = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+    const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+    const s = String(Math.floor(totalSeconds % 60)).padStart(2, "0");
     return `${h}:${m}:${s}`;
   };
 
-  /* =============================
-     CONFIRMAÇÃO / EVENTO META
-  ============================== */
   const handleConfirm = () => {
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "InitiateCheckout");
@@ -79,82 +81,73 @@ const MiniPreCheckout = ({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 p-4"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/90"
       style={{ WebkitOverflowScrolling: "touch" }}
     >
       <div
-        className="relative w-full max-w-md rounded-3xl border border-white/10 bg-black p-6 shadow-2xl"
-        style={{
-          maxHeight: "85vh",
-          overflowY: "auto",
-        }}
+        className="relative w-full max-w-md bg-black border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl"
+        style={{ maxHeight: "85vh", overflowY: "auto" }}
       >
-        {/* CLOSE */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 text-white/40 hover:text-white"
+          className="absolute top-4 right-4 text-white/40 hover:text-white"
         >
-          <X className="h-6 w-6" />
+          <X className="w-6 h-6" />
         </button>
 
-        {/* TIMER */}
-        {!expired && timeLeft > 0 && (
-          <div className="mb-6 flex items-center justify-between rounded-xl border border-red-500/30 bg-red-500/10 p-3">
+        {!isExpired && timeLeft > 0 && (
+          <div className="mb-6 flex items-center justify-between p-3 rounded-xl bg-red-500/10 border border-red-500/30">
             <div className="flex items-center gap-2">
-              <Zap className="h-4 w-4 text-red-500" />
+              <Zap className="w-4 h-4 text-red-500" />
               <span className="text-xs font-black uppercase text-red-500">
-                Condição válida hoje
+                Promoção válida hoje
               </span>
             </div>
-            <span className="text-xs font-mono font-black text-red-500">
+            <span className="text-xs font-mono text-red-500 font-black">
               {formatTime(timeLeft)}
             </span>
           </div>
         )}
 
-        {/* STEP 1 */}
-        {step === "qualificacao" && (
-          <div className="space-y-8 text-center">
-            <div>
+        {step === "qualificacao" ? (
+          <div className="space-y-8">
+            <div className="text-center">
               <h2 className="text-2xl font-black uppercase">
-                Antes de continuar
+                Antes de começar
               </h2>
-              <p className="mt-1 text-sm text-white/50">
-                Confirme para liberar o acesso
+              <p className="text-sm text-gray-400">
+                Responda 3 perguntas rápidas
               </p>
             </div>
 
             <button
               onClick={() => setStep("confirmacao")}
-              className="w-full rounded-2xl bg-green-500 py-5 font-black uppercase text-white hover:bg-green-600"
+              className="w-full bg-green-500 hover:bg-green-600 text-white font-black py-5 rounded-2xl uppercase"
             >
               Continuar
             </button>
           </div>
-        )}
+        ) : (
+          <div className="space-y-6">
+            <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto" />
 
-        {/* STEP 2 */}
-        {step === "confirmacao" && (
-          <div className="space-y-6 text-center">
-            <CheckCircle2 className="mx-auto h-12 w-12 text-green-500" />
-
-            <h2 className="text-2xl font-black uppercase">
-              Acesso liberado
+            <h2 className="text-2xl font-black text-center uppercase">
+              Você está pronto
             </h2>
 
             <button
               onClick={handleConfirm}
-              className="w-full rounded-2xl bg-green-500 py-6 font-black uppercase text-white hover:bg-green-600"
+              className="w-full bg-green-500 hover:bg-green-600 text-white font-black py-6 rounded-2xl uppercase"
             >
-              Ir para o checkout
+              Liberar meu acesso agora
             </button>
 
-            <div className="space-y-1 text-xs text-white/40">
-              <div className="flex justify-center items-center gap-1">
-                <Lock className="h-3 w-3" /> Pagamento 100% seguro
+            <div className="text-center text-xs text-white/40 space-y-1">
+              <div className="flex justify-center gap-1 items-center">
+                <Lock className="w-3 h-3" /> Pagamento 100% seguro
               </div>
-              <div className="flex justify-center items-center gap-1 text-red-500">
-                <AlertCircle className="h-3 w-3" /> Condição ativa hoje
+              <div className="flex justify-center gap-1 items-center text-red-500">
+                <AlertCircle className="w-3 h-3" /> Últimas vagas hoje
               </div>
             </div>
           </div>
