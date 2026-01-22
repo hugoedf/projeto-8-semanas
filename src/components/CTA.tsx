@@ -10,9 +10,8 @@ const CTA = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
-  
-  // Valores fixos para o cronômetro (substitui o hook inexistente)
-  const formattedTime = "08:00"; 
+
+  const formattedTime = "08:00";
   const isExpired = false;
 
   const benefits = [
@@ -29,21 +28,26 @@ const CTA = () => {
   };
 
   const handleConfirmPurchase = () => {
-    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
+    const baseUrl =
+      'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    trackInitiateCheckout(19.90, 'BRL');
+    trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
   return (
     <>
-      <section id="cta-section" className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      <section
+        id="cta-section"
+        className="py-16 sm:py-24 bg-white relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,hsla(18,100%,58%,0.06),transparent_50%)]" />
 
         <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-black tracking-tight leading-tight">
-              Transforme seu corpo em <span className="text-accent font-black">8 semanas</span>
+              Transforme seu corpo em{' '}
+              <span className="text-accent font-black">8 semanas</span>
             </h2>
             <p className="text-black/50 mt-4 text-lg max-w-2xl mx-auto italic">
               "O método já está pronto. A decisão ainda não."
@@ -53,7 +57,7 @@ const CTA = () => {
           <div className="flex items-center justify-center max-w-6xl mx-auto">
             <div className="w-full max-w-md">
               <div className="bg-white border border-black/5 rounded-[2rem] p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative">
-                
+
                 <div className="mb-6 text-center">
                   <span className="inline-flex items-center gap-2 text-accent text-xs uppercase tracking-widest font-black bg-accent/5 px-4 py-2 rounded-full border border-accent/20">
                     <Zap className="w-4 h-4" />
@@ -64,29 +68,34 @@ const CTA = () => {
                 <h3 className="font-display text-2xl sm:text-3xl mb-4 tracking-tight text-black leading-tight font-bold">
                   Comece agora. Veja resultados em 8 semanas.
                 </h3>
-                
+
                 <div className="space-y-2.5 mb-8">
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 flex items-center justify-center mt-0.5">
                         <Check className="w-3 h-3 text-accent" strokeWidth={3} />
                       </div>
-                      <span className="text-black/80 text-sm sm:text-base font-medium">{benefit}</span>
+                      <span className="text-black/80 text-sm sm:text-base font-medium">
+                        {benefit}
+                      </span>
                     </div>
                   ))}
                 </div>
 
                 <div className="border-t border-black/5 pt-6 mb-6">
                   <div className="flex items-baseline justify-center gap-3 mb-1">
-                    <span className="text-black/30 line-through text-xl font-bold">R$ 97</span>
-                    <span className="text-accent font-display text-4xl sm:text-5xl font-black">R$ 19,90</span>
+                    <span className="text-black/30 line-through text-xl font-bold">
+                      R$ 97
+                    </span>
+                    <span className="text-accent font-display text-4xl sm:text-5xl font-black">
+                      R$ 19,90
+                    </span>
                   </div>
                   <p className="text-[10px] text-black/40 font-bold uppercase tracking-widest text-center">
                     Pagamento único · Sem mensalidades
                   </p>
                 </div>
 
-                {/* BLOCO DE URGÊNCIA FIXO */}
                 {!isExpired && (
                   <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
@@ -101,27 +110,26 @@ const CTA = () => {
                   </div>
                 )}
 
-                {/* BOTÃO CORRIGIDO - MESMA LINHA NO MOBILE */}
-               <Button
-  onClick={handleCTAClick}
-  className="w-full bg-green-500 hover:bg-green-600 text-white mb-3 shadow-xl shadow-green-500/20 text-sm sm:text-lg py-5 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 whitespace-nowrap"
->
-  QUERO COMEÇAR POR R$ 19,90
-  <ArrowRight className="w-5 h-5 flex-shrink-0" />
-</Button>
+                <Button
+                  onClick={handleCTAClick}
+                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-3 shadow-xl shadow-green-500/20 text-sm sm:text-lg py-5 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 whitespace-nowrap"
+                >
+                  QUERO COMEÇAR POR R$ 19,90
+                  <ArrowRight className="w-5 h-5 flex-shrink-0" />
+                </Button>
 
-{/* FRASE DE PRESSÃO FINAL */}
-<p className="text-center text-black/60 text-xs italic mb-4 leading-snug">
-  Enquanto você hesita, o treino continua o mesmo — e o corpo também.
-</p>
+                {/* FRASE FINAL — CONSEQUÊNCIA */}
+                <p className="text-center text-black/60 text-xs italic mb-4 leading-snug">
+                  Enquanto você hesita, o treino continua o mesmo — e o corpo também.
+                </p>
 
-<div className="flex items-center justify-center gap-2 text-black/50 text-[10px] mb-4 flex-wrap">
-  <span className="flex items-center gap-1">
-    <Lock className="w-3 h-3" /> Pagamento Seguro
-  </span>
-  <span>|</span>
-  <span>🛡️ 7 Dias de Garantia</span>
-</div>
+                <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] mb-4 flex-wrap">
+                  <span className="flex items-center gap-1">
+                    <Lock className="w-3 h-3" /> Pagamento Seguro
+                  </span>
+                  <span>|</span>
+                  <span>🛡️ 7 Dias de Garantia</span>
+                </div>
 
               </div>
             </div>
