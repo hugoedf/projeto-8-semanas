@@ -1,62 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { CheckCircle2, Lock, Clock, X, AlertCircle, Zap, Users } from 'lucide-react';
-import { useCountdownTimer } from '../hooks/useCountdownTimer';
-import { useState, useEffect } from 'react';
 
+// --- LÓGICA DE ESCASSEZ REAL INTEGRADA ---
 const TIMER_STORAGE_KEY = 'metodo8x_countdown_deadline';
 const DURATION_24H = 24 * 60 * 60 * 1000;
-
-export const useCountdownTimer = () => {
-  const [timeLeft, setTimeLeft] = useState<number | null>(null);
-  const [isExpired, setIsExpired] = useState(false);
-
-  useEffect(() => {
-    // Verifica se já existe um prazo salvo
-    let deadline = localStorage.getItem(TIMER_STORAGE_KEY);
-    
-    if (!deadline) {
-      // Se não existe, cria um novo prazo de 24h a partir de AGORA
-      const targetTime = new Date().getTime() + DURATION_24H;
-      localStorage.setItem(TIMER_STORAGE_KEY, targetTime.toString());
-      deadline = targetTime.toString();
-    }
-
-    const targetTime = parseInt(deadline, 10);
-
-    // Função para atualizar o cronômetro a cada segundo
-    const updateTimer = () => {
-      const now = new Date().getTime();
-      const distance = targetTime - now;
-
-      if (distance <= 0) {
-        setTimeLeft(0);
-        setIsExpired(true);
-        return;
-      }
-      setTimeLeft(distance);
-    };
-
-    updateTimer(); // Executa imediatamente
-    const interval = setInterval(updateTimer, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatTime = (ms: number | null) => {
-    if (ms === null) return "00:00:00";
-    const totalSeconds = Math.floor(ms / 1000);
-    const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-    const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
-    const s = String(Math.floor(totalSeconds % 60)).padStart(2, '0');
-    return `${h}:${m}:${s}`;
-  };
-
-  return {
-    timeLeft,
-    formattedTime: formatTime(timeLeft),
-    isExpired,
-  };
-};
 
 interface MiniPreCheckoutModalProps {
   isOpen: boolean;
@@ -72,9 +19,47 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
     tempo?: string;
   }>({});
   
-  // Usando o hook de cronômetro persistente e sincronizado
-  const { formattedTime, isExpired } = useCountdownTimer();
-  const [vagas, setVagas] = useState(12);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [isExpired, setIsExpired] = useState(false);
+  const [vagas] = useState(12);
+
+  // Efeito para gerenciar o cronômetro persistente
+  useEffect(() => {
+    let deadline = localStorage.getItem(TIMER_STORAGE_KEY);
+    
+    if (!deadline) {
+      const targetTime = new Date().getTime() + DURATION_24H;
+      localStorage.setItem(TIMER_STORAGE_KEY, targetTime.toString());
+      deadline = targetTime.toString();
+    }
+
+    const targetTime = parseInt(deadline, 10);
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const distance = targetTime - now;
+
+      if (distance <= 0) {
+        setTimeLeft(0);
+        setIsExpired(true);
+        return;
+      }
+      setTimeLeft(distance);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (ms: number | null) => {
+    if (ms === null) return "00:00:00";
+    const totalSeconds = Math.floor(ms / 1000);
+    const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+    const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+    const s = String(Math.floor(totalSeconds % 60)).padStart(2, '0');
+    return `${h}:${m}:${s}`;
+  };
 
   const handleQualificacaoSubmit = () => {
     if (qualificacao.objetivo && qualificacao.academia && qualificacao.tempo) {
@@ -113,7 +98,7 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               </span>
             </div>
             <span className="text-xs font-mono text-red-500 font-black">
-              {formattedTime}
+              {formatTime(timeLeft)}
             </span>
           </div>
         )}
@@ -163,6 +148,26 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
                       onClick={() => setQualificacao({ ...qualificacao, academia: label })}
                       className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                         qualificacao.academia === label ? 'border-green-500 bg-green-500/10' : 'border-white/5 bg-white/5'
+                      }`}
+                    >
+                      <span className="text-white font-bold text-sm">{label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Pergunta 3 */}
+              <div className="space-y-3">
+                <label className="text-xs font-black text-white/40 uppercase tracking-widest block">
+                  Há quanto tempo você treina?
+                </label>
+                <div className="space-y-2">
+                  {['🆕 Iniciante (0-6 meses)', '📈 Intermediário (6 meses - 2 anos)', '🔥 Avançado (mais de 2 anos)'].map(label => (
+                    <button
+                      key={label}
+                      onClick={() => setQualificacao({ ...qualificacao, tempo: label })}
+                      className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+                        qualificacao.tempo === label ? 'border-green-500 bg-green-500/10' : 'border-white/5 bg-white/5'
                       }`}
                     >
                       <span className="text-white font-bold text-sm">{label}</span>
