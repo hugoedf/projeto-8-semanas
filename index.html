@@ -4,68 +4,71 @@
     <meta charset="UTF-8" />
     <meta name="facebook-domain-verification" content="q4on1silgaa4oe18pefkmqcqp0wchh" />
     
-    <!-- REMOVIDO: Google Tag Manager (GTM) conforme solicitado -->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Método 8x - Fisiologia Progressiva</title>
     <meta name="description" content="Ebook completo de hipertrofia com treinos estruturados, nutrição estratégica e técnicas avançadas para transformar seu corpo em 8 semanas.">
     <meta name="author" content="Projeto 8 Semanas" />
 
-    <!-- Open Graph / Facebook (Preservado) -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Método 8x - Fisiologia Progressiva">
     <meta property="og:description" content="Ebook completo de hipertrofia com treinos estruturados, nutrição estratégica e técnicas avançadas para transformar seu corpo em 8 semanas.">
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
-    <!-- Twitter (Preservado ) -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Método 8x - Fisiologia Progressiva">
     <meta name="twitter:description" content="Ebook completo de hipertrofia com treinos estruturados, nutrição estratégica e técnicas avançadas para transformar seu corpo em 8 semanas.">
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     
-    <!-- Preconnect to critical origins (Preservado ) -->
+    <!-- Preconnect to critical origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://kfddlytvdzqwopongnew.supabase.co">
     
-    <!-- Preload LCP image (video thumbnail ) (Preservado) -->
+    <!-- Preload LCP image (video thumbnail ) -->
     <link rel="preload" as="image" href="/assets/vsl-thumbnail-pdRYaaew.jpg" fetchpriority="high">
     
-    <!-- Preload critical fonts (Preservado) -->
+    <!-- Preload critical fonts -->
     <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WlhyyTh89Y.woff2" crossorigin>
     
-    <!-- Load fonts with display swap (Preservado ) -->
+    <!-- Load fonts with display swap -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet"></noscript>
 
     <link rel="stylesheet" href="style.css">
     
-    <!-- Critical CSS inline for FCP (Preservado ) -->
+    <!-- Critical CSS inline for FCP -->
     <style>
       *{box-sizing:border-box;margin:0;padding:0}
       body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;-webkit-font-smoothing:antialiased}
-      .gradient-hero{background:linear-gradient(135deg,#0a0a0a 0%,#1a1a1a 100%)}
+      .gradient-hero{background:linear-gradient(135deg,#0a0a0a 0%,#1a1a1a 100% )}
       @keyframes fade-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
       .animate-fade-in{animation:fade-in .5s ease-out forwards}
     </style>
 
-    <!-- Script UTMify (Adicionado conforme solicitado) -->
+    <!-- 1. Script de Captura de UTMs (UTMify) -->
     <script
       src="https://cdn.utmify.com.br/scripts/utms/latest.js"
       data-utmify-prevent-subids
       async
       defer
     ></script>
+
+    <!-- 2. Pixel de Rastreamento UTMify (ID Específico ) -->
+    <script>
+      window.pixelId = "697237f75eeff10220c400ff";
+      var a = document.createElement("script");
+      a.setAttribute("async", "");
+      a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js" );
+      document.head.appendChild(a);
+    </script>
   </head>
 
   <body>
-    <!-- Meta Pixel Noscript (Preservado ) -->
-    <noscript>
-      <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=2562850577432651&ev=PageView&noscript=1"/>
-    </noscript>
-
+    <!-- O disparo de PageView agora é feito via MetaPixelProvider.tsx para evitar duplicidade -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
