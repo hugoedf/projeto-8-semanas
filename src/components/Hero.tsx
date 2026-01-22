@@ -15,7 +15,7 @@ const Hero = () => {
     const baseUrl =
       'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    // Removido trackInitiateCheckout para centralizar rastreamento na Utmify
+    trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
