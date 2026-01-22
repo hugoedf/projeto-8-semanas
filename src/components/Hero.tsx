@@ -74,7 +74,7 @@ const Hero = () => {
               onClick={handleCTAClick}
               className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all flex items-center justify-center gap-2"
             >
-             COMEÇAR O MÉTODO 8X AGORA
+              COMEÇAR O MÉTODO 8X AGORA
               <ArrowRight className="w-5 h-5" />
             </Button>
 
@@ -89,9 +89,14 @@ const Hero = () => {
               <span>🛡️ 7 Dias de Garantia</span>
             </div>
 
-            {/* FRASE DE IMPACTO */}
-            <p className="text-red-400 text-sm font-medium mt-2">
-            A maioria das pessoas não falha no treino. Falha no método.
+            {/* FRASE DE IMPACTO (RESPONSIVA) */}
+            <p className="text-red-400 text-sm font-medium mt-2 text-center leading-snug">
+              <span className="block sm:inline">
+                A maioria das pessoas não falha no treino.
+              </span>{' '}
+              <span className="block sm:inline font-bold sm:font-medium">
+                Falha no método.
+              </span>
             </p>
           </div>
         </div>
