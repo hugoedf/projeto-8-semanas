@@ -3,10 +3,11 @@ import { ArrowRight, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MiniPreCheckout from './MiniPreCheckout';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
-
+import { useMetaPixel } from '@/hooks/useMetaPixel';
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { trackInitiateCheckout } = useMetaPixel();
 
   const handleCTAClick = () => setIsModalOpen(true);
 
@@ -14,12 +15,7 @@ const Hero = () => {
     const baseUrl =
       'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    
-    console.log('✅ ===== REDIRECIONANDO PARA CHECKOUT (HERO) =====');
-    console.log('🔗 URL final:', checkoutUrl);
-    console.log('ℹ️ InitiateCheckout e Purchase serão disparados pela UTM-FI da Hotmart');
-    console.log('==================================================');
-    
+    trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
