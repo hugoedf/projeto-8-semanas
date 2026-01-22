@@ -14,9 +14,16 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import SocialProofNotifications from "@/components/SocialProofNotifications";
 
+// ✅ NOVO: Importar componentes de urgência
+import UrgencyBanner from "@/components/UrgencyBanner";
+import UrgencyInternal from "@/components/UrgencyInternal";
+
 const Index = () => {
   return (
     <main className="min-h-screen">
+      {/* ✅ NOVO: Banner de urgência fixo no topo */}
+      <UrgencyBanner />
+
       {/* FLUXO DE PERSUASÃO OTIMIZADO */}
       
       {/* 1. HEADLINE - Promessa Impactante (CTA VERDE #1) */}
@@ -42,6 +49,9 @@ const Index = () => {
       
       {/* 8. GARANTIA */}
       <Guarantee />
+      
+      {/* ✅ NOVO: Urgência narrativa entre Garantia e CTA final */}
+      <UrgencyInternal />
       
       {/* 9. CTA FINAL - Ancoragem e Preço (CTA VERDE #2) */}
       <CTA />
