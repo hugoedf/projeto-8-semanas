@@ -4,11 +4,10 @@ import { Button } from '@/components/ui/button';
 import MiniPreCheckoutModal from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
-import { useMetaPixel } from '@/hooks/useMetaPixel';
+
 
 const CTA = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
 
   const formattedTime = "08:00";
@@ -31,7 +30,13 @@ const CTA = () => {
     const baseUrl =
       'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    trackInitiateCheckout(19.9, 'BRL');
+    
+    console.log('✅ ===== REDIRECIONANDO PARA CHECKOUT =====');
+    console.log('🔗 URL final:', checkoutUrl);
+    console.log('📊 Dados do visitante:', visitorData);
+    console.log('ℹ️ InitiateCheckout e Purchase serão disparados pela UTM-FI da Hotmart');
+    console.log('==========================================');
+    
     window.location.href = checkoutUrl;
   };
 
