@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { X, AlertTriangle, Clock, ArrowRight, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useMetaPixel } from "@/hooks/useMetaPixel";
+
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 
 const ExitIntentPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
-  const { trackInitiateCheckout } = useMetaPixel();
 
   useEffect(() => {
     // Check if already shown in this session
@@ -70,8 +69,13 @@ const ExitIntentPopup = () => {
 
   const handleCTAClick = () => {
     const baseUrl = "https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465";
-    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl );
-    trackInitiateCheckout(19.90, "BRL");
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
+    
+    console.log('✅ ===== REDIRECIONANDO PARA CHECKOUT (EXIT INTENT) =====');
+    console.log('🔗 URL final:', checkoutUrl);
+    console.log('ℹ️ InitiateCheckout e Purchase serão disparados pela UTM-FI da Hotmart');
+    console.log('=========================================================');
+    
     window.location.href = checkoutUrl;
   };
 
