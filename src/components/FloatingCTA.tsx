@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, X, Clock } from "lucide-react";
-import { useMetaPixel } from "@/hooks/useMetaPixel";
+
 import { buildHotmartCheckoutUrl } from "@/lib/utils";
 
 const FloatingCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
-  const { trackInitiateCheckout } = useMetaPixel();
 
   useEffect(() => {
     let ticking = false;
@@ -36,9 +35,12 @@ const FloatingCTA = () => {
   const handleCTAClick = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    console.log('✅ ===== CHECKOUT INICIADO (FLOATING CTA) =====');
+    
+    console.log('✅ ===== REDIRECIONANDO PARA CHECKOUT (FLOATING CTA) =====');
     console.log('🔗 URL final:', checkoutUrl);
-    trackInitiateCheckout(19.90, 'BRL');
+    console.log('ℹ️ InitiateCheckout e Purchase serão disparados pela UTM-FI da Hotmart');
+    console.log('==========================================================');
+    
     window.location.href = checkoutUrl;
   };
 
