@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { ArrowRight, Shield, Clock, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MiniPreCheckoutModal } from './MiniPreCheckoutModal';
-import { useMetaPixel } from '@/hooks/useMetaPixel';
+
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
 
 const IntermediateCTA = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
 
   const handleCTAClick = () => {
@@ -18,11 +17,13 @@ const IntermediateCTA = () => {
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    console.log('✅ ===== CHECKOUT INICIADO (INTERMEDIATE CTA - APÓS CONFIRMAÇÃO NO MODAL) =====');
+    
+    console.log('✅ ===== REDIRECIONANDO PARA CHECKOUT (INTERMEDIATE CTA) =====');
     console.log('🔗 URL final:', checkoutUrl);
     console.log('📊 Dados do visitante:', visitorData);
-    console.log('================================================');
-    trackInitiateCheckout(19.90, 'BRL');
+    console.log('ℹ️ InitiateCheckout e Purchase serão disparados pela UTM-FI da Hotmart');
+    console.log('=============================================================');
+    
     window.location.href = checkoutUrl;
   };
 
