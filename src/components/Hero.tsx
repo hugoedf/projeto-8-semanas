@@ -91,7 +91,7 @@ const Hero = () => {
 
             {/* FRASE DE IMPACTO */}
             <p className="text-red-400 text-sm font-medium mt-2">
-              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo.
+            A maioria das pessoas não falha no treino. Falha no método.
             </p>
           </div>
         </div>
