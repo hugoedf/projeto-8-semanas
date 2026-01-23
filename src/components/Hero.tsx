@@ -23,15 +23,17 @@ const Hero = () => {
   return (
     <>
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 overflow-hidden gradient-hero">
+        {/* Camada de fundo geral */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-10" />
         </div>
+
         <div className="relative z-10 w-full max-w-4xl text-center">
-          <div className="flex justify-center mb-3 sm:mb-4">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 sm:px-5 py-2 sm:py-3">
+          {/* IDENTIFICAÇÃO (HOOK) - Aumentado conforme solicitado */}
+          <div className="flex justify-center mb-6 sm:mb-8">
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-5 py-3">
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              {/* Ajustado apenas o tamanho (text-sm para mobile e text-lg para desktop) mantendo seu estilo original */}
               <span className="text-accent font-black text-sm sm:text-base md:text-lg tracking-wide leading-tight">
                 Você treina, se esforça…
                 <br />
@@ -39,6 +41,7 @@ const Hero = () => {
               </span>
             </div>
           </div>
+
           <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
             8 semanas para <span className="text-accent">músculos que todo mundo nota</span> — sem improviso e sem perda de tempo.
           </h1>
@@ -46,15 +49,17 @@ const Hero = () => {
             <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
           </p>
           
-          {/* Mockup aumentado para max-w-2xl para maior impacto visual */}
-          <div className="relative w-full max-w-2xl mx-auto mb-8">
-            <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
-            <img
-              src="/lovable-uploads/Mockup.png"
-              alt="Capa do e-book e aplicativo Método 8X"
-              className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
-            />
-          </div>
+       {/* MOCKUP COM LUZ DE FUNDO REFINADA */}
+<div className="relative w-full max-w-2xl mx-auto mb-8 sm:mb-12">
+  {/* Luz de fundo sutil para destacar o produto escuro no fundo escuro */}
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-accent/20 rounded-full blur-[80px] opacity-30 pointer-events-none" />
+  
+  <img
+    src="/lovable-uploads/Mockup.png"
+    alt="Capa do e-book e aplicativo Método 8X"
+    className="relative z-10 w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+  />
+</div>
 
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
