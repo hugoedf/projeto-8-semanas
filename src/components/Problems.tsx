@@ -61,12 +61,6 @@ const Problems = () => {
             </p>
           </div>
 
-          {/* FRASE-PONTE (O Pulo do Gato) */}
-          <div className="text-center max-w-2xl mx-auto">
-            <p className="text-white/90 text-lg sm:text-xl font-medium leading-relaxed italic">
-              "Esses problemas não acontecem por falta de esforço. Eles acontecem porque a maioria treina sem um método científico."
-            </p>
-          </div>
           
         </div>
       </div>
