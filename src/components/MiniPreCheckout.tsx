@@ -29,9 +29,6 @@ const MiniPreCheckout = ({
   const [isExpired, setIsExpired] = useState(false);
   const [vagas] = useState(12);
 
-  /* =============================
-     TIMER — MOBILE SAFE
-  ============================== */
   useEffect(() => {
     if (!isOpen) return;
 
@@ -46,7 +43,6 @@ const MiniPreCheckout = ({
         localStorage.setItem(TIMER_STORAGE_KEY, deadline.toString());
       }
     } catch {
-      // fallback WebView
       deadline = Date.now() + DURATION_24H;
     }
 
@@ -84,11 +80,86 @@ const MiniPreCheckout = ({
     }
   };
 
-  const handleConfirm = () => {
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "InitiateCheckout");
+  // ✅ SOLUÇÃO ROBUSTA: Integração completa (Pixel + Conversions API)
+  const handleConfirm = async () => {
+    const eventId = `ic-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+    try {
+      // ========================================
+      // 1. DISPARA VIA PIXEL (Client-Side)
+      // ========================================
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        console.log("✅ Disparando InitiateCheckout via Pixel (client-side)", {
+          eventId,
+          value: 19.90,
+          currency: "BRL",
+        });
+
+        (window as any).fbq(
+          "track",
+          "InitiateCheckout",
+          {
+            value: 19.90,
+            currency: "BRL",
+          },
+          {
+            eventID: eventId,
+          }
+        );
+      }
+
+      // ========================================
+      // 2. ENVIA PARA CONVERSIONS API (Server-Side)
+      // ========================================
+      const visitorId = localStorage.getItem("visitor_id");
+      const fbp = localStorage.getItem("fbp");
+      const fbclid = localStorage.getItem("fbclid");
+
+      console.log("📤 Enviando InitiateCheckout para Conversions API...", {
+        eventId,
+        visitorId,
+        fbp,
+        fbclid,
+      });
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            eventName: "InitiateCheckout",
+            eventParams: {
+              value: 19.90,
+              currency: "BRL",
+            },
+            eventId,
+            visitorId: visitorId || undefined,
+            fbp: fbp || undefined,
+            fbc: fbclid || undefined,
+            client_user_agent: navigator.userAgent,
+            eventSourceUrl: window.location.href,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("✅ InitiateCheckout enviado para Conversions API com sucesso", {
+          eventId,
+          result,
+        });
+      } else {
+        console.error("❌ Erro ao enviar para Conversions API:", response.status);
+      }
+    } catch (error) {
+      console.error("❌ Erro ao disparar eventos:", error);
     }
 
+    // ========================================
+    // 3. REDIRECIONA PARA CHECKOUT
+    // ========================================
+    console.log("🔄 Redirecionando para checkout...");
     onConfirm();
     setStep("qualificacao");
     setQualificacao({});
@@ -109,7 +180,6 @@ const MiniPreCheckout = ({
           WebkitOverflowScrolling: "touch",
         }}
       >
-        {/* Botão Fechar */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 sm:top-4 sm:right-4 text-white/40 hover:text-white transition-colors"
@@ -117,7 +187,6 @@ const MiniPreCheckout = ({
           <X className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
-        {/* ✅ CORRIGIDO: Banner de urgência responsivo para mobile */}
         {!isExpired && (
           <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-red-500/10 border border-red-500/30">
             <div className="flex items-center gap-2 flex-shrink-0">
@@ -132,7 +201,6 @@ const MiniPreCheckout = ({
           </div>
         )}
 
-        {/* STEP 1: QUALIFICAÇÃO */}
         {step === "qualificacao" && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center space-y-2 sm:space-y-3">
@@ -145,7 +213,6 @@ const MiniPreCheckout = ({
             </div>
 
             <div className="space-y-4 sm:space-y-6">
-              {/* Pergunta 1 */}
               <div className="space-y-2 sm:space-y-3">
                 <label className="text-[10px] sm:text-xs font-black text-white/40 uppercase tracking-widest block">
                   Qual seu principal objetivo?
@@ -173,7 +240,6 @@ const MiniPreCheckout = ({
                 </div>
               </div>
 
-              {/* Pergunta 2 */}
               <div className="space-y-2 sm:space-y-3">
                 <label className="text-[10px] sm:text-xs font-black text-white/40 uppercase tracking-widest block">
                   Acesso a academia?
@@ -201,7 +267,6 @@ const MiniPreCheckout = ({
                 </div>
               </div>
 
-              {/* Pergunta 3 */}
               <div className="space-y-2 sm:space-y-3">
                 <label className="text-[10px] sm:text-xs font-black text-white/40 uppercase tracking-widest block">
                   Quanto tempo para treinar por dia?
@@ -240,7 +305,6 @@ const MiniPreCheckout = ({
           </div>
         )}
 
-        {/* STEP 2: CONFIRMAÇÃO */}
         {step === "confirmacao" && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center space-y-2 sm:space-y-3">
