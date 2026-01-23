@@ -26,6 +26,7 @@ const App = () => (
               <Route path="/termos-de-uso" element={<TermsOfUse />} />
               <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
               <Route path="/pre-checkout" element={<PreCheckout />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </CTAVisibilityProvider>
