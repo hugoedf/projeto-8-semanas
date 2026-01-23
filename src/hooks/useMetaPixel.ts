@@ -280,5 +280,7 @@ export const useMetaPixel = () => {
   return {
     trackPageView,
     trackViewContent,
-    };
+    trackInitiateCheckout,
+    trackPurchase,
+  };
 };
