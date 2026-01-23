@@ -71,6 +71,7 @@ const Hero = () => {
             </div>
             <p className="text-red-400 text-sm font-medium mt-2">
               A maioria das pessoas não falha no treino. Falha no método.
+⚠️ Enquanto você hesita, outras pessoas já estão evoluindo com um sistema estruturado.
             </p>
           </div>
         </div>
