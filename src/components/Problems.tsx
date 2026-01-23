@@ -44,8 +44,8 @@ const Problems = () => {
             ))}
           </div>
 
-          {/* Agitação da dor */}
-          <div className="bg-red-950/50 border border-red-500/40 rounded-xl p-5 sm:p-6 text-center">
+                    {/* Agitação da dor */}
+          <div className="bg-red-950/50 border border-red-500/40 rounded-xl p-5 sm:p-6 text-center mb-10">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Flame className="w-5 h-5 text-red-400" />
               <span className="text-red-400 font-bold text-sm uppercase tracking-widest">Atenção</span>
@@ -55,6 +55,14 @@ const Problems = () => {
               Cada dia sem esse método é mais uma semana perdida e esforço jogado fora.
             </p>
           </div>
+
+          {/* FRASE-PONTE (O Pulo do Gato) */}
+          <div className="text-center max-w-2xl mx-auto">
+            <p className="text-white/90 text-lg sm:text-xl font-medium leading-relaxed italic">
+              "Esses problemas não acontecem por falta de esforço. Eles acontecem porque a maioria treina sem um método científico."
+            </p>
+          </div>
+
           
         </div>
       </div>
