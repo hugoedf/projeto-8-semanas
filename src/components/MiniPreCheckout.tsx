@@ -1,213 +1,282 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle2, Lock, X, AlertCircle, Zap } from 'lucide-react';
+import { CheckCircle2, Lock, Clock, X, AlertCircle, Zap, Users } from 'lucide-react';
 
-interface MiniPreCheckoutProps {
+interface MiniPreCheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
 }
 
-const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutProps) => {
+const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalProps) => {
   const [step, setStep] = useState<'qualificacao' | 'confirmacao'>('qualificacao');
-  const [vagas, setVagas] = useState(12);
   const [qualificacao, setQualificacao] = useState<{
     objetivo?: string;
     academia?: string;
+    tempo?: string;
   }>({});
+  const [timeLeft, setTimeLeft] = useState(24 * 60 * 60); // 24 horas em segundos
+  const [vagas, setVagas] = useState(12); // Vagas restantes
 
-  // LÓGICA DE ESCASSEZ PERSISTENTE E DINÂMICA
+  // Timer de urgência
   useEffect(() => {
-    // 1. Tentar recuperar vagas salvas ou definir inicial
-    const savedVagas = localStorage.getItem('metodo8x_vagas');
-    const lastUpdate = localStorage.getItem('metodo8x_vagas_time');
-    const now = Date.now();
-
-    let currentVagas = savedVagas ? parseInt(savedVagas) : 12;
-
-    // 2. Se passou muito tempo desde o último acesso, reduzir vagas automaticamente
-    if (lastUpdate) {
-      const diffMinutes = Math.floor((now - parseInt(lastUpdate)) / 60000);
-      if (diffMinutes > 0) {
-        currentVagas = Math.max(3, currentVagas - Math.floor(diffMinutes / 5)); // Reduz 1 vaga a cada 5 min
-      }
-    }
-
-    setVagas(currentVagas);
-    localStorage.setItem('metodo8x_vagas', currentVagas.toString());
-    localStorage.setItem('metodo8x_vagas_time', now.toString());
-
-    // 3. Intervalo para reduzir enquanto o usuário está na página
+    if (!isOpen) return;
+    
     const interval = setInterval(() => {
-      setVagas(prev => {
-        const newVal = prev > 3 ? prev - 1 : prev;
-        localStorage.setItem('metodo8x_vagas', newVal.toString());
-        return newVal;
+      setTimeLeft(prev => {
+        if (prev <= 0) return 24 * 60 * 60; // Reset
+        return prev - 1;
       });
-    }, 45000); // Reduz a cada 45 segundos de tela aberta
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [isOpen]);
 
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `${hours}h ${minutes}m`;
+  };
+
   const handleQualificacaoSubmit = () => {
-    if (qualificacao.objetivo && qualificacao.academia) {
+    // Se respondeu todas as perguntas, vai para confirmação
+    if (qualificacao.objetivo && qualificacao.academia && qualificacao.tempo) {
       setStep('confirmacao');
     } else {
-      alert('Por favor, responda todas as perguntas para continuar.');
+      alert('Por favor, responda todas as perguntas');
     }
   };
 
   const handleConfirm = () => {
     onConfirm();
-    setTimeout(() => {
-      setStep('qualificacao');
-      setQualificacao({});
-    }, 500);
+    // Reset para próxima vez
+    setStep('qualificacao');
+    setQualificacao({});
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-in fade-in duration-300">
-      <div className="relative w-full max-w-md bg-[#050505] border border-accent/30 rounded-[3rem] p-6 sm:p-10 shadow-[0_0_80px_rgba(255,87,34,0.2)] max-h-[95vh] overflow-y-auto animate-in zoom-in-95 duration-300">
-        
-        {/* Badge de Urgência Superior */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-accent px-6 py-2 rounded-full shadow-xl z-10 whitespace-nowrap">
-          <span className="text-white font-black text-[10px] uppercase tracking-[0.2em] flex items-center gap-2">
-            <Zap className="w-3 h-3 fill-white" /> Vagas Limitadas: {vagas} Restantes
-          </span>
-        </div>
-
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-md bg-black border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
+        {/* Botão Fechar */}
         <button 
-          onClick={onClose} 
-          className="absolute top-6 right-6 text-white/20 hover:text-white transition-colors p-2"
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
-        
-        {step === 'qualificacao' ? (
-          <div className="space-y-8 pt-4">
-            <div className="text-center space-y-3">
-              <h2 className="text-3xl sm:text-4xl font-black text-white leading-none uppercase tracking-tighter">
-                Análise de   
- <span className="text-accent">Perfil</span>
-              </h2>
-              <p className="text-sm text-white/50 font-medium">
-                Responda rápido para validar seu acesso:
-              </p>
-            </div>
 
-            <div className="space-y-6">
-              {/* Pergunta 1 */}
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] block ml-2">
-                  Qual seu principal objetivo?
-                </label>
-                <div className="space-y-2">
-                  {['💪 Ganhar massa muscular', '✨ Definir e perder gordura', '⚡ Aumentar força'].map(label => (
-                    <button
-                      key={label}
-                      onClick={() => setQualificacao({ ...qualificacao, objetivo: label })}
-                      className={`w-full text-left p-5 rounded-2xl border-2 transition-all duration-300 transform active:scale-95 ${
-                        qualificacao.objetivo === label 
-                          ? 'border-accent bg-accent/10 shadow-[0_0_30px_rgba(255,87,34,0.15)]' 
-                          : 'border-white/5 bg-white/[0.03] hover:bg-white/[0.08]'
-                      }`}
-                    >
-                      <span className={`font-black text-sm sm:text-base ${qualificacao.objetivo === label ? 'text-white' : 'text-white/60'}`}>
-                        {label}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Pergunta 2 */}
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] block ml-2">
-                  Acesso a academia?
-                </label>
-                <div className="space-y-2">
-                  {['✅ Sim, treino regularmente', '🤔 Às vezes', '❌ Não, treino em casa'].map(label => (
-                    <button
-                      key={label}
-                      onClick={() => setQualificacao({ ...qualificacao, academia: label })}
-                      className={`w-full text-left p-5 rounded-2xl border-2 transition-all duration-300 transform active:scale-95 ${
-                        qualificacao.academia === label 
-                          ? 'border-accent bg-accent/10 shadow-[0_0_30px_rgba(255,87,34,0.15)]' 
-                          : 'border-white/5 bg-white/[0.03] hover:bg-white/[0.08]'
-                      }`}
-                    >
-                      <span className={`font-black text-sm sm:text-base ${qualificacao.academia === label ? 'text-white' : 'text-white/60'}`}>
-                        {label}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={handleQualificacaoSubmit}
-              className="w-full bg-gradient-to-r from-accent to-[#FF7043] hover:brightness-110 text-white font-black text-xl py-7 rounded-2xl transition-all shadow-[0_15px_40px_rgba(255,87,34,0.3)] uppercase tracking-tight"
-            >
-              CONTINUAR
-            </button>
+        {/* Badge de Urgência */}
+        <div className="mb-6 flex items-center justify-between gap-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30">
+          <div className="flex items-center gap-2">
+            <Zap className="w-4 h-4 text-red-500" />
+            <span className="text-xs sm:text-sm font-bold text-red-500">
+              Oferta por tempo limitado
+            </span>
           </div>
-        ) : (
-          <div className="space-y-8 pt-4">
-            <div className="text-center space-y-4">
-              <div className="flex justify-center">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-green-500 blur-2xl opacity-20 animate-pulse" />
-                  <div className="relative w-24 h-24 bg-green-500/10 rounded-full flex items-center justify-center border-2 border-green-500/50">
-                    <CheckCircle2 className="w-12 h-12 text-green-500" />
-                  </div>
-                </div>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-black text-white leading-none uppercase tracking-tighter">
-                Perfil   
- <span className="text-green-500">Aprovado!</span>
+          <span className="text-xs font-mono text-red-500 font-bold">
+            {formatTime(timeLeft)}
+          </span>
+        </div>
+
+        {/* STEP 1: QUALIFICAÇÃO */}
+        {step === 'qualificacao' && (
+          <div className="space-y-8">
+            {/* Headline */}
+            <div className="text-center space-y-3">
+              <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                Antes de começar, deixa eu confirmar uma coisa
               </h2>
-              <p className="text-sm text-white/50 font-medium">
-                O Método 8X é exatamente o que você precisa.
+              <p className="text-sm sm:text-base text-gray-400 font-medium">
+                Responda 3 perguntas rápidas para garantir que o Método 8X é perfeito pra você:
               </p>
             </div>
 
-            <div className="space-y-3 bg-white/[0.03] p-6 rounded-[2rem] border border-white/5">
+            {/* Pergunta 1: Objetivo */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-white block">
+                Qual seu principal objetivo?
+              </label>
+              <div className="space-y-2">
+                {[
+                  { value: 'ganhar', label: '💪 Ganhar massa muscular' },
+                  { value: 'definir', label: '✨ Definir e perder gordura' },
+                  { value: 'forca', label: '⚡ Aumentar força' },
+                ].map(option => (
+                  <button
+                    key={option.value}
+                    onClick={() => setQualificacao({ ...qualificacao, objetivo: option.value })}
+                    className={`w-full text-left p-3 rounded-lg border-2 transition-all ${
+                      qualificacao.objetivo === option.value
+                        ? 'border-green-500 bg-green-500/10'
+                        : 'border-white/10 bg-white/5 hover:border-white/20'
+                    }`}
+                  >
+                    <span className="text-white font-medium text-sm">{option.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Pergunta 2: Academia */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-white block">
+                Você tem acesso a uma academia?
+              </label>
+              <div className="space-y-2">
+                {[
+                  { value: 'sim', label: '✅ Sim, treino regularmente' },
+                  { value: 'as-vezes', label: '🤔 Às vezes' },
+                  { value: 'nao', label: '❌ Não, treino em casa' },
+                ].map(option => (
+                  <button
+                    key={option.value}
+                    onClick={() => setQualificacao({ ...qualificacao, academia: option.value })}
+                    className={`w-full text-left p-3 rounded-lg border-2 transition-all ${
+                      qualificacao.academia === option.value
+                        ? 'border-green-500 bg-green-500/10'
+                        : 'border-white/10 bg-white/5 hover:border-white/20'
+                    }`}
+                  >
+                    <span className="text-white font-medium text-sm">{option.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Pergunta 3: Tempo */}
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-white block">
+                Quanto tempo você pode dedicar por dia?
+              </label>
+              <div className="space-y-2">
+                {[
+                  { value: '30', label: '⏱️ 30 minutos' },
+                  { value: '45', label: '⏱️ 45 minutos' },
+                  { value: '60+', label: '⏱️ 1 hora ou mais' },
+                ].map(option => (
+                  <button
+                    key={option.value}
+                    onClick={() => setQualificacao({ ...qualificacao, tempo: option.value })}
+                    className={`w-full text-left p-3 rounded-lg border-2 transition-all ${
+                      qualificacao.tempo === option.value
+                        ? 'border-green-500 bg-green-500/10'
+                        : 'border-white/10 bg-white/5 hover:border-white/20'
+                    }`}
+                  >
+                    <span className="text-white font-medium text-sm">{option.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA para Confirmação */}
+            <div className="space-y-3 pt-4">
+              <button
+                onClick={handleQualificacaoSubmit}
+                className="w-full bg-green-500 hover:bg-green-600 text-black font-black text-lg py-7 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-green-500/20"
+              >
+                CONTINUAR
+              </button>
+
+              <div className="flex items-center justify-center gap-2 text-gray-500 text-[10px] sm:text-xs">
+                <Clock className="w-3 h-3" />
+                <span>Leva menos de 30 segundos</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 2: CONFIRMAÇÃO */}
+        {step === 'confirmacao' && (
+          <div className="space-y-8">
+            {/* Headline */}
+            <div className="text-center space-y-3">
+              <div className="flex justify-center mb-3">
+                <CheckCircle2 className="w-12 h-12 text-green-500" />
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                Perfeito! Você está pronto
+              </h2>
+              <p className="text-sm sm:text-base text-gray-400 font-medium">
+                O Método 8X foi feito exatamente para você. Veja o que você vai receber:
+              </p>
+            </div>
+
+            {/* Checklist Melhorado */}
+            <div className="space-y-3">
               {[
-                "Treino estruturado por 8 semanas",
-                "Progressão definida (sem improviso)",
-                "Aplicativo + Ebook inclusos",
-                "Garantia incondicional de 7 dias"
+                "✅ Treino estruturado por 8 semanas",
+                "✅ Progressão definida (sem improviso)",
+                "✅ Aplicativo + Ebook inclusos",
+                "✅ Acesso imediato após a compra",
+                "✅ Garantia incondicional de 7 dias"
               ].map((item, index) => (
-                <div key={index} className="flex items-center gap-4">
-                  <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="w-3 h-3 text-green-500" />
-                  </div>
-                  <span className="text-white/90 text-sm font-bold">{item}</span>
+                <div key={index} className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <span className="text-white/90 text-sm sm:text-base font-medium">
+                    {item}
+                  </span>
                 </div>
               ))}
             </div>
 
-            <div className="space-y-5">
+            {/* Prova Social */}
+            <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-green-500" />
+                <span className="text-white text-xs sm:text-sm font-bold">
+                  +500 pessoas já transformaram seus treinos
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-yellow-400">⭐⭐⭐⭐⭐</span>
+                <span className="text-gray-400 text-xs">Avaliação média 4.9/5</span>
+              </div>
+            </div>
+
+            {/* Bloco de Segurança */}
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-4 space-y-2">
+              <div className="flex items-center gap-2">
+                <Lock className="w-4 h-4 text-green-500" />
+                <span className="text-white text-xs sm:text-sm font-bold">
+                  Pagamento 100% seguro pela Hotmart
+                </span>
+              </div>
+              <p className="text-gray-500 text-[10px] sm:text-xs leading-relaxed">
+                Cancelamento simples em até 7 dias, sem burocracia
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <div className="space-y-3">
               <button
                 onClick={handleConfirm}
-                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:brightness-110 text-white font-black text-xl py-7 rounded-2xl transition-all shadow-[0_15px_40px_rgba(34,197,94,0.3)] uppercase tracking-tight"
+                className="w-full bg-green-500 hover:bg-green-600 text-black font-black text-lg py-7 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-green-500/20"
               >
-                LIBERAR MEU ACESSO
+LIBERAR MEU ACESSO AO APP
               </button>
-              
-              <div className="flex flex-col items-center gap-4">
-                <div className="flex items-center gap-2 text-white/20 text-[10px] font-black uppercase tracking-[0.3em]">
-                  <Lock className="w-3 h-3" /> Transação Criptografada
+
+              {/* Microcopy com Urgência */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-center gap-2 text-gray-500 text-[10px] sm:text-xs">
+                  <Clock className="w-3 h-3" />
+                  <span>Leva menos de 1 minuto para concluir</span>
                 </div>
-                <div className="bg-red-500/10 border border-red-500/20 px-4 py-2 rounded-full">
-                  <div className="flex items-center gap-2 text-red-500 text-[10px] font-black uppercase tracking-widest animate-pulse">
-                    <AlertCircle className="w-3 h-3" /> Restam apenas {vagas} vagas hoje
-                  </div>
+                <div className="flex items-center justify-center gap-2 text-red-500 text-[10px] sm:text-xs font-bold">
+                  <AlertCircle className="w-3 h-3" />
+                  <span>Restam {vagas} vagas hoje</span>
                 </div>
               </div>
             </div>
+
+            {/* Botão Voltar */}
+            <button
+              onClick={() => setStep('qualificacao')}
+              className="w-full text-center text-gray-400 hover:text-gray-300 text-xs transition-colors"
+            >
+              Voltar
+            </button>
           </div>
         )}
       </div>
