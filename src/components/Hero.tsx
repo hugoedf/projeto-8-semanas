@@ -29,11 +29,13 @@ const Hero = () => {
         </div>
         <div className="relative z-10 w-full max-w-4xl text-center">
           <div className="flex justify-center mb-3 sm:mb-4">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-3 sm:px-4 py-1 sm:py-2">
-              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              {/* AJUSTE: Texto com mais peso visual para conversão */}
-              <span className="text-accent font-black text-[11px] sm:text-sm md:text-base tracking-wide leading-tight uppercase italic">
-                Você treina, se esforça… mas o espelho continua o mesmo?
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 sm:px-5 py-2 sm:py-3">
+              <div className="w-2 h-2 bg-accent rounded-full animate-pulse flex-shrink-0" />
+              {/* Ajustado apenas o tamanho (text-sm para mobile e text-lg para desktop) mantendo seu estilo original */}
+              <span className="text-accent font-black text-sm sm:text-base md:text-lg tracking-wide leading-tight">
+                Você treina, se esforça…
+                <br />
+                <strong>mas o espelho continua o mesmo?</strong>
               </span>
             </div>
           </div>
@@ -44,7 +46,7 @@ const Hero = () => {
             <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
           </p>
           
-          {/* AJUSTE: Mockup aumentado de max-w-md para max-w-2xl para impacto visual */}
+          {/* Mockup aumentado para max-w-2xl para maior impacto visual */}
           <div className="relative w-full max-w-2xl mx-auto mb-8">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
@@ -79,5 +81,4 @@ const Hero = () => {
     </>
   );
 };
-
 export default Hero;
