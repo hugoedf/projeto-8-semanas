@@ -45,13 +45,10 @@ const DecisionBlock = () => {
                 Ou ser o cara que finalmente <span className="text-white font-bold">domina seu corpo</span> e impressiona todo mundo.
               </p>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 mb-10">
               <div className="bg-red-950/30 border border-red-500/30 rounded-2xl p-5 sm:p-7 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-red-400" />
-                <div className="text-red-400 text-sm font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
-                  <X className="w-5 h-5" /> Continuar no mesmo caminho
-                </div>
+                <div className="text-red-400 text-sm font-bold uppercase tracking-widest mb-4 flex items-center gap-2"><X className="w-5 h-5" /> Continuar no mesmo caminho</div>
                 <ul className="space-y-3">
                   {negativePoints.map((point, index) => (
                     <li key={index} className="flex items-start gap-3 text-white/60 text-sm sm:text-base">
@@ -61,12 +58,9 @@ const DecisionBlock = () => {
                   ))}
                 </ul>
               </div>
-
               <div className="bg-accent/10 border border-accent/40 rounded-2xl p-5 sm:p-7 relative overflow-hidden shadow-xl shadow-accent/15">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-accent/70" />
-                <div className="text-accent text-sm font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
-                  <Check className="w-5 h-5" /> Seguir o Método 8X
-                </div>
+                <div className="text-accent text-sm font-bold uppercase tracking-widest mb-4 flex items-center gap-2"><Check className="w-5 h-5" /> Seguir o Método 8X</div>
                 <ul className="space-y-3">
                   {positivePoints.map((point, index) => (
                     <li key={index} className="flex items-start gap-3 text-white text-sm sm:text-base">
@@ -77,24 +71,15 @@ const DecisionBlock = () => {
                 </ul>
               </div>
             </div>
-
             <div className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-8 text-center max-w-xl mx-auto">
               <div className="flex items-center justify-center gap-4 mb-3">
                 <span className="text-white/40 line-through text-xl">R$ 97</span>
                 <span className="text-accent font-display text-3xl sm:text-5xl font-bold">R$ 19,90</span>
               </div>
-              <Button 
-                variant="cta" 
-                size="cta" 
-                onClick={handleCTAClick} 
-                className="w-full mb-4 shadow-xl shadow-accent/30 text-base py-5 bg-green-500 hover:bg-green-600 text-white"
-              >
+              <Button variant="cta" size="cta" onClick={handleCTAClick} className="w-full mb-4 bg-green-500 hover:bg-green-600 text-white">
                 Comprar agora <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              <p className="text-white/40 text-xs flex items-center justify-center gap-2">
-                <Clock className="w-4 h-4" />
-                <span>Acesso imediato · Garantia de 7 dias · Risco zero</span>
-              </p>
+              <p className="text-white/40 text-xs flex items-center justify-center gap-2"><Clock className="w-4 h-4" /> Acesso imediato · Garantia de 7 dias</p>
             </div>
           </div>
         </div>
