@@ -14,31 +14,46 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
     academia?: string;
     tempo?: string;
   }>({});
-  const [timeLeft, setTimeLeft] = useState(24 * 60 * 60); // 24 horas em segundos
-  const [vagas, setVagas] = useState(12); // Vagas restantes
+  
+  // Lógica de Urgência Real com Memória
+  const TIMER_KEY = 'metodo8x_timer';
+  const INITIAL_TIME = 15 * 60; // 15 minutos em segundos
+  const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
+  const [vagas, setVagas] = useState(12);
 
-  // Timer de urgência
   useEffect(() => {
-    if (!isOpen) return;
-    
+    // Tenta recuperar o tempo já iniciado no navegador do usuário
+    const savedTime = localStorage.getItem(TIMER_KEY);
+    if (savedTime) {
+      const remaining = parseInt(savedTime, 10);
+      setTimeLeft(remaining > 0 ? remaining : 0);
+    } else {
+      localStorage.setItem(TIMER_KEY, INITIAL_TIME.toString());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen || timeLeft <= 0) return;
+
     const interval = setInterval(() => {
       setTimeLeft(prev => {
-        if (prev <= 0) return 24 * 60 * 60; // Reset
-        return prev - 1;
+        const nextValue = prev - 1;
+        localStorage.setItem(TIMER_KEY, nextValue.toString());
+        return nextValue;
       });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isOpen]);
+  }, [isOpen, timeLeft]);
 
   const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    return `${hours}h ${minutes}m`;
+    if (seconds <= 0) return "00:00";
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   const handleQualificacaoSubmit = () => {
-    // Se respondeu todas as perguntas, vai para confirmação
     if (qualificacao.objetivo && qualificacao.academia && qualificacao.tempo) {
       setStep('confirmacao');
     } else {
@@ -48,7 +63,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
 
   const handleConfirm = () => {
     onConfirm();
-    // Reset para próxima vez
     setStep('qualificacao');
     setQualificacao({});
   };
@@ -70,11 +84,11 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
         <div className="mb-6 flex items-center justify-between gap-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30">
           <div className="flex items-center gap-2">
             <Zap className="w-4 h-4 text-red-500" />
-            <span className="text-xs sm:text-sm font-bold text-red-500">
-              Oferta por tempo limitado
+            <span className="text-xs sm:text-sm font-bold text-red-500 uppercase tracking-tight">
+              A oferta expira em
             </span>
           </div>
-          <span className="text-xs font-mono text-red-500 font-bold">
+          <span className="text-sm font-mono text-red-500 font-bold bg-red-500/10 px-2 py-1 rounded border border-red-500/20">
             {formatTime(timeLeft)}
           </span>
         </div>
@@ -82,7 +96,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
         {/* STEP 1: QUALIFICAÇÃO */}
         {step === 'qualificacao' && (
           <div className="space-y-8">
-            {/* Headline */}
             <div className="text-center space-y-3">
               <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
                 Antes de começar, deixa eu confirmar uma coisa
@@ -92,7 +105,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               </p>
             </div>
 
-            {/* Pergunta 1: Objetivo */}
             <div className="space-y-3">
               <label className="text-sm font-bold text-white block">
                 Qual seu principal objetivo?
@@ -118,7 +130,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               </div>
             </div>
 
-            {/* Pergunta 2: Academia */}
             <div className="space-y-3">
               <label className="text-sm font-bold text-white block">
                 Você tem acesso a uma academia?
@@ -144,7 +155,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               </div>
             </div>
 
-            {/* Pergunta 3: Tempo */}
             <div className="space-y-3">
               <label className="text-sm font-bold text-white block">
                 Quanto tempo você pode dedicar por dia?
@@ -170,7 +180,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               </div>
             </div>
 
-            {/* CTA para Confirmação */}
             <div className="space-y-3 pt-4">
               <button
                 onClick={handleQualificacaoSubmit}
@@ -190,7 +199,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
         {/* STEP 2: CONFIRMAÇÃO */}
         {step === 'confirmacao' && (
           <div className="space-y-8">
-            {/* Headline */}
             <div className="text-center space-y-3">
               <div className="flex justify-center mb-3">
                 <CheckCircle2 className="w-12 h-12 text-green-500" />
@@ -203,7 +211,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               </p>
             </div>
 
-            {/* Checklist Melhorado */}
             <div className="space-y-3">
               {[
                 "✅ Treino estruturado por 8 semanas",
@@ -221,7 +228,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               ))}
             </div>
 
-            {/* Prova Social */}
             <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-4 space-y-3">
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4 text-green-500" />
@@ -235,7 +241,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               </div>
             </div>
 
-            {/* Bloco de Segurança */}
             <div className="bg-white/5 border border-white/10 rounded-2xl p-4 space-y-2">
               <div className="flex items-center gap-2">
                 <Lock className="w-4 h-4 text-green-500" />
@@ -248,7 +253,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               </p>
             </div>
 
-            {/* CTA Button */}
             <div className="space-y-3">
               <button
                 onClick={handleConfirm}
@@ -257,7 +261,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
                 LIBERAR MEU ACESSO AO APP
               </button>
 
-              {/* Microcopy com Urgência */}
               <div className="space-y-2">
                 <div className="flex items-center justify-center gap-2 text-gray-500 text-[10px] sm:text-xs">
                   <Clock className="w-3 h-3" />
@@ -270,7 +273,6 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
               </div>
             </div>
 
-            {/* Botão Voltar */}
             <button
               onClick={() => setStep('qualificacao')}
               className="w-full text-center text-gray-400 hover:text-gray-300 text-xs transition-colors"
