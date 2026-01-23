@@ -39,7 +39,7 @@ const WhyMethodExists = () => {
 
       <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto">
-          {/* HEADER — CONECTADO À DOR ANTERIOR */}
+          {/* HEADER — AJUSTADO PARA FIXAÇÃO */}
           <div className="text-center mb-10 lg:mb-16">
             <h2 className="font-display text-[22px] sm:text-4xl md:text-5xl tracking-tight text-black leading-tight px-4">
               <span className="block">
@@ -47,7 +47,11 @@ const WhyMethodExists = () => {
               </span>
 
               <span className="block mt-1 text-accent">
-                É a resposta para quem treina duro e não vê evolução.
+                É um sistema científico.
+              </span>
+
+              <span className="block mt-1 text-black/80">
+                Que força seu corpo a evoluir de forma previsível.
               </span>
             </h2>
           </div>
@@ -141,14 +145,6 @@ const WhyMethodExists = () => {
               </div>
             </div>
           </div>
-
-          {/* FECHAMENTO DE AUTORIDADE - O ARGUMENTO FINAL */}
-          <div className="mt-12 text-center border-t border-black/5 pt-10">
-            <p className="text-black/80 text-xl sm:text-2xl font-display font-bold leading-tight max-w-3xl mx-auto">
-              Um sistema científico que <span className="text-accent">força seu corpo a evoluir</span> de forma previsível.
-            </p>
-          </div>
-
         </div>
       </div>
     </section>
