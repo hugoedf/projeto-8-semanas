@@ -1,139 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle2, Lock, Clock, X, AlertCircle, Zap, Users } from 'lucide-react';
-import { useCountdownTimer } from '../hooks/useCountdownTimer';
-import { useState, useEffect } from 'react';
+import { CheckCircle2, Lock, X, AlertCircle } from 'lucide-react';
 
-const TIMER_STORAGE_KEY = 'metodo8x_countdown_deadline';
-const DURATION_24H = 24 * 60 * 60 * 1000;
-
-export const useCountdownTimer = () => {
-  const [timeLeft, setTimeLeft] = useState<number | null>(null);
-  const [isExpired, setIsExpired] = useState(false);
-
-  useEffect(() => {
-    // Verifica se já existe um prazo salvo
-    let deadline = localStorage.getItem(TIMER_STORAGE_KEY);
-    
-    if (!deadline) {
-      // Se não existe, cria um novo prazo de 24h a partir de AGORA
-      const targetTime = new Date().getTime() + DURATION_24H;
-      localStorage.setItem(TIMER_STORAGE_KEY, targetTime.toString());
-      deadline = targetTime.toString();
-    }
-
-    const targetTime = parseInt(deadline, 10);
-
-    // Função para atualizar o cronômetro a cada segundo
-    const updateTimer = () => {
-      const now = new Date().getTime();
-      const distance = targetTime - now;
-
-      if (distance <= 0) {
-        setTimeLeft(0);
-        setIsExpired(true);
-        return;
-      }
-      setTimeLeft(distance);
-    };
-
-    updateTimer(); // Executa imediatamente
-    const interval = setInterval(updateTimer, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatTime = (ms: number | null) => {
-    if (ms === null) return "00:00:00";
-    const totalSeconds = Math.floor(ms / 1000);
-    const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-    const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
-    const s = String(Math.floor(totalSeconds % 60)).padStart(2, '0');
-    return `${h}:${m}:${s}`;
-  };
-
-  return {
-    timeLeft,
-    formattedTime: formatTime(timeLeft),
-    isExpired,
-  };
-};
-
-interface MiniPreCheckoutModalProps {
+interface MiniPreCheckoutProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
 }
 
-const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalProps) => {
+const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutProps) => {
   const [step, setStep] = useState<'qualificacao' | 'confirmacao'>('qualificacao');
+  const [vagas, setVagas] = useState(12);
   const [qualificacao, setQualificacao] = useState<{
     objetivo?: string;
     academia?: string;
-    tempo?: string;
   }>({});
-  
-  // Usando o hook de cronômetro persistente e sincronizado
-  const { formattedTime, isExpired } = useCountdownTimer();
-  const [vagas, setVagas] = useState(12);
+
+  // Efeito para simular escassez real
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVagas(prev => (prev > 3 ? prev - 1 : prev));
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleQualificacaoSubmit = () => {
-    if (qualificacao.objetivo && qualificacao.academia && qualificacao.tempo) {
+    if (qualificacao.objetivo && qualificacao.academia) {
       setStep('confirmacao');
     } else {
-      alert('Por favor, responda todas as perguntas');
+      alert('Por favor, responda todas as perguntas para continuar.');
     }
   };
 
   const handleConfirm = () => {
     onConfirm();
-    setStep('qualificacao');
-    setQualificacao({});
+    // Resetar para o estado inicial após fechar
+    setTimeout(() => {
+      setStep('qualificacao');
+      setQualificacao({});
+    }, 500);
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-md bg-black border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-fade-in">
+      <div className="relative w-full max-w-md bg-[#0A0A0A] border border-accent/20 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_0_50px_rgba(255,87,34,0.15)] max-h-[90vh] overflow-y-auto animate-scale-in">
+        
         {/* Botão Fechar */}
         <button 
-          onClick={onClose}
-          className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors"
+          onClick={onClose} 
+          className="absolute top-6 right-6 text-white/20 hover:text-white transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
-
-        {/* Badge de Urgência Real e Sincronizada */}
-        {!isExpired && (
-          <div className="mb-6 flex items-center justify-between gap-3 p-3 rounded-xl bg-red-500/10 border border-red-500/30">
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-red-500 fill-red-500/20" />
-              <span className="text-xs sm:text-sm font-black uppercase tracking-tight text-red-500">
-                PROMOÇÃO VÁLIDA HOJE
-              </span>
-            </div>
-            <span className="text-xs font-mono text-red-500 font-black">
-              {formattedTime}
-            </span>
-          </div>
-        )}
-
-        {/* STEP 1: QUALIFICAÇÃO */}
-        {step === 'qualificacao' && (
+        
+        {step === 'qualificacao' ? (
           <div className="space-y-8">
             <div className="text-center space-y-3">
-              <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight uppercase">
+              <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight uppercase tracking-tighter">
                 Antes de começar
               </h2>
               <p className="text-sm sm:text-base text-gray-400 font-medium">
-                Responda 3 perguntas rápidas para garantir que o Método 8X é perfeito pra você:
+                Responda 2 perguntas rápidas para garantir que o Método 8X é perfeito pra você:
               </p>
             </div>
 
             <div className="space-y-6">
               {/* Pergunta 1 */}
               <div className="space-y-3">
-                <label className="text-xs font-black text-white/40 uppercase tracking-widest block">
+                <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] block">
                   Qual seu principal objetivo?
                 </label>
                 <div className="space-y-2">
@@ -141,11 +76,15 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
                     <button
                       key={label}
                       onClick={() => setQualificacao({ ...qualificacao, objetivo: label })}
-                      className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
-                        qualificacao.objetivo === label ? 'border-green-500 bg-green-500/10' : 'border-white/5 bg-white/5'
+                      className={`w-full text-left p-4 rounded-2xl border-2 transition-all duration-300 ${
+                        qualificacao.objetivo === label 
+                          ? 'border-green-500 bg-green-500/10 shadow-[0_0_20px_rgba(34,197,94,0.1)]' 
+                          : 'border-white/5 bg-white/5 hover:bg-white/10'
                       }`}
                     >
-                      <span className="text-white font-bold text-sm">{label}</span>
+                      <span className={`font-bold text-sm ${qualificacao.objetivo === label ? 'text-green-400' : 'text-white/70'}`}>
+                        {label}
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -153,7 +92,7 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
 
               {/* Pergunta 2 */}
               <div className="space-y-3">
-                <label className="text-xs font-black text-white/40 uppercase tracking-widest block">
+                <label className="text-[10px] font-black text-white/30 uppercase tracking-[0.2em] block">
                   Acesso a academia?
                 </label>
                 <div className="space-y-2">
@@ -161,11 +100,15 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
                     <button
                       key={label}
                       onClick={() => setQualificacao({ ...qualificacao, academia: label })}
-                      className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
-                        qualificacao.academia === label ? 'border-green-500 bg-green-500/10' : 'border-white/5 bg-white/5'
+                      className={`w-full text-left p-4 rounded-2xl border-2 transition-all duration-300 ${
+                        qualificacao.academia === label 
+                          ? 'border-green-500 bg-green-500/10 shadow-[0_0_20px_rgba(34,197,94,0.1)]' 
+                          : 'border-white/5 bg-white/5 hover:bg-white/10'
                       }`}
                     >
-                      <span className="text-white font-bold text-sm">{label}</span>
+                      <span className={`font-bold text-sm ${qualificacao.academia === label ? 'text-green-400' : 'text-white/70'}`}>
+                        {label}
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -174,30 +117,34 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
 
             <button
               onClick={handleQualificacaoSubmit}
-              className="w-full bg-green-500 hover:bg-green-600 text-white font-black text-lg py-6 rounded-2xl transition-all shadow-xl shadow-green-500/20 uppercase whitespace-nowrap overflow-hidden"
+              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-black text-lg py-6 rounded-2xl transition-all shadow-xl shadow-green-500/20 uppercase tracking-tight"
             >
               CONTINUAR
             </button>
           </div>
-        )}
-
-        {/* STEP 2: CONFIRMAÇÃO */}
-        {step === 'confirmacao' && (
+        ) : (
           <div className="space-y-8">
             <div className="text-center space-y-3">
-              <div className="flex justify-center mb-3">
-                <CheckCircle2 className="w-12 h-12 text-green-500" />
+              <div className="flex justify-center mb-4">
+                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center border border-green-500/30">
+                  <CheckCircle2 className="w-10 h-10 text-green-500" />
+                </div>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight uppercase">
+              <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight uppercase tracking-tighter">
                 Você está pronto!
               </h2>
               <p className="text-sm sm:text-base text-gray-400 font-medium">
-                O Método 8X foi feito exatamente para você.
+                O Método 8X foi feito exatamente para o seu perfil.
               </p>
             </div>
 
-            <div className="space-y-3 bg-white/5 p-4 rounded-2xl border border-white/5">
-              {["Treino estruturado por 8 semanas", "Progressão definida (sem improviso)", "Aplicativo + Ebook inclusos", "Garantia incondicional de 7 dias"].map((item, index) => (
+            <div className="space-y-3 bg-white/5 p-5 rounded-3xl border border-white/5">
+              {[
+                "Treino estruturado por 8 semanas",
+                "Progressão definida (sem improviso)",
+                "Aplicativo + Ebook inclusos",
+                "Garantia incondicional de 7 dias"
+              ].map((item, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
                   <span className="text-white/80 text-sm font-bold">{item}</span>
@@ -208,16 +155,16 @@ const MiniPreCheckout = ({ isOpen, onClose, onConfirm }: MiniPreCheckoutModalPro
             <div className="space-y-4">
               <button
                 onClick={handleConfirm}
-                className="w-full bg-green-500 hover:bg-green-600 text-white font-black text-lg py-6 rounded-2xl transition-all shadow-xl shadow-green-500/20 uppercase whitespace-nowrap overflow-hidden"
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-black text-lg py-6 rounded-2xl transition-all shadow-xl shadow-green-500/20 uppercase tracking-tight"
               >
                 LIBERAR MEU ACESSO AGORA
               </button>
               
-              <div className="flex flex-col items-center gap-2">
-                <div className="flex items-center gap-2 text-white/30 text-[10px] font-black uppercase tracking-widest">
+              <div className="flex flex-col items-center gap-3">
+                <div className="flex items-center gap-2 text-white/30 text-[10px] font-black uppercase tracking-[0.2em]">
                   <Lock className="w-3 h-3" /> Pagamento 100% Seguro
                 </div>
-                <div className="flex items-center gap-2 text-red-500 text-[10px] font-black uppercase tracking-widest animate-pulse">
+                <div className="flex items-center gap-2 text-red-500 text-[10px] font-black uppercase tracking-[0.2em] animate-pulse">
                   <AlertCircle className="w-3 h-3" /> Restam apenas {vagas} vagas hoje
                 </div>
               </div>
