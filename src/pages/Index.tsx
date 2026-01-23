@@ -22,11 +22,11 @@ const Index = () => {
       {/* 1. HEADLINE - Promessa Impactante (CTA VERDE #1) */}
       <Hero />
       
-      {/* 2. SUSTENTAÇÃO - Autoridade + Ciência */}
-      <WhyExists />
-      
-      {/* 3. DORES - Conexão Emocional */}
+      {/* 2. DORES - Conexão Emocional (Movido para cima) */}
       <Problems />
+      
+      {/* 3. SUSTENTAÇÃO - Autoridade + Ciência (Agora após as dores) */}
+      <WhyExists />
       
       {/* 4. BENEFÍCIOS - O que você conquista em 8 semanas */}
       <Benefits />
