@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { ArrowRight, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import MiniPreCheckout from './MiniPreCheckout';
+import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
-
+import { useMetaPixel } from '@/hooks/useMetaPixel';
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { trackInitiateCheckout } = useMetaPixel();
+  const { visitorData } = useVisitorTracking();
 
   const handleCTAClick = () => setIsModalOpen(true);
 
@@ -14,18 +18,13 @@ const Hero = () => {
     const baseUrl =
       'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    
-    console.log('✅ ===== REDIRECIONANDO PARA CHECKOUT (HERO) =====');
-    console.log('🔗 URL final:', checkoutUrl);
-    console.log('ℹ️ InitiateCheckout e Purchase serão disparados pela UTM-FI da Hotmart');
-    console.log('==================================================');
-    
+    trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
   return (
     <>
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-14 sm:py-20 overflow-hidden gradient-hero">
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20 overflow-hidden gradient-hero">
         {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
@@ -34,22 +33,17 @@ const Hero = () => {
 
         <div className="relative z-10 w-full max-w-4xl text-center">
           {/* HOOK DE IDENTIFICAÇÃO */}
-          <div className="flex justify-center mb-4">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-2">
+          <div className="flex justify-center mb-3 sm:mb-4">
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-3 sm:px-4 py-1 sm:py-2">
               <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              <span className="text-accent font-black text-[11px] md:text-sm uppercase tracking-wider text-center leading-tight">
-                <span className="block sm:inline">
-                  VOCÊ TREINA, SE ESFORÇA,
-                </span>{' '}
-                <span className="block sm:inline">
-                  MAS SEU CORPO NÃO RESPONDE?
-                </span>
+              <span className="text-accent font-black text-[10px] sm:text-[11px] md:text-sm uppercase tracking-wider">
+                VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
               </span>
             </div>
           </div>
 
           {/* HEADLINE */}
-          <h1 className="font-display text-[1.9rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
+          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
             8 semanas para{' '}
             <span className="text-accent">
               músculos que todo mundo nota
@@ -57,14 +51,14 @@ const Hero = () => {
             — sem improviso e sem perda de tempo.
           </h1>
 
-          {/* SUBHEADLINE */}
+          {/* SUB-HEADLINE */}
           <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
             <strong>Treino pronto</strong>, passo a passo, para você{' '}
             <strong>sair da estagnação</strong> e ver{' '}
             <strong>resultado no espelho</strong> — sem improviso.
           </p>
 
-          {/* MOCKUP */}
+          {/* BLOCO DA IMAGEM */}
           <div className="relative w-full max-w-md mx-auto mb-8">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
@@ -78,9 +72,9 @@ const Hero = () => {
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
-              className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-black shadow-2xl shadow-green-500/40 transition-all flex items-center justify-center gap-2"
+              className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all flex items-center justify-center gap-2"
             >
-              COMEÇAR O MÉTODO 8X AGORA
+             COMEÇAR O MÉTODO 8X AGORA
               <ArrowRight className="w-5 h-5" />
             </Button>
 
@@ -95,14 +89,9 @@ const Hero = () => {
               <span>🛡️ 7 Dias de Garantia</span>
             </div>
 
-            {/* FRASE DE IMPACTO (ANCORAGEM DO CTA) */}
-            <p className="text-red-400 text-sm font-medium mt-2 text-center leading-snug">
-              <span className="block sm:inline">
-                A maioria das pessoas não falha no treino.
-              </span>{' '}
-              <span className="block sm:inline font-bold">
-                Falha no método.
-              </span>
+            {/* FRASE DE IMPACTO */}
+            <p className="text-red-400 text-sm font-medium mt-2">
+            A maioria das pessoas não falha no treino. Falha no método.
             </p>
           </div>
         </div>
