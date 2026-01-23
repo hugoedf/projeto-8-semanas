@@ -24,7 +24,7 @@ const Problems = () => {
             <h2 className="font-display text-2xl sm:text-4xl md:text-5xl tracking-tight text-white leading-[1.1] mb-3">
               Se você se identifica com  
 
-              <span className="text-red-500">algum desses problemas</span>,  
+              <span className="text-red-500"> algum desses problemas</span>,  
 
               você não está sozinho:
             </h2>
