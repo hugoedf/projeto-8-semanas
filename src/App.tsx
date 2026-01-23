@@ -3,41 +3,36 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { MetaPixelProvider } from "@/components/MetaPixelProvider";
 import { CTAVisibilityProvider } from "@/contexts/CTAVisibilityContext";
-
 import Index from "./pages/Index";
 import TermsOfUse from "./pages/TermsOfUse";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
+import PreCheckout from "./pages/PreCheckout";
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-
-        <BrowserRouter>
-          <MetaPixelProvider>
-            <CTAVisibilityProvider>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/termos-de-uso" element={<TermsOfUse />} />
-                <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
-
-                {/* Catch-all */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </CTAVisibilityProvider>
-          </MetaPixelProvider>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-};
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <MetaPixelProvider>
+          <CTAVisibilityProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/termos-de-uso" element={<TermsOfUse />} />
+              <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
+              <Route path="/pre-checkout" element={<PreCheckout />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </CTAVisibilityProvider>
+        </MetaPixelProvider>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
