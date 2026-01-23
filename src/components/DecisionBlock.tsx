@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { X, Check, ArrowRight, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import MiniPreCheckout from './MiniPreCheckout';
+import { MiniPreCheckoutModal } from './MiniPreCheckout';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { buildHotmartCheckoutUrl } from '@/lib/utils';
-
+import { useMetaPixel } from '@/hooks/useMetaPixel';
 
 const DecisionBlock = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { trackInitiateCheckout } = useMetaPixel();
   const { visitorData } = useVisitorTracking();
 
   const negativePoints = [
@@ -33,13 +34,11 @@ const DecisionBlock = () => {
   const handleConfirmPurchase = () => {
     const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
     const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
-    
-    console.log('✅ ===== REDIRECIONANDO PARA CHECKOUT (DECISION BLOCK) =====');
-    console.log('🔗 URL final:', checkoutUrl);
+    console.log('✅ ===== CHECKOUT INICIADO (DECISION BLOCK - APÓS CONFIRMAÇÃO NO MODAL) =====');
+    console.log('🔗 URL final com rastreamento completo:', checkoutUrl);
     console.log('📊 Dados do visitante:', visitorData);
-    console.log('ℹ️ InitiateCheckout e Purchase serão disparados pela UTM-FI da Hotmart');
-    console.log('============================================================');
-    
+    console.log('========================================');
+    trackInitiateCheckout(19.90, 'BRL');
     window.location.href = checkoutUrl;
   };
 
@@ -145,7 +144,7 @@ const DecisionBlock = () => {
       </section>
 
       {/* Modal de confirmação */}
-      <MiniPreCheckout 
+      <MiniPreCheckoutModal 
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleConfirmPurchase}
