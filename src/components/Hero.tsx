@@ -31,13 +31,10 @@ const Hero = () => {
           <div className="flex justify-center mb-3 sm:mb-4">
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-3 sm:px-4 py-1 sm:py-2">
               <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
-            <span className="text-accent font-black text-[10px] sm:text-[11px] md:text-sm tracking-wide leading-tight">
-  Você treina, se esforça…
-  <br />
-  <strong>mas o espelho continua o mesmo?</strong>
-</span>
-
-
+              {/* AJUSTE: Texto com mais peso visual para conversão */}
+              <span className="text-accent font-black text-[11px] sm:text-sm md:text-base tracking-wide leading-tight uppercase italic">
+                Você treina, se esforça… mas o espelho continua o mesmo?
+              </span>
             </div>
           </div>
           <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
@@ -46,7 +43,9 @@ const Hero = () => {
           <p className="text-lg sm:text-xl text-white/80 mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
             <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
           </p>
-          <div className="relative w-full max-w-md mx-auto mb-8">
+          
+          {/* AJUSTE: Mockup aumentado de max-w-md para max-w-2xl para impacto visual */}
+          <div className="relative w-full max-w-2xl mx-auto mb-8">
             <div className="absolute -inset-10 bg-[radial-gradient(ellipse_at_center,hsla(18,100%,55%,0.25)_0%,transparent_60%)] blur-[45px] rounded-2xl" />
             <img
               src="/lovable-uploads/Mockup.png"
@@ -54,12 +53,13 @@ const Hero = () => {
               className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
             />
           </div>
+
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
               className="w-full bg-green-500 hover:bg-green-600 text-white text-lg py-6 font-bold shadow-2xl shadow-green-500/40 transition-all flex items-center justify-center gap-2"
             >
-             COMEÇAR O MÉTODO 8X AGORA
+              COMEÇAR O MÉTODO 8X AGORA
               <ArrowRight className="w-5 h-5" />
             </Button>
             <div className="flex items-center justify-center gap-3 text-white/70 text-xs flex-wrap">
@@ -70,7 +70,7 @@ const Hero = () => {
               <span>🛡️ 7 Dias de Garantia</span>
             </div>
             <p className="text-red-400 text-sm font-medium mt-2">
-⚠️ Enquanto você hesita, outras pessoas já estão evoluindo com um sistema estruturado.
+              ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo com um sistema estruturado.
             </p>
           </div>
         </div>
@@ -79,4 +79,5 @@ const Hero = () => {
     </>
   );
 };
+
 export default Hero;
