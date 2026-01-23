@@ -10,6 +10,9 @@ const painPoints = [
 const Problems = () => {
   return (
     <section className="py-12 sm:py-16 bg-black relative overflow-hidden">
+      {/* Divisor de transição para separar do Hero e manter o peso visual */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+      
       {/* Dramatic background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,hsla(0,70%,50%,0.06),transparent_50%)]" />
       
@@ -19,8 +22,10 @@ const Problems = () => {
           {/* Headline */}
           <div className="text-center mb-10 lg:mb-12">
             <h2 className="font-display text-2xl sm:text-4xl md:text-5xl tracking-tight text-white leading-[1.1] mb-3">
-              Se você se identifica com<br />
-              <span className="text-red-500">algum desses problemas</span>,<br />
+              Se você se identifica com  
+
+              <span className="text-red-500">algum desses problemas</span>,  
+
               você não está sozinho:
             </h2>
           </div>
@@ -44,7 +49,7 @@ const Problems = () => {
             ))}
           </div>
 
-                    {/* Agitação da dor */}
+          {/* Agitação da dor */}
           <div className="bg-red-950/50 border border-red-500/40 rounded-xl p-5 sm:p-6 text-center mb-10">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Flame className="w-5 h-5 text-red-400" />
@@ -62,7 +67,6 @@ const Problems = () => {
               "Esses problemas não acontecem por falta de esforço. Eles acontecem porque a maioria treina sem um método científico."
             </p>
           </div>
-
           
         </div>
       </div>
