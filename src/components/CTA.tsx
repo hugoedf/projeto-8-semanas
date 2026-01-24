@@ -129,12 +129,6 @@ const CTA = () => {
                   <ArrowRight className="w-5 h-5 flex-shrink-0" />
                 </Button>
 
-                <div className="mt-2 mb-4 px-4 py-3 rounded-xl border border-black/10 bg-black/[0.04] text-center">
-                  <span className="text-black/80 text-sm font-semibold leading-snug">
-                    Enquanto você hesita, o treino continua o mesmo — e o corpo também.
-                  </span>
-                </div>
-
                 <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] flex-wrap">
                   <span className="flex items-center gap-1">
                     <Lock className="w-3 h-3" /> Pagamento Seguro
