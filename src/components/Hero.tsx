@@ -35,9 +35,9 @@ const Hero = () => {
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-5 py-3">
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse flex-shrink-0" />
               <span className="text-accent font-black text-sm sm:text-base md:text-lg tracking-wide leading-tight">
-                Você treina, se esforça…
+                VOCÊ TREINA, SE ESFORÇA… 
                 <br />
-                <strong>mas o espelho continua o mesmo?</strong>
+                <strong>MAS SEU CORPO NÃO RESPONDE?</strong>
               </span>
             </div>
           </div>
