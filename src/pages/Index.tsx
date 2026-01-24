@@ -17,40 +17,40 @@ import SocialProofNotifications from "@/components/SocialProofNotifications";
 const Index = () => {
   return (
     <main className="min-h-screen">
-      {/* FLUXO DE PERSUASÃO OTIMIZADO */}
-      
-      {/* 1. HEADLINE - Promessa Impactante (CTA VERDE #1) */}
+      {/* FLUXO DE PERSUASÃO - VERSÃO ANTERIOR (SOLUÇÃO -> PROBLEMA) */}
+
+      {/* 1. HEADLINE - Promessa Impactante */}
       <Hero />
-      
-      {/* 2. DORES - Conexão Emocional (Movido para cima) */}
-      <Problems />
-      
-      {/* 3. SUSTENTAÇÃO - Autoridade + Ciência (Agora após as dores) */}
+
+      {/* 2. SUSTENTAÇÃO - Autoridade + Ciência (Solução/Método primeiro) */}
       <WhyExists />
-      
+
+      {/* 3. DORES - Conexão Emocional (Problema depois) */}
+      <Problems />
+
       {/* 4. BENEFÍCIOS - O que você conquista em 8 semanas */}
       <Benefits />
-      
+
       {/* 5. PROVA SOCIAL - Depoimentos */}
       <Testimonials />
-      
+
       {/* 6. BÔNUS EXCLUSIVOS */}
       <Bonus />
-      
+
       {/* 7. DECISÃO - Contraste emocional */}
       <DecisionBlock />
-      
+
       {/* 8. GARANTIA */}
       <Guarantee />
-      
-      {/* 9. CTA FINAL - Ancoragem e Preço (CTA VERDE #2) */}
+
+      {/* 9. CTA FINAL - Ancoragem e Preço */}
       <CTA />
-      
+
       {/* 10. FAQ - Últimas objeções */}
       <FAQ />
-      
+
       <Footer />
-      
+
       {/* Elementos de urgência e prova social */}
       <FloatingCTA />
       <WhatsAppButton />
