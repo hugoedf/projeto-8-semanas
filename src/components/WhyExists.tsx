@@ -41,23 +41,23 @@ const WhyMethodExists = () => {
         <div className="max-w-5xl mx-auto">
           {/* HEADER — AJUSTADO PARA FIXAÇÃO */}
           <div className="text-center mb-10 lg:mb-16">
-            <h2 className="font-display text-[22px] sm:text-4xl md:text-5xl tracking-tight text-black leading-tight px-4">
+            <h2 className="font-display text-[26px] sm:text-4xl md:text-5xl tracking-tight text-black leading-[1.08] sm:leading-tight mx-auto max-w-[22ch] sm:max-w-none">
               <span className="block">
                 O Método 8X não é apenas mais um treino.
               </span>
 
-              <span className="block mt-1 text-accent">
+              <span className="block mt-2 text-accent">
                 É um sistema científico.
               </span>
 
-              <span className="block mt-1 text-black/80">
+              <span className="block mt-2 text-black/70">
                 Que força seu corpo a evoluir de forma previsível.
               </span>
             </h2>
           </div>
 
           {/* 3 PILARES */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-10">
             {pillars.map((pillar, index) => (
               <div
                 key={index}
@@ -74,16 +74,14 @@ const WhyMethodExists = () => {
                   {pillar.title}
                 </h3>
 
-                <p className="text-black/60 text-sm">
-                  {pillar.description}
-                </p>
+                <p className="text-black/60 text-sm">{pillar.description}</p>
               </div>
             ))}
           </div>
 
           {/* RESULTADOS */}
           <div className="bg-white rounded-xl p-5 sm:p-6 shadow-lg shadow-black/5 border border-black/5 mb-10">
-            <p className="text-black font-display text-lg sm:text-xl font-bold mb-5 text-center">
+            <p className="text-black font-display text-lg sm:text-xl font-extrabold mb-5 text-center">
               Com o Método 8X, você conquista:
             </p>
 
@@ -99,7 +97,7 @@ const WhyMethodExists = () => {
                       strokeWidth={3}
                     />
                   </div>
-                  <span className="text-black/80 text-sm font-semibold">
+                  <span className="text-black/85 text-sm font-semibold">
                     {bullet}
                   </span>
                 </div>
