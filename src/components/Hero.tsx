@@ -34,10 +34,8 @@ const Hero = () => {
           <div className="flex justify-center mb-4 sm:mb-8">
             <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-5 py-3">
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              <span className="text-accent font-black text-sm sm:text-base md:text-lg tracking-wide leading-tight">
-                VOCÊ TREINA, SE ESFORÇA… 
-                <br />
-                <strong>MAS SEU CORPO NÃO RESPONDE?</strong>
+              <span className="text-accent font-black text-[10px] sm:text-[11px] md:text-sm uppercase tracking-wider whitespace-nowrap">
+                VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
               </span>
             </div>
           </div>
