@@ -1,269 +1,474 @@
+import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.85.0';
+import { z } from 'https://esm.sh/zod@3.25.76';
 
-// Allowed origins for CORS and validation
-const ALLOWED_ORIGINS = [
-  'https://11d22b42-f1d4-448a-bb0a-b307793705e3.lovableproject.com',
-  'https://guiadotreino.com.br',
-  'https://www.guiadotreino.com.br',
-];
-
-// Allow preview URLs and production domains
-const isAllowedOrigin = (origin: string | null): boolean => {
-  if (!origin) return false;
-  if (ALLOWED_ORIGINS.includes(origin)) return true;
-  if (origin.includes('.lovable.app')) return true;
-  if (origin.includes('.lovableproject.com')) return true;
-  if (origin.startsWith('http://localhost:')) return true;
-  return false;
-};
+// ============================================
+// CONFIGURAÇÃO DE AMBIENTE
+// ============================================
+const HOTMART_SECRET_KEY = Deno.env.get('HOTMART_SECRET_KEY');
+const META_ACCESS_TOKEN = Deno.env.get('META_ACCESS_TOKEN');
+const META_PIXEL_ID = Deno.env.get('META_PIXEL_ID');
+const META_TEST_EVENT_CODE = Deno.env.get('META_TEST_EVENT_CODE');
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-forwarded-for, x-real-ip',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-hotmart-hottok',
 };
 
-// Rate limiting: 30 requests per minute per IP (more restrictive)
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_MAX = 30;
-const RATE_LIMIT_WINDOW = 60000; // 1 minute
+// ============================================
+// MAPEAMENTO DE EVENTOS HOTMART -> META
+// ============================================
+const HOTMART_TO_META_EVENT: Record<string, string> = {
+  'PURCHASE_COMPLETE': 'CustomEvent',
+  'PURCHASE_APPROVED': 'CustomEvent',
+  'PURCHASE_BILLET_PRINTED': 'CustomEvent',
+  'PURCHASE_CANCELED': 'CustomEvent',
+  'PURCHASE_CHARGEBACK': 'CustomEvent',
+  'PURCHASE_DELAYED': 'CustomEvent',
+  'PURCHASE_EXPIRED': 'CustomEvent',
+  'PURCHASE_PROTEST': 'CustomEvent',
+  'PURCHASE_REFUNDED': 'CustomEvent',
+  'PURCHASE_OUT_OF_SHOPPING_CART': 'AddToCart',
+};
 
-// Clean up old rate limit entries periodically
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, record] of rateLimitMap.entries()) {
-    if (now > record.resetTime + RATE_LIMIT_WINDOW) {
-      rateLimitMap.delete(ip);
-    }
-  }
-}, 300000); // Every 5 minutes
+// Eventos que devem disparar notificação de compra
+const PURCHASE_EVENTS = ['PURCHASE_COMPLETE', 'PURCHASE_APPROVED'];
 
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
-  
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return true;
-  }
-  
-  if (record.count >= RATE_LIMIT_MAX) {
+// ============================================
+// FUNÇÕES UTILITÁRIAS
+// ============================================
+function maskEmail(email: string | undefined | null): string {
+  if (!email) return "hidden";
+  const parts = email.split("@");
+  if (parts.length !== 2) return "hidden";
+  return parts[0][0] + "***@" + parts[1];
+}
+
+function validateHotmartToken(receivedToken: string): boolean {
+  if (!HOTMART_SECRET_KEY) {
+    console.error('❌ HOTMART_SECRET_KEY não configurado');
     return false;
   }
+  return receivedToken === HOTMART_SECRET_KEY;
+}
+
+async function hashSHA256(text: string | undefined | null): Promise<string> {
+  if (!text || text.trim() === '') return '';
+  const normalized = text.toLowerCase().trim();
+  const encoder = new TextEncoder();
+  const data = encoder.encode(normalized);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// ============================================
+// SCHEMAS DE VALIDAÇÃO
+// ============================================
+const hotmartPriceSchema = z.object({
+  value: z.number().optional(),
+  currency_code: z.string().max(10).optional(),
+}).optional();
+
+const hotmartAddressSchema = z.object({
+  city: z.string().max(200).optional(),
+  state: z.string().max(100).optional(),
+  country: z.string().max(100).optional(),
+  zip_code: z.string().max(20).optional(),
+}).optional();
+
+const hotmartBuyerSchema = z.object({
+  email: z.string().email().max(255).optional(),
+  name: z.string().max(200).optional(),
+  phone: z.string().max(50).optional(),
+  address: hotmartAddressSchema,
+}).optional();
+
+const hotmartPurchaseSchema = z.object({
+  transaction: z.string().max(100).optional(),
+  tracking_id: z.string().max(100).optional(),
+  price: hotmartPriceSchema,
+  product: z.object({
+    name: z.string().max(500).optional(),
+  }).optional(),
+}).optional();
+
+const hotmartWebhookSchema = z.object({
+  event: z.string().max(100),
+  data: z.object({
+    buyer: hotmartBuyerSchema,
+    purchase: hotmartPurchaseSchema,
+  }).optional(),
+});
+
+// ============================================
+// FUNÇÕES DE INTEGRAÇÃO
+// ============================================
+
+/**
+ * Registra evento no banco meta_events
+ */
+async function saveEventToDatabase(
+  supabase: any,
+  eventData: {
+    event_name: string;
+    event_id: string;
+    visitor_id: string | null;
+    value: number | null;
+    currency: string | null;
+    device: string | null;
+    country: string | null;
+    city: string | null;
+    region: string | null;
+    utm_source: string | null;
+    utm_medium: string | null;
+    utm_campaign: string | null;
+    publisher_platform: string | null;
+    placement: string | null;
+    page_url: string | null;
+  }
+): Promise<boolean> {
+  try {
+    const { error } = await supabase.from('meta_events').insert({
+      event_name: eventData.event_name,
+      event_id: eventData.event_id,
+      visitor_id: eventData.visitor_id,
+      value: eventData.value,
+      currency: eventData.currency,
+      device: eventData.device,
+      country: eventData.country,
+      city: eventData.city,
+      region: eventData.region,
+      utm_source: eventData.utm_source,
+      utm_medium: eventData.utm_medium,
+      utm_campaign: eventData.utm_campaign,
+      publisher_platform: eventData.publisher_platform,
+      placement: eventData.placement,
+      page_url: eventData.page_url,
+      event_time: new Date().toISOString(),
+    });
+
+    if (error) {
+      console.error('❌ Erro ao salvar evento no banco:', error.message);
+      return false;
+    }
+
+    console.log('✅ Evento salvo no banco:', eventData.event_name);
+    return true;
+  } catch (error) {
+    console.error('❌ Exceção ao salvar no banco:', error instanceof Error ? error.message : 'unknown');
+    return false;
+  }
+}
+
+// Função sendToMetaCAPI removida para centralizar o rastreamento de Purchase na Utmify.
+
+/**
+ * Processa evento de compra (Purchase)
+ */
+async function processPurchaseEvent(
+  supabase: any,
+  validatedBody: z.infer<typeof hotmartWebhookSchema>,
+  visitorData: any | null
+): Promise<{ success: boolean; metaSent: boolean; dbSaved: boolean; skipped?: boolean }> {
+  const purchase = validatedBody.data?.purchase;
+  const buyer = validatedBody.data?.buyer;
   
-  record.count++;
-  return true;
+  const trackingId = purchase?.tracking_id || null;
+  const transactionId = purchase?.transaction || `hotmart-${Date.now()}`;
+  // DEDUPLICAÇÃO: event_id baseado APENAS no transaction_id (ignora tracking_id para evitar duplicação)
+  const eventId = `purchase-${transactionId}`;
+  const eventTime = Math.floor(Date.now() / 1000);
+
+  // Valor da compra
+  const purchaseValue = purchase?.price?.value || 0;
+  const currency = purchase?.price?.currency_code || 'BRL';
+
+  console.log('💰 Processando Purchase:', {
+    transaction_id: transactionId,
+    event_id: eventId,
+    hotmart_event: validatedBody.event,
+    value: purchaseValue,
+    currency: currency,
+    buyer_email: maskEmail(buyer?.email),
+    product: purchase?.product?.name,
+  });
+
+  // DEDUPLICAÇÃO: Verificar se já existe um Purchase com este transaction_id
+  const { data: existingPurchase, error: checkError } = await supabase
+    .from('meta_events')
+    .select('event_id')
+    .eq('event_name', 'Purchase')
+    .like('event_id', `%${transactionId}%`)
+    .limit(1);
+
+  if (!checkError && existingPurchase && existingPurchase.length > 0) {
+    console.log('⚠️ DUPLICAÇÃO EVITADA: Compra já registrada para transaction_id:', transactionId);
+    console.log('⚠️ Evento Hotmart ignorado:', validatedBody.event);
+    return { success: true, metaSent: false, dbSaved: false, skipped: true };
+  }
+
+  // 1. Salvar no banco meta_events (apenas registro interno)
+  const dbSaved = await saveEventToDatabase(supabase, {
+    event_name: 'HotmartPurchase',
+    event_id: eventId,
+    visitor_id: trackingId,
+    value: purchaseValue,
+    currency: currency,
+    device: visitorData?.device || null,
+    country: buyer?.address?.country || null,
+    city: buyer?.address?.city || null,
+    region: buyer?.address?.state || visitorData?.region || null,
+    utm_source: visitorData?.utm_source || null,
+    utm_medium: visitorData?.utm_medium || null,
+    utm_campaign: visitorData?.utm_campaign || null,
+    publisher_platform: 'hotmart',
+    placement: visitorData?.utm_content || null,
+    page_url: visitorData?.landing_page || null,
+  });
+
+  // 2. Hash de dados pessoais para Meta CAPI
+  const hashedUserData: any = {};
+  
+  if (buyer?.email) hashedUserData.em = await hashSHA256(buyer.email);
+  if (buyer?.phone) hashedUserData.ph = await hashSHA256(buyer.phone);
+  if (buyer?.name) {
+    const nameParts = buyer.name.split(' ');
+    hashedUserData.fn = await hashSHA256(nameParts[0]);
+    if (nameParts.length > 1) {
+      hashedUserData.ln = await hashSHA256(nameParts.slice(1).join(' '));
+    }
+  }
+  if (buyer?.address?.city) hashedUserData.ct = await hashSHA256(buyer.address.city);
+  if (buyer?.address?.state) hashedUserData.st = await hashSHA256(buyer.address.state);
+  if (buyer?.address?.country) hashedUserData.country = await hashSHA256(buyer.address.country);
+  if (buyer?.address?.zip_code) hashedUserData.zp = await hashSHA256(buyer.address.zip_code);
+
+  // 3. Montar payload para Meta CAPI (Desativado para evitar duplicidade com UTMify)
+  const metaEventData = {
+    event_name: 'HotmartPurchase',
+    event_time: eventTime,
+    event_id: eventId,
+    event_source_url: visitorData?.landing_page || 'https://metodo8x.com',
+    action_source: 'website',
+    user_data: hashedUserData,
+    custom_data: {
+      value: purchaseValue,
+      currency: currency,
+      transaction_id: transactionId,
+      content_name: purchase?.product?.name || 'Método 8X',
+      content_type: 'product',
+      origem_compra: visitorData?.utm_source || 'hotmart_direct',
+      posicionamento: visitorData?.utm_content || 'not_provided',
+      aparelho: visitorData?.device || 'not_provided',
+      regiao: visitorData?.region || 'not_provided',
+    },
+  };
+
+  // 4. Envio para Meta CAPI DESATIVADO. O rastreamento de Purchase
+  // será feito exclusivamente pela Utmify para evitar duplicação.
+  const metaSent = false;
+
+  // 5. Log de confirmação da compra
+  console.log('🎉 ========================================');
+  console.log('🎉 COMPRA REGISTRADA COM SUCESSO!');
+  console.log('🎉 ----------------------------------------');
+  console.log('🎉 Transaction ID:', transactionId);
+  console.log('🎉 Event ID (dedup):', eventId);
+  console.log('🎉 Hotmart Event:', validatedBody.event);
+  console.log('🎉 Valor:', `${currency} ${purchaseValue}`);
+  console.log('🎉 Produto:', purchase?.product?.name || 'Método 8X');
+  console.log('🎉 Comprador:', maskEmail(buyer?.email));
+  console.log('🎉 Banco salvo:', dbSaved ? '✅' : '❌');
+  console.log('🎉 Meta CAPI:', metaSent ? '✅' : '❌');
+  console.log('🎉 ========================================');
+
+  return { success: true, metaSent, dbSaved };
 }
 
-// In-memory cache to reduce external API calls
-const geoCache = new Map<string, { data: GeoResponse; timestamp: number }>();
-const GEO_CACHE_TTL = 3600000; // 1 hour
+/**
+ * Processa outros eventos (não-purchase)
+ */
+async function processOtherEvent(
+  supabase: any,
+  validatedBody: z.infer<typeof hotmartWebhookSchema>,
+  visitorData: any | null
+): Promise<{ success: boolean; dbSaved: boolean }> {
+  const hotmartEvent = validatedBody.event;
+  const metaEventName = HOTMART_TO_META_EVENT[hotmartEvent] || 'CustomEvent';
+  const purchase = validatedBody.data?.purchase;
+  
+  const trackingId = purchase?.tracking_id || null;
+  const eventId = `${trackingId || 'no-tracking'}-${hotmartEvent.toLowerCase()}-${Date.now()}`;
 
-interface GeoResponse {
-  ip: string;
-  country: string;
-  region: string;
-  city: string;
-  latitude: number | null;
-  longitude: number | null;
-  timezone?: string;
+  console.log('📋 Processando evento:', {
+    hotmart_event: hotmartEvent,
+    meta_event: metaEventName,
+    tracking_id: trackingId,
+  });
+
+  // Salvar no banco meta_events
+  const dbSaved = await saveEventToDatabase(supabase, {
+    event_name: metaEventName,
+    event_id: eventId,
+    visitor_id: trackingId,
+    value: purchase?.price?.value || null,
+    currency: purchase?.price?.currency_code || null,
+    device: visitorData?.device || null,
+    country: null,
+    city: null,
+    region: visitorData?.region || null,
+    utm_source: visitorData?.utm_source || null,
+    utm_medium: visitorData?.utm_medium || null,
+    utm_campaign: visitorData?.utm_campaign || null,
+    publisher_platform: 'hotmart',
+    placement: visitorData?.utm_content || null,
+    page_url: visitorData?.landing_page || null,
+  });
+
+  console.log('📋 Evento registrado no banco:', dbSaved ? '✅' : '❌');
+
+  return { success: true, dbSaved };
 }
 
-// Validate IP format
-function isValidIP(ip: string): boolean {
-  if (!ip || ip === 'unknown') return false;
-  // Basic IPv4/IPv6 validation
-  const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
-  const ipv6Regex = /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
-  const ipv6CompressedRegex = /^([0-9a-fA-F]{1,4}:)*::([0-9a-fA-F]{1,4}:)*[0-9a-fA-F]{1,4}$/;
-  return ipv4Regex.test(ip) || ipv6Regex.test(ip) || ipv6CompressedRegex.test(ip);
-}
-
+// ============================================
+// HANDLER PRINCIPAL
+// ============================================
 serve(async (req) => {
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // Only allow GET requests
-  if (req.method !== 'GET') {
-    return new Response(
-      JSON.stringify({ error: 'Method not allowed' }),
-      { status: 405, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
-  }
-
-  // Validate origin
-  const origin = req.headers.get('origin');
-  if (!isAllowedOrigin(origin)) {
-    console.warn(`[GEO] Blocked request from origin: ${origin}`);
-    return new Response(
-      JSON.stringify({ error: 'Forbidden' }),
-      { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
-  }
-
-  // Get client IP for rate limiting
-  const clientIpForRateLimit = req.headers.get('cf-connecting-ip') || 
-    req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 
-    req.headers.get('x-real-ip') || 
-    'unknown';
-
-  // Check rate limit
-  if (!checkRateLimit(clientIpForRateLimit)) {
-    console.log('[GEO] Rate limit exceeded for IP:', clientIpForRateLimit.substring(0, 8) + '...');
-    return new Response(
-      JSON.stringify({ error: 'Too many requests' }),
-      { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
-  }
-
-  console.log('[GEO] Request received from:', origin);
-
   try {
-    // Get client IP
-    const forwardedFor = req.headers.get('x-forwarded-for');
-    const realIp = req.headers.get('x-real-ip');
-    const cfConnectingIp = req.headers.get('cf-connecting-ip');
-    
-    let clientIp = 'unknown';
-    
-    if (cfConnectingIp && isValidIP(cfConnectingIp)) {
-      clientIp = cfConnectingIp;
-    } else if (forwardedFor) {
-      const firstIp = forwardedFor.split(',')[0].trim();
-      if (isValidIP(firstIp)) clientIp = firstIp;
-    } else if (realIp && isValidIP(realIp)) {
-      clientIp = realIp;
-    }
+    console.log('🔔 Hotmart Webhook - Recebendo evento');
+    console.log('📅 Timestamp:', new Date().toISOString());
 
-    // Check cache first
-    if (clientIp !== 'unknown') {
-      const cached = geoCache.get(clientIp);
-      if (cached && Date.now() - cached.timestamp < GEO_CACHE_TTL) {
-        console.log('[GEO] Cache hit for IP:', clientIp.substring(0, 8) + '...');
-        return new Response(
-          JSON.stringify({ success: true, ...cached.data, cached: true }),
-          { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
-    }
-
-    // Default response
-    let geoData: GeoResponse = {
-      ip: clientIp,
-      country: 'not_provided',
-      region: 'not_provided',
-      city: 'not_provided',
-      latitude: null,
-      longitude: null,
-    };
-
-    // Try ipapi.co first
+    // 1. Ler corpo da requisição
+    const bodyText = await req.text();
+    let body;
     try {
-      const ipApiUrl = clientIp !== 'unknown' 
-        ? `https://ipapi.co/${encodeURIComponent(clientIp)}/json/`
-        : 'https://ipapi.co/json/';
-      
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
-      
-      const geoResponse = await fetch(ipApiUrl, {
-        headers: { 'User-Agent': 'Metodo8X/1.0' },
-        signal: controller.signal
-      });
-      
-      clearTimeout(timeoutId);
-
-      if (geoResponse.ok) {
-        const data = await geoResponse.json();
-        
-        if (!data.error) {
-          geoData = {
-            ip: data.ip || clientIp,
-            country: data.country_name || data.country || 'not_provided',
-            region: data.region || 'not_provided',
-            city: data.city || 'not_provided',
-            latitude: typeof data.latitude === 'number' ? data.latitude : null,
-            longitude: typeof data.longitude === 'number' ? data.longitude : null,
-            timezone: data.timezone,
-          };
-          console.log('[GEO] ipapi.co success');
-        } else {
-          throw new Error(data.reason || 'ipapi.co error');
-        }
-      } else {
-        throw new Error(`ipapi.co status ${geoResponse.status}`);
-      }
-    } catch (ipapiError) {
-      console.log('[GEO] ipapi.co failed, trying fallback');
-      
-      // Fallback to ipwho.is
-      try {
-        const ipwhoUrl = clientIp !== 'unknown'
-          ? `https://ipwho.is/${encodeURIComponent(clientIp)}`
-          : 'https://ipwho.is/';
-        
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
-        
-        const ipwhoResponse = await fetch(ipwhoUrl, { signal: controller.signal });
-        clearTimeout(timeoutId);
-        
-        if (ipwhoResponse.ok) {
-          const data = await ipwhoResponse.json();
-          
-          if (data.success !== false) {
-            geoData = {
-              ip: data.ip || clientIp,
-              country: data.country || 'not_provided',
-              region: data.region || 'not_provided',
-              city: data.city || 'not_provided',
-              latitude: typeof data.latitude === 'number' ? data.latitude : null,
-              longitude: typeof data.longitude === 'number' ? data.longitude : null,
-              timezone: data.timezone?.id,
-            };
-            console.log('[GEO] ipwho.is success');
-          }
-        }
-      } catch (ipwhoError) {
-        console.log('[GEO] All geo services failed');
-      }
+      body = JSON.parse(bodyText);
+    } catch {
+      console.error('❌ JSON inválido');
+      return new Response(
+        JSON.stringify({ error: 'Bad request - invalid JSON' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
-    // Cache successful results
-    if (clientIp !== 'unknown' && geoData.country !== 'not_provided') {
-      geoCache.set(clientIp, { data: geoData, timestamp: Date.now() });
-      
-      // Clean old cache entries
-      if (geoCache.size > 1000) {
-        const oldest = Array.from(geoCache.entries())
-          .sort((a, b) => a[1].timestamp - b[1].timestamp)
-          .slice(0, 100);
-        oldest.forEach(([key]) => geoCache.delete(key));
-      }
+    // 2. Validar configuração do servidor
+    if (!HOTMART_SECRET_KEY) {
+      console.error('❌ HOTMART_SECRET_KEY não configurado');
+      return new Response(
+        JSON.stringify({ error: 'Server configuration error' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
-    return new Response(
-      JSON.stringify({ success: true, ...geoData }),
-      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+      console.error('❌ Supabase não configurado');
+      return new Response(
+        JSON.stringify({ error: 'Server configuration error' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.error('[GEO] Error:', errorMessage);
+    // 3. Validar token da Hotmart
+    const signature = req.headers.get('x-hotmart-hottok');
+    if (!signature) {
+      console.error('❌ Token x-hotmart-hottok ausente');
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized - missing token' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!validateHotmartToken(signature)) {
+      console.error('❌ Token inválido');
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized - invalid token' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
     
+    console.log('✅ Token validado');
+
+    // 4. Validar payload com Zod
+    const parseResult = hotmartWebhookSchema.safeParse(body);
+    if (!parseResult.success) {
+      console.error('❌ Payload inválido:', parseResult.error.format());
+      return new Response(
+        JSON.stringify({ error: 'Bad request - invalid payload' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const validatedBody = parseResult.data;
+    const hotmartEvent = validatedBody.event;
+
+    console.log('📨 Evento recebido:', {
+      event: hotmartEvent,
+      transaction_id: validatedBody.data?.purchase?.transaction,
+      tracking_id: validatedBody.data?.purchase?.tracking_id,
+      buyer_email: maskEmail(validatedBody.data?.buyer?.email),
+    });
+
+    // 5. Inicializar Supabase client
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+    // 6. Buscar dados do visitante (se houver tracking_id)
+    const trackingId = validatedBody.data?.purchase?.tracking_id;
+    let visitorData: any = null;
+
+    if (trackingId) {
+      const { data, error } = await supabase
+        .from('visitor_tracking')
+        .select('*')
+        .eq('visitor_id', trackingId)
+        .single();
+
+      if (!error && data) {
+        visitorData = data;
+        console.log('👤 Visitante encontrado:', {
+          visitor_id: data.visitor_id,
+          utm_source: data.utm_source,
+          device: data.device,
+        });
+      } else {
+        console.log('👤 Visitante não encontrado para tracking_id:', trackingId);
+      }
+    }
+
+    // 7. Processar evento baseado no tipo
+    let result;
+
+    if (PURCHASE_EVENTS.includes(hotmartEvent)) {
+      // Evento de compra - registra no banco + envia para Meta CAPI
+      result = await processPurchaseEvent(supabase, validatedBody, visitorData);
+    } else {
+      // Outros eventos - apenas registra no banco
+      result = await processOtherEvent(supabase, validatedBody, visitorData);
+    }
+
+    console.log('✅ Webhook processado com sucesso');
+
     return new Response(
-      JSON.stringify({
-        success: false,
-        error: 'Internal server error',
-        ip: 'unknown',
-        country: 'not_provided',
-        region: 'not_provided',
-        city: 'not_provided',
-        latitude: null,
-        longitude: null,
+      JSON.stringify({ 
+        received: true,
+        event: hotmartEvent,
+        processed: result.success,
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    );
+
+  } catch (error) {
+    console.error('❌ Erro crítico no webhook:', error instanceof Error ? error.message : 'unknown');
+    return new Response(
+      JSON.stringify({ error: 'Internal server error' }),
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 });
