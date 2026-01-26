@@ -30,11 +30,11 @@ const Hero = () => {
         </div>
 
         <div className="relative z-10 w-full max-w-4xl text-center">
-          {/* IDENTIFICAÇÃO (HOOK) - Espaçamento mb-6 ajustado */}
-          <div className="flex justify-center mb-4 sm:mb-8">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-5 py-3">
-              <div className="w-2 h-2 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              <span className="text-accent font-black text-[10px] sm:text-[11px] md:text-sm uppercase tracking-wider whitespace-nowrap">
+         {/* HOOK DE IDENTIFICAÇÃO */}
+          <div className="flex justify-center mb-4 sm:mb-6">
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1 sm:px-6 sm:py-2">
+              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
+              <span className="text-accent font-black text-[11px] sm:text-xs md:text-sm uppercase tracking-wider">
                 VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
               </span>
             </div>
