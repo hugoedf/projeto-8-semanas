@@ -238,7 +238,7 @@ export const useMetaPixel = () => {
 
   /**
    * Envia evento Purchase (conversão completa)
-   * Usado como camada de segurança redundante
+   * Usado quando uma compra é finalizada
    */
   const trackPurchase = useCallback((purchaseData: {
     value: number;
@@ -247,13 +247,18 @@ export const useMetaPixel = () => {
     content_name?: string;
     content_ids?: string[];
     num_items?: number;
+    // Dados do usuário para hash
     email?: string;
     phone?: string;
+    firstName?: string;
+    lastName?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    zipCode?: string;
   }) => {
     if (window.fbq) {
-      // IMPORTANTE: O eventID deve ser o transaction_id para deduplicação perfeita com o Webhook
-      const eventId = `purchase-${purchaseData.transaction_id}`;
-      
+      const eventId = generateEventId();
       const params: any = {
         value: purchaseData.value,
         currency: purchaseData.currency || 'BRL',
@@ -261,14 +266,16 @@ export const useMetaPixel = () => {
       };
       
       if (purchaseData.content_name) params.content_name = purchaseData.content_name;
+      if (purchaseData.content_ids) params.content_ids = purchaseData.content_ids;
+      if (purchaseData.num_items) params.num_items = purchaseData.num_items;
       
       window.fbq('track', 'Purchase', params, { eventID: eventId });
-      console.log('Meta Pixel - Purchase enviado (Frontend)', { eventId });
+      console.log('Meta Pixel - Purchase enviado', { eventId, transaction_id: purchaseData.transaction_id });
       
-      // Envia também para a API de Conversões
+      // Envia também para a API de Conversões com dados completos
       sendToConversionsAPI('Purchase', params, eventId, purchaseData);
     }
-  }, [sendToConversionsAPI]);
+  }, [generateEventId, sendToConversionsAPI]);
 
   return {
     trackPageView,
