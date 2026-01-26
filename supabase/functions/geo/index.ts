@@ -164,8 +164,6 @@ async function saveEventToDatabase(
   }
 }
 
-// Função sendToMetaCAPI removida para centralizar o rastreamento de Purchase na Utmify.
-
 /**
  * Processa evento de compra (Purchase)
  */
@@ -179,11 +177,9 @@ async function processPurchaseEvent(
   
   const trackingId = purchase?.tracking_id || null;
   const transactionId = purchase?.transaction || `hotmart-${Date.now()}`;
-  // DEDUPLICAÇÃO: event_id baseado APENAS no transaction_id (ignora tracking_id para evitar duplicação)
   const eventId = `purchase-${transactionId}`;
   const eventTime = Math.floor(Date.now() / 1000);
 
-  // Valor da compra
   const purchaseValue = purchase?.price?.value || 0;
   const currency = purchase?.price?.currency_code || 'BRL';
 
@@ -194,7 +190,6 @@ async function processPurchaseEvent(
     value: purchaseValue,
     currency: currency,
     buyer_email: maskEmail(buyer?.email),
-    product: purchase?.product?.name,
   });
 
   // DEDUPLICAÇÃO: Verificar se já existe um Purchase com este transaction_id
@@ -207,7 +202,6 @@ async function processPurchaseEvent(
 
   if (!checkError && existingPurchase && existingPurchase.length > 0) {
     console.log('⚠️ DUPLICAÇÃO EVITADA: Compra já registrada para transaction_id:', transactionId);
-    console.log('⚠️ Evento Hotmart ignorado:', validatedBody.event);
     return { success: true, metaSent: false, dbSaved: false, skipped: true };
   }
 
@@ -232,15 +226,12 @@ async function processPurchaseEvent(
 
   // 2. Hash de dados pessoais para Meta CAPI
   const hashedUserData: any = {};
-  
   if (buyer?.email) hashedUserData.em = await hashSHA256(buyer.email);
   if (buyer?.phone) hashedUserData.ph = await hashSHA256(buyer.phone);
   if (buyer?.name) {
     const nameParts = buyer.name.split(' ');
     hashedUserData.fn = await hashSHA256(nameParts[0]);
-    if (nameParts.length > 1) {
-      hashedUserData.ln = await hashSHA256(nameParts.slice(1).join(' '));
-    }
+    if (nameParts.length > 1) hashedUserData.ln = await hashSHA256(nameParts.slice(1).join(' '));
   }
   if (buyer?.address?.city) hashedUserData.ct = await hashSHA256(buyer.address.city);
   if (buyer?.address?.state) hashedUserData.st = await hashSHA256(buyer.address.state);
@@ -257,7 +248,7 @@ async function processPurchaseEvent(
     user_data: {
       ...hashedUserData,
       client_ip_address: visitorData?.ip_address || null,
-      client_user_agent: visitorData?.user_agent || null,
+      client_user_agent: visitorData?.user_agent || visitorData?.client_user_agent || null,
       fbp: visitorData?.fbp || null,
       fbc: visitorData?.fbc || null,
     },
@@ -272,40 +263,28 @@ async function processPurchaseEvent(
 
   // 4. Envio para Meta CAPI
   let metaSent = false;
-  try {
-    const metaResponse = await fetch(
-      `https://graph.facebook.com/v18.0/${META_PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          data: [metaEventData],
-          ...(META_TEST_EVENT_CODE ? { test_event_code: META_TEST_EVENT_CODE } : {}),
-        }),
+  if (META_PIXEL_ID && META_ACCESS_TOKEN) {
+    try {
+      const metaResponse = await fetch(
+        `https://graph.facebook.com/v18.0/${META_PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            data: [metaEventData],
+            ...(META_TEST_EVENT_CODE ? { test_event_code: META_TEST_EVENT_CODE } : {}),
+          }),
+        }
+      );
+      metaSent = metaResponse.ok;
+      if (!metaSent) {
+        const errorData = await metaResponse.json();
+        console.error('❌ Erro Meta CAPI:', errorData);
       }
-    );
-    metaSent = metaResponse.ok;
-    if (!metaSent) {
-      const errorData = await metaResponse.json();
-      console.error('❌ Erro Meta CAPI:', errorData);
+    } catch (err) {
+      console.error('❌ Exceção Meta CAPI:', err);
     }
-  } catch (err) {
-    console.error('❌ Exceção Meta CAPI:', err);
   }
-
-  // 5. Log de confirmação da compra
-  console.log('🎉 ========================================');
-  console.log('🎉 COMPRA REGISTRADA COM SUCESSO!');
-  console.log('🎉 ----------------------------------------');
-  console.log('🎉 Transaction ID:', transactionId);
-  console.log('🎉 Event ID (dedup):', eventId);
-  console.log('🎉 Hotmart Event:', validatedBody.event);
-  console.log('🎉 Valor:', `${currency} ${purchaseValue}`);
-  console.log('🎉 Produto:', purchase?.product?.name || 'Método 8X');
-  console.log('🎉 Comprador:', maskEmail(buyer?.email));
-  console.log('🎉 Banco salvo:', dbSaved ? '✅' : '❌');
-  console.log('🎉 Meta CAPI:', metaSent ? '✅' : '❌');
-  console.log('🎉 ========================================');
 
   return { success: true, metaSent, dbSaved };
 }
@@ -325,13 +304,6 @@ async function processOtherEvent(
   const trackingId = purchase?.tracking_id || null;
   const eventId = `${trackingId || 'no-tracking'}-${hotmartEvent.toLowerCase()}-${Date.now()}`;
 
-  console.log('📋 Processando evento:', {
-    hotmart_event: hotmartEvent,
-    meta_event: metaEventName,
-    tracking_id: trackingId,
-  });
-
-  // Salvar no banco meta_events
   const dbSaved = await saveEventToDatabase(supabase, {
     event_name: metaEventName,
     event_id: eventId,
@@ -350,8 +322,6 @@ async function processOtherEvent(
     page_url: visitorData?.landing_page || null,
   });
 
-  console.log('📋 Evento registrado no banco:', dbSaved ? '✅' : '❌');
-
   return { success: true, dbSaved };
 }
 
@@ -364,132 +334,46 @@ serve(async (req) => {
   }
 
   try {
-    console.log('🔔 Hotmart Webhook - Recebendo evento');
-    console.log('📅 Timestamp:', new Date().toISOString());
-
-    // 1. Ler corpo da requisição
     const bodyText = await req.text();
     let body;
     try {
       body = JSON.parse(bodyText);
     } catch {
-      console.error('❌ JSON inválido');
-      return new Response(
-        JSON.stringify({ error: 'Bad request - invalid JSON' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'Bad request - invalid JSON' }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
-    // 2. Validar configuração do servidor
-    if (!HOTMART_SECRET_KEY) {
-      console.error('❌ HOTMART_SECRET_KEY não configurado');
-      return new Response(
-        JSON.stringify({ error: 'Server configuration error' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-      console.error('❌ Supabase não configurado');
-      return new Response(
-        JSON.stringify({ error: 'Server configuration error' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // 3. Validar token da Hotmart
     const signature = req.headers.get('x-hotmart-hottok');
-    if (!signature) {
-      console.error('❌ Token x-hotmart-hottok ausente');
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized - missing token' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    if (!validateHotmartToken(signature)) {
-      console.error('❌ Token inválido');
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized - invalid token' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+    if (!signature || !validateHotmartToken(signature)) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
     
-    console.log('✅ Token validado');
-
-    // 4. Validar payload com Zod
     const parseResult = hotmartWebhookSchema.safeParse(body);
     if (!parseResult.success) {
-      console.error('❌ Payload inválido:', parseResult.error.format());
-      return new Response(
-        JSON.stringify({ error: 'Bad request - invalid payload' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'Bad request - invalid payload' }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
     const validatedBody = parseResult.data;
     const hotmartEvent = validatedBody.event;
+    const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
 
-    console.log('📨 Evento recebido:', {
-      event: hotmartEvent,
-      transaction_id: validatedBody.data?.purchase?.transaction,
-      tracking_id: validatedBody.data?.purchase?.tracking_id,
-      buyer_email: maskEmail(validatedBody.data?.buyer?.email),
-    });
-
-    // 5. Inicializar Supabase client
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
-
-    // 6. Buscar dados do visitante (se houver tracking_id)
     const trackingId = validatedBody.data?.purchase?.tracking_id;
     let visitorData: any = null;
-
     if (trackingId) {
-      const { data, error } = await supabase
-        .from('visitor_tracking')
-        .select('*')
-        .eq('visitor_id', trackingId)
-        .single();
-
-      if (!error && data) {
-        visitorData = data;
-        console.log('👤 Visitante encontrado:', {
-          visitor_id: data.visitor_id,
-          utm_source: data.utm_source,
-          device: data.device,
-        });
-      } else {
-        console.log('👤 Visitante não encontrado para tracking_id:', trackingId);
-      }
+      const { data } = await supabase.from('visitor_tracking').select('*').eq('visitor_id', trackingId).single();
+      visitorData = data;
     }
 
-    // 7. Processar evento baseado no tipo
     let result;
-
     if (PURCHASE_EVENTS.includes(hotmartEvent)) {
-      // Evento de compra - registra no banco + envia para Meta CAPI
       result = await processPurchaseEvent(supabase, validatedBody, visitorData);
     } else {
-      // Outros eventos - apenas registra no banco
       result = await processOtherEvent(supabase, validatedBody, visitorData);
     }
 
-    console.log('✅ Webhook processado com sucesso');
-
-    return new Response(
-      JSON.stringify({ 
-        received: true,
-        event: hotmartEvent,
-        processed: result.success,
-      }),
-      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ received: true, processed: result.success }), { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
   } catch (error) {
-    console.error('❌ Erro crítico no webhook:', error instanceof Error ? error.message : 'unknown');
-    return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+    console.error('❌ Erro crítico:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
   }
 });
