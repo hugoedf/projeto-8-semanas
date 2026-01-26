@@ -236,9 +236,44 @@ export const useMetaPixel = () => {
     }
   }, [generateEventId, sendToConversionsAPI]);
 
+  /**
+   * Envia evento Purchase (conversão completa)
+   * Usado como camada de segurança redundante
+   */
+  const trackPurchase = useCallback((purchaseData: {
+    value: number;
+    currency?: string;
+    transaction_id: string;
+    content_name?: string;
+    content_ids?: string[];
+    num_items?: number;
+    email?: string;
+    phone?: string;
+  }) => {
+    if (window.fbq) {
+      // IMPORTANTE: O eventID deve ser o transaction_id para deduplicação perfeita com o Webhook
+      const eventId = `purchase-${purchaseData.transaction_id}`;
+      
+      const params: any = {
+        value: purchaseData.value,
+        currency: purchaseData.currency || 'BRL',
+        transaction_id: purchaseData.transaction_id,
+      };
+      
+      if (purchaseData.content_name) params.content_name = purchaseData.content_name;
+      
+      window.fbq('track', 'Purchase', params, { eventID: eventId });
+      console.log('Meta Pixel - Purchase enviado (Frontend)', { eventId });
+      
+      // Envia também para a API de Conversões
+      sendToConversionsAPI('Purchase', params, eventId, purchaseData);
+    }
+  }, [sendToConversionsAPI]);
+
   return {
     trackPageView,
     trackViewContent,
     trackInitiateCheckout,
+    trackPurchase,
   };
 };
