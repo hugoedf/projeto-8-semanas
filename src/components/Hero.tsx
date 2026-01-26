@@ -14,45 +14,63 @@ const Hero = () => {
   const handleCTAClick = () => setIsModalOpen(true);
 
   const handleConfirmPurchase = () => {
-    const baseUrl = 'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
-    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl );
+    const baseUrl =
+      'https://pay.hotmart.com/O103097031O?checkoutMode=10&bid=1764670825465';
+    const checkoutUrl = buildHotmartCheckoutUrl(baseUrl);
     trackInitiateCheckout(19.9, 'BRL');
     window.location.href = checkoutUrl;
   };
 
   return (
     <>
-      {/* AJUSTE: py-12 para pt-8 no mobile para o conteúdo começar mais alto */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-8 pb-12 sm:py-20 overflow-hidden gradient-hero">
+      {/* HERO */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-10 pb-14 sm:py-20 overflow-hidden gradient-hero">
+        {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-10" />
         </div>
 
         <div className="relative z-10 w-full max-w-4xl text-center">
-         {/* HOOK DE IDENTIFICAÇÃO */}
+          {/* HOOK DE IDENTIFICAÇÃO */}
           <div className="flex justify-center mb-4 sm:mb-6">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1 sm:px-6 sm:py-2">
+            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1 sm:px-6 sm:py-2 max-w-full">
               <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
-              <span className="text-accent font-black text-[11px] sm:text-xs md:text-sm uppercase tracking-wider">
+
+              <span
+                className="
+                  text-accent font-black uppercase
+                  text-[10px] sm:text-xs md:text-sm
+                  tracking-normal sm:tracking-wide md:tracking-wider
+                  whitespace-nowrap overflow-hidden text-ellipsis
+                  max-w-[92vw] sm:max-w-none
+                "
+              >
                 VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
               </span>
             </div>
           </div>
 
-          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-4">
-            8 semanas para <span className="text-accent">músculos que todo mundo nota</span> — sem improviso e sem perda de tempo.
+          {/* HEADLINE */}
+          <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-5 sm:mb-6">
+            8 semanas para{' '}
+            <span className="text-accent">
+              músculos que todo mundo nota
+            </span>{' '}
+            — sem improviso e sem perda de tempo.
           </h1>
-          
-          {/* AJUSTE: mb-10 para mb-6 para o Mockup subir no mobile */}
-          <p className="text-lg sm:text-xl text-white/80 mb-6 sm:mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
-            <strong>Treino pronto</strong>, passo a passo, para você <strong>sair da estagnação</strong> e ver <strong>resultado no espelho</strong> — sem improviso.
+
+          {/* SUBHEADLINE */}
+          <p className="text-lg sm:text-xl text-white/80 mb-8 sm:mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
+            <strong>Treino pronto</strong>, passo a passo, para você{' '}
+            <strong>sair da estagnação</strong> e ver{' '}
+            <strong>resultado no espelho</strong> — sem improviso.
           </p>
-          
-          {/* MOCKUP - Ajuste de margem inferior mb-8 para mb-6 */}
-          <div className="relative w-full max-w-2xl mx-auto mb-6 sm:mb-12">
+
+          {/* MOCKUP */}
+          <div className="relative w-full max-w-[560px] sm:max-w-2xl mx-auto mb-8 sm:mb-12">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-accent/20 rounded-full blur-[80px] opacity-30 pointer-events-none" />
-            
+
             <img
               src="/lovable-uploads/Mockup.png"
               alt="Capa do e-book e aplicativo Método 8X"
@@ -60,6 +78,7 @@ const Hero = () => {
             />
           </div>
 
+          {/* CTA */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
@@ -68,21 +87,32 @@ const Hero = () => {
               ACESSAR O MÉTODO 8X AGORA
               <ArrowRight className="w-5 h-5" />
             </Button>
+
             <div className="flex items-center justify-center gap-3 text-white/70 text-xs flex-wrap">
-              <span className="flex items-center gap-1"><Lock className="w-3 h-3" /> Pagamento Seguro</span>
+              <span className="flex items-center gap-1">
+                <Lock className="w-3 h-3" /> Pagamento Seguro
+              </span>
               <span className="hidden sm:inline">|</span>
               <span>✅ Acesso Imediato</span>
               <span className="hidden sm:inline">|</span>
               <span>🛡️ 7 Dias de Garantia</span>
             </div>
-            <p className="text-red-400 text-sm font-medium mt-2">
+
+            <p className="text-red-400 text-sm font-medium mt-3">
               ⚠️ Enquanto você hesita, outras pessoas já estão evoluindo
             </p>
           </div>
         </div>
       </section>
-      <MiniPreCheckout isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleConfirmPurchase} />
+
+      {/* MODAL */}
+      <MiniPreCheckout
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmPurchase}
+      />
     </>
   );
 };
+
 export default Hero;
