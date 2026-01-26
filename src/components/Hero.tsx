@@ -23,9 +23,7 @@ const Hero = () => {
 
   return (
     <>
-      {/* HERO */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-10 pb-14 sm:py-20 overflow-hidden gradient-hero">
-        {/* Background glow */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-10 pb-16 sm:py-20 overflow-hidden gradient-hero">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl opacity-10" />
@@ -34,17 +32,17 @@ const Hero = () => {
         <div className="relative z-10 w-full max-w-4xl text-center">
           {/* HOOK DE IDENTIFICAÇÃO */}
           <div className="flex justify-center mb-4 sm:mb-6">
-            <div className="inline-flex items-center gap-2 bg-accent/15 border border-accent/40 rounded-full px-4 py-1 sm:px-6 sm:py-2 max-w-full">
-              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse flex-shrink-0" />
-
+            <div className="inline-flex items-center bg-accent/15 border border-accent/40 rounded-full px-3 py-1 sm:px-6 sm:py-2 max-w-full">
+              {/* ✅ Sem bolinha (removeu o “ponto ao lado”) */}
               <span
                 className="
                   text-accent font-black uppercase
-                  text-[10px] sm:text-xs md:text-sm
+                  whitespace-nowrap
                   tracking-normal sm:tracking-wide md:tracking-wider
-                  whitespace-nowrap overflow-hidden text-ellipsis
-                  max-w-[92vw] sm:max-w-none
+                  max-w-[96vw]
                 "
+                /* ✅ Sem “…”: fonte se adapta e mantém 1 linha */
+                style={{ fontSize: 'clamp(9px, 2.35vw, 14px)' }}
               >
                 VOCÊ TREINA, SE ESFORÇA, MAS SEU CORPO NÃO RESPONDE?
               </span>
@@ -54,22 +52,20 @@ const Hero = () => {
           {/* HEADLINE */}
           <h1 className="font-display text-[1.8rem] leading-tight sm:text-4xl md:text-5xl lg:text-[3.2rem] text-white tracking-tight mb-5 sm:mb-6">
             8 semanas para{' '}
-            <span className="text-accent">
-              músculos que todo mundo nota
-            </span>{' '}
-            — sem improviso e sem perda de tempo.
+            <span className="text-accent">músculos que todo mundo nota</span> — sem
+            improviso e sem perda de tempo.
           </h1>
 
           {/* SUBHEADLINE */}
-          <p className="text-lg sm:text-xl text-white/80 mb-8 sm:mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-white/80 mb-9 sm:mb-10 font-medium max-w-3xl mx-auto leading-relaxed">
             <strong>Treino pronto</strong>, passo a passo, para você{' '}
             <strong>sair da estagnação</strong> e ver{' '}
             <strong>resultado no espelho</strong> — sem improviso.
           </p>
 
-          {/* MOCKUP */}
-          <div className="relative w-full max-w-[560px] sm:max-w-2xl mx-auto mb-8 sm:mb-12">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-accent/20 rounded-full blur-[80px] opacity-30 pointer-events-none" />
+          {/* MOCKUP (mais impacto + mais respiro antes do CTA) */}
+          <div className="relative w-full max-w-[620px] sm:max-w-2xl mx-auto mb-10 sm:mb-12">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[82%] h-[82%] bg-accent/20 rounded-full blur-[90px] opacity-30 pointer-events-none" />
 
             <img
               src="/lovable-uploads/Mockup.png"
@@ -78,7 +74,7 @@ const Hero = () => {
             />
           </div>
 
-          {/* CTA */}
+          {/* CTA (entra “depois”, sem roubar o mockup) */}
           <div className="flex flex-col items-center gap-3 max-w-lg mx-auto">
             <Button
               onClick={handleCTAClick}
@@ -105,7 +101,6 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* MODAL */}
       <MiniPreCheckout
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
