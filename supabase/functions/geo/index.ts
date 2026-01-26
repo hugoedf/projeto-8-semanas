@@ -22,9 +22,9 @@ const corsHeaders = {
 // MAPEAMENTO DE EVENTOS HOTMART -> META
 // ============================================
 const HOTMART_TO_META_EVENT: Record<string, string> = {
-  'PURCHASE_COMPLETE': 'CustomEvent',
-  'PURCHASE_APPROVED': 'CustomEvent',
-  'PURCHASE_BILLET_PRINTED': 'CustomEvent',
+  'PURCHASE_COMPLETE': 'Purchase',
+  'PURCHASE_APPROVED': 'Purchase',
+  'PURCHASE_BILLET_PRINTED': 'InitiateCheckout',
   'PURCHASE_CANCELED': 'CustomEvent',
   'PURCHASE_CHARGEBACK': 'CustomEvent',
   'PURCHASE_DELAYED': 'CustomEvent',
@@ -211,9 +211,9 @@ async function processPurchaseEvent(
     return { success: true, metaSent: false, dbSaved: false, skipped: true };
   }
 
-  // 1. Salvar no banco meta_events (apenas registro interno)
+  // 1. Salvar no banco meta_events
   const dbSaved = await saveEventToDatabase(supabase, {
-    event_name: 'HotmartPurchase',
+    event_name: 'Purchase',
     event_id: eventId,
     visitor_id: trackingId,
     value: purchaseValue,
@@ -247,30 +247,51 @@ async function processPurchaseEvent(
   if (buyer?.address?.country) hashedUserData.country = await hashSHA256(buyer.address.country);
   if (buyer?.address?.zip_code) hashedUserData.zp = await hashSHA256(buyer.address.zip_code);
 
-  // 3. Montar payload para Meta CAPI (Desativado para evitar duplicidade com UTMify)
+  // 3. Montar payload para Meta CAPI
   const metaEventData = {
-    event_name: 'HotmartPurchase',
+    event_name: 'Purchase',
     event_time: eventTime,
     event_id: eventId,
     event_source_url: visitorData?.landing_page || 'https://metodo8x.com',
     action_source: 'website',
-    user_data: hashedUserData,
+    user_data: {
+      ...hashedUserData,
+      client_ip_address: visitorData?.ip_address || null,
+      client_user_agent: visitorData?.user_agent || null,
+      fbp: visitorData?.fbp || null,
+      fbc: visitorData?.fbc || null,
+    },
     custom_data: {
       value: purchaseValue,
       currency: currency,
       transaction_id: transactionId,
       content_name: purchase?.product?.name || 'Método 8X',
       content_type: 'product',
-      origem_compra: visitorData?.utm_source || 'hotmart_direct',
-      posicionamento: visitorData?.utm_content || 'not_provided',
-      aparelho: visitorData?.device || 'not_provided',
-      regiao: visitorData?.region || 'not_provided',
     },
   };
 
-  // 4. Envio para Meta CAPI DESATIVADO. O rastreamento de Purchase
-  // será feito exclusivamente pela Utmify para evitar duplicação.
-  const metaSent = false;
+  // 4. Envio para Meta CAPI
+  let metaSent = false;
+  try {
+    const metaResponse = await fetch(
+      `https://graph.facebook.com/v18.0/${META_PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          data: [metaEventData],
+          ...(META_TEST_EVENT_CODE ? { test_event_code: META_TEST_EVENT_CODE } : {}),
+        }),
+      }
+    );
+    metaSent = metaResponse.ok;
+    if (!metaSent) {
+      const errorData = await metaResponse.json();
+      console.error('❌ Erro Meta CAPI:', errorData);
+    }
+  } catch (err) {
+    console.error('❌ Exceção Meta CAPI:', err);
+  }
 
   // 5. Log de confirmação da compra
   console.log('🎉 ========================================');
