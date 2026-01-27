@@ -177,7 +177,10 @@ async function processPurchaseEvent(
   
   const trackingId = purchase?.tracking_id || null;
   const transactionId = purchase?.transaction || `hotmart-${Date.now()}`;
-  const eventId = `purchase-${transactionId}`;
+  
+  // SINCRONIZAÇÃO: Usar o ID de transação PURO como event_id.
+  // Isso é o que a Hotmart e a UTMify usam, permitindo que a Meta deduplique corretamente.
+  const eventId = transactionId; 
   const eventTime = Math.floor(Date.now() / 1000);
 
   const purchaseValue = purchase?.price?.value || 0;
@@ -191,6 +194,16 @@ async function processPurchaseEvent(
     currency: currency,
     buyer_email: maskEmail(buyer?.email),
   });
+
+  // SEGREGAÇÃO: Disparar Purchase para a Meta APENAS se a compra for aprovada
+  const isApproved = validatedBody.event === 'PURCHASE_APPROVED' || validatedBody.event === 'PURCHASE_COMPLETE';
+  
+  if (!isApproved) {
+    console.log(`ℹ️ Evento ${validatedBody.event} ignorado para Meta CAPI (apenas APPROVED/COMPLETE são enviados como Purchase)`);
+    return { success: true, metaSent: false, dbSaved: true };
+  }
+  
+  const metaEventName = 'Purchase';
 
   // DEDUPLICAÇÃO: Verificar se já existe um Purchase com este transaction_id
   const { data: existingPurchase, error: checkError } = await supabase
@@ -224,23 +237,35 @@ async function processPurchaseEvent(
     page_url: visitorData?.landing_page || null,
   });
 
-  // 2. Hash de dados pessoais para Meta CAPI
+  // 2. Hash de dados pessoais para Meta CAPI (Advanced Matching)
   const hashedUserData: any = {};
-  if (buyer?.email) hashedUserData.em = await hashSHA256(buyer.email);
-  if (buyer?.phone) hashedUserData.ph = await hashSHA256(buyer.phone);
-  if (buyer?.name) {
-    const nameParts = buyer.name.split(' ');
-    hashedUserData.fn = await hashSHA256(nameParts[0]);
-    if (nameParts.length > 1) hashedUserData.ln = await hashSHA256(nameParts.slice(1).join(' '));
+  
+  // Normalização e Hash
+  const normalize = (str: string) => str.trim().toLowerCase();
+  
+  if (buyer?.email) hashedUserData.em = [await hashSHA256(normalize(buyer.email))];
+  if (buyer?.phone) {
+    const phone = buyer.phone.replace(/\D/g, '');
+    hashedUserData.ph = [await hashSHA256(phone)];
   }
-  if (buyer?.address?.city) hashedUserData.ct = await hashSHA256(buyer.address.city);
-  if (buyer?.address?.state) hashedUserData.st = await hashSHA256(buyer.address.state);
-  if (buyer?.address?.country) hashedUserData.country = await hashSHA256(buyer.address.country);
-  if (buyer?.address?.zip_code) hashedUserData.zp = await hashSHA256(buyer.address.zip_code);
+  if (buyer?.name) {
+    const nameParts = normalize(buyer.name).split(' ');
+    hashedUserData.fn = [await hashSHA256(nameParts[0])];
+    if (nameParts.length > 1) {
+      hashedUserData.ln = [await hashSHA256(nameParts.slice(-1)[0])];
+    }
+  }
+  if (buyer?.address?.city) hashedUserData.ct = [await hashSHA256(normalize(buyer.address.city))];
+  if (buyer?.address?.state) hashedUserData.st = [await hashSHA256(normalize(buyer.address.state))];
+  if (buyer?.address?.zip_code) {
+    const zip = buyer.address.zip_code.replace(/\D/g, '');
+    hashedUserData.zp = [await hashSHA256(zip)];
+  }
+  hashedUserData.country = [await hashSHA256(normalize(buyer?.address?.country || 'br'))];
 
   // 3. Montar payload para Meta CAPI
   const metaEventData = {
-    event_name: 'Purchase',
+    event_name: metaEventName,
     event_time: eventTime,
     event_id: eventId,
     event_source_url: visitorData?.landing_page || 'https://metodo8x.com',
@@ -261,9 +286,9 @@ async function processPurchaseEvent(
     },
   };
 
-  // 4. Envio para Meta CAPI
+  // 4. Envio para Meta CAPI (Apenas Aprovados)
   let metaSent = false;
-  if (META_PIXEL_ID && META_ACCESS_TOKEN) {
+  if (isApproved && META_PIXEL_ID && META_ACCESS_TOKEN) {
     try {
       const metaResponse = await fetch(
         `https://graph.facebook.com/v18.0/${META_PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`,
