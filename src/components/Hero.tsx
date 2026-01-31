@@ -69,11 +69,12 @@ const Hero = () => {
           <div className="relative w-full max-w-[680px] sm:max-w-2xl mx-auto mb-8 sm:mb-12">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[82%] h-[82%] bg-accent/20 rounded-full blur-[90px] opacity-30 pointer-events-none" />
 
-            <img
-              src="/lovable-uploads/Mockup.png"
-              alt="Capa do e-book e aplicativo Método 8X"
-              className="relative z-10 w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
-            />
+           <img
+  src="/lovable-uploads/Mockup.webp"
+  alt="capa do e-book e aplicativo Método 8X"
+  className="relative z-10 w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+/>
+
           </div>
 
           {/* CTA */}
