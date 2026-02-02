@@ -2,294 +2,103 @@ import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
 import { useScrollTracking } from '@/hooks/useScrollTracking';
-import { getMetaParamBuilder, refreshMetaParams } from '@/utils/metaParameterBuilder';
 
-// ===============================
-// CONFIGURAÇÕES
-// ===============================
-const VIEW_CONTENT_TIME_THRESHOLD = 30; // segundos
+// Threshold for qualified ViewContent (in seconds)
+const VIEW_CONTENT_TIME_THRESHOLD = 30;
 
+// Rotas internas/administrativas que NÃO devem disparar pixel
 const EXCLUDED_ROUTES = [
-  '/dashboard',
-  '/auth',
-  '/admin',
   '/generate-audio',
+  '/dashboard',
+  '/vsl-assets',
+  '/auth',
 ];
 
-// ===============================
-// META PIXEL PROVIDER
-// ===============================
+/**
+ * Provider do Meta Pixel - Fluxo Otimizado
+ * 
+ * Ordem dos eventos:
+ * 1. PageView - IMEDIATO (sem dependências)
+ * 2. ViewContent - QUALIFICADO (após 30s na página OU 25% do vídeo)
+ * 3. InitiateCheckout - Apenas no clique do CTA
+ * 4. Purchase - Via webhook/CAPI
+ */
 export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const { visitorData, isLoading } = useVisitorTracking();
-
   const pageViewFiredRef = useRef(false);
   const viewContentFiredRef = useRef(false);
-  const pageLoadTimeRef = useRef<number>(Date.now());
-  const paramBuilderRef = useRef<ReturnType<typeof getMetaParamBuilder> | null>(null);
-
-  const isExcludedRoute = EXCLUDED_ROUTES.some(route =>
-    location.pathname.startsWith(route)
-  );
-
-  // ===============================
-  // ATIVAR SCROLL TRACKING
-  // ===============================
+  const pageLoadTimeRef = useRef(Date.now());
+  
+  // Verifica se é rota interna (sem tracking)
+  const isExcludedRoute = EXCLUDED_ROUTES.some(route => location.pathname.startsWith(route));
+  
+  // Ativa rastreamento de scroll apenas em páginas públicas
   useScrollTracking(!isExcludedRoute);
 
-  // ===============================
-  // LOAD PIXEL (ONCE)
-  // ===============================
+  // ============================================
+  // 1. PAGEVIEW - DISPARO IMEDIATO (sem dependências)
+  // ============================================
   useEffect(() => {
-    // Verificar ambiente de desenvolvimento
-    const isDevEnvironment = 
-      window.location.hostname.includes('lovableproject.com') ||
-      window.location.hostname.includes('localhost') ||
-      window.location.hostname.includes('127.0.0.1') ||
-      window.self !== window.top;
-    
-    if (isDevEnvironment) {
-      console.log('⚠️ Meta Pixel - Desativado no ambiente de desenvolvimento');
-      return;
-    }
-
-    if (window.fbq) {
-      console.log('⚠️ Meta Pixel já estava carregado');
-      return;
-    }
-
-    !function (f: any, b, e, v, n?, t?, s?) {
-      if (f.fbq) return;
-      n = f.fbq = function () {
-        n.callMethod
-          ? n.callMethod.apply(n, arguments)
-          : n.queue.push(arguments);
-      };
-      if (!f._fbq) f._fbq = n;
-      n.push = n;
-      n.loaded = true;
-      n.version = '2.0';
-      n.queue = [];
-      t = b.createElement(e);
-      t.async = true;
-      t.src = v;
-      s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s);
-    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-
-    const pixelId = import.meta.env.VITE_META_PIXEL_ID;
-    
-    if (!pixelId) {
-      console.error('❌ VITE_META_PIXEL_ID não configurado no arquivo .env');
-      return;
-    }
-
-    window.fbq('init', pixelId);
-    console.log('✅ Meta Pixel carregado e inicializado', { pixelId });
-  }, []);
-
-  // ===============================
-  // FUNÇÃO PARA ENVIAR PARA CAPI
-  // ===============================
-  const sendToConversionsAPI = async (
-    eventName: 'PageView' | 'ViewContent',
-    eventParams: any,
-    eventId: string
-  ) => {
-    try {
-      // Atualizar parâmetros Meta
-      if (paramBuilderRef.current) {
-        paramBuilderRef.current = refreshMetaParams();
-      } else {
-        paramBuilderRef.current = getMetaParamBuilder();
-      }
-
-      const metaParams = paramBuilderRef.current.getParameters();
-
-      console.log(`📤 Enviando ${eventName} para CAPI...`, {
-        eventId,
-        visitorId: visitorData?.visitorId,
-        fbp: metaParams.fbp,
-        fbc: metaParams.fbc,
-      });
-
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            eventName,
-            eventParams,
-            eventId,
-            visitorId: visitorData?.visitorId,
-            fbp: metaParams.fbp,
-            fbc: metaParams.fbc,
-            client_user_agent: metaParams.client_user_agent,
-            eventSourceUrl: window.location.href,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log(`✅ ${eventName} enviado para CAPI com sucesso`, {
-          eventId,
-          fbtrace_id: result.metaCAPI?.fbtrace_id,
-        });
-      } else {
-        console.error(`❌ Erro ao enviar ${eventName} para CAPI:`, response.status);
-      }
-    } catch (err) {
-      console.error(`❌ Erro CAPI ${eventName}:`, err);
-    }
-  };
-
-  // ===============================
-  // 1. PAGEVIEW (IMEDIATO)
-  // ===============================
-  useEffect(() => {
-    console.log('🔍 PageView Effect - Verificando condições...', {
-      isExcludedRoute,
-      fbqExists: !!window.fbq,
-      pathname: location.pathname,
-      alreadyFired: pageViewFiredRef.current,
-    });
-
-    // Verificar ambiente de desenvolvimento
-    const isDevEnvironment = 
-      window.location.hostname.includes('lovableproject.com') ||
-      window.location.hostname.includes('localhost') ||
-      window.location.hostname.includes('127.0.0.1') ||
-      window.self !== window.top;
-    
-    if (isDevEnvironment) {
-      console.log('⏭️ Ambiente de desenvolvimento, pulando PageView');
-      return;
-    }
-
+    // Não dispara pixel em rotas internas/administrativas
     if (isExcludedRoute) {
-      console.log('⏭️ Rota excluída, pulando PageView');
+      console.log('Meta Pixel - Desativado em rota interna:', location.pathname);
       return;
     }
 
-    if (!window.fbq) {
-      console.log('⏳ Aguardando Meta Pixel carregar...');
+    // Não dispara pixel no ambiente de desenvolvimento/editor do Lovable
+    const isDevEnvironment = 
+      window.location.hostname.includes('lovableproject.com') ||
+      window.location.hostname.includes('localhost') ||
+      window.location.hostname.includes('127.0.0.1') ||
+      window.self !== window.top;
+    
+    if (isDevEnvironment) {
+      console.log('Meta Pixel - Desativado no ambiente de desenvolvimento');
       return;
     }
 
     // Anti-duplicação por sessão/rota
     const sessionKey = `meta-pv-${location.pathname}`;
     if (sessionStorage.getItem(sessionKey) || pageViewFiredRef.current) {
-      console.log('⚠️ PageView já foi disparado nesta sessão');
+      console.log('Meta Pixel - PageView já disparado nesta sessão');
       return;
     }
 
-    const eventId = `pv-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    // Dispara PageView IMEDIATAMENTE quando fbq estiver pronto
+    const fireImmediatePageView = () => {
+      if (!window.fbq) {
+        // Retry rápido (50ms) até fbq estar disponível
+        setTimeout(fireImmediatePageView, 50);
+        return;
+      }
 
-    pageViewFiredRef.current = true;
-    sessionStorage.setItem(sessionKey, eventId);
-    pageLoadTimeRef.current = Date.now();
-
-    // Disparar via Pixel
-    window.fbq('track', 'PageView', {}, { eventID: eventId });
-    console.log('✅ PageView disparado via Pixel', { eventId, pathname: location.pathname });
-
-    // Enviar para CAPI
-    sendToConversionsAPI('PageView', {}, eventId);
-
-  }, [location.pathname, isExcludedRoute]);
-
-  // ===============================
-  // 2. VIEWCONTENT (30s QUALIFICADO)
-  // ===============================
-  useEffect(() => {
-    console.log('🔍 ViewContent Effect - Verificando condições...', {
-      pathname: location.pathname,
-      isHome: location.pathname === '/',
-      isExcludedRoute,
-      fbqExists: !!window.fbq,
-      isLoading,
-      hasVisitorId: !!visitorData?.visitorId,
-      alreadyFired: viewContentFiredRef.current,
-    });
-
-    // Verificar ambiente de desenvolvimento
-    const isDevEnvironment = 
-      window.location.hostname.includes('lovableproject.com') ||
-      window.location.hostname.includes('localhost') ||
-      window.location.hostname.includes('127.0.0.1') ||
-      window.self !== window.top;
-    
-    if (isDevEnvironment) {
-      console.log('⏭️ Ambiente de desenvolvimento, pulando ViewContent');
-      return;
-    }
-
-    if (location.pathname !== '/') {
-      console.log('⏭️ Não é home, pulando ViewContent');
-      return;
-    }
-
-    if (isExcludedRoute) {
-      console.log('⏭️ Rota excluída, pulando ViewContent');
-      return;
-    }
-
-    if (!window.fbq) {
-      console.log('⏳ Aguardando Meta Pixel carregar...');
-      return;
-    }
-
-    if (isLoading) {
-      console.log('⏳ Aguardando visitor tracking carregar...');
-      return;
-    }
-
-    if (!visitorData?.visitorId) {
-      console.log('⚠️ visitorId não disponível ainda');
-      return;
-    }
-
-    // Anti-duplicação por sessão/rota
-    const sessionKey = `meta-vc-${location.pathname}`;
-    if (sessionStorage.getItem(sessionKey) || viewContentFiredRef.current) {
-      console.log('⚠️ ViewContent já foi disparado nesta sessão');
-      return;
-    }
-
-    const elapsed = Date.now() - pageLoadTimeRef.current;
-    const remaining = Math.max(0, VIEW_CONTENT_TIME_THRESHOLD * 1000 - elapsed);
-
-    console.log(`⏰ ViewContent será disparado em ${Math.ceil(remaining / 1000)}s`);
-
-    const timer = setTimeout(() => {
-      if (viewContentFiredRef.current) return;
-
-      const eventId = `vc-${visitorData.visitorId}-${Date.now()}`;
-
-      viewContentFiredRef.current = true;
+      // Gera eventId simples baseado em timestamp (sem depender de visitorId)
+      const eventId = `pv-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Marca como disparado
+      pageViewFiredRef.current = true;
       sessionStorage.setItem(sessionKey, eventId);
+      pageLoadTimeRef.current = Date.now();
 
-      const params = { content_name: 'VSL - Qualificado 30s' };
+      // Dispara PageView no browser
+      window.fbq('track', 'PageView', {}, { eventID: eventId });
+      console.log('✅ Meta Pixel - PageView IMEDIATO', { 
+        eventId, 
+        delay: `${Date.now() - performance.timing.navigationStart}ms` 
+      });
 
-      // Disparar via Pixel
-      window.fbq('track', 'ViewContent', params, { eventID: eventId });
-      console.log('✅ ViewContent (30s) disparado via Pixel', { eventId });
+      // Envia para CAPI em background (não bloqueia)
+      sendPageViewToCAPI(eventId);
+    };
 
-      // Enviar para CAPI
-      sendToConversionsAPI('ViewContent', params, eventId);
+    fireImmediatePageView();
+  }, [location.pathname]);
 
-    }, remaining);
-
-    return () => clearTimeout(timer);
-  }, [location.pathname, visitorData, isLoading, isExcludedRoute]);
-
-  // ===============================
-  // 3. VIEWCONTENT VIA VÍDEO (25%)
-  // ===============================
+  // ============================================
+  // 2. VIEWCONTENT - QUALIFICADO (após 30s na página)
+  // ============================================
   useEffect(() => {
-    // Verificar ambiente de desenvolvimento
     const isDevEnvironment = 
       window.location.hostname.includes('lovableproject.com') ||
       window.location.hostname.includes('localhost') ||
@@ -297,56 +106,138 @@ export const MetaPixelProvider = ({ children }: { children: React.ReactNode }) =
       window.self !== window.top;
     
     if (isDevEnvironment) return;
-    
+
+    // Só dispara na página principal
     if (location.pathname !== '/') return;
-    if (!window.fbq) return;
 
-    const handler = (e: CustomEvent<{ progress: number; visitorId: string }>) => {
-      console.log('🎥 Evento de vídeo recebido', { progress: e.detail.progress });
+    // Aguarda visitorId para ViewContent (tracking avançado)
+    if (isLoading || !visitorData?.visitorId) return;
 
-      if (viewContentFiredRef.current) {
-        console.log('⚠️ ViewContent já foi disparado, ignorando evento de vídeo');
-        return;
-      }
+    // Anti-duplicação
+    const sessionKey = `meta-vc-${location.pathname}`;
+    if (sessionStorage.getItem(sessionKey) || viewContentFiredRef.current) {
+      return;
+    }
 
-      if (e.detail.progress < 25) {
-        console.log('⏭️ Progresso < 25%, ignorando');
-        return;
-      }
+    // Timer para ViewContent qualificado (30 segundos na página)
+    const timeOnPage = Date.now() - pageLoadTimeRef.current;
+    const remainingTime = Math.max(0, VIEW_CONTENT_TIME_THRESHOLD * 1000 - timeOnPage);
 
-      const sessionKey = `meta-vc-${location.pathname}`;
-      if (sessionStorage.getItem(sessionKey)) {
-        console.log('⚠️ ViewContent já foi disparado (sessionStorage), ignorando evento de vídeo');
-        return;
-      }
+    const viewContentTimer = setTimeout(() => {
+      if (viewContentFiredRef.current) return;
+      
+      if (!window.fbq) return;
 
-      const eventId = `vc-video-${Date.now()}`;
+      const eventId = `vc-${visitorData.visitorId}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
       viewContentFiredRef.current = true;
       sessionStorage.setItem(sessionKey, eventId);
 
-      const params = { content_name: 'VSL - Qualificado 25%' };
+      window.fbq('track', 'ViewContent', { content_name: 'VSL - Qualificado 30s' }, { eventID: eventId });
+      console.log('✅ Meta Pixel - ViewContent QUALIFICADO (30s)', { eventId, visitorId: visitorData.visitorId });
 
-      // Disparar via Pixel
-      window.fbq('track', 'ViewContent', params, { eventID: eventId });
-      console.log('✅ ViewContent (25% vídeo) disparado via Pixel', { eventId });
+      // Envia para CAPI
+      sendViewContentToCAPI(eventId, visitorData.visitorId);
+    }, remainingTime);
 
-      // Enviar para CAPI
-      sendToConversionsAPI('ViewContent', params, eventId);
+    return () => clearTimeout(viewContentTimer);
+  }, [location.pathname, visitorData, isLoading]);
+
+  // ============================================
+  // 3. VIEWCONTENT VIA VÍDEO (25% assistido) - Listener global
+  // ============================================
+  useEffect(() => {
+    const isDevEnvironment = 
+      window.location.hostname.includes('lovableproject.com') ||
+      window.location.hostname.includes('localhost') ||
+      window.location.hostname.includes('127.0.0.1') ||
+      window.self !== window.top;
+    
+    if (isDevEnvironment) return;
+    if (location.pathname !== '/') return;
+
+    // Escuta evento customizado do VSLPlayer quando 25% é atingido
+    const handleVideoProgress = (e: CustomEvent<{ progress: number; visitorId: string }>) => {
+      if (viewContentFiredRef.current) return;
+      if (e.detail.progress < 25) return;
+      if (!window.fbq) return;
+
+      const visitorId = e.detail.visitorId || visitorData?.visitorId || 'unknown';
+      const eventId = `vc-video-${visitorId}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
+      viewContentFiredRef.current = true;
+      const sessionKey = `meta-vc-${location.pathname}`;
+      sessionStorage.setItem(sessionKey, eventId);
+
+      window.fbq('track', 'ViewContent', { content_name: 'VSL - Qualificado 25% Video' }, { eventID: eventId });
+      console.log('✅ Meta Pixel - ViewContent QUALIFICADO (25% vídeo)', { eventId, visitorId });
+
+      sendViewContentToCAPI(eventId, visitorId);
     };
 
-    window.addEventListener('vsl-progress-25' as any, handler);
-    return () => window.removeEventListener('vsl-progress-25' as any, handler);
-  }, [location.pathname]);
-
-  // ===============================
-  // RESET REFS AO MUDAR DE ROTA
-  // ===============================
-  useEffect(() => {
-    console.log('🔄 Rota mudou, resetando refs', { pathname: location.pathname });
-    pageViewFiredRef.current = false;
-    viewContentFiredRef.current = false;
-    pageLoadTimeRef.current = Date.now();
-  }, [location.pathname]);
+    window.addEventListener('vsl-progress-25' as any, handleVideoProgress);
+    return () => window.removeEventListener('vsl-progress-25' as any, handleVideoProgress);
+  }, [location.pathname, visitorData]);
 
   return <>{children}</>;
 };
+
+// ============================================
+// CAPI Helpers (envio server-side em background)
+// ============================================
+
+async function sendPageViewToCAPI(eventId: string) {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fbp = getCookie('_fbp') || localStorage.getItem('_fbp');
+    const fbc = urlParams.get('fbclid') ? `fb.1.${Date.now()}.${urlParams.get('fbclid')}` : getCookie('_fbc');
+
+    await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'PageView',
+        eventId,
+        eventSourceUrl: window.location.href,
+        fbp,
+        fbc,
+        client_user_agent: navigator.userAgent,
+      }),
+    });
+    console.log('📤 Meta CAPI - PageView enviado', { eventId });
+  } catch (error) {
+    console.error('CAPI PageView error:', error);
+  }
+}
+
+async function sendViewContentToCAPI(eventId: string, visitorId: string) {
+  try {
+    const fbp = getCookie('_fbp') || localStorage.getItem('_fbp');
+    const fbc = getCookie('_fbc');
+
+    await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/meta-conversions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'ViewContent',
+        eventId,
+        eventSourceUrl: window.location.href,
+        visitorId,
+        fbp,
+        fbc,
+        client_user_agent: navigator.userAgent,
+        eventParams: { content_name: 'VSL - Qualificado' },
+      }),
+    });
+    console.log('📤 Meta CAPI - ViewContent enviado', { eventId, visitorId });
+  } catch (error) {
+    console.error('CAPI ViewContent error:', error);
+  }
+}
+
+function getCookie(name: string): string | null {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+  return null;
+}
