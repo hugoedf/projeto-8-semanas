@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <!-- 1. META PIXEL NO TOPO ABSOLUTO (CARREGAMENTO IMEDIATO) -->
+    <!-- 1. META PIXEL NO TOPO ABSOLUTO (INICIALIZAÇÃO IMEDIATA) -->
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -12,7 +12,8 @@
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js' );
       fbq('init', '2562850577432651');
-      fbq('track', 'PageView'); // Disparo imediato no topo
+      // PageView removido daqui para evitar duplicidade e erro de triângulo. 
+      // O disparo agora é feito exclusivamente pelo MetaPixelProvider.tsx
       window._metaPixelManaged = true;
     </script>
 
@@ -27,11 +28,11 @@
     <link rel="preconnect" href="https://connect.facebook.net">
     <link rel="preconnect" href="https://cdn.utmify.com.br">
     <link rel="preconnect" href="https://static.hotmart.com">
-    
-    <!-- 3. PRELOAD DA IMAGEM PRINCIPAL (MUDAR PARA .WEBP PARA MÁXIMA VELOCIDADE ) -->
+
+    <!-- 3. PRELOAD DA IMAGEM PRINCIPAL (ACELERA O CARREGAMENTO VISUAL ) -->
     <link rel="preload" as="image" href="/lovable-uploads/Mockup.png" fetchpriority="high">
-    
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="/style.css">
 
     <!-- 4. CRITICAL CSS (PARA O SITE APARECER INSTANTANEAMENTE) -->
     <style>
