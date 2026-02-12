@@ -11,9 +11,10 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js' );
+      
       fbq('init', '2562850577432651');
-      // PageView removido daqui para evitar duplicidade e erro de triângulo. 
-      // O disparo agora é feito exclusivamente pelo MetaPixelProvider.tsx
+      // PageView removido daqui para evitar conflito com o MetaPixelProvider.tsx
+      // Isso resolve o erro do "triângulo" e destrava os eventos de botão.
       window._metaPixelManaged = true;
     </script>
 
