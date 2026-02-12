@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <!-- 1. META PIXEL NO TOPO ABSOLUTO (INICIALIZAÇÃO IMEDIATA) -->
+    <!-- 1. META PIXEL NO TOPO (INICIALIZAÇÃO IMEDIATA) -->
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -13,8 +13,8 @@
       'https://connect.facebook.net/en_US/fbevents.js' );
       
       fbq('init', '2562850577432651');
-      // PageView removido daqui para evitar conflito com o MetaPixelProvider.tsx
-      // Isso resolve o erro do "triângulo" e destrava os eventos de botão.
+      // PageView removido daqui para evitar conflitos. 
+      // O disparo agora é feito pelo MetaPixelProvider.tsx para garantir a saúde dos eventos de botão.
       window._metaPixelManaged = true;
     </script>
 
