@@ -117,8 +117,7 @@ const Testimonials = () => {
             seus treinos e corpos
           </h2>
           <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto">
-            Veja o que está acontecendo com quem decidiu aplicar ciência, não motivação.
-          </p>
+Veja o que acontece quando você para de improvisar e segue um método estruturado.       </p>
         </div>
         
         {/* Carrossel Mobile */}
