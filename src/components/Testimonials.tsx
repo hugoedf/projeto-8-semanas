@@ -38,7 +38,7 @@ const testimonials: Testimonial[] = [
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
     profile: "Cansado de treino aleatório",
     highlight: "Método completo e prático",
-    text: "Comprei achando que seria mais um treino. Em poucos dias já senti diferença no pump e na progressão.",
+    text: "Comprei achando que seria mais um treino. Em poucos dias já senti diferença no pump e na progressão. Se soubesse, tinha começado antes.",
     result: "Progressão já na 1ª semana",
   },
   {
@@ -49,7 +49,7 @@ const testimonials: Testimonial[] = [
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
     profile: "Travado e sem evolução por meses",
     highlight: "Finalmente evolução real",
-    text: "Quebrei meu recorde na quinta semana. Não era genética, era método.",
+    text: "Quebrei meu recorde na quinta semana. Não era genética, era método. A progressão estruturada é o diferencial.",
     result: "Recorde pessoal na 5ª semana",
   },
   {
@@ -60,7 +60,7 @@ const testimonials: Testimonial[] = [
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
     profile: "Saiu do improviso para o controle",
     highlight: "Do improviso pro controle total",
-    text: "Agora sigo o app e vejo evolução toda semana. Acabou a sensação de estar perdido na academia.",
+    text: "Antes improvisava, agora sigo o app e vejo evolução toda semana. Acabou a sensação de estar perdido na academia.",
     result: "Força subindo semana a semana",
   },
   {
@@ -71,7 +71,7 @@ const testimonials: Testimonial[] = [
       "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
     profile: "8 meses travado na mesma carga",
     highlight: "Saí da estagnação",
-    text: "Mesma carga, mesmo shape. Na quinta semana do método, quebrei meus recordes.",
+    text: "8 meses sem evoluir nada. Mesma carga, mesmo shape, mesma frustração. Na quinta semana do método, quebrei todos os meus recordes.",
     result: "Quebra de platô na 5ª semana",
   },
 ];
