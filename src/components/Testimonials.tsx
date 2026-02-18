@@ -1,4 +1,4 @@
-import { Star, Quote, MapPin, ArrowRight } from "lucide-react";
+import { Star, Quote, MapPin } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -12,13 +12,9 @@ type Testimonial = {
   age: number;
   location: string;
   image: string;
-  // 1) Contexto rápido (identificação imediata)
   profile: string;
-  // 2) O “gancho” do depoimento
   highlight: string;
-  // 3) Prova narrada
   text: string;
-  // 4) Resultado curto e específico (micro-prova)
   result: string;
 };
 
@@ -42,7 +38,7 @@ const testimonials: Testimonial[] = [
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
     profile: "Cansado de treino aleatório",
     highlight: "Método completo e prático",
-    text: "Comprei achando que seria mais um treino. Em poucos dias já senti diferença no pump e na progressão. Se soubesse, tinha começado antes.",
+    text: "Comprei achando que seria mais um treino. Em poucos dias já senti diferença no pump e na progressão.",
     result: "Progressão já na 1ª semana",
   },
   {
@@ -53,7 +49,7 @@ const testimonials: Testimonial[] = [
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
     profile: "Travado e sem evolução por meses",
     highlight: "Finalmente evolução real",
-    text: "Quebrei meu recorde na quinta semana. Não era genética, era método. A progressão estruturada é o diferencial.",
+    text: "Quebrei meu recorde na quinta semana. Não era genética, era método.",
     result: "Recorde pessoal na 5ª semana",
   },
   {
@@ -64,7 +60,7 @@ const testimonials: Testimonial[] = [
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
     profile: "Saiu do improviso para o controle",
     highlight: "Do improviso pro controle total",
-    text: "Antes eu improvisava. Agora sigo o app e vejo evolução toda semana. Acabou a sensação de estar perdido na academia.",
+    text: "Agora sigo o app e vejo evolução toda semana. Acabou a sensação de estar perdido na academia.",
     result: "Força subindo semana a semana",
   },
   {
@@ -75,7 +71,7 @@ const testimonials: Testimonial[] = [
       "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
     profile: "8 meses travado na mesma carga",
     highlight: "Saí da estagnação",
-    text: "Mesma carga, mesmo shape, mesma frustração. Na quinta semana do método, quebrei meus recordes.",
+    text: "Mesma carga, mesmo shape. Na quinta semana do método, quebrei meus recordes.",
     result: "Quebra de platô na 5ª semana",
   },
 ];
@@ -92,7 +88,6 @@ function StarsRow() {
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
   <div className="group bg-white rounded-xl p-5 shadow-lg shadow-black/10 border border-black/5 hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 h-full">
-    {/* Header */}
     <div className="flex items-center gap-3 mb-3">
       <div className="relative">
         <img
@@ -106,8 +101,8 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
         </div>
       </div>
 
-      <div className="min-w-0">
-        <h4 className="font-bold text-black text-sm truncate">
+      <div>
+        <h4 className="font-bold text-black text-sm">
           {testimonial.name}, {testimonial.age}
         </h4>
 
@@ -120,18 +115,15 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
       </div>
     </div>
 
-    {/* Contexto (identificação rápida) */}
     <div className="text-xs text-black/60 mb-3">
       <span className="font-semibold text-black/70">Perfil:</span>{" "}
       {testimonial.profile}
     </div>
 
-    {/* Badge de destaque */}
     <div className="inline-flex items-center gap-1 bg-accent/10 text-accent rounded-full px-3 py-1 mb-3">
       <span className="text-xs font-bold">{testimonial.highlight}</span>
     </div>
 
-    {/* Depoimento */}
     <div className="relative mb-4">
       <Quote className="absolute -top-1 -left-1 w-6 h-6 text-accent/15" />
       <p className="text-black/70 text-sm leading-relaxed pl-4">
@@ -139,7 +131,6 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
       </p>
     </div>
 
-    {/* Resultado (micro-prova) */}
     <div className="pt-3 border-t border-black/5">
       <div className="flex items-center gap-2">
         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
@@ -154,13 +145,11 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
 const Testimonials = () => {
   return (
     <section className="py-12 sm:py-16 bg-black relative overflow-hidden">
-      {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-accent/8 rounded-full blur-[120px] opacity-40" />
       </div>
 
       <div className="container mx-auto px-5 sm:px-6 relative z-10">
-        {/* Header */}
         <div className="text-center mb-10 sm:mb-12">
           <h2 className="font-display text-2xl sm:text-4xl md:text-5xl mb-4 px-2 tracking-tight text-white">
             Mais de <span className="text-accent">500 pessoas</span> já
@@ -168,12 +157,11 @@ const Testimonials = () => {
           </h2>
 
           <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto">
-            Veja o que acontece quando você para de improvisar e segue um método
-            estruturado.
+            Veja o que acontece quando você para de improvisar e segue um método estruturado.
           </p>
         </div>
 
-        {/* Carrossel Mobile */}
+        {/* Mobile */}
         <div className="block lg:hidden">
           <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent className="-ml-3">
@@ -196,7 +184,7 @@ const Testimonials = () => {
           </Carousel>
         </div>
 
-        {/* Grid Desktop */}
+        {/* Desktop */}
         <div className="hidden lg:block">
           <div className="grid grid-cols-3 gap-5 max-w-6xl mx-auto">
             {testimonials.slice(0, 3).map((testimonial, index) => (
@@ -211,26 +199,12 @@ const Testimonials = () => {
           </div>
         </div>
 
-        {/* CTA pós-prova (conversão) */}
+        {/* Badge final */}
         <div className="mt-10 sm:mt-12 text-center">
           <div className="inline-flex items-center justify-center gap-2 bg-accent text-white rounded-full px-5 py-2.5 shadow-xl shadow-accent/40">
             <span className="font-bold text-base sm:text-lg">
               +500 transformações comprovadas
             </span>
-          </div>
-
-          <div className="mt-6 flex flex-col items-center gap-2">
-            <a
-              href="#checkout"
-              className="inline-flex items-center gap-2 bg-white text-black font-extrabold rounded-xl px-6 py-3 shadow-lg hover:shadow-xl transition"
-            >
-              Quero parar de improvisar
-              <ArrowRight className="w-4 h-4" />
-            </a>
-
-            <p className="text-white/60 text-sm">
-              Acesso imediato • 7 dias de garantia
-            </p>
           </div>
         </div>
       </div>
