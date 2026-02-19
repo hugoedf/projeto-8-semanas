@@ -25,30 +25,34 @@ const faqItems = [
 
 const FAQ = () => {
   return (
-    <section className="py-10 md:py-12 px-4 bg-white">
+    // Ajuste: menos top padding no mobile e mais “encaixe” com seção anterior
+    <section className="pt-6 pb-10 md:py-12 px-4 bg-white">
       <div className="max-w-2xl mx-auto">
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-center text-black mb-6">
+        {/* Ajuste: título com margem menor no mobile */}
+        <h2 className="font-display text-2xl md:text-3xl font-bold text-center text-black mb-4 md:mb-6">
           Dúvidas Rápidas
         </h2>
-        
-        <div className="mb-6">
-          <Accordion type="single" collapsible className="w-full space-y-2">
-            {faqItems.map((item, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`} 
-                className="border border-black/10 rounded-lg px-4 bg-white hover:bg-black/[0.02] transition-colors"
-              >
-                <AccordionTrigger className="text-left text-black hover:no-underline py-3 text-sm sm:text-base font-medium [&[data-state=open]]:text-accent">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-black/60 text-sm pb-3 leading-relaxed">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
+
+        {/* Ajuste: remove um “bloco vazio” desnecessário e controla o espaçamento */}
+        <Accordion type="single" collapsible className="w-full space-y-2">
+          {faqItems.map((item, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border border-black/10 rounded-lg px-4 bg-white hover:bg-black/[0.02] transition-colors"
+            >
+              {/* Ajuste: padding vertical levemente menor no mobile, igual no desktop */}
+              <AccordionTrigger className="text-left text-black hover:no-underline py-2.5 md:py-3 text-sm sm:text-base font-medium [&[data-state=open]]:text-accent">
+                {item.question}
+              </AccordionTrigger>
+
+              {/* Ajuste: padding bottom menor no mobile (deixa mais “justo”) */}
+              <AccordionContent className="text-black/60 text-sm pb-2.5 md:pb-3 leading-relaxed">
+                {item.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </section>
   );
