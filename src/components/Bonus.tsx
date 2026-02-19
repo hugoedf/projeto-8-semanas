@@ -167,12 +167,13 @@ const appImages = [
   </div>
 
   <Carousel opts={{ align: "start", loop: true }} className="w-full">
-    <CarouselContent className="-ml-3 snap-x snap-mandatory touch-pan-x">
+    <CarouselContent className="-ml-3">
       {appImages.map((image, index) => (
         <CarouselItem
           key={index}
-          className="pl-3 basis-[85%] sm:basis-1/2 lg:basis-1/3 snap-center"
+          className="pl-3 basis-[88%] sm:basis-1/2 lg:basis-1/3"
         >
+          {/* IMPORTANTe: sem p-1 / sem “card” externo */}
           <div className="relative">
             <img
               src={image}
@@ -181,26 +182,27 @@ const appImages = [
               className="
                 w-full
                 rounded-2xl
-                shadow-lg
-                max-h-[560px] sm:max-h-[600px]
                 object-contain
                 bg-transparent
+                shadow-[0_18px_45px_rgba(0,0,0,0.10)]
               "
             />
 
-            {/* “Peek cue” sutil na direita */}
+            {/* cue sutil de carrossel (sem caixa) */}
             <div className="pointer-events-none absolute top-0 right-0 h-full w-10 bg-gradient-to-l from-white to-transparent rounded-r-2xl" />
           </div>
         </CarouselItem>
       ))}
     </CarouselContent>
 
-    <div className="flex justify-center gap-3 mt-5">
+    {/* Setas: deixa só no desktop pra não poluir o mobile */}
+    <div className="hidden sm:flex justify-center gap-3 mt-5">
       <CarouselPrevious className="relative inset-auto translate-y-0 bg-white border border-black/10 text-black hover:bg-accent hover:text-white hover:border-accent shadow-sm" />
       <CarouselNext className="relative inset-auto translate-y-0 bg-white border border-black/10 text-black hover:bg-accent hover:text-white hover:border-accent shadow-sm" />
     </div>
   </Carousel>
 </div>
+
 
 
 
