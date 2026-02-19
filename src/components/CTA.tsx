@@ -64,9 +64,15 @@ const CTA = () => {
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-black tracking-tight leading-tight">
               Transforme seu corpo em <span className="text-accent font-black">8 semanas</span>
             </h2>
-            <p className="text-black/50 mt-4 text-lg max-w-2xl mx-auto italic">
-              "O método já está pronto. A decisão ainda não."
-            </p>
+          <p className="text-black/50 mt-4 text-lg max-w-2xl mx-auto italic leading-tight">
+  <span className="block">
+    O método já está pronto.
+  </span>
+  <span className="block mt-1">
+    A decisão ainda não.
+  </span>
+</p>
+
           </div>
 
           <div className="flex items-center justify-center max-w-6xl mx-auto">
