@@ -155,9 +155,8 @@ const appImages = [
           </div>
         </div>
 
-       {/* Carrossel de imagens do app (padrão player) */}
+      {/* Carrossel de imagens do app (clean / sem friso) */}
 <div className="mt-8">
-  {/* Headline curto + instrução */}
   <div className="text-center mb-4">
     <p className="text-black font-bold text-lg">
       Veja o App 8X por dentro
@@ -172,53 +171,37 @@ const appImages = [
       {appImages.map((image, index) => (
         <CarouselItem
           key={index}
-          className="
-            pl-3
-            basis-[88%] sm:basis-1/2 lg:basis-1/3
-            snap-center
-          "
+          className="pl-3 basis-[85%] sm:basis-1/2 lg:basis-1/3 snap-center"
         >
           <div className="relative">
-            {/* “Card” da imagem */}
-            <div className="rounded-2xl border border-black/10 bg-white shadow-lg overflow-hidden">
-              <div className="p-3 sm:p-4">
-                <img
-                  src={image}
-                  alt={`Tela do app ${index + 1}`}
-                  loading="lazy"
-                  className="
-                    w-full
-                    rounded-xl
-                    border border-black/10
-                    bg-black/[0.02]
-                    max-h-[520px] sm:max-h-[560px]
-                    object-contain
-                  "
-                />
-              </div>
+            <img
+              src={image}
+              alt={`Tela do app ${index + 1}`}
+              loading="lazy"
+              className="
+                w-full
+                rounded-2xl
+                shadow-lg
+                max-h-[560px] sm:max-h-[600px]
+                object-contain
+                bg-transparent
+              "
+            />
 
-              {/* legenda curta (opcional, mas ajuda percepção) */}
-              <div className="px-4 pb-4">
-                <p className="text-black/70 text-xs font-semibold">
-                  Tela {index + 1} • App 8X
-                </p>
-              </div>
-            </div>
-
-            {/* “Peek” cue: gradiente na direita pra sugerir mais */}
+            {/* “Peek cue” sutil na direita */}
             <div className="pointer-events-none absolute top-0 right-0 h-full w-10 bg-gradient-to-l from-white to-transparent rounded-r-2xl" />
           </div>
         </CarouselItem>
       ))}
     </CarouselContent>
 
-    {/* Controles menores e mais discretos */}
     <div className="flex justify-center gap-3 mt-5">
       <CarouselPrevious className="relative inset-auto translate-y-0 bg-white border border-black/10 text-black hover:bg-accent hover:text-white hover:border-accent shadow-sm" />
       <CarouselNext className="relative inset-auto translate-y-0 bg-white border border-black/10 text-black hover:bg-accent hover:text-white hover:border-accent shadow-sm" />
     </div>
   </Carousel>
 </div>
+
 
 
       </div>
