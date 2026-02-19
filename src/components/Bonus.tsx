@@ -154,13 +154,10 @@ const appImages = [
             </p>
           </div>
         </div>
-
-      {/* Carrossel de imagens do app (clean / sem friso) */}
+{/* Carrossel de imagens do app (clean / sem mancha) */}
 <div className="mt-8">
   <div className="text-center mb-4">
-    <p className="text-black font-bold text-lg">
-      Veja o App 8X por dentro
-    </p>
+    <p className="text-black font-bold text-lg">Veja o App 8X por dentro</p>
     <p className="text-black/60 text-sm">
       Arraste para o lado <span className="font-bold">→</span>
     </p>
@@ -173,29 +170,21 @@ const appImages = [
           key={index}
           className="pl-3 basis-[88%] sm:basis-1/2 lg:basis-1/3"
         >
-          {/* IMPORTANTe: sem p-1 / sem “card” externo */}
           <div className="relative">
             <img
               src={image}
               alt={`Tela do app ${index + 1}`}
               loading="lazy"
               className="
-                w-full
-                rounded-2xl
-                object-contain
-                bg-transparent
+                w-full rounded-2xl object-contain bg-transparent
                 shadow-[0_18px_45px_rgba(0,0,0,0.10)]
               "
             />
-
-            {/* cue sutil de carrossel (sem caixa) */}
-            <div className="pointer-events-none absolute top-0 right-0 h-full w-10 bg-gradient-to-l from-white to-transparent rounded-r-2xl" />
           </div>
         </CarouselItem>
       ))}
     </CarouselContent>
 
-    {/* Setas: deixa só no desktop pra não poluir o mobile */}
     <div className="hidden sm:flex justify-center gap-3 mt-5">
       <CarouselPrevious className="relative inset-auto translate-y-0 bg-white border border-black/10 text-black hover:bg-accent hover:text-white hover:border-accent shadow-sm" />
       <CarouselNext className="relative inset-auto translate-y-0 bg-white border border-black/10 text-black hover:bg-accent hover:text-white hover:border-accent shadow-sm" />
