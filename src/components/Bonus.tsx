@@ -1,4 +1,20 @@
-import { Smartphone, BookOpen, Zap, TrendingUp, Timer, BarChart3, Dumbbell, Gift } from "lucide-react";
+import {
+  Smartphone,
+  BookOpen,
+  Zap,
+  TrendingUp,
+  Timer,
+  BarChart3,
+  Dumbbell,
+  Gift,
+} from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Bonus = () => {
   const appFeatures = [
@@ -12,6 +28,14 @@ const Bonus = () => {
     { icon: BookOpen, title: "Guia de Nutrição", description: "Alimentação inteligente para hipertrofia" },
     { icon: Timer, title: "Checklist de Recuperação", description: "Evite overtraining e acelere evolução" },
     { icon: BarChart3, title: "Cronograma Semanal", description: "Passo a passo das 8 semanas", isNew: true }
+  ];
+
+  // Defina os caminhos das imagens de telas do app
+  const appImages = [
+    "/lovable/uploads/app-01.jpeg",
+    "/lovable/uploads/app-02.jpeg",
+    "/lovable/uploads/app-03.jpeg",
+    "/lovable/uploads/app-04.jpeg",
   ];
 
   return (
@@ -90,7 +114,7 @@ const Bonus = () => {
         </div>
 
         {/* Stack de valor */}
-        <div className="bg-white border border-black/10 rounded-2xl p-5 sm:p-7 shadow-lg shadow-black/5 max-w-xl mx-auto">
+        <div className="bg-white border border-black/10 rounded-2xl p-5 sm:p-7 shadow-lg shadow-black/5 max-w-xl mx-auto mb-8">
           <p className="text-black font-bold text-base text-center mb-5">
             O que você recebe ao entrar hoje:
           </p>
@@ -128,6 +152,30 @@ const Bonus = () => {
               Acesso vitalício — pague uma vez, use pra sempre
             </p>
           </div>
+        </div>
+
+        {/* Carrossel de imagens do app */}
+        <div className="mt-8">
+          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+            <CarouselContent className="-ml-3">
+              {appImages.map((image, index) => (
+                <CarouselItem key={index} className="pl-3 basis-full sm:basis-1/2">
+                  <div className="p-1">
+                    <img
+                      src={image}
+                      alt={`Tela do app ${index + 1}`}
+                      className="w-full rounded-xl border border-black/10 shadow-lg"
+                      loading="lazy"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-4 mt-6">
+              <CarouselPrevious className="relative inset-auto translate-y-0 bg-white/10 border-white/20 text-black hover:bg-accent hover:text-white hover:border-accent" />
+              <CarouselNext className="relative inset-auto translate-y-0 bg-white/10 border-white/20 text-black hover:bg-accent hover:text-white hover:border-accent" />
+            </div>
+          </Carousel>
         </div>
 
       </div>
