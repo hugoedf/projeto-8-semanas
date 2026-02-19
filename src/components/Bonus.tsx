@@ -155,29 +155,71 @@ const appImages = [
           </div>
         </div>
 
-        {/* Carrossel de imagens do app */}
-        <div className="mt-8">
-          <Carousel opts={{ align: "start", loop: true }} className="w-full">
-            <CarouselContent className="-ml-3">
-              {appImages.map((image, index) => (
-                <CarouselItem key={index} className="pl-3 basis-full sm:basis-1/2">
-                  <div className="p-1">
-                    <img
-                      src={image}
-                      alt={`Tela do app ${index + 1}`}
-                      className="w-full rounded-xl border border-black/10 shadow-lg"
-                      loading="lazy"
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center gap-4 mt-6">
-              <CarouselPrevious className="relative inset-auto translate-y-0 bg-white/10 border-white/20 text-black hover:bg-accent hover:text-white hover:border-accent" />
-              <CarouselNext className="relative inset-auto translate-y-0 bg-white/10 border-white/20 text-black hover:bg-accent hover:text-white hover:border-accent" />
+       {/* Carrossel de imagens do app (padrão player) */}
+<div className="mt-8">
+  {/* Headline curto + instrução */}
+  <div className="text-center mb-4">
+    <p className="text-black font-bold text-lg">
+      Veja o App 8X por dentro
+    </p>
+    <p className="text-black/60 text-sm">
+      Arraste para o lado <span className="font-bold">→</span>
+    </p>
+  </div>
+
+  <Carousel opts={{ align: "start", loop: true }} className="w-full">
+    <CarouselContent className="-ml-3 snap-x snap-mandatory touch-pan-x">
+      {appImages.map((image, index) => (
+        <CarouselItem
+          key={index}
+          className="
+            pl-3
+            basis-[88%] sm:basis-1/2 lg:basis-1/3
+            snap-center
+          "
+        >
+          <div className="relative">
+            {/* “Card” da imagem */}
+            <div className="rounded-2xl border border-black/10 bg-white shadow-lg overflow-hidden">
+              <div className="p-3 sm:p-4">
+                <img
+                  src={image}
+                  alt={`Tela do app ${index + 1}`}
+                  loading="lazy"
+                  className="
+                    w-full
+                    rounded-xl
+                    border border-black/10
+                    bg-black/[0.02]
+                    max-h-[520px] sm:max-h-[560px]
+                    object-contain
+                  "
+                />
+              </div>
+
+              {/* legenda curta (opcional, mas ajuda percepção) */}
+              <div className="px-4 pb-4">
+                <p className="text-black/70 text-xs font-semibold">
+                  Tela {index + 1} • App 8X
+                </p>
+              </div>
             </div>
-          </Carousel>
-        </div>
+
+            {/* “Peek” cue: gradiente na direita pra sugerir mais */}
+            <div className="pointer-events-none absolute top-0 right-0 h-full w-10 bg-gradient-to-l from-white to-transparent rounded-r-2xl" />
+          </div>
+        </CarouselItem>
+      ))}
+    </CarouselContent>
+
+    {/* Controles menores e mais discretos */}
+    <div className="flex justify-center gap-3 mt-5">
+      <CarouselPrevious className="relative inset-auto translate-y-0 bg-white border border-black/10 text-black hover:bg-accent hover:text-white hover:border-accent shadow-sm" />
+      <CarouselNext className="relative inset-auto translate-y-0 bg-white border border-black/10 text-black hover:bg-accent hover:text-white hover:border-accent shadow-sm" />
+    </div>
+  </Carousel>
+</div>
+
 
       </div>
     </section>
