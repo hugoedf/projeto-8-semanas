@@ -30,13 +30,14 @@ const Bonus = () => {
     { icon: BarChart3, title: "Cronograma Semanal", description: "Passo a passo das 8 semanas", isNew: true }
   ];
 
-  // Defina os caminhos das imagens de telas do app
-  const appImages = [
-    "/lovable/uploads/app-01.jpeg",
-    "/lovable/uploads/app-02.jpeg",
-    "/lovable/uploads/app-03.jpeg",
-    "/lovable/uploads/app-04.jpeg",
-  ];
+// Defina os caminhos das imagens de telas do app
+const appImages = [
+  "/lovable-uploads/app-01.jpeg",
+  "/lovable-uploads/app-02.jpeg",
+  "/lovable-uploads/app-03.jpeg",
+  "/lovable-uploads/app-04.jpeg",
+];
+
 
   return (
     <section className="py-12 sm:py-16 bg-white relative overflow-hidden">
