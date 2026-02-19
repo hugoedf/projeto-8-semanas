@@ -54,11 +54,13 @@ const CTA = () => {
 
   return (
     <>
-      <section id="cta-section" className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      {/* Ajuste principal: pb maior no mobile pra não “bater” com o CTA fixo inferior */}
+      <section id="cta-section" className="pt-16 pb-28 sm:py-24 bg-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,hsla(18,100%,58%,0.06),transparent_50%)]" />
 
         <div className="container mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
+          {/* Menos buraco no mobile, mantém no desktop */}
+          <div className="text-center mb-10 sm:mb-12">
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-black tracking-tight leading-tight">
               Transforme seu corpo em <span className="text-accent font-black">8 semanas</span>
             </h2>
@@ -69,9 +71,11 @@ const CTA = () => {
 
           <div className="flex items-center justify-center max-w-6xl mx-auto">
             <div className="w-full max-w-md">
-              <div className="bg-white border border-black/5 rounded-[2rem] p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative">
-                
-                <div className="mb-6 text-center">
+              {/* Padding levemente menor no mobile, igual no desktop */}
+              <div className="bg-white border border-black/5 rounded-[2rem] p-7 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative">
+
+                {/* Um pouco menos de espaço aqui no mobile */}
+                <div className="mb-5 sm:mb-6 text-center">
                   <span className="inline-flex items-center gap-2 text-accent text-xs uppercase tracking-widest font-black bg-accent/5 px-4 py-2 rounded-full border border-accent/20">
                     <Zap className="w-4 h-4" />
                     Acesso Imediato ao App
@@ -82,7 +86,8 @@ const CTA = () => {
                   Comece agora. Veja resultados em 8 semanas.
                 </h3>
 
-                <div className="space-y-2.5 mb-8">
+                {/* Reduz o buraco no mobile sem mudar a lista */}
+                <div className="space-y-2.5 mb-7 sm:mb-8">
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3">
                       <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/15 flex items-center justify-center mt-0.5">
@@ -95,7 +100,8 @@ const CTA = () => {
                   ))}
                 </div>
 
-                <div className="border-t border-black/5 pt-6 mb-6">
+                {/* Preço mais “colado” no mobile (melhora ritmo) */}
+                <div className="border-t border-black/5 pt-5 sm:pt-6 mb-5 sm:mb-6">
                   <div className="flex items-baseline justify-center gap-3 mb-1">
                     <span className="text-black/30 line-through text-xl font-bold">R$ 97</span>
                     <span className="text-accent font-display text-4xl sm:text-5xl font-black">
@@ -107,8 +113,9 @@ const CTA = () => {
                   </p>
                 </div>
 
+                {/* Timer com menos “buraco” no mobile */}
                 {!isExpired && (
-                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-start gap-3">
+                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4 sm:mb-6 flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-red-900 font-bold text-sm">
@@ -121,15 +128,17 @@ const CTA = () => {
                   </div>
                 )}
 
+                {/* Botão menos alto no mobile (não fica “gigante”) */}
                 <Button
                   onClick={handleCTAClick}
-                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-3 shadow-xl shadow-green-500/20 text-sm sm:text-lg py-5 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                  className="w-full bg-green-500 hover:bg-green-600 text-white mb-3 shadow-xl shadow-green-500/20 text-sm sm:text-lg py-4 sm:py-5 font-black rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
                 >
                   QUERO COMEÇAR POR R$ 19,90
                   <ArrowRight className="w-5 h-5 flex-shrink-0" />
                 </Button>
 
-                <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] flex-wrap">
+                {/* Leve respiro acima, sem mexer no conteúdo */}
+                <div className="flex items-center justify-center gap-2 text-black/50 text-[10px] flex-wrap mt-1">
                   <span className="flex items-center gap-1">
                     <Lock className="w-3 h-3" /> Pagamento Seguro
                   </span>
